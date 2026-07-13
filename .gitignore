@@ -43,7 +43,8 @@
 *.pdb
 
 # Kernel Module Compile Results
-*.mod*
+*.mod
+!go.mod
 *.cmd
 .tmp_versions/
 modules.order
@@ -63,8 +64,21 @@ CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
 
-# Go binaries (primitives are source-only in repo)
-ttp-primitives/go/**/[a-z]*[!.go]
+# Go compiled binaries (no extension, same name as parent dir)
+ttp-primitives/go/empty/empty
+ttp-primitives/go/process_spawn/process_spawn
+ttp-primitives/go/file_io/file_io
+ttp-primitives/go/directory_enumeration/directory_enumeration
+ttp-primitives/go/tcp_client/tcp_client
+ttp-primitives/go/tcp_server/tcp_server
+ttp-primitives/go/dns_lookup/dns_lookup
+ttp-primitives/go/http_client/http_client
+ttp-primitives/go/https_client/https_client
+ttp-primitives/go/thread_create/thread_create
+ttp-primitives/go/library_load/library_load
+ttp-primitives/go/symbol_resolution/symbol_resolution
+ttp-primitives/go/memory_allocate/memory_allocate
+ttp-primitives/go/privileged_execution/privileged_execution
 
 # macOS
 .DS_Store
