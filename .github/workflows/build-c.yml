@@ -57,7 +57,7 @@ jobs:
       # config, so it is not part of the substrate under measurement.
       - name: Stage primitives
         working-directory: ttp-primitives/c
-        run: cmake --install build --prefix ${{ github.workspace }}/dist/${{ matrix.config }}
+        run: cmake --install build --prefix ../../dist/${{ matrix.config }}
 
       # Prove the artifacts actually have the runtime this config claims,
       # rather than trusting that the toolchain file took effect.
