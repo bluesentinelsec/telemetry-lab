@@ -2,6 +2,7 @@ name: Build C Primitives
 
 on:
   push:
+    branches: [main]
     paths:
       - 'ttp-primitives/c/**'
       - '.github/workflows/build-c.yml'
