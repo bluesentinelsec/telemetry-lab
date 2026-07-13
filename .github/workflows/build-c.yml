@@ -5,10 +5,12 @@ on:
     branches: [main]
     paths:
       - 'ttp-primitives/c/**'
+      - 'tools/**'
       - '.github/workflows/build-c.yml'
   pull_request:
     paths:
       - 'ttp-primitives/c/**'
+      - 'tools/**'
       - '.github/workflows/build-c.yml'
 
 jobs:
@@ -17,9 +19,11 @@ jobs:
       matrix:
         include:
           - toolchain: linux-glibc
+            config: linux-c-glibc
             name: Linux (glibc)
             packages: ""
           - toolchain: linux-musl
+            config: linux-c-musl
             name: Linux (musl)
             packages: musl-tools
 
@@ -34,7 +38,7 @@ jobs:
       - name: Install build dependencies
         run: |
           apt-get update
-          apt-get install -y build-essential cmake git ${{ matrix.packages }}
+          apt-get install -y build-essential cmake git python3 ${{ matrix.packages }}
 
       - name: Configure (CMake)
         working-directory: ttp-primitives/c
@@ -47,6 +51,30 @@ jobs:
       - name: Test
         working-directory: ttp-primitives/c/build
         run: ctest --output-on-failure
+
+      # Stage the primitives on their own. The Catch2 harness is deliberately
+      # not installed: it links the default glibc toolchain even in the musl
+      # config, so it is not part of the substrate under measurement.
+      - name: Stage primitives
+        working-directory: ttp-primitives/c
+        run: cmake --install build --prefix ${{ github.workspace }}/dist/${{ matrix.config }}
+
+      # Prove the artifacts actually have the runtime this config claims,
+      # rather than trusting that the toolchain file took effect.
+      - name: Verify substrate
+        run: |
+          python3 tools/verify_substrate.py \
+            --config ${{ matrix.config }} \
+            --json substrate-${{ matrix.config }}.json \
+            dist/${{ matrix.config }}
+
+      - name: Upload verified primitives
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.config }}
+          path: |
+            dist/${{ matrix.config }}
+            substrate-${{ matrix.config }}.json
 
   windows-msvc:
     name: Windows (MSVC/UCRT)
