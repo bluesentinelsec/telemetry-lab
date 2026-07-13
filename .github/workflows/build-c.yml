@@ -12,32 +12,56 @@ on:
       - '.github/workflows/build-c.yml'
 
 jobs:
-  build:
+  linux:
     strategy:
       matrix:
         include:
-          - os: ubuntu-latest
-            toolchain: linux-glibc
+          - toolchain: linux-glibc
             name: Linux (glibc)
-          - os: ubuntu-latest
-            toolchain: linux-musl
+            packages: ""
+          - toolchain: linux-musl
             name: Linux (musl)
-          - os: windows-latest
-            toolchain: windows-msvc
-            name: Windows (MSVC/UCRT)
-          - os: windows-latest
-            toolchain: windows-mingw
-            name: Windows (MinGW/MSVCRT)
+            packages: musl-tools
 
     name: ${{ matrix.name }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install musl toolchain
-        if: matrix.toolchain == 'linux-musl'
-        run: sudo apt-get update && sudo apt-get install -y musl-tools
+      - name: Install build dependencies
+        run: |
+          apt-get update
+          apt-get install -y build-essential cmake ${{ matrix.packages }}
+
+      - name: Configure (CMake)
+        working-directory: ttp-primitives/c
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=toolchains/${{ matrix.toolchain }}.cmake
+
+      - name: Build
+        working-directory: ttp-primitives/c
+        run: cmake --build build
+
+      - name: Test
+        working-directory: ttp-primitives/c/build
+        run: ctest --output-on-failure
+
+  windows:
+    strategy:
+      matrix:
+        include:
+          - toolchain: windows-msvc
+            name: Windows (MSVC/UCRT)
+          - toolchain: windows-mingw
+            name: Windows (MinGW/MSVCRT)
+
+    name: ${{ matrix.name }}
+    runs-on: windows-2025
+
+    steps:
+      - uses: actions/checkout@v4
 
       - name: Configure (CMake)
         working-directory: ttp-primitives/c
