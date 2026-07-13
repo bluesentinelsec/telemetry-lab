@@ -1,0 +1,47 @@
+# Expected substrate for each build configuration.
+#
+# Expectations attach to the configuration, not the primitive: every primitive
+# built under a given config must exhibit these facts, so one block covers all
+# of them. Adding a platform means adding blocks here, not changing verifier
+# code.
+#
+# Values were established empirically by building in the debian:trixie CI
+# container and reading the resulting ELF headers -- not assumed.
+
+[config.linux-c-glibc]
+description = "Debian 13 C primitives against GNU libc"
+os = "linux"
+language = "c"
+compiler = "gcc"
+runtime = "glibc"
+
+[config.linux-c-glibc.expect]
+format = "elf"
+machine = "x86-64"
+linkage = "dynamic"
+# glibc's dynamic loader. This single string is the decisive discriminator.
+interpreter = "/lib64/ld-linux-x86-64.so.2"
+# Assert the presence of glibc AND the absence of musl. Checking only the
+# former would let a config that silently fell back to the wrong toolchain
+# still pass.
+needed = { includes = ["libc.so.6"], excludes = ["libc.so"] }
+# Identifies the compiler, NOT the libc: musl-gcc wraps this same gcc and emits
+# an identical string, so this can never distinguish glibc from musl.
+comment = { matches = "^GCC: \\(Debian " }
+
+[config.linux-c-musl]
+description = "Debian 13 C primitives against musl libc"
+os = "linux"
+language = "c"
+compiler = "musl-gcc"
+runtime = "musl"
+
+[config.linux-c-musl.expect]
+format = "elf"
+machine = "x86-64"
+# musl-gcc on Debian links dynamically, not statically. The lab host therefore
+# needs the musl runtime installed or these primitives will not launch.
+linkage = "dynamic"
+interpreter = "/lib/ld-musl-x86_64.so.1"
+needed = { includes = ["libc.so"], excludes = ["libc.so.6"] }
+comment = { matches = "^GCC: \\(Debian " }
