@@ -34,7 +34,7 @@ jobs:
       - name: Install build dependencies
         run: |
           apt-get update
-          apt-get install -y build-essential cmake ${{ matrix.packages }}
+          apt-get install -y build-essential cmake git ${{ matrix.packages }}
 
       - name: Configure (CMake)
         working-directory: ttp-primitives/c
