@@ -48,33 +48,56 @@ jobs:
         working-directory: ttp-primitives/c/build
         run: ctest --output-on-failure
 
-  windows:
-    strategy:
-      matrix:
-        include:
-          - toolchain: windows-msvc
-            name: Windows (MSVC/UCRT)
-          - toolchain: windows-mingw
-            name: Windows (MinGW/MSVCRT)
-
-    name: ${{ matrix.name }}
+  windows-msvc:
+    name: Windows (MSVC/UCRT)
     runs-on: windows-2025
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configure (CMake) - MSVC
-        if: matrix.toolchain == 'windows-msvc'
-        working-directory: ttp-primitives/c
-        shell: cmd
+      - name: Ensure Ninja
+        shell: pwsh
         run: |
-          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=cl
+          if (-not (Get-Command ninja -ErrorAction SilentlyContinue)) {
+            choco install ninja -y --no-progress
+          }
+          ninja --version
 
-      - name: Configure (CMake) - MinGW
-        if: matrix.toolchain == 'windows-mingw'
+      # vcvars64.bat only affects the environment of the shell that calls it, so
+      # configure, build, and test all run inside this one cmd block. The install
+      # path is discovered with vswhere rather than hardcoded, because the runner
+      # image bumps its Visual Studio version over time.
+      - name: Build and test (MSVC)
+        shell: cmd
         working-directory: ttp-primitives/c
-        run: cmake -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=gcc
+        run: |
+          for /f "usebackq delims=" %%i in (`"C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set "VSPATH=%%i"
+          if not defined VSPATH echo No Visual Studio C++ toolset found && exit /b 1
+          echo Using Visual Studio at %VSPATH%
+          call "%VSPATH%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl || exit /b 1
+          cmake --build build || exit /b 1
+          ctest --test-dir build --output-on-failure || exit /b 1
+          dumpbin /dependents build\empty\empty.exe
+
+  windows-mingw:
+    name: Windows (MinGW/MSVCRT)
+    runs-on: windows-2025
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure Ninja
+        shell: pwsh
+        run: |
+          if (-not (Get-Command ninja -ErrorAction SilentlyContinue)) {
+            choco install ninja -y --no-progress
+          }
+          ninja --version
+
+      - name: Configure (CMake)
+        working-directory: ttp-primitives/c
+        run: cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++
 
       - name: Build
         working-directory: ttp-primitives/c
@@ -83,3 +106,7 @@ jobs:
       - name: Test
         working-directory: ttp-primitives/c/build
         run: ctest --output-on-failure
+
+      - name: Show CRT linkage
+        working-directory: ttp-primitives/c
+        run: objdump -p build/empty/empty.exe | Select-String "DLL Name"
