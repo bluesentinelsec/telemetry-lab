@@ -53,3 +53,18 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Build directories
+build/
+target/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
+# Go binaries (primitives are source-only in repo)
+ttp-primitives/go/**/[a-z]*[!.go]
+
+# macOS
+.DS_Store
