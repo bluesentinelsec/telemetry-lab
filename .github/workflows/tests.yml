@@ -1,0 +1,94 @@
+name: Unit Tests
+
+# Every TTP primitive must build and exit 0. This workflow runs that assertion
+# for all four languages on both target operating systems using each runner's
+# default toolchain. Toolchain-specific validation (glibc/musl, MSVC/MinGW) is
+# handled separately.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ttp-primitives/**'
+      - '.github/workflows/tests.yml'
+  pull_request:
+    paths:
+      - 'ttp-primitives/**'
+      - '.github/workflows/tests.yml'
+
+jobs:
+  c:
+    name: C (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-2025]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        working-directory: ttp-primitives/c
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        working-directory: ttp-primitives/c
+        run: cmake --build build --config Release
+
+      - name: Test
+        working-directory: ttp-primitives/c
+        run: ctest --test-dir build -C Release --output-on-failure
+
+  cpp:
+    name: C++ (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-2025]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        working-directory: ttp-primitives/cpp
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        working-directory: ttp-primitives/cpp
+        run: cmake --build build --config Release
+
+      - name: Test
+        working-directory: ttp-primitives/cpp
+        run: ctest --test-dir build -C Release --output-on-failure
+
+  go:
+    name: Go (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-2025]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ttp-primitives/go/go.mod
+
+      - name: Test
+        working-directory: ttp-primitives/go
+        run: go test ./... -v
+
+  rust:
+    name: Rust (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-2025]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test
+        working-directory: ttp-primitives/rust
+        run: cargo test --release

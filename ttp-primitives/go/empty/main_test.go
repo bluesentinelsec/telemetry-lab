@@ -1,14 +1,11 @@
 package main
 
 import (
-	"os/exec"
 	"testing"
+
+	"github.com/michaellong/telemetry-lab/ttp-primitives/go/internal/primitivetest"
 )
 
 func TestEmptyExitsZero(t *testing.T) {
-	cmd := exec.Command("go", "run", ".")
-	err := cmd.Run()
-	if err != nil {
-		t.Fatalf("expected exit code 0, got error: %v", err)
-	}
+	primitivetest.ExitsZero(t)
 }
