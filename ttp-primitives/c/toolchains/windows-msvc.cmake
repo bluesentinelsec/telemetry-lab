@@ -1,3 +1,2 @@
 set(CMAKE_SYSTEM_NAME Windows)
 set(CMAKE_C_COMPILER cl)
-set(CMAKE_C_FLAGS "/O2")
