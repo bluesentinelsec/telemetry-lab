@@ -1,0 +1,51 @@
+name: Build C Primitives
+
+on:
+  push:
+    paths:
+      - 'ttp-primitives/c/**'
+      - '.github/workflows/build-c.yml'
+  pull_request:
+    paths:
+      - 'ttp-primitives/c/**'
+      - '.github/workflows/build-c.yml'
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            toolchain: linux-glibc
+            name: Linux (glibc)
+          - os: ubuntu-latest
+            toolchain: linux-musl
+            name: Linux (musl)
+          - os: windows-latest
+            toolchain: windows-msvc
+            name: Windows (MSVC/UCRT)
+          - os: windows-latest
+            toolchain: windows-mingw
+            name: Windows (MinGW/MSVCRT)
+
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install musl toolchain
+        if: matrix.toolchain == 'linux-musl'
+        run: sudo apt-get update && sudo apt-get install -y musl-tools
+
+      - name: Configure (CMake)
+        working-directory: ttp-primitives/c
+        run: cmake -B build -DCMAKE_TOOLCHAIN_FILE=toolchains/${{ matrix.toolchain }}.cmake
+
+      - name: Build
+        working-directory: ttp-primitives/c
+        run: cmake --build build
+
+      - name: Test
+        working-directory: ttp-primitives/c/build
+        run: ctest --output-on-failure
