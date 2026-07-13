@@ -1,0 +1,76 @@
+name: Build C++ Primitives
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ttp-primitives/cpp/**'
+      - 'tools/**'
+      - '.github/workflows/build-cpp.yml'
+  pull_request:
+    paths:
+      - 'ttp-primitives/cpp/**'
+      - 'tools/**'
+      - '.github/workflows/build-cpp.yml'
+
+jobs:
+  linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - toolchain: linux-libstdcxx
+            config: linux-cpp-libstdcxx
+            name: Linux (libstdc++)
+          - toolchain: linux-libcxx
+            config: linux-cpp-libcxx
+            name: Linux (libc++)
+
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Both configs use clang++; the libc++ config additionally needs the LLVM
+      # standard library and its ABI/unwind support installed.
+      - name: Install build dependencies
+        run: |
+          apt-get update
+          apt-get install -y cmake git python3 clang libc++-dev libc++abi-dev
+
+      - name: Configure (CMake)
+        working-directory: ttp-primitives/cpp
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=toolchains/${{ matrix.toolchain }}.cmake
+
+      - name: Build
+        working-directory: ttp-primitives/cpp
+        run: cmake --build build
+
+      - name: Test
+        working-directory: ttp-primitives/cpp/build
+        run: ctest --output-on-failure
+
+      # Stage the primitives on their own; the Catch2 harness is not installed.
+      - name: Stage primitives
+        working-directory: ttp-primitives/cpp
+        run: cmake --install build --prefix ../../dist/${{ matrix.config }}
+
+      # Prove the artifacts link the C++ standard library this config claims,
+      # rather than trusting that the toolchain file took effect.
+      - name: Verify substrate
+        run: |
+          python3 tools/verify_substrate.py \
+            --config ${{ matrix.config }} \
+            --json substrate-${{ matrix.config }}.json \
+            dist/${{ matrix.config }}
+
+      - name: Upload verified primitives
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.config }}
+          path: |
+            dist/${{ matrix.config }}
+            substrate-${{ matrix.config }}.json

@@ -45,3 +45,42 @@ linkage = "dynamic"
 interpreter = "/lib/ld-musl-x86_64.so.1"
 needed = { includes = ["libc.so"], excludes = ["libc.so.6"] }
 comment = { matches = "^GCC: \\(Debian " }
+
+# --- C++ (Linux) ---------------------------------------------------------
+# Both C++ configs use clang++ and glibc; the only varying factor is the C++
+# standard library. Each asserts the presence of its own C++ stdlib AND the
+# absence of the other, so a build that selected the wrong one fails loudly.
+# Established empirically by building in debian:trixie (Clang 19).
+
+[config.linux-cpp-libstdcxx]
+description = "Debian 13 C++ primitives against GNU libstdc++"
+os = "linux"
+language = "cpp"
+compiler = "clang++"
+runtime = "libstdc++"
+
+[config.linux-cpp-libstdcxx.expect]
+format = "elf"
+machine = "x86-64"
+linkage = "dynamic"
+interpreter = "/lib64/ld-linux-x86-64.so.2"
+# GNU C++ stdlib present, LLVM C++ stdlib absent; glibc underneath.
+needed = { includes = ["libstdc++.so.6", "libc.so.6"], excludes = ["libc++.so.1"] }
+# clang++ does not write a GCC .comment string; it identifies itself as clang.
+comment = { matches = "clang" }
+
+[config.linux-cpp-libcxx]
+description = "Debian 13 C++ primitives against LLVM libc++"
+os = "linux"
+language = "cpp"
+compiler = "clang++"
+runtime = "libc++"
+
+[config.linux-cpp-libcxx.expect]
+format = "elf"
+machine = "x86-64"
+linkage = "dynamic"
+interpreter = "/lib64/ld-linux-x86-64.so.2"
+# LLVM C++ stdlib (and its ABI library) present, GNU C++ stdlib absent.
+needed = { includes = ["libc++.so.1", "libc++abi.so.1", "libc.so.6"], excludes = ["libstdc++.so.6"] }
+comment = { matches = "clang" }
