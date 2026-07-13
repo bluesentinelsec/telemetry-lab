@@ -54,8 +54,10 @@ jobs:
         include:
           - toolchain: windows-msvc
             name: Windows (MSVC/UCRT)
+            cmake_args: ""
           - toolchain: windows-mingw
             name: Windows (MinGW/MSVCRT)
+            cmake_args: -G "MinGW Makefiles"
 
     name: ${{ matrix.name }}
     runs-on: windows-2025
@@ -65,7 +67,7 @@ jobs:
 
       - name: Configure (CMake)
         working-directory: ttp-primitives/c
-        run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=toolchains/${{ matrix.toolchain }}.cmake
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release ${{ matrix.cmake_args }} -DCMAKE_TOOLCHAIN_FILE=toolchains/${{ matrix.toolchain }}.cmake
 
       - name: Build
         working-directory: ttp-primitives/c
