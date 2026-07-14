@@ -91,10 +91,10 @@ comment = { matches = "clang" }
 # static binary with no libc and no loader. This is the first static config in
 # the matrix, exercising the linkage="static" and interpreter absent rules.
 #
-# CONCESSION: a no-op Go primitive links no libc under either setting, so the
-# empty primitive carries a blank `import _ "net"` to force the cgo split. See
-# ttp-primitives/go/empty/main.go for the full rationale. Established
-# empirically in debian:trixie (go 1.24).
+# CONCESSION: a no-op Go primitive links no C runtime under either setting, so
+# the empty primitive carries a build-tagged cgo anchor (import "C") to force
+# the cgo split. See ttp-primitives/go/empty/anchor_cgo.go for the full
+# rationale. Established empirically in debian:trixie (go 1.24).
 
 [config.linux-go-cgo]
 description = "Debian 13 Go primitives with cgo enabled (system libc)"
@@ -250,3 +250,43 @@ format = "pe"
 machine = "x86-64"
 libc = "UCRT"
 needed = { includes = ["libc++.dll"], excludes = ["libstdc++-6.dll"] }
+
+# --- Go (Windows) --------------------------------------------------------
+# Same axis as Linux Go: CGO on/off. CGO=1 links the platform C runtime (UCRT,
+# via the MinGW gcc used for cgo); CGO=0 is a pure-Go binary that talks to the
+# Windows API directly and imports no C runtime. The discriminator is the CRT in
+# the PE import table (present vs absent), mirroring the Linux dynamic/static
+# split. The same build-tagged cgo anchor forces the split for `empty` on both
+# platforms. Established empirically on windows-2025 (go 1.24, MinGW gcc).
+#
+# Note a pure-Go Windows binary still imports kernel32.dll (Windows API calls);
+# "static" here means no C runtime is linked, which is what libc=None captures.
+
+[config.windows-go-cgo]
+description = "Windows 11 Go primitives with cgo enabled (UCRT)"
+os = "windows"
+language = "go"
+compiler = "go build (CGO_ENABLED=1)"
+runtime = "UCRT"
+
+[config.windows-go-cgo.expect]
+format = "pe"
+machine = "x86-64"
+linkage = "dynamic"
+libc = "UCRT"
+needed = { includes = ["api-ms-win-crt-runtime-l1-1-0.dll"] }
+
+[config.windows-go-static]
+description = "Windows 11 Go primitives with cgo disabled (pure-Go)"
+os = "windows"
+language = "go"
+compiler = "go build (CGO_ENABLED=0)"
+runtime = "pure-go"
+
+[config.windows-go-static.expect]
+format = "pe"
+machine = "x86-64"
+# Pure-Go: no C runtime linked (still imports kernel32.dll for the Windows API).
+linkage = "static"
+libc = { absent = true }
+needed = { excludes = ["api-ms-win-crt-runtime-l1-1-0.dll", "msvcrt.dll"] }
