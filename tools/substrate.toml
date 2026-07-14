@@ -124,3 +124,48 @@ machine = "x86-64"
 linkage = "static"
 interpreter = { absent = true }
 needed = { excludes = ["libc.so.6"] }
+
+# --- Rust (Linux) --------------------------------------------------------
+# The Rust axis is the gnu vs musl target, i.e. the same glibc/musl runtime the
+# C configs use, but one level up: Rust links its own std runtime on top of the
+# libc. Both configs are STATICALLY linked (gnu via +crt-static, musl by
+# default) so they differ only in the libc, mirroring how the C configs differ
+# only in the libc while both dynamic.
+#
+# Because both are static, the libc does not appear in DT_NEEDED; the `libc`
+# content-signature fact is what discriminates them. Established empirically in
+# debian:trixie (rustc 1.97).
+#
+# CAVEAT: glibc discourages full static linking (NSS-backed calls such as DNS
+# resolution can fail at runtime). Harmless for compute-only primitives like
+# empty; revisit for network primitives. Record as a dissertation limitation.
+
+[config.linux-rust-gnu]
+description = "Debian 13 Rust primitives, gnu target, static glibc"
+os = "linux"
+language = "rust"
+compiler = "rustc (x86_64-unknown-linux-gnu, +crt-static)"
+runtime = "glibc"
+
+[config.linux-rust-gnu.expect]
+format = "elf"
+machine = "x86-64"
+linkage = "static"
+interpreter = { absent = true }
+# libc statically linked in, so it is absent from DT_NEEDED; the embedded
+# content signature is the discriminator.
+libc = "glibc"
+
+[config.linux-rust-musl]
+description = "Debian 13 Rust primitives, musl target, static musl"
+os = "linux"
+language = "rust"
+compiler = "rustc (x86_64-unknown-linux-musl)"
+runtime = "musl"
+
+[config.linux-rust-musl.expect]
+format = "elf"
+machine = "x86-64"
+linkage = "static"
+interpreter = { absent = true }
+libc = "musl"
