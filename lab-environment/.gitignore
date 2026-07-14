@@ -1,0 +1,13 @@
+*.js
+!jest.config.js
+*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+# CDK context cache. Must NOT be committed: it caches the Debian AMI lookup
+# keyed to whoever synthesized, which would pin other deployers to a foreign
+# account/region's AMI. Ignoring it forces a clean re-resolve per account.
+cdk.context.json

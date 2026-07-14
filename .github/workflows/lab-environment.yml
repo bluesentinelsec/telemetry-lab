@@ -1,0 +1,42 @@
+name: Lab Environment (CDK)
+
+# Validates the CDK app without deploying and without AWS credentials. The jest
+# tests synthesize the stack in-process (CDK substitutes dummy values for the
+# context lookups), so this needs no secrets, no OIDC role, no AWS access.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'lab-environment/**'
+      - '.github/workflows/lab-environment.yml'
+  pull_request:
+    paths:
+      - 'lab-environment/**'
+      - '.github/workflows/lab-environment.yml'
+
+jobs:
+  validate:
+    name: Typecheck and test (no AWS)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lab-environment
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: lab-environment/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Test (synth + assertions)
+        run: npm test
