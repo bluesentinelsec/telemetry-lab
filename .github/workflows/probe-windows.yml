@@ -1,0 +1,97 @@
+name: PROBE Windows C toolchains
+
+# Read-only reconnaissance of the windows-2025 runner: enumerate every C
+# compiler present, build a trivial program with each, and dump the CRT it
+# actually links. Throwaway -- delete before merge.
+
+on:
+  push:
+    branches: [probe/windows-c-toolchains]
+  workflow_dispatch:
+
+jobs:
+  probe:
+    name: Probe
+    runs-on: windows-2025
+    steps:
+      - name: Runner image
+        shell: pwsh
+        run: |
+          Write-Host "OS: $([System.Environment]::OSVersion.VersionString)"
+          Write-Host "Image: $env:ImageVersion"
+
+      - name: Write empty.c
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path C:\probe | Out-Null
+          Set-Content -Path C:\probe\empty.c -Value "int main(void) { return 0; }"
+
+      - name: Locate gcc-family compilers
+        shell: pwsh
+        run: |
+          $roots = @(
+            "C:\mingw64\bin","C:\mingw32\bin",
+            "C:\msys64\mingw64\bin","C:\msys64\ucrt64\bin","C:\msys64\mingw32\bin","C:\msys64\clang64\bin",
+            "C:\ProgramData\mingw64\mingw64\bin","C:\ProgramData\chocolatey\bin",
+            "C:\Strawberry\c\bin","C:\tools\mingw64\bin"
+          )
+          Write-Host "== gcc.exe on PATH =="
+          Get-Command gcc,g++,clang,cc -ErrorAction SilentlyContinue | Format-Table Name,Source -Auto
+          Write-Host "== gcc.exe under known roots =="
+          foreach ($r in $roots) {
+            foreach ($exe in @("gcc.exe","cc.exe","clang.exe")) {
+              $p = Join-Path $r $exe
+              if (Test-Path $p) { Write-Host "FOUND $p" }
+            }
+          }
+          Write-Host "== MSYS2 present? =="
+          if (Test-Path C:\msys64) { Get-ChildItem C:\msys64 -Directory | Select-Object -Expand Name } else { Write-Host "no C:\msys64" }
+
+      - name: Probe each gcc-family compiler (build + dump imports)
+        shell: pwsh
+        continue-on-error: true
+        run: |
+          $cands = @(
+            "C:\mingw64\bin\gcc.exe",
+            "C:\msys64\mingw64\bin\gcc.exe",
+            "C:\msys64\ucrt64\bin\gcc.exe",
+            "C:\msys64\clang64\bin\clang.exe",
+            "C:\Strawberry\c\bin\gcc.exe"
+          )
+          foreach ($gcc in $cands) {
+            if (-not (Test-Path $gcc)) { Write-Host "`n### $gcc : NOT PRESENT"; continue }
+            $bindir = Split-Path $gcc
+            $objdump = Join-Path $bindir "objdump.exe"
+            $out = "C:\probe\out.exe"
+            Write-Host "`n################ $gcc"
+            & $gcc --version | Select-Object -First 1
+            & $gcc -dumpmachine
+            Remove-Item $out -ErrorAction SilentlyContinue
+            & $gcc -O2 C:\probe\empty.c -o $out 2>&1
+            if (Test-Path $out) {
+              if (Test-Path $objdump) {
+                Write-Host "-- imported DLLs:"
+                & $objdump -p $out | Select-String "DLL Name"
+              } else { Write-Host "(no objdump next to gcc)" }
+            } else { Write-Host "BUILD FAILED" }
+          }
+
+      - name: Probe MSVC (cl.exe) via vswhere
+        shell: cmd
+        continue-on-error: true
+        run: |
+          for /f "usebackq delims=" %%i in (`"C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set "VSPATH=%%i"
+          echo VSPATH=%VSPATH%
+          call "%VSPATH%\VC\Auxiliary\Build\vcvars64.bat"
+          cl /nologo /O2 C:\probe\empty.c /Fe:C:\probe\cl.exe
+          echo -- cl.exe version:
+          cl 2>&1 | findstr /i version
+          echo -- dumpbin dependents:
+          dumpbin /dependents C:\probe\cl.exe
+
+      - name: Probe clang-cl if present
+        shell: pwsh
+        continue-on-error: true
+        run: |
+          $clangcl = Get-Command clang-cl -ErrorAction SilentlyContinue
+          if ($clangcl) { Write-Host "clang-cl: $($clangcl.Source)"; & clang-cl --version } else { Write-Host "no clang-cl on PATH" }
