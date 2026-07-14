@@ -68,7 +68,7 @@ jobs:
             dist/${{ matrix.config }}
 
       - name: Upload verified primitives
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.config }}
           path: |
@@ -134,7 +134,7 @@ jobs:
             dist/${{ matrix.config }}
 
       - name: Upload verified primitives
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.config }}
           path: |
