@@ -169,3 +169,44 @@ machine = "x86-64"
 linkage = "static"
 interpreter = { absent = true }
 libc = "musl"
+
+# --- C (Windows) ---------------------------------------------------------
+# The Windows C axis is the Windows analogue of glibc/musl: hold the compiler
+# constant (MinGW gcc) and vary only the C runtime library, UCRT vs MSVCRT. Both
+# configs build with gcc from MSYS2, differing only in the environment -- ucrt64
+# (UCRT) vs mingw64 (MSVCRT) -- so the compiler is not confounded with the CRT.
+#
+# MSVC (cl.exe) is deliberately NOT used here: cl can only target UCRT, so an
+# MSVC-vs-MinGW comparison would vary compiler and CRT together. Holding gcc
+# constant keeps this a single-factor runtime-library contrast, consistent with
+# every other cell in the matrix.
+#
+# The CRT is read from the PE import table: UCRT imports api-ms-win-crt-*.dll,
+# MSVCRT imports msvcrt.dll. Each config asserts its own CRT and the absence of
+# the other. Established empirically on windows-2025 (MSYS2 gcc).
+
+[config.windows-c-ucrt]
+description = "Windows 11 C primitives, MinGW gcc, UCRT"
+os = "windows"
+language = "c"
+compiler = "gcc (MSYS2 ucrt64)"
+runtime = "UCRT"
+
+[config.windows-c-ucrt.expect]
+format = "pe"
+machine = "x86-64"
+libc = "UCRT"
+needed = { includes = ["api-ms-win-crt-runtime-l1-1-0.dll"], excludes = ["msvcrt.dll"] }
+
+[config.windows-c-msvcrt]
+description = "Windows 11 C primitives, MinGW gcc, MSVCRT"
+os = "windows"
+language = "c"
+compiler = "gcc (MSYS2 mingw64)"
+runtime = "MSVCRT"
+
+[config.windows-c-msvcrt.expect]
+format = "pe"
+machine = "x86-64"
+libc = "MSVCRT"
+needed = { includes = ["msvcrt.dll"], excludes = ["api-ms-win-crt-runtime-l1-1-0.dll"] }
