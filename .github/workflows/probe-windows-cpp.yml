@@ -1,13 +1,10 @@
 name: PROBE Windows C++ stdlib
-
 on:
   push:
     branches: [probe/windows-cpp]
   workflow_dispatch:
-
 jobs:
   ucrt64:
-    name: dynamic-vs-static + signatures
     runs-on: windows-2025
     defaults:
       run:
@@ -17,36 +14,22 @@ jobs:
         with:
           msystem: UCRT64
           update: true
-          install: >-
-            mingw-w64-ucrt-x86_64-clang
-            mingw-w64-ucrt-x86_64-gcc
-            mingw-w64-ucrt-x86_64-libc++
-            mingw-w64-ucrt-x86_64-binutils
-
-      - name: Force-dynamic experiments
-        continue-on-error: true
+          install: mingw-w64-ucrt-x86_64-clang mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-libc++ mingw-w64-ucrt-x86_64-binutils
+      - name: Test concession snippet (both stdlibs)
         run: |
-          printf 'int main(void){return 0;}\n' > empty.cpp
-          printf '#include <string>\n#include <iostream>\nint main(){std::string s="x";std::cout<<s;return 0;}\n' > real.cpp
-          dllnames(){ objdump -p "$1" 2>/dev/null | grep -oiE "lib(stdc\+\+|c\+\+)[^ ]*\.dll|api-ms-win-crt-runtime[^ ]*\.dll|msvcrt\.dll|libgcc[^ ]*\.dll|libunwind[^ ]*\.dll|libwinpthread[^ ]*\.dll" | sort -u | tr '\n' ' '; }
-          for src in empty real; do
-            echo "===== SRC=$src.cpp"
-            echo "  libstdc++ default : $(clang++ -O2 -stdlib=libstdc++ $src.cpp -o a.exe 2>/dev/null && dllnames a.exe || echo FAIL)"
-            echo "  libstdc++ +shared : $(clang++ -O2 -stdlib=libstdc++ -shared-libstdc++ -shared-libgcc $src.cpp -o b.exe 2>/dev/null && dllnames b.exe || echo FAIL)"
-            echo "  libc++    default : $(clang++ -O2 -stdlib=libc++ $src.cpp -o c.exe 2>/dev/null && dllnames c.exe || echo FAIL)"
-            echo "  libc++    Bdynamic: $(clang++ -O2 -stdlib=libc++ -Wl,-Bdynamic $src.cpp -o d.exe 2>/dev/null && dllnames d.exe || echo FAIL)"
+          cat > conc.cpp <<'CPP'
+          #include <string>
+          int main(int argc, char**) {
+              // argc-dependent size defeats constant-folding and small-string
+              // optimization, forcing a real heap allocation through the C++
+              // standard library so the stdlib DLL is dynamically imported.
+              std::string s(static_cast<std::size_t>(argc) + 64, 'x');
+              return static_cast<int>(s.size()) - (argc + 64);
+          }
+          CPP
+          for stdlib in libstdc++ libc++; do
+            echo "===== -stdlib=$stdlib"
+            clang++ -O2 -stdlib=$stdlib conc.cpp -o c.exe || { echo BUILD FAIL; continue; }
+            objdump -p c.exe | grep -iE "libstdc\+\+-6\.dll|libc\+\+\.dll|api-ms-win-crt-runtime" | sed 's/^/  /'
+            ./c.exe; echo "  exit=$?"
           done
-
-      - name: Static content signatures (on stdlib-using program)
-        continue-on-error: true
-        run: |
-          clang++ -O2 -stdlib=libstdc++ real.cpp -o gnu.exe
-          clang++ -O2 -stdlib=libc++    real.cpp -o llvm.exe
-          echo "=== sizes: gnu=$(stat -c %s gnu.exe) llvm=$(stat -c %s llvm.exe) ==="
-          for m in "_ZNSt3__1" "__1" "libc++" "__gnu_cxx" "_ZNSt7" "GLIBCXX" "_ZSt" "std::__1"; do
-            g=$(grep -a -c -F "$m" gnu.exe 2>/dev/null || echo 0); l=$(grep -a -c -F "$m" llvm.exe 2>/dev/null || echo 0)
-            printf 'marker %-14s libstdc++bin:%s  libc++bin:%s\n' "$m" "$g" "$l"
-          done
-          echo "=== does EMPTY (static) contain any std symbols? ==="
-          clang++ -O2 -stdlib=libstdc++ empty.cpp -o eg.exe; clang++ -O2 -stdlib=libc++ empty.cpp -o el.exe
-          echo "empty libstdc++: _ZNSt=$(grep -a -c -F _ZNSt eg.exe||echo 0)  empty libc++: _ZNSt3__1=$(grep -a -c -F _ZNSt3__1 el.exe||echo 0)"
