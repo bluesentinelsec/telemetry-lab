@@ -15,21 +15,35 @@ jobs:
           msystem: UCRT64
           update: true
           install: mingw-w64-ucrt-x86_64-clang mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-libc++ mingw-w64-ucrt-x86_64-binutils
-      - name: Test concession snippet (both stdlibs)
+      - name: Test simpler concession candidates
         run: |
-          cat > conc.cpp <<'CPP'
+          cat > c1.cpp <<'CPP'
           #include <string>
-          int main(int argc, char**) {
-              // argc-dependent size defeats constant-folding and small-string
-              // optimization, forcing a real heap allocation through the C++
-              // standard library so the stdlib DLL is dynamically imported.
-              std::string s(static_cast<std::size_t>(argc) + 64, 'x');
-              return static_cast<int>(s.size()) - (argc + 64);
-          }
+          int main(){ std::string s; return 0; }
           CPP
-          for stdlib in libstdc++ libc++; do
-            echo "===== -stdlib=$stdlib"
-            clang++ -O2 -stdlib=$stdlib conc.cpp -o c.exe || { echo BUILD FAIL; continue; }
-            objdump -p c.exe | grep -iE "libstdc\+\+-6\.dll|libc\+\+\.dll|api-ms-win-crt-runtime" | sed 's/^/  /'
-            ./c.exe; echo "  exit=$?"
+          cat > c2.cpp <<'CPP'
+          #include <string>
+          int main(){ std::string s = "x"; return 0; }
+          CPP
+          cat > c3.cpp <<'CPP'
+          #include <string>
+          std::string g;
+          int main(){ return 0; }
+          CPP
+          cat > c4.cpp <<'CPP'
+          #include <string>
+          int main(){ std::string s("xxxxxxxxxxxxxxxxxxxxxxxx"); return (int)s.empty(); }
+          CPP
+          cat > c5.cpp <<'CPP'
+          #include <string>
+          int main(int argc, char**){ std::string s(argc,'x'); return (int)s.empty(); }
+          CPP
+          links(){ objdump -p "$1" 2>/dev/null | grep -qiE "libstdc\+\+-6\.dll|libc\+\+\.dll" && echo YES || echo "no"; }
+          for c in c1 c2 c3 c4 c5; do
+            for stdlib in libstdc++ libc++; do
+              if clang++ -O2 -stdlib=$stdlib $c.cpp -o x.exe 2>/dev/null; then
+                ./x.exe; rc=$?
+                printf '%s  %-10s import=%s exit=%s\n' "$c" "$stdlib" "$(links x.exe)" "$rc"
+              else printf '%s  %-10s BUILD FAIL\n' "$c" "$stdlib"; fi
+            done
           done
