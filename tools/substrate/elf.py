@@ -131,6 +131,39 @@ def _comment(data, sections):
     return "; ".join(parts) if parts else None
 
 
+# Content signatures that identify the linked C library. This is the only way
+# to tell a statically linked glibc binary from a static musl one: when libc is
+# linked in it leaves DT_NEEDED empty, so the interpreter/needed facts cannot
+# discriminate.
+#
+# The markers are internal symbol names that each libc's static objects carry in
+# the symbol table (plus the ld-musl interpreter path, which covers dynamically
+# linked musl). These survive release optimization -- unlike debug source paths
+# such as src_musl, which cargo release strips -- but they do require the binary
+# to retain its symbol table (the build must not strip). Checked musl-first so
+# that an incidental glibc string in a musl binary cannot cause a misread. All
+# markers verified mutually exclusive in debian:trixie (rustc 1.97, cargo
+# release): musl symbols are absent from glibc builds and vice versa.
+LIBC_SIGNATURES = (
+    ("musl", (b"__syscall_cp", b"__init_tls", b"__ofl_lock", b"__stdio_exit", b"ld-musl")),
+    ("glibc", (b"_IO_2_1_stdin_", b"_dl_relocate_static_pie", b"glibc")),
+)
+
+
+def _libc(data):
+    """Identify the linked C library from embedded content, or None.
+
+    Additive to the interpreter/needed facts: for dynamic binaries those already
+    discriminate, and this may return None (a trivial dynamic glibc program does
+    not embed a glibc string). Its purpose is static binaries, where it is the
+    only available signal.
+    """
+    for label, markers in LIBC_SIGNATURES:
+        if any(marker in data for marker in markers):
+            return label
+    return None
+
+
 def extract(data):
     if data[4] != 2:
         raise ValueError("only 64-bit ELF is supported")
@@ -148,4 +181,5 @@ def extract(data):
         "needed": needed,
         "linkage": "static" if interpreter is None and not needed else "dynamic",
         "comment": _comment(data, sections),
+        "libc": _libc(data),
     }

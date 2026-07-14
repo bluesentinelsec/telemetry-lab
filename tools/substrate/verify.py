@@ -97,7 +97,7 @@ def render(report):
         lines.append(f"  [{status}] {artifact['path']}")
 
         observed = artifact["observed"]
-        for key in ("machine", "interpreter", "needed", "linkage", "comment"):
+        for key in ("machine", "interpreter", "needed", "linkage", "libc", "comment"):
             if key in observed:
                 lines.append(f"      {key:<12} {observed[key]!r}")
 

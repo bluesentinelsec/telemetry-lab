@@ -1,0 +1,82 @@
+name: Build Rust Primitives
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ttp-primitives/rust/**'
+      - 'tools/**'
+      - '.github/workflows/build-rust.yml'
+  pull_request:
+    paths:
+      - 'ttp-primitives/rust/**'
+      - 'tools/**'
+      - '.github/workflows/build-rust.yml'
+
+jobs:
+  linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - config: linux-rust-gnu
+            target: x86_64-unknown-linux-gnu
+            # glibc discourages static linking, so it is not the default; force
+            # it so both Rust configs are static and differ only in the libc.
+            rustflags: "-C target-feature=+crt-static"
+            name: Linux (gnu, static glibc)
+          - config: linux-rust-musl
+            target: x86_64-unknown-linux-musl
+            # The musl target is statically linked by default.
+            rustflags: ""
+            name: Linux (musl, static)
+
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # gcc is the linker driver for the gnu target; rustup provides the musl
+      # target's own toolchain. The build must not strip: the substrate verifier
+      # identifies the statically linked libc from symbol names, which stripping
+      # would remove.
+      - name: Install Rust toolchain
+        run: |
+          apt-get update
+          apt-get install -y curl ca-certificates gcc python3
+          curl -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+          "$HOME/.cargo/bin/rustup" target add ${{ matrix.target }}
+
+      - name: Test
+        working-directory: ttp-primitives/rust
+        env:
+          RUSTFLAGS: ${{ matrix.rustflags }}
+        run: cargo test --release --target ${{ matrix.target }}
+
+      - name: Build and stage primitives
+        working-directory: ttp-primitives/rust
+        env:
+          RUSTFLAGS: ${{ matrix.rustflags }}
+        run: |
+          cargo build --release --target ${{ matrix.target }}
+          mkdir -p ../../dist/${{ matrix.config }}
+          cp target/${{ matrix.target }}/release/empty ../../dist/${{ matrix.config }}/empty
+
+      - name: Verify substrate
+        run: |
+          python3 tools/verify_substrate.py \
+            --config ${{ matrix.config }} \
+            --json substrate-${{ matrix.config }}.json \
+            dist/${{ matrix.config }}
+
+      - name: Upload verified primitives
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.config }}
+          path: |
+            dist/${{ matrix.config }}
+            substrate-${{ matrix.config }}.json
