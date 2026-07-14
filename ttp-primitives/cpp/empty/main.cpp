@@ -11,19 +11,21 @@
 // unconditionally, so this only bites on Windows -- but the primitive source is
 // shared, so the fix lives here.
 //
-// The body references the C++ standard library so the stdlib is dynamically
-// imported (libstdc++-6.dll / libc++.dll on Windows; libstdc++.so.6 /
-// libc++.so.1 on Linux), making `empty` a valid discriminator for the axis. It
-// stays behaviourally empty: no output, always exits 0. The argc-dependent size
-// defeats constant-folding and the small-string optimization, forcing a real
-// heap allocation through the standard library -- an out-of-line call the
-// linker cannot elide.
+// The namespace-scope std::string below anchors the C++ standard library into
+// the binary: its non-trivial constructor and destructor run during runtime
+// startup and teardown, so the stdlib DLL is dynamically imported
+// (libstdc++-6.dll / libc++.dll on Windows; libstdc++.so.6 / libc++.so.1 on
+// Linux) without any logic in main(). A local `std::string s;` does NOT suffice
+// -- the optimizer elides an unused local and drops the import (confirmed on
+// windows-2025); a global with a non-trivial destructor cannot be elided. The
+// primitive stays behaviourally empty: no output, always exits 0.
 //
 // This is a deliberate deviation from the minimal-primitive principle, needed
 // only for compute-only primitives like `empty`; primitives that do real work
 // use the C++ stdlib naturally. Mirrors the Go cgo concession. See
 // tools/substrate.toml (windows-cpp-*) and the dissertation limitations.
-int main(int argc, char**) {
-    std::string s(static_cast<std::size_t>(argc) + 64, 'x');
-    return static_cast<int>(s.size()) - (argc + 64);
+std::string stdlib_anchor;
+
+int main() {
+    return 0;
 }
