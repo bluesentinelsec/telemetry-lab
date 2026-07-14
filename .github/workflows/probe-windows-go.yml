@@ -1,0 +1,50 @@
+name: PROBE Windows Go cgo
+on:
+  push:
+    branches: [probe/windows-go]
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+      - name: Environment
+        shell: pwsh
+        run: |
+          $env:PATH = "C:\mingw64\bin;$env:PATH"
+          go version
+          gcc --version | Select-Object -First 1
+          Write-Host "gcc: $((Get-Command gcc).Source)"
+      - name: Probe cgo split for empty
+        shell: pwsh
+        run: |
+          $env:PATH = "C:\mingw64\bin;$env:PATH"
+          $od = "C:\mingw64\bin\objdump.exe"
+          function Dump($exe){ & $od -p $exe 2>$null | Select-String "DLL Name" | ForEach-Object { ($_ -replace '.*DLL Name: ','').Trim() } | Sort-Object -Unique }
+          function CRT($exe){ $d = Dump $exe; if ($d -match 'msvcrt\.dll'){'MSVCRT'} elseif ($d -match 'api-ms-win-crt'){'UCRT'} else {'none'} }
+
+          # --- Test 1: import _ "net" (the Linux concession). Does it trigger cgo on Windows? ---
+          New-Item -Type Directory t1 | Out-Null; Push-Location t1
+          "module t1`ngo 1.24" | Set-Content go.mod
+          "package main`nimport _ `"net`"`nfunc main(){}" | Set-Content main.go
+          foreach($c in '1','0'){ $env:CGO_ENABLED=$c; go build -o e.exe . 2>$null; Write-Host "T1 net       CGO=$c -> CRT=$(CRT e.exe)  dlls=$((Dump e.exe) -join ',')" }
+          Pop-Location
+
+          # --- Test 2: build-tagged import "C" anchor (the proposed fallback) ---
+          New-Item -Type Directory t2 | Out-Null; Push-Location t2
+          "module t2`ngo 1.24" | Set-Content go.mod
+          "package main`nfunc main(){}" | Set-Content main.go
+          # anchor compiled ONLY when cgo is enabled (the `cgo` build tag is auto-set)
+          "//go:build cgo`n`npackage main`n`n/*`n#include <stddef.h>`n*/`nimport `"C`"`n`nvar _ = C.size_t(0)" | Set-Content anchor_cgo.go
+          Get-Content anchor_cgo.go
+          foreach($c in '1','0'){ $env:CGO_ENABLED=$c; go build -o e.exe . 2>&1 | Out-Host; Write-Host "T2 cgo-anchor CGO=$c -> CRT=$(CRT e.exe)  dlls=$((Dump e.exe) -join ',')" }
+          Pop-Location
+
+          # --- Test 3: plain pure-Go empty baseline ---
+          New-Item -Type Directory t3 | Out-Null; Push-Location t3
+          "module t3`ngo 1.24" | Set-Content go.mod
+          "package main`nfunc main(){}" | Set-Content main.go
+          $env:CGO_ENABLED='0'; go build -o e.exe .; Write-Host "T3 pure       CGO=0 -> CRT=$(CRT e.exe)  dlls=$((Dump e.exe) -join ',')"
+          Pop-Location
