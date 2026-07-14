@@ -1,0 +1,50 @@
+name: PROBE Windows C++ stdlib
+
+# Throwaway: prove one clang can build libstdc++ AND libc++ variants, both on
+# UCRT, on windows-2025. Delete before merge.
+
+on:
+  push:
+    branches: [probe/windows-cpp]
+  workflow_dispatch:
+
+jobs:
+  ucrt64:
+    name: ucrt64 clang (both stdlibs)
+    runs-on: windows-2025
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            mingw-w64-ucrt-x86_64-clang
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-libc++
+            mingw-w64-ucrt-x86_64-binutils
+
+      - name: Versions and availability
+        continue-on-error: true
+        run: |
+          clang++ --version
+          echo "== is libc++ present? =="
+          ls -1 /ucrt64/lib/libc++* 2>/dev/null || echo "NO libc++ in /ucrt64/lib"
+          ls -1 /ucrt64/lib/libstdc++* 2>/dev/null || echo "NO libstdc++ in /ucrt64/lib"
+
+      - name: Build variants and dump imports
+        continue-on-error: true
+        run: |
+          printf 'int main(void){return 0;}\n' > empty.cpp
+          echo "############ default stdlib"
+          clang++ -O2 empty.cpp -o def.exe && objdump -p def.exe | grep "DLL Name" || echo "default BUILD FAILED"
+          echo "############ -stdlib=libstdc++"
+          clang++ -O2 -stdlib=libstdc++ empty.cpp -o gnu.exe && objdump -p gnu.exe | grep "DLL Name" || echo "libstdc++ BUILD FAILED"
+          echo "############ -stdlib=libc++"
+          clang++ -O2 -stdlib=libc++ empty.cpp -o llvm.exe && objdump -p llvm.exe | grep "DLL Name" || echo "libc++ BUILD FAILED"
+          echo "############ -stdlib=libc++ WITH a std::string (does empty vs real matter?)"
+          printf '#include <string>\nint main(){std::string s="x";return (int)s.size()-1;}\n' > real.cpp
+          clang++ -O2 -stdlib=libc++ real.cpp -o real_llvm.exe && objdump -p real_llvm.exe | grep "DLL Name" || echo "real libc++ BUILD FAILED"
+          clang++ -O2 -stdlib=libstdc++ real.cpp -o real_gnu.exe && objdump -p real_gnu.exe | grep "DLL Name" || echo "real libstdc++ BUILD FAILED"
