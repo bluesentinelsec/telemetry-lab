@@ -74,3 +74,69 @@ jobs:
           path: |
             dist/${{ matrix.config }}
             substrate-${{ matrix.config }}.json
+
+  windows:
+    # Windows C++ axis: clang++ held constant, vary only the C++ standard
+    # library (libstdc++ vs libc++), both on the same C runtime (UCRT). The
+    # stdlib is dynamically linked, so it shows in the PE import table.
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - toolchain: windows-libstdcxx
+            config: windows-cpp-libstdcxx
+            name: Windows (libstdc++)
+          - toolchain: windows-libcxx
+            config: windows-cpp-libcxx
+            name: Windows (libc++)
+
+    name: ${{ matrix.name }}
+    runs-on: windows-2025
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # One clang builds both stdlib variants: gcc provides libstdc++, the
+      # libc++ package provides libc++, both on UCRT.
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            git
+            mingw-w64-ucrt-x86_64-clang
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-libc++
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-ninja
+
+      - name: Configure, build, test
+        working-directory: ttp-primitives/cpp
+        run: |
+          cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=toolchains/${{ matrix.toolchain }}.cmake
+          cmake --build build
+          ctest --test-dir build --output-on-failure
+
+      - name: Stage primitives
+        working-directory: ttp-primitives/cpp
+        run: cmake --install build --prefix ../../dist/${{ matrix.config }}
+
+      # Verify with the runner's system Python (the PE parser is pure stdlib).
+      - name: Verify substrate
+        shell: pwsh
+        run: |
+          python tools/verify_substrate.py `
+            --config ${{ matrix.config }} `
+            --json substrate-${{ matrix.config }}.json `
+            dist/${{ matrix.config }}
+
+      - name: Upload verified primitives
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.config }}
+          path: |
+            dist/${{ matrix.config }}
+            substrate-${{ matrix.config }}.json

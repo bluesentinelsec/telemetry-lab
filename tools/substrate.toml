@@ -210,3 +210,43 @@ format = "pe"
 machine = "x86-64"
 libc = "MSVCRT"
 needed = { includes = ["msvcrt.dll"], excludes = ["api-ms-win-crt-runtime-l1-1-0.dll"] }
+
+# --- C++ (Windows) -------------------------------------------------------
+# The Windows C++ axis mirrors the Linux C++ axis: hold the compiler constant
+# (clang++, from MSYS2 ucrt64) and vary only the C++ standard library, libstdc++
+# vs libc++. BOTH configs link the same C runtime (UCRT), so the only varying
+# factor is the C++ standard library -- not the compiler, not the C runtime.
+# The stdlib is dynamically linked, so it appears in the PE import table:
+# libstdc++ -> libstdc++-6.dll, libc++ -> libc++.dll. Each config asserts its
+# own stdlib DLL and the absence of the other; libc=UCRT is asserted on both.
+#
+# CONCESSION: on Windows a no-op program links neither stdlib, so the `empty`
+# primitive references std to force the import. See ttp-primitives/cpp/empty/
+# main.cpp for the rationale. Established empirically on windows-2025 (MSYS2
+# clang 22, ucrt64).
+
+[config.windows-cpp-libstdcxx]
+description = "Windows 11 C++ primitives, clang, GNU libstdc++ on UCRT"
+os = "windows"
+language = "cpp"
+compiler = "clang++ (MSYS2 ucrt64)"
+runtime = "libstdc++"
+
+[config.windows-cpp-libstdcxx.expect]
+format = "pe"
+machine = "x86-64"
+libc = "UCRT"
+needed = { includes = ["libstdc++-6.dll"], excludes = ["libc++.dll"] }
+
+[config.windows-cpp-libcxx]
+description = "Windows 11 C++ primitives, clang, LLVM libc++ on UCRT"
+os = "windows"
+language = "cpp"
+compiler = "clang++ (MSYS2 ucrt64)"
+runtime = "libc++"
+
+[config.windows-cpp-libcxx.expect]
+format = "pe"
+machine = "x86-64"
+libc = "UCRT"
+needed = { includes = ["libc++.dll"], excludes = ["libstdc++-6.dll"] }
