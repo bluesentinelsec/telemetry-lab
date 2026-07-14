@@ -66,3 +66,58 @@ jobs:
           path: |
             dist/${{ matrix.config }}
             substrate-${{ matrix.config }}.json
+
+  windows:
+    # Same CGO on/off axis as Linux. CGO=1 links the platform C runtime (UCRT,
+    # via the runner's MinGW gcc); CGO=0 is pure-Go with no C runtime. The
+    # build-tagged cgo anchor in the empty primitive forces the split.
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - config: windows-go-cgo
+            cgo: "1"
+            name: Windows (cgo)
+          - config: windows-go-static
+            cgo: "0"
+            name: Windows (pure-Go)
+
+    name: ${{ matrix.name }}
+    runs-on: windows-2025
+    env:
+      CGO_ENABLED: ${{ matrix.cgo }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ttp-primitives/go/go.mod
+
+      # cgo needs a C compiler; the runner ships MinGW gcc (UCRT) at C:\mingw64.
+      # Harmless for the pure-Go build.
+      - name: Add MinGW to PATH
+        run: Add-Content -Path $env:GITHUB_PATH -Value "C:\mingw64\bin"
+
+      - name: Test
+        working-directory: ttp-primitives/go
+        run: go test ./...
+
+      - name: Build and stage primitives
+        working-directory: ttp-primitives/go
+        run: go build -o ../../dist/${{ matrix.config }}/empty.exe ./empty
+
+      - name: Verify substrate
+        run: |
+          python tools/verify_substrate.py `
+            --config ${{ matrix.config }} `
+            --json substrate-${{ matrix.config }}.json `
+            dist/${{ matrix.config }}
+
+      - name: Upload verified primitives
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.config }}
+          path: |
+            dist/${{ matrix.config }}
+            substrate-${{ matrix.config }}.json
