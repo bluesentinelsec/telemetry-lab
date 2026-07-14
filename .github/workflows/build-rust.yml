@@ -37,7 +37,7 @@ jobs:
       image: debian:trixie
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # gcc is the linker driver for the gnu target; rustup provides the musl
       # target's own toolchain. The build must not strip: the substrate verifier
