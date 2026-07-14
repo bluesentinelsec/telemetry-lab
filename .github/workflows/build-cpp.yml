@@ -32,7 +32,7 @@ jobs:
       image: debian:trixie
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # Both configs use clang++; the libc++ config additionally needs the LLVM
       # standard library and its ABI/unwind support installed.
@@ -68,7 +68,7 @@ jobs:
             dist/${{ matrix.config }}
 
       - name: Upload verified primitives
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.config }}
           path: |
@@ -97,7 +97,7 @@ jobs:
         shell: msys2 {0}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # One clang builds both stdlib variants: gcc provides libstdc++, the
       # libc++ package provides libc++, both on UCRT.
@@ -134,7 +134,7 @@ jobs:
             dist/${{ matrix.config }}
 
       - name: Upload verified primitives
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.config }}
           path: |
