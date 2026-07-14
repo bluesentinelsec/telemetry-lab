@@ -1,0 +1,68 @@
+name: Build Go Primitives
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ttp-primitives/go/**'
+      - 'tools/**'
+      - '.github/workflows/build-go.yml'
+  pull_request:
+    paths:
+      - 'ttp-primitives/go/**'
+      - 'tools/**'
+      - '.github/workflows/build-go.yml'
+
+jobs:
+  linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - config: linux-go-cgo
+            cgo: "1"
+            name: Linux (cgo)
+          - config: linux-go-static
+            cgo: "0"
+            name: Linux (pure-Go static)
+
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # gcc is required by the cgo build; harmless for the static build.
+      - name: Install build dependencies
+        run: |
+          apt-get update
+          apt-get install -y golang gcc python3
+
+      - name: Test
+        working-directory: ttp-primitives/go
+        run: go test ./...
+
+      # The Go axis is selected by CGO_ENABLED, not a toolchain file. Build each
+      # primitive straight into the staging bundle.
+      - name: Build and stage primitives
+        working-directory: ttp-primitives/go
+        env:
+          CGO_ENABLED: ${{ matrix.cgo }}
+        run: go build -o ../../dist/${{ matrix.config }}/empty ./empty
+
+      - name: Verify substrate
+        run: |
+          python3 tools/verify_substrate.py \
+            --config ${{ matrix.config }} \
+            --json substrate-${{ matrix.config }}.json \
+            dist/${{ matrix.config }}
+
+      - name: Upload verified primitives
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.config }}
+          path: |
+            dist/${{ matrix.config }}
+            substrate-${{ matrix.config }}.json

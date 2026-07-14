@@ -84,3 +84,43 @@ interpreter = "/lib64/ld-linux-x86-64.so.2"
 # LLVM C++ stdlib (and its ABI library) present, GNU C++ stdlib absent.
 needed = { includes = ["libc++.so.1", "libc++abi.so.1", "libc.so.6"], excludes = ["libstdc++.so.6"] }
 comment = { matches = "clang" }
+
+# --- Go (Linux) ----------------------------------------------------------
+# The Go axis is cgo on/off, which is a system-call-path swap rather than a
+# library swap: CGO=1 links the system libc dynamically; CGO=0 is a pure-Go
+# static binary with no libc and no loader. This is the first static config in
+# the matrix, exercising the linkage="static" and interpreter absent rules.
+#
+# CONCESSION: a no-op Go primitive links no libc under either setting, so the
+# empty primitive carries a blank `import _ "net"` to force the cgo split. See
+# ttp-primitives/go/empty/main.go for the full rationale. Established
+# empirically in debian:trixie (go 1.24).
+
+[config.linux-go-cgo]
+description = "Debian 13 Go primitives with cgo enabled (system libc)"
+os = "linux"
+language = "go"
+compiler = "go build (CGO_ENABLED=1)"
+runtime = "glibc"
+
+[config.linux-go-cgo.expect]
+format = "elf"
+machine = "x86-64"
+linkage = "dynamic"
+interpreter = "/lib64/ld-linux-x86-64.so.2"
+needed = { includes = ["libc.so.6"] }
+
+[config.linux-go-static]
+description = "Debian 13 Go primitives with cgo disabled (pure-Go static)"
+os = "linux"
+language = "go"
+compiler = "go build (CGO_ENABLED=0)"
+runtime = "pure-go"
+
+[config.linux-go-static.expect]
+format = "elf"
+machine = "x86-64"
+# Pure-Go: statically linked, no dynamic loader, no libc dependency.
+linkage = "static"
+interpreter = { absent = true }
+needed = { excludes = ["libc.so.6"] }
