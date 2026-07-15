@@ -11,6 +11,7 @@
 #include <vector>
 
 #include "core/engine.hpp"
+#include "core/meta_parse.hpp"
 #include "model/config.hpp"
 #include "view/human_formatter.hpp"
 #include "view/json_formatter.hpp"
@@ -76,12 +77,12 @@ int main(int argc, char** argv) {
   config.quiet = quiet;
   config.max_events = max_events;
   for (const auto& kv : meta_kv) {
-    auto eq = kv.find('=');
-    if (eq == std::string::npos) {
+    auto parsed = tmon::ParseMetaArg(kv);
+    if (!parsed) {
       std::cerr << "tmon: --meta expects KEY=VALUE, got '" << kv << "'\n";
       return 2;
     }
-    config.meta[kv.substr(0, eq)] = kv.substr(eq + 1);
+    config.meta[parsed->first] = parsed->second;
   }
 
   // Resolve the output stream: a file, or stdout.

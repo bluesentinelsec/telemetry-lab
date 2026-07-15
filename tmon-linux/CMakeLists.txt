@@ -17,6 +17,8 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
+option(TMON_BUILD_TESTS "Build the tmon_core unit tests" ON)
+
 # --- Vendored, compiled-in dependencies (network fetch, pinned) --------------
 # CLI11 is a single header; cJSON is a single .c. Both are small and unlikely to
 # be present on a default Debian host, so they are built into the binary rather
@@ -38,6 +40,15 @@ set(CJSON_BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(cli11 cjson)
+
+# Catch2 for the unit tests, matching the version the primitive suites use.
+if(TMON_BUILD_TESTS)
+  FetchContent_Declare(Catch2
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+    GIT_TAG v3.7.1)
+  FetchContent_MakeAvailable(Catch2)
+  list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+endif()
 
 # --- Tools needed to build the BPF object and skeleton -----------------------
 find_program(CLANG_EXE clang REQUIRED)
@@ -89,26 +100,40 @@ add_custom_command(
   COMMENT "Generating syscall name table"
   VERBATIM)
 
-add_custom_target(tmon_generated DEPENDS
-  ${GEN_DIR}/tmon.skel.h
+# Two independent codegen groups. tmon_core needs only the syscall table (pure,
+# no kernel), so it must not depend on the BPF skeleton — that keeps the unit
+# tests buildable without bpftool/BTF. The engine needs the skeleton.
+add_custom_target(tmon_syscall_table DEPENDS
   ${GEN_DIR}/syscall_table.generated.h)
+add_custom_target(tmon_skeleton DEPENDS
+  ${GEN_DIR}/tmon.skel.h)
 
-# --- The tmon executable -----------------------------------------------------
-add_executable(tmon
-  cli/main.cpp
-  src/core/engine.cpp
+# --- tmon_core: the kernel-independent logic, and the unit-under-test ---------
+# Everything here is pure and deterministic: syscall-name lookup, wire->domain
+# decoding, the two formatters, and --meta parsing. No libbpf, no skeleton, no
+# spawning. Both the executable and the test binary link it.
+add_library(tmon_core STATIC
   src/core/syscall_names.cpp
+  src/core/event_decode.cpp
+  src/core/meta_parse.cpp
   src/view/human_formatter.cpp
   src/view/json_formatter.cpp)
-add_dependencies(tmon tmon_generated)
-
-target_include_directories(tmon PRIVATE
+add_dependencies(tmon_core tmon_syscall_table)
+target_include_directories(tmon_core PUBLIC
   ${CMAKE_SOURCE_DIR}/src   # model/, core/, view/ headers
-  ${CMAKE_SOURCE_DIR}       # bpf/tmon_event.h
-  ${GEN_DIR}                # tmon.skel.h, syscall_table.generated.h
-  ${cjson_SOURCE_DIR}       # cJSON.h (FetchContent does not export it)
-  ${LIBBPF_INCLUDE_DIR})
+  ${CMAKE_SOURCE_DIR}       # bpf/tmon_event.h (wire struct)
+  ${GEN_DIR}                # syscall_table.generated.h
+  ${cjson_SOURCE_DIR})      # cJSON.h (FetchContent does not export it)
+target_link_libraries(tmon_core PUBLIC cjson)
+target_compile_options(tmon_core PRIVATE -Wall -Wextra)
 
+# --- The tmon executable: CLI + BPF engine on top of tmon_core ---------------
+add_executable(tmon
+  cli/main.cpp
+  src/core/engine.cpp)
+add_dependencies(tmon tmon_skeleton)
+target_include_directories(tmon PRIVATE
+  ${LIBBPF_INCLUDE_DIR})    # bpf/libbpf.h (the rest comes via tmon_core PUBLIC)
 target_compile_options(tmon PRIVATE -Wall -Wextra)
 
 # Dependency strategy. glibc stays dynamic (present everywhere). libbpf is the
@@ -119,11 +144,17 @@ target_compile_options(tmon PRIVATE -Wall -Wextra)
 # (zlib) or a one-package install (libelf1). libstdc++/libgcc are statically
 # bound; CLI11 and cJSON are compiled in.
 target_link_libraries(tmon PRIVATE
+  tmon_core
   CLI11::CLI11
-  cjson
   ${LIBBPF_STATIC}
   elf
   z)
 target_link_options(tmon PRIVATE -static-libstdc++ -static-libgcc)
 
 install(TARGETS tmon RUNTIME DESTINATION bin)
+
+# --- Unit tests --------------------------------------------------------------
+if(TMON_BUILD_TESTS)
+  enable_testing()
+  add_subdirectory(tests)
+endif()

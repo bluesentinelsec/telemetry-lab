@@ -83,6 +83,23 @@ generates `vmlinux.h` from the host BTF, compiles the BPF object, generates the
 libbpf skeleton, and builds the syscall-name table from the host's
 `<asm/unistd_64.h>`.
 
+## Tests
+
+The kernel-independent logic lives in a `tmon_core` static library — syscall-name
+resolution, wire→domain decoding, both formatters, and `--meta` parsing — and is
+covered by a Catch2 unit suite:
+
+```sh
+cmake --build build
+ctest --test-dir build --output-on-failure
+```
+
+The BPF engine (spawn-and-trace, verifier, ring buffer) needs a real kernel and
+root, so it is exercised by running `tmon` on a live host rather than unit-tested.
+CI (`.github/workflows/build-tmon.yml`) builds everything and runs the suite in a
+`debian:trixie` container on every change under `tmon-linux/`. Disable the tests
+in a build with `-DTMON_BUILD_TESTS=OFF`.
+
 ### Dependency strategy
 
 `libbpf` is statically linked (a bare Debian host is unlikely to have it).
