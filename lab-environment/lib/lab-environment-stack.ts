@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import * as iam from 'aws-cdk-lib/aws-iam';
 
 /**
  * Owner account for the official Debian AMIs. Debian publishes AMIs under this
@@ -29,9 +30,11 @@ export interface LabEnvironmentStackProps extends cdk.StackProps {
  * x86_64, in a dedicated minimal VPC. Designed to be deployed and torn down
  * frequently, and to be portable to any account/region with no code edits.
  *
- * Scope of this deliverable is the instance happy path only. The management
- * channel (SSM) and all post-deploy configuration (Windows Defender, toolchains,
- * telemetry dependencies, primitive download) are intentionally deferred.
+ * Access is via AWS Systems Manager (Session Manager / RunCommand): both hosts
+ * carry the SSM core permissions, and Debian installs the SSM agent at boot, so
+ * there are no inbound ports and no SSH keys. Remaining post-deploy
+ * configuration (Windows Defender, toolchains, telemetry dependencies, primitive
+ * download) is still deferred.
  */
 export class LabEnvironmentStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: LabEnvironmentStackProps = {}) {
@@ -75,6 +78,21 @@ export class LabEnvironmentStack extends cdk.Stack {
         encrypted: true,
       });
 
+    // Windows Server ships the SSM agent; the official Debian AMI does not, so
+    // install it at boot from the region's SSM agent bucket (egress is provided
+    // by the public subnet). The region is concrete here because the AMI lookup
+    // below requires an explicit env, so the URL interpolation is safe.
+    const debianUserData = ec2.UserData.forLinux();
+    debianUserData.addCommands(
+      'set -eux',
+      'export DEBIAN_FRONTEND=noninteractive',
+      'apt-get update -y',
+      'apt-get install -y curl',
+      `curl -fsSL -o /tmp/amazon-ssm-agent.deb "https://s3.${this.region}.amazonaws.com/amazon-ssm-${this.region}/latest/debian_amd64/amazon-ssm-agent.deb"`,
+      'dpkg -i /tmp/amazon-ssm-agent.deb',
+      'systemctl enable --now amazon-ssm-agent',
+    );
+
     // Debian 13 (trixie), x86_64 -- matches the debian:trixie container used in
     // CI, so the libc substrate is identical. AMI resolved by owner + name
     // filter (never a hardcoded ID), so it is correct in any region.
@@ -94,6 +112,7 @@ export class LabEnvironmentStack extends cdk.Stack {
       }),
       securityGroup: egressOnlySecurityGroup('DebianSecurityGroup', 'debian-13'),
       blockDevices: [{ deviceName: '/dev/xvda', volume: rootVolume() }],
+      userData: debianUserData,
       requireImdsv2: true,
     });
     cdk.Tags.of(debian).add('Name', 'lab-debian-13');
@@ -113,6 +132,16 @@ export class LabEnvironmentStack extends cdk.Stack {
       requireImdsv2: true,
     });
     cdk.Tags.of(windows).add('Name', 'lab-windows-2025');
+
+    // Grant both hosts the SSM core permissions so Session Manager / RunCommand
+    // work explicitly, rather than relying on the account's Default Host
+    // Management Configuration being enabled. The ec2.Instance construct creates
+    // each host's role, exposed as `.role`.
+    for (const host of [debian, windows]) {
+      host.role.addManagedPolicy(
+        iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore'),
+      );
+    }
 
     new cdk.CfnOutput(this, 'Region', { value: this.region });
     new cdk.CfnOutput(this, 'DebianInstanceId', { value: debian.instanceId });
