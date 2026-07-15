@@ -30,3 +30,9 @@ test('security groups open no inbound ports', () => {
     expect(ingress).toHaveLength(0);
   }
 });
+
+test('both hosts get the SSM managed policy', () => {
+  const json = JSON.stringify(synth().toJSON());
+  const matches = json.match(/AmazonSSMManagedInstanceCore/g) ?? [];
+  expect(matches.length).toBeGreaterThanOrEqual(2);
+});

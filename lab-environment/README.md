@@ -71,13 +71,18 @@ editing code:
 npx cdk deploy -c region=us-east-1 -c instanceType=c7i.2xlarge -c diskGiB=100
 ```
 
+## Access (SSM)
+
+Both hosts are managed via AWS Systems Manager — no inbound ports, no SSH keys.
+Each carries the `AmazonSSMManagedInstanceCore` permissions; Windows Server ships
+the SSM agent, and Debian installs it at boot. Once the instances register
+(`aws ssm describe-instance-information`), run commands with `aws ssm
+send-command` or open a shell with `aws ssm start-session --target <id>`.
+
 ## Scope and deferrals
 
-This deliverable is the **instance happy path** only: both hosts deploy and run.
-Deliberately **not** included yet (deferred until the happy path is settled):
+Still deferred (not part of this app yet):
 
-- **Management channel (SSM Session Manager).** The hosts have no inbound access
-  and no SSH key; the SSM access layer is the next increment.
 - **Post-deploy configuration**: disabling Windows Defender, installing pinned
   toolchains and telemetry dependencies, and downloading pre-built primitives.
 
