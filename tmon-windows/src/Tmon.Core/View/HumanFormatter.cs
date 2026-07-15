@@ -47,8 +47,10 @@ public sealed class HumanFormatter : IEventSink
         switch (e.Kind)
         {
             case EventKind.Syscall:
-                _out.Write(e.Syscall ?? "syscall");
-                _out.WriteLine($"(@0x{e.SyscallAddress:x})");
+                if (e.Syscall is not null)
+                    _out.WriteLine($"{e.Syscall}()");
+                else
+                    _out.WriteLine($"syscall(@0x{e.SyscallAddress:x})");
                 break;
             case EventKind.ProcessStart:
                 _out.WriteLine($"+++ process start (ppid {e.ParentPid}){Quoted(e.Image)} +++");

@@ -30,9 +30,11 @@ are attributed by chaining CPU → running thread (context switches) → process
 
 Platform deltas: `--buffer-mb` sizes the **ETW session buffer** (Linux: the BPF
 ring); `--no-returns` is accepted but a **no-op** (ETW syscall events carry no
-per-call return value); syscalls are reported by handler **address** (name
-resolution is a later increment), and richer named events (`process_start`,
-`process_stop`, `image`, later `file`/`network`) are the Windows decoded signal.
+per-call return value). Syscalls are **resolved to names** (e.g. `NtCreateFile`)
+by mapping the ETW handler address to a routine in the owning kernel module via
+its PDB (fetched from the Microsoft symbol server and cached on disk); the raw
+address is kept in JSON. `--no-decode` turns name/path decoding off. Resolution
+is best-effort: an unresolved syscall falls back to `syscall(@0xADDR)`.
 
 ## Building
 
@@ -56,7 +58,8 @@ tmon --format json -o run.jsonl -- .\primitive.exe
 
 ## Status
 
-v0.1: three-layer scaffold, CLI at parity with tmon-linux, spawn-and-trace,
-tree-scoped process/thread/image capture and syscall attribution, human + JSONL
-output, lost-event accounting. Planned: syscall name resolution via kernel
-symbols, `FileIO`/`TcpIp` decoding (paths, addresses), unit tests + CI.
+Three-layer scaffold, CLI at parity with tmon-linux, spawn-and-trace, tree-scoped
+process/thread/image capture, syscall attribution **with name resolution**, human
++ JSONL output, lost-event accounting, xUnit tests + CI (windows-2025). Planned:
+`FileIO`/`TcpIp` decoding (file paths, network addresses) for the richer named
+event signal.

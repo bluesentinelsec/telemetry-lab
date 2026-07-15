@@ -30,6 +30,7 @@ public sealed class EtwEngine
     private readonly HashSet<int> _pids = new();
 
     private IEventSink _sink = null!;
+    private SyscallResolver _resolver = null!;
     private readonly Summary _summary = new();
     private int _targetPid;
     private bool _targetStartEmitted;
@@ -46,6 +47,14 @@ public sealed class EtwEngine
             Console.Error.WriteLine("tmon: must run elevated (Administrator/SYSTEM) to open a kernel ETW session");
             return -1;
         }
+
+        // Resolve syscall handler addresses to names (tied to --no-decode). Built
+        // before the session starts so the one-time ntoskrnl.pdb download does not
+        // stall the consumer or overflow the buffer.
+        if (_config.Decode)
+            Console.Error.WriteLine("tmon: resolving kernel symbols (first run may download ntoskrnl.pdb)...");
+        using var resolver = new SyscallResolver(_config.Decode);
+        _resolver = resolver;
 
         using var session = new TraceEventSession(KernelTraceEventParser.KernelSessionName);
         if (_config.BufferMb > 0)
@@ -131,6 +140,7 @@ public sealed class EtwEngine
                     Pid = pid,
                     Tid = tid,
                     SyscallAddress = e.SysCallAddress,
+                    Syscall = _resolver.Resolve(e.SysCallAddress),
                 });
             }
         };
