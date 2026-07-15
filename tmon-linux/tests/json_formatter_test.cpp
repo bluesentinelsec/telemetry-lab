@@ -70,6 +70,35 @@ TEST_CASE("a syscall event carries kind, nr, name, and hex args", "[json]") {
   REQUIRE(std::string(cJSON_GetArrayItem(args, 0)->valuestring) == "0xdead");
 }
 
+TEST_CASE("a syscall event carries path, result, ok, and errno", "[json]") {
+  std::ostringstream os;
+  Config c;
+  c.command = {"x"};
+  JsonFormatter f(os, c);
+
+  Event e;
+  e.kind = EventKind::kSyscall;
+  e.syscall_nr = 257;  // openat
+  e.comm = "cat";
+  e.path = "/no/such/file";
+  e.path_argno = 1;
+  e.has_ret = true;
+  e.ret = -1;
+  e.error = 2;  // ENOENT
+  e.has_duration = true;
+  e.duration_ns = 1500;
+  f.Handle(e);
+
+  auto j = Parse(os.str());
+  REQUIRE(j);
+  REQUIRE(Str(j.get(), "path") == "/no/such/file");
+  REQUIRE(cJSON_GetObjectItem(j.get(), "ret")->valueint == -1);
+  REQUIRE(cJSON_IsFalse(cJSON_GetObjectItem(j.get(), "ok")));
+  REQUIRE(Str(j.get(), "error") == "ENOENT");
+  REQUIRE(cJSON_GetObjectItem(j.get(), "errno")->valueint == 2);
+  REQUIRE(cJSON_GetObjectItem(j.get(), "duration_ns")->valueint == 1500);
+}
+
 TEST_CASE("the summary record reports the counts and exit code", "[json]") {
   std::ostringstream os;
   Config c;

@@ -16,7 +16,9 @@ namespace tmon {
 struct Summary {
   std::uint64_t total_events = 0;
   std::uint64_t syscall_events = 0;
-  std::uint32_t processes = 0;  // distinct tgids observed
+  std::uint64_t failed_syscalls = 0;  // syscalls that returned an errno
+  std::uint32_t processes = 0;        // distinct tgids observed
+  std::uint64_t dropped = 0;          // events lost to ring-buffer pressure
   int target_exit_code = 0;
 };
 

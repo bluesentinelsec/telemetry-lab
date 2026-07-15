@@ -90,6 +90,29 @@ TEST_CASE("summary-only suppresses events but End still prints totals",
   REQUIRE(Contains(os.str(), "5 syscalls"));
 }
 
+TEST_CASE("a decoded path, result, and errno render inline", "[human]") {
+  std::ostringstream os;
+  Config c = BasicConfig();
+  HumanFormatter f(os, c);
+
+  Event e;
+  e.kind = EventKind::kSyscall;
+  e.syscall_nr = 257;  // openat
+  e.comm = "cat";
+  e.args = {0xffffff9c, 0, 0, 0, 0, 0};
+  e.path = "/no/such/file";
+  e.path_argno = 1;
+  e.has_ret = true;
+  e.ret = -1;
+  e.error = 2;  // ENOENT
+  f.Handle(e);
+
+  const std::string s = os.str();
+  REQUIRE(Contains(s, "openat("));
+  REQUIRE(Contains(s, "\"/no/such/file\""));  // path substituted, quoted
+  REQUIRE(Contains(s, "= -1 ENOENT(2)"));
+}
+
 TEST_CASE("quiet suppresses the summary line", "[human]") {
   std::ostringstream os;
   Config c = BasicConfig();

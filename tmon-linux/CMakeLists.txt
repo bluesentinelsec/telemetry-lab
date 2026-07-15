@@ -90,7 +90,7 @@ add_custom_command(
   COMMENT "Generating BPF skeleton tmon.skel.h"
   VERBATIM)
 
-# --- Step 4: generate the syscall-number -> name table -----------------------
+# --- Step 4: generate the syscall-number -> name and errno -> name tables -----
 add_custom_command(
   OUTPUT ${GEN_DIR}/syscall_table.generated.h
   COMMAND ${CMAKE_COMMAND} -E env CC=${CMAKE_C_COMPILER}
@@ -100,11 +100,21 @@ add_custom_command(
   COMMENT "Generating syscall name table"
   VERBATIM)
 
+add_custom_command(
+  OUTPUT ${GEN_DIR}/errno_table.generated.h
+  COMMAND ${CMAKE_COMMAND} -E env CC=${CMAKE_C_COMPILER}
+          bash ${CMAKE_SOURCE_DIR}/cmake/gen_errno.sh
+          > ${GEN_DIR}/errno_table.generated.h
+  DEPENDS ${CMAKE_SOURCE_DIR}/cmake/gen_errno.sh
+  COMMENT "Generating errno name table"
+  VERBATIM)
+
 # Two independent codegen groups. tmon_core needs only the syscall table (pure,
 # no kernel), so it must not depend on the BPF skeleton — that keeps the unit
 # tests buildable without bpftool/BTF. The engine needs the skeleton.
 add_custom_target(tmon_syscall_table DEPENDS
-  ${GEN_DIR}/syscall_table.generated.h)
+  ${GEN_DIR}/syscall_table.generated.h
+  ${GEN_DIR}/errno_table.generated.h)
 add_custom_target(tmon_skeleton DEPENDS
   ${GEN_DIR}/tmon.skel.h)
 
@@ -114,6 +124,7 @@ add_custom_target(tmon_skeleton DEPENDS
 # spawning. Both the executable and the test binary link it.
 add_library(tmon_core STATIC
   src/core/syscall_names.cpp
+  src/core/errno_names.cpp
   src/core/event_decode.cpp
   src/core/meta_parse.cpp
   src/view/human_formatter.cpp

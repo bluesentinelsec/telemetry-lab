@@ -26,9 +26,14 @@ struct Config {
   // Output destination. Empty means stdout.
   std::string output_file;
 
-  // Resolve pointer/flag arguments into readable strings (opt-in). Raw scalar
-  // args are always emitted regardless.
-  bool decode = false;
+  // Decode pointer arguments (paths, sockaddrs) by reading target memory. On by
+  // default: passive kernel-side reads do not change the target's behavior. Raw
+  // scalar args are always emitted regardless. Cleared by --no-decode.
+  bool decode = true;
+
+  // Capture syscall return values and errno by hooking sys_exit. On by default
+  // (passive). Cleared by --no-returns.
+  bool capture_returns = true;
 
   // Follow fork/exec descendants of the target. On by default (--no-follow).
   bool follow = true;
@@ -41,6 +46,10 @@ struct Config {
 
   // Stop after this many syscall events (0 = unlimited).
   std::uint64_t max_events = 0;
+
+  // Ring-buffer size in MiB (0 = use the built-in default). Raise it for very
+  // high-syscall-rate workloads if the run reports dropped events.
+  unsigned buffer_mb = 0;
 
   // Free-form metadata to stamp onto machine-readable output (--meta k=v).
   std::map<std::string, std::string> meta;

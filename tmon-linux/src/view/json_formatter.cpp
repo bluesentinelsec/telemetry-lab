@@ -5,19 +5,17 @@
 #include <cstdio>
 #include <memory>
 
+#include "core/errno_names.hpp"
 #include "core/syscall_names.hpp"
 
 namespace tmon {
 namespace {
 
-// RAII for a cJSON tree we own and must free.
 struct CjsonDeleter {
   void operator()(cJSON* p) const { cJSON_Delete(p); }
 };
 using CjsonPtr = std::unique_ptr<cJSON, CjsonDeleter>;
 
-// Serialize `obj` compactly and write it as one line. Consumes nothing; caller
-// still owns `obj`.
 void PrintLine(std::ostream& out, cJSON* obj) {
   char* text = cJSON_PrintUnformatted(obj);
   if (text) {
@@ -71,14 +69,37 @@ void JsonFormatter::Handle(const Event& event) {
                               static_cast<double>(event.syscall_nr));
       const char* name = SyscallName(event.syscall_nr);
       if (name) cJSON_AddStringToObject(root.get(), "syscall", name);
+
       cJSON* args = cJSON_AddArrayToObject(root.get(), "args");
       for (int i = 0; i < kSyscallArgs; i++) {
-        // Emit as hex strings so full 64-bit values survive JSON's double.
+        // Hex strings so full 64-bit values survive JSON's double.
         char buf[20];
         std::snprintf(buf, sizeof(buf), "0x%llx",
                       static_cast<unsigned long long>(event.args[i]));
         cJSON_AddItemToArray(args, cJSON_CreateString(buf));
       }
+      if (!event.path.empty()) {
+        cJSON_AddStringToObject(root.get(), "path", event.path.c_str());
+        cJSON_AddNumberToObject(root.get(), "path_argno", event.path_argno);
+      }
+      if (!event.sockaddr.empty()) {
+        cJSON_AddStringToObject(root.get(), "sockaddr", event.sockaddr.c_str());
+        cJSON_AddNumberToObject(root.get(), "sockaddr_argno",
+                                event.sockaddr_argno);
+      }
+      if (event.has_ret) {
+        cJSON_AddNumberToObject(root.get(), "ret",
+                                static_cast<double>(event.ret));
+        cJSON_AddBoolToObject(root.get(), "ok", event.error == 0);
+        if (event.error != 0) {
+          const char* en = ErrnoName(event.error);
+          if (en) cJSON_AddStringToObject(root.get(), "error", en);
+          cJSON_AddNumberToObject(root.get(), "errno", event.error);
+        }
+      }
+      if (event.has_duration)
+        cJSON_AddNumberToObject(root.get(), "duration_ns",
+                                static_cast<double>(event.duration_ns));
       break;
     }
     case EventKind::kFork:
@@ -88,6 +109,8 @@ void JsonFormatter::Handle(const Event& event) {
       cJSON_AddNumberToObject(root.get(), "exit_code", event.exit_code);
       break;
     case EventKind::kExec:
+      if (!event.path.empty())
+        cJSON_AddStringToObject(root.get(), "path", event.path.c_str());
       break;
   }
   PrintLine(out_, root.get());
@@ -98,9 +121,13 @@ void JsonFormatter::End(const Summary& summary) {
   cJSON_AddStringToObject(root.get(), "record", "summary");
   cJSON_AddNumberToObject(root.get(), "syscall_events",
                           static_cast<double>(summary.syscall_events));
+  cJSON_AddNumberToObject(root.get(), "failed_syscalls",
+                          static_cast<double>(summary.failed_syscalls));
   cJSON_AddNumberToObject(root.get(), "total_events",
                           static_cast<double>(summary.total_events));
   cJSON_AddNumberToObject(root.get(), "processes", summary.processes);
+  cJSON_AddNumberToObject(root.get(), "dropped",
+                          static_cast<double>(summary.dropped));
   cJSON_AddNumberToObject(root.get(), "target_exit_code",
                           summary.target_exit_code);
   PrintLine(out_, root.get());

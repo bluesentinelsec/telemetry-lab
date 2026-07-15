@@ -33,9 +33,13 @@ int main(int argc, char** argv) {
   app.add_option("-o,--output", output_file,
                  "Write output to FILE instead of stdout");
 
-  bool decode = false;
-  app.add_flag("--decode", decode,
-               "Resolve pointer/flag arguments (raw args always emitted)");
+  bool no_decode = false;
+  app.add_flag("--no-decode", no_decode,
+               "Do not decode pointer args (paths, sockaddrs); on by default");
+
+  bool no_returns = false;
+  app.add_flag("--no-returns", no_returns,
+               "Do not capture syscall return values (skip sys_exit)");
 
   bool no_follow = false;
   app.add_flag("--no-follow", no_follow,
@@ -51,6 +55,10 @@ int main(int argc, char** argv) {
   std::uint64_t max_events = 0;
   app.add_option("-n,--max-events", max_events,
                  "Stop after N syscall events (0 = unlimited)");
+
+  unsigned buffer_mb = 0;
+  app.add_option("--buffer-mb", buffer_mb,
+                 "Ring-buffer size in MiB (default 64); raise if events drop");
 
   std::vector<std::string> meta_kv;
   app.add_option("--meta", meta_kv,
@@ -71,11 +79,13 @@ int main(int argc, char** argv) {
   config.command = std::move(command);
   config.format = (format == "json") ? tmon::Format::kJson : tmon::Format::kHuman;
   config.output_file = output_file;
-  config.decode = decode;
+  config.decode = !no_decode;
+  config.capture_returns = !no_returns;
   config.follow = !no_follow;
   config.summary_only = summary_only;
   config.quiet = quiet;
   config.max_events = max_events;
+  config.buffer_mb = buffer_mb;
   for (const auto& kv : meta_kv) {
     auto parsed = tmon::ParseMetaArg(kv);
     if (!parsed) {

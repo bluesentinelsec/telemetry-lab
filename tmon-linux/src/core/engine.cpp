@@ -6,10 +6,12 @@
 #include <unistd.h>
 
 #include <cerrno>
+#include <cstddef>
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
 #include <set>
+#include <unordered_map>
 #include <vector>
 
 #include "bpf/tmon_event.h"
@@ -20,36 +22,98 @@
 namespace tmon {
 namespace {
 
-// State threaded through the libbpf ring-buffer callback. Holds the sink, the
-// counters, and enough config to know when to stop.
+// State threaded through the libbpf ring-buffer callback.
 struct PumpState {
   EventSink* sink = nullptr;
   Summary summary;
   std::set<std::uint32_t> pids;  // distinct tgids, for the process count
+  // Per-thread stack of enter events awaiting their matching exit. LIFO handles
+  // syscalls interrupted/restarted within a thread.
+  std::unordered_map<std::uint32_t, std::vector<Event>> pending;
   std::uint64_t max_events = 0;  // 0 = unlimited
-  bool stop = false;             // set once we hit max_events
+  bool capture_returns = true;
+  bool stop = false;
 };
+
+void Emit(PumpState* st, const Event& e) {
+  st->summary.total_events++;
+  if (e.kind == EventKind::kSyscall) {
+    st->summary.syscall_events++;
+    if (e.error != 0) st->summary.failed_syscalls++;
+  }
+  st->pids.insert(e.pid);
+  st->sink->Handle(e);
+  if (st->max_events != 0 && st->summary.syscall_events >= st->max_events)
+    st->stop = true;
+}
 
 int HandleRingEvent(void* ctx, void* data, std::size_t size) {
   auto* st = static_cast<PumpState*>(ctx);
-  if (size < sizeof(tmon_event)) return 0;
-  const auto* w = static_cast<const tmon_event*>(data);
+  // Records are variable-length: the trailing path buffer is truncated to the
+  // bytes actually present, so a record is usually shorter than the full struct.
+  // Require at least the fixed header, then copy into a zero-padded struct so the
+  // path read is NUL-terminated and never runs past the received bytes.
+  constexpr std::size_t kHeader = offsetof(tmon_event, str);
+  if (size < kHeader) return 0;
+  tmon_event wbuf{};
+  std::memcpy(&wbuf, data, size < sizeof(wbuf) ? size : sizeof(wbuf));
+  const tmon_event* w = &wbuf;
 
-  Event e = DecodeEvent(*w);
-  st->summary.total_events++;
-  if (e.kind == EventKind::kSyscall) st->summary.syscall_events++;
-  st->pids.insert(e.pid);
-  st->sink->Handle(e);
-
-  if (st->max_events != 0 && st->summary.syscall_events >= st->max_events) {
-    st->stop = true;
-    return 1;  // ask the ring buffer to stop consuming this batch
+  switch (w->kind) {
+    case TMON_SYS_ENTER: {
+      Event e = DecodeEvent(*w);
+      if (st->capture_returns)
+        st->pending[w->tid].push_back(std::move(e));  // await the exit
+      else
+        Emit(st, e);  // no exit records will come; emit now
+      break;
+    }
+    case TMON_SYS_EXIT: {
+      Event ex = DecodeEvent(*w);
+      auto it = st->pending.find(w->tid);
+      if (it != st->pending.end() && !it->second.empty()) {
+        Event e = std::move(it->second.back());
+        it->second.pop_back();
+        e.has_ret = true;
+        e.ret = ex.ret;
+        e.error = ex.error;
+        e.has_duration = true;
+        e.duration_ns = ex.ts_ns - e.ts_ns;
+        // Pointer arguments are decoded on the exit record; carry them over.
+        if (!ex.path.empty()) {
+          e.path = std::move(ex.path);
+          e.path_argno = ex.path_argno;
+        }
+        if (!ex.sockaddr.empty()) {
+          e.sockaddr = std::move(ex.sockaddr);
+          e.sockaddr_argno = ex.sockaddr_argno;
+        }
+        Emit(st, e);
+      } else {
+        Emit(st, ex);  // exit with no matching enter (rare)
+      }
+      break;
+    }
+    case TMON_FORK:
+    case TMON_EXEC:
+      Emit(st, DecodeEvent(*w));
+      break;
+    case TMON_EXIT: {
+      // Flush enters that will never see an exit (exit_group, etc.).
+      auto it = st->pending.find(w->tid);
+      if (it != st->pending.end()) {
+        for (const auto& pe : it->second) Emit(st, pe);
+        st->pending.erase(it);
+      }
+      Emit(st, DecodeEvent(*w));
+      break;
+    }
+    default:
+      break;
   }
-  return 0;
+  return st->stop ? 1 : 0;
 }
 
-// libbpf emits verbose info/debug chatter by default; keep only warnings so
-// tmon's own output stays clean.
 int QuietLibbpf(libbpf_print_level level, const char* fmt, va_list args) {
   if (level == LIBBPF_WARN) return vfprintf(stderr, fmt, args);
   return 0;
@@ -71,6 +135,17 @@ int Engine::Run(EventSink& sink) {
     return -1;
   }
   skel->rodata->follow_children = config_.follow ? 1 : 0;
+  skel->rodata->decode_args = config_.decode ? 1 : 0;
+  skel->rodata->capture_returns = config_.capture_returns ? 1 : 0;
+
+  // Optionally resize the ring buffer before load. Ring buffers must be a
+  // power-of-two multiple of the page size, so round the requested MiB up.
+  if (config_.buffer_mb > 0) {
+    std::uint32_t bytes = config_.buffer_mb * 1024u * 1024u;
+    std::uint32_t pow2 = 1u << 20;  // 1 MiB floor
+    while (pow2 < bytes) pow2 <<= 1;
+    bpf_map__set_max_entries(skel->maps.events, pow2);
+  }
 
   if (tmon_bpf__load(skel)) {
     fprintf(stderr, "tmon: failed to load BPF program (need CAP_BPF/root?)\n");
@@ -86,6 +161,7 @@ int Engine::Run(EventSink& sink) {
   PumpState st;
   st.sink = &sink;
   st.max_events = config_.max_events;
+  st.capture_returns = config_.capture_returns;
 
   ring_buffer* rb =
       ring_buffer__new(bpf_map__fd(skel->maps.events), HandleRingEvent, &st,
@@ -107,8 +183,6 @@ int Engine::Run(EventSink& sink) {
   }
 
   if (child == 0) {
-    // Child: stop ourselves, then exec once the parent releases us. From the
-    // parent's SIGCONT onward every syscall (including this execvp) is ours.
     raise(SIGSTOP);
     std::vector<char*> argv;
     argv.reserve(config_.command.size() + 1);
@@ -116,13 +190,10 @@ int Engine::Run(EventSink& sink) {
       argv.push_back(const_cast<char*>(s.c_str()));
     argv.push_back(nullptr);
     execvp(argv[0], argv.data());
-    // Only reached if exec failed.
     fprintf(stderr, "tmon: exec %s: %s\n", argv[0], strerror(errno));
     _exit(127);
   }
 
-  // Parent: wait for the child to reach its self-inflicted stop, then seed the
-  // traced map with its tgid so the tree is followed from birth.
   int wstatus = 0;
   if (waitpid(child, &wstatus, WUNTRACED) < 0) {
     fprintf(stderr, "tmon: waitpid failed: %s\n", strerror(errno));
@@ -145,8 +216,6 @@ int Engine::Run(EventSink& sink) {
   sink.Begin();
   kill(child, SIGCONT);
 
-  // Pump events until the target exits, then drain whatever is left. We poll
-  // with a short timeout so we notice the child's exit promptly.
   bool child_gone = false;
   while (!st.stop) {
     int n = ring_buffer__poll(rb, 100 /* ms */);
@@ -160,8 +229,7 @@ int Engine::Run(EventSink& sink) {
         child_gone = true;
       }
     } else if (n == 0) {
-      // Child is gone and the last poll drained nothing: capture is complete.
-      break;
+      break;  // child gone and nothing left to drain
     }
   }
 
@@ -170,7 +238,12 @@ int Engine::Run(EventSink& sink) {
     waitpid(child, &wstatus, 0);
   }
 
+  // Emit any enters still pending (their thread never reported an exit).
+  for (auto& kv : st.pending)
+    for (const auto& pe : kv.second) Emit(&st, pe);
+
   st.summary.processes = static_cast<std::uint32_t>(st.pids.size());
+  st.summary.dropped = skel->bss->dropped_events;
   sink.End(st.summary);
 
   ring_buffer__free(rb);
