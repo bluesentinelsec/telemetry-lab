@@ -50,12 +50,37 @@ dotnet build monitor.csproj -c Release
 dotnet publish monitor.csproj -c Release -r win-x64 --self-contained
 ```
 
+## Syscall visibility (proven)
+
+Syscalls are the primary data source, and they are visible and attributable:
+
+```
+=== SYSCALL VISIBILITY ===
+total syscalls observed (all processes):   14781
+syscalls attributed to the target tree:    2545
+distinct syscall handler addresses (tree): 101
+  pid=2336 syscalls=1164     # cmd.exe
+  pid=4320 syscalls=1381     # whoami.exe (descendant)
+```
+
+The catch: ETW `PerfInfo` SysCall events carry **only a `ProcessorNumber`** — no
+pid or tid. Attribution therefore chains three kernel event streams:
+
+1. **SystemCall** — the syscall fired, on CPU N (plus its handler address).
+2. **ContextSwitch** — which thread is currently scheduled on CPU N.
+3. **Thread** (start + DCStart rundown) — which process that thread belongs to.
+
+So: `syscall.CPU -> running thread -> process -> is it in the traced tree?`.
+This is the load-bearing design fact for the Windows monitor.
+
 ## Scope / caveats (for the production design)
 
-- Captures process lifecycle + image (DLL) loads. Other families (file, network)
-  attach the same way via the kernel provider keywords.
-- **Syscall-level** events on Windows are the deeper follow-up: they need a
-  suitable provider (syscall/PerfInfo or Threat-Intelligence) and thread->process
-  attribution; not covered here.
-- Consumer-side PID filtering means the session sees all events and drops
-  non-tree ones; fine here, but high-volume families may need buffering care.
+- **Syscall names**: the events give the handler **address**, not a name.
+  Production must resolve addresses against the kernel syscall table
+  (`ntoskrnl` symbols / SSDT) to name them (e.g. `NtCreateFile`).
+- Also captures process lifecycle + image (DLL) loads; file/network families
+  attach the same way via kernel keywords.
+- Requires the `ContextSwitch` keyword (high volume) for syscall attribution;
+  under sustained load the real-time session may drop events -- size buffers
+  accordingly, or accept sampled counts.
+- Consumer-side filtering: the session sees all events and drops non-tree ones.
