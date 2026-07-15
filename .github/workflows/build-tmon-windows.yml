@@ -1,0 +1,38 @@
+name: Build tmon (Windows)
+
+# Build the Windows telemetry monitor and run its unit tests on the windows-2025
+# runner (matching the OS the tool targets). The suite covers the parts under our
+# control -- argument parsing, the human/JSON formatters, and command-line
+# building. The ETW engine needs a real kernel session and elevation, so it is
+# exercised by running tmon on the lab host, not here.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tmon-windows/**'
+      - '.github/workflows/build-tmon-windows.yml'
+  pull_request:
+    paths:
+      - 'tmon-windows/**'
+      - '.github/workflows/build-tmon-windows.yml'
+
+jobs:
+  windows:
+    name: Build + unit tests (Windows Server 2025)
+    runs-on: windows-2025
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Build (Release)
+        working-directory: tmon-windows
+        run: dotnet build src/Tmon/Tmon.csproj -c Release
+
+      - name: Test
+        working-directory: tmon-windows
+        run: dotnet test tests/Tmon.Tests/Tmon.Tests.csproj -c Release --verbosity normal

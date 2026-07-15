@@ -14,4 +14,8 @@
     <PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.1.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Tmon.Tests" />
+  </ItemGroup>
+
 </Project>
