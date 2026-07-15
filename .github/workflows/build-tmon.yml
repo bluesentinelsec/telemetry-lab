@@ -1,0 +1,52 @@
+name: Build tmon (Linux)
+
+# Build the Linux telemetry monitor and run its unit tests. Runs in the
+# debian:trixie container so the build substrate matches the lab hosts (same as
+# the primitive build workflows). The suite covers tmon_core -- the
+# kernel-independent logic (syscall-name resolution, wire->domain decoding, the
+# human/JSON formatters, --meta parsing). The BPF engine itself needs a real
+# kernel and root, so it is exercised by running tmon on the lab hosts, not here.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tmon-linux/**'
+      - '.github/workflows/build-tmon.yml'
+  pull_request:
+    paths:
+      - 'tmon-linux/**'
+      - '.github/workflows/build-tmon.yml'
+
+jobs:
+  linux:
+    name: Build + unit tests (Debian 13)
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+
+    steps:
+      - uses: actions/checkout@v7
+
+      # clang/bpftool/libbpf compile the BPF object and generate the skeleton;
+      # libelf/zlib are libbpf's link deps; cmake/ninja/git drive the build and
+      # fetch CLI11, cJSON, and Catch2. bpftool reads the runner kernel's BTF,
+      # which is exposed to the container at /sys/kernel/btf/vmlinux.
+      - name: Install build dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            clang llvm bpftool libbpf-dev libelf-dev zlib1g-dev \
+            cmake ninja-build git ca-certificates pkg-config
+
+      - name: Configure (CMake)
+        working-directory: tmon-linux
+        run: cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        working-directory: tmon-linux
+        run: cmake --build build
+
+      - name: Test
+        working-directory: tmon-linux
+        run: ctest --test-dir build --output-on-failure
