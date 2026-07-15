@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>tmon</AssemblyName>
+    <RootNamespace>Tmon.Cli</RootNamespace>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <Version>0.1.0</Version>
+    <SupportedOSPlatform>windows</SupportedOSPlatform>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Tmon.Core/Tmon.Core.csproj" />
+  </ItemGroup>
+
+</Project>
