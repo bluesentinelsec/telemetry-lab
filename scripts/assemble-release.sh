@@ -55,7 +55,8 @@ assemble() {
     mkdir -p "$dst"
     find "$COMP/$cfg" -type f \
       \( -name empty -o -name file_io -o -name spawn \
-         -o -name empty.exe -o -name file_io.exe -o -name spawn.exe \) \
+         -o -name empty.exe -o -name file_io.exe -o -name spawn.exe \
+         -o -name '*.dll' \) \
       -exec cp {} "$dst/" \;
     if [ "$os" = linux ]; then chmod +x "$dst"/* 2>/dev/null || true; fi
     find "$COMP/$cfg" -name 'substrate-*.json' -exec cp {} "$root/substrate/" \; 2>/dev/null || true

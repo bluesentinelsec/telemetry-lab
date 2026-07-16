@@ -133,6 +133,21 @@ jobs:
             --json substrate-${{ matrix.config }}.json `
             dist/${{ matrix.config }}
 
+      # Ship the C++ runtime DLLs beside the exe, the standard Windows way: the
+      # loader searches the executable's own directory first, so the primitives
+      # run on a stock Windows host with no runtime install. ldd lists the full
+      # transitive dependency set; we keep only the MSYS2/UCRT64 libraries (the
+      # rest are Windows system DLLs that are always present). This is the
+      # dynamically-linked stdlib under study -- we bundle it, not static-link.
+      - name: Bundle runtime DLLs
+        working-directory: ttp-primitives/cpp
+        run: |
+          distdir="../../dist/${{ matrix.config }}"
+          for exe in "$distdir"/*.exe; do ldd "$exe"; done \
+            | awk '$3 ~ /\/ucrt64\//{print $3}' | sort -u \
+            | while read -r dll; do cp -v "$dll" "$distdir/"; done
+          echo "bundle contents:"; ls -l "$distdir"
+
       - name: Upload verified primitives
         uses: actions/upload-artifact@v7
         with:
