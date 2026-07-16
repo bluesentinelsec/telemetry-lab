@@ -3,6 +3,7 @@
 #include <cinttypes>
 #include <cstdio>
 
+#include "core/arg_decode.hpp"
 #include "core/errno_names.hpp"
 #include "core/syscall_names.hpp"
 
@@ -40,29 +41,46 @@ void HumanFormatter::Handle(const Event& event) {
       else
         out_ << "syscall_" << event.syscall_nr;
 
-      // Arguments: substitute the decoded path/sockaddr at their index, hex else.
+      // Arguments: only the syscall's real arity (the kernel captures all six
+      // registers, but the rest are stale). Substitute decoded path/sockaddr at
+      // their index; decode known flag/mode args; hex otherwise.
+      int arity = SyscallArity(event.syscall_nr);
+      int count = (arity >= 0 && arity <= kSyscallArgs) ? arity : kSyscallArgs;
       out_ << '(';
-      for (int i = 0; i < kSyscallArgs; i++) {
+      for (int i = 0; i < count; i++) {
         if (i) out_ << ", ";
         if (i == event.path_argno && !event.path.empty()) {
           out_ << '"' << event.path << '"';
         } else if (i == event.sockaddr_argno && !event.sockaddr.empty()) {
           out_ << event.sockaddr;
         } else {
-          char buf[20];
-          std::snprintf(buf, sizeof(buf), "0x%llx",
-                        static_cast<unsigned long long>(event.args[i]));
-          out_ << buf;
+          std::string decoded = DecodeArg(event.syscall_nr, i, event.args[i]);
+          if (!decoded.empty()) {
+            out_ << decoded;
+          } else {
+            char buf[20];
+            std::snprintf(buf, sizeof(buf), "0x%llx",
+                          static_cast<unsigned long long>(event.args[i]));
+            out_ << buf;
+          }
         }
       }
       out_ << ')';
 
-      // Result: " = <ret>" and the errno symbol on failure.
+      // Result: " = <ret>", errno symbol on failure, hex for address returns.
       if (event.has_ret) {
-        out_ << " = " << event.ret;
+        out_ << " = ";
         if (event.error != 0) {
           const char* en = ErrnoName(event.error);
-          out_ << ' ' << (en ? en : "errno") << '(' << event.error << ')';
+          out_ << event.ret << ' ' << (en ? en : "errno") << '(' << event.error
+               << ')';
+        } else if (SyscallReturnsPointer(event.syscall_nr)) {
+          char buf[20];
+          std::snprintf(buf, sizeof(buf), "0x%llx",
+                        static_cast<unsigned long long>(event.ret));
+          out_ << buf;
+        } else {
+          out_ << event.ret;
         }
       }
       // Duration, strace -T style.

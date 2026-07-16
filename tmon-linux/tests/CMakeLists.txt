@@ -6,6 +6,7 @@ include(Catch)
 add_executable(tmon-tests
   syscall_names_test.cpp
   errno_names_test.cpp
+  arg_decode_test.cpp
   event_decode_test.cpp
   meta_parse_test.cpp
   human_formatter_test.cpp

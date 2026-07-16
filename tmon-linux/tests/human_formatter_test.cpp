@@ -90,6 +90,53 @@ TEST_CASE("summary-only suppresses events but End still prints totals",
   REQUIRE(Contains(os.str(), "5 syscalls"));
 }
 
+TEST_CASE("only the real arity of arguments is printed", "[human]") {
+  std::ostringstream os;
+  Config c = BasicConfig();
+  HumanFormatter f(os, c);
+
+  Event e;
+  e.kind = EventKind::kSyscall;
+  e.syscall_nr = 3;  // close, arity 1
+  e.args = {0x3, 0xdead, 0xbeef, 0, 0, 0};
+  f.Handle(e);
+
+  const std::string s = os.str();
+  REQUIRE(Contains(s, "close(0x3)"));
+  REQUIRE_FALSE(Contains(s, "dead"));  // stale registers are not shown
+}
+
+TEST_CASE("address-returning syscalls print their result in hex", "[human]") {
+  std::ostringstream os;
+  Config c = BasicConfig();
+  HumanFormatter f(os, c);
+
+  Event e;
+  e.kind = EventKind::kSyscall;
+  e.syscall_nr = 9;  // mmap
+  e.has_ret = true;
+  e.ret = 0x7f1234560000;
+  f.Handle(e);
+
+  REQUIRE(Contains(os.str(), "= 0x7f1234560000"));
+}
+
+TEST_CASE("flag arguments are decoded symbolically", "[human]") {
+  std::ostringstream os;
+  Config c = BasicConfig();
+  HumanFormatter f(os, c);
+
+  Event e;
+  e.kind = EventKind::kSyscall;
+  e.syscall_nr = 257;  // openat
+  e.args = {0xffffff9c, 0, 0x241, 0, 0, 0};
+  e.path = "/tmp/x";
+  e.path_argno = 1;
+  f.Handle(e);
+
+  REQUIRE(Contains(os.str(), "O_WRONLY|O_CREAT|O_TRUNC"));
+}
+
 TEST_CASE("a decoded path, result, and errno render inline", "[human]") {
   std::ostringstream os;
   Config c = BasicConfig();

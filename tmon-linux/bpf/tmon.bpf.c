@@ -104,15 +104,43 @@ static __always_inline int path_arg_index(long nr)
 	case 4:   /* stat */
 	case 6:   /* lstat */
 	case 21:  /* access */
+	case 76:  /* truncate */
+	case 80:  /* chdir */
+	case 82:  /* rename (oldpath) */
+	case 83:  /* mkdir */
+	case 84:  /* rmdir */
+	case 86:  /* link (oldpath) */
 	case 87:  /* unlink */
+	case 88:  /* symlink (target) */
 	case 89:  /* readlink */
 	case 90:  /* chmod */
+	case 92:  /* chown */
+	case 94:  /* lchown */
 	case 133: /* mknod */
+	case 137: /* statfs */
+	case 161: /* chroot */
+	case 188: /* setxattr */
+	case 189: /* lsetxattr */
+	case 191: /* getxattr */
+	case 192: /* lgetxattr */
+	case 197: /* removexattr */
 		return 0;
 	case 257: /* openat */
+	case 258: /* mkdirat */
+	case 259: /* mknodat */
+	case 260: /* fchownat */
 	case 262: /* newfstatat */
 	case 263: /* unlinkat */
+	case 264: /* renameat (oldpath) */
+	case 265: /* linkat (oldpath) */
+	case 267: /* readlinkat */
+	case 268: /* fchmodat */
+	case 269: /* faccessat */
+	case 316: /* renameat2 (oldpath) */
+	case 322: /* execveat */
 	case 332: /* statx */
+	case 437: /* openat2 */
+	case 439: /* faccessat2 */
 		return 1;
 	default:
 		return -1;

@@ -70,6 +70,25 @@ TEST_CASE("a syscall event carries kind, nr, name, and hex args", "[json]") {
   REQUIRE(std::string(cJSON_GetArrayItem(args, 0)->valuestring) == "0xdead");
 }
 
+TEST_CASE("the args array is limited to the syscall arity", "[json]") {
+  std::ostringstream os;
+  Config c;
+  c.command = {"x"};
+  JsonFormatter f(os, c);
+
+  Event e;
+  e.kind = EventKind::kSyscall;
+  e.syscall_nr = 3;  // close, arity 1
+  e.args = {0x3, 0xdead, 0xbeef, 0, 0, 0};
+  f.Handle(e);
+
+  auto j = Parse(os.str());
+  REQUIRE(j);
+  cJSON* args = cJSON_GetObjectItem(j.get(), "args");
+  REQUIRE(cJSON_GetArraySize(args) == 1);
+  REQUIRE(std::string(cJSON_GetArrayItem(args, 0)->valuestring) == "0x3");
+}
+
 TEST_CASE("a syscall event carries path, result, ok, and errno", "[json]") {
   std::ostringstream os;
   Config c;

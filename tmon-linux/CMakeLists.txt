@@ -125,6 +125,7 @@ add_custom_target(tmon_skeleton DEPENDS
 add_library(tmon_core STATIC
   src/core/syscall_names.cpp
   src/core/errno_names.cpp
+  src/core/arg_decode.cpp
   src/core/event_decode.cpp
   src/core/meta_parse.cpp
   src/view/human_formatter.cpp
