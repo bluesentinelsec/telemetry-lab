@@ -1,0 +1,74 @@
+name: Release
+
+# Assemble the per-OS release bundles and publish a GitHub Release. Reuses the
+# CI-verified component builds: it downloads the latest green main-branch
+# artifacts of the primitive and tool workflows, then packages them into
+# telemetry-lab-<version>-linux.tar.gz and -windows.zip.
+#
+# Trigger by tagging (v0.1.0, ...) or manually via the Actions tab. Builds live
+# in CI, so ensure the primitive and tool workflows are green on main first.
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version, e.g. 0.1.0'
+        required: true
+
+permissions:
+  contents: write   # create the release
+  actions: read     # download artifacts from other workflow runs
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Resolve version
+        id: v
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            v="${{ github.event.inputs.version }}"
+          else
+            t="${GITHUB_REF#refs/tags/}"; v="${t#v}"
+          fi
+          echo "version=$v"    >> "$GITHUB_OUTPUT"
+          echo "tag=v$v"       >> "$GITHUB_OUTPUT"
+
+      - name: Download component artifacts (latest green main runs)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p components
+          for wf in build-c build-cpp build-go build-rust build-tmon build-tmon-windows build-tap; do
+            rid=$(gh run list --workflow "$wf.yml" --branch main --status success \
+                    --limit 1 --json databaseId -q '.[0].databaseId')
+            [ -n "$rid" ] || { echo "::error::no green main run for $wf.yml"; exit 1; }
+            echo "== $wf.yml -> run $rid =="
+            gh run download "$rid" -D components/
+          done
+          echo "components:"; ls components
+
+      - name: Assemble archives
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+        run: |
+          BUILD_TIME="$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            bash scripts/assemble-release.sh "${{ steps.v.outputs.version }}" components out
+          ls -la out/*.tar.gz out/*.zip
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          V="${{ steps.v.outputs.version }}"
+          gh release create "${{ steps.v.outputs.tag }}" \
+            "out/telemetry-lab-${V}-linux.tar.gz" \
+            "out/telemetry-lab-${V}-windows.zip" \
+            --target "${{ github.sha }}" \
+            --title "telemetry-lab ${V}" \
+            --latest \
+            --notes "Development release. Pre-compiled tmon, tap, and the TTP primitives (empty, file_io, spawn) across all 14 toolchain/runtime configs. Linux bundle is a .tar.gz; Windows bundle is a .zip. See the bundled README.txt for usage."

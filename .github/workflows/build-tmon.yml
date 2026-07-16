@@ -50,3 +50,13 @@ jobs:
       - name: Test
         working-directory: tmon-linux
         run: ctest --test-dir build --output-on-failure
+
+      # Publish the built binary so the release workflow can bundle it. tmon
+      # links libbpf statically; glibc/libelf1/zlib1g/libzstd1 are present on the
+      # Debian lab host.
+      - name: Upload tmon binary
+        uses: actions/upload-artifact@v7
+        with:
+          name: tmon-linux
+          path: tmon-linux/build/tmon
+          if-no-files-found: error
