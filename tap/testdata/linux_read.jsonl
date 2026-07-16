@@ -1,0 +1,11 @@
+{"record":"meta","tool":"tmon","command":["/bin/cat","/etc/hostname"],"meta":{"os":"linux","language":"c","compiler":"gcc","runtime":"glibc","primitive":"read_file","iteration":"1","host":"deb-01"}}
+{"record":"event","kind":"syscall","ts_ns":1000,"pid":100,"tid":100,"comm":"cat","nr":59,"syscall":"execve","args":["0x1","0x2"],"ret":0,"ok":true,"duration_ns":500}
+{"record":"event","kind":"syscall","ts_ns":2000,"pid":100,"tid":100,"comm":"cat","nr":257,"syscall":"openat","args":["0xffffff9c","0x1","0x80000","0x0"],"path":"/lib/x86_64-linux-gnu/libc.so.6","path_argno":1,"ret":3,"ok":true,"duration_ns":10}
+{"record":"event","kind":"syscall","ts_ns":3000,"pid":100,"tid":100,"comm":"cat","nr":257,"syscall":"openat","args":["0xffffff9c","0x1","0x0","0x0"],"path":"/etc/hostname","path_argno":1,"ret":3,"ok":true,"duration_ns":8}
+{"record":"event","kind":"syscall","ts_ns":4000,"pid":100,"tid":100,"comm":"cat","nr":257,"syscall":"openat","args":["0xffffff9c","0x1","0x0","0x0"],"path":"/no/such/file","path_argno":1,"ret":-2,"ok":false,"error":"ENOENT","errno":2,"duration_ns":6}
+{"record":"event","kind":"syscall","ts_ns":5000,"pid":100,"tid":100,"comm":"cat","nr":42,"syscall":"connect","args":["0x3","0x1","0x10"],"sockaddr":"127.0.0.1:9999","sockaddr_argno":1,"ret":-111,"ok":false,"error":"ECONNREFUSED","errno":111,"duration_ns":40}
+{"record":"event","kind":"syscall","ts_ns":6000,"pid":100,"tid":100,"comm":"cat","nr":0,"syscall":"read","args":["0x3","0x1","0x1000"],"ret":10,"ok":true,"duration_ns":3}
+{"record":"event","kind":"fork","ts_ns":9000,"pid":100,"tid":100,"comm":"cat","child_pid":200}
+{"record":"event","kind":"exec","ts_ns":9500,"pid":200,"tid":200,"comm":"echo"}
+{"record":"event","kind":"exit","ts_ns":10000,"pid":100,"tid":100,"comm":"cat","exit_code":0}
+{"record":"summary","syscall_events":6,"failed_syscalls":2,"total_events":9,"processes":2,"dropped":0,"target_exit_code":0}
