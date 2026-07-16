@@ -64,7 +64,9 @@ jobs:
         run: |
           cargo build --release --target ${{ matrix.target }}
           mkdir -p ../../dist/${{ matrix.config }}
-          cp target/${{ matrix.target }}/release/empty ../../dist/${{ matrix.config }}/empty
+          for p in empty file_io spawn; do
+            cp target/${{ matrix.target }}/release/$p ../../dist/${{ matrix.config }}/$p
+          done
 
       - name: Verify substrate
         run: |

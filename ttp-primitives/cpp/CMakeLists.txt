@@ -16,4 +16,6 @@ list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
 enable_testing()
 
 add_subdirectory(empty)
+add_subdirectory(file_io)
+add_subdirectory(spawn)
 add_subdirectory(tests)
