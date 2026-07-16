@@ -72,6 +72,11 @@ public sealed class HumanFormatter : IEventSink
                 if (e.Size > 0) _out.Write($" ({e.Size} bytes)");
                 _out.WriteLine();
                 break;
+            case EventKind.Registry:
+                _out.Write($"registry {e.Operation}{Quoted(e.Path)}");
+                if (!string.IsNullOrEmpty(e.ValueName)) _out.Write($" [{e.ValueName}]");
+                _out.WriteLine();
+                break;
         }
     }
 

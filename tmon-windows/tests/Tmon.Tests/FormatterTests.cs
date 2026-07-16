@@ -85,6 +85,51 @@ public class FormatterTests
     }
 
     [Fact]
+    public void HumanRendersRegistry()
+    {
+        var sw = new StringWriter();
+        var f = new HumanFormatter(sw, Basic());
+        f.Handle(new Event { Kind = EventKind.Registry, Pid = 10, Operation = "query_value", Path = @"HKLM\SOFTWARE\Foo", ValueName = "Bar" });
+        f.Handle(new Event { Kind = EventKind.Registry, Pid = 10, Operation = "open", Path = @"HKLM\SYSTEM\Baz" });
+
+        var s = sw.ToString();
+        Assert.Contains("registry query_value \"HKLM\\SOFTWARE\\Foo\" [Bar]", s);
+        Assert.Contains("registry open \"HKLM\\SYSTEM\\Baz\"", s);
+    }
+
+    [Fact]
+    public void JsonRendersRegistry()
+    {
+        var sw = new StringWriter();
+        new JsonFormatter(sw, Basic(OutputFormat.Json))
+            .Handle(new Event { Kind = EventKind.Registry, Pid = 10, Tid = 11, Operation = "set_value", Path = @"HKLM\SOFTWARE\Foo", ValueName = "Bar" });
+        var j = ParseLine(sw.ToString().Trim());
+        Assert.Equal("registry", j.GetProperty("kind").GetString());
+        Assert.Equal("set_value", j.GetProperty("op").GetString());
+        Assert.Equal(@"HKLM\SOFTWARE\Foo", j.GetProperty("key").GetString());
+        Assert.Equal("Bar", j.GetProperty("value").GetString());
+    }
+
+    [Fact]
+    public void JsonOmitsUnattributedThreadId()
+    {
+        var sw = new StringWriter();
+        new JsonFormatter(sw, Basic(OutputFormat.Json))
+            .Handle(new Event { Kind = EventKind.Network, Pid = 10, Tid = -1, Operation = "connect", Protocol = "tcp", Remote = "1.2.3.4:80" });
+        var j = ParseLine(sw.ToString().Trim());
+        Assert.False(j.TryGetProperty("tid", out _));  // W3: no tid when ETW gives -1
+    }
+
+    [Fact]
+    public void FileDispositionMapsToOpenOrCreate()
+    {
+        Assert.Equal("open", Tmon.Core.EtwEngine.OpenOrCreate(1));    // FILE_OPEN
+        Assert.Equal("open", Tmon.Core.EtwEngine.OpenOrCreate(3));    // FILE_OPEN_IF
+        Assert.Equal("create", Tmon.Core.EtwEngine.OpenOrCreate(2));  // FILE_CREATE
+        Assert.Equal("create", Tmon.Core.EtwEngine.OpenOrCreate(0));  // FILE_SUPERSEDE
+    }
+
+    [Fact]
     public void SummaryOnlySuppressesEventsButEndPrintsTotals()
     {
         var sw = new StringWriter();
