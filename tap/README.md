@@ -11,10 +11,17 @@ deterministic). See issue #25 for the full design.
 
 ## Status
 
-- **v0.1 (this build):** `normalize` + `inspect` — raw tmon JSONL → common schema.
-- Planned: `analyze` (volume ratios, Jaccard, stable/substrate features, `empty`
-  baseline subtraction, Mann-Whitney U), `render` (figures), `report` (by-RQ),
-  and `run` (end-to-end).
+- **v0.1:** `normalize` + `inspect` — raw tmon JSONL → common schema.
+- **v0.2 (this build):** `analyze` — the six Chapter 3 techniques: per-family
+  volume + ratios, Jaccard symbol-set similarity (within-OS), stable features
+  (per OS), substrate-specific features, `empty`-baseline subtraction, and
+  Mann-Whitney U significance with Benjamini-Hochberg correction.
+- Planned: `render` (figures), `report` (by-RQ narrative), `run` (end-to-end),
+  and cross-OS comparison at the semantic-family layer.
+
+```
+tap analyze normalized.jsonl [-o analysis.json] [--primitive spawn]
+```
 
 ## Usage
 

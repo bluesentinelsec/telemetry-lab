@@ -39,6 +39,8 @@ func main() {
 	switch os.Args[1] {
 	case "normalize":
 		err = runNormalize(os.Args[2:])
+	case "analyze":
+		err = runAnalyze(os.Args[2:])
 	case "inspect":
 		err = runInspect(os.Args[2:])
 	case "version":
