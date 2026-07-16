@@ -9,6 +9,7 @@ public enum EventKind
     Image,
     File,
     Network,
+    Registry,
 }
 
 /// <summary>
@@ -52,4 +53,8 @@ public sealed class Event
     public string? Protocol { get; init; }  // "tcp" or "udp"
     public string? Local { get; init; }     // local "ip:port"
     public string? Remote { get; init; }    // remote "ip:port"
+
+    // --- Registry ---
+    // Path holds the key; ValueName holds the value (for query/set/delete_value).
+    public string? ValueName { get; init; }
 }

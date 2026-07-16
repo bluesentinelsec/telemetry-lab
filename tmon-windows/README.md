@@ -61,20 +61,27 @@ tmon --format json -o run.jsonl -- .\primitive.exe
 Beyond named syscalls, tmon captures the richer named-event streams that are the
 Windows analog to Linux's decoded arguments:
 
-- **File** (`kind: file`) — `create`/`read`/`write`/`delete`/`rename` with the
-  resolved **path**, plus byte `size` and `offset` for reads/writes.
+- **File** (`kind: file`) — `open`/`create`/`read`/`write`/`delete`/`rename` with
+  the resolved **path**, plus byte `size` and `offset` for reads/writes. (`open`
+  vs `create` comes from the `CreateFile` disposition.)
 - **Network** (`kind: network`) — TCP `connect`/`send`/`recv`/`disconnect` and UDP
   `send`/`recv` with the decoded `local` and `remote` **`ip:port`** endpoints and
   transfer `size`.
+- **Registry** (`kind: registry`) — `open`/`create`/`query_value`/`set_value`/
+  `delete`/`delete_value` with the **`key`** path (mapped to `HKLM`/`HKU`) and, for
+  value operations, the **`value`** name. Because ETW names a value op's key only
+  by an unresolvable handle, the key is carried forward from the same thread's
+  most recent open/create.
 
-Example (tracing `curl` — human form):
+Examples (human form):
 
 ```
 net connect tcp -> 23.11.232.44:80
 net send tcp -> 23.11.232.44:80 (102 bytes)
-net recv tcp -> 23.11.232.44:80 (192 bytes)
-file create "C:\Windows\Temp\ct.txt"
-file write "C:\Windows\Temp\ct.txt" (22 bytes @ 0x0)
+file open "C:\Windows\win.ini"
+file read "C:\Windows\win.ini"
+registry open "HKLM\System\CurrentControlSet\Control\Nls\CodePage"
+registry query_value "HKLM\System\CurrentControlSet\Control\Nls\CodePage" [ACP]
 ```
 
 `--no-decode` keeps the events but drops the decoded path/endpoint strings.
@@ -83,5 +90,6 @@ file write "C:\Windows\Temp\ct.txt" (22 bytes @ 0x0)
 
 Three-layer scaffold, CLI at parity with tmon-linux, spawn-and-trace, tree-scoped
 process/thread/image capture, syscall attribution **with name resolution**,
-**file and network decoding** (paths, endpoints), human + JSONL output,
-lost-event accounting, xUnit tests + CI (windows-2025).
+**file, network, and registry decoding** (paths, endpoints, keys/values), human +
+JSONL output, lost-event accounting, xUnit tests + CI (windows-2025). Planned:
+DNS query decoding.

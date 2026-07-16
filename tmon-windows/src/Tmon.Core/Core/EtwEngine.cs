@@ -29,6 +29,11 @@ public sealed class EtwEngine
     private readonly ConcurrentDictionary<int, int> _threadToPid = new();
     private readonly ConcurrentDictionary<int, int> _cpuToTid = new();
     private readonly HashSet<int> _pids = new();
+    // Thread -> most-recent registry key path. Value operations (query/set) name
+    // the key only by a handle that ETW does not resolve for a real-time session,
+    // but they follow the open/create of that key on the same thread, so we carry
+    // the thread's last-named key forward. Consumer-thread only.
+    private readonly Dictionary<int, string> _threadRegKey = new();
 
     private IEventSink _sink = null!;
     private SyscallResolver _resolver = null!;
@@ -69,7 +74,8 @@ public sealed class EtwEngine
             KernelTraceEventParser.Keywords.SystemCall |
             KernelTraceEventParser.Keywords.FileIO |
             KernelTraceEventParser.Keywords.FileIOInit |
-            KernelTraceEventParser.Keywords.NetworkTCPIP);
+            KernelTraceEventParser.Keywords.NetworkTCPIP |
+            KernelTraceEventParser.Keywords.Registry);
 
         WireHandlers(session.Source.Kernel);
 
@@ -186,12 +192,23 @@ public sealed class EtwEngine
                 });
         };
 
-        // File I/O: create (open), read, write, delete, rename -- with the path.
-        k.FileIOCreate += e => EmitFile(e, "create", e.FileName, 0, 0);
+        // File I/O: open/create, read, write, delete, rename -- with the path.
+        // A CreateFile handle-open is reported as FileIOCreate regardless of
+        // whether it opens or creates; the CreateDisposition distinguishes them.
+        k.FileIOCreate += e => EmitFile(e, OpenOrCreate((int)e.CreateDisposition), e.FileName, 0, 0);
         k.FileIORead += e => EmitFile(e, "read", e.FileName, e.IoSize, e.Offset);
         k.FileIOWrite += e => EmitFile(e, "write", e.FileName, e.IoSize, e.Offset);
         k.FileIODelete += e => EmitFile(e, "delete", e.FileName, 0, 0);
         k.FileIORename += e => EmitFile(e, "rename", e.FileName, 0, 0);
+
+        // Registry: open/create/query/set/delete of keys and values, with the key
+        // path (resolved via the key handle for value ops) and value name.
+        k.RegistryOpen += e => OnRegistry(e, "open");
+        k.RegistryCreate += e => OnRegistry(e, "create");
+        k.RegistryQueryValue += e => OnRegistry(e, "query_value");
+        k.RegistrySetValue += e => OnRegistry(e, "set_value");
+        k.RegistryDelete += e => OnRegistry(e, "delete");
+        k.RegistryDeleteValue += e => OnRegistry(e, "delete_value");
 
         // Network: TCP connect/send/recv/disconnect and UDP send/recv -- with endpoints.
         k.TcpIpConnect += e => EmitNet(e, "connect", "tcp", Endpoint(e.saddr, e.sport), Endpoint(e.daddr, e.dport), 0);
@@ -245,6 +262,45 @@ public sealed class EtwEngine
             Remote = _config.Decode ? remote : null,
             Size = size,
         });
+    }
+
+    private void OnRegistry(RegistryTraceData e, string op)
+    {
+        int tid = e.ThreadID;
+        string? key = string.IsNullOrEmpty(e.KeyName) ? null : NormalizeRegKey(e.KeyName);
+        if (key is not null)
+            _threadRegKey[tid] = key;             // remember for this thread's value ops
+        else
+            _threadRegKey.TryGetValue(tid, out key);  // resolve from the recent open
+
+        int pid = PidFor(e.ProcessID, tid);
+        if (pid < 0 || !_traced.ContainsKey(pid)) return;
+        Emit(new Event
+        {
+            Kind = EventKind.Registry,
+            TimeMsec = e.TimeStampRelativeMSec,
+            Pid = pid,
+            Tid = tid,
+            Operation = op,
+            Path = _config.Decode ? key : null,
+            ValueName = _config.Decode && !string.IsNullOrEmpty(e.ValueName) ? e.ValueName : null,
+        });
+    }
+
+    // FILE_OPEN(1)/FILE_OPEN_IF(3) open an existing file; the rest can create or
+    // truncate. Report the intent so "create" is not a misnomer for plain opens.
+    internal static string OpenOrCreate(int disposition) =>
+        disposition is 1 or 3 ? "open" : "create";
+
+    // ETW reports keys in native form (\REGISTRY\MACHINE\...); map the common
+    // roots to their familiar hive names.
+    private static string NormalizeRegKey(string key)
+    {
+        if (key.StartsWith(@"\REGISTRY\MACHINE", StringComparison.OrdinalIgnoreCase))
+            return "HKLM" + key[@"\REGISTRY\MACHINE".Length..];
+        if (key.StartsWith(@"\REGISTRY\USER", StringComparison.OrdinalIgnoreCase))
+            return "HKU" + key[@"\REGISTRY\USER".Length..];
+        return key;
     }
 
     private void EmitProcess(EventKind kind, ProcessTraceData e) => Emit(new Event

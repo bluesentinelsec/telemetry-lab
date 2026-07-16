@@ -51,7 +51,7 @@ public sealed class JsonFormatter : IEventSink
         switch (e.Kind)
         {
             case EventKind.Syscall:
-                root["tid"] = e.Tid;
+                if (e.Tid >= 0) root["tid"] = e.Tid;  // ETW leaves some records unattributed
                 root["syscall_address"] = $"0x{e.SyscallAddress:x}";
                 if (e.Syscall is not null) root["syscall"] = e.Syscall;
                 break;
@@ -67,18 +67,24 @@ public sealed class JsonFormatter : IEventSink
                 if (e.Image is not null) root["image"] = e.Image;
                 break;
             case EventKind.File:
-                root["tid"] = e.Tid;
+                if (e.Tid >= 0) root["tid"] = e.Tid;  // ETW leaves some records unattributed
                 root["op"] = e.Operation;
                 if (e.Path is not null) root["path"] = e.Path;
                 if (e.Size > 0) { root["size"] = e.Size; root["offset"] = e.Offset; }
                 break;
             case EventKind.Network:
-                root["tid"] = e.Tid;
+                if (e.Tid >= 0) root["tid"] = e.Tid;  // ETW leaves some records unattributed
                 root["op"] = e.Operation;
                 root["protocol"] = e.Protocol;
                 if (e.Local is not null) root["local"] = e.Local;
                 if (e.Remote is not null) root["remote"] = e.Remote;
                 if (e.Size > 0) root["size"] = e.Size;
+                break;
+            case EventKind.Registry:
+                if (e.Tid >= 0) root["tid"] = e.Tid;
+                root["op"] = e.Operation;
+                if (e.Path is not null) root["key"] = e.Path;
+                if (e.ValueName is not null) root["value"] = e.ValueName;
                 break;
         }
         WriteLine(root);
@@ -108,6 +114,7 @@ public sealed class JsonFormatter : IEventSink
         EventKind.Image => "image",
         EventKind.File => "file",
         EventKind.Network => "network",
+        EventKind.Registry => "registry",
         _ => "unknown",
     };
 }
