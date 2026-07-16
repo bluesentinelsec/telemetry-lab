@@ -1,2 +1,2 @@
 [workspace]
-members = ["empty"]
+members = ["empty", "file_io", "spawn"]

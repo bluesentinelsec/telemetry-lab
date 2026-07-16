@@ -50,7 +50,10 @@ jobs:
         working-directory: ttp-primitives/go
         env:
           CGO_ENABLED: ${{ matrix.cgo }}
-        run: go build -o ../../dist/${{ matrix.config }}/empty ./empty
+        run: |
+          for p in empty file_io spawn; do
+            go build -o ../../dist/${{ matrix.config }}/$p ./$p
+          done
 
       - name: Verify substrate
         run: |
@@ -105,7 +108,10 @@ jobs:
 
       - name: Build and stage primitives
         working-directory: ttp-primitives/go
-        run: go build -o ../../dist/${{ matrix.config }}/empty.exe ./empty
+        run: |
+          foreach ($p in "empty","file_io","spawn") {
+            go build -o "../../dist/${{ matrix.config }}/$p.exe" "./$p"
+          }
 
       - name: Verify substrate
         run: |
