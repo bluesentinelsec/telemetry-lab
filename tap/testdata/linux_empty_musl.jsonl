@@ -1,0 +1,5 @@
+{"record":"meta","tool":"tmon","command":["/bin/true"],"meta":{"os":"linux","language":"c","compiler":"musl-gcc","runtime":"musl","primitive":"empty","iteration":"1","host":"deb-01"}}
+{"record":"event","kind":"syscall","ts_ns":1,"pid":100,"tid":100,"comm":"true","nr":59,"syscall":"execve","ret":0,"ok":true}
+{"record":"event","kind":"syscall","ts_ns":2,"pid":100,"tid":100,"comm":"true","nr":158,"syscall":"arch_prctl","ret":0,"ok":true}
+{"record":"event","kind":"exit","ts_ns":3,"pid":100,"tid":100,"comm":"true","exit_code":0}
+{"record":"summary","syscall_events":2,"failed_syscalls":0,"total_events":3,"processes":1,"dropped":0,"target_exit_code":0}

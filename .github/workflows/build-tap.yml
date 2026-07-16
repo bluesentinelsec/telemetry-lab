@@ -1,0 +1,41 @@
+name: Build tap
+
+# Build and test the telemetry analysis pipeline. tap is pure Go (no cgo) and
+# cross-compiles for the lab hosts, so CI runs on ubuntu-latest and also verifies
+# the Linux and Windows builds.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tap/**'
+      - '.github/workflows/build-tap.yml'
+  pull_request:
+    paths:
+      - 'tap/**'
+      - '.github/workflows/build-tap.yml'
+
+jobs:
+  tap:
+    name: Build + unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: tap/go.mod
+
+      - name: Vet
+        working-directory: tap
+        run: go vet ./...
+
+      - name: Test
+        working-directory: tap
+        run: go test ./...
+
+      - name: Cross-compile (linux + windows)
+        working-directory: tap
+        run: |
+          GOOS=linux GOARCH=amd64 go build -o /dev/null ./cmd/tap
+          GOOS=windows GOARCH=amd64 go build -o /dev/null ./cmd/tap

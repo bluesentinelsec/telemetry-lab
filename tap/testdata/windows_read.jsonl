@@ -1,0 +1,9 @@
+{"record":"meta","tool":"tmon","os":"windows","command":["hostname.exe"],"meta":{"os":"windows","language":"c","compiler":"gcc","runtime":"ucrt","primitive":"read_file","iteration":"1","host":"win-01"}}
+{"record":"event","kind":"process_start","time_msec":1.0,"pid":100,"ppid":4,"image":"hostname.exe"}
+{"record":"event","kind":"syscall","time_msec":1.5,"pid":100,"tid":11,"syscall_address":"0xfffff800aabb","syscall":"NtOpenKey"}
+{"record":"event","kind":"image","time_msec":2.0,"pid":100,"image":"C:\\Windows\\System32\\ntdll.dll"}
+{"record":"event","kind":"file","time_msec":3.0,"pid":100,"tid":11,"op":"open","path":"C:\\Windows\\win.ini"}
+{"record":"event","kind":"network","time_msec":4.0,"pid":100,"op":"connect","protocol":"tcp","local":"0.0.0.0:0","remote":"1.2.3.4:80"}
+{"record":"event","kind":"registry","time_msec":5.0,"pid":100,"tid":11,"op":"query_value","key":"HKLM\\Software\\Foo","value":"Bar"}
+{"record":"event","kind":"process_stop","time_msec":6.0,"pid":100,"exit_code":0,"image":"hostname.exe"}
+{"record":"summary","syscall_events":1,"total_events":6,"processes":1,"lost":0,"target_exit_code":0}
