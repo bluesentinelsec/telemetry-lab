@@ -23,7 +23,11 @@ import (
 const usage = `tap — telemetry analysis pipeline
 
 Usage:
+  tap run       <raw-dir> -o <results-dir>             All stages end-to-end
   tap normalize <raw-dir|file> [-o normalized.jsonl]   Raw tmon JSONL -> common schema
+  tap analyze   <normalized.jsonl> [-o analysis.json] [--primitive X]
+  tap render    <analysis.json> [-o figures/]          PNG figures
+  tap report    <analysis.json> [-o report.md]         Findings by research question
   tap inspect   <file.jsonl>                            Human summary of one artifact
   tap version
 
@@ -41,6 +45,12 @@ func main() {
 		err = runNormalize(os.Args[2:])
 	case "analyze":
 		err = runAnalyze(os.Args[2:])
+	case "render":
+		err = runRender(os.Args[2:])
+	case "report":
+		err = runReport(os.Args[2:])
+	case "run":
+		err = runAll(os.Args[2:])
 	case "inspect":
 		err = runInspect(os.Args[2:])
 	case "version":
@@ -75,18 +85,27 @@ func runNormalize(args []string) error {
 	if len(inputs) == 0 {
 		return fmt.Errorf("normalize needs a raw directory or file")
 	}
+	summaries, totalEvents, err := normalizeInto(inputs, out)
+	if err != nil {
+		return err
+	}
+	printNormalizeReport(summaries, totalEvents, out)
+	return nil
+}
 
+// normalizeInto normalizes every tmon artifact under inputs and writes the
+// non-excluded events to out. Returns per-run summaries and the event count.
+func normalizeInto(inputs []string, out string) ([]model.ExecutionSummary, int, error) {
 	files, err := jsonlFiles(inputs)
 	if err != nil {
-		return err
+		return nil, 0, err
 	}
 	if len(files) == 0 {
-		return fmt.Errorf("no .jsonl files found")
+		return nil, 0, fmt.Errorf("no .jsonl files found")
 	}
-
 	f, err := os.Create(out)
 	if err != nil {
-		return err
+		return nil, 0, err
 	}
 	defer f.Close()
 	w := bufio.NewWriter(f)
@@ -98,7 +117,7 @@ func runNormalize(args []string) error {
 	for _, path := range files {
 		events, sum, err := normalizeFile(path)
 		if err != nil {
-			return fmt.Errorf("%s: %w", path, err)
+			return nil, 0, fmt.Errorf("%s: %w", path, err)
 		}
 		summaries = append(summaries, sum)
 		if sum.Excluded {
@@ -106,13 +125,12 @@ func runNormalize(args []string) error {
 		}
 		for i := range events {
 			if err := enc.Encode(&events[i]); err != nil {
-				return err
+				return nil, 0, err
 			}
 			totalEvents++
 		}
 	}
-	printNormalizeReport(summaries, totalEvents, out)
-	return nil
+	return summaries, totalEvents, nil
 }
 
 func normalizeFile(path string) ([]model.Event, model.ExecutionSummary, error) {

@@ -1,0 +1,6 @@
+{"record":"meta","tool":"tmon","os":"windows","command":["true.exe"],"meta":{"os":"windows","language":"c","compiler":"gcc","runtime":"ucrt","primitive":"empty","iteration":"1","host":"win-01"}}
+{"record":"event","kind":"process_start","time_msec":1.0,"pid":100,"ppid":4,"image":"true.exe"}
+{"record":"event","kind":"syscall","time_msec":1.5,"pid":100,"tid":11,"syscall":"NtClose"}
+{"record":"event","kind":"image","time_msec":2.0,"pid":100,"image":"C:\\Windows\\System32\\ntdll.dll"}
+{"record":"event","kind":"process_stop","time_msec":3.0,"pid":100,"exit_code":0,"image":"true.exe"}
+{"record":"summary","syscall_events":1,"total_events":4,"processes":1,"lost":0,"target_exit_code":0}

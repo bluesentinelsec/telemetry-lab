@@ -33,6 +33,18 @@ type PrimitiveResult struct {
 	StableByOS        map[string][]string `json:"stable_syscalls_by_os"` // in all of an OS's configs
 	SubstrateSpecific []ConfigUnique    `json:"substrate_specific"`  // syscalls unique to one config
 	Significance      []SigPair         `json:"significance"`        // MWU on total counts, within-OS
+	CrossOS           []CrossOSFamily   `json:"cross_os,omitempty"`  // Debian vs Windows, per semantic family
+}
+
+// CrossOSFamily compares a semantic family across OSes (RQ3): how much each OS
+// does in the family, and which operation names are shared vs. platform-specific.
+type CrossOSFamily struct {
+	Family        string   `json:"family"`
+	LinuxMedian   float64  `json:"linux_median"`
+	WindowsMedian float64  `json:"windows_median"`
+	Shared        []string `json:"shared_ops"`
+	LinuxOnly     []string `json:"linux_only_ops"`
+	WindowsOnly   []string `json:"windows_only_ops"`
 }
 
 type ConfigSummary struct {
@@ -72,7 +84,7 @@ type SigPair struct {
 
 type runAgg struct {
 	familyCount map[model.Family]int
-	syscalls    map[string]bool
+	names       map[model.Family]map[string]bool // event names seen, per family
 }
 
 type configAgg struct {
@@ -107,13 +119,17 @@ func Load(r io.Reader) (map[string]map[string]*configAgg, error) {
 		}
 		run := agg.runs[e.RunID]
 		if run == nil {
-			run = &runAgg{familyCount: map[model.Family]int{}, syscalls: map[string]bool{}}
+			run = &runAgg{
+				familyCount: map[model.Family]int{},
+				names:       map[model.Family]map[string]bool{},
+			}
 			agg.runs[e.RunID] = run
 		}
 		run.familyCount[e.Family]++
-		if e.Family == model.FamilySyscall {
-			run.syscalls[e.Name] = true
+		if run.names[e.Family] == nil {
+			run.names[e.Family] = map[string]bool{}
 		}
+		run.names[e.Family][e.Name] = true
 	}
 	return profiles, sc.Err()
 }
@@ -131,16 +147,18 @@ func Analyze(profiles map[string]map[string]*configAgg) Result {
 func analyzePrimitive(prim string, byCfg map[string]*configAgg, control map[string]*configAgg) PrimitiveResult {
 	pr := PrimitiveResult{Primitive: prim, StableByOS: map[string][]string{}}
 
-	// Per-config summaries and the syscall symbol sets.
-	symbols := map[string]map[string]bool{} // config -> syscall set (union over runs)
-	totals := map[string][]float64{}         // config -> per-run totals
+	// Per-config summaries, syscall symbol sets, and per-family name sets.
+	symbols := map[string]map[string]bool{}                  // config -> syscall set
+	famNames := map[string]map[model.Family]map[string]bool{} // config -> family -> names
+	famMedians := map[string]map[model.Family]float64{}      // config -> family -> median count
+	totals := map[string][]float64{}                          // config -> per-run totals
 	osOf := map[string]string{}
 	for _, cfg := range sortedKeys(byCfg) {
 		agg := byCfg[cfg]
 		osOf[cfg] = agg.os
 		famVals := map[model.Family][]float64{}
 		var totalVals []float64
-		sym := map[string]bool{}
+		names := map[model.Family]map[string]bool{}
 		for _, run := range agg.runs {
 			total := 0
 			for fam, n := range run.familyCount {
@@ -148,16 +166,31 @@ func analyzePrimitive(prim string, byCfg map[string]*configAgg, control map[stri
 				total += n
 			}
 			totalVals = append(totalVals, float64(total))
-			for s := range run.syscalls {
-				sym[s] = true
+			for fam, set := range run.names {
+				if names[fam] == nil {
+					names[fam] = map[string]bool{}
+				}
+				for s := range set {
+					names[fam][s] = true
+				}
 			}
 		}
-		symbols[cfg] = sym
+		famNames[cfg] = names
+		if names[model.FamilySyscall] != nil {
+			symbols[cfg] = names[model.FamilySyscall]
+		} else {
+			symbols[cfg] = map[string]bool{}
+		}
 		totals[cfg] = totalVals
+		fm := map[model.Family]float64{}
+		for fam, vals := range famVals {
+			fm[fam] = stat.Median(vals)
+		}
+		famMedians[cfg] = fm
 
 		famMed := map[string]float64{}
-		for fam, vals := range famVals {
-			famMed[string(fam)] = stat.Median(vals)
+		for fam, v := range fm {
+			famMed[string(fam)] = v
 		}
 		cs := ConfigSummary{
 			Config: cfg, OS: agg.os, Iterations: len(agg.runs),
@@ -209,7 +242,80 @@ func analyzePrimitive(prim string, byCfg map[string]*configAgg, control map[stri
 	}
 	pr.SubstrateSpecific = uniquePerConfig(configs, symbols)
 
+	pr.CrossOS = crossOS(configs, osOf, famNames, famMedians)
 	return pr
+}
+
+// crossOS compares the OS-comparable semantic families between Debian and
+// Windows (RQ3). Returns nil unless both OSes are present.
+func crossOS(configs []string, osOf map[string]string,
+	famNames map[string]map[model.Family]map[string]bool,
+	famMedians map[string]map[model.Family]float64) []CrossOSFamily {
+	semantic := []model.Family{
+		model.FamilyProcess, model.FamilyFile, model.FamilyNetwork,
+		model.FamilyLibrary, model.FamilyRegistry,
+	}
+	ops := map[string]map[model.Family]map[string]bool{}
+	vol := map[string]map[model.Family][]float64{}
+	for _, cfg := range configs {
+		os := osOf[cfg]
+		if ops[os] == nil {
+			ops[os] = map[model.Family]map[string]bool{}
+			vol[os] = map[model.Family][]float64{}
+		}
+		for _, fam := range semantic {
+			if ops[os][fam] == nil {
+				ops[os][fam] = map[string]bool{}
+			}
+			for s := range famNames[cfg][fam] {
+				ops[os][fam][s] = true
+			}
+			if v, ok := famMedians[cfg][fam]; ok {
+				vol[os][fam] = append(vol[os][fam], v)
+			}
+		}
+	}
+	if len(ops["linux"]) == 0 || len(ops["windows"]) == 0 {
+		return nil
+	}
+	var out []CrossOSFamily
+	for _, fam := range semantic {
+		lin, win := ops["linux"][fam], ops["windows"][fam]
+		if len(lin) == 0 && len(win) == 0 {
+			continue
+		}
+		out = append(out, CrossOSFamily{
+			Family:        string(fam),
+			LinuxMedian:   stat.Median(vol["linux"][fam]),
+			WindowsMedian: stat.Median(vol["windows"][fam]),
+			Shared:        intersectSets(lin, win),
+			LinuxOnly:     diffSets(lin, win),
+			WindowsOnly:   diffSets(win, lin),
+		})
+	}
+	return out
+}
+
+func intersectSets(a, b map[string]bool) []string {
+	var out []string
+	for s := range a {
+		if b[s] {
+			out = append(out, s)
+		}
+	}
+	sort.Strings(out)
+	return out
+}
+
+func diffSets(a, b map[string]bool) []string {
+	var out []string
+	for s := range a {
+		if !b[s] {
+			out = append(out, s)
+		}
+	}
+	sort.Strings(out)
+	return out
 }
 
 func controlTotals(ctl *configAgg) []float64 {

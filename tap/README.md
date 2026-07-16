@@ -11,17 +11,30 @@ deterministic). See issue #25 for the full design.
 
 ## Status
 
-- **v0.1:** `normalize` + `inspect` — raw tmon JSONL → common schema.
-- **v0.2 (this build):** `analyze` — the six Chapter 3 techniques: per-family
-  volume + ratios, Jaccard symbol-set similarity (within-OS), stable features
-  (per OS), substrate-specific features, `empty`-baseline subtraction, and
-  Mann-Whitney U significance with Benjamini-Hochberg correction.
-- Planned: `render` (figures), `report` (by-RQ narrative), `run` (end-to-end),
-  and cross-OS comparison at the semantic-family layer.
+Feature-complete for the study's analysis: all five stages implemented.
 
 ```
-tap analyze normalized.jsonl [-o analysis.json] [--primitive spawn]
+tap run       <raw-dir> -o <results-dir>          # normalize → analyze → render → report
+tap normalize <raw-dir|file> [-o normalized.jsonl]
+tap analyze   <normalized.jsonl> [-o analysis.json] [--primitive X]
+tap render    <analysis.json> [-o figures/]        # PNG figures
+tap report    <analysis.json> [-o report.md]       # findings by research question
+tap inspect   <file.jsonl>
 ```
+
+- **normalize** — both tmon dialects → common schema (see below).
+- **analyze** — the six Chapter 3 techniques: per-family volume + ratios,
+  Jaccard symbol-set similarity (within-OS), stable features (per OS),
+  substrate-specific features, `empty`-baseline subtraction, and Mann-Whitney U
+  significance (Benjamini-Hochberg corrected); plus cross-OS comparison at the
+  semantic-family layer.
+- **render** — the four figure types: volume bar charts, baseline-attribution
+  charts (behavior vs. runtime overhead), and within-OS Jaccard heatmaps
+  (`gonum/plot`, pure Go).
+- **report** — a Markdown findings document organized by RQ1–RQ4.
+
+`tap run ./raw -o ./results` writes `normalized.jsonl`, `analysis.json`,
+`figures/*.png`, and `report.md`.
 
 ## Usage
 
