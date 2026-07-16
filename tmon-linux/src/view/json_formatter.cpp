@@ -70,9 +70,12 @@ void JsonFormatter::Handle(const Event& event) {
       const char* name = SyscallName(event.syscall_nr);
       if (name) cJSON_AddStringToObject(root.get(), "syscall", name);
 
+      // Only the syscall's real arity (the rest of the six captured registers
+      // are stale). Raw hex strings so full 64-bit values survive JSON's double.
+      int arity = SyscallArity(event.syscall_nr);
+      int count = (arity >= 0 && arity <= kSyscallArgs) ? arity : kSyscallArgs;
       cJSON* args = cJSON_AddArrayToObject(root.get(), "args");
-      for (int i = 0; i < kSyscallArgs; i++) {
-        // Hex strings so full 64-bit values survive JSON's double.
+      for (int i = 0; i < count; i++) {
         char buf[20];
         std::snprintf(buf, sizeof(buf), "0x%llx",
                       static_cast<unsigned long long>(event.args[i]));

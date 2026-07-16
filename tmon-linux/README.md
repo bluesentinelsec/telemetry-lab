@@ -97,11 +97,11 @@ the errno symbol on failure, and the `<seconds>` duration:
 ```
    0.000000 19805  specimen   +++ exec "/root/specimen" (now specimen) +++
    0.001570 19805  specimen   openat(0xffffff9c, "/tmp/tmon-specimen.dat", 0x241, 0x1a4, ...) = 3 <0.000010>
-   0.001582 19805  specimen   write(0x3, 0x55c52640a01b, 0xe, ...) = 14 <0.000004>
-   0.001588 19805  specimen   openat(0xffffff9c, "/tmp/tmon-specimen.dat", 0x0, ...) = 3 <0.000001>
-   0.001590 19805  specimen   read(0x3, 0x7ffe42bd0250, 0x40, ...) = 14 <0.000001>
-   0.001593 19805  specimen   socket(0x2, 0x1, 0x0, ...) = 3 <0.000007>
-   0.001602 19805  specimen   connect(0x3, 127.0.0.1:9999, 0x10, ...) = -111 ECONNREFUSED(111) <0.000054>
+   0.001570 19805  specimen   openat(0xffffff9c, "/tmp/tmon-specimen.dat", O_WRONLY|O_CREAT|O_TRUNC, 0644) = 3 <0.000010>
+   0.001582 19805  specimen   write(0x3, 0x55c52640a01b, 0xe) = 14 <0.000004>
+   0.001590 19805  specimen   read(0x3, 0x7ffe42bd0250, 0x40) = 14 <0.000001>
+   0.001593 19805  specimen   mmap(0x0, 0x2000, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, 0xffffffff, 0x0) = 0x7f73d48f2000 <0.000007>
+   0.001602 19805  specimen   connect(0x3, 127.0.0.1:9999, 0x10) = -111 ECONNREFUSED(111) <0.000054>
    0.001731 19805  specimen   +++ fork -> child 19806 +++
    0.001993 19806  echo       +++ exec "/bin/echo" (now echo) +++
    0.002534 19806  echo       write(0x1, 0x5585ab701b60, 0x11, ...) = 17 <0.000003>
@@ -114,7 +114,7 @@ The same run as JSONL (`--format json`), one object per line:
 
 ```json
 {"record":"meta","tool":"tmon","command":["/root/specimen"],"meta":{"lang":"c"}}
-{"record":"event","kind":"syscall","ts_ns":27786355297223,"pid":17819,"tid":17819,"comm":"specimen","nr":257,"syscall":"openat","args":["0xffffffffffffff9c","0x5631782ff004","0x241","0x1a4","0x0","0x0"],"path":"/tmp/tmon-specimen.dat","path_argno":1,"ret":4,"ok":true,"duration_ns":12619}
+{"record":"event","kind":"syscall","ts_ns":27786355297223,"pid":17819,"tid":17819,"comm":"specimen","nr":257,"syscall":"openat","args":["0xffffffffffffff9c","0x5631782ff004","0x241","0x1a4"],"path":"/tmp/tmon-specimen.dat","path_argno":1,"ret":4,"ok":true,"duration_ns":12619}
 {"record":"event","kind":"syscall","ts_ns":27786355342180,"pid":17819,"tid":17819,"comm":"specimen","nr":42,"syscall":"connect","args":["0x4","0x7ffe33cc6fc0","0x10","0x0","0x0","0x0"],"sockaddr":"127.0.0.1:9999","sockaddr_argno":1,"ret":-111,"ok":false,"error":"ECONNREFUSED","errno":111,"duration_ns":83669}
 {"record":"event","kind":"exec","ts_ns":27786355720963,"pid":17820,"tid":17820,"comm":"echo","path":"/bin/echo"}
 {"record":"event","kind":"fork","ts_ns":27786355489673,"pid":17819,"comm":"specimen","child_pid":17820}
@@ -206,9 +206,15 @@ in a build with `-DTMON_BUILD_TESTS=OFF`.
 
 ## Status
 
-Implemented: from-birth tree-scoped capture; per-syscall arguments, return values,
-errno, and duration; decoded file paths and sockaddrs; human + JSONL output; drop
-accounting; `-o`, `--meta`, `--no-follow`, `--no-decode`, `--no-returns`, `-c`,
-`-n`, `--buffer-mb`. Argument decoding currently covers path- and sockaddr-bearing
-syscalls; scalar flag decoding (e.g. `open` flags) and syscall-family excludes are
-planned follow-ups.
+Implemented: from-birth tree-scoped capture; per-syscall arguments at their real
+arity (only the meaningful registers, not all six), return values, errno, and
+duration; decoded file paths and sockaddrs; symbolic decoding of scalar flag/mode
+arguments (`open` flags, `mmap` prot/flags, `access` mode, file modes) in the
+human view; address returns (`mmap`/`brk`/`mremap`/`shmat`) shown in hex; human +
+JSONL output; drop accounting; `-o`, `--meta`, `--no-follow`, `--no-decode`,
+`--no-returns`, `-c`, `-n`, `--buffer-mb`. Syscall-family excludes remain a
+planned follow-up.
+
+Argument-count metadata lives in the committed `src/core/syscall_meta.h`
+(generated once from the kernel's tracefs syscall metadata), so arity is accurate
+regardless of the build environment.
