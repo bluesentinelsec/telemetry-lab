@@ -37,17 +37,17 @@ jobs:
         working-directory: tmon-windows
         run: dotnet test tests/Tmon.Tests/Tmon.Tests.csproj -c Release --verbosity normal
 
-      # Self-contained single-file publish so the lab host needs no .NET runtime.
-      - name: Publish (self-contained, single file)
+      # Self-contained folder publish (NOT single-file): TraceEvent loads its
+      # native KernelTraceControl.dll via LoadLibrary at runtime, which single-
+      # file bundling breaks (Win32 error 126). A folder publish keeps that DLL
+      # and the rest next to tmon.exe, so no .NET runtime is needed on the host.
+      - name: Publish (self-contained folder)
         working-directory: tmon-windows
-        run: >
-          dotnet publish src/Tmon/Tmon.csproj -c Release -r win-x64 --self-contained
-          -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
-          -o publish
+        run: dotnet publish src/Tmon/Tmon.csproj -c Release -r win-x64 --self-contained -o publish
 
-      - name: Upload tmon.exe
+      - name: Upload tmon (folder)
         uses: actions/upload-artifact@v7
         with:
           name: tmon-windows
-          path: tmon-windows/publish/tmon.exe
+          path: tmon-windows/publish/
           if-no-files-found: error

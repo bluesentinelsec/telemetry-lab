@@ -41,7 +41,11 @@ assemble() {
     cp "$(find1 "$COMP/tap" -path '*/linux/tap')"        "$root/tap/tap"
     chmod +x "$root/tmon/tmon" "$root/tap/tap"
   else
-    cp "$(find1 "$COMP/tmon-windows" -name tmon.exe)"    "$root/tmon/tmon.exe"
+    # Windows tmon is a self-contained folder (tmon.exe + native TraceEvent DLLs
+    # + the .NET runtime), so copy the whole publish directory.
+    local tmondir
+    tmondir=$(dirname "$(find1 "$COMP/tmon-windows" -name tmon.exe)")
+    cp -r "$tmondir/." "$root/tmon/"
     cp "$(find1 "$COMP/tap" -path '*/windows/tap.exe')"  "$root/tap/tap.exe"
   fi
 
