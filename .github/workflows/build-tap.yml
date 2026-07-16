@@ -34,8 +34,15 @@ jobs:
         working-directory: tap
         run: go test ./...
 
-      - name: Cross-compile (linux + windows)
+      - name: Build release binaries (linux + windows)
         working-directory: tap
         run: |
-          GOOS=linux GOARCH=amd64 go build -o /dev/null ./cmd/tap
-          GOOS=windows GOARCH=amd64 go build -o /dev/null ./cmd/tap
+          GOOS=linux   GOARCH=amd64 go build -trimpath -o dist/linux/tap    ./cmd/tap
+          GOOS=windows GOARCH=amd64 go build -trimpath -o dist/windows/tap.exe ./cmd/tap
+
+      - name: Upload tap binaries
+        uses: actions/upload-artifact@v7
+        with:
+          name: tap
+          path: tap/dist/
+          if-no-files-found: error
