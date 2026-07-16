@@ -7,6 +7,8 @@ public enum EventKind
     ProcessStart,
     ProcessStop,
     Image,
+    File,
+    Network,
 }
 
 /// <summary>
@@ -36,4 +38,18 @@ public sealed class Event
     // --- ProcessStart / Image ---
     /// <summary>Image/library path (process image on start; module path on image load).</summary>
     public string? Image { get; init; }
+
+    // --- File / Network ---
+    /// <summary>Sub-operation: file (create/read/write/delete/rename) or net (connect/send/recv/...).</summary>
+    public string? Operation { get; init; }
+
+    // --- File ---
+    public string? Path { get; init; }
+    public long Size { get; init; }    // File read/write, or Network send/recv byte count
+    public long Offset { get; init; }  // File read/write offset
+
+    // --- Network ---
+    public string? Protocol { get; init; }  // "tcp" or "udp"
+    public string? Local { get; init; }     // local "ip:port"
+    public string? Remote { get; init; }    // remote "ip:port"
 }

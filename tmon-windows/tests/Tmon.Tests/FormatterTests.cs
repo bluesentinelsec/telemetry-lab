@@ -49,6 +49,42 @@ public class FormatterTests
     }
 
     [Fact]
+    public void HumanRendersFileAndNetwork()
+    {
+        var sw = new StringWriter();
+        var f = new HumanFormatter(sw, Basic());
+        f.Handle(new Event { Kind = EventKind.File, Pid = 10, Operation = "create", Path = @"C:\tmp\a.dat" });
+        f.Handle(new Event { Kind = EventKind.File, Pid = 10, Operation = "write", Path = @"C:\tmp\a.dat", Size = 14, Offset = 0 });
+        f.Handle(new Event { Kind = EventKind.Network, Pid = 10, Operation = "connect", Protocol = "tcp", Remote = "127.0.0.1:9999" });
+
+        var s = sw.ToString();
+        Assert.Contains("file create \"C:\\tmp\\a.dat\"", s);
+        Assert.Contains("file write \"C:\\tmp\\a.dat\" (14 bytes", s);
+        Assert.Contains("net connect tcp -> 127.0.0.1:9999", s);
+    }
+
+    [Fact]
+    public void JsonRendersFileAndNetwork()
+    {
+        var sw = new StringWriter();
+        var f = new JsonFormatter(sw, Basic(OutputFormat.Json));
+        f.Handle(new Event { Kind = EventKind.File, Pid = 10, Tid = 11, Operation = "write", Path = @"C:\tmp\a.dat", Size = 14, Offset = 0 });
+        f.Handle(new Event { Kind = EventKind.Network, Pid = 10, Tid = 11, Operation = "connect", Protocol = "tcp", Local = "0.0.0.0:0", Remote = "127.0.0.1:9999" });
+
+        var lines = sw.ToString().Split('\n', StringSplitOptions.RemoveEmptyEntries);
+        var file = ParseLine(lines[0]);
+        Assert.Equal("file", file.GetProperty("kind").GetString());
+        Assert.Equal("write", file.GetProperty("op").GetString());
+        Assert.Equal(@"C:\tmp\a.dat", file.GetProperty("path").GetString());
+        Assert.Equal(14, file.GetProperty("size").GetInt64());
+
+        var net = ParseLine(lines[1]);
+        Assert.Equal("network", net.GetProperty("kind").GetString());
+        Assert.Equal("tcp", net.GetProperty("protocol").GetString());
+        Assert.Equal("127.0.0.1:9999", net.GetProperty("remote").GetString());
+    }
+
+    [Fact]
     public void SummaryOnlySuppressesEventsButEndPrintsTotals()
     {
         var sw = new StringWriter();

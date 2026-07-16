@@ -56,10 +56,32 @@ tmon -- .\primitive.exe
 tmon --format json -o run.jsonl -- .\primitive.exe
 ```
 
+## Decoded telemetry
+
+Beyond named syscalls, tmon captures the richer named-event streams that are the
+Windows analog to Linux's decoded arguments:
+
+- **File** (`kind: file`) — `create`/`read`/`write`/`delete`/`rename` with the
+  resolved **path**, plus byte `size` and `offset` for reads/writes.
+- **Network** (`kind: network`) — TCP `connect`/`send`/`recv`/`disconnect` and UDP
+  `send`/`recv` with the decoded `local` and `remote` **`ip:port`** endpoints and
+  transfer `size`.
+
+Example (tracing `curl` — human form):
+
+```
+net connect tcp -> 23.11.232.44:80
+net send tcp -> 23.11.232.44:80 (102 bytes)
+net recv tcp -> 23.11.232.44:80 (192 bytes)
+file create "C:\Windows\Temp\ct.txt"
+file write "C:\Windows\Temp\ct.txt" (22 bytes @ 0x0)
+```
+
+`--no-decode` keeps the events but drops the decoded path/endpoint strings.
+
 ## Status
 
 Three-layer scaffold, CLI at parity with tmon-linux, spawn-and-trace, tree-scoped
-process/thread/image capture, syscall attribution **with name resolution**, human
-+ JSONL output, lost-event accounting, xUnit tests + CI (windows-2025). Planned:
-`FileIO`/`TcpIp` decoding (file paths, network addresses) for the richer named
-event signal.
+process/thread/image capture, syscall attribution **with name resolution**,
+**file and network decoding** (paths, endpoints), human + JSONL output,
+lost-event accounting, xUnit tests + CI (windows-2025).

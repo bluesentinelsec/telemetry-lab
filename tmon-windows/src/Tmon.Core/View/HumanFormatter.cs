@@ -61,6 +61,17 @@ public sealed class HumanFormatter : IEventSink
             case EventKind.Image:
                 _out.WriteLine($"image{Quoted(e.Image)}");
                 break;
+            case EventKind.File:
+                _out.Write($"file {e.Operation}{Quoted(e.Path)}");
+                if (e.Size > 0) _out.Write($" ({e.Size} bytes @ 0x{e.Offset:x})");
+                _out.WriteLine();
+                break;
+            case EventKind.Network:
+                _out.Write($"net {e.Operation} {e.Protocol}");
+                if (!string.IsNullOrEmpty(e.Remote)) _out.Write($" -> {e.Remote}");
+                if (e.Size > 0) _out.Write($" ({e.Size} bytes)");
+                _out.WriteLine();
+                break;
         }
     }
 

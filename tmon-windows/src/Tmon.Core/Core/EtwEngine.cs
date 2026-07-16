@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
 using System.Text;
+using Microsoft.Diagnostics.Tracing;
 using Microsoft.Diagnostics.Tracing.Parsers;
 using Microsoft.Diagnostics.Tracing.Parsers.Kernel;
 using Microsoft.Diagnostics.Tracing.Session;
@@ -65,7 +66,10 @@ public sealed class EtwEngine
             KernelTraceEventParser.Keywords.Thread |
             KernelTraceEventParser.Keywords.ImageLoad |
             KernelTraceEventParser.Keywords.ContextSwitch |
-            KernelTraceEventParser.Keywords.SystemCall);
+            KernelTraceEventParser.Keywords.SystemCall |
+            KernelTraceEventParser.Keywords.FileIO |
+            KernelTraceEventParser.Keywords.FileIOInit |
+            KernelTraceEventParser.Keywords.NetworkTCPIP);
 
         WireHandlers(session.Source.Kernel);
 
@@ -181,6 +185,66 @@ public sealed class EtwEngine
                     Image = _config.Decode ? e.FileName : null,
                 });
         };
+
+        // File I/O: create (open), read, write, delete, rename -- with the path.
+        k.FileIOCreate += e => EmitFile(e, "create", e.FileName, 0, 0);
+        k.FileIORead += e => EmitFile(e, "read", e.FileName, e.IoSize, e.Offset);
+        k.FileIOWrite += e => EmitFile(e, "write", e.FileName, e.IoSize, e.Offset);
+        k.FileIODelete += e => EmitFile(e, "delete", e.FileName, 0, 0);
+        k.FileIORename += e => EmitFile(e, "rename", e.FileName, 0, 0);
+
+        // Network: TCP connect/send/recv/disconnect and UDP send/recv -- with endpoints.
+        k.TcpIpConnect += e => EmitNet(e, "connect", "tcp", Endpoint(e.saddr, e.sport), Endpoint(e.daddr, e.dport), 0);
+        k.TcpIpSend += e => EmitNet(e, "send", "tcp", Endpoint(e.saddr, e.sport), Endpoint(e.daddr, e.dport), e.size);
+        k.TcpIpRecv += e => EmitNet(e, "recv", "tcp", Endpoint(e.saddr, e.sport), Endpoint(e.daddr, e.dport), e.size);
+        k.TcpIpDisconnect += e => EmitNet(e, "disconnect", "tcp", Endpoint(e.saddr, e.sport), Endpoint(e.daddr, e.dport), 0);
+        k.UdpIpSend += e => EmitNet(e, "send", "udp", Endpoint(e.saddr, e.sport), Endpoint(e.daddr, e.dport), e.size);
+        k.UdpIpRecv += e => EmitNet(e, "recv", "udp", Endpoint(e.saddr, e.sport), Endpoint(e.daddr, e.dport), e.size);
+    }
+
+    private static string Endpoint(System.Net.IPAddress addr, int port) => $"{addr}:{port}";
+
+    // FileIO/network events carry the initiating process; fall back to the
+    // thread->process map when the process id is not set on the record.
+    private int PidFor(int processId, int threadId)
+    {
+        if (processId > 0) return processId;
+        return _threadToPid.TryGetValue(threadId, out var pid) ? pid : -1;
+    }
+
+    private void EmitFile(TraceEvent e, string op, string path, long size, long offset)
+    {
+        int pid = PidFor(e.ProcessID, e.ThreadID);
+        if (pid < 0 || !_traced.ContainsKey(pid)) return;
+        Emit(new Event
+        {
+            Kind = EventKind.File,
+            TimeMsec = e.TimeStampRelativeMSec,
+            Pid = pid,
+            Tid = e.ThreadID,
+            Operation = op,
+            Path = _config.Decode ? path : null,
+            Size = size,
+            Offset = offset,
+        });
+    }
+
+    private void EmitNet(TraceEvent e, string op, string proto, string local, string remote, int size)
+    {
+        int pid = PidFor(e.ProcessID, e.ThreadID);
+        if (pid < 0 || !_traced.ContainsKey(pid)) return;
+        Emit(new Event
+        {
+            Kind = EventKind.Network,
+            TimeMsec = e.TimeStampRelativeMSec,
+            Pid = pid,
+            Tid = e.ThreadID,
+            Operation = op,
+            Protocol = proto,
+            Local = _config.Decode ? local : null,
+            Remote = _config.Decode ? remote : null,
+            Size = size,
+        });
     }
 
     private void EmitProcess(EventKind kind, ProcessTraceData e) => Emit(new Event

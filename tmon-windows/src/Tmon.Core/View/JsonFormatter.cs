@@ -66,6 +66,20 @@ public sealed class JsonFormatter : IEventSink
             case EventKind.Image:
                 if (e.Image is not null) root["image"] = e.Image;
                 break;
+            case EventKind.File:
+                root["tid"] = e.Tid;
+                root["op"] = e.Operation;
+                if (e.Path is not null) root["path"] = e.Path;
+                if (e.Size > 0) { root["size"] = e.Size; root["offset"] = e.Offset; }
+                break;
+            case EventKind.Network:
+                root["tid"] = e.Tid;
+                root["op"] = e.Operation;
+                root["protocol"] = e.Protocol;
+                if (e.Local is not null) root["local"] = e.Local;
+                if (e.Remote is not null) root["remote"] = e.Remote;
+                if (e.Size > 0) root["size"] = e.Size;
+                break;
         }
         WriteLine(root);
     }
@@ -92,6 +106,8 @@ public sealed class JsonFormatter : IEventSink
         EventKind.ProcessStart => "process_start",
         EventKind.ProcessStop => "process_stop",
         EventKind.Image => "image",
+        EventKind.File => "file",
+        EventKind.Network => "network",
         _ => "unknown",
     };
 }
