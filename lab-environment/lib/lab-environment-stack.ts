@@ -3,6 +3,21 @@ import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as fs from 'fs';
+import * as path from 'path';
+
+/**
+ * The host-local self-inventory scripts, embedded (base64) into user data at synth
+ * so the authored files under scripts/ stay the single source of truth. Each runs
+ * as the last provisioning step on its host and writes inventory.json (versions +
+ * SHA-256 + paths) to a deterministic location for tap to discover.
+ */
+const INVENTORY_LINUX_B64 = Buffer.from(
+  fs.readFileSync(path.join(__dirname, '../scripts/inventory-linux.sh')),
+).toString('base64');
+const INVENTORY_WINDOWS_B64 = Buffer.from(
+  fs.readFileSync(path.join(__dirname, '../scripts/inventory-windows.ps1')),
+).toString('base64');
 
 /**
  * Owner account for the official Debian AMIs. Debian publishes AMIs under this
@@ -156,6 +171,12 @@ export class LabEnvironmentStack extends cdk.Stack {
       'TL_URL=$(grep browser_download_url /opt/lab/release.json | grep linux.tar.gz | cut -d\'"\' -f4)',
       'curl -fsSL -o /opt/lab/telemetry-lab.tar.gz "$TL_URL"',
       'tar -xzf /opt/lab/telemetry-lab.tar.gz -C /opt/lab',
+      // --- Provenance: self-inventory (LAST step, after everything is installed) ---
+      // Decode the authored scripts/inventory-linux.sh (embedded at synth) and run it;
+      // it writes /opt/lab/inventory.json with versions + SHA-256 + paths. tap reads
+      // this file co-located with telemetry data to stamp analysis output.
+      `echo ${INVENTORY_LINUX_B64} | base64 -d > /opt/lab/inventory-self.sh`,
+      'bash /opt/lab/inventory-self.sh || true',
     );
 
     // Debian 13 (trixie), x86_64 -- matches the debian:trixie container used in
@@ -248,6 +269,13 @@ export class LabEnvironmentStack extends cdk.Stack {
       "$tla = $tl.assets | Where-Object { $_.name -like '*windows.zip' } | Select-Object -First 1",
       "Invoke-WebRequest -Uri $tla.browser_download_url -OutFile C:\\lab\\telemetry-lab.zip -UseBasicParsing",
       'Expand-Archive -Path C:\\lab\\telemetry-lab.zip -DestinationPath C:\\lab\\telemetry-lab -Force',
+      // --- Provenance: self-inventory (LAST step before the reboot, everything installed) ---
+      // Decode the authored scripts/inventory-windows.ps1 (embedded at synth) and run
+      // it; it writes C:\lab\inventory.json with versions + SHA-256 + paths. tap reads
+      // this file co-located with telemetry data to stamp analysis output.
+      `$invB64 = '${INVENTORY_WINDOWS_B64}'`,
+      "[IO.File]::WriteAllText('C:\\lab\\inventory-self.ps1', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($invB64)))",
+      'powershell -ExecutionPolicy Bypass -File C:\\lab\\inventory-self.ps1',
       // Remove Defender entirely; reboot only if the feature removal asks for it.
       '$rm = $null',
       'try { $rm = Uninstall-WindowsFeature -Name Windows-Defender -ErrorAction Stop } catch {}',

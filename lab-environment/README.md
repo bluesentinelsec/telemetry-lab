@@ -91,37 +91,47 @@ the SSM agent, and Debian installs it at boot. Once the instances register
 (`aws ssm describe-instance-information`), run commands with `aws ssm
 send-command` or open a shell with `aws ssm start-session --target <id>`.
 
+## Provenance (inventory)
+
+Each host self-inventories as the **last provisioning step**, writing a
+deterministic `inventory.json` — version + SHA-256 + path for every significant
+component (the telemetry-lab release and its `tmon`/`tap`/`ttp_primitives`, the
+detectors, and the OS):
+
+| Host | Inventory file | Written by |
+|---|---|---|
+| Debian 13 | `/opt/lab/inventory.json` | `scripts/inventory-linux.sh` |
+| Windows Server 2025 | `C:\lab\inventory.json` | `scripts/inventory-windows.ps1` |
+
+Both scripts are embedded into user data at synth (the files under `scripts/` are
+the source of truth). Because the lab consumes **latest** dependencies (so it
+never breaks on an upstream change), this per-host inventory — not a version pin —
+is what establishes reproducibility: an experiment completes within a day, and the
+file records exactly what ran.
+
+**`tap` consumes it.** When `tap` finds an `inventory.json` co-located with the
+telemetry it analyzes, it embeds it under `provenance` in `analysis.json` and
+renders it as a Provenance section in `report.md` — so every result traces back to
+the exact versions + hashes that produced it. Collect `inventory.json` alongside
+raw telemetry so it travels with the data.
+
 ## Validate the deploy
 
-After `cdk deploy`, confirm both detection stacks work end to end. Each script
-captures a **provenance manifest** (installed versions + SHA-256 hashes — the
-reproducibility record) and runs a **fire test** that proves the detection
-pipeline actually fires. Run them over SSM (pass the data-bucket name so the
-manifest is uploaded):
+`scripts/validate-linux.sh` / `validate-windows.ps1` prove the detection pipeline
+actually fires, end to end (Falco canary + `/etc/shadow` rule on Linux;
+Sysmon → EVTX → Hayabusa/Sigma on Windows). Run them over SSM after a deploy:
 
 ```sh
-BUCKET=$(aws cloudformation describe-stacks --stack-name LabEnvironmentStack \
-  --query "Stacks[0].Outputs[?OutputKey=='DataBucketName'].OutputValue" --output text)
-
 # Linux (Falco): canary rule + read /etc/shadow -> expect an alert
 aws ssm send-command --instance-ids <debian-id> \
   --document-name AWS-RunShellScript \
-  --parameters commands="bash /path/validate-linux.sh $BUCKET"
+  --parameters commands="bash /path/validate-linux.sh"
 
 # Windows (Sysmon + Hayabusa): recon + Run-key write -> expect >=1 Sigma detection
 aws ssm send-command --instance-ids <windows-id> \
   --document-name AWS-RunPowerShellScript \
-  --parameters commands="powershell -File C:\\lab\\validate-windows.ps1 -Bucket $BUCKET"
+  --parameters commands="powershell -File C:\\lab\\validate-windows.ps1"
 ```
-
-Provenance manifests land at `s3://<data-bucket>/provenance/`. Because the lab
-consumes **latest** dependencies (so it never breaks on an upstream change),
-these manifests — not a version pin — are what establish reproducibility: a full
-experiment completes within a day, and the manifest records exactly what ran.
-
-The inventory records the telemetry-lab release (version from the bundle's tag,
-plus SHA-256) alongside the detectors, so one file captures every significant lab
-component.
 
 ## Scope and deferrals
 
