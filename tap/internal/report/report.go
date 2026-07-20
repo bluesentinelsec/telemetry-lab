@@ -18,11 +18,46 @@ func Render(r analyze.Result) string {
 	b.WriteString("# Telemetry analysis — findings by research question\n\n")
 	b.WriteString(fmt.Sprintf("Primitives analyzed: %d\n\n", len(r.Primitives)))
 
+	provenanceSection(&b, r)
 	rq1(&b, r)
 	rq2(&b, r)
 	rq3(&b, r)
 	rq4(&b, r)
 	return b.String()
+}
+
+// provenanceSection renders the lab inventory captured with the telemetry, so the
+// findings trace back to exact tool versions + hashes. Omitted when no inventory
+// was found beside the input data.
+func provenanceSection(b *strings.Builder, r analyze.Result) {
+	p := r.Provenance
+	if p == nil {
+		return
+	}
+	b.WriteString("## Provenance\n\n")
+	b.WriteString(fmt.Sprintf("Captured %s on the %s host — %s", p.Generated, p.Host, p.OS))
+	if p.Kernel != "" {
+		b.WriteString(fmt.Sprintf(" (kernel %s)", p.Kernel))
+	}
+	b.WriteString(fmt.Sprintf("; telemetry-lab release %s.\n\n", dash(p.TelemetryLabRelease)))
+	b.WriteString("| component | type | version | sha-256 | path |\n")
+	b.WriteString("|---|---|---|---|---|\n")
+	for _, c := range p.Components {
+		sha := c.SHA256
+		if len(sha) > 12 {
+			sha = sha[:12] + "…"
+		}
+		b.WriteString(fmt.Sprintf("| %s | %s | %s | `%s` | %s |\n",
+			c.Name, c.Type, dash(c.Version), dash(sha), c.Path))
+	}
+	b.WriteString("\n")
+}
+
+func dash(s string) string {
+	if s == "" {
+		return "—"
+	}
+	return s
 }
 
 // RQ1 — telemetry differences within each family under different configs.

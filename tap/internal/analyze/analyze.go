@@ -24,16 +24,19 @@ const controlPrimitive = "empty"
 // Result is the full analysis, one entry per primitive.
 type Result struct {
 	Primitives []PrimitiveResult `json:"primitives"`
+	// Provenance is the lab inventory (versions + SHA-256) for the host that
+	// produced this telemetry, when an inventory.json was found beside the input.
+	Provenance *Provenance `json:"provenance,omitempty"`
 }
 
 type PrimitiveResult struct {
-	Primitive         string            `json:"primitive"`
-	Configs           []ConfigSummary   `json:"configs"`
-	Jaccard           []Pair            `json:"jaccard"`             // within-OS, syscall symbols
+	Primitive         string              `json:"primitive"`
+	Configs           []ConfigSummary     `json:"configs"`
+	Jaccard           []Pair              `json:"jaccard"`               // within-OS, syscall symbols
 	StableByOS        map[string][]string `json:"stable_syscalls_by_os"` // in all of an OS's configs
-	SubstrateSpecific []ConfigUnique    `json:"substrate_specific"`  // syscalls unique to one config
-	Significance      []SigPair         `json:"significance"`        // MWU on total counts, within-OS
-	CrossOS           []CrossOSFamily   `json:"cross_os,omitempty"`  // Debian vs Windows, per semantic family
+	SubstrateSpecific []ConfigUnique      `json:"substrate_specific"`    // syscalls unique to one config
+	Significance      []SigPair           `json:"significance"`          // MWU on total counts, within-OS
+	CrossOS           []CrossOSFamily     `json:"cross_os,omitempty"`    // Debian vs Windows, per semantic family
 }
 
 // CrossOSFamily compares a semantic family across OSes (RQ3): how much each OS
@@ -88,8 +91,8 @@ type runAgg struct {
 }
 
 type configAgg struct {
-	os       string
-	runs     map[string]*runAgg // by run_id
+	os   string
+	runs map[string]*runAgg // by run_id
 }
 
 // Load reads normalized JSONL and aggregates it into per-primitive,
@@ -148,9 +151,9 @@ func analyzePrimitive(prim string, byCfg map[string]*configAgg, control map[stri
 	pr := PrimitiveResult{Primitive: prim, StableByOS: map[string][]string{}}
 
 	// Per-config summaries, syscall symbol sets, and per-family name sets.
-	symbols := map[string]map[string]bool{}                  // config -> syscall set
+	symbols := map[string]map[string]bool{}                   // config -> syscall set
 	famNames := map[string]map[model.Family]map[string]bool{} // config -> family -> names
-	famMedians := map[string]map[model.Family]float64{}      // config -> family -> median count
+	famMedians := map[string]map[model.Family]float64{}       // config -> family -> median count
 	totals := map[string][]float64{}                          // config -> per-run totals
 	osOf := map[string]string{}
 	for _, cfg := range sortedKeys(byCfg) {

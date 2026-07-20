@@ -46,6 +46,7 @@ func runAnalyze(args []string) error {
 		return err
 	}
 	result := analyze.Analyze(profiles)
+	attachProvenance(&result, input)
 
 	of, err := os.Create(out)
 	if err != nil {

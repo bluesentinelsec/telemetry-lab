@@ -15,6 +15,18 @@ and to run under **any** AWS account with no code changes.
 Plus a dedicated VPC (public subnets, internet gateway, **no NAT gateway**) and
 one egress-only security group per host (all outbound, **zero inbound**).
 
+Both hosts come up **detection-ready** via user data, with the solutions under
+test installed at their **latest** release (not pinned — see *Provenance* below):
+
+| Host | Detection stack | Role |
+|---|---|---|
+| Debian 13 | **Falco** (modern-eBPF driver, default + incubating + sandbox rules) | syscall-level detector |
+| Windows Server 2025 | **Sysmon** (log-all config) + **Hayabusa** (bundled Sigma ruleset) | event-level detector |
+
+Both hosts also fetch the latest **telemetry-lab release bundle** (`tmon`, `tap`,
+`ttp-primitives`, substrate manifests) at boot and extract it under `/opt/lab`
+(Linux) / `C:\lab\telemetry-lab` (Windows), so a fresh host is experiment-ready.
+
 These OS/instance choices mirror the CI runners so the runtime substrate matches:
 Debian 13 is the `debian:trixie` container CI builds in, and Windows Server 2025
 is the `windows-2025` runner.
@@ -79,12 +91,55 @@ the SSM agent, and Debian installs it at boot. Once the instances register
 (`aws ssm describe-instance-information`), run commands with `aws ssm
 send-command` or open a shell with `aws ssm start-session --target <id>`.
 
+## Provenance (inventory)
+
+Each host self-inventories as the **last provisioning step**, writing a
+deterministic `inventory.json` — version + SHA-256 + path for every significant
+component (the telemetry-lab release and its `tmon`/`tap`/`ttp_primitives`, the
+detectors, and the OS):
+
+| Host | Inventory file | Written by |
+|---|---|---|
+| Debian 13 | `/opt/lab/inventory.json` | `scripts/inventory-linux.sh` |
+| Windows Server 2025 | `C:\lab\inventory.json` | `scripts/inventory-windows.ps1` |
+
+Both scripts are embedded into user data at synth (the files under `scripts/` are
+the source of truth). Because the lab consumes **latest** dependencies (so it
+never breaks on an upstream change), this per-host inventory — not a version pin —
+is what establishes reproducibility: an experiment completes within a day, and the
+file records exactly what ran.
+
+**`tap` consumes it.** When `tap` finds an `inventory.json` co-located with the
+telemetry it analyzes, it embeds it under `provenance` in `analysis.json` and
+renders it as a Provenance section in `report.md` — so every result traces back to
+the exact versions + hashes that produced it. Collect `inventory.json` alongside
+raw telemetry so it travels with the data.
+
+## Validate the deploy
+
+`scripts/validate-linux.sh` / `validate-windows.ps1` prove the detection pipeline
+actually fires, end to end (Falco canary + `/etc/shadow` rule on Linux;
+Sysmon → EVTX → Hayabusa/Sigma on Windows). Run them over SSM after a deploy:
+
+```sh
+# Linux (Falco): canary rule + read /etc/shadow -> expect an alert
+aws ssm send-command --instance-ids <debian-id> \
+  --document-name AWS-RunShellScript \
+  --parameters commands="bash /path/validate-linux.sh"
+
+# Windows (Sysmon + Hayabusa): recon + Run-key write -> expect >=1 Sigma detection
+aws ssm send-command --instance-ids <windows-id> \
+  --document-name AWS-RunPowerShellScript \
+  --parameters commands="powershell -File C:\\lab\\validate-windows.ps1"
+```
+
 ## Scope and deferrals
 
 Still deferred (not part of this app yet):
 
-- **Post-deploy configuration**: disabling Windows Defender, installing pinned
-  toolchains and telemetry dependencies, and downloading pre-built primitives.
+- **Per-experiment overrides**: swapping in a specific pinned telemetry-lab build
+  (rather than latest) for a given experiment run is done by re-staging the
+  bundle, not by this app.
 
 ## Cost note
 

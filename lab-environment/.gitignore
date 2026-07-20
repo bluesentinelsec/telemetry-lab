@@ -11,3 +11,6 @@ cdk.out
 # keyed to whoever synthesized, which would pin other deployers to a foreign
 # account/region's AMI. Ignoring it forces a clean re-resolve per account.
 cdk.context.json
+
+# Generated per-run provenance record (uploaded to S3, not tracked)
+lab-inventory.md

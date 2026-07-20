@@ -3,6 +3,21 @@ import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as fs from 'fs';
+import * as path from 'path';
+
+/**
+ * The host-local self-inventory scripts, embedded (base64) into user data at synth
+ * so the authored files under scripts/ stay the single source of truth. Each runs
+ * as the last provisioning step on its host and writes inventory.json (versions +
+ * SHA-256 + paths) to a deterministic location for tap to discover.
+ */
+const INVENTORY_LINUX_B64 = Buffer.from(
+  fs.readFileSync(path.join(__dirname, '../scripts/inventory-linux.sh')),
+).toString('base64');
+const INVENTORY_WINDOWS_B64 = Buffer.from(
+  fs.readFileSync(path.join(__dirname, '../scripts/inventory-windows.ps1')),
+).toString('base64');
 
 /**
  * Owner account for the official Debian AMIs. Debian publishes AMIs under this
@@ -122,6 +137,46 @@ export class LabEnvironmentStack extends cdk.Stack {
         'musl libc++1 libc++abi1 libunwind8 ' +
         'libelf1 zlib1g libzstd1 ' +
         'awscli tar gzip xz-utils ca-certificates',
+      // --- Detection tooling under test: Falco (latest stable) ---
+      // Falco is the Linux runtime detector under test. We deliberately consume
+      // the LATEST stable release rather than pinning a version, so the lab does
+      // not break when the apt repo prunes old versions. Reproducibility is
+      // established after the fact by scripts/capture-provenance.sh, which records
+      // the exact installed version + binary/rule hashes per deploy.
+      // `gnupg` is required to dearmor the repo key and is absent on the minimal
+      // Debian AMI. The modern eBPF driver needs no kernel module (kernel BTF).
+      'apt-get install -y gnupg',
+      'curl -fsSL https://falco.org/repo/falcosecurity-packages.asc ' +
+        '| gpg --dearmor -o /usr/share/keyrings/falco-archive-keyring.gpg',
+      'echo "deb [signed-by=/usr/share/keyrings/falco-archive-keyring.gpg] ' +
+        'https://download.falco.org/packages/deb stable main" ' +
+        '> /etc/apt/sources.list.d/falcosecurity.list',
+      'apt-get update -y',
+      'FALCO_FRONTEND=noninteractive FALCO_DRIVER_CHOICE=modern_ebpf ' +
+        'apt-get install -y falco',
+      // Pull the incubating + sandbox rule feeds too (same corpus as the PoC);
+      // non-fatal so a feed hiccup never blocks the deploy.
+      'falcoctl index update falcosecurity || true',
+      'falcoctl artifact install falco-incubating-rules:latest || true',
+      'falcoctl artifact install falco-sandbox-rules:latest || true',
+      'systemctl enable falco-modern-bpf.service',
+      'systemctl restart falco-modern-bpf.service',
+      // --- Lab payload: telemetry-lab release bundle (latest) ---
+      // The project's own release (tmon, tap, ttp-primitives, substrate manifests),
+      // fetched at its latest tag and extracted under /opt/lab so a fresh host is
+      // experiment-ready. The tarball is kept for hashing; inventory.sh derives the
+      // version from the extracted directory name and records path + SHA-256.
+      'mkdir -p /opt/lab',
+      'curl -fsSL https://api.github.com/repos/bluesentinelsec/telemetry-lab/releases/latest -o /opt/lab/release.json',
+      'TL_URL=$(grep browser_download_url /opt/lab/release.json | grep linux.tar.gz | cut -d\'"\' -f4)',
+      'curl -fsSL -o /opt/lab/telemetry-lab.tar.gz "$TL_URL"',
+      'tar -xzf /opt/lab/telemetry-lab.tar.gz -C /opt/lab',
+      // --- Provenance: self-inventory (LAST step, after everything is installed) ---
+      // Decode the authored scripts/inventory-linux.sh (embedded at synth) and run it;
+      // it writes /opt/lab/inventory.json with versions + SHA-256 + paths. tap reads
+      // this file co-located with telemetry data to stamp analysis output.
+      `echo ${INVENTORY_LINUX_B64} | base64 -d > /opt/lab/inventory-self.sh`,
+      'bash /opt/lab/inventory-self.sh || true',
     );
 
     // Debian 13 (trixie), x86_64 -- matches the debian:trixie container used in
@@ -178,6 +233,49 @@ export class LabEnvironmentStack extends cdk.Stack {
       '$msi = "$env:TEMP\\AWSCLIV2.msi"',
       "Invoke-WebRequest -Uri 'https://awscli.amazonaws.com/AWSCLIV2.msi' -OutFile $msi -UseBasicParsing",
       'Start-Process msiexec.exe -ArgumentList "/i `"$msi`" /qn" -Wait',
+      // --- Detection tooling under test: Sysmon + Hayabusa (latest) ---
+      // Installed BEFORE the Defender feature removal below, because that step may
+      // reboot and end the user-data script. Both are consumed at their LATEST
+      // release (not pinned); scripts/capture-provenance.ps1 records the exact
+      // versions + hashes per deploy. Everything lands under C:\lab, which was
+      // excluded from Defender first, so nothing is scanned/quarantined.
+      'New-Item -ItemType Directory -Force -Path C:\\lab\\sysmon | Out-Null',
+      'New-Item -ItemType Directory -Force -Path C:\\lab\\hayabusa | Out-Null',
+      // Sysmon (ETW sensor): latest from Sysinternals + a log-all config. The
+      // config filters nothing (each event class is onmatch="exclude" with no
+      // rules => nothing excluded => everything logged), so Sigma rules see the
+      // full event stream and a null result means "robust", not "not captured".
+      "Invoke-WebRequest -Uri 'https://download.sysinternals.com/files/Sysmon.zip' -OutFile C:\\lab\\Sysmon.zip -UseBasicParsing",
+      'Expand-Archive -Path C:\\lab\\Sysmon.zip -DestinationPath C:\\lab\\sysmon -Force',
+      "$cfgB64 = 'PFN5c21vbiBzY2hlbWF2ZXJzaW9uPSI0LjkwIj4KICA8SGFzaEFsZ29yaXRobXM+KjwvSGFzaEFsZ29yaXRobXM+CiAgPEV2ZW50RmlsdGVyaW5nPgogICAgPFByb2Nlc3NDcmVhdGUgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGVUaW1lIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxOZXR3b3JrQ29ubmVjdCBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8UHJvY2Vzc1Rlcm1pbmF0ZSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8RHJpdmVyTG9hZCBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8SW1hZ2VMb2FkIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxDcmVhdGVSZW1vdGVUaHJlYWQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFJhd0FjY2Vzc1JlYWQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFByb2Nlc3NBY2Nlc3Mgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGUgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFJlZ2lzdHJ5RXZlbnQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGVTdHJlYW1IYXNoIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxQaXBlRXZlbnQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFdtaUV2ZW50IG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxEbnNRdWVyeSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8RmlsZURlbGV0ZSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8Q2xpcGJvYXJkQ2hhbmdlIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxQcm9jZXNzVGFtcGVyaW5nIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxGaWxlRGVsZXRlRGV0ZWN0ZWQgb25tYXRjaD0iZXhjbHVkZSIvPgogIDwvRXZlbnRGaWx0ZXJpbmc+CjwvU3lzbW9uPgo='",
+      "[IO.File]::WriteAllText('C:\\lab\\sysmon\\config.xml', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($cfgB64)))",
+      '& C:\\lab\\sysmon\\Sysmon64.exe -accepteula -i C:\\lab\\sysmon\\config.xml',
+      // Hayabusa (Sigma evaluator): latest win-x64 release asset resolved via the
+      // GitHub API, extracted to C:\lab\hayabusa; the release bundles its Sigma
+      // ruleset under rules\. Normalize the versioned exe name to hayabusa.exe.
+      "$hdr = @{ 'User-Agent' = 'telemetry-lab' }",
+      "$rel = Invoke-RestMethod -Uri 'https://api.github.com/repos/Yamato-Security/hayabusa/releases/latest' -Headers $hdr",
+      "$asset = $rel.assets | Where-Object { $_.name -like '*-win-x64.zip' -and $_.name -notlike '*live-response*' } | Select-Object -First 1",
+      "Invoke-WebRequest -Uri $asset.browser_download_url -OutFile C:\\lab\\hayabusa.zip -UseBasicParsing",
+      'Expand-Archive -Path C:\\lab\\hayabusa.zip -DestinationPath C:\\lab\\hayabusa -Force',
+      "$hb = Get-ChildItem -Path C:\\lab\\hayabusa -Recurse -Filter 'hayabusa*-win-x64.exe' | Select-Object -First 1",
+      "if ($hb) { Copy-Item $hb.FullName C:\\lab\\hayabusa\\hayabusa.exe -Force }",
+      // --- Lab payload: telemetry-lab release bundle (latest) ---
+      // The project's own release (tmon, tap, ttp-primitives, substrate manifests),
+      // fetched at its latest tag and extracted under C:\lab\telemetry-lab so a fresh
+      // host is experiment-ready. The zip is kept for hashing; inventory.ps1 derives
+      // the version from the extracted directory name and records path + SHA-256.
+      "$tl = Invoke-RestMethod -Uri 'https://api.github.com/repos/bluesentinelsec/telemetry-lab/releases/latest' -Headers $hdr",
+      "$tla = $tl.assets | Where-Object { $_.name -like '*windows.zip' } | Select-Object -First 1",
+      "Invoke-WebRequest -Uri $tla.browser_download_url -OutFile C:\\lab\\telemetry-lab.zip -UseBasicParsing",
+      'Expand-Archive -Path C:\\lab\\telemetry-lab.zip -DestinationPath C:\\lab\\telemetry-lab -Force',
+      // --- Provenance: self-inventory (LAST step before the reboot, everything installed) ---
+      // Decode the authored scripts/inventory-windows.ps1 (embedded at synth) and run
+      // it; it writes C:\lab\inventory.json with versions + SHA-256 + paths. tap reads
+      // this file co-located with telemetry data to stamp analysis output.
+      `$invB64 = '${INVENTORY_WINDOWS_B64}'`,
+      "[IO.File]::WriteAllText('C:\\lab\\inventory-self.ps1', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($invB64)))",
+      'powershell -ExecutionPolicy Bypass -File C:\\lab\\inventory-self.ps1',
       // Remove Defender entirely; reboot only if the feature removal asks for it.
       '$rm = $null',
       'try { $rm = Uninstall-WindowsFeature -Name Windows-Defender -ErrorAction Stop } catch {}',

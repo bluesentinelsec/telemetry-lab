@@ -121,6 +121,7 @@ func runAll(args []string) error {
 		return err
 	}
 	result := analyze.Analyze(profiles)
+	attachProvenance(&result, input)
 	analysisPath := filepath.Join(dir, "analysis.json")
 	if err := writeJSON(analysisPath, &result); err != nil {
 		return err
@@ -139,6 +140,21 @@ func runAll(args []string) error {
 	fmt.Printf("tap run → %s\n", dir)
 	fmt.Printf("  normalized.jsonl · analysis.json · %d figures · report.md\n", len(figs))
 	return nil
+}
+
+// attachProvenance sets result.Provenance from an inventory.json co-located with
+// the input telemetry. A missing inventory is fine (provenance stays nil); a parse
+// error is reported but non-fatal so analysis still completes.
+func attachProvenance(result *analyze.Result, input string) {
+	prov, err := analyze.LoadProvenance(input)
+	switch {
+	case err != nil:
+		fmt.Fprintf(os.Stderr, "tap: reading provenance: %v\n", err)
+	case prov == nil:
+		fmt.Fprintf(os.Stderr, "tap: no inventory.json beside %s; provenance omitted\n", input)
+	default:
+		result.Provenance = prov
+	}
 }
 
 func writeJSON(path string, v any) error {
