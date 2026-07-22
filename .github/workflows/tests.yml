@@ -91,4 +91,14 @@ jobs:
 
       - name: Test
         working-directory: ttp-primitives/rust
-        run: cargo test --release
+        shell: bash
+        # The 10 process/threading/network/memory/IPC primitives are Linux-first
+        # (issue #44) and use unix-only std APIs, so on Windows scope the test to
+        # the three cross-platform primitives -- the Rust analogue of the C/C++
+        # if(UNIX) CMake gate and the Go CI's Windows package scoping.
+        run: |
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            cargo test --release -p empty -p file_io -p spawn
+          else
+            cargo test --release
+          fi

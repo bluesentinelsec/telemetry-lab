@@ -64,7 +64,7 @@ jobs:
         run: |
           cargo build --release --target ${{ matrix.target }}
           mkdir -p ../../dist/${{ matrix.config }}
-          for p in empty file_io spawn; do
+          for p in empty file_io spawn process_exec process_enumeration thread_create directory_enumeration memory_allocate pipe_ipc tcp_client tcp_server dns_lookup http_client; do
             cp target/${{ matrix.target }}/release/$p ../../dist/${{ matrix.config }}/$p
           done
 
