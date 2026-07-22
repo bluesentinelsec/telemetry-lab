@@ -1,0 +1,10 @@
+[workspace]
+members = [
+    "reverse_shell",
+    "imds",
+    "read_sensitive_file",
+    "symlink_sensitive",
+    "clear_log",
+    "mkdir_bin",
+    "ptrace_antidebug",
+]

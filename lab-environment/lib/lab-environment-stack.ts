@@ -168,6 +168,13 @@ export class LabEnvironmentStack extends cdk.Stack {
       'falcoctl index update falcosecurity || true',
       'falcoctl artifact install falco-incubating-rules:latest || true',
       'falcoctl artifact install falco-sandbox-rules:latest || true',
+      // falcoctl only downloads the rule files to /etc/falco; it does NOT add
+      // them to falco.yaml's rules_files, so without this they never load. Wire
+      // both feeds in after the default set so the incubating (e.g. IMDS) and
+      // sandbox (e.g. Mkdir binary dirs) rules the ttp_composite selection
+      // depends on actually take effect. Idempotent: only inserts if absent.
+      'grep -q falco-incubating_rules.yaml /etc/falco/falco.yaml || ' +
+        'sed -i "/- .etc.falco.falco_rules.yaml$/a\\  - /etc/falco/falco-incubating_rules.yaml\\n  - /etc/falco/falco-sandbox_rules.yaml" /etc/falco/falco.yaml',
       'systemctl enable falco-modern-bpf.service',
       'systemctl restart falco-modern-bpf.service',
       // --- Lab payload: telemetry-lab release bundle (latest) ---

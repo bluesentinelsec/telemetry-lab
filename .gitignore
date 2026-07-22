@@ -68,3 +68,7 @@ cmake_install.cmake
 
 # macOS
 .DS_Store
+
+# local composite/primitive lab-test build outputs
+compdist/
+labdist/
