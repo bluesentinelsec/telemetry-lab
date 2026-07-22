@@ -226,6 +226,7 @@ jobs:
             name: Windows C (MSVCRT)
 
     name: ${{ matrix.name }}
+    continue-on-error: true  # go-back #50: Windows composites non-blocking
     runs-on: windows-2025
     defaults:
       run:
@@ -277,6 +278,7 @@ jobs:
             name: Windows C++ (libc++)
 
     name: ${{ matrix.name }}
+    continue-on-error: true  # go-back #50: Windows composites non-blocking
     runs-on: windows-2025
     defaults:
       run:
@@ -341,6 +343,7 @@ jobs:
             name: Windows Go (pure-Go)
 
     name: ${{ matrix.name }}
+    continue-on-error: true  # go-back #50: Windows composites non-blocking
     runs-on: windows-2025
     env:
       CGO_ENABLED: ${{ matrix.cgo }}

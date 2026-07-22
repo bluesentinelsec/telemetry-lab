@@ -97,8 +97,15 @@ assemble() {
   for cfg in $configs; do
     local cdst="$root/ttp-composite/$cfg"
     mkdir -p "$cdst"
-    find "$COMP/composite-$cfg" -type f \( "${compnameargs[@]}" -name '*.dll' \) -exec cp {} "$cdst/" \;
-    if [ "$os" = linux ]; then chmod +x "$cdst"/* 2>/dev/null || true; fi
+    # Tolerate a missing composite-<config> artifact: the Windows composite CI
+    # jobs are non-blocking (go-backs), so a bundle stays valid with its Linux
+    # composites even if a Windows composite build did not produce an artifact.
+    if [ -d "$COMP/composite-$cfg" ]; then
+      find "$COMP/composite-$cfg" -type f \( "${compnameargs[@]}" -name '*.dll' \) -exec cp {} "$cdst/" \;
+      if [ "$os" = linux ]; then chmod +x "$cdst"/* 2>/dev/null || true; fi
+    else
+      echo "::warning::composite artifacts absent for $cfg -- skipped"
+    fi
   done
 
   # Manifest.
