@@ -43,7 +43,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p components
-          for wf in build-c build-cpp build-go build-rust build-tmon build-tmon-windows build-tap; do
+          # The primitive/tool workflows deposit their per-config artifacts, and
+          # build-composites deposits the composite-<config> artifacts, all into
+          # the same components/ dir; assemble-release.sh keys them apart by name.
+          for wf in build-c build-cpp build-go build-rust build-composites build-tmon build-tmon-windows build-tap; do
             rid=$(gh run list --workflow "$wf.yml" --branch main --status success \
                     --limit 1 --json databaseId -q '.[0].databaseId')
             [ -n "$rid" ] || { echo "::error::no green main run for $wf.yml"; exit 1; }
@@ -71,4 +74,4 @@ jobs:
             --target "${{ github.sha }}" \
             --title "telemetry-lab ${V}" \
             --latest \
-            --notes "Development release. Pre-compiled tmon, tap, and the TTP primitives (empty, file_io, spawn) across all 14 toolchain/runtime configs. Linux bundle is a .tar.gz; Windows bundle is a .zip. See the bundled README.txt for usage."
+            --notes "Development release. Pre-compiled tmon, tap, the TTP primitives, and the TTP composites (multi-step ATT&CK techniques) across all 14 toolchain/runtime configs. Linux bundle is a .tar.gz; Windows bundle is a .zip. See the bundled README.txt for usage."
