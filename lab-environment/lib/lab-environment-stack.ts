@@ -175,6 +175,10 @@ export class LabEnvironmentStack extends cdk.Stack {
       // depends on actually take effect. Idempotent: only inserts if absent.
       'grep -q falco-incubating_rules.yaml /etc/falco/falco.yaml || ' +
         'sed -i "/- .etc.falco.falco_rules.yaml$/a\\  - /etc/falco/falco-incubating_rules.yaml\\n  - /etc/falco/falco-sandbox_rules.yaml" /etc/falco/falco.yaml',
+      // Machine-readable alerts so the composite fire-matrix can attribute which
+      // rule fired per detonation (rule name is only in the JSON output, not the
+      // default text format). Experiment-ready without a manual post-deploy edit.
+      'sed -i "s/^json_output: false/json_output: true/" /etc/falco/falco.yaml',
       'systemctl enable falco-modern-bpf.service',
       'systemctl restart falco-modern-bpf.service',
       // --- Lab payload: telemetry-lab release bundle (latest) ---
