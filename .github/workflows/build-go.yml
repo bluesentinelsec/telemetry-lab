@@ -51,7 +51,7 @@ jobs:
         env:
           CGO_ENABLED: ${{ matrix.cgo }}
         run: |
-          for p in empty file_io spawn; do
+          for p in empty file_io spawn process_exec process_enumeration thread_create directory_enumeration memory_allocate pipe_ipc tcp_client tcp_server dns_lookup http_client; do
             go build -o ../../dist/${{ matrix.config }}/$p ./$p
           done
 
@@ -104,7 +104,7 @@ jobs:
 
       - name: Test
         working-directory: ttp-primitives/go
-        run: go test ./...
+        run: go test ./empty/... ./file_io/... ./spawn/...
 
       - name: Build and stage primitives
         working-directory: ttp-primitives/go

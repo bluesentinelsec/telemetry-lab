@@ -19,6 +19,13 @@ BUILD_TIME="${BUILD_TIME:-unknown}"
 LINUX_CONFIGS="linux-c-glibc linux-c-musl linux-cpp-libstdcxx linux-cpp-libcxx linux-go-cgo linux-go-static linux-rust-gnu linux-rust-musl"
 WIN_CONFIGS="windows-c-ucrt windows-c-msvcrt windows-cpp-libstdcxx windows-cpp-libcxx windows-go-cgo windows-go-static"
 
+# Primitive rosters differ by OS: the 10 process/threading/network/memory/IPC
+# primitives are Linux-first (issue #44 tracks Windows parity), so Windows still
+# ships only the three cross-platform primitives. The names drive both the copy
+# glob and the manifest, so a new primitive is added in exactly one place here.
+LINUX_PRIMS="empty file_io spawn process_exec process_enumeration thread_create directory_enumeration memory_allocate pipe_ipc tcp_client tcp_server dns_lookup http_client"
+WIN_PRIMS="empty file_io spawn"
+
 # find1 <dir> <find-args...> -> first matching file path (fails loudly if none).
 find1() {
   local dir="$1"; shift
@@ -30,6 +37,7 @@ find1() {
 
 assemble() {
   local os="$1" configs="$2"
+  local prims; if [ "$os" = linux ]; then prims="$LINUX_PRIMS"; else prims="$WIN_PRIMS"; fi
   local name="telemetry-lab-${VERSION}-${os}"
   local root="${OUT}/${name}"
   rm -rf "$root"
@@ -49,22 +57,27 @@ assemble() {
     cp "$(find1 "$COMP/tap" -path '*/windows/tap.exe')"  "$root/tap/tap.exe"
   fi
 
-  # Primitives, per config, plus the substrate-verification records.
+  # Primitives, per config, plus the substrate-verification records. The -name
+  # predicate is built from the OS roster ($prims), so a primitive absent on a
+  # given config (e.g. a Linux-only one under a Windows config) simply never
+  # matches -- no per-config special-casing needed.
+  local nameargs=()
+  for p in $prims; do
+    nameargs+=( -name "$p" -o )
+    [ "$os" = windows ] && nameargs+=( -name "$p.exe" -o )
+  done
   for cfg in $configs; do
     local dst="$root/ttp-primitives/$cfg"
     mkdir -p "$dst"
-    find "$COMP/$cfg" -type f \
-      \( -name empty -o -name file_io -o -name spawn \
-         -o -name empty.exe -o -name file_io.exe -o -name spawn.exe \
-         -o -name '*.dll' \) \
-      -exec cp {} "$dst/" \;
+    find "$COMP/$cfg" -type f \( "${nameargs[@]}" -name '*.dll' \) -exec cp {} "$dst/" \;
     if [ "$os" = linux ]; then chmod +x "$dst"/* 2>/dev/null || true; fi
     find "$COMP/$cfg" -name 'substrate-*.json' -exec cp {} "$root/substrate/" \; 2>/dev/null || true
   done
 
   # Manifest.
-  local cfgjson
+  local cfgjson primjson
   cfgjson=$(printf '"%s",' $configs); cfgjson="[${cfgjson%,}]"
+  primjson=$(printf '"%s",' $prims); primjson="[${primjson%,}]"
   cat > "$root/manifest.json" <<EOF
 {
   "name": "telemetry-lab",
@@ -73,7 +86,7 @@ assemble() {
   "commit": "${GIT_SHA}",
   "built": "${BUILD_TIME}",
   "tools": ["tmon", "tap"],
-  "primitives": ["empty", "file_io", "spawn"],
+  "primitives": ${primjson},
   "configs": ${cfgjson}
 }
 EOF

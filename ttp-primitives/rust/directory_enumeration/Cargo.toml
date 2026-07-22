@@ -1,0 +1,4 @@
+[package]
+name = "directory_enumeration"
+version = "0.1.0"
+edition = "2021"
