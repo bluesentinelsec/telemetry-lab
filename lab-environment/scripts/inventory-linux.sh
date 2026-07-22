@@ -54,6 +54,19 @@ if os.path.exists(falco):
     comps.append({"name": "falco", "type": "detector",
                   "version": fm.group(0) if fm else None,
                   "sha256": sha256(falco), "path": falco})
+
+# Container detonation runtime: Docker daemon + the constant substrate base image.
+docker = "/usr/bin/docker"
+if os.path.exists(docker):
+    dm = re.search(r"\d+\.\d+\.\d+", stdout(docker, "--version"))
+    comps.append({"name": "docker", "type": "runtime",
+                  "version": dm.group(0) if dm else None,
+                  "sha256": None, "path": docker})
+    img = stdout(docker, "image", "inspect", "--format", "{{.Id}}", "lab-substrate:13").strip()
+    if img:
+        comps.append({"name": "lab-substrate-image", "type": "container",
+                      "version": "debian:13", "sha256": img.replace("sha256:", ""),
+                      "path": "lab-substrate:13"})
 tgz = "/opt/lab/telemetry-lab.tar.gz"
 if os.path.exists(tgz):
     comps.append({"name": "telemetry-lab", "type": "release", "version": ver,

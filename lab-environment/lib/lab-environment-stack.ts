@@ -20,6 +20,15 @@ const INVENTORY_WINDOWS_B64 = Buffer.from(
 ).toString('base64');
 
 /**
+ * The constant substrate base image Dockerfile, embedded (base64) at synth. The
+ * Debian host builds it once at boot so container detonation of ttp_composites
+ * runs every substrate in one identical image (the Option A confound control).
+ */
+const SUBSTRATE_DOCKERFILE_B64 = Buffer.from(
+  fs.readFileSync(path.join(__dirname, '../docker/substrate-base.Dockerfile')),
+).toString('base64');
+
+/**
  * Owner account for the official Debian AMIs. Debian publishes AMIs under this
  * AWS account; filtering by owner (rather than a hardcoded AMI ID) is what keeps
  * the app portable across regions and accounts.
@@ -171,6 +180,19 @@ export class LabEnvironmentStack extends cdk.Stack {
       'TL_URL=$(grep browser_download_url /opt/lab/release.json | grep linux.tar.gz | cut -d\'"\' -f4)',
       'curl -fsSL -o /opt/lab/telemetry-lab.tar.gz "$TL_URL"',
       'tar -xzf /opt/lab/telemetry-lab.tar.gz -C /opt/lab',
+      // --- Container detonation runtime: Docker + constant substrate base image ---
+      // ttp_composites detonate in a container (Falco's native deployment). The
+      // daemon is standard/rootful (representative; rootless slirp4netns would
+      // perturb the network syscall path we measure). The base image is debian:13
+      // + all substrate runtimes, held constant across the matrix so it is a fixed
+      // offset, not a per-substrate variable. Falco's container plugin (installed
+      // above) enriches events with container context so container-scoped rules
+      // fire. inventory records the Docker version + base-image digest.
+      'apt-get install -y docker.io',
+      'systemctl enable --now docker',
+      'mkdir -p /opt/lab/base-image',
+      `echo ${SUBSTRATE_DOCKERFILE_B64} | base64 -d > /opt/lab/base-image/Dockerfile`,
+      'docker build -t lab-substrate:13 /opt/lab/base-image || true',
       // --- Provenance: self-inventory (LAST step, after everything is installed) ---
       // Decode the authored scripts/inventory-linux.sh (embedded at synth) and run it;
       // it writes /opt/lab/inventory.json with versions + SHA-256 + paths. tap reads

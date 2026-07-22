@@ -27,6 +27,14 @@ Both hosts also fetch the latest **telemetry-lab release bundle** (`tmon`, `tap`
 `ttp-primitives`, substrate manifests) at boot and extract it under `/opt/lab`
 (Linux) / `C:\lab\telemetry-lab` (Windows), so a fresh host is experiment-ready.
 
+The Debian host additionally installs **Docker** (standard/rootful) and builds a
+**constant substrate base image** (`lab-substrate:13` — `debian:13` + every
+runtime the dynamically-linked substrates need). `ttp_composite` techniques
+detonate in this one image across the whole substrate matrix — Falco's native
+deployment, and the confound control that keeps the container a fixed offset
+rather than a per-substrate variable. The image digest is recorded in the
+inventory.
+
 These OS/instance choices mirror the CI runners so the runtime substrate matches:
 Debian 13 is the `debian:trixie` container CI builds in, and Windows Server 2025
 is the `windows-2025` runner.
