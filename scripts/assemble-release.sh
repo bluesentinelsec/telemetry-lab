@@ -26,6 +26,14 @@ WIN_CONFIGS="windows-c-ucrt windows-c-msvcrt windows-cpp-libstdcxx windows-cpp-l
 LINUX_PRIMS="empty file_io spawn process_exec process_enumeration thread_create directory_enumeration memory_allocate pipe_ipc tcp_client tcp_server dns_lookup http_client"
 WIN_PRIMS="empty file_io spawn"
 
+# Composite rosters (multi-step ATT&CK techniques) also differ by OS. Like the
+# primitive rosters, these names drive both the copy glob and the manifest, so a
+# new composite is added in exactly one place. Composite artifacts arrive under
+# COMP as composite-<config>/ (built by build-composites.yml); they carry no
+# substrate-verification record, so nothing is copied into substrate/ for them.
+LINUX_COMPS="reverse_shell imds read_sensitive_file symlink_sensitive clear_log mkdir_bin ptrace_antidebug"
+WIN_COMPS="reverse_shell imds registry_run_key startup_folder"
+
 # find1 <dir> <find-args...> -> first matching file path (fails loudly if none).
 find1() {
   local dir="$1"; shift
@@ -37,11 +45,13 @@ find1() {
 
 assemble() {
   local os="$1" configs="$2"
-  local prims; if [ "$os" = linux ]; then prims="$LINUX_PRIMS"; else prims="$WIN_PRIMS"; fi
+  local prims comps
+  if [ "$os" = linux ]; then prims="$LINUX_PRIMS"; comps="$LINUX_COMPS"
+  else prims="$WIN_PRIMS"; comps="$WIN_COMPS"; fi
   local name="telemetry-lab-${VERSION}-${os}"
   local root="${OUT}/${name}"
   rm -rf "$root"
-  mkdir -p "$root/tmon" "$root/tap" "$root/ttp-primitives" "$root/substrate"
+  mkdir -p "$root/tmon" "$root/tap" "$root/ttp-primitives" "$root/ttp-composite" "$root/substrate"
 
   # Tools.
   if [ "$os" = linux ]; then
@@ -74,10 +84,28 @@ assemble() {
     find "$COMP/$cfg" -name 'substrate-*.json' -exec cp {} "$root/substrate/" \; 2>/dev/null || true
   done
 
+  # Composites, per config, mirroring the primitive staging. Their artifacts
+  # live under COMP as composite-<config>/, and the -name predicate is built from
+  # the OS composite roster ($comps). The C++ Windows configs bundle their stdlib
+  # DLL beside the exe, so *.dll is copied too. No substrate records exist for
+  # composites, so none are collected.
+  local compnameargs=()
+  for c in $comps; do
+    compnameargs+=( -name "$c" -o )
+    [ "$os" = windows ] && compnameargs+=( -name "$c.exe" -o )
+  done
+  for cfg in $configs; do
+    local cdst="$root/ttp-composite/$cfg"
+    mkdir -p "$cdst"
+    find "$COMP/composite-$cfg" -type f \( "${compnameargs[@]}" -name '*.dll' \) -exec cp {} "$cdst/" \;
+    if [ "$os" = linux ]; then chmod +x "$cdst"/* 2>/dev/null || true; fi
+  done
+
   # Manifest.
-  local cfgjson primjson
+  local cfgjson primjson compjson
   cfgjson=$(printf '"%s",' $configs); cfgjson="[${cfgjson%,}]"
   primjson=$(printf '"%s",' $prims); primjson="[${primjson%,}]"
+  compjson=$(printf '"%s",' $comps); compjson="[${compjson%,}]"
   cat > "$root/manifest.json" <<EOF
 {
   "name": "telemetry-lab",
@@ -87,6 +115,7 @@ assemble() {
   "built": "${BUILD_TIME}",
   "tools": ["tmon", "tap"],
   "primitives": ${primjson},
+  "composites": ${compjson},
   "configs": ${cfgjson}
 }
 EOF

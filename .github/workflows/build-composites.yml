@@ -1,0 +1,371 @@
+name: Build Composites
+
+# Build the TTP composites -- multi-step ATT&CK techniques -- across the same
+# toolchain/runtime substrate matrix as the primitives. Unlike the primitives,
+# composites carry no unit-test harness and no substrate-identity verification:
+# they are validated by whether a shipped Falco/Sysmon rule fires when they
+# detonate, not by an exit-code assertion or a linked-runtime fingerprint. Each
+# job stages its config's composites into composite-dist/<config>/ and uploads
+# an artifact named composite-<config>, consumed by the release workflow.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ttp-composite/**'
+      - '.github/workflows/build-composites.yml'
+  pull_request:
+    paths:
+      - 'ttp-composite/**'
+      - '.github/workflows/build-composites.yml'
+  workflow_dispatch:
+
+jobs:
+  linux-c:
+    # C composites: compiler held constant (gcc), only the C runtime varies
+    # (glibc vs musl), mirroring build-c.yml's Linux axis.
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - toolchain: linux-glibc
+            config: linux-c-glibc
+            name: Linux C (glibc)
+            packages: ""
+          - toolchain: linux-musl
+            config: linux-c-musl
+            name: Linux C (musl)
+            packages: musl-tools
+
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install build dependencies
+        run: |
+          apt-get update
+          apt-get install -y build-essential cmake git ${{ matrix.packages }}
+
+      - name: Configure (CMake)
+        working-directory: ttp-composite/linux/c
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=toolchains/${{ matrix.toolchain }}.cmake
+
+      - name: Build
+        working-directory: ttp-composite/linux/c
+        run: cmake --build build
+
+      # A single install stages every composite: each has an install(TARGETS ...
+      # RUNTIME DESTINATION .) rule, so they land flat in composite-dist/<config>.
+      - name: Stage composites
+        working-directory: ttp-composite/linux/c
+        run: cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
+
+      - name: Upload composites
+        uses: actions/upload-artifact@v7
+        with:
+          name: composite-${{ matrix.config }}
+          path: composite-dist/${{ matrix.config }}
+
+  linux-cpp:
+    # C++ composites: clang++ held constant, only the C++ standard library
+    # varies (libstdc++ vs libc++), mirroring build-cpp.yml's Linux axis.
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - toolchain: linux-libstdcxx
+            config: linux-cpp-libstdcxx
+            name: Linux C++ (libstdc++)
+          - toolchain: linux-libcxx
+            config: linux-cpp-libcxx
+            name: Linux C++ (libc++)
+
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install build dependencies
+        run: |
+          apt-get update
+          apt-get install -y cmake git clang libc++-dev libc++abi-dev
+
+      - name: Configure (CMake)
+        working-directory: ttp-composite/linux/cpp
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=toolchains/${{ matrix.toolchain }}.cmake
+
+      - name: Build
+        working-directory: ttp-composite/linux/cpp
+        run: cmake --build build
+
+      - name: Stage composites
+        working-directory: ttp-composite/linux/cpp
+        run: cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
+
+      - name: Upload composites
+        uses: actions/upload-artifact@v7
+        with:
+          name: composite-${{ matrix.config }}
+          path: composite-dist/${{ matrix.config }}
+
+  linux-go:
+    # Go composites: the substrate axis is CGO_ENABLED (cgo links the platform C
+    # runtime; static is pure-Go), mirroring build-go.yml's Linux axis.
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - config: linux-go-cgo
+            cgo: "1"
+            name: Linux Go (cgo)
+          - config: linux-go-static
+            cgo: "0"
+            name: Linux Go (pure-Go static)
+
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+
+    steps:
+      - uses: actions/checkout@v7
+
+      # gcc is required by the cgo build; harmless for the static build.
+      - name: Install build dependencies
+        run: |
+          apt-get update
+          apt-get install -y golang gcc git
+
+      - name: Build and stage composites
+        working-directory: ttp-composite/linux/go
+        env:
+          CGO_ENABLED: ${{ matrix.cgo }}
+        run: |
+          for p in reverse_shell imds read_sensitive_file symlink_sensitive clear_log mkdir_bin ptrace_antidebug; do
+            go build -o ../../../composite-dist/${{ matrix.config }}/$p ./$p
+          done
+
+      - name: Upload composites
+        uses: actions/upload-artifact@v7
+        with:
+          name: composite-${{ matrix.config }}
+          path: composite-dist/${{ matrix.config }}
+
+  linux-rust:
+    # Rust composites: compiler held constant, the libc varies (static glibc vs
+    # musl), mirroring build-rust.yml's Linux axis.
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - config: linux-rust-gnu
+            target: x86_64-unknown-linux-gnu
+            # glibc discourages static linking; force it so both configs are
+            # static and differ only in the libc.
+            rustflags: "-C target-feature=+crt-static"
+            name: Linux Rust (gnu, static glibc)
+          - config: linux-rust-musl
+            target: x86_64-unknown-linux-musl
+            rustflags: ""
+            name: Linux Rust (musl, static)
+
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install Rust toolchain
+        run: |
+          apt-get update
+          apt-get install -y curl ca-certificates gcc git
+          curl -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+          "$HOME/.cargo/bin/rustup" target add ${{ matrix.target }}
+
+      - name: Build and stage composites
+        working-directory: ttp-composite/linux/rust
+        env:
+          RUSTFLAGS: ${{ matrix.rustflags }}
+        run: |
+          cargo build --release --target ${{ matrix.target }}
+          mkdir -p ../../../composite-dist/${{ matrix.config }}
+          for p in reverse_shell imds read_sensitive_file symlink_sensitive clear_log mkdir_bin ptrace_antidebug; do
+            cp target/${{ matrix.target }}/release/$p ../../../composite-dist/${{ matrix.config }}/$p
+          done
+
+      - name: Upload composites
+        uses: actions/upload-artifact@v7
+        with:
+          name: composite-${{ matrix.config }}
+          path: composite-dist/${{ matrix.config }}
+
+  windows-c:
+    # Windows C composites: gcc held constant, only the C runtime varies (UCRT
+    # vs MSVCRT) via the MSYS2 environment, mirroring build-c.yml's Windows job.
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - config: windows-c-ucrt
+            msystem: UCRT64
+            prefix: ucrt-x86_64
+            name: Windows C (UCRT)
+          - config: windows-c-msvcrt
+            msystem: MINGW64
+            prefix: x86_64
+            name: Windows C (MSVCRT)
+
+    name: ${{ matrix.name }}
+    runs-on: windows-2025
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: ${{ matrix.msystem }}
+          update: true
+          install: >-
+            git
+            mingw-w64-${{ matrix.prefix }}-gcc
+            mingw-w64-${{ matrix.prefix }}-cmake
+            mingw-w64-${{ matrix.prefix }}-ninja
+
+      - name: Configure and build
+        working-directory: ttp-composite/windows/c
+        run: |
+          cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build
+
+      - name: Stage composites
+        working-directory: ttp-composite/windows/c
+        run: cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
+
+      - name: Upload composites
+        uses: actions/upload-artifact@v7
+        with:
+          name: composite-${{ matrix.config }}
+          path: composite-dist/${{ matrix.config }}
+
+  windows-cpp:
+    # Windows C++ composites: clang++ held constant, only the C++ standard
+    # library varies (libstdc++ vs libc++), both on UCRT, mirroring
+    # build-cpp.yml's Windows job. The stdlib is dynamically linked, so its DLL
+    # is bundled beside the exe.
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - toolchain: windows-libstdcxx
+            config: windows-cpp-libstdcxx
+            name: Windows C++ (libstdc++)
+          - toolchain: windows-libcxx
+            config: windows-cpp-libcxx
+            name: Windows C++ (libc++)
+
+    name: ${{ matrix.name }}
+    runs-on: windows-2025
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            git
+            mingw-w64-ucrt-x86_64-clang
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-libc++
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-ninja
+
+      - name: Configure and build
+        working-directory: ttp-composite/windows/cpp
+        run: |
+          cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=toolchains/${{ matrix.toolchain }}.cmake
+          cmake --build build
+
+      - name: Stage composites
+        working-directory: ttp-composite/windows/cpp
+        run: cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
+
+      # Ship the C++ runtime DLLs beside the exe: the loader searches the
+      # executable's own directory first, so the composites run on a stock
+      # Windows host. Keep only the MSYS2/UCRT64 libraries (the rest are Windows
+      # system DLLs that are always present).
+      - name: Bundle runtime DLLs
+        run: |
+          distdir="composite-dist/${{ matrix.config }}"
+          for exe in "$distdir"/*.exe; do ldd "$exe"; done \
+            | awk '$3 ~ /\/ucrt64\//{print $3}' | sort -u \
+            | while read -r dll; do cp -v "$dll" "$distdir/"; done
+          echo "bundle contents:"; ls -l "$distdir"
+
+      - name: Upload composites
+        uses: actions/upload-artifact@v7
+        with:
+          name: composite-${{ matrix.config }}
+          path: composite-dist/${{ matrix.config }}
+
+  windows-go:
+    # Windows Go composites: same CGO on/off axis as Linux, mirroring
+    # build-go.yml's Windows job. The composites import golang.org/x/sys, already
+    # pinned in ttp-composite/windows/go/go.mod.
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - config: windows-go-cgo
+            cgo: "1"
+            name: Windows Go (cgo)
+          - config: windows-go-static
+            cgo: "0"
+            name: Windows Go (pure-Go)
+
+    name: ${{ matrix.name }}
+    runs-on: windows-2025
+    env:
+      CGO_ENABLED: ${{ matrix.cgo }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: ttp-composite/windows/go/go.mod
+
+      # cgo needs a C compiler; the runner ships MinGW gcc (UCRT) at C:\mingw64.
+      # Harmless for the pure-Go build.
+      - name: Add MinGW to PATH
+        run: Add-Content -Path $env:GITHUB_PATH -Value "C:\mingw64\bin"
+
+      - name: Build and stage composites
+        working-directory: ttp-composite/windows/go
+        run: |
+          foreach ($p in "reverse_shell","imds","registry_run_key","startup_folder") {
+            go build -o "../../../composite-dist/${{ matrix.config }}/$p.exe" "./$p"
+          }
+
+      - name: Upload composites
+        uses: actions/upload-artifact@v7
+        with:
+          name: composite-${{ matrix.config }}
+          path: composite-dist/${{ matrix.config }}
