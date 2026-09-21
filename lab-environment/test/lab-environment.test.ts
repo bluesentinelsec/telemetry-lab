@@ -69,3 +69,19 @@ test('Windows user data excludes the release dir then disables Defender', () => 
   expect(json).toContain('DisableRealtimeMonitoring');
   expect(json).toContain('Uninstall-WindowsFeature -Name Windows-Defender');
 });
+
+
+test('Linux-only validation omits Windows resources and retains SSM and storage', () => {
+  const app = new cdk.App();
+  const stack = new LabEnvironmentStack(app, 'LinuxOnly', {
+    env: { account: '123456789012', region: 'us-west-2' }, linuxOnly: true,
+  });
+  const template = Template.fromStack(stack);
+  template.resourceCountIs('AWS::EC2::Instance', 1);
+  template.hasOutput('DebianInstanceId', {});
+  template.hasOutput('DataBucketName', {});
+  const json = JSON.stringify(template.toJSON());
+  expect(json).not.toContain('WindowsInstanceId');
+  expect(json).not.toContain('DisableRealtimeMonitoring');
+  expect(json).toContain('AmazonSSMManagedInstanceCore');
+});

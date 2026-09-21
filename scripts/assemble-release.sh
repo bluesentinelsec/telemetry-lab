@@ -94,6 +94,13 @@ assemble() {
     compnameargs+=( -name "$c" -o )
     [ "$os" = windows ] && compnameargs+=( -name "$c.exe" -o )
   done
+  if [ "$os" = linux ]; then
+    compnameargs+=( -name falco_helper -o )
+    mkdir -p "$root/ttp-composite/coverage"
+    cp ttp-composite/linux/coverage/manifest.json "$root/ttp-composite/coverage/"
+    cp ttp-composite/linux/coverage/run.py ttp-composite/linux/coverage/validate_manifest.py "$root/ttp-composite/coverage/"
+    cp -R ttp-composite/linux/coverage/rules "$root/ttp-composite/coverage/"
+  fi
   for cfg in $configs; do
     local cdst="$root/ttp-composite/$cfg"
     mkdir -p "$cdst"
@@ -101,8 +108,14 @@ assemble() {
     # jobs are non-blocking (go-backs), so a bundle stays valid with its Linux
     # composites even if a Windows composite build did not produce an artifact.
     if [ -d "$COMP/composite-$cfg" ]; then
-      find "$COMP/composite-$cfg" -type f \( "${compnameargs[@]}" -name '*.dll' \) -exec cp {} "$cdst/" \;
-      if [ "$os" = linux ]; then chmod +x "$cdst"/* 2>/dev/null || true; fi
+      find "$COMP/composite-$cfg" -path '*/coverage' -prune -o -type f \( "${compnameargs[@]}" -name '*.dll' \) -exec cp {} "$cdst/" \;
+      if [ "$os" = linux ]; then
+        chmod +x "$cdst"/* 2>/dev/null || true
+        if [ -d "$COMP/composite-$cfg/coverage" ]; then
+          cp -R "$COMP/composite-$cfg/coverage" "$cdst/coverage"
+          chmod +x "$cdst/coverage/"*
+        fi
+      fi
     else
       echo "::warning::composite artifacts absent for $cfg -- skipped"
     fi

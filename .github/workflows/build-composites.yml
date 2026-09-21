@@ -1,10 +1,9 @@
 name: Build Composites
 
 # Build the TTP composites -- multi-step ATT&CK techniques -- across the same
-# toolchain/runtime substrate matrix as the primitives. Unlike the primitives,
-# composites carry no unit-test harness and no substrate-identity verification:
-# they are validated by whether a shipped Falco/Sysmon rule fires when they
-# detonate, not by an exit-code assertion or a linked-runtime fingerprint. Each
+# toolchain/runtime substrate matrix as the primitives. The expanded Linux C
+# suite adds behavior verification and exact-rule evidence tests; live Falco
+# qualification runs on the disposable lab host. Each
 # job stages its config's composites into composite-dist/<config>/ and uploads
 # an artifact named composite-<config>, consumed by the release workflow.
 
@@ -21,6 +20,16 @@ on:
   workflow_dispatch:
 
 jobs:
+  coverage-evidence-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install PyYAML==6.0.2
+      - run: python -m unittest discover -s ttp-composite/linux/coverage -p 'test_*.py' -v
+
   linux-c:
     # C composites: compiler held constant (gcc), only the C runtime varies
     # (glibc vs musl), mirroring build-c.yml's Linux axis.
@@ -48,7 +57,7 @@ jobs:
       - name: Install build dependencies
         run: |
           apt-get update
-          apt-get install -y build-essential cmake git ${{ matrix.packages }}
+          apt-get install -y build-essential cmake git python3 ${{ matrix.packages }}
 
       - name: Configure (CMake)
         working-directory: ttp-composite/linux/c
@@ -62,7 +71,12 @@ jobs:
       # RUNTIME DESTINATION .) rule, so they land flat in composite-dist/<config>.
       - name: Stage composites
         working-directory: ttp-composite/linux/c
-        run: cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
+        run: |
+          cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
+          gcc -static -O2 -Wall -Wextra -Werror coverage/helper.c -o ../../../composite-dist/${{ matrix.config }}/falco_helper
+
+      - name: Verify standalone C programs
+        run: python3 ttp-composite/linux/coverage/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.toolchain == 'linux-glibc' && 'glibc' || 'musl' }}
 
       - name: Upload composites
         uses: actions/upload-artifact@v7

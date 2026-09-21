@@ -1,0 +1,724 @@
+{
+  "source_commit": "bb9e1c5",
+  "phases": [
+    {
+      "phase": "standalone-final",
+      "executions": 122,
+      "valid": 116,
+      "behavior_successes": 122,
+      "qualified_rules": 30,
+      "qualified_rule_names": [
+        "Adding ssh keys to authorized_keys",
+        "Clear Log Activities",
+        "Contact EC2 Instance Metadata Service From Container",
+        "Contact cloud metadata service from container",
+        "Create Hardlink Over Sensitive Files",
+        "Create Symlink Over Sensitive Files",
+        "Create files below dev",
+        "Delete or rename shell history",
+        "Directory traversal monitored file read",
+        "Drop and execute new binary in container",
+        "Execution from /dev/shm",
+        "Fileless execution via memfd_create",
+        "Mkdir binary dirs",
+        "Modify Shell Configuration File",
+        "Modify binary dirs",
+        "PTRACE anti-debug attempt",
+        "PTRACE attached to process",
+        "Packet socket created in container",
+        "Read environment variable from /proc files",
+        "Read sensitive file untrusted",
+        "Read ssh information",
+        "Redirect STDOUT/STDIN to Network Connection in Container",
+        "Schedule Cron Jobs",
+        "Set Setuid or Setgid bit",
+        "Unexpected UDP Traffic",
+        "Update Package Repository",
+        "Write below binary dir",
+        "Write below etc",
+        "Write below monitored dir",
+        "Write below root"
+      ],
+      "negative_controls_pass": false,
+      "qualified_case_configurations": 54,
+      "paired_qualification": [
+        [
+          "authorized_keys",
+          "linux-c-glibc"
+        ],
+        [
+          "authorized_keys",
+          "linux-c-musl"
+        ],
+        [
+          "binary_mkdir",
+          "linux-c-glibc"
+        ],
+        [
+          "binary_mkdir",
+          "linux-c-musl"
+        ],
+        [
+          "binary_rename",
+          "linux-c-glibc"
+        ],
+        [
+          "binary_rename",
+          "linux-c-musl"
+        ],
+        [
+          "binary_write",
+          "linux-c-glibc"
+        ],
+        [
+          "binary_write",
+          "linux-c-musl"
+        ],
+        [
+          "cron_write",
+          "linux-c-glibc"
+        ],
+        [
+          "cron_write",
+          "linux-c-musl"
+        ],
+        [
+          "dev_file",
+          "linux-c-glibc"
+        ],
+        [
+          "dev_file",
+          "linux-c-musl"
+        ],
+        [
+          "drop_execute",
+          "linux-c-glibc"
+        ],
+        [
+          "drop_execute",
+          "linux-c-musl"
+        ],
+        [
+          "etc_write",
+          "linux-c-glibc"
+        ],
+        [
+          "exec_shm",
+          "linux-c-glibc"
+        ],
+        [
+          "exec_shm",
+          "linux-c-musl"
+        ],
+        [
+          "history_truncate",
+          "linux-c-glibc"
+        ],
+        [
+          "history_truncate",
+          "linux-c-musl"
+        ],
+        [
+          "log_truncate",
+          "linux-c-glibc"
+        ],
+        [
+          "log_truncate",
+          "linux-c-musl"
+        ],
+        [
+          "memfd_execute",
+          "linux-c-glibc"
+        ],
+        [
+          "memfd_execute",
+          "linux-c-musl"
+        ],
+        [
+          "metadata_cloud",
+          "linux-c-glibc"
+        ],
+        [
+          "metadata_cloud",
+          "linux-c-musl"
+        ],
+        [
+          "metadata_ec2",
+          "linux-c-glibc"
+        ],
+        [
+          "metadata_ec2",
+          "linux-c-musl"
+        ],
+        [
+          "monitored_write",
+          "linux-c-glibc"
+        ],
+        [
+          "monitored_write",
+          "linux-c-musl"
+        ],
+        [
+          "packet_socket",
+          "linux-c-glibc"
+        ],
+        [
+          "proc_environ",
+          "linux-c-glibc"
+        ],
+        [
+          "proc_environ",
+          "linux-c-musl"
+        ],
+        [
+          "ptrace_attach",
+          "linux-c-glibc"
+        ],
+        [
+          "ptrace_attach",
+          "linux-c-musl"
+        ],
+        [
+          "ptrace_traceme",
+          "linux-c-glibc"
+        ],
+        [
+          "ptrace_traceme",
+          "linux-c-musl"
+        ],
+        [
+          "repository_write",
+          "linux-c-glibc"
+        ],
+        [
+          "repository_write",
+          "linux-c-musl"
+        ],
+        [
+          "reverse_shell",
+          "linux-c-musl"
+        ],
+        [
+          "root_write",
+          "linux-c-glibc"
+        ],
+        [
+          "sensitive_hardlink",
+          "linux-c-glibc"
+        ],
+        [
+          "sensitive_read",
+          "linux-c-musl"
+        ],
+        [
+          "sensitive_symlink",
+          "linux-c-glibc"
+        ],
+        [
+          "sensitive_symlink",
+          "linux-c-musl"
+        ],
+        [
+          "setid_mode",
+          "linux-c-glibc"
+        ],
+        [
+          "setid_mode",
+          "linux-c-musl"
+        ],
+        [
+          "shell_config_write",
+          "linux-c-glibc"
+        ],
+        [
+          "shell_config_write",
+          "linux-c-musl"
+        ],
+        [
+          "ssh_read",
+          "linux-c-glibc"
+        ],
+        [
+          "ssh_read",
+          "linux-c-musl"
+        ],
+        [
+          "traversal_read",
+          "linux-c-glibc"
+        ],
+        [
+          "traversal_read",
+          "linux-c-musl"
+        ],
+        [
+          "udp_exchange",
+          "linux-c-glibc"
+        ],
+        [
+          "udp_exchange",
+          "linux-c-musl"
+        ]
+      ],
+      "functional_only": false
+    },
+    {
+      "phase": "standalone-recheck1",
+      "executions": 26,
+      "valid": 24,
+      "behavior_successes": 26,
+      "qualified_rules": 6,
+      "qualified_rule_names": [
+        "Create Hardlink Over Sensitive Files",
+        "Packet socket created in container",
+        "Read sensitive file untrusted",
+        "Redirect STDOUT/STDIN to Network Connection in Container",
+        "Write below etc",
+        "Write below root"
+      ],
+      "negative_controls_pass": false,
+      "qualified_case_configurations": 10,
+      "paired_qualification": [
+        [
+          "etc_write",
+          "linux-c-glibc"
+        ],
+        [
+          "etc_write",
+          "linux-c-musl"
+        ],
+        [
+          "packet_socket",
+          "linux-c-musl"
+        ],
+        [
+          "reverse_shell",
+          "linux-c-glibc"
+        ],
+        [
+          "reverse_shell",
+          "linux-c-musl"
+        ],
+        [
+          "root_write",
+          "linux-c-musl"
+        ],
+        [
+          "sensitive_hardlink",
+          "linux-c-glibc"
+        ],
+        [
+          "sensitive_hardlink",
+          "linux-c-musl"
+        ],
+        [
+          "sensitive_read",
+          "linux-c-glibc"
+        ],
+        [
+          "sensitive_read",
+          "linux-c-musl"
+        ]
+      ],
+      "functional_only": false
+    }
+  ],
+  "executions": 148,
+  "valid": 140,
+  "behavior_successes": 148,
+  "active_attempts": 72,
+  "valid_target_hits": 67,
+  "control_attempts": 76,
+  "valid_clean_controls": 73,
+  "qualified_case_configurations": 60,
+  "paired_qualification": [
+    [
+      "traversal_read",
+      "linux-c-glibc"
+    ],
+    [
+      "traversal_read",
+      "linux-c-musl"
+    ],
+    [
+      "sensitive_read",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_read",
+      "linux-c-musl"
+    ],
+    [
+      "log_truncate",
+      "linux-c-glibc"
+    ],
+    [
+      "log_truncate",
+      "linux-c-musl"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-c-musl"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-c-musl"
+    ],
+    [
+      "packet_socket",
+      "linux-c-glibc"
+    ],
+    [
+      "packet_socket",
+      "linux-c-musl"
+    ],
+    [
+      "reverse_shell",
+      "linux-c-glibc"
+    ],
+    [
+      "reverse_shell",
+      "linux-c-musl"
+    ],
+    [
+      "ptrace_attach",
+      "linux-c-glibc"
+    ],
+    [
+      "ptrace_attach",
+      "linux-c-musl"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-c-glibc"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-c-musl"
+    ],
+    [
+      "exec_shm",
+      "linux-c-glibc"
+    ],
+    [
+      "exec_shm",
+      "linux-c-musl"
+    ],
+    [
+      "drop_execute",
+      "linux-c-glibc"
+    ],
+    [
+      "drop_execute",
+      "linux-c-musl"
+    ],
+    [
+      "memfd_execute",
+      "linux-c-glibc"
+    ],
+    [
+      "memfd_execute",
+      "linux-c-musl"
+    ],
+    [
+      "shell_config_write",
+      "linux-c-glibc"
+    ],
+    [
+      "shell_config_write",
+      "linux-c-musl"
+    ],
+    [
+      "cron_write",
+      "linux-c-glibc"
+    ],
+    [
+      "cron_write",
+      "linux-c-musl"
+    ],
+    [
+      "ssh_read",
+      "linux-c-glibc"
+    ],
+    [
+      "ssh_read",
+      "linux-c-musl"
+    ],
+    [
+      "udp_exchange",
+      "linux-c-glibc"
+    ],
+    [
+      "udp_exchange",
+      "linux-c-musl"
+    ],
+    [
+      "dev_file",
+      "linux-c-glibc"
+    ],
+    [
+      "dev_file",
+      "linux-c-musl"
+    ],
+    [
+      "metadata_ec2",
+      "linux-c-glibc"
+    ],
+    [
+      "metadata_ec2",
+      "linux-c-musl"
+    ],
+    [
+      "metadata_cloud",
+      "linux-c-glibc"
+    ],
+    [
+      "metadata_cloud",
+      "linux-c-musl"
+    ],
+    [
+      "history_truncate",
+      "linux-c-glibc"
+    ],
+    [
+      "history_truncate",
+      "linux-c-musl"
+    ],
+    [
+      "setid_mode",
+      "linux-c-glibc"
+    ],
+    [
+      "setid_mode",
+      "linux-c-musl"
+    ],
+    [
+      "proc_environ",
+      "linux-c-glibc"
+    ],
+    [
+      "proc_environ",
+      "linux-c-musl"
+    ],
+    [
+      "authorized_keys",
+      "linux-c-glibc"
+    ],
+    [
+      "authorized_keys",
+      "linux-c-musl"
+    ],
+    [
+      "repository_write",
+      "linux-c-glibc"
+    ],
+    [
+      "repository_write",
+      "linux-c-musl"
+    ],
+    [
+      "binary_write",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_write",
+      "linux-c-musl"
+    ],
+    [
+      "monitored_write",
+      "linux-c-glibc"
+    ],
+    [
+      "monitored_write",
+      "linux-c-musl"
+    ],
+    [
+      "etc_write",
+      "linux-c-glibc"
+    ],
+    [
+      "etc_write",
+      "linux-c-musl"
+    ],
+    [
+      "root_write",
+      "linux-c-glibc"
+    ],
+    [
+      "root_write",
+      "linux-c-musl"
+    ],
+    [
+      "binary_rename",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_rename",
+      "linux-c-musl"
+    ],
+    [
+      "binary_mkdir",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_mkdir",
+      "linux-c-musl"
+    ]
+  ],
+  "invalid_runs": [
+    {
+      "phase": "standalone-final",
+      "execution": "0006-linux-c-musl-etc_write",
+      "case": "etc_write",
+      "config": "linux-c-musl",
+      "control": false,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 2.0,
+          "after": 3.0
+        }
+      }
+    },
+    {
+      "phase": "standalone-final",
+      "execution": "0041-linux-c-musl-packet_socket",
+      "case": "packet_socket",
+      "config": "linux-c-musl",
+      "control": false,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 4.0,
+          "after": 5.0
+        }
+      }
+    },
+    {
+      "phase": "standalone-final",
+      "execution": "0059-linux-c-glibc-sensitive_read",
+      "case": "sensitive_read",
+      "config": "linux-c-glibc",
+      "control": true,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 5.0,
+          "after": 6.0
+        }
+      }
+    },
+    {
+      "phase": "standalone-final",
+      "execution": "0081-linux-c-musl-root_write",
+      "case": "root_write",
+      "config": "linux-c-musl",
+      "control": false,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 7.0,
+          "after": 8.0
+        }
+      }
+    },
+    {
+      "phase": "standalone-final",
+      "execution": "0099-linux-c-glibc-reverse_shell",
+      "case": "reverse_shell",
+      "config": "linux-c-glibc",
+      "control": true,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 8.0,
+          "after": 9.0
+        }
+      }
+    },
+    {
+      "phase": "standalone-final",
+      "execution": "0117-linux-c-musl-sensitive_hardlink",
+      "case": "sensitive_hardlink",
+      "config": "linux-c-musl",
+      "control": false,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 9.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "phase": "standalone-recheck1",
+      "execution": "0005-linux-c-glibc-packet_socket",
+      "case": "packet_socket",
+      "config": "linux-c-glibc",
+      "control": false,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 13.0,
+          "after": 14.0
+        }
+      }
+    },
+    {
+      "phase": "standalone-recheck1",
+      "execution": "0013-linux-c-glibc-root_write",
+      "case": "root_write",
+      "config": "linux-c-glibc",
+      "control": true,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 14.0,
+          "after": 15.0
+        }
+      }
+    }
+  ],
+  "kernel": "6.12.107+deb13-cloud-amd64",
+  "docker": "Docker version 26.1.5+dfsg1, build a72d7cd",
+  "falco": "{\"default_driver_version\":\"11.0.0+driver\",\"driver_api_version\":\"11.0.0\",\"driver_schema_version\":\"4.3.0\",\"engine_version\":\"65\",\"engine_version_semver\":\"0.65.0\",\"falco_version\":\"0.45.0\",\"libs_version\":\"0.26.0\",\"plugin_api_version\":\"3.12.0\"}",
+  "image_id": "sha256:110bd9ac173b556b3574f79a134841a8bdd4b1899032ca145b8b084f15f514d9",
+  "binary_sha256": "7bb94127b7c44daeb2bc8f31d70668e78fbffa701d62989a34609ad8d359b5be  /opt/coverage/linux-c-glibc/coverage/traversal_read\nfd98b4f9d8ad6ebb2868d053d01bb10620dc588e8c1ee40a0d638f788c4ce635  /opt/coverage/linux-c-glibc/coverage/sensitive_read\n11bd450333ecaab657dab9fcd84aa7e82a4081c0c2a1e631f394a4ba46882d1f  /opt/coverage/linux-c-glibc/coverage/log_truncate\n591c0de4ef3c4a2425a6c41900a319679db908b298c4ab3c176fa1ce755fbb0e  /opt/coverage/linux-c-glibc/coverage/sensitive_symlink\n6836d04171f48cfbccac0e554f44be291ce29ce1a1d281d3b0a8b6980fd6518a  /opt/coverage/linux-c-glibc/coverage/sensitive_hardlink\ndd8346dffdbaffc505ce129e7c29561656fa8325a90a4387afca2a80cf75e36c  /opt/coverage/linux-c-glibc/coverage/packet_socket\nd8e1cd52ad8dd5c9d43caad6adda1a5f67f97e76c1ac7198219c1e201411033e  /opt/coverage/linux-c-glibc/coverage/reverse_shell\ned1fa061bf11e4149e45bcddce7723390b22c4da4d2c242976f6ee35e6484100  /opt/coverage/linux-c-glibc/coverage/ptrace_attach\ne5cb1f78467e4e173169bbc56720f3dc15c0fd243b89664333c4f6b6522e043d  /opt/coverage/linux-c-glibc/coverage/ptrace_traceme\n2c8e499885b5d87c8442e3604e855b2ad4cee205651d3b11b3a5a30fffa0b597  /opt/coverage/linux-c-glibc/coverage/exec_shm\n7a45396e53294d98790b78242d6584f33a20be0a68ca9c91456ce3853c2f2110  /opt/coverage/linux-c-glibc/coverage/drop_execute\n0a1ec3f1832b727e14b25d18335cf96d39c9b476c2893fd220c34a61c3e756e8  /opt/coverage/linux-c-glibc/coverage/memfd_execute\n077e92d719fe2d8df9c6ec4a040f70ba9e8b93620c612f0ad53112fc1f9c4496  /opt/coverage/linux-c-glibc/coverage/shell_config_write\n5f3b1e9f9433b0f944224a38986ad125b97286b5baa1149b9da2f3216a138efb  /opt/coverage/linux-c-glibc/coverage/cron_write\ne15ecd2ea8d2370434cb6806c0579567b1d3f723714e51897c8719226ebf1363  /opt/coverage/linux-c-glibc/coverage/ssh_read\n58f03ef9016e89490a7a605ed18d45911fc9754c67b2e2673e993e00e3cc7892  /opt/coverage/linux-c-glibc/coverage/udp_exchange\nb4df7786c412718ef61c6fe05e71547f56d94601394756010929f702a8c3483b  /opt/coverage/linux-c-glibc/coverage/dev_file\nae866b3d131d9a1e16475ac2aaed0077bf3f7ed5c391a71f8144796ed826f9c1  /opt/coverage/linux-c-glibc/coverage/metadata_ec2\n17a77a2a839a32a306381efc942b046ada1bf615623ca0ae5b64e8a80495f1ef  /opt/coverage/linux-c-glibc/coverage/metadata_cloud\n1f7c2d67aa73ebfd2b9078276375fb9ec0dd9904b3cadc8b69245428d86b42b2  /opt/coverage/linux-c-glibc/coverage/history_truncate\nbc410c50f9ef7aac42bbf3c6d9d2672dea307e760ce92b2297bdde446e269b90  /opt/coverage/linux-c-glibc/coverage/setid_mode\nc6c0b8b86bdb3491b173e0ebf6d80c9f6b8480e06965ed74777f81d7bcb7615b  /opt/coverage/linux-c-glibc/coverage/proc_environ\nf6cc19278baf5194832620efcd423ccecdccdfb6fb90eaf1da00ef31d1c42715  /opt/coverage/linux-c-glibc/coverage/authorized_keys\n6fdf4df3c5ff9855638fb9634d809e59337a54a58234754435daa080440974d2  /opt/coverage/linux-c-glibc/coverage/repository_write\nfdea155588cd913506002758ec99774d5e68f4bf9c37976c6314d05ff5093699  /opt/coverage/linux-c-glibc/coverage/binary_write\n5fd49dbbf572e3ac93d063b921fb305acf5d140571162d66c33938d17b5e5903  /opt/coverage/linux-c-glibc/coverage/monitored_write\n3debcae37f372b7fc29eb51cf4d172614c2c7d6d855467652c6a7dac84d461e8  /opt/coverage/linux-c-glibc/coverage/etc_write\n1883b6710c1fe33d093f2a730b0dcff62dfccb0908e9669351f2820d54d17336  /opt/coverage/linux-c-glibc/coverage/root_write\n760f3cd326dd70c2f812e3d85b732198a588cee4c6157fe246a787a09e5c94e4  /opt/coverage/linux-c-glibc/coverage/binary_rename\n0664d98d2eea16483fbe3d6045337a7312ede3a59e60666cc9a154de2cd6fd73  /opt/coverage/linux-c-glibc/coverage/binary_mkdir\n762a3f2600842d370d514371ae857d82d34763bb94e93cb4e67c1691bb868e72  /opt/coverage/linux-c-glibc/coverage/negative\n8f335612fa3904fd30a3ee25f7b467d611c5d52838aaf05593d4cb0176aa0ef2  /opt/coverage/linux-c-glibc/coverage/fixture_prepare\n7257b8c1741662db2f6b5215aed26a4457e69bd155d5016678c23e32bd979cd4  /opt/coverage/linux-c-musl/coverage/traversal_read\nf272bfb8001b603eb8670552f5cd2994f24552687fbb4a187ffa37f92db3fe20  /opt/coverage/linux-c-musl/coverage/sensitive_read\nf9fab4e5181f618231f48fe47e9c7e34998e13db59683fef3002808583504413  /opt/coverage/linux-c-musl/coverage/log_truncate\nca506288608318a8ae1bd9d103e37bf9a43352ee52dc014be808eaaf7a8d864a  /opt/coverage/linux-c-musl/coverage/sensitive_symlink\ne2fabbe4149166f61c20de2b6e8fae382e0ae0468b252bb0e01a3e0ccbba277c  /opt/coverage/linux-c-musl/coverage/sensitive_hardlink\n7edfc50acd84a451ad3439b039449318316049177ee8bdbe710b89a2c0ac7711  /opt/coverage/linux-c-musl/coverage/packet_socket\nb9945e352f6cc960c7483598dd3cabbf9bda7cd16767cd93b81a1b1b2c6e67c3  /opt/coverage/linux-c-musl/coverage/reverse_shell\n625118dad50709163005cf0dca6e2e0629bcd2b574e9b0d0870d7848d165b534  /opt/coverage/linux-c-musl/coverage/ptrace_attach\n41ccc8faa78367b995b1d10bf591c195e1160b2bf4088070f7e19846f4f06740  /opt/coverage/linux-c-musl/coverage/ptrace_traceme\n169dea59707758b3460fdfdcf4589906d94dc91bf844478811b9ad4bd7fbd107  /opt/coverage/linux-c-musl/coverage/exec_shm\n94108aa424251be42ab88425152ed350226f43df5d117688b275edd27a9804fa  /opt/coverage/linux-c-musl/coverage/drop_execute\naa74523e4a65df0c1652cb2381a5d68b18b8889d51fcf38b2b1d30e6a7b828a8  /opt/coverage/linux-c-musl/coverage/memfd_execute\n676ea74f622a763dc434b8e4b4fd491bfe140e8a71bc646d3a5c5bf8c01924cc  /opt/coverage/linux-c-musl/coverage/shell_config_write\nc6772d29cc960b2d68c4888a7da5d0864fd64b83c650c2e590c2339df25c9a46  /opt/coverage/linux-c-musl/coverage/cron_write\nd68138da821203a009748826142aa149ccb8c3c025443f871b3084209174849e  /opt/coverage/linux-c-musl/coverage/ssh_read\nabe050c386d92086d8eda9be72f943e7ffacba4208d4d29bfb48df1687de5f5d  /opt/coverage/linux-c-musl/coverage/udp_exchange\n9c21ad64d49e2d6cf1883dfca6258c93e5ccb74ba0ce8347904e4ec1bd5d6e13  /opt/coverage/linux-c-musl/coverage/dev_file\n998db96e754742f4d7c590e3c44cbdfbb5901333d6ba8bef72ca53b54ab282a8  /opt/coverage/linux-c-musl/coverage/metadata_ec2\n86d384fffc8588f0465da0aaab41b10a4c5fc78ce21e47cdbf98bf8f73aea04d  /opt/coverage/linux-c-musl/coverage/metadata_cloud\n796a6e9f748bdf52c3111c53dc79d50a920b1785dbc1e7c4ab131589407b867f  /opt/coverage/linux-c-musl/coverage/history_truncate\n9d16ad963df6db3407d973e3fa8d5845912aaeac107b15e20d505d46be14754d  /opt/coverage/linux-c-musl/coverage/setid_mode\n81a3d76834e49861146fc213b164a5fde85d9ab735257fd7cd1509b71eb3e607  /opt/coverage/linux-c-musl/coverage/proc_environ\n9151bf0e4146d6ed9d779dfd4160f44761efae2b001813ff3a0d2fc9a06aa450  /opt/coverage/linux-c-musl/coverage/authorized_keys\ne1f058ae405fed33e2cf1aa1d7a547262eda0ae584365549f449eafcd43774b6  /opt/coverage/linux-c-musl/coverage/repository_write\n79eafc98c41c69acfd3f3724eedcd03a3ad09f2a97b5f13065761780d79d8cd4  /opt/coverage/linux-c-musl/coverage/binary_write\nc1906254a8d0b76fee271076d7fecc7c6ffc202d0bdfac04fbf9b283f615862f  /opt/coverage/linux-c-musl/coverage/monitored_write\n06eb1d159856880e258eda7b0b4e66a9cca7a3fe0ba2e1f2e1095433c811b6a9  /opt/coverage/linux-c-musl/coverage/etc_write\nb42a5db173dea85533a7c34f9056b697f339ae1d0c7072d239fbe1a84a12bd29  /opt/coverage/linux-c-musl/coverage/root_write\n8a11adda5128f1b16fc32f7692829aa8791de203f4ef3fc55ec2f9927563244c  /opt/coverage/linux-c-musl/coverage/binary_rename\n967ed95f0385f156c11986dfdee37e41650dc7e07da21e00ad8e773af80742fe  /opt/coverage/linux-c-musl/coverage/binary_mkdir\n1d59da4ed5f03db93e91236562d76feb857f7fa1f49aad88beb0157f5656acc5  /opt/coverage/linux-c-musl/coverage/negative\n7f4a139549738504f2ee57136bda687e8518da56dced7f383bd8490318228183  /opt/coverage/linux-c-musl/coverage/fixture_prepare\n2a79c78068c3599fb735bccd203d2958e4b2f14eaa86c8eea83958692bbef9fb  /opt/coverage/helper",
+  "suite_files_sha256": {
+    "Dockerfile": "d3f87c17c12ef8816e4dd2d0611c7a71398e90558ec62e336d63b67cccad72b8",
+    "README.md": "66079dd2207592a70afaba0abc5bb4f83ce63fdb5c458e57b52bac4623443b35",
+    "test_program_contract.py": "6a28d43a2703c1b8c16c27b0a4bdc589fdbcd868fa45353a5254f2ad74fd0e09",
+    "test_release.py": "d0ae711b26ddcd11a6910cbfd565fe79f4eda1e24c83e77fa6a0442e35a19b85",
+    "manifest.json": "a3df0b1a347369f1ca1311df7b76619faeac6bc15d157c1d41364faf8c05240e",
+    "run.py": "eb584ffc54fe29cd20565c1601b47729b5493bab9c7e8a697044b45d0e850aef",
+    "build.sh": "81c7ee5a6b5473b2f1dd7cdeaaf4600b74cefc4af4b8f493526043e392abf197",
+    "validate_manifest.py": "64e7c7473e0d16e5b77162afaa32562386aa694d97e4037fc0e65b1c4a142cb8",
+    "setup-detector.sh": "1096103aae38096944681187de44b575a6614939fe15ad1916e7fdc6728365ca",
+    "verify_programs.py": "dc0a78564a9f7d72de4e21da68f7501ad0f3a9c5994e7aa64dc7b9394381a933",
+    "rule-inventory.csv": "04e0285b559d7dcc4406dfcdfb72453c274c1cd85288c7fe67604037eb5337ab",
+    ".gitignore": "32dae3052f331ee34d628ef535709b301259a45df7c7522c4d35dcf49873f00b",
+    "test_runner.py": "0f244f4c0042344d8d3dc2787027e5f7aa408578c59b63427c0e7da3005b7da9",
+    "rules/falco-sandbox_rules.yaml": "f05ad34f07c43930932ea6dd84c08a37bc8e5ba9f88901ca091ff1b52b3f33d3",
+    "rules/falco-incubating_rules.yaml": "47bf87041e2f39ca336e7acf1ae4e6183771a92e81031f367d01f2b49cabe1ac",
+    "rules/falco_rules.yaml": "30a1a60263ab97650c851011468da03b17fc0096a7cfa3b6686eba5de73b865b",
+    "rules/LICENSE.falcosecurity-rules": "f65bbfe8deb986105063c967001b84c00232c31ea4b28564d54b5133435c6453"
+  },
+  "host_instance": [
+    {
+      "ImageId": "ami-0c605b75e3a75e872",
+      "InstanceType": "c7i.xlarge",
+      "Architecture": "x86_64",
+      "LaunchTime": "2026-09-21T20:21:56+00:00"
+    }
+  ],
+  "compiler": "gcc (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "container_runtime_versions": "libc6:amd64\t2.41-12+deb13u4\nmusl:amd64\t1.2.5-3.1~deb13u1\n",
+  "archive_sha256": "2adefc69ab0e60c46c6168aa9c9d5b59af829c3061f92756ee374989cc70a82a"
+}
