@@ -1,0 +1,149 @@
+phase,execution,repetition,case,config,control,executable,behavior_ok,collection_ok,valid,target_fired,negative_control_ok,matched_rules
+standalone-final,0,1,ptrace_attach,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/ptrace_attach,True,True,True,True,,PTRACE attached to process
+standalone-final,1,1,binary_rename,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/binary_rename,True,True,True,True,,Modify binary dirs
+standalone-final,2,1,dev_file,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/dev_file,True,True,True,,True,
+standalone-final,3,1,sensitive_symlink,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/sensitive_symlink,True,True,True,True,,Create Symlink Over Sensitive Files
+standalone-final,4,1,reverse_shell,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/reverse_shell,True,True,True,True,,Redirect STDOUT/STDIN to Network Connection in Container
+standalone-final,5,1,exec_shm,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/exec_shm,True,True,True,True,,Execution from /dev/shm
+standalone-final,6,1,etc_write,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/etc_write,True,False,False,True,,Write below etc
+standalone-final,7,1,traversal_read,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/traversal_read,True,True,True,True,,Directory traversal monitored file read | Read sensitive file untrusted
+standalone-final,8,1,ssh_read,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/ssh_read,True,True,True,,True,
+standalone-final,9,1,traversal_read,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/traversal_read,True,True,True,,True,
+standalone-final,10,1,binary_rename,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/binary_rename,True,True,True,,True,
+standalone-final,11,1,dev_file,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/dev_file,True,True,True,True,,Create files below dev
+standalone-final,12,1,dev_file,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/dev_file,True,True,True,True,,Create files below dev
+standalone-final,13,1,cron_write,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/cron_write,True,True,True,True,,Schedule Cron Jobs | Write below etc
+standalone-final,14,1,metadata_cloud,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/metadata_cloud,True,True,True,,True,
+standalone-final,15,1,ptrace_attach,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/ptrace_attach,True,True,True,,True,
+standalone-final,16,1,traversal_read,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/traversal_read,True,True,True,,True,
+standalone-final,17,1,monitored_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/monitored_write,True,True,True,,True,
+standalone-final,18,1,metadata_cloud,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/metadata_cloud,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+standalone-final,19,1,metadata_ec2,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/metadata_ec2,True,True,True,,True,
+standalone-final,20,1,memfd_execute,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/memfd_execute,True,True,True,True,,Fileless execution via memfd_create
+standalone-final,21,1,etc_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/etc_write,True,True,True,True,,Write below etc
+standalone-final,22,1,udp_exchange,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/udp_exchange,True,True,True,,True,
+standalone-final,23,1,repository_write,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/repository_write,True,True,True,True,,Update Package Repository | Write below etc
+standalone-final,24,1,binary_mkdir,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/binary_mkdir,True,True,True,True,,Mkdir binary dirs | Modify binary dirs
+standalone-final,25,1,shell_config_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/shell_config_write,True,True,True,,True,
+standalone-final,26,1,metadata_ec2,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/metadata_ec2,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+standalone-final,27,1,sensitive_symlink,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/sensitive_symlink,True,True,True,,True,
+standalone-final,28,1,metadata_cloud,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/metadata_cloud,True,True,True,,True,
+standalone-final,29,1,cron_write,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/cron_write,True,True,True,,True,
+standalone-final,30,1,shell_config_write,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/shell_config_write,True,True,True,,True,
+standalone-final,31,1,binary_write,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/binary_write,True,True,True,True,,Write below binary dir
+standalone-final,32,1,packet_socket,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/packet_socket,True,True,True,True,,Packet socket created in container
+standalone-final,33,1,ptrace_attach,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/ptrace_attach,True,True,True,True,,PTRACE attached to process
+standalone-final,34,1,exec_shm,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/exec_shm,True,True,True,,True,
+standalone-final,35,1,ssh_read,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/ssh_read,True,True,True,True,,Read ssh information
+standalone-final,36,1,proc_environ,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/proc_environ,True,True,True,True,,Read environment variable from /proc files
+standalone-final,37,1,history_truncate,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/history_truncate,True,True,True,True,,Delete or rename shell history | Modify Shell Configuration File
+standalone-final,38,1,traversal_read,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/traversal_read,True,True,True,True,,Directory traversal monitored file read | Read sensitive file untrusted
+standalone-final,39,1,exec_shm,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/exec_shm,True,True,True,,True,
+standalone-final,40,1,etc_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/etc_write,True,True,True,,True,
+standalone-final,41,1,packet_socket,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/packet_socket,True,False,False,True,,Packet socket created in container
+standalone-final,42,1,cron_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/cron_write,True,True,True,,True,
+standalone-final,43,1,setid_mode,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/setid_mode,True,True,True,,True,
+standalone-final,44,1,ptrace_traceme,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/ptrace_traceme,True,True,True,,True,
+standalone-final,45,1,proc_environ,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/proc_environ,True,True,True,,True,
+standalone-final,46,1,repository_write,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/repository_write,True,True,True,,True,
+standalone-final,47,1,exec_shm,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/exec_shm,True,True,True,True,,Execution from /dev/shm
+standalone-final,48,1,negative,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/negative,True,True,True,,True,
+standalone-final,49,1,history_truncate,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/history_truncate,True,True,True,True,,Delete or rename shell history | Modify Shell Configuration File
+standalone-final,50,1,binary_rename,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/binary_rename,True,True,True,True,,Modify binary dirs
+standalone-final,51,1,setid_mode,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/setid_mode,True,True,True,True,,Set Setuid or Setgid bit
+standalone-final,52,1,udp_exchange,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/udp_exchange,True,True,True,True,,Unexpected UDP Traffic
+standalone-final,53,1,setid_mode,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/setid_mode,True,True,True,,True,
+standalone-final,54,1,sensitive_hardlink,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/sensitive_hardlink,True,True,True,,True,
+standalone-final,55,1,repository_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/repository_write,True,True,True,True,,Update Package Repository | Write below etc
+standalone-final,56,1,ssh_read,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/ssh_read,True,True,True,True,,Read ssh information
+standalone-final,57,1,sensitive_read,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/sensitive_read,True,True,True,True,,Read sensitive file untrusted
+standalone-final,58,1,authorized_keys,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/authorized_keys,True,True,True,,True,
+standalone-final,59,1,sensitive_read,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/sensitive_read,True,False,False,,True,
+standalone-final,60,1,drop_execute,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/drop_execute,True,True,True,,True,
+standalone-final,61,1,binary_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/binary_write,True,True,True,,True,
+standalone-final,62,1,reverse_shell,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/reverse_shell,True,True,True,True,,Redirect STDOUT/STDIN to Network Connection in Container
+standalone-final,63,1,root_write,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/root_write,True,True,True,,True,
+standalone-final,64,1,root_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/root_write,True,True,True,,True,
+standalone-final,65,1,monitored_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/monitored_write,True,True,True,True,,Write below monitored dir
+standalone-final,66,1,repository_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/repository_write,True,True,True,,True,
+standalone-final,67,1,sensitive_symlink,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/sensitive_symlink,True,True,True,,True,
+standalone-final,68,1,ptrace_traceme,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/ptrace_traceme,True,True,True,True,,PTRACE anti-debug attempt
+standalone-final,69,1,drop_execute,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/drop_execute,True,True,True,,True,
+standalone-final,70,1,drop_execute,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/drop_execute,True,True,True,True,,Drop and execute new binary in container
+standalone-final,71,1,memfd_execute,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/memfd_execute,True,True,True,True,,Fileless execution via memfd_create
+standalone-final,72,1,cron_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/cron_write,True,True,True,True,,Schedule Cron Jobs | Write below etc
+standalone-final,73,1,sensitive_read,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/sensitive_read,True,True,True,,True,
+standalone-final,74,1,history_truncate,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/history_truncate,True,True,True,,True,
+standalone-final,75,1,packet_socket,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/packet_socket,True,True,True,,True,
+standalone-final,76,1,etc_write,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/etc_write,True,True,True,,True,
+standalone-final,77,1,ptrace_attach,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/ptrace_attach,True,True,True,,True,
+standalone-final,78,1,binary_write,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/binary_write,True,True,True,,True,
+standalone-final,79,1,metadata_ec2,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/metadata_ec2,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+standalone-final,80,1,sensitive_symlink,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/sensitive_symlink,True,True,True,True,,Create Symlink Over Sensitive Files
+standalone-final,81,1,root_write,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/root_write,True,False,False,True,,Write below root
+standalone-final,82,1,ptrace_traceme,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/ptrace_traceme,True,True,True,,True,
+standalone-final,83,1,binary_mkdir,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/binary_mkdir,True,True,True,,True,
+standalone-final,84,1,ptrace_traceme,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/ptrace_traceme,True,True,True,True,,PTRACE anti-debug attempt
+standalone-final,85,1,metadata_ec2,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/metadata_ec2,True,True,True,,True,
+standalone-final,86,1,log_truncate,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/log_truncate,True,True,True,,True,
+standalone-final,87,1,reverse_shell,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/reverse_shell,True,True,True,,True,
+standalone-final,88,1,sensitive_hardlink,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/sensitive_hardlink,True,True,True,,True,
+standalone-final,89,1,binary_mkdir,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/binary_mkdir,True,True,True,True,,Mkdir binary dirs | Modify binary dirs
+standalone-final,90,1,proc_environ,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/proc_environ,True,True,True,,True,
+standalone-final,91,1,root_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/root_write,True,True,True,True,,Write below root
+standalone-final,92,1,memfd_execute,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/memfd_execute,True,True,True,,True,
+standalone-final,93,1,history_truncate,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/history_truncate,True,True,True,,True,
+standalone-final,94,1,log_truncate,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/log_truncate,True,True,True,,True,
+standalone-final,95,1,memfd_execute,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/memfd_execute,True,True,True,,True,
+standalone-final,96,1,packet_socket,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/packet_socket,True,True,True,,True,
+standalone-final,97,1,sensitive_read,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/sensitive_read,True,True,True,True,,Read sensitive file untrusted
+standalone-final,98,1,shell_config_write,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/shell_config_write,True,True,True,True,,Modify Shell Configuration File | Write below root
+standalone-final,99,1,reverse_shell,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/reverse_shell,True,False,False,,True,
+standalone-final,100,1,monitored_write,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/monitored_write,True,True,True,True,,Write below monitored dir
+standalone-final,101,1,sensitive_hardlink,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/sensitive_hardlink,True,True,True,True,,Create Hardlink Over Sensitive Files
+standalone-final,102,1,ssh_read,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/ssh_read,True,True,True,,True,
+standalone-final,103,1,metadata_cloud,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/metadata_cloud,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+standalone-final,104,1,authorized_keys,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/authorized_keys,True,True,True,True,,Adding ssh keys to authorized_keys | Write below monitored dir
+standalone-final,105,1,binary_rename,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/binary_rename,True,True,True,,True,
+standalone-final,106,1,setid_mode,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/setid_mode,True,True,True,True,,Set Setuid or Setgid bit
+standalone-final,107,1,proc_environ,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/proc_environ,True,True,True,True,,Read environment variable from /proc files
+standalone-final,108,1,dev_file,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/dev_file,True,True,True,,True,
+standalone-final,109,1,binary_mkdir,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/binary_mkdir,True,True,True,,True,
+standalone-final,110,1,authorized_keys,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/authorized_keys,True,True,True,True,,Adding ssh keys to authorized_keys | Write below monitored dir
+standalone-final,111,1,binary_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/binary_write,True,True,True,True,,Write below binary dir
+standalone-final,112,1,drop_execute,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/drop_execute,True,True,True,True,,Drop and execute new binary in container
+standalone-final,113,1,udp_exchange,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/udp_exchange,True,True,True,,True,
+standalone-final,114,1,negative,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/negative,True,True,True,,True,
+standalone-final,115,1,log_truncate,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/log_truncate,True,True,True,True,,Clear Log Activities
+standalone-final,116,1,authorized_keys,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/authorized_keys,True,True,True,,True,
+standalone-final,117,1,sensitive_hardlink,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/sensitive_hardlink,True,False,False,True,,Create Hardlink Over Sensitive Files
+standalone-final,118,1,shell_config_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/shell_config_write,True,True,True,True,,Modify Shell Configuration File | Write below root
+standalone-final,119,1,log_truncate,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/log_truncate,True,True,True,True,,Clear Log Activities
+standalone-final,120,1,udp_exchange,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/udp_exchange,True,True,True,True,,Unexpected UDP Traffic
+standalone-final,121,1,monitored_write,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/monitored_write,True,True,True,,True,
+standalone-recheck1,0,1,sensitive_read,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/sensitive_read,True,True,True,,True,
+standalone-recheck1,1,1,sensitive_read,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/sensitive_read,True,True,True,,True,
+standalone-recheck1,2,1,packet_socket,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/packet_socket,True,True,True,,True,
+standalone-recheck1,3,1,etc_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/etc_write,True,True,True,True,,Write below etc
+standalone-recheck1,4,1,packet_socket,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/packet_socket,True,True,True,True,,Packet socket created in container
+standalone-recheck1,5,1,packet_socket,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/packet_socket,True,False,False,True,,Packet socket created in container
+standalone-recheck1,6,1,sensitive_hardlink,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/sensitive_hardlink,True,True,True,,True,
+standalone-recheck1,7,1,negative,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/negative,True,True,True,,True,
+standalone-recheck1,8,1,reverse_shell,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/reverse_shell,True,True,True,,True,
+standalone-recheck1,9,1,reverse_shell,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/reverse_shell,True,True,True,True,,Redirect STDOUT/STDIN to Network Connection in Container
+standalone-recheck1,10,1,reverse_shell,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/reverse_shell,True,True,True,True,,Redirect STDOUT/STDIN to Network Connection in Container
+standalone-recheck1,11,1,etc_write,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/etc_write,True,True,True,True,,Write below etc
+standalone-recheck1,12,1,root_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/root_write,True,True,True,True,,Write below root
+standalone-recheck1,13,1,root_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/root_write,True,False,False,,True,
+standalone-recheck1,14,1,sensitive_hardlink,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/sensitive_hardlink,True,True,True,,True,
+standalone-recheck1,15,1,sensitive_read,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/sensitive_read,True,True,True,True,,Read sensitive file untrusted
+standalone-recheck1,16,1,reverse_shell,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/reverse_shell,True,True,True,,True,
+standalone-recheck1,17,1,sensitive_hardlink,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/sensitive_hardlink,True,True,True,True,,Create Hardlink Over Sensitive Files
+standalone-recheck1,18,1,etc_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/etc_write,True,True,True,,True,
+standalone-recheck1,19,1,sensitive_read,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/sensitive_read,True,True,True,True,,Read sensitive file untrusted
+standalone-recheck1,20,1,packet_socket,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/packet_socket,True,True,True,,True,
+standalone-recheck1,21,1,sensitive_hardlink,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/sensitive_hardlink,True,True,True,True,,Create Hardlink Over Sensitive Files
+standalone-recheck1,22,1,root_write,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/root_write,True,True,True,True,,Write below root
+standalone-recheck1,23,1,negative,linux-c-musl,False,/opt/coverage/linux-c-musl/coverage/negative,True,True,True,,True,
+standalone-recheck1,24,1,etc_write,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/etc_write,True,True,True,,True,
+standalone-recheck1,25,1,root_write,linux-c-musl,True,/opt/coverage/linux-c-musl/coverage/root_write,True,True,True,,True,

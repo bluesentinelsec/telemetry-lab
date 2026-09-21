@@ -1,0 +1,246 @@
+{
+  "upstream_commit": "e822409d8a2a28c9719f56ace66e8cadebfd2bc3",
+  "selected_rules": [
+    {
+      "case": "traversal_read",
+      "rule": "Directory traversal monitored file read",
+      "source": "syscall",
+      "condition": "(open_read or open_file_failed) and (etc_dir or user_ssh_directory or\n     fd.name startswith /root/.ssh or\n     fd.name contains \"id_rsa\")\nand directory_traversal and not proc.pname in (shell_binaries)\n",
+      "exceptions": [],
+      "file": "falco_rules.yaml"
+    },
+    {
+      "case": "sensitive_read",
+      "rule": "Read sensitive file untrusted",
+      "source": "syscall",
+      "condition": "open_read and sensitive_files and proc_name_exists and not proc.name in (user_mgmt_binaries, userexec_binaries, package_mgmt_binaries,\n cron_binaries, read_sensitive_file_binaries, shell_binaries, hids_binaries,\n vpn_binaries, mail_config_binaries, nomachine_binaries, sshkit_script_binaries,\n in.proftpd, mandb, salt-call, salt-minion, postgres_mgmt_binaries,\n google_oslogin_\n )\nand not cmp_cp_by_passwd and not ansible_running_python and not run_by_qualys and not run_by_chef and not run_by_google_accounts_daemon and not user_read_sensitive_file_conditions and not mandb_postinst and not perl_running_plesk and not perl_running_updmap and not veritas_driver_script and not perl_running_centrifydc and not runuser_reading_pam and not linux_bench_reading_etc_shadow and not user_known_read_sensitive_files_activities and not user_read_sensitive_file_containers and not systemd_sensitive_file_readers\n",
+      "exceptions": [],
+      "file": "falco_rules.yaml"
+    },
+    {
+      "case": "log_truncate",
+      "rule": "Clear Log Activities",
+      "source": "syscall",
+      "condition": "open_write and access_log_files and evt.arg.flags contains \"O_TRUNC\" and not containerd_activities and not trusted_logging_images and not allowed_clear_log_files\n",
+      "exceptions": [],
+      "file": "falco_rules.yaml"
+    },
+    {
+      "case": "sensitive_symlink",
+      "rule": "Create Symlink Over Sensitive Files",
+      "source": "syscall",
+      "condition": "create_symlink and (evt.arg.target in (sensitive_file_names) or evt.arg.target in (sensitive_directory_names))\n",
+      "exceptions": [],
+      "file": "falco_rules.yaml"
+    },
+    {
+      "case": "sensitive_hardlink",
+      "rule": "Create Hardlink Over Sensitive Files",
+      "source": "syscall",
+      "condition": "create_hardlink and (evt.arg.oldpath in (sensitive_file_names))\n",
+      "exceptions": [],
+      "file": "falco_rules.yaml"
+    },
+    {
+      "case": "packet_socket",
+      "rule": "Packet socket created in container",
+      "source": "syscall",
+      "condition": "evt.type=socket and container and evt.arg.domain contains AF_PACKET and not proc.name in (user_known_packet_socket_binaries)\n",
+      "exceptions": [],
+      "file": "falco_rules.yaml"
+    },
+    {
+      "case": "reverse_shell",
+      "rule": "Redirect STDOUT/STDIN to Network Connection in Container",
+      "source": "syscall",
+      "condition": "dup and container and evt.rawres in (0, 1, 2) and fd.type in (\"ipv4\", \"ipv6\") and not user_known_stand_streams_redirect_activities\n",
+      "exceptions": [],
+      "file": "falco_rules.yaml"
+    },
+    {
+      "case": "ptrace_attach",
+      "rule": "PTRACE attached to process",
+      "source": "syscall",
+      "condition": "ptrace_attach_or_injection and proc_name_exists and not known_ptrace_procs\n",
+      "exceptions": [],
+      "file": "falco_rules.yaml"
+    },
+    {
+      "case": "ptrace_traceme",
+      "rule": "PTRACE anti-debug attempt",
+      "source": "syscall",
+      "condition": "evt.type=ptrace and evt.arg.request contains PTRACE_TRACEME and proc_name_exists\n",
+      "exceptions": [],
+      "file": "falco_rules.yaml"
+    },
+    {
+      "case": "exec_shm",
+      "rule": "Execution from /dev/shm",
+      "source": "syscall",
+      "condition": "spawned_process and (proc.exe startswith \"/dev/shm/\" or\n    (proc.cwd startswith \"/dev/shm/\" and proc.exe startswith \"./\" ) or\n    (shell_procs and proc.args startswith \"-c /dev/shm\") or\n    (shell_procs and proc.args startswith \"-i /dev/shm\") or\n    (shell_procs and proc.args startswith \"/dev/shm\") or\n    (proc.cwd startswith \"/dev/shm/\" and proc.args startswith \"./\" ))\nand not container.image.repository in (falco_privileged_images, trusted_images)\n",
+      "exceptions": [],
+      "file": "falco_rules.yaml"
+    },
+    {
+      "case": "drop_execute",
+      "rule": "Drop and execute new binary in container",
+      "source": "syscall",
+      "condition": "spawned_process and container and proc.is_exe_upper_layer=true and not container.image.repository in (known_drop_and_execute_containers) and not known_drop_and_execute_activities\n",
+      "exceptions": [],
+      "file": "falco_rules.yaml"
+    },
+    {
+      "case": "memfd_execute",
+      "rule": "Fileless execution via memfd_create",
+      "source": "syscall",
+      "condition": "spawned_process and proc.is_exe_from_memfd=true and not known_memfd_execution_processes\n",
+      "exceptions": [],
+      "file": "falco_rules.yaml"
+    },
+    {
+      "case": "shell_config_write",
+      "rule": "Modify Shell Configuration File",
+      "source": "syscall",
+      "condition": "open_write and (fd.filename in (shell_config_filenames) or\n     fd.name in (shell_config_files) or\n     fd.directory in (shell_config_directories))\nand not proc.name in (shell_binaries) and not exe_running_docker_save and not user_known_shell_config_modifiers\n",
+      "exceptions": [],
+      "file": "falco-incubating_rules.yaml"
+    },
+    {
+      "case": "cron_write",
+      "rule": "Schedule Cron Jobs",
+      "source": "syscall",
+      "condition": "((open_write and fd.name startswith /etc/cron) or\n (spawned_process and proc.name = \"crontab\"))\nand not user_known_cron_jobs\n",
+      "exceptions": [],
+      "file": "falco-incubating_rules.yaml"
+    },
+    {
+      "case": "ssh_read",
+      "rule": "Read ssh information",
+      "source": "syscall",
+      "condition": "(open_read or open_directory)\n and (user_ssh_directory or fd.name startswith /root/.ssh)\n and not user_known_read_ssh_information_activities\n and not proc.name in (ssh_binaries)\n",
+      "exceptions": [],
+      "file": "falco-incubating_rules.yaml"
+    },
+    {
+      "case": "udp_exchange",
+      "rule": "Unexpected UDP Traffic",
+      "source": "syscall",
+      "condition": "inbound_outbound and fd.l4proto=udp and not expected_udp_traffic\n",
+      "exceptions": [],
+      "file": "falco-incubating_rules.yaml"
+    },
+    {
+      "case": "dev_file",
+      "rule": "Create files below dev",
+      "source": "syscall",
+      "condition": "(evt.type = creat or (evt.type in (open,openat,openat2))) and evt.arg.flags contains O_CREAT and fd.directory = /dev and not proc.name in (dev_creation_binaries) and not fd.name in (allowed_dev_files) and not fd.name startswith /dev/tty and not user_known_create_files_below_dev_activities\n",
+      "exceptions": [],
+      "file": "falco-incubating_rules.yaml"
+    },
+    {
+      "case": "metadata_ec2",
+      "rule": "Contact EC2 Instance Metadata Service From Container",
+      "source": "syscall",
+      "condition": "outbound and container and fd.sip=\"169.254.169.254\" and not ec2_metadata_containers\n",
+      "exceptions": [],
+      "file": "falco-incubating_rules.yaml"
+    },
+    {
+      "case": "metadata_cloud",
+      "rule": "Contact cloud metadata service from container",
+      "source": "syscall",
+      "condition": "outbound and container and fd.sip=\"169.254.169.254\" and not user_known_metadata_access\n",
+      "exceptions": [],
+      "file": "falco-incubating_rules.yaml"
+    },
+    {
+      "case": "history_truncate",
+      "rule": "Delete or rename shell history",
+      "source": "syscall",
+      "condition": "(modify_shell_history or truncate_shell_history) and not var_lib_docker_filepath and not proc.name in (docker_binaries)\n",
+      "exceptions": [],
+      "file": "falco-incubating_rules.yaml"
+    },
+    {
+      "case": "setid_mode",
+      "rule": "Set Setuid or Setgid bit",
+      "source": "syscall",
+      "condition": "chmod and (evt.arg.mode contains \"S_ISUID\" or evt.arg.mode contains \"S_ISGID\") and not proc.name in (user_known_chmod_applications) and not exe_running_docker_save and not user_known_set_setuid_or_setgid_bit_conditions\n",
+      "exceptions": [],
+      "file": "falco-incubating_rules.yaml"
+    },
+    {
+      "case": "proc_environ",
+      "rule": "Read environment variable from /proc files",
+      "source": "syscall",
+      "condition": "open_read and container and (fd.name glob /proc/*/environ) and not proc.name in (known_binaries_to_read_environment_variables_from_proc_files)\n",
+      "exceptions": [],
+      "file": "falco-incubating_rules.yaml"
+    },
+    {
+      "case": "authorized_keys",
+      "rule": "Adding ssh keys to authorized_keys",
+      "source": "syscall",
+      "condition": "open_write and (user_ssh_directory or fd.name startswith /root/.ssh) and fd.name endswith authorized_keys and not proc.name in (ssh_binaries)\n",
+      "exceptions": [],
+      "file": "falco-incubating_rules.yaml"
+    },
+    {
+      "case": "repository_write",
+      "rule": "Update Package Repository",
+      "source": "syscall",
+      "condition": "((open_write and access_repositories) or (modify and modify_repositories)) and not package_mgmt_procs and not package_mgmt_ancestor_procs and not exe_running_docker_save and not user_known_update_package_registry\n",
+      "exceptions": [],
+      "file": "falco-sandbox_rules.yaml"
+    },
+    {
+      "case": "binary_write",
+      "rule": "Write below binary dir",
+      "source": "syscall",
+      "condition": "open_write and bin_dir and not package_mgmt_procs and not exe_running_docker_save and not python_running_get_pip and not python_running_ms_oms and not user_known_write_below_binary_dir_activities\n",
+      "exceptions": [],
+      "file": "falco-sandbox_rules.yaml"
+    },
+    {
+      "case": "monitored_write",
+      "rule": "Write below monitored dir",
+      "source": "syscall",
+      "condition": "open_write and monitored_dir and not package_mgmt_procs and not coreos_write_ssh_dir and not exe_running_docker_save and not python_running_get_pip and not python_running_ms_oms and not google_accounts_daemon_writing_ssh and not cloud_init_writing_ssh and not user_known_write_monitored_dir_conditions\n",
+      "exceptions": [],
+      "file": "falco-sandbox_rules.yaml"
+    },
+    {
+      "case": "etc_write",
+      "rule": "Write below etc",
+      "source": "syscall",
+      "condition": "write_etc_common",
+      "exceptions": [],
+      "file": "falco-sandbox_rules.yaml"
+    },
+    {
+      "case": "root_write",
+      "rule": "Write below root",
+      "source": "syscall",
+      "condition": "open_write and root_dir and proc_name_exists and not fd.name in (known_root_files) and not fd.directory pmatch (known_root_directories) and not exe_running_docker_save and not gugent_writing_guestagent_log and not dse_writing_tmp and not zap_writing_state and not airflow_writing_state and not rpm_writing_root_rpmdb and not maven_writing_groovy and not chef_writing_conf and not kubectl_writing_state and not cassandra_writing_state and not galley_writing_state and not calico_writing_state and not rancher_writing_root and not runc_writing_exec_fifo and not mysqlsh_writing_state and not known_root_conditions and not user_known_write_root_conditions and not user_known_write_below_root_activities\n",
+      "exceptions": [],
+      "file": "falco-sandbox_rules.yaml"
+    },
+    {
+      "case": "binary_rename",
+      "rule": "Modify binary dirs",
+      "source": "syscall",
+      "condition": "modify and bin_dir_rename and not package_mgmt_procs and not exe_running_docker_save and not user_known_modify_bin_dir_activities\n",
+      "exceptions": [],
+      "file": "falco-sandbox_rules.yaml"
+    },
+    {
+      "case": "binary_mkdir",
+      "rule": "Mkdir binary dirs",
+      "source": "syscall",
+      "condition": "mkdir and bin_dir_mkdir and not package_mgmt_procs and not user_known_mkdir_bin_dir_activities and not exe_running_docker_save\n",
+      "exceptions": [],
+      "file": "falco-sandbox_rules.yaml"
+    }
+  ],
+  "note": "Exact selected rule conditions from the pinned YAML. Refer to the supplied rule files for macro/list definitions and the fixed load order; this file does not reimplement Falco predicate evaluation."
+}
