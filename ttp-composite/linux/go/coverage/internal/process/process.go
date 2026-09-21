@@ -54,13 +54,30 @@ func Attach() {
 	defer cmd.Process.Kill()
 	pid := cmd.Process.Pid
 	fixture.Must(unix.PtraceAttach(pid))
-	var status unix.WaitStatus
-	got, err := unix.Wait4(pid, &status, 0, nil)
-	fixture.Must(err)
-	fixture.Check(got == pid && status.Stopped(), "child tracing stop")
+	// Start may return while the child is still completing exec. An exec
+	// SIGTRAP can precede the SIGSTOP requested by ATTACH. Consume the latter
+	// before detaching, or its late delivery can leave an untraced stopped child.
+	// See ptrace(2), "Attaching and detaching".
+	for {
+		var status unix.WaitStatus
+		got, err := unix.Wait4(pid, &status, 0, nil)
+		if err == unix.EINTR {
+			continue
+		}
+		fixture.Must(err)
+		fixture.Check(got == pid && status.Stopped(), "child tracing stop")
+		sig := status.StopSignal()
+		if sig == syscall.SIGSTOP {
+			break
+		}
+		if sig == syscall.SIGTRAP {
+			sig = 0
+		} // suppress the exec trap
+		fixture.Must(unix.PtraceCont(pid, int(sig)))
+	}
 	fixture.Must(unix.PtraceDetach(pid))
 	fixture.Must(cmd.Process.Signal(syscall.SIGTERM))
-	err = cmd.Wait()
+	err := cmd.Wait()
 	fixture.Check(err != nil, "child must terminate by SIGTERM")
 	st, ok := cmd.ProcessState.Sys().(syscall.WaitStatus)
 	fixture.Check(ok && st.Signaled() && st.Signal() == syscall.SIGTERM, "child termination")
