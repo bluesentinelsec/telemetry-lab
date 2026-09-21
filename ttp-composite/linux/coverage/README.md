@@ -71,10 +71,13 @@ Go file operations use `os`; network operations use `net`; child execution uses
 Linux-only socket/ptrace/memfd APIs use pinned `golang.org/x/sys/unix` v0.24.0.
 The fixed static helper remains identical across all configurations.
 
-Some implementation mechanisms necessarily differ and must be considered when
+Some implementation mechanisms differ and must be considered when
 interpreting telemetry. A reverse shell uses `net.Conn` for standard streams,
 so `os/exec` supplies pipes and copy goroutines. Command exchange and completion
 are checked, but the unchanged socket-duplication rule may miss that execution.
+Go also supports passing socket descriptors directly; this port deliberately
+retains the existing Go pilot's pipe-relay approach. A resulting C/Go difference
+is not evidence that cgo itself changes alert outcomes.
 Memfd execution uses `ExtraFiles` and `/proc/self/fd/3` because Go has no standard
 `fexecve` API. Ptrace operations lock the goroutine to its OS thread: attach
 uses a disposable `/bin/sleep` child; TRACEME uses Go's pre-exec ptrace option and

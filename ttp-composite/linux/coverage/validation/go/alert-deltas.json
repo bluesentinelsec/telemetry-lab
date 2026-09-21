@@ -1,0 +1,73 @@
+[
+  {
+    "case": "reverse_shell",
+    "target_rule": "Redirect STDOUT/STDIN to Network Connection in Container",
+    "valid_outcomes": {
+      "linux-c-glibc": [
+        {
+          "phase": "go-final",
+          "execution": 171,
+          "target_fired": true,
+          "alert_counts": {
+            "Redirect STDOUT/STDIN to Network Connection in Container": 3
+          }
+        }
+      ],
+      "linux-go-cgo": [
+        {
+          "phase": "go-final",
+          "execution": 179,
+          "target_fired": false,
+          "alert_counts": {}
+        }
+      ],
+      "linux-go-static": [
+        {
+          "phase": "go-final",
+          "execution": 107,
+          "target_fired": false,
+          "alert_counts": {}
+        }
+      ]
+    }
+  },
+  {
+    "case": "binary_mkdir",
+    "target_rule": "Mkdir binary dirs",
+    "valid_outcomes": {
+      "linux-c-glibc": [
+        {
+          "phase": "go-final",
+          "execution": 42,
+          "target_fired": true,
+          "alert_counts": {
+            "Mkdir binary dirs": 1,
+            "Modify binary dirs": 1
+          }
+        }
+      ],
+      "linux-go-cgo": [
+        {
+          "phase": "go-final",
+          "execution": 4,
+          "target_fired": true,
+          "alert_counts": {
+            "Mkdir binary dirs": 1,
+            "Modify binary dirs": 2
+          }
+        }
+      ],
+      "linux-go-static": [
+        {
+          "phase": "go-final",
+          "execution": 175,
+          "target_fired": true,
+          "alert_counts": {
+            "Mkdir binary dirs": 1,
+            "Modify binary dirs": 2
+          }
+        }
+      ]
+    }
+  }
+]

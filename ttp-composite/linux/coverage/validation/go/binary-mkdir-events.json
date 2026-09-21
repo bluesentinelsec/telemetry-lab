@@ -1,0 +1,74 @@
+[
+  {
+    "configuration": "linux-go-cgo",
+    "rule": "Mkdir binary dirs",
+    "event_fields": {
+      "evt.type": "mkdirat",
+      "evt.arg.path": "/usr/bin/lab_directory",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/binary_mkdir"
+    }
+  },
+  {
+    "configuration": "linux-go-cgo",
+    "rule": "Modify binary dirs",
+    "event_fields": {
+      "evt.type": "unlinkat",
+      "evt.args": "res=-21(EISDIR) dirfd=-100(AT_FDCWD) name=/usr/bin/lab_directory flags=0",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/binary_mkdir"
+    }
+  },
+  {
+    "configuration": "linux-go-cgo",
+    "rule": "Modify binary dirs",
+    "event_fields": {
+      "evt.type": "unlinkat",
+      "evt.args": "res=0 dirfd=-100(AT_FDCWD) name=/usr/bin/lab_directory flags=512(AT_REMOVEDIR)",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/binary_mkdir"
+    }
+  },
+  {
+    "configuration": "linux-c-glibc",
+    "rule": "Mkdir binary dirs",
+    "event_fields": {
+      "evt.type": "mkdir",
+      "evt.arg.path": "/usr/bin/lab_directory",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/binary_mkdir"
+    }
+  },
+  {
+    "configuration": "linux-c-glibc",
+    "rule": "Modify binary dirs",
+    "event_fields": {
+      "evt.type": "rmdir",
+      "evt.args": "res=0 path=/usr/bin/lab_directory",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/binary_mkdir"
+    }
+  },
+  {
+    "configuration": "linux-go-static",
+    "rule": "Mkdir binary dirs",
+    "event_fields": {
+      "evt.type": "mkdirat",
+      "evt.arg.path": "/usr/bin/lab_directory",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/binary_mkdir"
+    }
+  },
+  {
+    "configuration": "linux-go-static",
+    "rule": "Modify binary dirs",
+    "event_fields": {
+      "evt.type": "unlinkat",
+      "evt.args": "res=-21(EISDIR) dirfd=-100(AT_FDCWD) name=/usr/bin/lab_directory flags=0",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/binary_mkdir"
+    }
+  },
+  {
+    "configuration": "linux-go-static",
+    "rule": "Modify binary dirs",
+    "event_fields": {
+      "evt.type": "unlinkat",
+      "evt.args": "res=0 dirfd=-100(AT_FDCWD) name=/usr/bin/lab_directory flags=512(AT_REMOVEDIR)",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/binary_mkdir"
+    }
+  }
+]

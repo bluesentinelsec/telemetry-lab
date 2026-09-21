@@ -1,0 +1,1314 @@
+{
+  "source_commit": "f212746916846cd3c14bb461e3ec8c57db427a4c",
+  "selected_configs": [
+    "linux-c-glibc",
+    "linux-go-cgo",
+    "linux-go-static"
+  ],
+  "phases": [
+    {
+      "phase": "go-final",
+      "executions": 183,
+      "valid": 178,
+      "behavior_successes": 183,
+      "qualified_rules": 30,
+      "qualified_rule_names": [
+        "Adding ssh keys to authorized_keys",
+        "Clear Log Activities",
+        "Contact EC2 Instance Metadata Service From Container",
+        "Contact cloud metadata service from container",
+        "Create Hardlink Over Sensitive Files",
+        "Create Symlink Over Sensitive Files",
+        "Create files below dev",
+        "Delete or rename shell history",
+        "Directory traversal monitored file read",
+        "Drop and execute new binary in container",
+        "Execution from /dev/shm",
+        "Fileless execution via memfd_create",
+        "Mkdir binary dirs",
+        "Modify Shell Configuration File",
+        "Modify binary dirs",
+        "PTRACE anti-debug attempt",
+        "PTRACE attached to process",
+        "Packet socket created in container",
+        "Read environment variable from /proc files",
+        "Read sensitive file untrusted",
+        "Read ssh information",
+        "Redirect STDOUT/STDIN to Network Connection in Container",
+        "Schedule Cron Jobs",
+        "Set Setuid or Setgid bit",
+        "Unexpected UDP Traffic",
+        "Update Package Repository",
+        "Write below binary dir",
+        "Write below etc",
+        "Write below monitored dir",
+        "Write below root"
+      ],
+      "negative_controls_pass": false,
+      "qualified_case_configurations": 83,
+      "paired_qualification": [
+        [
+          "authorized_keys",
+          "linux-c-glibc"
+        ],
+        [
+          "authorized_keys",
+          "linux-go-cgo"
+        ],
+        [
+          "authorized_keys",
+          "linux-go-static"
+        ],
+        [
+          "binary_mkdir",
+          "linux-c-glibc"
+        ],
+        [
+          "binary_mkdir",
+          "linux-go-cgo"
+        ],
+        [
+          "binary_mkdir",
+          "linux-go-static"
+        ],
+        [
+          "binary_rename",
+          "linux-c-glibc"
+        ],
+        [
+          "binary_rename",
+          "linux-go-cgo"
+        ],
+        [
+          "binary_rename",
+          "linux-go-static"
+        ],
+        [
+          "binary_write",
+          "linux-c-glibc"
+        ],
+        [
+          "binary_write",
+          "linux-go-cgo"
+        ],
+        [
+          "binary_write",
+          "linux-go-static"
+        ],
+        [
+          "cron_write",
+          "linux-c-glibc"
+        ],
+        [
+          "cron_write",
+          "linux-go-cgo"
+        ],
+        [
+          "cron_write",
+          "linux-go-static"
+        ],
+        [
+          "dev_file",
+          "linux-c-glibc"
+        ],
+        [
+          "dev_file",
+          "linux-go-cgo"
+        ],
+        [
+          "dev_file",
+          "linux-go-static"
+        ],
+        [
+          "drop_execute",
+          "linux-c-glibc"
+        ],
+        [
+          "drop_execute",
+          "linux-go-cgo"
+        ],
+        [
+          "drop_execute",
+          "linux-go-static"
+        ],
+        [
+          "etc_write",
+          "linux-c-glibc"
+        ],
+        [
+          "etc_write",
+          "linux-go-cgo"
+        ],
+        [
+          "etc_write",
+          "linux-go-static"
+        ],
+        [
+          "exec_shm",
+          "linux-c-glibc"
+        ],
+        [
+          "exec_shm",
+          "linux-go-cgo"
+        ],
+        [
+          "exec_shm",
+          "linux-go-static"
+        ],
+        [
+          "history_truncate",
+          "linux-c-glibc"
+        ],
+        [
+          "history_truncate",
+          "linux-go-cgo"
+        ],
+        [
+          "history_truncate",
+          "linux-go-static"
+        ],
+        [
+          "log_truncate",
+          "linux-go-cgo"
+        ],
+        [
+          "log_truncate",
+          "linux-go-static"
+        ],
+        [
+          "memfd_execute",
+          "linux-c-glibc"
+        ],
+        [
+          "memfd_execute",
+          "linux-go-cgo"
+        ],
+        [
+          "memfd_execute",
+          "linux-go-static"
+        ],
+        [
+          "metadata_cloud",
+          "linux-c-glibc"
+        ],
+        [
+          "metadata_cloud",
+          "linux-go-cgo"
+        ],
+        [
+          "metadata_ec2",
+          "linux-c-glibc"
+        ],
+        [
+          "metadata_ec2",
+          "linux-go-cgo"
+        ],
+        [
+          "monitored_write",
+          "linux-c-glibc"
+        ],
+        [
+          "monitored_write",
+          "linux-go-cgo"
+        ],
+        [
+          "monitored_write",
+          "linux-go-static"
+        ],
+        [
+          "packet_socket",
+          "linux-c-glibc"
+        ],
+        [
+          "packet_socket",
+          "linux-go-cgo"
+        ],
+        [
+          "packet_socket",
+          "linux-go-static"
+        ],
+        [
+          "proc_environ",
+          "linux-c-glibc"
+        ],
+        [
+          "proc_environ",
+          "linux-go-cgo"
+        ],
+        [
+          "proc_environ",
+          "linux-go-static"
+        ],
+        [
+          "ptrace_attach",
+          "linux-c-glibc"
+        ],
+        [
+          "ptrace_attach",
+          "linux-go-cgo"
+        ],
+        [
+          "ptrace_attach",
+          "linux-go-static"
+        ],
+        [
+          "ptrace_traceme",
+          "linux-c-glibc"
+        ],
+        [
+          "ptrace_traceme",
+          "linux-go-cgo"
+        ],
+        [
+          "ptrace_traceme",
+          "linux-go-static"
+        ],
+        [
+          "repository_write",
+          "linux-c-glibc"
+        ],
+        [
+          "repository_write",
+          "linux-go-cgo"
+        ],
+        [
+          "repository_write",
+          "linux-go-static"
+        ],
+        [
+          "reverse_shell",
+          "linux-c-glibc"
+        ],
+        [
+          "root_write",
+          "linux-c-glibc"
+        ],
+        [
+          "root_write",
+          "linux-go-cgo"
+        ],
+        [
+          "sensitive_hardlink",
+          "linux-c-glibc"
+        ],
+        [
+          "sensitive_hardlink",
+          "linux-go-cgo"
+        ],
+        [
+          "sensitive_hardlink",
+          "linux-go-static"
+        ],
+        [
+          "sensitive_read",
+          "linux-c-glibc"
+        ],
+        [
+          "sensitive_read",
+          "linux-go-cgo"
+        ],
+        [
+          "sensitive_read",
+          "linux-go-static"
+        ],
+        [
+          "sensitive_symlink",
+          "linux-c-glibc"
+        ],
+        [
+          "sensitive_symlink",
+          "linux-go-cgo"
+        ],
+        [
+          "sensitive_symlink",
+          "linux-go-static"
+        ],
+        [
+          "setid_mode",
+          "linux-c-glibc"
+        ],
+        [
+          "setid_mode",
+          "linux-go-cgo"
+        ],
+        [
+          "shell_config_write",
+          "linux-c-glibc"
+        ],
+        [
+          "shell_config_write",
+          "linux-go-cgo"
+        ],
+        [
+          "shell_config_write",
+          "linux-go-static"
+        ],
+        [
+          "ssh_read",
+          "linux-c-glibc"
+        ],
+        [
+          "ssh_read",
+          "linux-go-cgo"
+        ],
+        [
+          "ssh_read",
+          "linux-go-static"
+        ],
+        [
+          "traversal_read",
+          "linux-c-glibc"
+        ],
+        [
+          "traversal_read",
+          "linux-go-cgo"
+        ],
+        [
+          "traversal_read",
+          "linux-go-static"
+        ],
+        [
+          "udp_exchange",
+          "linux-c-glibc"
+        ],
+        [
+          "udp_exchange",
+          "linux-go-cgo"
+        ],
+        [
+          "udp_exchange",
+          "linux-go-static"
+        ]
+      ],
+      "functional_only": false
+    },
+    {
+      "phase": "go-recheck1",
+      "executions": 33,
+      "valid": 32,
+      "behavior_successes": 33,
+      "qualified_rules": 5,
+      "qualified_rule_names": [
+        "Clear Log Activities",
+        "Contact EC2 Instance Metadata Service From Container",
+        "Contact cloud metadata service from container",
+        "Set Setuid or Setgid bit",
+        "Write below root"
+      ],
+      "negative_controls_pass": true,
+      "qualified_case_configurations": 14,
+      "paired_qualification": [
+        [
+          "log_truncate",
+          "linux-c-glibc"
+        ],
+        [
+          "log_truncate",
+          "linux-go-cgo"
+        ],
+        [
+          "log_truncate",
+          "linux-go-static"
+        ],
+        [
+          "metadata_cloud",
+          "linux-c-glibc"
+        ],
+        [
+          "metadata_cloud",
+          "linux-go-cgo"
+        ],
+        [
+          "metadata_ec2",
+          "linux-c-glibc"
+        ],
+        [
+          "metadata_ec2",
+          "linux-go-cgo"
+        ],
+        [
+          "metadata_ec2",
+          "linux-go-static"
+        ],
+        [
+          "root_write",
+          "linux-c-glibc"
+        ],
+        [
+          "root_write",
+          "linux-go-cgo"
+        ],
+        [
+          "root_write",
+          "linux-go-static"
+        ],
+        [
+          "setid_mode",
+          "linux-c-glibc"
+        ],
+        [
+          "setid_mode",
+          "linux-go-cgo"
+        ],
+        [
+          "setid_mode",
+          "linux-go-static"
+        ]
+      ],
+      "functional_only": false
+    }
+  ],
+  "executions": 216,
+  "valid": 210,
+  "behavior_successes": 216,
+  "active_attempts": 105,
+  "valid_target_hits": 101,
+  "valid_target_misses": 2,
+  "control_attempts": 111,
+  "valid_clean_controls": 107,
+  "valid_behavior_control_pairs": 90,
+  "valid_pairs": [
+    [
+      "traversal_read",
+      "linux-c-glibc"
+    ],
+    [
+      "traversal_read",
+      "linux-go-cgo"
+    ],
+    [
+      "traversal_read",
+      "linux-go-static"
+    ],
+    [
+      "sensitive_read",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_read",
+      "linux-go-cgo"
+    ],
+    [
+      "sensitive_read",
+      "linux-go-static"
+    ],
+    [
+      "log_truncate",
+      "linux-c-glibc"
+    ],
+    [
+      "log_truncate",
+      "linux-go-cgo"
+    ],
+    [
+      "log_truncate",
+      "linux-go-static"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-go-cgo"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-go-static"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-go-cgo"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-go-static"
+    ],
+    [
+      "packet_socket",
+      "linux-c-glibc"
+    ],
+    [
+      "packet_socket",
+      "linux-go-cgo"
+    ],
+    [
+      "packet_socket",
+      "linux-go-static"
+    ],
+    [
+      "reverse_shell",
+      "linux-c-glibc"
+    ],
+    [
+      "reverse_shell",
+      "linux-go-cgo"
+    ],
+    [
+      "reverse_shell",
+      "linux-go-static"
+    ],
+    [
+      "ptrace_attach",
+      "linux-c-glibc"
+    ],
+    [
+      "ptrace_attach",
+      "linux-go-cgo"
+    ],
+    [
+      "ptrace_attach",
+      "linux-go-static"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-c-glibc"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-go-cgo"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-go-static"
+    ],
+    [
+      "exec_shm",
+      "linux-c-glibc"
+    ],
+    [
+      "exec_shm",
+      "linux-go-cgo"
+    ],
+    [
+      "exec_shm",
+      "linux-go-static"
+    ],
+    [
+      "drop_execute",
+      "linux-c-glibc"
+    ],
+    [
+      "drop_execute",
+      "linux-go-cgo"
+    ],
+    [
+      "drop_execute",
+      "linux-go-static"
+    ],
+    [
+      "memfd_execute",
+      "linux-c-glibc"
+    ],
+    [
+      "memfd_execute",
+      "linux-go-cgo"
+    ],
+    [
+      "memfd_execute",
+      "linux-go-static"
+    ],
+    [
+      "shell_config_write",
+      "linux-c-glibc"
+    ],
+    [
+      "shell_config_write",
+      "linux-go-cgo"
+    ],
+    [
+      "shell_config_write",
+      "linux-go-static"
+    ],
+    [
+      "cron_write",
+      "linux-c-glibc"
+    ],
+    [
+      "cron_write",
+      "linux-go-cgo"
+    ],
+    [
+      "cron_write",
+      "linux-go-static"
+    ],
+    [
+      "ssh_read",
+      "linux-c-glibc"
+    ],
+    [
+      "ssh_read",
+      "linux-go-cgo"
+    ],
+    [
+      "ssh_read",
+      "linux-go-static"
+    ],
+    [
+      "udp_exchange",
+      "linux-c-glibc"
+    ],
+    [
+      "udp_exchange",
+      "linux-go-cgo"
+    ],
+    [
+      "udp_exchange",
+      "linux-go-static"
+    ],
+    [
+      "dev_file",
+      "linux-c-glibc"
+    ],
+    [
+      "dev_file",
+      "linux-go-cgo"
+    ],
+    [
+      "dev_file",
+      "linux-go-static"
+    ],
+    [
+      "metadata_ec2",
+      "linux-c-glibc"
+    ],
+    [
+      "metadata_ec2",
+      "linux-go-cgo"
+    ],
+    [
+      "metadata_ec2",
+      "linux-go-static"
+    ],
+    [
+      "metadata_cloud",
+      "linux-c-glibc"
+    ],
+    [
+      "metadata_cloud",
+      "linux-go-cgo"
+    ],
+    [
+      "metadata_cloud",
+      "linux-go-static"
+    ],
+    [
+      "history_truncate",
+      "linux-c-glibc"
+    ],
+    [
+      "history_truncate",
+      "linux-go-cgo"
+    ],
+    [
+      "history_truncate",
+      "linux-go-static"
+    ],
+    [
+      "setid_mode",
+      "linux-c-glibc"
+    ],
+    [
+      "setid_mode",
+      "linux-go-cgo"
+    ],
+    [
+      "setid_mode",
+      "linux-go-static"
+    ],
+    [
+      "proc_environ",
+      "linux-c-glibc"
+    ],
+    [
+      "proc_environ",
+      "linux-go-cgo"
+    ],
+    [
+      "proc_environ",
+      "linux-go-static"
+    ],
+    [
+      "authorized_keys",
+      "linux-c-glibc"
+    ],
+    [
+      "authorized_keys",
+      "linux-go-cgo"
+    ],
+    [
+      "authorized_keys",
+      "linux-go-static"
+    ],
+    [
+      "repository_write",
+      "linux-c-glibc"
+    ],
+    [
+      "repository_write",
+      "linux-go-cgo"
+    ],
+    [
+      "repository_write",
+      "linux-go-static"
+    ],
+    [
+      "binary_write",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_write",
+      "linux-go-cgo"
+    ],
+    [
+      "binary_write",
+      "linux-go-static"
+    ],
+    [
+      "monitored_write",
+      "linux-c-glibc"
+    ],
+    [
+      "monitored_write",
+      "linux-go-cgo"
+    ],
+    [
+      "monitored_write",
+      "linux-go-static"
+    ],
+    [
+      "etc_write",
+      "linux-c-glibc"
+    ],
+    [
+      "etc_write",
+      "linux-go-cgo"
+    ],
+    [
+      "etc_write",
+      "linux-go-static"
+    ],
+    [
+      "root_write",
+      "linux-c-glibc"
+    ],
+    [
+      "root_write",
+      "linux-go-cgo"
+    ],
+    [
+      "root_write",
+      "linux-go-static"
+    ],
+    [
+      "binary_rename",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_rename",
+      "linux-go-cgo"
+    ],
+    [
+      "binary_rename",
+      "linux-go-static"
+    ],
+    [
+      "binary_mkdir",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_mkdir",
+      "linux-go-cgo"
+    ],
+    [
+      "binary_mkdir",
+      "linux-go-static"
+    ]
+  ],
+  "qualified_case_configurations": 88,
+  "paired_qualification": [
+    [
+      "traversal_read",
+      "linux-c-glibc"
+    ],
+    [
+      "traversal_read",
+      "linux-go-cgo"
+    ],
+    [
+      "traversal_read",
+      "linux-go-static"
+    ],
+    [
+      "sensitive_read",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_read",
+      "linux-go-cgo"
+    ],
+    [
+      "sensitive_read",
+      "linux-go-static"
+    ],
+    [
+      "log_truncate",
+      "linux-c-glibc"
+    ],
+    [
+      "log_truncate",
+      "linux-go-cgo"
+    ],
+    [
+      "log_truncate",
+      "linux-go-static"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-go-cgo"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-go-static"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-go-cgo"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-go-static"
+    ],
+    [
+      "packet_socket",
+      "linux-c-glibc"
+    ],
+    [
+      "packet_socket",
+      "linux-go-cgo"
+    ],
+    [
+      "packet_socket",
+      "linux-go-static"
+    ],
+    [
+      "reverse_shell",
+      "linux-c-glibc"
+    ],
+    [
+      "ptrace_attach",
+      "linux-c-glibc"
+    ],
+    [
+      "ptrace_attach",
+      "linux-go-cgo"
+    ],
+    [
+      "ptrace_attach",
+      "linux-go-static"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-c-glibc"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-go-cgo"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-go-static"
+    ],
+    [
+      "exec_shm",
+      "linux-c-glibc"
+    ],
+    [
+      "exec_shm",
+      "linux-go-cgo"
+    ],
+    [
+      "exec_shm",
+      "linux-go-static"
+    ],
+    [
+      "drop_execute",
+      "linux-c-glibc"
+    ],
+    [
+      "drop_execute",
+      "linux-go-cgo"
+    ],
+    [
+      "drop_execute",
+      "linux-go-static"
+    ],
+    [
+      "memfd_execute",
+      "linux-c-glibc"
+    ],
+    [
+      "memfd_execute",
+      "linux-go-cgo"
+    ],
+    [
+      "memfd_execute",
+      "linux-go-static"
+    ],
+    [
+      "shell_config_write",
+      "linux-c-glibc"
+    ],
+    [
+      "shell_config_write",
+      "linux-go-cgo"
+    ],
+    [
+      "shell_config_write",
+      "linux-go-static"
+    ],
+    [
+      "cron_write",
+      "linux-c-glibc"
+    ],
+    [
+      "cron_write",
+      "linux-go-cgo"
+    ],
+    [
+      "cron_write",
+      "linux-go-static"
+    ],
+    [
+      "ssh_read",
+      "linux-c-glibc"
+    ],
+    [
+      "ssh_read",
+      "linux-go-cgo"
+    ],
+    [
+      "ssh_read",
+      "linux-go-static"
+    ],
+    [
+      "udp_exchange",
+      "linux-c-glibc"
+    ],
+    [
+      "udp_exchange",
+      "linux-go-cgo"
+    ],
+    [
+      "udp_exchange",
+      "linux-go-static"
+    ],
+    [
+      "dev_file",
+      "linux-c-glibc"
+    ],
+    [
+      "dev_file",
+      "linux-go-cgo"
+    ],
+    [
+      "dev_file",
+      "linux-go-static"
+    ],
+    [
+      "metadata_ec2",
+      "linux-c-glibc"
+    ],
+    [
+      "metadata_ec2",
+      "linux-go-cgo"
+    ],
+    [
+      "metadata_ec2",
+      "linux-go-static"
+    ],
+    [
+      "metadata_cloud",
+      "linux-c-glibc"
+    ],
+    [
+      "metadata_cloud",
+      "linux-go-cgo"
+    ],
+    [
+      "metadata_cloud",
+      "linux-go-static"
+    ],
+    [
+      "history_truncate",
+      "linux-c-glibc"
+    ],
+    [
+      "history_truncate",
+      "linux-go-cgo"
+    ],
+    [
+      "history_truncate",
+      "linux-go-static"
+    ],
+    [
+      "setid_mode",
+      "linux-c-glibc"
+    ],
+    [
+      "setid_mode",
+      "linux-go-cgo"
+    ],
+    [
+      "setid_mode",
+      "linux-go-static"
+    ],
+    [
+      "proc_environ",
+      "linux-c-glibc"
+    ],
+    [
+      "proc_environ",
+      "linux-go-cgo"
+    ],
+    [
+      "proc_environ",
+      "linux-go-static"
+    ],
+    [
+      "authorized_keys",
+      "linux-c-glibc"
+    ],
+    [
+      "authorized_keys",
+      "linux-go-cgo"
+    ],
+    [
+      "authorized_keys",
+      "linux-go-static"
+    ],
+    [
+      "repository_write",
+      "linux-c-glibc"
+    ],
+    [
+      "repository_write",
+      "linux-go-cgo"
+    ],
+    [
+      "repository_write",
+      "linux-go-static"
+    ],
+    [
+      "binary_write",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_write",
+      "linux-go-cgo"
+    ],
+    [
+      "binary_write",
+      "linux-go-static"
+    ],
+    [
+      "monitored_write",
+      "linux-c-glibc"
+    ],
+    [
+      "monitored_write",
+      "linux-go-cgo"
+    ],
+    [
+      "monitored_write",
+      "linux-go-static"
+    ],
+    [
+      "etc_write",
+      "linux-c-glibc"
+    ],
+    [
+      "etc_write",
+      "linux-go-cgo"
+    ],
+    [
+      "etc_write",
+      "linux-go-static"
+    ],
+    [
+      "root_write",
+      "linux-c-glibc"
+    ],
+    [
+      "root_write",
+      "linux-go-cgo"
+    ],
+    [
+      "root_write",
+      "linux-go-static"
+    ],
+    [
+      "binary_rename",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_rename",
+      "linux-go-cgo"
+    ],
+    [
+      "binary_rename",
+      "linux-go-static"
+    ],
+    [
+      "binary_mkdir",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_mkdir",
+      "linux-go-cgo"
+    ],
+    [
+      "binary_mkdir",
+      "linux-go-static"
+    ]
+  ],
+  "invalid_runs": [
+    {
+      "phase": "go-final",
+      "execution": "0049-linux-c-glibc-log_truncate",
+      "case": "log_truncate",
+      "config": "linux-c-glibc",
+      "control": true,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 4.0,
+          "after": 5.0
+        }
+      }
+    },
+    {
+      "phase": "go-final",
+      "execution": "0070-linux-go-static-setid_mode",
+      "case": "setid_mode",
+      "config": "linux-go-static",
+      "control": false,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 5.0,
+          "after": 6.0
+        }
+      }
+    },
+    {
+      "phase": "go-final",
+      "execution": "0089-linux-go-static-root_write",
+      "case": "root_write",
+      "config": "linux-go-static",
+      "control": true,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 7.0,
+          "after": 8.0
+        }
+      }
+    },
+    {
+      "phase": "go-final",
+      "execution": "0121-linux-go-static-metadata_cloud",
+      "case": "metadata_cloud",
+      "config": "linux-go-static",
+      "control": true,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 8.0,
+          "after": 9.0
+        }
+      }
+    },
+    {
+      "phase": "go-final",
+      "execution": "0146-linux-go-static-metadata_ec2",
+      "case": "metadata_ec2",
+      "config": "linux-go-static",
+      "control": true,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 9.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "phase": "go-recheck1",
+      "execution": "0012-linux-go-static-metadata_cloud",
+      "case": "metadata_cloud",
+      "config": "linux-go-static",
+      "control": false,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 15.0,
+          "after": 16.0
+        }
+      }
+    }
+  ],
+  "kernel": "6.12.107+deb13-cloud-amd64",
+  "docker": "Docker version 26.1.5+dfsg1, build a72d7cd",
+  "falco": "{\"default_driver_version\":\"11.0.0+driver\",\"driver_api_version\":\"11.0.0\",\"driver_schema_version\":\"4.3.0\",\"engine_version\":\"65\",\"engine_version_semver\":\"0.65.0\",\"falco_version\":\"0.45.0\",\"libs_version\":\"0.26.0\",\"plugin_api_version\":\"3.12.0\"}",
+  "image_id": "sha256:b8f499b675e5ee4dfe4e52ce6146499a5e0ea19cc5637c7ad4bb87eb7dec2dbf",
+  "binary_sha256": "7bb94127b7c44daeb2bc8f31d70668e78fbffa701d62989a34609ad8d359b5be  /opt/coverage/linux-c-glibc/coverage/traversal_read\nfd98b4f9d8ad6ebb2868d053d01bb10620dc588e8c1ee40a0d638f788c4ce635  /opt/coverage/linux-c-glibc/coverage/sensitive_read\n11bd450333ecaab657dab9fcd84aa7e82a4081c0c2a1e631f394a4ba46882d1f  /opt/coverage/linux-c-glibc/coverage/log_truncate\n591c0de4ef3c4a2425a6c41900a319679db908b298c4ab3c176fa1ce755fbb0e  /opt/coverage/linux-c-glibc/coverage/sensitive_symlink\n6836d04171f48cfbccac0e554f44be291ce29ce1a1d281d3b0a8b6980fd6518a  /opt/coverage/linux-c-glibc/coverage/sensitive_hardlink\ndd8346dffdbaffc505ce129e7c29561656fa8325a90a4387afca2a80cf75e36c  /opt/coverage/linux-c-glibc/coverage/packet_socket\nd8e1cd52ad8dd5c9d43caad6adda1a5f67f97e76c1ac7198219c1e201411033e  /opt/coverage/linux-c-glibc/coverage/reverse_shell\ned1fa061bf11e4149e45bcddce7723390b22c4da4d2c242976f6ee35e6484100  /opt/coverage/linux-c-glibc/coverage/ptrace_attach\ne5cb1f78467e4e173169bbc56720f3dc15c0fd243b89664333c4f6b6522e043d  /opt/coverage/linux-c-glibc/coverage/ptrace_traceme\n2c8e499885b5d87c8442e3604e855b2ad4cee205651d3b11b3a5a30fffa0b597  /opt/coverage/linux-c-glibc/coverage/exec_shm\n7a45396e53294d98790b78242d6584f33a20be0a68ca9c91456ce3853c2f2110  /opt/coverage/linux-c-glibc/coverage/drop_execute\n0a1ec3f1832b727e14b25d18335cf96d39c9b476c2893fd220c34a61c3e756e8  /opt/coverage/linux-c-glibc/coverage/memfd_execute\n077e92d719fe2d8df9c6ec4a040f70ba9e8b93620c612f0ad53112fc1f9c4496  /opt/coverage/linux-c-glibc/coverage/shell_config_write\n5f3b1e9f9433b0f944224a38986ad125b97286b5baa1149b9da2f3216a138efb  /opt/coverage/linux-c-glibc/coverage/cron_write\ne15ecd2ea8d2370434cb6806c0579567b1d3f723714e51897c8719226ebf1363  /opt/coverage/linux-c-glibc/coverage/ssh_read\n58f03ef9016e89490a7a605ed18d45911fc9754c67b2e2673e993e00e3cc7892  /opt/coverage/linux-c-glibc/coverage/udp_exchange\nb4df7786c412718ef61c6fe05e71547f56d94601394756010929f702a8c3483b  /opt/coverage/linux-c-glibc/coverage/dev_file\nae866b3d131d9a1e16475ac2aaed0077bf3f7ed5c391a71f8144796ed826f9c1  /opt/coverage/linux-c-glibc/coverage/metadata_ec2\n17a77a2a839a32a306381efc942b046ada1bf615623ca0ae5b64e8a80495f1ef  /opt/coverage/linux-c-glibc/coverage/metadata_cloud\n1f7c2d67aa73ebfd2b9078276375fb9ec0dd9904b3cadc8b69245428d86b42b2  /opt/coverage/linux-c-glibc/coverage/history_truncate\nbc410c50f9ef7aac42bbf3c6d9d2672dea307e760ce92b2297bdde446e269b90  /opt/coverage/linux-c-glibc/coverage/setid_mode\nc6c0b8b86bdb3491b173e0ebf6d80c9f6b8480e06965ed74777f81d7bcb7615b  /opt/coverage/linux-c-glibc/coverage/proc_environ\nf6cc19278baf5194832620efcd423ccecdccdfb6fb90eaf1da00ef31d1c42715  /opt/coverage/linux-c-glibc/coverage/authorized_keys\n6fdf4df3c5ff9855638fb9634d809e59337a54a58234754435daa080440974d2  /opt/coverage/linux-c-glibc/coverage/repository_write\nfdea155588cd913506002758ec99774d5e68f4bf9c37976c6314d05ff5093699  /opt/coverage/linux-c-glibc/coverage/binary_write\n5fd49dbbf572e3ac93d063b921fb305acf5d140571162d66c33938d17b5e5903  /opt/coverage/linux-c-glibc/coverage/monitored_write\n3debcae37f372b7fc29eb51cf4d172614c2c7d6d855467652c6a7dac84d461e8  /opt/coverage/linux-c-glibc/coverage/etc_write\n1883b6710c1fe33d093f2a730b0dcff62dfccb0908e9669351f2820d54d17336  /opt/coverage/linux-c-glibc/coverage/root_write\n760f3cd326dd70c2f812e3d85b732198a588cee4c6157fe246a787a09e5c94e4  /opt/coverage/linux-c-glibc/coverage/binary_rename\n0664d98d2eea16483fbe3d6045337a7312ede3a59e60666cc9a154de2cd6fd73  /opt/coverage/linux-c-glibc/coverage/binary_mkdir\n762a3f2600842d370d514371ae857d82d34763bb94e93cb4e67c1691bb868e72  /opt/coverage/linux-c-glibc/coverage/negative\n8f335612fa3904fd30a3ee25f7b467d611c5d52838aaf05593d4cb0176aa0ef2  /opt/coverage/linux-c-glibc/coverage/fixture_prepare\n693e101f1cdd329148aea4e03657cfa4637207898ed3bf800c8b57a3e6d0f48d  /opt/coverage/linux-go-cgo/coverage/traversal_read\nc5d5f5cfabb01790c6d90c2cabcfdf26347176462feeb236e393af3cd07d5076  /opt/coverage/linux-go-cgo/coverage/sensitive_read\nc05bc5d785500cd084de8df0d43153993dad869960bd15e9593c02254896dbef  /opt/coverage/linux-go-cgo/coverage/log_truncate\n8c380114f7797b79be0a516018af62917dd958269367ebb89ad2ab7a5e1a8cff  /opt/coverage/linux-go-cgo/coverage/sensitive_symlink\n126dfa725ac4551d35227ca0de8e2180c2f9e1de8e03e407665c95563c341694  /opt/coverage/linux-go-cgo/coverage/sensitive_hardlink\n9b3849577b16e6a78ec918b36eb31551051674c6ecdf97ce41bcee9c661688f1  /opt/coverage/linux-go-cgo/coverage/packet_socket\na573287aa82c5b66235121d1edbe39dac0b97a2f65d5f77ae574147fce267bb3  /opt/coverage/linux-go-cgo/coverage/reverse_shell\n2c454802afa660bd3b0919367da0efe29f2e177617dd9fdd9905c52e87df9185  /opt/coverage/linux-go-cgo/coverage/ptrace_attach\n5be0c4546aeb5773a4d29c4b057fc9238ee47457a3b0323d2dfe9b697b377b8d  /opt/coverage/linux-go-cgo/coverage/ptrace_traceme\n7d77a875620976f4b6f93e4a9909d5ac21b949932278adedf98823bf9a4ff3d0  /opt/coverage/linux-go-cgo/coverage/exec_shm\nd0b31c542dbfdcabc8afc031f0944dae3f6821c8c3a62a0981606221e4fa2b51  /opt/coverage/linux-go-cgo/coverage/drop_execute\n9eea147a74944e683e002adcd9b136b97bb020f9d5800e08d1c6b774a0959a67  /opt/coverage/linux-go-cgo/coverage/memfd_execute\n73c29edd29da80f47c1275c65d6d1d46b1e5f59606d515c8d3ba23ea1eaef5e2  /opt/coverage/linux-go-cgo/coverage/shell_config_write\n15adfb8577c7523902febc4e7adbb7c2e76f3c1c9707feeb183d007ad6921672  /opt/coverage/linux-go-cgo/coverage/cron_write\ne21e71fb824322a5104f83eddd5178abfe1055c712fb78c3a81be0e5ea4f2123  /opt/coverage/linux-go-cgo/coverage/ssh_read\n4cc5221a469162b2a3510103fd6afd2552eab103d29ce3505467e303a1904acf  /opt/coverage/linux-go-cgo/coverage/udp_exchange\nb29944d4df2cce86e79e0dc543faa4116eecd888a18624ca18f56e644b81b3fb  /opt/coverage/linux-go-cgo/coverage/dev_file\n58643f103cb179c08fba1bd1d5620ed2c126db5201dc7727cb7a30de5202a708  /opt/coverage/linux-go-cgo/coverage/metadata_ec2\na6f9ea7f22122d49f21ff463517e7de87ab05c731f837cf8a280cdaf67f092e7  /opt/coverage/linux-go-cgo/coverage/metadata_cloud\naa1b8705ff5c3170bbbd83449b4814bc628d07a1cf3fc18e0dadafc2e533c62b  /opt/coverage/linux-go-cgo/coverage/history_truncate\n2b6ac08d8aa91d9913bac77d72fb364895a6bb4847a30cc6c23407a237d890bb  /opt/coverage/linux-go-cgo/coverage/setid_mode\n5c4f3d59a22981d09e520c1833066053a2cdad1bbcda718d0732649e5257345c  /opt/coverage/linux-go-cgo/coverage/proc_environ\n9900f977f48475690526d8a9bd710f71f84c58fccd24cc55b9ffc54849e8d3c9  /opt/coverage/linux-go-cgo/coverage/authorized_keys\n5721512c43c19964b75f67136a53d20edd0ebbd69864382b2eef91bf9d8bc110  /opt/coverage/linux-go-cgo/coverage/repository_write\n75d6dff5d3ce3e479f9733d0dbcec1deb2dc1f6d4dda7aa76c89201737ccf6d4  /opt/coverage/linux-go-cgo/coverage/binary_write\n074c5249089747492ef7ef423cbe7bea362519687a9fd25647b4a9fa0c0930fa  /opt/coverage/linux-go-cgo/coverage/monitored_write\n74daa8ea358f9e7c4fb7e13e654cac4448f976dd01b0a5f84e6793e0f49effb0  /opt/coverage/linux-go-cgo/coverage/etc_write\n0707f043fe3115aa5ae615d1509304c83b7a9dd113aa9e1cc4bf03bc9878a7ad  /opt/coverage/linux-go-cgo/coverage/root_write\na7fa140e88fd94b0a538ed025f6f920d36852205cf5ab739274d8c721a4ea7e4  /opt/coverage/linux-go-cgo/coverage/binary_rename\nd7677a7007e464bab200e0002cf35a3e8bf78f9f60c77bfe43384740c1086c38  /opt/coverage/linux-go-cgo/coverage/binary_mkdir\ncf275d5ae926208223161765d1463561cb0294e0feee71d5d8e237545c7462bf  /opt/coverage/linux-go-cgo/coverage/negative\n79109b3aa4a6a79998888ca336d2e18b2428c2f425b58cef29a0a75c3c40958e  /opt/coverage/linux-go-cgo/coverage/fixture_prepare\n26485f378772fa5915f65cc92b2f89769806aefb80598ee4b3a786b471240e7e  /opt/coverage/linux-go-static/coverage/traversal_read\nf9f4fc4dbf7413a4f6ac8450759e203ee18ef9f21a86300373380fa99048fd45  /opt/coverage/linux-go-static/coverage/sensitive_read\n8ff148475367c1842b8fc405a852a50d6c27e2c94a6efd714b8db1c3649284c9  /opt/coverage/linux-go-static/coverage/log_truncate\nec5f5886f3420d4c2376d25fde9a5cb0bf0ee3f8ba599cc42d6051097db9327b  /opt/coverage/linux-go-static/coverage/sensitive_symlink\nde1edc4f8d29bfc204b4fd55c2ee1e979e70b0c62bf35ecf6b919f91f99381e3  /opt/coverage/linux-go-static/coverage/sensitive_hardlink\n2338c82f431ea5e4b618917ee859b7bc2e49c3f143150ebf691b8bf5b01e734c  /opt/coverage/linux-go-static/coverage/packet_socket\n9884b18666d2a085aea5bd05a479893d7a2983e330998b6769ea37144196fe93  /opt/coverage/linux-go-static/coverage/reverse_shell\na6dab29dc0b3942e9d431bbfe090c6c6ce4debc73176c03916b949df263235b0  /opt/coverage/linux-go-static/coverage/ptrace_attach\nd5ca42ef0e90ff750d092a4db651d7844b1fbd3feaf10465bcd9c891b524105f  /opt/coverage/linux-go-static/coverage/ptrace_traceme\n2aafae412acdd38a46b7d12c169a571bce4f2b45b52f91ff0020dea29cfda630  /opt/coverage/linux-go-static/coverage/exec_shm\n4c7c9b6e9fc284bc65a8bb6cebb1416743303e943dd9c169ba0f8b0535140556  /opt/coverage/linux-go-static/coverage/drop_execute\ne9ad08f5d847a7657470c098f191e63f456baccc719dea75dc33267939fed53e  /opt/coverage/linux-go-static/coverage/memfd_execute\ncab3b4ec83c2337ee8c3ea70aa821111b9324890d81a89b48114ace6249bf20d  /opt/coverage/linux-go-static/coverage/shell_config_write\nb3269afd67024e399fc834cf4ee14c55bd982c23571aec6cbacee87de44a48a4  /opt/coverage/linux-go-static/coverage/cron_write\n94fdd98e5e2753c09a4e5bc5c04551d50b24dfe2dad9331b1495e04226f63b2f  /opt/coverage/linux-go-static/coverage/ssh_read\n2ae05b4598f954e5822aa20d0322ef9ea37ce528e8e21a986ae8563a2bdd8d3b  /opt/coverage/linux-go-static/coverage/udp_exchange\n893a99a0aee436d5971ebd15565635ca277182e60a9af3e767c01280386c1244  /opt/coverage/linux-go-static/coverage/dev_file\n617e33ea543b20ec101f315871ca99c809893df711035f9385c7beefde6fcae4  /opt/coverage/linux-go-static/coverage/metadata_ec2\n8d886bf6e63458648d250dba6c520720dd1142e465a5b61eefe9aaaf5d0f6d76  /opt/coverage/linux-go-static/coverage/metadata_cloud\nf5b975610c3e2215e2311168e98ae612fb1d464c90b6659b7c4bcd577c9fd1c7  /opt/coverage/linux-go-static/coverage/history_truncate\n96ddc1c01e57c064ab0166c924339911f90049c33616997764602f725bb0c25d  /opt/coverage/linux-go-static/coverage/setid_mode\n786a59291275ed4ec42f6bf2f7dc148bd7eb3517a084208580adb46039ec64aa  /opt/coverage/linux-go-static/coverage/proc_environ\n90367ca7efa47b7ba00f80fb5a3a63a59472b4ab6b40b1a375b4ce1a5247a6ca  /opt/coverage/linux-go-static/coverage/authorized_keys\n26972f4cb1b1ebaac235032a10777661a92a6c162c730f2752ee73cd147c9a63  /opt/coverage/linux-go-static/coverage/repository_write\n9e24b798ca1dd91807bf1b82572044acb08a5876a7902dbefe05867be97df3a7  /opt/coverage/linux-go-static/coverage/binary_write\n21eac1bbd10821a87f5b792b6760127bf754504d492d9df5cf70ec006a445dd9  /opt/coverage/linux-go-static/coverage/monitored_write\nbc323563e542fe5a006179f85e9a7512aa19c01aa3e035cf1581fe49f5b586d6  /opt/coverage/linux-go-static/coverage/etc_write\n5ea38a10d37e0f066590b736858d3ab52b957911a8ce79fa7110f77e1e0cad1c  /opt/coverage/linux-go-static/coverage/root_write\nae203b8bc881e1a2ee2ba32137fbb3457cc254355f6a93efcd73c18b6b5b9b85  /opt/coverage/linux-go-static/coverage/binary_rename\n793f8336f348b0465df5826dfe34daf5ca3e90994ea066c432dbbf458a8c7688  /opt/coverage/linux-go-static/coverage/binary_mkdir\n5c0e32944d0764b1ff3c5e15a4495434393dffe527ab1b9afaf7fb83fa92ce08  /opt/coverage/linux-go-static/coverage/negative\n7de8aba71964a3a246093af6776341fba534b8f4b6511a3ec6d9b0198f824c7c  /opt/coverage/linux-go-static/coverage/fixture_prepare\n2a79c78068c3599fb735bccd203d2958e4b2f14eaa86c8eea83958692bbef9fb  /opt/coverage/helper",
+  "suite_files_sha256": {
+    "Dockerfile": "f7fbce39bab52e46f0a3718effd94fd8d59caf4f78b27d1a7c3d784ada6a71d6",
+    "README.md": "2bbf5e7bdab889d87ae61b1213ae299ce920da883f80137fe5df0607ea0415fb",
+    "test_program_contract.py": "5d4ccef964fa91033fd876c2353065b10e10193258812572f45a56a9c4eebc7a",
+    "test_release.py": "582571644cb0b5f5950f45178306006b7a8667e08ac48f6601fd19f136ee0039",
+    "manifest.json": "e2c60b7dd6b86c3202548908bd347447dc9a173b301897c7722416b51fa248e0",
+    "run.py": "51d2dcfc541dead43858b393cf64dc4c53b81b7e03fb2cd8b9063ad923d695a7",
+    "build.sh": "382628a76efe8f4746bd12b72cf7e15ecdbd0f1e9676cf0759785228d4abec3f",
+    "validate_manifest.py": "64e7c7473e0d16e5b77162afaa32562386aa694d97e4037fc0e65b1c4a142cb8",
+    "behavior-contract.md": "4ed44b1c60ed7371c8cba02187e313ece40ffa4b002388c6d8153a6391b9868b",
+    "setup-detector.sh": "1096103aae38096944681187de44b575a6614939fe15ad1916e7fdc6728365ca",
+    "verify_programs.py": "8fd896bbe0f542644a5faab0b88849043bbbf0ce906d8db44f90226a960c769a",
+    "rule-inventory.csv": "d0c93a05636a625ac62b3adb50a1b782b487de93bf3615c6c31e5b0c217e44f3",
+    ".gitignore": "32dae3052f331ee34d628ef535709b301259a45df7c7522c4d35dcf49873f00b",
+    "test_runner.py": "d215baa7cdfa67b8b37c4563c2f3d3681895df6f2626f7aa1131daa320aa460c",
+    "rules/falco-sandbox_rules.yaml": "f05ad34f07c43930932ea6dd84c08a37bc8e5ba9f88901ca091ff1b52b3f33d3",
+    "rules/falco-incubating_rules.yaml": "47bf87041e2f39ca336e7acf1ae4e6183771a92e81031f367d01f2b49cabe1ac",
+    "rules/falco_rules.yaml": "30a1a60263ab97650c851011468da03b17fc0096a7cfa3b6686eba5de73b865b",
+    "rules/LICENSE.falcosecurity-rules": "f65bbfe8deb986105063c967001b84c00232c31ea4b28564d54b5133435c6453"
+  },
+  "host_instance": {
+    "InstanceId": "i-019e3976bceed9232",
+    "ImageId": "ami-0c605b75e3a75e872",
+    "InstanceType": "c7i.xlarge",
+    "Architecture": "x86_64",
+    "LaunchTime": "2026-09-21T21:56:26+00:00",
+    "Placement": {
+      "AvailabilityZoneId": "usw2-az2",
+      "GroupName": "",
+      "Tenancy": "default",
+      "AvailabilityZone": "us-west-2b"
+    }
+  },
+  "compiler": "go version go1.24.4 linux/amd64\n",
+  "container_runtime_versions": "libc++1:amd64\t1:19.0-63\nlibc++1-19:amd64\t1:19.1.7-3+b1\nlibc++abi1:amd64\t1:19.0-63\nlibc++abi1-19:amd64\t1:19.1.7-3+b1\nlibc6:amd64\t2.41-12+deb13u4\nlibstdc++6:amd64\t14.2.0-19\nmusl:amd64\t1.2.5-3.1~deb13u1\n",
+  "archive_sha256": "e0729b912e6b4e4c5a135a8514a6bb40e1205bbcc6ba7a9d43fee322ba0c5ceb"
+}
