@@ -5,6 +5,8 @@ C_SRC="$HERE/../c"
 OUT="${1:?Usage: build.sh OUTPUT_DIRECTORY}"
 mkdir -p "$OUT"
 OUT=$(cd "$OUT" && pwd)
+export GOCACHE="${GOCACHE:-$OUT/go-cache}"
+export GOPATH="${GOPATH:-$OUT/go-path}"
 for libc in glibc musl; do
   cmake -S "$C_SRC" -B "$OUT/build-$libc" -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_TOOLCHAIN_FILE="$C_SRC/toolchains/linux-$libc.cmake"
