@@ -41,6 +41,18 @@ class EvidenceTests(unittest.TestCase):
         result=score({'id':'negative'},run,[{'rule':'target'}],True,{'target'})
         self.assertFalse(result['negative_control_ok'])
 
+    def test_same_binary_control_requires_control_marker_and_no_selected_alerts(self):
+        case={'id':'example','rule':'target','control':True}
+        run=subprocess.CompletedProcess([],0,'CONTROL_OK example\n','')
+        result=score(case,run,[],True,{'target'})
+        self.assertTrue(result['valid'])
+        self.assertTrue(result['negative_control_ok'])
+        self.assertIsNone(result['target_fired'])
+        contaminated=score(case,run,[{'rule':'target'}],True,{'target'})
+        self.assertFalse(contaminated['negative_control_ok'])
+        wrong=subprocess.CompletedProcess([],0,'CASE_OK example\n','')
+        self.assertFalse(score(case,wrong,[],True,{'target'})['valid'])
+
     def test_snapshot_and_mapping_integrity(self):
         self.assertEqual(len(validate()['cases']),30)
 

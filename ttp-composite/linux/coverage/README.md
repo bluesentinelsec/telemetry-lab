@@ -1,39 +1,56 @@
-# Linux Falco coverage: C qualification suite
+# Linux Falco coverage: standalone C composites
 
-Thirty explicitly mapped cases target 30 of the **95** syscall rules in the
-preserved upstream snapshot (`e822409d8a2a28c9719f56ace66e8cadebfd2bc3`). All 30
-are among the 81 stock-enabled rules. The collection counts are 25 stable,
-31 incubating, and 39 sandbox. `manifest.json` is authoritative for case IDs,
-target names, source hashes, and C configurations; `rule-inventory.csv` records
-the proposed selection/exclusion rationale for all 95 rules. That CSV retains
-the original source-review status; execution evidence comes from run outputs.
+Thirty standalone programs target 30 of the **95** supplied syscall rules in
+upstream snapshot `e822409d8a2a28c9719f56ace66e8cadebfd2bc3`. All 30 are among
+the 81 stock-enabled rules. The supplied collections contain 25 stable,
+31 incubating, and 39 sandbox rules. `manifest.json` maps each case to its own
+executable and exact target rule; `rule-inventory.csv` preserves selection and
+exclusion rationale for all 95 rules.
 
-The suite implements the entire selection in C, built with GCC against glibc
-and musl. It complements the existing seven-composite, four-language pilot;
-the additional cases are not yet implemented in C++, Go, Rust, or Windows.
-Thirty rules are not thirty independent detection mechanisms: some overlap,
-and the two metadata targets deliberately share the same behavior.
+## Standalone program contract
+
+Each case has a separate `coverage/<case>/main.c`, CMake target, executable,
+and hash. It runs its one behavior with no case-selection argument. There is
+no `falco_cases` dispatcher, copied dispatcher, or shell wrapper. Both glibc
+and musl builds install the programs under `<configuration>/coverage/` so they
+do not overwrite the original seven-composite pilot.
+
+Shared headers provide support functions. The three executable-loading cases
+use one fixed benign helper to verify execution; the reverse-shell case uses
+one fixed shell. These helpers do not select among test cases. Fixture setup
+is a separate `fixture_prepare` program, outside the measurement window.
+
+Every measured program also accepts `--control`: start the **same executable**
+with the **same hash and path**, but skip its sole tested behavior. This is a
+negative control, not a selector for another TTP. An additional standalone
+`negative` program checks the common startup baseline. Active executions must
+verify behavior and match their exact target rule; controls must not match any
+of the 30 selected rules.
+
+`verify_programs.py` checks the actual artifacts: complete roster, ELF format,
+unique hashes, correct runtime loader, and absence of other cases' success
+markers. CI runs this check for both C builds. Release tests preserve every
+program under its coverage subdirectory and reject accidental replacement of
+legacy binaries. The broader primitive/composite audit is tracked in
+[issue #55](https://github.com/bluesentinelsec/telemetry-lab/issues/55).
 
 ## Requirements and containment
 
 Use the project's disposable Debian 13 x86-64 EC2 lab with Docker and Falco.
-Do not run these fixtures directly on a workstation or production host.
-The C executable refuses execution outside a Docker container or without the
-fixture environment marker. The runner creates a fresh container per execution
-with no external networking. Both metadata-service and UDP peers are sockets
-inside that container's own network namespace; no real metadata service,
-credential source, or external target is contacted.
+The programs require a Docker fixture environment. The runner creates a fresh
+container with no external networking for each execution. Metadata-service
+and UDP peers are sockets in that container's private network namespace;
+no real metadata service, credentials, or external target is contacted.
 
-The fixed container configuration adds NET_ADMIN (loopback address setup) and
-SYS_PTRACE, retains Docker's NET_RAW capability, permits the exercised syscalls
-with an unconfined seccomp profile, and makes a private /dev/shm mount executable.
-These settings are identical across both runtime configurations. The container
-is not privileged and has no host filesystem mounts. Files are synthetic or
-confined to its disposable writable layer. No persistence fixture is activated.
+The fixed configuration adds NET_ADMIN and SYS_PTRACE, retains NET_RAW, uses
+an unconfined seccomp profile for the exercised syscalls, and makes the private
+/dev/shm mount executable. Containers are not privileged and have no host
+filesystem mounts. Files are synthetic or confined to the disposable layer;
+container removal cleans them up. No persistence fixture is activated.
 
-## Deploy and build
+## Deploy and run
 
-Deploy a Linux-only instance using the existing infrastructure:
+Deploy through the existing infrastructure:
 
 ```sh
 cd lab-environment
@@ -41,81 +58,71 @@ npm ci
 npx cdk deploy -c linuxOnly=true -c stackName=FalcoCoverageValidation
 ```
 
-Stage the repository source on that host through the stack's data bucket and
-SSM. After cloud-init finishes, install build dependencies:
+Stage repository source on the host through S3 and SSM. After cloud-init,
+install dependencies and run from the staged repository root:
 
 ```sh
 sudo apt-get update
 sudo apt-get install -y gcc make cmake musl-tools libc6-dev python3-yaml
-bash ttp-composite/linux/coverage/build.sh /opt/lab/falco30-build
+bash ttp-composite/linux/coverage/build.sh /opt/lab/standalone-build
 sudo bash ttp-composite/linux/coverage/setup-detector.sh
 sudo python3 ttp-composite/linux/coverage/run.py \
-  --output /opt/lab/falco30-results --repetitions 3 --seed 20260921
+  --output /opt/lab/standalone-results --repetitions 3 --seed 20260921
 ```
 
-`build.sh` verifies different ELF interpreters and compiles one identical static
-helper for both variants. The calling test program performs the operation under
-comparison natively. The fixed helper only confirms successful execution in
-the three executable-loading cases. The reverse-shell case uses the same shell
-and checks a fixed command/response exchange through its redirected descriptors.
+The same image contains both C configurations. A repetition schedules
+**122 executions**: 30 active programs and 30 same-binary controls for each
+runtime, plus two baseline executions. Three repetitions schedule 366.
+Each block is randomized. `--case ID` restricts a diagnostic run and includes
+that case's control; it does not validate the complete selection.
 
-The dedicated `falco-coverage.service` loads only the preserved rule files;
-upstream auto-update files do not affect it. It uses `rule_matching: all` and a
-debug output threshold while leaving rule conditions, exceptions, macros,
-lists, and stock enabled flags unchanged. It stops the normal lab Falco service
-to avoid two collectors competing. Restore normal operation when done:
+The dedicated detector loads only the three preserved rule files, evaluates
+all matches, and emits one stdout JSON stream. It leaves rule logic, exceptions,
+macros, lists, and enabled flags unchanged. Restore the normal lab service
+when reusing the host:
 
 ```sh
 sudo systemctl stop falco-coverage.service
 sudo systemctl start falco-modern-bpf.service
 ```
 
-## Execution and interpretation
+## Evidence and interpretation
 
-Each repetition block randomly orders the 30 cases and the negative control
-across both configurations: **62 executions per block**, 186 for three blocks.
-The manifest and randomized order are saved before execution. `--case ID` can
-restrict a diagnostic run, but such a run does not qualify the entire suite.
+A behavior succeeds only after checking outputs, data transfer, file state,
+or child completion and printing its exact success marker. Alerts are scoped
+to the fresh container and journal window and matched by exact rule name.
+The runner rejects failed behavior, detector restarts, counter resets, and
+increases in any captured drop counter. Invalid attempts remain in the data.
+A healthy, successful behavior with no target alert remains a valid miss.
 
-Fixture preparation is a separate process before a journal cursor is recorded.
-The measured process must return zero and print its exact `CASE_OK` marker only
-after checking outputs, data transfer, file state, or child completion.
-Falco alerts are attributed by the fresh container's ID and capture window.
-The target must match the exact manifest rule name; another alert cannot
-substitute. Other attributable rules are retained as descriptive observations.
+`qualified_case_configurations` requires both a valid target hit and a valid,
+clean same-binary control for each case/runtime pair. It must reach 60 to
+qualify the entire two-runtime selection. The process still exits nonzero
+if any scheduled attempt is invalid or any negative control fails. Rechecks
+must be retained alongside the original attempts, not silently substituted.
 
-The runner checks that the detector stayed active with the same PID, that
-kernel event/drop counters did not reset, and that drop counters did not rise.
-Behavior failures and collector failures are invalid runs, never evidence of
-a detection miss. A successful behavior with a healthy detector and no target
-match remains a valid negative detection outcome. The empty control must not
-match any of the 30 selected rules.
+The controls test whether startup of the program alone triggers a selected
+rule. They do not prove the rules are independent of paths, process names, or
+command lines: such event fields are legitimate predicates in several stock
+rules. Inspect rule conditions and the alert's event fields before attributing
+a future difference to runtime. These Falco syscall rules do not constitute a
+static binary-scanning experiment.
 
-`summary.json` reports the number of distinct target rules observed on valid
-runs. It does not require every runtime to alert, because that would exclude
-the runtime-induced differences the study seeks to measure. Review the per-run
-matrix before interpreting a no-alert outcome as runtime-related. These runs
-qualify fixtures and feasibility; they are not the dissertation's 30-repetition
-confirmatory dataset or validation of the six unimplemented non-C variants.
+Thirty rules are not thirty independent mechanisms. The two metadata targets
+share a behavior, and other rules overlap. Preserve non-target matches as
+observations without redefining the declared target coverage.
 
-Each output directory includes provenance, planned order, behavior stdout and
-stderr, attributed alert JSON, original journal records, and before/after
-collector metrics. Preserve this evidence before destroying the temporary
-stack. Raw journal records include other host activity and should be reviewed
-before sharing; the curated validation summary contains only scope/results.
-
-`--functional-only` exercises behavior without claiming detection validation.
-It records `collection_ok=false`, so those records cannot be confused with
-qualified rule outcomes.
-
-## Checks
+Output includes every program's hash, image ID, randomized plan, behavior and
+control output, exact-rule alerts, journal windows, and collector metrics.
+`--functional-only` does not claim detection qualification. Preserve the raw
+archive before tearing down the disposable stack.
 
 ```sh
 python3 -m unittest discover -s ttp-composite/linux/coverage -p 'test_*.py' -v
 ```
 
-Tests guard against wrong-rule substitution, unrelated-container alerts,
-failed behavior being counted as a detection, collector restarts/drops,
-negative-control contamination, and changes to the pinned rule corpus.
-
-See `validation/README.md` for the recorded live-lab qualification outcome.
+Current results are under `validation/`. Earlier dispatcher-based results are
+retained under `validation/dispatcher-pilot/` solely as historical evidence;
+they do not validate these replacement executables. Other language ports,
+Windows coverage, and paired telemetry-analysis integration remain in
+[issue #54](https://github.com/bluesentinelsec/telemetry-lab/issues/54).

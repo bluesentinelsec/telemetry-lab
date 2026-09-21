@@ -23,7 +23,9 @@ def validate():
     cases = manifest['cases']
     assert len(cases) == len({c['id'] for c in cases}) == 30
     assert len({c['rule'] for c in cases}) == 30
+    assert len({c['executable'] for c in cases}) == 30
     for case in cases:
+        assert case['executable'] == 'coverage/' + case['id']
         assert rules[case['rule']].get('enabled', True)
     return manifest
 

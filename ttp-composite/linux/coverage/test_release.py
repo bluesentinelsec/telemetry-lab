@@ -1,4 +1,5 @@
 """Ensure the new C-only suite survives release assembly without inventing ports."""
+import json
 import subprocess
 import tarfile
 import tempfile
@@ -23,15 +24,23 @@ class ReleaseTests(unittest.TestCase):
                 fixture(config+'/empty'+('.exe' if config.startswith('windows') else ''))
                 fixture('composite-'+config+'/reverse_shell'+('.exe' if config.startswith('windows') else ''))
             for config in linux[:2]:
-                fixture('composite-'+config+'/falco_cases');fixture('composite-'+config+'/falco_helper')
+                fixture('composite-'+config+'/falco_helper')
+                ids=[c['id'] for c in json.loads((repo/'ttp-composite/linux/coverage/manifest.json').read_text())['cases']]
+                for name in ids+['negative','fixture_prepare']:
+                    fixture('composite-'+config+'/coverage/'+name)
+                    (components/('composite-'+config+'/coverage/'+name)).write_text('standalone '+name)
             subprocess.run(['bash','scripts/assemble-release.sh','test',str(components),str(output)],
                            cwd=repo,check=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             with tarfile.open(output/'telemetry-lab-test-linux.tar.gz') as archive:
                 names=set(archive.getnames());prefix='telemetry-lab-test-linux/ttp-composite/'
                 for config in linux[:2]:
-                    self.assertIn(prefix+config+'/falco_cases',names)
+                    for name in ids+['negative','fixture_prepare']:
+                        self.assertIn(prefix+config+'/coverage/'+name,names)
+                    self.assertNotIn(prefix+config+'/falco_cases',names)
                     self.assertIn(prefix+config+'/falco_helper',names)
-                self.assertNotIn(prefix+'linux-go-cgo/falco_cases',names)
+                self.assertNotIn(prefix+'linux-go-cgo/coverage/reverse_shell',names)
+                original=archive.extractfile(prefix+'linux-c-glibc/reverse_shell').read()
+                self.assertEqual(original,b'fixture')
                 self.assertIn(prefix+'coverage/manifest.json',names)
                 self.assertIn(prefix+'coverage/rules/falco_rules.yaml',names)
 

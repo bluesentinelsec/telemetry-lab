@@ -1,3 +1,5 @@
+> Historical dispatcher-based results. Superseded by standalone programs; these results do not qualify the replacement binaries.
+
 # C qualification evidence — 2026-09-21
 
 This directory records qualification of the 30 selected Linux C cases, built
