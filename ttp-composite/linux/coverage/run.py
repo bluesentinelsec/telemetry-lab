@@ -136,11 +136,15 @@ def main():
     parser.add_argument('--repetitions',type=int,default=3)
     parser.add_argument('--seed',type=int,default=20260921)
     parser.add_argument('--case',action='append',dest='cases')
+    parser.add_argument('--config', action='append', dest='configs', help='Repeat to select configurations; default: all implemented')
     parser.add_argument('--functional-only',action='store_true')
     args=parser.parse_args()
     if args.repetitions < 1: parser.error('repetitions must be positive')
     args.output.mkdir(parents=True,exist_ok=False)
     manifest=validate()
+    configs=args.configs or manifest['configs']
+    if len(configs) != len(set(configs)) or not set(configs) <= set(manifest['configs']):
+        parser.error('configurations must be known and unique')
     image_id=command(['docker','image','inspect',args.image,'--format','{{.Id}}'])
     cases=manifest['cases']
     if args.cases:
@@ -150,9 +154,9 @@ def main():
     cases=cases + [{**c, 'control':True} for c in cases] + [{'id':'negative'}]
     plan=[];rng=random.Random(args.seed)
     for rep in range(1,args.repetitions+1):
-        block=[{'repetition':rep,'case':c,'config':cfg} for c in cases for cfg in manifest['configs']]
+        block=[{'repetition':rep,'case':c,'config':cfg} for c in cases for cfg in configs]
         rng.shuffle(block);plan.extend(block)
-    provenance={'manifest':manifest,'image_id':image_id,'seed':args.seed,'plan':plan,
+    provenance={'manifest':manifest,'selected_configs':configs,'image_id':image_id,'seed':args.seed,'plan':plan,
                 'kernel':command(['uname','-r']),'architecture':command(['uname','-m']),
                 'docker':command(['docker','--version']),
                 'falco':command(['falco','--version']) if not args.functional_only else None}
@@ -162,7 +166,7 @@ def main():
         for p in here.rglob('*') if p.is_file() and '__pycache__' not in p.parts
     }
     provenance['binary_sha256']=command(['docker','run','--rm','--network','none',image_id,
-        'sha256sum',*['/opt/coverage/'+cfg+'/coverage/'+name for cfg in manifest['configs']
+        'sha256sum',*['/opt/coverage/'+cfg+'/coverage/'+name for cfg in configs
                        for name in [c['id'] for c in manifest['cases']]+['negative','fixture_prepare']],
         '/opt/coverage/helper'])
     (args.output/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')

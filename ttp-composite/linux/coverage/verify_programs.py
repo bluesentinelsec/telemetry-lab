@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check actual ELF artifacts: distinct single-case binaries, correct libc loader."""
+"""Check actual ELF artifacts: distinct single-case binaries, correct loader and C++ standard library."""
 import argparse
 import hashlib
 import json
@@ -24,8 +24,17 @@ def verify(directory, libc):
         if digest in hashes:raise ValueError(f'{name} duplicates another executable')
         hashes.add(digest)
         header=subprocess.check_output(['readelf','-l',str(p)],text=True)
-        loader='ld-linux' if libc=='glibc' else 'ld-musl'
+        loader='ld-musl' if libc=='musl' else 'ld-linux'
         if loader not in header:raise ValueError(f'{name} has the wrong runtime loader')
+        if libc in ('libstdcxx', 'libcxx'):
+            dynamic=subprocess.check_output(['readelf','-d',str(p)],text=True)
+            symbols=subprocess.check_output(['readelf','--dyn-syms','--wide',str(p)],text=True)
+            required,forbidden,symbol = (('libstdc++.so.6','libc++.so.1','GLIBCXX_')
+                if libc == 'libstdcxx' else ('libc++.so.1','libstdc++.so.6','_ZNSt3__1'))
+            if f'[{required}]' not in dynamic or f'[{forbidden}]' in dynamic:
+                raise ValueError(f'{name} has the wrong C++ standard library')
+            if not any(' UND ' in line and symbol in line for line in symbols.splitlines()):
+                raise ValueError(f'{name} does not use the selected C++ standard library')
         markers={case for case in ids if any(('CASE_OK '+case+end).encode() in data for end in ('\n','\0'))}
         if markers != ({name} if name in ids else set()):
             raise ValueError(f'{name} bundles unrelated case markers: {markers}')
@@ -34,5 +43,5 @@ def verify(directory, libc):
 if __name__=='__main__':
     parser=argparse.ArgumentParser()
     parser.add_argument('directory',type=Path)
-    parser.add_argument('libc',choices=['glibc','musl'])
+    parser.add_argument('libc',choices=['glibc','musl','libstdcxx','libcxx'])
     args=parser.parse_args();verify(args.directory,args.libc)

@@ -15,3 +15,5 @@ add_subdirectory(symlink_sensitive)
 add_subdirectory(clear_log)
 add_subdirectory(mkdir_bin)
 add_subdirectory(ptrace_antidebug)
+
+add_subdirectory(coverage)

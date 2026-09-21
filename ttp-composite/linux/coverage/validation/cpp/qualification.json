@@ -1,0 +1,646 @@
+{
+  "source_commit": "c6b5a70c80f1821a5b3405dc4597e8d6a6b27d4a",
+  "phases": [
+    {
+      "phase": "cpp-final",
+      "executions": 122,
+      "valid": 119,
+      "behavior_successes": 122,
+      "qualified_rules": 30,
+      "qualified_rule_names": [
+        "Adding ssh keys to authorized_keys",
+        "Clear Log Activities",
+        "Contact EC2 Instance Metadata Service From Container",
+        "Contact cloud metadata service from container",
+        "Create Hardlink Over Sensitive Files",
+        "Create Symlink Over Sensitive Files",
+        "Create files below dev",
+        "Delete or rename shell history",
+        "Directory traversal monitored file read",
+        "Drop and execute new binary in container",
+        "Execution from /dev/shm",
+        "Fileless execution via memfd_create",
+        "Mkdir binary dirs",
+        "Modify Shell Configuration File",
+        "Modify binary dirs",
+        "PTRACE anti-debug attempt",
+        "PTRACE attached to process",
+        "Packet socket created in container",
+        "Read environment variable from /proc files",
+        "Read sensitive file untrusted",
+        "Read ssh information",
+        "Redirect STDOUT/STDIN to Network Connection in Container",
+        "Schedule Cron Jobs",
+        "Set Setuid or Setgid bit",
+        "Unexpected UDP Traffic",
+        "Update Package Repository",
+        "Write below binary dir",
+        "Write below etc",
+        "Write below monitored dir",
+        "Write below root"
+      ],
+      "negative_controls_pass": false,
+      "qualified_case_configurations": 57,
+      "paired_qualification": [
+        [
+          "authorized_keys",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "authorized_keys",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "binary_mkdir",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "binary_mkdir",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "binary_rename",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "binary_write",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "binary_write",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "cron_write",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "cron_write",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "dev_file",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "drop_execute",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "drop_execute",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "etc_write",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "etc_write",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "exec_shm",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "exec_shm",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "history_truncate",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "history_truncate",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "log_truncate",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "log_truncate",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "memfd_execute",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "memfd_execute",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "metadata_cloud",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "metadata_cloud",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "metadata_ec2",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "metadata_ec2",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "monitored_write",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "monitored_write",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "packet_socket",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "packet_socket",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "proc_environ",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "proc_environ",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "ptrace_attach",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "ptrace_attach",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "ptrace_traceme",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "ptrace_traceme",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "repository_write",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "repository_write",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "reverse_shell",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "reverse_shell",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "root_write",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "root_write",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "sensitive_hardlink",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "sensitive_hardlink",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "sensitive_read",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "sensitive_read",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "sensitive_symlink",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "sensitive_symlink",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "setid_mode",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "setid_mode",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "shell_config_write",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "shell_config_write",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "ssh_read",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "ssh_read",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "traversal_read",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "traversal_read",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "udp_exchange",
+          "linux-cpp-libcxx"
+        ]
+      ],
+      "functional_only": false
+    },
+    {
+      "phase": "cpp-recheck1",
+      "executions": 14,
+      "valid": 14,
+      "behavior_successes": 14,
+      "qualified_rules": 3,
+      "qualified_rule_names": [
+        "Create files below dev",
+        "Modify binary dirs",
+        "Unexpected UDP Traffic"
+      ],
+      "negative_controls_pass": true,
+      "qualified_case_configurations": 6,
+      "paired_qualification": [
+        [
+          "binary_rename",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "binary_rename",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "dev_file",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "dev_file",
+          "linux-cpp-libstdcxx"
+        ],
+        [
+          "udp_exchange",
+          "linux-cpp-libcxx"
+        ],
+        [
+          "udp_exchange",
+          "linux-cpp-libstdcxx"
+        ]
+      ],
+      "functional_only": false
+    }
+  ],
+  "executions": 136,
+  "valid": 133,
+  "behavior_successes": 136,
+  "active_attempts": 66,
+  "valid_target_hits": 66,
+  "control_attempts": 70,
+  "valid_clean_controls": 67,
+  "qualified_case_configurations": 60,
+  "paired_qualification": [
+    [
+      "traversal_read",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "traversal_read",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "sensitive_read",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "sensitive_read",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "log_truncate",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "log_truncate",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "packet_socket",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "packet_socket",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "reverse_shell",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "reverse_shell",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "ptrace_attach",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "ptrace_attach",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "exec_shm",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "exec_shm",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "drop_execute",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "drop_execute",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "memfd_execute",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "memfd_execute",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "shell_config_write",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "shell_config_write",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "cron_write",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "cron_write",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "ssh_read",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "ssh_read",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "udp_exchange",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "udp_exchange",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "dev_file",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "dev_file",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "metadata_ec2",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "metadata_ec2",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "metadata_cloud",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "metadata_cloud",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "history_truncate",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "history_truncate",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "setid_mode",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "setid_mode",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "proc_environ",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "proc_environ",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "authorized_keys",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "authorized_keys",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "repository_write",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "repository_write",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "binary_write",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "binary_write",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "monitored_write",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "monitored_write",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "etc_write",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "etc_write",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "root_write",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "root_write",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "binary_rename",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "binary_rename",
+      "linux-cpp-libcxx"
+    ],
+    [
+      "binary_mkdir",
+      "linux-cpp-libstdcxx"
+    ],
+    [
+      "binary_mkdir",
+      "linux-cpp-libcxx"
+    ]
+  ],
+  "invalid_runs": [
+    {
+      "phase": "cpp-final",
+      "execution": "0002-linux-cpp-libcxx-dev_file",
+      "case": "dev_file",
+      "config": "linux-cpp-libcxx",
+      "control": true,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 2.0,
+          "after": 3.0
+        }
+      }
+    },
+    {
+      "phase": "cpp-final",
+      "execution": "0010-linux-cpp-libstdcxx-binary_rename",
+      "case": "binary_rename",
+      "config": "linux-cpp-libstdcxx",
+      "control": true,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 3.0,
+          "after": 4.0
+        }
+      }
+    },
+    {
+      "phase": "cpp-final",
+      "execution": "0022-linux-cpp-libstdcxx-udp_exchange",
+      "case": "udp_exchange",
+      "config": "linux-cpp-libstdcxx",
+      "control": true,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 5.0,
+          "after": 6.0
+        }
+      }
+    }
+  ],
+  "kernel": "6.12.107+deb13-cloud-amd64",
+  "docker": "Docker version 26.1.5+dfsg1, build a72d7cd",
+  "falco": "{\"default_driver_version\":\"11.0.0+driver\",\"driver_api_version\":\"11.0.0\",\"driver_schema_version\":\"4.3.0\",\"engine_version\":\"65\",\"engine_version_semver\":\"0.65.0\",\"falco_version\":\"0.45.0\",\"libs_version\":\"0.26.0\",\"plugin_api_version\":\"3.12.0\"}",
+  "image_id": "sha256:50fc5e1e9c8136a70da99837b1327b37120c59bb1fd07105b57e218df0fea0f8",
+  "binary_sha256": "8059f600c1160ca9ddfbbf7e9af24f7a0f601ef211536a71d4de99e8c8e4885c  /opt/coverage/linux-cpp-libstdcxx/coverage/traversal_read\n8de0ab4c935a61d1ef46bc023a94b27931cbbce2a079bb7e1b7a63bd9009a018  /opt/coverage/linux-cpp-libstdcxx/coverage/sensitive_read\ncf79d086879bca059ccce49c1373a98cd6856b0205076c978a6cf208a3cf6a2f  /opt/coverage/linux-cpp-libstdcxx/coverage/log_truncate\nc0c00e6269ebb02ff0f38a2368cfbfff51402ac14cb52386bdcc7d15de9d6b79  /opt/coverage/linux-cpp-libstdcxx/coverage/sensitive_symlink\n7aee757a1a84fca3a9ca5ebf836376b7fda7855bb1dc878808d5472b69f42b9f  /opt/coverage/linux-cpp-libstdcxx/coverage/sensitive_hardlink\n21ea586bfb9a151b508ec828207ef5bba624755ad5c18c7e31cba4084961ec4e  /opt/coverage/linux-cpp-libstdcxx/coverage/packet_socket\nd4061e38b2cf272acbbf5b340fed5fa1750ff32497d36a8528cb0487f1fa43d3  /opt/coverage/linux-cpp-libstdcxx/coverage/reverse_shell\n8ca8ca2454c66dc6339e27b69f28fbf4d77291b4b3f97596217aab21b807c2ea  /opt/coverage/linux-cpp-libstdcxx/coverage/ptrace_attach\nf48e407fa0798c524717b8eb50a9910fe82ab72da088bedb47c154db4dbb9c9d  /opt/coverage/linux-cpp-libstdcxx/coverage/ptrace_traceme\nab2f19e21459fe2cba3e1d1b27df2f99e55ff5ec69895c7da9c3ad5ebba1c51d  /opt/coverage/linux-cpp-libstdcxx/coverage/exec_shm\nde0bec686a8bf12569f4773a152a3cec8429884f30148302c904b0d060b779e6  /opt/coverage/linux-cpp-libstdcxx/coverage/drop_execute\n7c98f79f889020704cf7823615f87570ed035f500c9c271c6757a8152d3e579a  /opt/coverage/linux-cpp-libstdcxx/coverage/memfd_execute\n8894788cc878e10f5aad61b0857c5b7784e58d81fcd4c16366df1b96567cdc36  /opt/coverage/linux-cpp-libstdcxx/coverage/shell_config_write\n6672d8a142a15cd989751b3ad31ba8203476514ef63fcb54c998ad30bc7a234e  /opt/coverage/linux-cpp-libstdcxx/coverage/cron_write\n07b3de4c875f48360e6c27adb38d841f58a42c99975622890569c911d0f9e033  /opt/coverage/linux-cpp-libstdcxx/coverage/ssh_read\ne0a178d380b231b58a381804da3d304cc2294599ab45e2a4c54b70589abfac6f  /opt/coverage/linux-cpp-libstdcxx/coverage/udp_exchange\n9cfbfa4c38c83aa622b2e97296f75d167a49acefe0f38e68a29e146a08d0fb18  /opt/coverage/linux-cpp-libstdcxx/coverage/dev_file\n9a4c04dcf0eb88575768641b14080a82e48a89fa75751b1bb64344a39a144845  /opt/coverage/linux-cpp-libstdcxx/coverage/metadata_ec2\nface09d892bd8c873e35f46293278c0ea66a8a64bb6d4e05e1de386a80e9bb7d  /opt/coverage/linux-cpp-libstdcxx/coverage/metadata_cloud\nb0e86d71f1a4def131d623c7f957013679ab16c71b5424c160baa6540eeedc9f  /opt/coverage/linux-cpp-libstdcxx/coverage/history_truncate\n5e8e0ae78566c673856edbef3e78a0feb00b9a48eda2af09bc95718de1edd28b  /opt/coverage/linux-cpp-libstdcxx/coverage/setid_mode\nd8deae46c4f8e26f1672318621f8f27e5584cd13988eb9b26d6465d51a3c7030  /opt/coverage/linux-cpp-libstdcxx/coverage/proc_environ\nf5f8d134cd938fc8dd98d8d645e87b1065cd4ad02adf9078aaea8ecff7b23ca4  /opt/coverage/linux-cpp-libstdcxx/coverage/authorized_keys\nff403ab52bd4f47eed16a3d32a0bccf7e62f0e75a8fd3219f1a079aa8458c6e7  /opt/coverage/linux-cpp-libstdcxx/coverage/repository_write\n0c02ea5b5c51053c90c48537a55c7e02bf4288f00303389796a553d7f5b0bd03  /opt/coverage/linux-cpp-libstdcxx/coverage/binary_write\n2c13fcfe30ca0ef8887720c4bfe3bbafa04fab9e3ffe58b093da83fb38d053cc  /opt/coverage/linux-cpp-libstdcxx/coverage/monitored_write\nd83ea333e13a4df6baa74e8ee9f8aabc142316c50ec7d8da1b57462e4afc87b0  /opt/coverage/linux-cpp-libstdcxx/coverage/etc_write\n5ed5940362bba23dd586d9f94d561e418bbfebec0985e80dc86e560495a038fc  /opt/coverage/linux-cpp-libstdcxx/coverage/root_write\n48de83d10393a1a82736ee81c28602ee145c02ed2f6825448232d9e341dd3d88  /opt/coverage/linux-cpp-libstdcxx/coverage/binary_rename\n5d70bc66a494836ac725b36c35fd5ec433c95f81f8e69741e22e95b24911f09b  /opt/coverage/linux-cpp-libstdcxx/coverage/binary_mkdir\n819e6b81cba86e72317b4c9225ea9232e56f75a5651d638beec166f50c682a71  /opt/coverage/linux-cpp-libstdcxx/coverage/negative\na1d54a93f09ec8accf98a889ed0cbe4689b9b021a6877ef5933b0d401c215306  /opt/coverage/linux-cpp-libstdcxx/coverage/fixture_prepare\n4afb3ee7860fc3c684851a3e0177b107582058749ba69649fa25647c4f4f9617  /opt/coverage/linux-cpp-libcxx/coverage/traversal_read\n27f76580138c80a4f4b4759e35c0b3333ddc73cdec0bad5c8e12d34893dfa308  /opt/coverage/linux-cpp-libcxx/coverage/sensitive_read\nca8bdbf6399675ce36284f65832ed08742ed6988c18ca092ebac4455f8b184bc  /opt/coverage/linux-cpp-libcxx/coverage/log_truncate\n4b593f3c936612a819b2f0170c6053289237f4e2084e01239e4a4e678b2a7f3d  /opt/coverage/linux-cpp-libcxx/coverage/sensitive_symlink\n14c3be192c6837df69e19a6f994341bc2780dd2a016815cd3d0309a706070eca  /opt/coverage/linux-cpp-libcxx/coverage/sensitive_hardlink\na7d7e63b1c61946f56ddf846bbd57c2305b3c2a151b1811b56bfe7c22ba21d4d  /opt/coverage/linux-cpp-libcxx/coverage/packet_socket\n097dd88a21dc4bce9a816c364bf3cd13bac0b5d081ed8ef801d046444691a1e0  /opt/coverage/linux-cpp-libcxx/coverage/reverse_shell\n78fcfebd0f04f75fa87d6552a9cca1e65aacbcee6cd0140ea7223539934bd55f  /opt/coverage/linux-cpp-libcxx/coverage/ptrace_attach\n142ea0018fb6048132eba85bc09d3e189667fe6614d26622aa2142563df41752  /opt/coverage/linux-cpp-libcxx/coverage/ptrace_traceme\n5d2c7cd91784aeee881986b7e0b36fcdc9f5c2ff2e289c68bac309005a144087  /opt/coverage/linux-cpp-libcxx/coverage/exec_shm\n5024c751b9fd877b0b160cef6430b6eb8d0e3984eaf76c4e09d30141fd24a332  /opt/coverage/linux-cpp-libcxx/coverage/drop_execute\n7987777bdd33b498ee4bf1f201324af256335c7ec306887af2d65f8c8b1bbff9  /opt/coverage/linux-cpp-libcxx/coverage/memfd_execute\na32bb8e2cd8e1d7920067ed137c5a89d60f0a6b4a8ab138fdc03fe650c0307a4  /opt/coverage/linux-cpp-libcxx/coverage/shell_config_write\n917a4df21a5b3800a451bf490e39bf947937ab1b277fde5074060b1bdd58dfd1  /opt/coverage/linux-cpp-libcxx/coverage/cron_write\nf51588a285395e958a6af35e4f66c1dbade54dddd48b48a57eae2ec485f998b1  /opt/coverage/linux-cpp-libcxx/coverage/ssh_read\nfcedcd144f8b1a391a1fbc503e8ef366baf45eb75d99816dc6a813201997a224  /opt/coverage/linux-cpp-libcxx/coverage/udp_exchange\n13590fef250d1fd32966799364c49d5159acad623787d03923b90a249c66ecfa  /opt/coverage/linux-cpp-libcxx/coverage/dev_file\nff60b85234847607c972236e4a0bd74bf144e3ec6f201ec96c72c2300a82ef6b  /opt/coverage/linux-cpp-libcxx/coverage/metadata_ec2\n215c25fecbbe98a8af32e326d3a9446002ee2fb984e6bafd0f4242d6a46e72f7  /opt/coverage/linux-cpp-libcxx/coverage/metadata_cloud\nfad2554cc072a14bb38c2d4bcff5a091a58e979b630d78161b410862315379e7  /opt/coverage/linux-cpp-libcxx/coverage/history_truncate\n25a4bbea2f67913c215d6bb922a36f0b99dff2979637bc093a18d08ea48bea9d  /opt/coverage/linux-cpp-libcxx/coverage/setid_mode\n3339ef0cbf9a1ca1bde17ab0ec0fdc1f51c20206d11b95ee7d2ddc3fee06f392  /opt/coverage/linux-cpp-libcxx/coverage/proc_environ\n2f806afff5c9b2fcdeb0c81a2d1f2834997477b3887748a3f6de8a1d4fd84efd  /opt/coverage/linux-cpp-libcxx/coverage/authorized_keys\n78bacefcd964c97d7386936508135e096423eb0c19f229164ff40040df0a9d38  /opt/coverage/linux-cpp-libcxx/coverage/repository_write\n23179b72c857b2e635f3667372fedead3b0676537309c78943cb03856e058040  /opt/coverage/linux-cpp-libcxx/coverage/binary_write\n73501799e05fe31ed6e354be28ccdd2acece5650be521d91204739aef3ecb220  /opt/coverage/linux-cpp-libcxx/coverage/monitored_write\n664c382a3665c3b771cba220cb6e942a84eb8fd85f052fdb55059913af834da4  /opt/coverage/linux-cpp-libcxx/coverage/etc_write\nf0509828cc48283ef2b51054eb0836768cc6d574a6efe569451d8621167c3de4  /opt/coverage/linux-cpp-libcxx/coverage/root_write\n00cefaf95d278403a4202654f673bc90110cd295e9f9becad98a7ddccef6fe71  /opt/coverage/linux-cpp-libcxx/coverage/binary_rename\n7009afb1b763ab876d8b711393871e2aafac6389d7bcbd8a24cc8945f0ead8cc  /opt/coverage/linux-cpp-libcxx/coverage/binary_mkdir\nfa71b8f1d29d926be2d029661e2545b615acc89fbcb3c32e49eea043cfd157ea  /opt/coverage/linux-cpp-libcxx/coverage/negative\n6877d54f40e2e239e3b2defacea5c4d5f1acb5a9d20c0ce1126a2f84cca9e8c9  /opt/coverage/linux-cpp-libcxx/coverage/fixture_prepare\n2a79c78068c3599fb735bccd203d2958e4b2f14eaa86c8eea83958692bbef9fb  /opt/coverage/helper",
+  "suite_files_sha256": {
+    "Dockerfile": "63cfb6e2a7dbdb268d81adf3363a7bf7f5fa6068807a0c4292cd6bd5a1e3d677",
+    "README.md": "56c492a939003e3e151714e35877f82e6ecc6e4cc687ddbbc928be1ef1e0020b",
+    "test_program_contract.py": "6c360d5557c10cf49cd2882907c86b229fe15907681ffb24201cd0c9b4c11569",
+    "test_release.py": "9afc9f69131e8e70509db4875f98dd4977149383df6ab7284083bd5f90e2dabd",
+    "manifest.json": "7a31fc840021705e2dd8aaf87684e23f53c11f1b43ef28148c5110f694a4d97d",
+    "run.py": "51d2dcfc541dead43858b393cf64dc4c53b81b7e03fb2cd8b9063ad923d695a7",
+    "build.sh": "bad847acce6d56d69aab3306c72bb9283e3343f767bb03e49d7cd0b558beb7ce",
+    "validate_manifest.py": "64e7c7473e0d16e5b77162afaa32562386aa694d97e4037fc0e65b1c4a142cb8",
+    "setup-detector.sh": "1096103aae38096944681187de44b575a6614939fe15ad1916e7fdc6728365ca",
+    "verify_programs.py": "eeb588336bd9a6d31e5836cdb16a3fb2421f825e04f83d6b447ab639ebddb31c",
+    "rule-inventory.csv": "d0c93a05636a625ac62b3adb50a1b782b487de93bf3615c6c31e5b0c217e44f3",
+    ".gitignore": "32dae3052f331ee34d628ef535709b301259a45df7c7522c4d35dcf49873f00b",
+    "test_runner.py": "d215baa7cdfa67b8b37c4563c2f3d3681895df6f2626f7aa1131daa320aa460c",
+    "rules/falco-sandbox_rules.yaml": "f05ad34f07c43930932ea6dd84c08a37bc8e5ba9f88901ca091ff1b52b3f33d3",
+    "rules/falco-incubating_rules.yaml": "47bf87041e2f39ca336e7acf1ae4e6183771a92e81031f367d01f2b49cabe1ac",
+    "rules/falco_rules.yaml": "30a1a60263ab97650c851011468da03b17fc0096a7cfa3b6686eba5de73b865b",
+    "rules/LICENSE.falcosecurity-rules": "f65bbfe8deb986105063c967001b84c00232c31ea4b28564d54b5133435c6453"
+  },
+  "host_instance": {
+    "InstanceId": "i-0f09f9c8868653c62",
+    "ImageId": "ami-0c605b75e3a75e872",
+    "InstanceType": "c7i.xlarge",
+    "Architecture": "x86_64",
+    "LaunchTime": "2026-09-21T21:09:44+00:00"
+  },
+  "compiler": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/lib/llvm-19/bin\n",
+  "container_runtime_versions": "libc++1:amd64\t1:19.0-63\nlibc++1-19:amd64\t1:19.1.7-3+b1\nlibc++abi1:amd64\t1:19.0-63\nlibc++abi1-19:amd64\t1:19.1.7-3+b1\nlibc6:amd64\t2.41-12+deb13u4\nlibstdc++6:amd64\t14.2.0-19\nmusl:amd64\t1.2.5-3.1~deb13u1\n",
+  "archive_sha256": "9bc6259281c6fb55138e636d1787317cd0a6d774bd2ae23b24d2f5e951ccd9f7"
+}

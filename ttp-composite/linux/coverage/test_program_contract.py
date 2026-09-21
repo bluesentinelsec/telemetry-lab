@@ -35,3 +35,21 @@ class ProgramContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'wrong runtime loader'):verify(self.root,'musl')
         (self.root/self.ids[0]).unlink()
         with self.assertRaisesRegex(ValueError,'roster differs'):verify(self.root,'glibc')
+
+    def test_cpp_requires_correct_library_and_real_symbol_use(self):
+        for runtime,needed,symbol in [('libstdcxx','libstdc++.so.6','GLIBCXX_3.4'),
+                                      ('libcxx','libc++.so.1','_ZNSt3__1abc')]:
+            def output(args, **kwargs):
+                if '-l' in args: return 'ld-linux-x86-64.so.2'
+                if '-d' in args: return f'NEEDED [{needed}]'
+                return ' UND '+symbol
+            with patch('verify_programs.subprocess.check_output',side_effect=output):
+                verify(self.root,runtime)
+            with patch('verify_programs.subprocess.check_output',return_value='ld-linux-x86-64.so.2'):
+                with self.assertRaisesRegex(ValueError,r'wrong C\+\+ standard library'):
+                    verify(self.root,runtime)
+            def unused(args, **kwargs):
+                return output(args) if '--dyn-syms' not in args else ''
+            with patch('verify_programs.subprocess.check_output',side_effect=unused):
+                with self.assertRaisesRegex(ValueError,'does not use'):
+                    verify(self.root,runtime)

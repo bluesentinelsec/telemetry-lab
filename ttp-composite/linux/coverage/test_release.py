@@ -1,4 +1,4 @@
-"""Ensure the new C-only suite survives release assembly without inventing ports."""
+"""Ensure the C and C++ suites survives release assembly without inventing ports."""
 import json
 import subprocess
 import tarfile
@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 class ReleaseTests(unittest.TestCase):
-    def test_c_coverage_is_packaged_with_its_pinned_mapping(self):
+    def test_c_and_cpp_coverage_is_packaged_with_its_pinned_mapping(self):
         repo=Path(__file__).resolve().parents[3]
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);components=root/'components';output=root/'out'
@@ -23,7 +23,7 @@ class ReleaseTests(unittest.TestCase):
             for config in linux+windows:
                 fixture(config+'/empty'+('.exe' if config.startswith('windows') else ''))
                 fixture('composite-'+config+'/reverse_shell'+('.exe' if config.startswith('windows') else ''))
-            for config in linux[:2]:
+            for config in linux[:4]:
                 fixture('composite-'+config+'/falco_helper')
                 ids=[c['id'] for c in json.loads((repo/'ttp-composite/linux/coverage/manifest.json').read_text())['cases']]
                 for name in ids+['negative','fixture_prepare']:
@@ -33,7 +33,7 @@ class ReleaseTests(unittest.TestCase):
                            cwd=repo,check=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             with tarfile.open(output/'telemetry-lab-test-linux.tar.gz') as archive:
                 names=set(archive.getnames());prefix='telemetry-lab-test-linux/ttp-composite/'
-                for config in linux[:2]:
+                for config in linux[:4]:
                     for name in ids+['negative','fixture_prepare']:
                         self.assertIn(prefix+config+'/coverage/'+name,names)
                     self.assertNotIn(prefix+config+'/falco_cases',names)

@@ -1,0 +1,1164 @@
+[
+  {
+    "case": "ptrace_attach",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/ptrace_attach",
+    "rule": "PTRACE attached to process",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025202657579933,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_attach",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/ptrace_attach",
+      "proc.name": "ptrace_attach",
+      "proc.pcmdline": "runc --root /var/run/docker/runtime-runc/moby --log /run/containerd/io.containerd.runtime.v2.task/moby/520e6ff282272cd6cd37703e5bd590bade1a0ba30d8bdace6ac7c88e56dc77b1/log.json --log-format json --systemd-cgroup exec --process /tmp/runc-process2111855938 --detach --pid-file /run/containerd/io.containerd.runtime.v2.task/moby/520e6ff282272cd6cd37703e5bd590bade1a0ba30d8bdace6ac7c88e56dc77b1/abee810a58da2848e173f140c5585a846c7fc3005fe6543bcf943af04ec00ab4.pid 520e6ff282272cd6cd37703e5bd590bade1a0ba30d8bdace6ac7c88e56dc77b1",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_rename",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/binary_rename",
+    "rule": "Modify binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "res=0 oldpath=/usr/bin/lab_old newpath=/usr/bin/lab_new",
+      "evt.time": 1790025208165767362,
+      "evt.type": "rename",
+      "fd.name": null,
+      "proc.cmdline": "binary_rename",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/binary_rename",
+      "proc.name": "binary_rename",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 83143950a18d4aa41f4247570481b75b45b48b85ace68493664185031a331259 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_symlink",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/sensitive_symlink",
+    "rule": "Create Symlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.linkpath": "/tmp/lab/link",
+      "evt.arg.target": "/etc/shadow",
+      "evt.time": 1790025219225869906,
+      "evt.type": "symlink",
+      "proc.cmdline": "sensitive_symli",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/sensitive_symlink",
+      "proc.name": "sensitive_symli",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "reverse_shell",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/reverse_shell",
+    "rule": "Redirect STDOUT/STDIN to Network Connection in Container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025224786075991,
+      "evt.type": "dup2",
+      "fd.l4proto": "tcp",
+      "fd.lport": 4444,
+      "fd.name": "127.0.0.1:48366->127.0.0.1:4444",
+      "fd.rport": 48366,
+      "fd.sip": "127.0.0.1",
+      "fd.type": "ipv4",
+      "proc.aname[2]": "containerd-shim",
+      "proc.aname[3]": "systemd",
+      "proc.aname[4]": null,
+      "proc.cmdline": "reverse_shell",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/reverse_shell",
+      "proc.name": "reverse_shell",
+      "proc.pname": "reverse_shell",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "exec_shm",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/exec_shm",
+    "rule": "Execution from /dev/shm",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790025230334716166,
+      "evt.type": "execve",
+      "fd.name": null,
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exepath": "/dev/shm/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pcmdline": "exec_shm",
+      "proc.pname": "exec_shm",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "etc_write",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/etc_write",
+    "rule": "Write below etc",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025235877938075,
+      "evt.type": "openat",
+      "fd.name": "/etc/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "etc_write",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/etc_write",
+      "proc.name": "etc_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 9bf8d33dec3c3684b84d25194c327cc54a23e3856d4e7605b8b8e52ca32df7f2 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "traversal_read",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/traversal_read",
+    "rule": "Directory traversal monitored file read",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025241485997352,
+      "evt.type": "openat",
+      "fd.name": "/etc/shadow",
+      "fd.nameraw": "/tmp/lab/../../etc/shadow",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "traversal_read",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/traversal_read",
+      "proc.name": "traversal_read",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "dev_file",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/dev_file",
+    "rule": "Create files below dev",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025263866190872,
+      "evt.type": "openat",
+      "fd.name": "/dev/lab_fixture",
+      "proc.cmdline": "dev_file",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/dev_file",
+      "proc.name": "dev_file",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "dev_file",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/dev_file",
+    "rule": "Create files below dev",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025269425283699,
+      "evt.type": "openat",
+      "fd.name": "/dev/lab_fixture",
+      "proc.cmdline": "dev_file",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/dev_file",
+      "proc.name": "dev_file",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "cron_write",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/cron_write",
+    "rule": "Schedule Cron Jobs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025275005972925,
+      "evt.type": "openat",
+      "fd.name": "/etc/cron.d/lab_fixture",
+      "proc.cmdline": "cron_write",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/cron_write",
+      "proc.name": "cron_write",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_cloud",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/metadata_cloud",
+    "rule": "Contact cloud metadata service from container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025302921494751,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:50070->169.254.169.254:80",
+      "fd.rport": 50070,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_cloud",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/metadata_cloud",
+      "proc.name": "metadata_cloud",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "memfd_execute",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/memfd_execute",
+    "rule": "Fileless execution via memfd_create",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_FROM_MEMFD",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790025314062802786,
+      "evt.type": "execve",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "memfd:lab-helpe",
+      "proc.cwd": "/",
+      "proc.exepath": "memfd:lab-helper",
+      "proc.name": "memfd:lab-helpe",
+      "proc.pname": "memfd_execute",
+      "proc.sname": "memfd_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "etc_write",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/etc_write",
+    "rule": "Write below etc",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025319673385036,
+      "evt.type": "openat",
+      "fd.name": "/etc/lab_fixture",
+      "proc.aname[2]": "containerd-shim",
+      "proc.aname[3]": "systemd",
+      "proc.aname[4]": null,
+      "proc.cmdline": "etc_write",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/etc_write",
+      "proc.name": "etc_write",
+      "proc.pcmdline": "runc --root /var/run/docker/runtime-runc/moby --log /run/containerd/io.containerd.runtime.v2.task/moby/ba0a0436ae3c41bb12aaf108479c60e7598a2343467ef03aaef55e795f6bdf26/log.json --log-format json --systemd-cgroup exec --process /tmp/runc-process3861181241 --detach --pid-file /run/containerd/io.containerd.runtime.v2.task/moby/ba0a0436ae3c41bb12aaf108479c60e7598a2343467ef03aaef55e795f6bdf26/df45eac50898a9643a6dd965a297b4e3873351ce27173e5e564e3423d588d8ea.pid ba0a0436ae3c41bb12aaf108479c60e7598a2343467ef03aaef55e795f6bdf26",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "repository_write",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/repository_write",
+    "rule": "Update Package Repository",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": null,
+      "evt.time": 1790025330909829794,
+      "evt.type": "openat",
+      "fd.name": "/etc/apt/sources.list.d/lab.list",
+      "proc.cmdline": "repository_writ",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/repository_write",
+      "proc.name": "repository_writ",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 1665f501478ba3439fc0740b3b96b9954210728d49c64a9829c3c3fdb4022ed0 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_mkdir",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/binary_mkdir",
+    "rule": "Mkdir binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.path": "/usr/bin/lab_directory",
+      "evt.time": 1790025336477880566,
+      "evt.type": "mkdir",
+      "proc.cmdline": "binary_mkdir",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/binary_mkdir",
+      "proc.name": "binary_mkdir",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_ec2",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/metadata_ec2",
+    "rule": "Contact EC2 Instance Metadata Service From Container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025347641728487,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:46358->169.254.169.254:80",
+      "fd.rport": 46358,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_ec2",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/metadata_ec2",
+      "proc.name": "metadata_ec2",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_write",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/binary_write",
+    "rule": "Write below binary dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025375586537510,
+      "evt.type": "openat",
+      "fd.name": "/usr/bin/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.cmdline": "binary_write",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/binary_write",
+      "proc.name": "binary_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 98ae822e9319f2e4672d907054d248180326b1fe2f8a448612b852999186705a -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "packet_socket",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/packet_socket",
+    "rule": "Packet socket created in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "fd=3(<o>) domain=17(AF_PACKET) type=3 proto=768 flags=0(O_NONE)",
+      "evt.time": 1790025381225775306,
+      "evt.type": "socket",
+      "fd.l4proto": "<NA>",
+      "fd.lport": null,
+      "fd.name": "",
+      "fd.rport": null,
+      "fd.type": "<NA>",
+      "proc.cmdline": "packet_socket",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/packet_socket",
+      "proc.name": "packet_socket",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_attach",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/ptrace_attach",
+    "rule": "PTRACE attached to process",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025386842152682,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_attach",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/ptrace_attach",
+      "proc.name": "ptrace_attach",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 7eb5f1e8c99ff3dca6e63e7ec7f6e459f9325e415301d3c9a156b8587b27e91f -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ssh_read",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/ssh_read",
+    "rule": "Read ssh information",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025398018249732,
+      "evt.type": "openat",
+      "fd.name": "/root/.ssh/lab_key",
+      "proc.cmdline": "ssh_read",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/ssh_read",
+      "proc.name": "ssh_read",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 17c861851415cc9544cb195314e2d5d083aac248a27e6ad1e6399c51a48eb3d7 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "proc_environ",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/proc_environ",
+    "rule": "Read environment variable from /proc files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025403549567679,
+      "evt.type": "openat",
+      "fd.name": "/proc/self/environ",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "proc_environ",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/proc_environ",
+      "proc.name": "proc_environ",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "history_truncate",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/history_truncate",
+    "rule": "Delete or rename shell history",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.name": "/root/.bash_history",
+      "evt.arg.oldpath": null,
+      "evt.arg.path": null,
+      "evt.time": 1790025409138146375,
+      "evt.type": "openat",
+      "fd.name": "/root/.bash_history",
+      "proc.cmdline": "history_truncat",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/history_truncate",
+      "proc.name": "history_truncat",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "traversal_read",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/traversal_read",
+    "rule": "Directory traversal monitored file read",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025414725580072,
+      "evt.type": "openat",
+      "fd.name": "/etc/shadow",
+      "fd.nameraw": "/tmp/lab/../../etc/shadow",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "traversal_read",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/traversal_read",
+      "proc.name": "traversal_read",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "packet_socket",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/packet_socket",
+    "rule": "Packet socket created in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "fd=3(<o>) domain=17(AF_PACKET) type=3 proto=768 flags=0(O_NONE)",
+      "evt.time": 1790025431397574636,
+      "evt.type": "socket",
+      "fd.l4proto": "<NA>",
+      "fd.lport": null,
+      "fd.name": "",
+      "fd.rport": null,
+      "fd.type": "<NA>",
+      "proc.cmdline": "packet_socket",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/packet_socket",
+      "proc.name": "packet_socket",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "exec_shm",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/exec_shm",
+    "rule": "Execution from /dev/shm",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790025464818438094,
+      "evt.type": "execve",
+      "fd.name": null,
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exepath": "/dev/shm/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pcmdline": "exec_shm",
+      "proc.pname": "exec_shm",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "history_truncate",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/history_truncate",
+    "rule": "Delete or rename shell history",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.name": "/root/.bash_history",
+      "evt.arg.oldpath": null,
+      "evt.arg.path": null,
+      "evt.time": 1790025475945850420,
+      "evt.type": "openat",
+      "fd.name": "/root/.bash_history",
+      "proc.cmdline": "history_truncat",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/history_truncate",
+      "proc.name": "history_truncat",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_rename",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/binary_rename",
+    "rule": "Modify binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "res=0 oldpath=/usr/bin/lab_old newpath=/usr/bin/lab_new",
+      "evt.time": 1790025481537446955,
+      "evt.type": "rename",
+      "fd.name": null,
+      "proc.cmdline": "binary_rename",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/binary_rename",
+      "proc.name": "binary_rename",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 7b97c10f533203302bbb78bb3ed63f67726de266222276eaff7cde23692e632f -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "setid_mode",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/setid_mode",
+    "rule": "Set Setuid or Setgid bit",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.fd": null,
+      "evt.arg.filename": "/tmp/lab/mode",
+      "evt.arg.mode": "S_IWUSR|S_IRUSR|S_ISUID",
+      "evt.time": 1790025487161815476,
+      "evt.type": "fchmodat",
+      "proc.cmdline": "setid_mode",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/setid_mode",
+      "proc.name": "setid_mode",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "udp_exchange",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/udp_exchange",
+    "rule": "Unexpected UDP Traffic",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025492781642776,
+      "evt.type": "connect",
+      "fd.l4proto": "udp",
+      "fd.lport": 44445,
+      "fd.name": "198.18.0.1:38405->198.18.0.1:44445",
+      "fd.rport": 38405,
+      "fd.type": "ipv4",
+      "proc.cmdline": "udp_exchange",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/udp_exchange",
+      "proc.name": "udp_exchange",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "repository_write",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/repository_write",
+    "rule": "Update Package Repository",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": null,
+      "evt.time": 1790025509585380069,
+      "evt.type": "openat",
+      "fd.name": "/etc/apt/sources.list.d/lab.list",
+      "proc.cmdline": "repository_writ",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/repository_write",
+      "proc.name": "repository_writ",
+      "proc.pcmdline": "runc --root /var/run/docker/runtime-runc/moby --log /run/containerd/io.containerd.runtime.v2.task/moby/7b5edfc3063aa3eecaf7a4e91428cfd5868a21004dc0175180f0fe795fc903eb/log.json --log-format json --systemd-cgroup exec --process /tmp/runc-process20877217 --detach --pid-file /run/containerd/io.containerd.runtime.v2.task/moby/7b5edfc3063aa3eecaf7a4e91428cfd5868a21004dc0175180f0fe795fc903eb/d028fabbb59ee587fe2d66a262b71a8f7e865d59fa538ea49ab71dc6f86cb6c6.pid 7b5edfc3063aa3eecaf7a4e91428cfd5868a21004dc0175180f0fe795fc903eb",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ssh_read",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/ssh_read",
+    "rule": "Read ssh information",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025515137977478,
+      "evt.type": "openat",
+      "fd.name": "/root/.ssh/lab_key",
+      "proc.cmdline": "ssh_read",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/ssh_read",
+      "proc.name": "ssh_read",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 59e652d063a1abaf6f4f2e8ea10e697a5af7bdb27a8d1e1ab103145852e4c27c -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_read",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/sensitive_read",
+    "rule": "Read sensitive file untrusted",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025520713911360,
+      "evt.type": "openat",
+      "fd.name": "/etc/shadow",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "sensitive_read",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/sensitive_read",
+      "proc.name": "sensitive_read",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "reverse_shell",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/reverse_shell",
+    "rule": "Redirect STDOUT/STDIN to Network Connection in Container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025548702419634,
+      "evt.type": "dup2",
+      "fd.l4proto": "tcp",
+      "fd.lport": 4444,
+      "fd.name": "127.0.0.1:54644->127.0.0.1:4444",
+      "fd.rport": 54644,
+      "fd.sip": "127.0.0.1",
+      "fd.type": "ipv4",
+      "proc.aname[2]": "containerd-shim",
+      "proc.aname[3]": "systemd",
+      "proc.aname[4]": null,
+      "proc.cmdline": "reverse_shell",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/reverse_shell",
+      "proc.name": "reverse_shell",
+      "proc.pname": "reverse_shell",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "monitored_write",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/monitored_write",
+    "rule": "Write below monitored dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025565494876942,
+      "evt.type": "openat",
+      "fd.name": "/boot/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.cmdline": "monitored_write",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/monitored_write",
+      "proc.name": "monitored_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 851f350d6562a5c618d40c79a5069575bafaeff14d7c5e1fb332179f8dc4750b -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_traceme",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/ptrace_traceme",
+    "rule": "PTRACE anti-debug attempt",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025582306220580,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_traceme",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/ptrace_traceme",
+      "proc.name": "ptrace_traceme",
+      "proc.pcmdline": "ptrace_traceme",
+      "proc.pname": "ptrace_traceme",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "drop_execute",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/drop_execute",
+    "rule": "Drop and execute new binary in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_UPPER_LAYER",
+      "evt.time": 1790025593502921948,
+      "evt.type": "execve",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exe": "/tmp/lab-helper",
+      "proc.exe_ino.ctime": 1790025593501150461,
+      "proc.exe_ino.ctime_duration_proc_start": 1605631,
+      "proc.exe_ino.mtime": 1790025593501150461,
+      "proc.exepath": "/tmp/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pname": "drop_execute",
+      "proc.sname": "drop_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "memfd_execute",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/memfd_execute",
+    "rule": "Fileless execution via memfd_create",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_FROM_MEMFD",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790025599094627300,
+      "evt.type": "execve",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "memfd:lab-helpe",
+      "proc.cwd": "/",
+      "proc.exepath": "memfd:lab-helper",
+      "proc.name": "memfd:lab-helpe",
+      "proc.pname": "memfd_execute",
+      "proc.sname": "memfd_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "cron_write",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/cron_write",
+    "rule": "Schedule Cron Jobs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025604642417856,
+      "evt.type": "openat",
+      "fd.name": "/etc/cron.d/lab_fixture",
+      "proc.cmdline": "cron_write",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/cron_write",
+      "proc.name": "cron_write",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_ec2",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/metadata_ec2",
+    "rule": "Contact EC2 Instance Metadata Service From Container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025643793926894,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:56130->169.254.169.254:80",
+      "fd.rport": 56130,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_ec2",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/metadata_ec2",
+      "proc.name": "metadata_ec2",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_symlink",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/sensitive_symlink",
+    "rule": "Create Symlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.linkpath": "/tmp/lab/link",
+      "evt.arg.target": "/etc/shadow",
+      "evt.time": 1790025649405972492,
+      "evt.type": "symlink",
+      "proc.cmdline": "sensitive_symli",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/sensitive_symlink",
+      "proc.name": "sensitive_symli",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "root_write",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/root_write",
+    "rule": "Write below root",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025654997806402,
+      "evt.type": "openat",
+      "fd.name": "/root/lab_fixture",
+      "proc.cmdline": "root_write",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/root_write",
+      "proc.name": "root_write",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_traceme",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/ptrace_traceme",
+    "rule": "PTRACE anti-debug attempt",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025671753578213,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_traceme",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/ptrace_traceme",
+      "proc.name": "ptrace_traceme",
+      "proc.pcmdline": "ptrace_traceme",
+      "proc.pname": "ptrace_traceme",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_mkdir",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/binary_mkdir",
+    "rule": "Mkdir binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.path": "/usr/bin/lab_directory",
+      "evt.time": 1790025699573905252,
+      "evt.type": "mkdir",
+      "proc.cmdline": "binary_mkdir",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/binary_mkdir",
+      "proc.name": "binary_mkdir",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "root_write",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/root_write",
+    "rule": "Write below root",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025710721737900,
+      "evt.type": "openat",
+      "fd.name": "/root/lab_fixture",
+      "proc.cmdline": "root_write",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/root_write",
+      "proc.name": "root_write",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_read",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/sensitive_read",
+    "rule": "Read sensitive file untrusted",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025744157391125,
+      "evt.type": "openat",
+      "fd.name": "/etc/shadow",
+      "proc.aname[2]": "containerd-shim",
+      "proc.aname[3]": "systemd",
+      "proc.aname[4]": null,
+      "proc.cmdline": "sensitive_read",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/sensitive_read",
+      "proc.name": "sensitive_read",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "shell_config_write",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/shell_config_write",
+    "rule": "Modify Shell Configuration File",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025749753402589,
+      "evt.type": "openat",
+      "fd.name": "/root/.bashrc",
+      "proc.cmdline": "shell_config_wr",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/shell_config_write",
+      "proc.name": "shell_config_wr",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 45c4a90386346cc6178e38ba311b77906336dd67e5204e8ec56304eaf90d2328 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "monitored_write",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/monitored_write",
+    "rule": "Write below monitored dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025760961546385,
+      "evt.type": "openat",
+      "fd.name": "/boot/lab_fixture",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "monitored_write",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/monitored_write",
+      "proc.name": "monitored_write",
+      "proc.pcmdline": "runc --root /var/run/docker/runtime-runc/moby --log /run/containerd/io.containerd.runtime.v2.task/moby/04bddf0c4e8250a0a3cc233a8d04a44d12ecbd4b87c841f12ef58c0a6032fcce/log.json --log-format json --systemd-cgroup exec --process /tmp/runc-process1705767997 --detach --pid-file /run/containerd/io.containerd.runtime.v2.task/moby/04bddf0c4e8250a0a3cc233a8d04a44d12ecbd4b87c841f12ef58c0a6032fcce/9aad8520f72d822b989e8587552d25f87c1fa8cb3843e6f838b0c10625b22cc3.pid 04bddf0c4e8250a0a3cc233a8d04a44d12ecbd4b87c841f12ef58c0a6032fcce",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_hardlink",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/sensitive_hardlink",
+    "rule": "Create Hardlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": "/tmp/lab/hard",
+      "evt.arg.oldpath": "/etc/shadow",
+      "evt.time": 1790025766549651444,
+      "evt.type": "link",
+      "proc.cmdline": "sensitive_hardl",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/sensitive_hardlink",
+      "proc.name": "sensitive_hardl",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_cloud",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/metadata_cloud",
+    "rule": "Contact cloud metadata service from container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025777741978380,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:35420->169.254.169.254:80",
+      "fd.rport": 35420,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_cloud",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/metadata_cloud",
+      "proc.name": "metadata_cloud",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "authorized_keys",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/authorized_keys",
+    "rule": "Adding ssh keys to authorized_keys",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025783330054623,
+      "evt.type": "openat",
+      "fd.name": "/root/.ssh/authorized_keys",
+      "proc.cmdline": "authorized_keys",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/authorized_keys",
+      "proc.name": "authorized_keys",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "setid_mode",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/setid_mode",
+    "rule": "Set Setuid or Setgid bit",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.fd": null,
+      "evt.arg.filename": "/tmp/lab/mode",
+      "evt.arg.mode": "S_IWUSR|S_IRUSR|S_ISUID",
+      "evt.time": 1790025794513536289,
+      "evt.type": "fchmodat",
+      "proc.cmdline": "setid_mode",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/setid_mode",
+      "proc.name": "setid_mode",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "proc_environ",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/proc_environ",
+    "rule": "Read environment variable from /proc files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025800105561928,
+      "evt.type": "openat",
+      "fd.name": "/proc/self/environ",
+      "proc.aname[2]": "containerd-shim",
+      "proc.aname[3]": "systemd",
+      "proc.aname[4]": null,
+      "proc.cmdline": "proc_environ",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/proc_environ",
+      "proc.name": "proc_environ",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "authorized_keys",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/authorized_keys",
+    "rule": "Adding ssh keys to authorized_keys",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025816850407972,
+      "evt.type": "openat",
+      "fd.name": "/root/.ssh/authorized_keys",
+      "proc.cmdline": "authorized_keys",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/authorized_keys",
+      "proc.name": "authorized_keys",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_write",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/binary_write",
+    "rule": "Write below binary dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025822441978222,
+      "evt.type": "openat",
+      "fd.name": "/usr/bin/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.cmdline": "binary_write",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/binary_write",
+      "proc.name": "binary_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id f75af8417f7caef35a3653430ddb912b2b9350d43835a1438abc92a3597603e0 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "drop_execute",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/drop_execute",
+    "rule": "Drop and execute new binary in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_UPPER_LAYER",
+      "evt.time": 1790025828038612111,
+      "evt.type": "execve",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exe": "/tmp/lab-helper",
+      "proc.exe_ino.ctime": 1790025828032575741,
+      "proc.exe_ino.ctime_duration_proc_start": 5839479,
+      "proc.exe_ino.mtime": 1790025828032575741,
+      "proc.exepath": "/tmp/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pname": "drop_execute",
+      "proc.sname": "drop_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "log_truncate",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/log_truncate",
+    "rule": "Clear Log Activities",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025844801904225,
+      "evt.type": "openat",
+      "fd.name": "/var/log/lab.log",
+      "proc.cmdline": "log_truncate",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/log_truncate",
+      "proc.name": "log_truncate",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_hardlink",
+    "config": "linux-cpp-libcxx",
+    "executable": "/opt/coverage/linux-cpp-libcxx/coverage/sensitive_hardlink",
+    "rule": "Create Hardlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": "/tmp/lab/hard",
+      "evt.arg.oldpath": "/etc/shadow",
+      "evt.time": 1790025856006089112,
+      "evt.type": "link",
+      "proc.cmdline": "sensitive_hardl",
+      "proc.exepath": "/opt/coverage/linux-cpp-libcxx/coverage/sensitive_hardlink",
+      "proc.name": "sensitive_hardl",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "shell_config_write",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/shell_config_write",
+    "rule": "Modify Shell Configuration File",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025861585340100,
+      "evt.type": "openat",
+      "fd.name": "/root/.bashrc",
+      "proc.cmdline": "shell_config_wr",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/shell_config_write",
+      "proc.name": "shell_config_wr",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 7b060afb5a696f1bb5453ce8fd14004941081f3b2b005757dc6f8a6f26514c40 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "log_truncate",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/log_truncate",
+    "rule": "Clear Log Activities",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025867218307279,
+      "evt.type": "openat",
+      "fd.name": "/var/log/lab.log",
+      "proc.cmdline": "log_truncate",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/log_truncate",
+      "proc.name": "log_truncate",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "udp_exchange",
+    "config": "linux-cpp-libstdcxx",
+    "executable": "/opt/coverage/linux-cpp-libstdcxx/coverage/udp_exchange",
+    "rule": "Unexpected UDP Traffic",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790025872781540571,
+      "evt.type": "connect",
+      "fd.l4proto": "udp",
+      "fd.lport": 44445,
+      "fd.name": "198.18.0.1:44824->198.18.0.1:44445",
+      "fd.rport": 44824,
+      "fd.type": "ipv4",
+      "proc.cmdline": "udp_exchange",
+      "proc.exepath": "/opt/coverage/linux-cpp-libstdcxx/coverage/udp_exchange",
+      "proc.name": "udp_exchange",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  }
+]
