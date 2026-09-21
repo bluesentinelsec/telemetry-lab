@@ -2,7 +2,7 @@ name: Build Composites
 
 # Build the TTP composites -- multi-step ATT&CK techniques -- across the same
 # toolchain/runtime substrate matrix as the primitives. The expanded Linux
-# C, C++, and Go suite adds behavior verification and exact-rule evidence tests; live Falco
+# C, C++, Go, and Rust suite adds behavior verification and exact-rule evidence tests; live Falco
 # qualification runs on the disposable lab host. Each
 # job stages its config's composites into composite-dist/<config>/ and uploads
 # an artifact named composite-<config>, consumed by the release workflow.
@@ -209,8 +209,8 @@ jobs:
       - name: Install Rust toolchain
         run: |
           apt-get update
-          apt-get install -y curl ca-certificates gcc git
-          curl -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
+          apt-get install -y curl ca-certificates gcc git python3 binutils
+          curl -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.98.1
           echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
           "$HOME/.cargo/bin/rustup" target add ${{ matrix.target }}
 
@@ -219,7 +219,9 @@ jobs:
         env:
           RUSTFLAGS: ${{ matrix.rustflags }}
         run: |
-          cargo build --release --target ${{ matrix.target }}
+          cargo build --locked --release --target ${{ matrix.target }} --workspace
+          bash coverage/build.sh ../../../composite-dist/${{ matrix.config }} ${{ matrix.target == 'x86_64-unknown-linux-gnu' && 'gnu' || 'musl' }}
+          gcc -static -O2 -Wall -Wextra -Werror ../c/coverage/helper.c -o ../../../composite-dist/${{ matrix.config }}/falco_helper
           mkdir -p ../../../composite-dist/${{ matrix.config }}
           for p in reverse_shell imds read_sensitive_file symlink_sensitive clear_log mkdir_bin ptrace_antidebug; do
             cp target/${{ matrix.target }}/release/$p ../../../composite-dist/${{ matrix.config }}/$p

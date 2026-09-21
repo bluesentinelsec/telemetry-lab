@@ -1,4 +1,4 @@
-"""Ensure the C, C++, and Go suites survive release assembly without inventing ports."""
+"""Ensure the C, C++, Go, and Rust suites survive release assembly without inventing ports."""
 import json
 import subprocess
 import tarfile
@@ -23,7 +23,7 @@ class ReleaseTests(unittest.TestCase):
             for config in linux+windows:
                 fixture(config+'/empty'+('.exe' if config.startswith('windows') else ''))
                 fixture('composite-'+config+'/reverse_shell'+('.exe' if config.startswith('windows') else ''))
-            for config in linux[:6]:
+            for config in linux:
                 fixture('composite-'+config+'/falco_helper')
                 ids=[c['id'] for c in json.loads((repo/'ttp-composite/linux/coverage/manifest.json').read_text())['cases']]
                 for name in ids+['negative','fixture_prepare']:
@@ -33,12 +33,11 @@ class ReleaseTests(unittest.TestCase):
                            cwd=repo,check=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             with tarfile.open(output/'telemetry-lab-test-linux.tar.gz') as archive:
                 names=set(archive.getnames());prefix='telemetry-lab-test-linux/ttp-composite/'
-                for config in linux[:6]:
+                for config in linux:
                     for name in ids+['negative','fixture_prepare']:
                         self.assertIn(prefix+config+'/coverage/'+name,names)
                     self.assertNotIn(prefix+config+'/falco_cases',names)
                     self.assertIn(prefix+config+'/falco_helper',names)
-                self.assertNotIn(prefix+'linux-rust-gnu/coverage/reverse_shell',names)
                 original=archive.extractfile(prefix+'linux-c-glibc/reverse_shell').read()
                 self.assertEqual(original,b'fixture')
                 self.assertIn(prefix+'coverage/manifest.json',names)

@@ -41,6 +41,16 @@ for config in cgo static; do
     go version -m "$program"
   done > "$OUT/elf-go-$config.txt"
 done
+for env in gnu musl; do
+  bash "$HERE/../rust/coverage/build.sh" "$OUT/image/linux-rust-$env" "$env"
+  for program in "$OUT/image/linux-rust-$env/coverage/"*; do
+    readelf -l -d "$program"
+    nm --defined-only "$program"
+  done > "$OUT/elf-rust-$env.txt"
+done
+rustc -vV > "$OUT/rust-version.txt"
+cargo --version > "$OUT/cargo-version.txt"
+rustup show > "$OUT/rust-toolchain.txt"
 gcc -static -O2 -Wall -Wextra -Werror "$C_SRC/coverage/helper.c" -o "$OUT/image/helper"
 cp "$HERE/Dockerfile" "$OUT/image/Dockerfile"
 docker build -t lab-falco-coverage:local "$OUT/image"

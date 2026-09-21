@@ -24,7 +24,21 @@ def verify(directory, libc):
         if digest in hashes:raise ValueError(f'{name} duplicates another executable')
         hashes.add(digest)
         header=subprocess.check_output(['readelf','-l',str(p)],text=True)
-        if libc in ('go-cgo','go-static'):
+        if libc in ('rust-gnu', 'rust-musl'):
+            dynamic=subprocess.check_output(['readelf','-d',str(p)],text=True)
+            if 'INTERP' in header or 'NEEDED' in dynamic:
+                raise ValueError(f'{name} is not a static Rust program')
+            env=libc.removeprefix('rust-')
+            marker=('RUNTIME_TARGET x86_64-unknown-linux-'+env+'\0').encode()
+            if marker not in data:
+                raise ValueError(f'{name} has the wrong Rust target')
+            symbols=subprocess.check_output(['nm','--defined-only',str(p)],text=True)
+            required,forbidden = (('__libc_early_init','__init_libc') if env=='gnu'
+                                  else ('__init_libc','__libc_early_init'))
+            names={line.split()[-1] for line in symbols.splitlines() if line.split()}
+            if required not in names or forbidden in names:
+                raise ValueError(f'{name} has the wrong statically linked libc')
+        elif libc in ('go-cgo','go-static'):
             dynamic=subprocess.check_output(['readelf','-d',str(p)],text=True)
             info=subprocess.check_output(['go','version','-m',str(p)],text=True)
             cgo='1' if libc=='go-cgo' else '0'
@@ -55,5 +69,5 @@ def verify(directory, libc):
 if __name__=='__main__':
     parser=argparse.ArgumentParser()
     parser.add_argument('directory',type=Path)
-    parser.add_argument('libc',choices=['glibc','musl','libstdcxx','libcxx','go-cgo','go-static'])
+    parser.add_argument('libc',choices=['glibc','musl','libstdcxx','libcxx','go-cgo','go-static','rust-gnu','rust-musl'])
     args=parser.parse_args();verify(args.directory,args.libc)

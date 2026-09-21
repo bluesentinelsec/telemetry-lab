@@ -73,3 +73,22 @@ class ProgramContractTests(unittest.TestCase):
         with patch('verify_programs.subprocess.check_output',side_effect=relabelled_static):
             with self.assertRaisesRegex(ValueError,'not a static Go program'):
                 verify(self.root,'go-static')
+
+    def test_static_rust_libc_and_target_cannot_be_relabelled(self):
+        for env, symbol in [('gnu', '__libc_early_init'), ('musl', '__init_libc')]:
+            for p in self.root.iterdir():
+                p.write_bytes(p.read_bytes().split(b'RUNTIME_TARGET')[0] +
+                              ('RUNTIME_TARGET x86_64-unknown-linux-'+env+'\0').encode())
+            def output(args, **kwargs):
+                return '00000 T '+symbol if args[0]=='nm' else ''
+            with patch('verify_programs.subprocess.check_output',side_effect=output):
+                verify(self.root,'rust-'+env)
+                other='musl' if env=='gnu' else 'gnu'
+                with self.assertRaisesRegex(ValueError,'wrong Rust target'):
+                    verify(self.root,'rust-'+other)
+            with patch('verify_programs.subprocess.check_output',return_value='INTERP ld-linux'):
+                with self.assertRaisesRegex(ValueError,'not a static Rust'):
+                    verify(self.root,'rust-'+env)
+            with patch('verify_programs.subprocess.check_output',return_value=''):
+                with self.assertRaisesRegex(ValueError,'wrong statically linked libc'):
+                    verify(self.root,'rust-'+env)

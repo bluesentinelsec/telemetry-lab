@@ -53,7 +53,8 @@ telemetry; they are part of the measured implementation.
 
 Equivalent behavior does not require identical syscalls. For example, Go may
 relay shell I/O through pipes, copy files via kernel-assisted APIs, execute a
-memfd through procfs, or launch a child instead of using a bare fork. These
+memfd through procfs, or launch a child instead of using a bare fork. Rust retains direct socket
+stdio and fork-only ptrace children, and uses procfs to execute a native memfd. These
 choices must be documented, held constant between configurations of the same
 language, and considered before attributing a difference to runtime alone.
 
