@@ -1,0 +1,1745 @@
+[
+  {
+    "case": "proc_environ",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/proc_environ",
+    "rule": "Read environment variable from /proc files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033145491944657,
+      "evt.type": "openat",
+      "fd.name": "/proc/self/environ",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "proc_environ",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/proc_environ",
+      "proc.name": "proc_environ",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "shell_config_write",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/shell_config_write",
+    "rule": "Modify Shell Configuration File",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033151119866133,
+      "evt.type": "open",
+      "fd.name": "/root/.bashrc",
+      "proc.cmdline": "shell_config_wr",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/shell_config_write",
+      "proc.name": "shell_config_wr",
+      "proc.pcmdline": "containerd-shim -namespace moby -id df9a0799b9757a673e090dde732fafe3473f3316d10ac60d42928b0884a8b2f5 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "cron_write",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/cron_write",
+    "rule": "Schedule Cron Jobs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033156763733290,
+      "evt.type": "openat",
+      "fd.name": "/etc/cron.d/lab_fixture",
+      "proc.cmdline": "cron_write",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/cron_write",
+      "proc.name": "cron_write",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "history_truncate",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/history_truncate",
+    "rule": "Delete or rename shell history",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.name": "/root/.bash_history",
+      "evt.arg.oldpath": null,
+      "evt.arg.path": null,
+      "evt.time": 1790033162360017205,
+      "evt.type": "open",
+      "fd.name": "/root/.bash_history",
+      "proc.cmdline": "history_truncat",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/history_truncate",
+      "proc.name": "history_truncat",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_mkdir",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/binary_mkdir",
+    "rule": "Mkdir binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.path": "/usr/bin/lab_directory",
+      "evt.time": 1790033167972084480,
+      "evt.type": "mkdir",
+      "proc.cmdline": "binary_mkdir",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/binary_mkdir",
+      "proc.name": "binary_mkdir",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "authorized_keys",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/authorized_keys",
+    "rule": "Adding ssh keys to authorized_keys",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033179192236704,
+      "evt.type": "openat",
+      "fd.name": "/root/.ssh/authorized_keys",
+      "proc.cmdline": "authorized_keys",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/authorized_keys",
+      "proc.name": "authorized_keys",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "monitored_write",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/monitored_write",
+    "rule": "Write below monitored dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033184835665116,
+      "evt.type": "open",
+      "fd.name": "/boot/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.cmdline": "monitored_write",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/monitored_write",
+      "proc.name": "monitored_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 05c4143f7f36a0510644aa2269e70511ea225872a71fd918de07b539b4f7c1f3 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_read",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/sensitive_read",
+    "rule": "Read sensitive file untrusted",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033190435436246,
+      "evt.type": "open",
+      "fd.name": "/etc/shadow",
+      "proc.aname[2]": "containerd-shim",
+      "proc.aname[3]": "systemd",
+      "proc.aname[4]": null,
+      "proc.cmdline": "sensitive_read",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/sensitive_read",
+      "proc.name": "sensitive_read",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_ec2",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/metadata_ec2",
+    "rule": "Contact EC2 Instance Metadata Service From Container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033196035323891,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:35954->169.254.169.254:80",
+      "fd.rport": 35954,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_ec2",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/metadata_ec2",
+      "proc.name": "metadata_ec2",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "exec_shm",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/exec_shm",
+    "rule": "Execution from /dev/shm",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790033207248615220,
+      "evt.type": "execve",
+      "fd.name": null,
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exepath": "/dev/shm/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pcmdline": "exec_shm",
+      "proc.pname": "exec_shm",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "etc_write",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/etc_write",
+    "rule": "Write below etc",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033212831710289,
+      "evt.type": "openat",
+      "fd.name": "/etc/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "etc_write",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/etc_write",
+      "proc.name": "etc_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 930ad01daf7e0c68bbe67a5b583cbd57e409cba89009f380f478eea998babaaa -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_attach",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/ptrace_attach",
+    "rule": "PTRACE attached to process",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033224068427692,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_attach",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/ptrace_attach",
+      "proc.name": "ptrace_attach",
+      "proc.pcmdline": "containerd-shim -namespace moby -id dbb90c2e53cae3ddf1b71ad99681ed04ef2263233e55bb9cd96beb56442e4152 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_traceme",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/ptrace_traceme",
+    "rule": "PTRACE anti-debug attempt",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033229656115441,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_traceme",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/ptrace_traceme",
+      "proc.name": "ptrace_traceme",
+      "proc.pcmdline": "ptrace_traceme",
+      "proc.pname": "ptrace_traceme",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_cloud",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/metadata_cloud",
+    "rule": "Contact cloud metadata service from container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033246475780411,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:33362->169.254.169.254:80",
+      "fd.rport": 33362,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_cloud",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/metadata_cloud",
+      "proc.name": "metadata_cloud",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_hardlink",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/sensitive_hardlink",
+    "rule": "Create Hardlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": "/tmp/lab/hard",
+      "evt.arg.oldpath": "/etc/shadow",
+      "evt.time": 1790033280111903453,
+      "evt.type": "link",
+      "proc.cmdline": "sensitive_hardl",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/sensitive_hardlink",
+      "proc.name": "sensitive_hardl",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ssh_read",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/ssh_read",
+    "rule": "Read ssh information",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033285724404435,
+      "evt.type": "openat",
+      "fd.name": "/root/.ssh/lab_key",
+      "proc.cmdline": "ssh_read",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/ssh_read",
+      "proc.name": "ssh_read",
+      "proc.pcmdline": "containerd-shim -namespace moby -id bb11ebebbdab20e7fa245ece64228a3ab62e0ab850190cc32603feef5947fbbf -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "udp_exchange",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/udp_exchange",
+    "rule": "Unexpected UDP Traffic",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033296919418117,
+      "evt.type": "connect",
+      "fd.l4proto": "udp",
+      "fd.lport": 44445,
+      "fd.name": "198.18.0.1:54820->198.18.0.1:44445",
+      "fd.rport": 54820,
+      "fd.type": "ipv4",
+      "proc.cmdline": "udp_exchange",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/udp_exchange",
+      "proc.name": "udp_exchange",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_attach",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/ptrace_attach",
+    "rule": "PTRACE attached to process",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033313687731645,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_attach",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/ptrace_attach",
+      "proc.name": "ptrace_attach",
+      "proc.pcmdline": "containerd-shim -namespace moby -id d6419fd19ecaf8ee918f610c1b7b83c0a78169eb385b36fe037f4a3b1f373734 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_rename",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/binary_rename",
+    "rule": "Modify binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "res=0 oldpath=/usr/bin/lab_old newpath=/usr/bin/lab_new",
+      "evt.time": 1790033330479862835,
+      "evt.type": "rename",
+      "fd.name": null,
+      "proc.cmdline": "binary_rename",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/binary_rename",
+      "proc.name": "binary_rename",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 1da55b9a82abb690e88150468fd103c88fff1f68196e0b05f12d92fcb993758d -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "etc_write",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/etc_write",
+    "rule": "Write below etc",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033336044016668,
+      "evt.type": "open",
+      "fd.name": "/etc/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "etc_write",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/etc_write",
+      "proc.name": "etc_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 429edebf0d8500d0508a18fe95ee3bb92cc05d8a17efcf0cdeff5984e13a363e -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "repository_write",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/repository_write",
+    "rule": "Update Package Repository",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": null,
+      "evt.time": 1790033347259965167,
+      "evt.type": "open",
+      "fd.name": "/etc/apt/sources.list.d/lab.list",
+      "proc.cmdline": "repository_writ",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/repository_write",
+      "proc.name": "repository_writ",
+      "proc.pcmdline": "runc --root /var/run/docker/runtime-runc/moby --log /run/containerd/io.containerd.runtime.v2.task/moby/be2c743ad5b763cfbfb3da2454d8b8230ea9c74fd9f236ec120f2cc393f8d7cd/log.json --log-format json --systemd-cgroup exec --process /tmp/runc-process3899669485 --detach --pid-file /run/containerd/io.containerd.runtime.v2.task/moby/be2c743ad5b763cfbfb3da2454d8b8230ea9c74fd9f236ec120f2cc393f8d7cd/12b7ab39009bd15bf3d7a43a3742eed35444b8b5ebca32f4639d259be4f71c27.pid be2c743ad5b763cfbfb3da2454d8b8230ea9c74fd9f236ec120f2cc393f8d7cd",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_cloud",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/metadata_cloud",
+    "rule": "Contact cloud metadata service from container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033352883981533,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:43426->169.254.169.254:80",
+      "fd.rport": 43426,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_cloud",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/metadata_cloud",
+      "proc.name": "metadata_cloud",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_mkdir",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/binary_mkdir",
+    "rule": "Mkdir binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.path": "/usr/bin/lab_directory",
+      "evt.time": 1790033380920101336,
+      "evt.type": "mkdir",
+      "proc.cmdline": "binary_mkdir",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/binary_mkdir",
+      "proc.name": "binary_mkdir",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "proc_environ",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/proc_environ",
+    "rule": "Read environment variable from /proc files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033386583424592,
+      "evt.type": "open",
+      "fd.name": "/proc/self/environ",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "proc_environ",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/proc_environ",
+      "proc.name": "proc_environ",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "repository_write",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/repository_write",
+    "rule": "Update Package Repository",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": null,
+      "evt.time": 1790033392159778534,
+      "evt.type": "openat",
+      "fd.name": "/etc/apt/sources.list.d/lab.list",
+      "proc.cmdline": "repository_writ",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/repository_write",
+      "proc.name": "repository_writ",
+      "proc.pcmdline": "runc --root /var/run/docker/runtime-runc/moby --log /run/containerd/io.containerd.runtime.v2.task/moby/251f292435c3f17280dfd443df8f8b7b2d97ea891f65985d7ce4321970d8ab59/log.json --log-format json --systemd-cgroup exec --process /tmp/runc-process1308925924 --detach --pid-file /run/containerd/io.containerd.runtime.v2.task/moby/251f292435c3f17280dfd443df8f8b7b2d97ea891f65985d7ce4321970d8ab59/c2b6404e539e6e9051f646422ad1f8fad73d9dbba79ca9f46045c05046aeed63.pid 251f292435c3f17280dfd443df8f8b7b2d97ea891f65985d7ce4321970d8ab59",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_cloud",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/metadata_cloud",
+    "rule": "Contact cloud metadata service from container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033403367925511,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:33168->169.254.169.254:80",
+      "fd.rport": 33168,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_cloud",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/metadata_cloud",
+      "proc.name": "metadata_cloud",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_read",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/sensitive_read",
+    "rule": "Read sensitive file untrusted",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033414535997133,
+      "evt.type": "openat",
+      "fd.name": "/etc/shadow",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "sensitive_read",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/sensitive_read",
+      "proc.name": "sensitive_read",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "proc_environ",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/proc_environ",
+    "rule": "Read environment variable from /proc files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033437004019416,
+      "evt.type": "openat",
+      "fd.name": "/proc/self/environ",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "proc_environ",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/proc_environ",
+      "proc.name": "proc_environ",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "root_write",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/root_write",
+    "rule": "Write below root",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033448280742642,
+      "evt.type": "openat",
+      "fd.name": "/root/lab_fixture",
+      "proc.cmdline": "root_write",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/root_write",
+      "proc.name": "root_write",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "drop_execute",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/drop_execute",
+    "rule": "Drop and execute new binary in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_UPPER_LAYER",
+      "evt.time": 1790033453896650384,
+      "evt.type": "execve",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exe": "/tmp/lab-helper",
+      "proc.exe_ino.ctime": 1790033453891687407,
+      "proc.exe_ino.ctime_duration_proc_start": 4801915,
+      "proc.exe_ino.mtime": 1790033453891687407,
+      "proc.exepath": "/tmp/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pname": "drop_execute",
+      "proc.sname": "drop_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "udp_exchange",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/udp_exchange",
+    "rule": "Unexpected UDP Traffic",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033459536134478,
+      "evt.type": "connect",
+      "fd.l4proto": "udp",
+      "fd.lport": 44445,
+      "fd.name": "198.18.0.1:45627->198.18.0.1:44445",
+      "fd.rport": 45627,
+      "fd.type": "ipv4",
+      "proc.cmdline": "udp_exchange",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/udp_exchange",
+      "proc.name": "udp_exchange",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "shell_config_write",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/shell_config_write",
+    "rule": "Modify Shell Configuration File",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033465176266445,
+      "evt.type": "openat",
+      "fd.name": "/root/.bashrc",
+      "proc.cmdline": "shell_config_wr",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/shell_config_write",
+      "proc.name": "shell_config_wr",
+      "proc.pcmdline": "runc --root /var/run/docker/runtime-runc/moby --log /run/containerd/io.containerd.runtime.v2.task/moby/f0beb53036c7036ab577ca72d4a4961932f5aebd51971f87af6e422b47da5f70/log.json --log-format json --systemd-cgroup exec --process /tmp/runc-process3042796916 --detach --pid-file /run/containerd/io.containerd.runtime.v2.task/moby/f0beb53036c7036ab577ca72d4a4961932f5aebd51971f87af6e422b47da5f70/21957fb3044aadb7769754e6f7e41952d775852de23dc9a3ff94af44c5d62787.pid f0beb53036c7036ab577ca72d4a4961932f5aebd51971f87af6e422b47da5f70",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "log_truncate",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/log_truncate",
+    "rule": "Clear Log Activities",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033498860418829,
+      "evt.type": "openat",
+      "fd.name": "/var/log/lab.log",
+      "proc.cmdline": "log_truncate",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/log_truncate",
+      "proc.name": "log_truncate",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "monitored_write",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/monitored_write",
+    "rule": "Write below monitored dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033504512283503,
+      "evt.type": "openat",
+      "fd.name": "/boot/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.cmdline": "monitored_write",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/monitored_write",
+      "proc.name": "monitored_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 81b714688486a00c0b812b4f0d374f9abdaa2d31cfa4868fecde4bb2fe1660ab -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "setid_mode",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/setid_mode",
+    "rule": "Set Setuid or Setgid bit",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.fd": null,
+      "evt.arg.filename": "/tmp/lab/mode",
+      "evt.arg.mode": "S_IWUSR|S_IRUSR|S_ISUID",
+      "evt.time": 1790033538163850545,
+      "evt.type": "chmod",
+      "proc.cmdline": "setid_mode",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/setid_mode",
+      "proc.name": "setid_mode",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_ec2",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/metadata_ec2",
+    "rule": "Contact EC2 Instance Metadata Service From Container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033543763374999,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:44148->169.254.169.254:80",
+      "fd.rport": 44148,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_ec2",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/metadata_ec2",
+      "proc.name": "metadata_ec2",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "history_truncate",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/history_truncate",
+    "rule": "Delete or rename shell history",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.name": "/root/.bash_history",
+      "evt.arg.oldpath": null,
+      "evt.arg.path": null,
+      "evt.time": 1790033549403737601,
+      "evt.type": "openat",
+      "fd.name": "/root/.bash_history",
+      "proc.cmdline": "history_truncat",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/history_truncate",
+      "proc.name": "history_truncat",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_hardlink",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/sensitive_hardlink",
+    "rule": "Create Hardlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": "/tmp/lab/hard",
+      "evt.arg.oldpath": "/etc/shadow",
+      "evt.time": 1790033555007827721,
+      "evt.type": "linkat",
+      "proc.cmdline": "sensitive_hardl",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/sensitive_hardlink",
+      "proc.name": "sensitive_hardl",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_traceme",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/ptrace_traceme",
+    "rule": "PTRACE anti-debug attempt",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033560647300989,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_traceme",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/ptrace_traceme",
+      "proc.name": "ptrace_traceme",
+      "proc.pcmdline": "ptrace_traceme",
+      "proc.pname": "ptrace_traceme",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "repository_write",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/repository_write",
+    "rule": "Update Package Repository",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": null,
+      "evt.time": 1790033577539682273,
+      "evt.type": "openat",
+      "fd.name": "/etc/apt/sources.list.d/lab.list",
+      "proc.cmdline": "repository_writ",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/repository_write",
+      "proc.name": "repository_writ",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 6b15af7cd0027047376b2b805e46013c6e927350be393d7bae474c47135ebf65 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_write",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/binary_write",
+    "rule": "Write below binary dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033583124270901,
+      "evt.type": "openat",
+      "fd.name": "/usr/bin/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.cmdline": "binary_write",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/binary_write",
+      "proc.name": "binary_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id fab31e7d4f06c923e4023d0647439fedba32427e1cc5647a15d9573c0124dbad -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "cron_write",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/cron_write",
+    "rule": "Schedule Cron Jobs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033605519791615,
+      "evt.type": "open",
+      "fd.name": "/etc/cron.d/lab_fixture",
+      "proc.cmdline": "cron_write",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/cron_write",
+      "proc.name": "cron_write",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "root_write",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/root_write",
+    "rule": "Write below root",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033633523489383,
+      "evt.type": "openat",
+      "fd.name": "/root/lab_fixture",
+      "proc.cmdline": "root_write",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/root_write",
+      "proc.name": "root_write",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_write",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/binary_write",
+    "rule": "Write below binary dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033639155584948,
+      "evt.type": "open",
+      "fd.name": "/usr/bin/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.cmdline": "binary_write",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/binary_write",
+      "proc.name": "binary_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 249d6b680985feaec77b3af07bb8e40b09d9496f0087675d458930322e6ba5ad -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "exec_shm",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/exec_shm",
+    "rule": "Execution from /dev/shm",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790033655956170758,
+      "evt.type": "execve",
+      "fd.name": null,
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exepath": "/dev/shm/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pcmdline": "exec_shm",
+      "proc.pname": "exec_shm",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "traversal_read",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/traversal_read",
+    "rule": "Directory traversal monitored file read",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033667187346254,
+      "evt.type": "open",
+      "fd.name": "/etc/shadow",
+      "fd.nameraw": "/tmp/lab/../../etc/shadow",
+      "proc.aname[2]": "containerd-shim",
+      "proc.aname[3]": "systemd",
+      "proc.aname[4]": null,
+      "proc.cmdline": "traversal_read",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/traversal_read",
+      "proc.name": "traversal_read",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "memfd_execute",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/memfd_execute",
+    "rule": "Fileless execution via memfd_create",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_FROM_MEMFD",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790033678432129798,
+      "evt.type": "execve",
+      "proc.aname[2]": "runc",
+      "proc.cmdline": "3",
+      "proc.cwd": "/",
+      "proc.exepath": "memfd:lab-helper",
+      "proc.name": "3",
+      "proc.pname": "memfd_execute",
+      "proc.sname": "memfd_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "memfd_execute",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/memfd_execute",
+    "rule": "Fileless execution via memfd_create",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_FROM_MEMFD",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790033689648675764,
+      "evt.type": "execve",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "memfd:lab-helpe",
+      "proc.cwd": "/",
+      "proc.exepath": "memfd:lab-helper",
+      "proc.name": "memfd:lab-helpe",
+      "proc.pname": "memfd_execute",
+      "proc.sname": "memfd_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "monitored_write",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/monitored_write",
+    "rule": "Write below monitored dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033695296164558,
+      "evt.type": "openat",
+      "fd.name": "/boot/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.cmdline": "monitored_write",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/monitored_write",
+      "proc.name": "monitored_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id e42076db0443f9c6be0e9017aebe9f04978e2fd3652bd106459dfc4018f67744 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "authorized_keys",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/authorized_keys",
+    "rule": "Adding ssh keys to authorized_keys",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033706543772746,
+      "evt.type": "openat",
+      "fd.name": "/root/.ssh/authorized_keys",
+      "proc.cmdline": "authorized_keys",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/authorized_keys",
+      "proc.name": "authorized_keys",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ssh_read",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/ssh_read",
+    "rule": "Read ssh information",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033717719454103,
+      "evt.type": "open",
+      "fd.name": "/root/.ssh/lab_key",
+      "proc.cmdline": "ssh_read",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/ssh_read",
+      "proc.name": "ssh_read",
+      "proc.pcmdline": "runc --root /var/run/docker/runtime-runc/moby --log /run/containerd/io.containerd.runtime.v2.task/moby/67801e911c3c7ae6eb90a8e6897425e1e328efd81f7791060a9c87cb85dd458e/log.json --log-format json --systemd-cgroup exec --process /tmp/runc-process2865349476 --detach --pid-file /run/containerd/io.containerd.runtime.v2.task/moby/67801e911c3c7ae6eb90a8e6897425e1e328efd81f7791060a9c87cb85dd458e/1298db7b7ed82a8095f8bfd4422c9552ea3cdac8fd7660493f71456559e03faa.pid 67801e911c3c7ae6eb90a8e6897425e1e328efd81f7791060a9c87cb85dd458e",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "reverse_shell",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/reverse_shell",
+    "rule": "Redirect STDOUT/STDIN to Network Connection in Container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033745856213404,
+      "evt.type": "dup2",
+      "fd.l4proto": "tcp",
+      "fd.lport": 4444,
+      "fd.name": "127.0.0.1:42882->127.0.0.1:4444",
+      "fd.rport": 42882,
+      "fd.sip": "127.0.0.1",
+      "fd.type": "ipv4",
+      "proc.aname[2]": "containerd-shim",
+      "proc.aname[3]": "systemd",
+      "proc.aname[4]": null,
+      "proc.cmdline": "reverse_shell",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/reverse_shell",
+      "proc.name": "reverse_shell",
+      "proc.pname": "reverse_shell",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "exec_shm",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/exec_shm",
+    "rule": "Execution from /dev/shm",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790033751492124532,
+      "evt.type": "execve",
+      "fd.name": null,
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exepath": "/dev/shm/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pcmdline": "exec_shm",
+      "proc.pname": "exec_shm",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "history_truncate",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/history_truncate",
+    "rule": "Delete or rename shell history",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.name": "/root/.bash_history",
+      "evt.arg.oldpath": null,
+      "evt.arg.path": null,
+      "evt.time": 1790033773904119382,
+      "evt.type": "openat",
+      "fd.name": "/root/.bash_history",
+      "proc.cmdline": "history_truncat",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/history_truncate",
+      "proc.name": "history_truncat",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "packet_socket",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/packet_socket",
+    "rule": "Packet socket created in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "fd=3(<o>) domain=17(AF_PACKET) type=3 proto=768 flags=0(O_NONE)",
+      "evt.time": 1790033779500173222,
+      "evt.type": "socket",
+      "fd.l4proto": "<NA>",
+      "fd.lport": null,
+      "fd.name": "",
+      "fd.rport": null,
+      "fd.type": "<NA>",
+      "proc.cmdline": "packet_socket",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/packet_socket",
+      "proc.name": "packet_socket",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "traversal_read",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/traversal_read",
+    "rule": "Directory traversal monitored file read",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033785084210739,
+      "evt.type": "openat",
+      "fd.name": "/etc/shadow",
+      "fd.nameraw": "/tmp/lab/../../etc/shadow",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "traversal_read",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/traversal_read",
+      "proc.name": "traversal_read",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "traversal_read",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/traversal_read",
+    "rule": "Directory traversal monitored file read",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033790623686517,
+      "evt.type": "openat",
+      "fd.name": "/etc/shadow",
+      "fd.nameraw": "/tmp/lab/../../etc/shadow",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "traversal_read",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/traversal_read",
+      "proc.name": "traversal_read",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_attach",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/ptrace_attach",
+    "rule": "PTRACE attached to process",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033807447388806,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_attach",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/ptrace_attach",
+      "proc.name": "ptrace_attach",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 9a160d8b5d67c218016da1b04c0061f49dbc78ffdfe9176368b39f2829c71ae7 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_read",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/sensitive_read",
+    "rule": "Read sensitive file untrusted",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033813055684772,
+      "evt.type": "openat",
+      "fd.name": "/etc/shadow",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "sensitive_read",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/sensitive_read",
+      "proc.name": "sensitive_read",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_traceme",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/ptrace_traceme",
+    "rule": "PTRACE anti-debug attempt",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033829891834722,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_traceme",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/ptrace_traceme",
+      "proc.name": "ptrace_traceme",
+      "proc.pcmdline": "ptrace_traceme",
+      "proc.pname": "ptrace_traceme",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_rename",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/binary_rename",
+    "rule": "Modify binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "res=0 oldpath=/usr/bin/lab_old newpath=/usr/bin/lab_new",
+      "evt.time": 1790033835504461608,
+      "evt.type": "rename",
+      "fd.name": null,
+      "proc.cmdline": "binary_rename",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/binary_rename",
+      "proc.name": "binary_rename",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 4ef96593c2bc80e1257faf6a56cf7dad52ed86894928f024950a19d1b907c645 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "shell_config_write",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/shell_config_write",
+    "rule": "Modify Shell Configuration File",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033841112009042,
+      "evt.type": "openat",
+      "fd.name": "/root/.bashrc",
+      "proc.cmdline": "shell_config_wr",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/shell_config_write",
+      "proc.name": "shell_config_wr",
+      "proc.pcmdline": "runc --root /var/run/docker/runtime-runc/moby --log /run/containerd/io.containerd.runtime.v2.task/moby/9183e9f64a6a67d23f18beab14fe03f62c8cb355d1d48d60bef663b4eb20266b/log.json --log-format json --systemd-cgroup exec --process /tmp/runc-process3399178525 --detach --pid-file /run/containerd/io.containerd.runtime.v2.task/moby/9183e9f64a6a67d23f18beab14fe03f62c8cb355d1d48d60bef663b4eb20266b/01844da474351fd6ea2f4784f2b443d68eb4c7807b5ed13269785164fee22235.pid 9183e9f64a6a67d23f18beab14fe03f62c8cb355d1d48d60bef663b4eb20266b",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "setid_mode",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/setid_mode",
+    "rule": "Set Setuid or Setgid bit",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.fd": null,
+      "evt.arg.filename": "/tmp/lab/mode",
+      "evt.arg.mode": "S_IWUSR|S_IRUSR|S_ISUID",
+      "evt.time": 1790033846707821305,
+      "evt.type": "chmod",
+      "proc.cmdline": "setid_mode",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/setid_mode",
+      "proc.name": "setid_mode",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "etc_write",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/etc_write",
+    "rule": "Write below etc",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033852296589428,
+      "evt.type": "openat",
+      "fd.name": "/etc/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "etc_write",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/etc_write",
+      "proc.name": "etc_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id a491ebeab6a9641d14306c2e3eac8e135a16b19765dce61318dec126166ded23 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_symlink",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/sensitive_symlink",
+    "rule": "Create Symlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.linkpath": "/tmp/lab/link",
+      "evt.arg.target": "/etc/shadow",
+      "evt.time": 1790033880332076113,
+      "evt.type": "symlink",
+      "proc.cmdline": "sensitive_symli",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/sensitive_symlink",
+      "proc.name": "sensitive_symli",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "dev_file",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/dev_file",
+    "rule": "Create files below dev",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033891543778726,
+      "evt.type": "openat",
+      "fd.name": "/dev/lab_fixture",
+      "proc.cmdline": "dev_file",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/dev_file",
+      "proc.name": "dev_file",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "memfd_execute",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/memfd_execute",
+    "rule": "Fileless execution via memfd_create",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_FROM_MEMFD",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790033925260100637,
+      "evt.type": "execve",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "3",
+      "proc.cwd": "/",
+      "proc.exepath": "memfd:lab-helper",
+      "proc.name": "3",
+      "proc.pname": "memfd_execute",
+      "proc.sname": "memfd_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "packet_socket",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/packet_socket",
+    "rule": "Packet socket created in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "fd=3(<o>) domain=17(AF_PACKET) type=3 proto=768 flags=0(O_NONE)",
+      "evt.time": 1790033930860097721,
+      "evt.type": "socket",
+      "fd.l4proto": "<NA>",
+      "fd.lport": null,
+      "fd.name": "",
+      "fd.rport": null,
+      "fd.type": "<NA>",
+      "proc.cmdline": "packet_socket",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/packet_socket",
+      "proc.name": "packet_socket",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ssh_read",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/ssh_read",
+    "rule": "Read ssh information",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033936459854692,
+      "evt.type": "openat",
+      "fd.name": "/root/.ssh/lab_key",
+      "proc.cmdline": "ssh_read",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/ssh_read",
+      "proc.name": "ssh_read",
+      "proc.pcmdline": "containerd-shim -namespace moby -id dbfaad63c8ed3ae7f8faa63ae506af3ab8eea129c2862fd35cad8b38e8b490a7 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "udp_exchange",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/udp_exchange",
+    "rule": "Unexpected UDP Traffic",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033942096331341,
+      "evt.type": "connect",
+      "fd.l4proto": "udp",
+      "fd.lport": 44445,
+      "fd.name": "198.18.0.1:51142->198.18.0.1:44445",
+      "fd.rport": 51142,
+      "fd.type": "ipv4",
+      "proc.cmdline": "udp_exchange",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/udp_exchange",
+      "proc.name": "udp_exchange",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "authorized_keys",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/authorized_keys",
+    "rule": "Adding ssh keys to authorized_keys",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790033981379459760,
+      "evt.type": "open",
+      "fd.name": "/root/.ssh/authorized_keys",
+      "proc.cmdline": "authorized_keys",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/authorized_keys",
+      "proc.name": "authorized_keys",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_hardlink",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/sensitive_hardlink",
+    "rule": "Create Hardlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": "/tmp/lab/hard",
+      "evt.arg.oldpath": "/etc/shadow",
+      "evt.time": 1790033987027841858,
+      "evt.type": "linkat",
+      "proc.cmdline": "sensitive_hardl",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/sensitive_hardlink",
+      "proc.name": "sensitive_hardl",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "log_truncate",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/log_truncate",
+    "rule": "Clear Log Activities",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790034003867803370,
+      "evt.type": "open",
+      "fd.name": "/var/log/lab.log",
+      "proc.cmdline": "log_truncate",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/log_truncate",
+      "proc.name": "log_truncate",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "drop_execute",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/drop_execute",
+    "rule": "Drop and execute new binary in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_UPPER_LAYER",
+      "evt.time": 1790034009491776387,
+      "evt.type": "execve",
+      "proc.aname[2]": "runc",
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exe": "/tmp/lab-helper",
+      "proc.exe_ino.ctime": 1790034009487967268,
+      "proc.exe_ino.ctime_duration_proc_start": 3726176,
+      "proc.exe_ino.mtime": 1790034009487967268,
+      "proc.exepath": "/tmp/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pname": "drop_execute",
+      "proc.sname": "drop_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "log_truncate",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/log_truncate",
+    "rule": "Clear Log Activities",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790034065603887811,
+      "evt.type": "openat",
+      "fd.name": "/var/log/lab.log",
+      "proc.cmdline": "log_truncate",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/log_truncate",
+      "proc.name": "log_truncate",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "dev_file",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/dev_file",
+    "rule": "Create files below dev",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790034071239436480,
+      "evt.type": "open",
+      "fd.name": "/dev/lab_fixture",
+      "proc.cmdline": "dev_file",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/dev_file",
+      "proc.name": "dev_file",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "packet_socket",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/packet_socket",
+    "rule": "Packet socket created in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "fd=3(<o>) domain=17(AF_PACKET) type=3 proto=768 flags=0(O_NONE)",
+      "evt.time": 1790034088039129749,
+      "evt.type": "socket",
+      "fd.l4proto": "<NA>",
+      "fd.lport": null,
+      "fd.name": "",
+      "fd.rport": null,
+      "fd.type": "<NA>",
+      "proc.cmdline": "packet_socket",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/packet_socket",
+      "proc.name": "packet_socket",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_write",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/binary_write",
+    "rule": "Write below binary dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790034093639626499,
+      "evt.type": "openat",
+      "fd.name": "/usr/bin/lab_fixture",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "binary_write",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/binary_write",
+      "proc.name": "binary_write",
+      "proc.pcmdline": "runc --root /var/run/docker/runtime-runc/moby --log /run/containerd/io.containerd.runtime.v2.task/moby/203306d1dc21dbff19bd0e57ba6ce7ca5e71be57361f34a3c291b52d5a358eec/log.json --log-format json --systemd-cgroup exec --process /tmp/runc-process2899356519 --detach --pid-file /run/containerd/io.containerd.runtime.v2.task/moby/203306d1dc21dbff19bd0e57ba6ce7ca5e71be57361f34a3c291b52d5a358eec/9a1ff9a3c012f2e66a84d2d4f6f808e5dcbbd208c55f52c2fffe00a9e50ddecf.pid 203306d1dc21dbff19bd0e57ba6ce7ca5e71be57361f34a3c291b52d5a358eec",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "reverse_shell",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/reverse_shell",
+    "rule": "Redirect STDOUT/STDIN to Network Connection in Container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790034104875892657,
+      "evt.type": "dup2",
+      "fd.l4proto": "tcp",
+      "fd.lport": 4444,
+      "fd.name": "127.0.0.1:33660->127.0.0.1:4444",
+      "fd.rport": 33660,
+      "fd.sip": "127.0.0.1",
+      "fd.type": "ipv4",
+      "proc.aname[2]": "runc",
+      "proc.aname[3]": "containerd-shim",
+      "proc.aname[4]": "systemd",
+      "proc.cmdline": "reverse_shell",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/reverse_shell",
+      "proc.name": "reverse_shell",
+      "proc.pname": "reverse_shell",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "root_write",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/root_write",
+    "rule": "Write below root",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790034110499927927,
+      "evt.type": "open",
+      "fd.name": "/root/lab_fixture",
+      "proc.cmdline": "root_write",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/root_write",
+      "proc.name": "root_write",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_rename",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/binary_rename",
+    "rule": "Modify binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "res=0 oldpath=/usr/bin/lab_old newpath=/usr/bin/lab_new",
+      "evt.time": 1790034116099951101,
+      "evt.type": "rename",
+      "fd.name": null,
+      "proc.cmdline": "binary_rename",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/binary_rename",
+      "proc.name": "binary_rename",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 1976ad0c6ebb2799a24172ea05686158024da26205ddf6570b1eacc320bccfd4 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_mkdir",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/binary_mkdir",
+    "rule": "Mkdir binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.path": "/usr/bin/lab_directory",
+      "evt.time": 1790034127319445545,
+      "evt.type": "mkdir",
+      "proc.cmdline": "binary_mkdir",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/binary_mkdir",
+      "proc.name": "binary_mkdir",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "cron_write",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/cron_write",
+    "rule": "Schedule Cron Jobs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790034138599953902,
+      "evt.type": "openat",
+      "fd.name": "/etc/cron.d/lab_fixture",
+      "proc.cmdline": "cron_write",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/cron_write",
+      "proc.name": "cron_write",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_symlink",
+    "config": "linux-rust-musl",
+    "executable": "/opt/coverage/linux-rust-musl/coverage/sensitive_symlink",
+    "rule": "Create Symlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.linkpath": "/tmp/lab/link",
+      "evt.arg.target": "/etc/shadow",
+      "evt.time": 1790034144243470678,
+      "evt.type": "symlink",
+      "proc.cmdline": "sensitive_symli",
+      "proc.exepath": "/opt/coverage/linux-rust-musl/coverage/sensitive_symlink",
+      "proc.name": "sensitive_symli",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "reverse_shell",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/reverse_shell",
+    "rule": "Redirect STDOUT/STDIN to Network Connection in Container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790034149875968072,
+      "evt.type": "dup2",
+      "fd.l4proto": "tcp",
+      "fd.lport": 4444,
+      "fd.name": "127.0.0.1:41088->127.0.0.1:4444",
+      "fd.rport": 41088,
+      "fd.sip": "127.0.0.1",
+      "fd.type": "ipv4",
+      "proc.aname[2]": "containerd-shim",
+      "proc.aname[3]": "systemd",
+      "proc.aname[4]": null,
+      "proc.cmdline": "reverse_shell",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/reverse_shell",
+      "proc.name": "reverse_shell",
+      "proc.pname": "reverse_shell",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "dev_file",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/dev_file",
+    "rule": "Create files below dev",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790034155527893214,
+      "evt.type": "openat",
+      "fd.name": "/dev/lab_fixture",
+      "proc.cmdline": "dev_file",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/dev_file",
+      "proc.name": "dev_file",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_symlink",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/sensitive_symlink",
+    "rule": "Create Symlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.linkpath": "/tmp/lab/link",
+      "evt.arg.target": "/etc/shadow",
+      "evt.time": 1790034161139655809,
+      "evt.type": "symlink",
+      "proc.cmdline": "sensitive_symli",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/sensitive_symlink",
+      "proc.name": "sensitive_symli",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "setid_mode",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/setid_mode",
+    "rule": "Set Setuid or Setgid bit",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.fd": null,
+      "evt.arg.filename": "/tmp/lab/mode",
+      "evt.arg.mode": "S_IWUSR|S_IRUSR|S_ISUID",
+      "evt.time": 1790034166707926199,
+      "evt.type": "chmod",
+      "proc.cmdline": "setid_mode",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/setid_mode",
+      "proc.name": "setid_mode",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "drop_execute",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/drop_execute",
+    "rule": "Drop and execute new binary in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_UPPER_LAYER",
+      "evt.time": 1790034230872213998,
+      "evt.type": "execve",
+      "proc.aname[2]": "runc",
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exe": "/tmp/lab-helper",
+      "proc.exe_ino.ctime": 1790034230868062624,
+      "proc.exe_ino.ctime_duration_proc_start": 4067073,
+      "proc.exe_ino.mtime": 1790034230868062624,
+      "proc.exepath": "/tmp/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pname": "drop_execute",
+      "proc.sname": "drop_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_ec2",
+    "config": "linux-rust-gnu",
+    "executable": "/opt/coverage/linux-rust-gnu/coverage/metadata_ec2",
+    "rule": "Contact EC2 Instance Metadata Service From Container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790034258940100575,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:47230->169.254.169.254:80",
+      "fd.rport": 47230,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_ec2",
+      "proc.exepath": "/opt/coverage/linux-rust-gnu/coverage/metadata_ec2",
+      "proc.name": "metadata_ec2",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  }
+]

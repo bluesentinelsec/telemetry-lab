@@ -167,7 +167,8 @@ To validate just C++ (122 executions per repetition), add
 configurations are recorded in provenance. For a Go qualification with a C
 reference under the same image and host, use `--config linux-c-glibc
 --config linux-go-cgo --config linux-go-static` (183 executions per repetition).
-Rust ports are not yet claimed.
+For Rust with the same C reference, use `--config linux-c-glibc
+--config linux-rust-gnu --config linux-rust-musl` (also 183 executions).
 Each block is randomized. `--case ID` restricts a diagnostic run and includes
 that case's control; it does not validate the complete selection.
 

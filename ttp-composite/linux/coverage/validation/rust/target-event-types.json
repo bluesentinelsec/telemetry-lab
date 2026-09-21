@@ -1,0 +1,237 @@
+{
+  "scope": "One representative target alert per case/configuration, not a complete telemetry trace",
+  "events": {
+    "proc_environ": {
+      "linux-rust-gnu": "openat",
+      "linux-rust-musl": "open",
+      "linux-c-glibc": "openat"
+    },
+    "shell_config_write": {
+      "linux-rust-musl": "open",
+      "linux-rust-gnu": "openat",
+      "linux-c-glibc": "openat"
+    },
+    "cron_write": {
+      "linux-c-glibc": "openat",
+      "linux-rust-musl": "open",
+      "linux-rust-gnu": "openat"
+    },
+    "history_truncate": {
+      "linux-rust-musl": "open",
+      "linux-c-glibc": "openat",
+      "linux-rust-gnu": "openat"
+    },
+    "binary_mkdir": {
+      "linux-rust-gnu": "mkdir",
+      "linux-c-glibc": "mkdir",
+      "linux-rust-musl": "mkdir"
+    },
+    "authorized_keys": {
+      "linux-rust-gnu": "openat",
+      "linux-c-glibc": "openat",
+      "linux-rust-musl": "open"
+    },
+    "monitored_write": {
+      "linux-rust-musl": "open",
+      "linux-rust-gnu": "openat",
+      "linux-c-glibc": "openat"
+    },
+    "sensitive_read": {
+      "linux-rust-musl": "open",
+      "linux-c-glibc": "openat",
+      "linux-rust-gnu": "openat"
+    },
+    "metadata_ec2": {
+      "linux-rust-musl": "connect",
+      "linux-c-glibc": "connect",
+      "linux-rust-gnu": "connect"
+    },
+    "exec_shm": {
+      "linux-c-glibc": "execve",
+      "linux-rust-gnu": "execve",
+      "linux-rust-musl": "execve"
+    },
+    "etc_write": {
+      "linux-rust-gnu": "openat",
+      "linux-rust-musl": "open",
+      "linux-c-glibc": "openat"
+    },
+    "ptrace_attach": {
+      "linux-rust-gnu": "ptrace",
+      "linux-c-glibc": "ptrace",
+      "linux-rust-musl": "ptrace"
+    },
+    "ptrace_traceme": {
+      "linux-rust-gnu": "ptrace",
+      "linux-rust-musl": "ptrace",
+      "linux-c-glibc": "ptrace"
+    },
+    "metadata_cloud": {
+      "linux-c-glibc": "connect",
+      "linux-rust-gnu": "connect",
+      "linux-rust-musl": "connect"
+    },
+    "sensitive_hardlink": {
+      "linux-c-glibc": "link",
+      "linux-rust-gnu": "linkat",
+      "linux-rust-musl": "linkat"
+    },
+    "ssh_read": {
+      "linux-c-glibc": "openat",
+      "linux-rust-musl": "open",
+      "linux-rust-gnu": "openat"
+    },
+    "udp_exchange": {
+      "linux-c-glibc": "connect",
+      "linux-rust-musl": "connect",
+      "linux-rust-gnu": "connect"
+    },
+    "binary_rename": {
+      "linux-rust-musl": "rename",
+      "linux-rust-gnu": "rename",
+      "linux-c-glibc": "rename"
+    },
+    "repository_write": {
+      "linux-rust-musl": "open",
+      "linux-rust-gnu": "openat",
+      "linux-c-glibc": "openat"
+    },
+    "root_write": {
+      "linux-rust-gnu": "openat",
+      "linux-c-glibc": "openat",
+      "linux-rust-musl": "open"
+    },
+    "drop_execute": {
+      "linux-c-glibc": "execve",
+      "linux-rust-musl": "execve",
+      "linux-rust-gnu": "execve"
+    },
+    "log_truncate": {
+      "linux-c-glibc": "openat",
+      "linux-rust-musl": "open",
+      "linux-rust-gnu": "openat"
+    },
+    "setid_mode": {
+      "linux-rust-musl": "chmod",
+      "linux-c-glibc": "chmod",
+      "linux-rust-gnu": "chmod"
+    },
+    "binary_write": {
+      "linux-c-glibc": "openat",
+      "linux-rust-musl": "open",
+      "linux-rust-gnu": "openat"
+    },
+    "traversal_read": {
+      "linux-rust-musl": "open",
+      "linux-c-glibc": "openat",
+      "linux-rust-gnu": "openat"
+    },
+    "memfd_execute": {
+      "linux-rust-gnu": "execve",
+      "linux-c-glibc": "execve",
+      "linux-rust-musl": "execve"
+    },
+    "reverse_shell": {
+      "linux-rust-musl": "dup2",
+      "linux-c-glibc": "dup2",
+      "linux-rust-gnu": "dup2"
+    },
+    "packet_socket": {
+      "linux-rust-gnu": "socket",
+      "linux-c-glibc": "socket",
+      "linux-rust-musl": "socket"
+    },
+    "sensitive_symlink": {
+      "linux-rust-gnu": "symlink",
+      "linux-rust-musl": "symlink",
+      "linux-c-glibc": "symlink"
+    },
+    "dev_file": {
+      "linux-rust-gnu": "openat",
+      "linux-rust-musl": "open",
+      "linux-c-glibc": "openat"
+    }
+  },
+  "differences": {
+    "proc_environ": {
+      "linux-rust-gnu": "openat",
+      "linux-rust-musl": "open",
+      "linux-c-glibc": "openat"
+    },
+    "shell_config_write": {
+      "linux-rust-musl": "open",
+      "linux-rust-gnu": "openat",
+      "linux-c-glibc": "openat"
+    },
+    "cron_write": {
+      "linux-c-glibc": "openat",
+      "linux-rust-musl": "open",
+      "linux-rust-gnu": "openat"
+    },
+    "history_truncate": {
+      "linux-rust-musl": "open",
+      "linux-c-glibc": "openat",
+      "linux-rust-gnu": "openat"
+    },
+    "authorized_keys": {
+      "linux-rust-gnu": "openat",
+      "linux-c-glibc": "openat",
+      "linux-rust-musl": "open"
+    },
+    "monitored_write": {
+      "linux-rust-musl": "open",
+      "linux-rust-gnu": "openat",
+      "linux-c-glibc": "openat"
+    },
+    "sensitive_read": {
+      "linux-rust-musl": "open",
+      "linux-c-glibc": "openat",
+      "linux-rust-gnu": "openat"
+    },
+    "etc_write": {
+      "linux-rust-gnu": "openat",
+      "linux-rust-musl": "open",
+      "linux-c-glibc": "openat"
+    },
+    "sensitive_hardlink": {
+      "linux-c-glibc": "link",
+      "linux-rust-gnu": "linkat",
+      "linux-rust-musl": "linkat"
+    },
+    "ssh_read": {
+      "linux-c-glibc": "openat",
+      "linux-rust-musl": "open",
+      "linux-rust-gnu": "openat"
+    },
+    "repository_write": {
+      "linux-rust-musl": "open",
+      "linux-rust-gnu": "openat",
+      "linux-c-glibc": "openat"
+    },
+    "root_write": {
+      "linux-rust-gnu": "openat",
+      "linux-c-glibc": "openat",
+      "linux-rust-musl": "open"
+    },
+    "log_truncate": {
+      "linux-c-glibc": "openat",
+      "linux-rust-musl": "open",
+      "linux-rust-gnu": "openat"
+    },
+    "binary_write": {
+      "linux-c-glibc": "openat",
+      "linux-rust-musl": "open",
+      "linux-rust-gnu": "openat"
+    },
+    "traversal_read": {
+      "linux-rust-musl": "open",
+      "linux-c-glibc": "openat",
+      "linux-rust-gnu": "openat"
+    },
+    "dev_file": {
+      "linux-rust-gnu": "openat",
+      "linux-rust-musl": "open",
+      "linux-c-glibc": "openat"
+    }
+  }
+}
