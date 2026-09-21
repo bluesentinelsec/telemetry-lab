@@ -5,8 +5,8 @@ OUT="${1:?Usage: build.sh OUTPUT_DIRECTORY (with CGO_ENABLED=0 or 1)}"
 mkdir -p "$OUT"
 OUT=$(cd "$OUT" && pwd)
 # SSM sessions need explicit cache/module paths when HOME is absent.
-export GOCACHE="${GOCACHE:-$OUT/go-cache}"
-export GOPATH="${GOPATH:-$OUT/go-path}"
+export GOCACHE="${GOCACHE:-$(dirname "$OUT")/.go-cache}"
+export GOPATH="${GOPATH:-$(dirname "$OUT")/.go-path}"
 case "${CGO_ENABLED:?Set CGO_ENABLED=0 or 1}" in
   0) runtime=go-static ;;
   1) runtime=go-cgo ;;
