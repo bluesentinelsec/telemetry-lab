@@ -7,6 +7,9 @@ the 81 stock-enabled rules. The supplied collections contain 25 stable,
 executable and exact target rule; `rule-inventory.csv` preserves selection and
 exclusion rationale for all 95 rules.
 
+The [shared behavior contract](behavior-contract.md) fixes each case's operation,
+inputs, and required outcome for subsequent language ports.
+
 ## Standalone program contract
 
 Each case has a separate `coverage/<case>/main.c` or `main.cpp` or `main.go`, build target, executable,
