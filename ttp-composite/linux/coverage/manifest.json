@@ -240,7 +240,9 @@
     "linux-c-glibc",
     "linux-c-musl",
     "linux-cpp-libstdcxx",
-    "linux-cpp-libcxx"
+    "linux-cpp-libcxx",
+    "linux-go-cgo",
+    "linux-go-static"
   ],
   "program_contract": "one standalone executable per case; no runtime case dispatcher"
 }

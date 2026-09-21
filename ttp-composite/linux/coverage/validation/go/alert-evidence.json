@@ -1,0 +1,1695 @@
+[
+  {
+    "case": "proc_environ",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/proc_environ",
+    "rule": "Read environment variable from /proc files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028477568573804,
+      "evt.type": "openat",
+      "fd.name": "/proc/self/environ",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "proc_environ",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/proc_environ",
+      "proc.name": "proc_environ",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "shell_config_write",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/shell_config_write",
+    "rule": "Modify Shell Configuration File",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028483188149002,
+      "evt.type": "openat",
+      "fd.name": "/root/.bashrc",
+      "proc.cmdline": "shell_config_wr",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/shell_config_write",
+      "proc.name": "shell_config_wr",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 7ad8f660685cf8b0da8de4aff5514b9fd521250b612f40852aee8546d69b821b -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "cron_write",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/cron_write",
+    "rule": "Schedule Cron Jobs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028488819943625,
+      "evt.type": "openat",
+      "fd.name": "/etc/cron.d/lab_fixture",
+      "proc.cmdline": "cron_write",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/cron_write",
+      "proc.name": "cron_write",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "history_truncate",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/history_truncate",
+    "rule": "Delete or rename shell history",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.name": "/root/.bash_history",
+      "evt.arg.oldpath": null,
+      "evt.arg.path": null,
+      "evt.time": 1790028494448413467,
+      "evt.type": "openat",
+      "fd.name": "/root/.bash_history",
+      "proc.cmdline": "history_truncat",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/history_truncate",
+      "proc.name": "history_truncat",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_mkdir",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/binary_mkdir",
+    "rule": "Mkdir binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.path": "/usr/bin/lab_directory",
+      "evt.time": 1790028500037080530,
+      "evt.type": "mkdirat",
+      "proc.cmdline": "binary_mkdir",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/binary_mkdir",
+      "proc.name": "binary_mkdir",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "authorized_keys",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/authorized_keys",
+    "rule": "Adding ssh keys to authorized_keys",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028511204967361,
+      "evt.type": "openat",
+      "fd.name": "/root/.ssh/authorized_keys",
+      "proc.cmdline": "authorized_keys",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/authorized_keys",
+      "proc.name": "authorized_keys",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "monitored_write",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/monitored_write",
+    "rule": "Write below monitored dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028516815987503,
+      "evt.type": "openat",
+      "fd.name": "/boot/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.cmdline": "monitored_write",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/monitored_write",
+      "proc.name": "monitored_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 68fd5fbf8cd628140e87e41e85532738d271c3bc139bcda182279d31c0caf2d9 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_read",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/sensitive_read",
+    "rule": "Read sensitive file untrusted",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028522412528906,
+      "evt.type": "openat",
+      "fd.name": "/etc/shadow",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "sensitive_read",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/sensitive_read",
+      "proc.name": "sensitive_read",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_ec2",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/metadata_ec2",
+    "rule": "Contact EC2 Instance Metadata Service From Container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028528012683404,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:52106->169.254.169.254:80",
+      "fd.rport": 52106,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_ec2",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/metadata_ec2",
+      "proc.name": "metadata_ec2",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "exec_shm",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/exec_shm",
+    "rule": "Execution from /dev/shm",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790028539228393410,
+      "evt.type": "execve",
+      "fd.name": null,
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exepath": "/dev/shm/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pcmdline": "exec_shm",
+      "proc.pname": "exec_shm",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "etc_write",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/etc_write",
+    "rule": "Write below etc",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028544820396096,
+      "evt.type": "openat",
+      "fd.name": "/etc/lab_fixture",
+      "proc.aname[2]": "containerd-shim",
+      "proc.aname[3]": "systemd",
+      "proc.aname[4]": null,
+      "proc.cmdline": "etc_write",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/etc_write",
+      "proc.name": "etc_write",
+      "proc.pcmdline": "runc --root /var/run/docker/runtime-runc/moby --log /run/containerd/io.containerd.runtime.v2.task/moby/a24e1f23e4f4fe7ead18409b9ed8b4d28514514b0edae367f9f65a0ea523483c/log.json --log-format json --systemd-cgroup exec --process /tmp/runc-process2423198318 --detach --pid-file /run/containerd/io.containerd.runtime.v2.task/moby/a24e1f23e4f4fe7ead18409b9ed8b4d28514514b0edae367f9f65a0ea523483c/938f9198b1e87bc7794b6574e887f2447cc6d6600cd193d7dfa56bd4730afe85.pid a24e1f23e4f4fe7ead18409b9ed8b4d28514514b0edae367f9f65a0ea523483c",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_attach",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/ptrace_attach",
+    "rule": "PTRACE attached to process",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028556033350951,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_attach",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/ptrace_attach",
+      "proc.name": "ptrace_attach",
+      "proc.pcmdline": "containerd-shim -namespace moby -id ba814a9838dd0373fb8a7d8e1504eba4dd6afda3da91197c86ce02a76a5b9a31 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_traceme",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/ptrace_traceme",
+    "rule": "PTRACE anti-debug attempt",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028561625204506,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_traceme",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/ptrace_traceme",
+      "proc.name": "ptrace_traceme",
+      "proc.pcmdline": "ptrace_traceme",
+      "proc.pname": "ptrace_traceme",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_cloud",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/metadata_cloud",
+    "rule": "Contact cloud metadata service from container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028578424190173,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:38656->169.254.169.254:80",
+      "fd.rport": 38656,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_cloud",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/metadata_cloud",
+      "proc.name": "metadata_cloud",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_hardlink",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/sensitive_hardlink",
+    "rule": "Create Hardlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": "/tmp/lab/hard",
+      "evt.arg.oldpath": "/etc/shadow",
+      "evt.time": 1790028612043885287,
+      "evt.type": "link",
+      "proc.cmdline": "sensitive_hardl",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/sensitive_hardlink",
+      "proc.name": "sensitive_hardl",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ssh_read",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/ssh_read",
+    "rule": "Read ssh information",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028617651350784,
+      "evt.type": "openat",
+      "fd.name": "/root/.ssh/lab_key",
+      "proc.cmdline": "ssh_read",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/ssh_read",
+      "proc.name": "ssh_read",
+      "proc.pcmdline": "runc --root /var/run/docker/runtime-runc/moby --log /run/containerd/io.containerd.runtime.v2.task/moby/e735c35eb06664d2e3ce2c4f12ab814037e1e8b850faf1bd435d1a670aaa27d3/log.json --log-format json --systemd-cgroup exec --process /tmp/runc-process3825889962 --detach --pid-file /run/containerd/io.containerd.runtime.v2.task/moby/e735c35eb06664d2e3ce2c4f12ab814037e1e8b850faf1bd435d1a670aaa27d3/5556858b2c67bc723ec4956c50e4184f4f86349c9e2bf74da633fb6e416013c9.pid e735c35eb06664d2e3ce2c4f12ab814037e1e8b850faf1bd435d1a670aaa27d3",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "udp_exchange",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/udp_exchange",
+    "rule": "Unexpected UDP Traffic",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028628867859468,
+      "evt.type": "connect",
+      "fd.l4proto": "udp",
+      "fd.lport": 44445,
+      "fd.name": "198.18.0.1:36868->198.18.0.1:44445",
+      "fd.rport": 36868,
+      "fd.type": "ipv4",
+      "proc.cmdline": "udp_exchange",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/udp_exchange",
+      "proc.name": "udp_exchange",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_attach",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/ptrace_attach",
+    "rule": "PTRACE attached to process",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028645688119717,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_attach",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/ptrace_attach",
+      "proc.name": "ptrace_attach",
+      "proc.pcmdline": "containerd-shim -namespace moby -id f010abd68e3bb831093db112952cdf98aa659e9ace44298818024d19edce4e7b -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_rename",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/binary_rename",
+    "rule": "Modify binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "res=0 olddirfd=-100(AT_FDCWD) oldpath=/usr/bin/lab_old newdirfd=-100(AT_FDCWD) newpath=/usr/bin/lab_new",
+      "evt.time": 1790028662564752342,
+      "evt.type": "renameat",
+      "fd.name": null,
+      "proc.cmdline": "binary_rename",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/binary_rename",
+      "proc.name": "binary_rename",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 188aafe7b52a876bdd0ce7fdf8dee2a34ba3aa9e46c7885f2c3da25a96208217 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "etc_write",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/etc_write",
+    "rule": "Write below etc",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028668128283847,
+      "evt.type": "openat",
+      "fd.name": "/etc/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "etc_write",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/etc_write",
+      "proc.name": "etc_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 3bc6afb810a85597780765de96781e8d78a46e0d31e63cd70b5e63f6584008ef -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "repository_write",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/repository_write",
+    "rule": "Update Package Repository",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": null,
+      "evt.time": 1790028679341141334,
+      "evt.type": "openat",
+      "fd.name": "/etc/apt/sources.list.d/lab.list",
+      "proc.cmdline": "repository_writ",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/repository_write",
+      "proc.name": "repository_writ",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 5a9c1631da5716b8ed99b3095e0646176b771a7146735848c140c07f10412c49 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_cloud",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/metadata_cloud",
+    "rule": "Contact cloud metadata service from container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028684949503141,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:53336->169.254.169.254:80",
+      "fd.rport": 53336,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_cloud",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/metadata_cloud",
+      "proc.name": "metadata_cloud",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_mkdir",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/binary_mkdir",
+    "rule": "Mkdir binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.path": "/usr/bin/lab_directory",
+      "evt.time": 1790028713051502227,
+      "evt.type": "mkdir",
+      "proc.cmdline": "binary_mkdir",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/binary_mkdir",
+      "proc.name": "binary_mkdir",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "proc_environ",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/proc_environ",
+    "rule": "Read environment variable from /proc files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028718680753191,
+      "evt.type": "openat",
+      "fd.name": "/proc/self/environ",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "proc_environ",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/proc_environ",
+      "proc.name": "proc_environ",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "repository_write",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/repository_write",
+    "rule": "Update Package Repository",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": null,
+      "evt.time": 1790028724284878099,
+      "evt.type": "openat",
+      "fd.name": "/etc/apt/sources.list.d/lab.list",
+      "proc.cmdline": "repository_writ",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/repository_write",
+      "proc.name": "repository_writ",
+      "proc.pcmdline": "containerd-shim -namespace moby -id d8fe063b250ca8bbbb3b8a350c220e0dd057c07c0c839e927d5a9f7406df117c -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_cloud",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/metadata_cloud",
+    "rule": "Contact cloud metadata service from container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028735564912356,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:57726->169.254.169.254:80",
+      "fd.rport": 57726,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_cloud",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/metadata_cloud",
+      "proc.name": "metadata_cloud",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_read",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/sensitive_read",
+    "rule": "Read sensitive file untrusted",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028746783936028,
+      "evt.type": "openat",
+      "fd.name": "/etc/shadow",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "sensitive_read",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/sensitive_read",
+      "proc.name": "sensitive_read",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "proc_environ",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/proc_environ",
+    "rule": "Read environment variable from /proc files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028769232093874,
+      "evt.type": "openat",
+      "fd.name": "/proc/self/environ",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "proc_environ",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/proc_environ",
+      "proc.name": "proc_environ",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "root_write",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/root_write",
+    "rule": "Write below root",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028780481909632,
+      "evt.type": "openat",
+      "fd.name": "/root/lab_fixture",
+      "proc.cmdline": "root_write",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/root_write",
+      "proc.name": "root_write",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "drop_execute",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/drop_execute",
+    "rule": "Drop and execute new binary in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_UPPER_LAYER",
+      "evt.time": 1790028786113073362,
+      "evt.type": "execve",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exe": "/tmp/lab-helper",
+      "proc.exe_ino.ctime": 1790028786106473124,
+      "proc.exe_ino.ctime_duration_proc_start": 6423785,
+      "proc.exe_ino.mtime": 1790028786106473124,
+      "proc.exepath": "/tmp/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pname": "drop_execute",
+      "proc.sname": "drop_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "udp_exchange",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/udp_exchange",
+    "rule": "Unexpected UDP Traffic",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028791728506959,
+      "evt.type": "connect",
+      "fd.l4proto": "udp",
+      "fd.lport": 44445,
+      "fd.name": "198.18.0.1:55265->198.18.0.1:44445",
+      "fd.rport": 55265,
+      "fd.type": "ipv4",
+      "proc.cmdline": "udp_exchange",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/udp_exchange",
+      "proc.name": "udp_exchange",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "shell_config_write",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/shell_config_write",
+    "rule": "Modify Shell Configuration File",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028797377920347,
+      "evt.type": "openat",
+      "fd.name": "/root/.bashrc",
+      "proc.cmdline": "shell_config_wr",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/shell_config_write",
+      "proc.name": "shell_config_wr",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 0faff7c14949bff6524a0d2bc643f6f030f8df755ac1a79334094511ca230547 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "log_truncate",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/log_truncate",
+    "rule": "Clear Log Activities",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028830956145510,
+      "evt.type": "openat",
+      "fd.name": "/var/log/lab.log",
+      "proc.cmdline": "log_truncate",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/log_truncate",
+      "proc.name": "log_truncate",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "monitored_write",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/monitored_write",
+    "rule": "Write below monitored dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028836605326044,
+      "evt.type": "openat",
+      "fd.name": "/boot/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.cmdline": "monitored_write",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/monitored_write",
+      "proc.name": "monitored_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 552b72c99b5d98182ef8919802552fa1b537812bc41f70eee149d3c94c7e0bdb -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_ec2",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/metadata_ec2",
+    "rule": "Contact EC2 Instance Metadata Service From Container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028875967922881,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:52054->169.254.169.254:80",
+      "fd.rport": 52054,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_ec2",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/metadata_ec2",
+      "proc.name": "metadata_ec2",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "history_truncate",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/history_truncate",
+    "rule": "Delete or rename shell history",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.name": "/root/.bash_history",
+      "evt.arg.oldpath": null,
+      "evt.arg.path": null,
+      "evt.time": 1790028881572226162,
+      "evt.type": "openat",
+      "fd.name": "/root/.bash_history",
+      "proc.cmdline": "history_truncat",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/history_truncate",
+      "proc.name": "history_truncat",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_hardlink",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/sensitive_hardlink",
+    "rule": "Create Hardlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": "/tmp/lab/hard",
+      "evt.arg.oldpath": "/etc/shadow",
+      "evt.time": 1790028887185008271,
+      "evt.type": "linkat",
+      "proc.cmdline": "sensitive_hardl",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/sensitive_hardlink",
+      "proc.name": "sensitive_hardl",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_traceme",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/ptrace_traceme",
+    "rule": "PTRACE anti-debug attempt",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028892768033993,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_traceme",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/ptrace_traceme",
+      "proc.name": "ptrace_traceme",
+      "proc.pcmdline": "ptrace_traceme",
+      "proc.pname": "ptrace_traceme",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "repository_write",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/repository_write",
+    "rule": "Update Package Repository",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": null,
+      "evt.time": 1790028909608032652,
+      "evt.type": "openat",
+      "fd.name": "/etc/apt/sources.list.d/lab.list",
+      "proc.cmdline": "repository_writ",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/repository_write",
+      "proc.name": "repository_writ",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 2ab19ac8c3343d09f01d1c84d3be5ba6fd20836ac2a341e22d791978c46fe4f1 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_write",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/binary_write",
+    "rule": "Write below binary dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028915216263265,
+      "evt.type": "openat",
+      "fd.name": "/usr/bin/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.cmdline": "binary_write",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/binary_write",
+      "proc.name": "binary_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 90db09635d7a4572ee0de48e7426b353862daf2db1a52b55e4a859491b738094 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "cron_write",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/cron_write",
+    "rule": "Schedule Cron Jobs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028937708022896,
+      "evt.type": "openat",
+      "fd.name": "/etc/cron.d/lab_fixture",
+      "proc.cmdline": "cron_write",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/cron_write",
+      "proc.name": "cron_write",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "root_write",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/root_write",
+    "rule": "Write below root",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028965863708847,
+      "evt.type": "openat",
+      "fd.name": "/root/lab_fixture",
+      "proc.cmdline": "root_write",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/root_write",
+      "proc.name": "root_write",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_write",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/binary_write",
+    "rule": "Write below binary dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028971477019899,
+      "evt.type": "openat",
+      "fd.name": "/usr/bin/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.cmdline": "binary_write",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/binary_write",
+      "proc.name": "binary_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 915491adf3f6492835ff0e0db21ec4960630ff8165429b8abf365a79e9844cbe -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "exec_shm",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/exec_shm",
+    "rule": "Execution from /dev/shm",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790028988277734603,
+      "evt.type": "execve",
+      "fd.name": null,
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exepath": "/dev/shm/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pcmdline": "exec_shm",
+      "proc.pname": "exec_shm",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "traversal_read",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/traversal_read",
+    "rule": "Directory traversal monitored file read",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790028999552599377,
+      "evt.type": "openat",
+      "fd.name": "/etc/shadow",
+      "fd.nameraw": "/tmp/lab/../../etc/shadow",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "traversal_read",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/traversal_read",
+      "proc.name": "traversal_read",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "memfd_execute",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/memfd_execute",
+    "rule": "Fileless execution via memfd_create",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_FROM_MEMFD",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790029010717463908,
+      "evt.type": "execve",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "3",
+      "proc.cwd": "/",
+      "proc.exepath": "memfd:lab-helper",
+      "proc.name": "3",
+      "proc.pname": "memfd_execute",
+      "proc.sname": "memfd_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "memfd_execute",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/memfd_execute",
+    "rule": "Fileless execution via memfd_create",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_FROM_MEMFD",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790029021940103810,
+      "evt.type": "execve",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "memfd:lab-helpe",
+      "proc.cwd": "/",
+      "proc.exepath": "memfd:lab-helper",
+      "proc.name": "memfd:lab-helpe",
+      "proc.pname": "memfd_execute",
+      "proc.sname": "memfd_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "monitored_write",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/monitored_write",
+    "rule": "Write below monitored dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029027552484497,
+      "evt.type": "openat",
+      "fd.name": "/boot/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.cmdline": "monitored_write",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/monitored_write",
+      "proc.name": "monitored_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id a2568abfb20b4d061464f591273350a8e00f5577d48053ad637ce3c24d5b3728 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "authorized_keys",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/authorized_keys",
+    "rule": "Adding ssh keys to authorized_keys",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029038747752270,
+      "evt.type": "openat",
+      "fd.name": "/root/.ssh/authorized_keys",
+      "proc.cmdline": "authorized_keys",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/authorized_keys",
+      "proc.name": "authorized_keys",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ssh_read",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/ssh_read",
+    "rule": "Read ssh information",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029050015772809,
+      "evt.type": "openat",
+      "fd.name": "/root/.ssh/lab_key",
+      "proc.cmdline": "ssh_read",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/ssh_read",
+      "proc.name": "ssh_read",
+      "proc.pcmdline": "containerd-shim -namespace moby -id fc41e995a61375b275ccc42b2b22c27f6e101a3abed96582cf58e7117ea74a91 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "exec_shm",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/exec_shm",
+    "rule": "Execution from /dev/shm",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790029083688859736,
+      "evt.type": "execve",
+      "fd.name": null,
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exepath": "/dev/shm/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pcmdline": "exec_shm",
+      "proc.pname": "exec_shm",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "history_truncate",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/history_truncate",
+    "rule": "Delete or rename shell history",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.name": "/root/.bash_history",
+      "evt.arg.oldpath": null,
+      "evt.arg.path": null,
+      "evt.time": 1790029106108487407,
+      "evt.type": "openat",
+      "fd.name": "/root/.bash_history",
+      "proc.cmdline": "history_truncat",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/history_truncate",
+      "proc.name": "history_truncat",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "packet_socket",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/packet_socket",
+    "rule": "Packet socket created in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "fd=5(<o>) domain=17(AF_PACKET) type=3 proto=768 flags=0(O_NONE)",
+      "evt.time": 1790029111713365846,
+      "evt.type": "socket",
+      "fd.l4proto": "<NA>",
+      "fd.lport": null,
+      "fd.name": "",
+      "fd.rport": null,
+      "fd.type": "<NA>",
+      "proc.cmdline": "packet_socket",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/packet_socket",
+      "proc.name": "packet_socket",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "traversal_read",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/traversal_read",
+    "rule": "Directory traversal monitored file read",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029117327720828,
+      "evt.type": "openat",
+      "fd.name": "/etc/shadow",
+      "fd.nameraw": "/tmp/lab/../../etc/shadow",
+      "proc.aname[2]": "containerd-shim",
+      "proc.aname[3]": "systemd",
+      "proc.aname[4]": null,
+      "proc.cmdline": "traversal_read",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/traversal_read",
+      "proc.name": "traversal_read",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "traversal_read",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/traversal_read",
+    "rule": "Directory traversal monitored file read",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029122945136747,
+      "evt.type": "openat",
+      "fd.name": "/etc/shadow",
+      "fd.nameraw": "/tmp/lab/../../etc/shadow",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "traversal_read",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/traversal_read",
+      "proc.name": "traversal_read",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_attach",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/ptrace_attach",
+    "rule": "PTRACE attached to process",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029139784457787,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_attach",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/ptrace_attach",
+      "proc.name": "ptrace_attach",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 0996c7db7e3ffd039cdd52004e485bd3eb2aa1d37f205e333456b1e3321acf26 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_read",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/sensitive_read",
+    "rule": "Read sensitive file untrusted",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029145377200366,
+      "evt.type": "openat",
+      "fd.name": "/etc/shadow",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "sensitive_read",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/sensitive_read",
+      "proc.name": "sensitive_read",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ptrace_traceme",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/ptrace_traceme",
+    "rule": "PTRACE anti-debug attempt",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029162208378626,
+      "evt.type": "ptrace",
+      "proc.cmdline": "ptrace_traceme",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/ptrace_traceme",
+      "proc.name": "ptrace_traceme",
+      "proc.pcmdline": "ptrace_traceme",
+      "proc.pname": "ptrace_traceme",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_rename",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/binary_rename",
+    "rule": "Modify binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "res=0 olddirfd=-100(AT_FDCWD) oldpath=/usr/bin/lab_old newdirfd=-100(AT_FDCWD) newpath=/usr/bin/lab_new",
+      "evt.time": 1790029167836861238,
+      "evt.type": "renameat",
+      "fd.name": null,
+      "proc.cmdline": "binary_rename",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/binary_rename",
+      "proc.name": "binary_rename",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 228d9ecf0e8eb09e63aa53816a8c96dac6e12a4e698ac0238ea8d0ee473f7dbf -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "shell_config_write",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/shell_config_write",
+    "rule": "Modify Shell Configuration File",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029173451753681,
+      "evt.type": "openat",
+      "fd.name": "/root/.bashrc",
+      "proc.cmdline": "shell_config_wr",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/shell_config_write",
+      "proc.name": "shell_config_wr",
+      "proc.pcmdline": "runc --root /var/run/docker/runtime-runc/moby --log /run/containerd/io.containerd.runtime.v2.task/moby/a2a7ca82ac9bc2c4a4bc197b8edf18fe61f67bced57337236fdfff30c266e4a6/log.json --log-format json --systemd-cgroup exec --process /tmp/runc-process625501314 --detach --pid-file /run/containerd/io.containerd.runtime.v2.task/moby/a2a7ca82ac9bc2c4a4bc197b8edf18fe61f67bced57337236fdfff30c266e4a6/24b581b99bb0e11b67294510c60953a618dd9b23f8ed0a3b7592694f6b1aed71.pid a2a7ca82ac9bc2c4a4bc197b8edf18fe61f67bced57337236fdfff30c266e4a6",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "setid_mode",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/setid_mode",
+    "rule": "Set Setuid or Setgid bit",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.fd": null,
+      "evt.arg.filename": "/tmp/lab/mode",
+      "evt.arg.mode": "S_IWUSR|S_IRUSR|S_ISUID",
+      "evt.time": 1790029179060208152,
+      "evt.type": "chmod",
+      "proc.cmdline": "setid_mode",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/setid_mode",
+      "proc.name": "setid_mode",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "etc_write",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/etc_write",
+    "rule": "Write below etc",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029184699905627,
+      "evt.type": "openat",
+      "fd.name": "/etc/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.aname[3]": null,
+      "proc.aname[4]": null,
+      "proc.cmdline": "etc_write",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/etc_write",
+      "proc.name": "etc_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id b8cb388340b816f6c2e94550d55705a4c340e917ba0512509deb4368baa38350 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "drop_execute",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/drop_execute",
+    "rule": "Drop and execute new binary in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_UPPER_LAYER",
+      "evt.time": 1790029201562065184,
+      "evt.type": "execve",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exe": "/tmp/lab-helper",
+      "proc.exe_ino.ctime": 1790029201558720245,
+      "proc.exe_ino.ctime_duration_proc_start": 3253309,
+      "proc.exe_ino.mtime": 1790029201558720245,
+      "proc.exepath": "/tmp/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pname": "drop_execute",
+      "proc.sname": "drop_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_symlink",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/sensitive_symlink",
+    "rule": "Create Symlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.linkpath": "/tmp/lab/link",
+      "evt.arg.target": "/etc/shadow",
+      "evt.time": 1790029212781244603,
+      "evt.type": "symlinkat",
+      "proc.cmdline": "sensitive_symli",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/sensitive_symlink",
+      "proc.name": "sensitive_symli",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "dev_file",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/dev_file",
+    "rule": "Create files below dev",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029223984326756,
+      "evt.type": "openat",
+      "fd.name": "/dev/lab_fixture",
+      "proc.cmdline": "dev_file",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/dev_file",
+      "proc.name": "dev_file",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "memfd_execute",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/memfd_execute",
+    "rule": "Fileless execution via memfd_create",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_FROM_MEMFD",
+      "evt.res": "SUCCESS",
+      "evt.time": 1790029257676935817,
+      "evt.type": "execve",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "3",
+      "proc.cwd": "/",
+      "proc.exepath": "memfd:lab-helper",
+      "proc.name": "3",
+      "proc.pname": "memfd_execute",
+      "proc.sname": "memfd_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "packet_socket",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/packet_socket",
+    "rule": "Packet socket created in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "fd=3(<o>) domain=17(AF_PACKET) type=3 proto=768 flags=0(O_NONE)",
+      "evt.time": 1790029263311854173,
+      "evt.type": "socket",
+      "fd.l4proto": "<NA>",
+      "fd.lport": null,
+      "fd.name": "",
+      "fd.rport": null,
+      "fd.type": "<NA>",
+      "proc.cmdline": "packet_socket",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/packet_socket",
+      "proc.name": "packet_socket",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "ssh_read",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/ssh_read",
+    "rule": "Read ssh information",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029268957406405,
+      "evt.type": "openat",
+      "fd.name": "/root/.ssh/lab_key",
+      "proc.cmdline": "ssh_read",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/ssh_read",
+      "proc.name": "ssh_read",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 31197d6a69b174cf84b4b184281bca9ef5b04ef8694614a8cbc674e374963980 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "udp_exchange",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/udp_exchange",
+    "rule": "Unexpected UDP Traffic",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029274584753211,
+      "evt.type": "connect",
+      "fd.l4proto": "udp",
+      "fd.lport": 44445,
+      "fd.name": "198.18.0.1:37478->198.18.0.1:44445",
+      "fd.rport": 37478,
+      "fd.type": "ipv4",
+      "proc.cmdline": "udp_exchange",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/udp_exchange",
+      "proc.name": "udp_exchange",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "metadata_ec2",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/metadata_ec2",
+    "rule": "Contact EC2 Instance Metadata Service From Container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029280189299662,
+      "evt.type": "connect",
+      "fd.l4proto": "tcp",
+      "fd.lport": 80,
+      "fd.name": "169.254.169.254:40516->169.254.169.254:80",
+      "fd.rport": 40516,
+      "fd.type": "ipv4",
+      "proc.cmdline": "metadata_ec2",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/metadata_ec2",
+      "proc.name": "metadata_ec2",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "authorized_keys",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/authorized_keys",
+    "rule": "Adding ssh keys to authorized_keys",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029313821279158,
+      "evt.type": "openat",
+      "fd.name": "/root/.ssh/authorized_keys",
+      "proc.cmdline": "authorized_keys",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/authorized_keys",
+      "proc.name": "authorized_keys",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_hardlink",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/sensitive_hardlink",
+    "rule": "Create Hardlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.newpath": "/tmp/lab/hard",
+      "evt.arg.oldpath": "/etc/shadow",
+      "evt.time": 1790029319441143497,
+      "evt.type": "linkat",
+      "proc.cmdline": "sensitive_hardl",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/sensitive_hardlink",
+      "proc.name": "sensitive_hardl",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "log_truncate",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/log_truncate",
+    "rule": "Clear Log Activities",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029336300155538,
+      "evt.type": "openat",
+      "fd.name": "/var/log/lab.log",
+      "proc.cmdline": "log_truncate",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/log_truncate",
+      "proc.name": "log_truncate",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "drop_execute",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/drop_execute",
+    "rule": "Drop and execute new binary in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.flags": "EXE_WRITABLE|EXE_UPPER_LAYER",
+      "evt.time": 1790029341897435185,
+      "evt.type": "execve",
+      "proc.aname[2]": "containerd-shim",
+      "proc.cmdline": "lab-helper",
+      "proc.cwd": "/",
+      "proc.exe": "/tmp/lab-helper",
+      "proc.exe_ino.ctime": 1790029341894780536,
+      "proc.exe_ino.ctime_duration_proc_start": 2507529,
+      "proc.exe_ino.mtime": 1790029341894780536,
+      "proc.exepath": "/tmp/lab-helper",
+      "proc.name": "lab-helper",
+      "proc.pname": "drop_execute",
+      "proc.sname": "drop_execute",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "log_truncate",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/log_truncate",
+    "rule": "Clear Log Activities",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029398025034088,
+      "evt.type": "openat",
+      "fd.name": "/var/log/lab.log",
+      "proc.cmdline": "log_truncate",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/log_truncate",
+      "proc.name": "log_truncate",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "dev_file",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/dev_file",
+    "rule": "Create files below dev",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029403676205268,
+      "evt.type": "openat",
+      "fd.name": "/dev/lab_fixture",
+      "proc.cmdline": "dev_file",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/dev_file",
+      "proc.name": "dev_file",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "packet_socket",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/packet_socket",
+    "rule": "Packet socket created in container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "fd=5(<o>) domain=17(AF_PACKET) type=3 proto=768 flags=0(O_NONE)",
+      "evt.time": 1790029420528347839,
+      "evt.type": "socket",
+      "fd.l4proto": "<NA>",
+      "fd.lport": null,
+      "fd.name": "",
+      "fd.rport": null,
+      "fd.type": "<NA>",
+      "proc.cmdline": "packet_socket",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/packet_socket",
+      "proc.name": "packet_socket",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_write",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/binary_write",
+    "rule": "Write below binary dir",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029426177333012,
+      "evt.type": "openat",
+      "fd.name": "/usr/bin/lab_fixture",
+      "proc.aname[2]": "systemd",
+      "proc.cmdline": "binary_write",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/binary_write",
+      "proc.name": "binary_write",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 625e91d9bb1fcb4281fe446247bb32d97143c2d6985adb6f16f6a8787c93cb06 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "reverse_shell",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/reverse_shell",
+    "rule": "Redirect STDOUT/STDIN to Network Connection in Container",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029437408137012,
+      "evt.type": "dup2",
+      "fd.l4proto": "tcp",
+      "fd.lport": 4444,
+      "fd.name": "127.0.0.1:60354->127.0.0.1:4444",
+      "fd.rport": 60354,
+      "fd.sip": "127.0.0.1",
+      "fd.type": "ipv4",
+      "proc.aname[2]": "containerd-shim",
+      "proc.aname[3]": "systemd",
+      "proc.aname[4]": null,
+      "proc.cmdline": "reverse_shell",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/reverse_shell",
+      "proc.name": "reverse_shell",
+      "proc.pname": "reverse_shell",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "root_write",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/root_write",
+    "rule": "Write below root",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029443016682488,
+      "evt.type": "openat",
+      "fd.name": "/root/lab_fixture",
+      "proc.cmdline": "root_write",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/root_write",
+      "proc.name": "root_write",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_rename",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/binary_rename",
+    "rule": "Modify binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.args": "res=0 oldpath=/usr/bin/lab_old newpath=/usr/bin/lab_new",
+      "evt.time": 1790029448631664325,
+      "evt.type": "rename",
+      "fd.name": null,
+      "proc.cmdline": "binary_rename",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/binary_rename",
+      "proc.name": "binary_rename",
+      "proc.pcmdline": "containerd-shim -namespace moby -id 6451c24c2cba704cd797d8bca655f43c9355fbe709a1ef92d581e219fe37e4f7 -address /run/containerd/containerd.sock",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "binary_mkdir",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/binary_mkdir",
+    "rule": "Mkdir binary dirs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.path": "/usr/bin/lab_directory",
+      "evt.time": 1790029459884810863,
+      "evt.type": "mkdirat",
+      "proc.cmdline": "binary_mkdir",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/binary_mkdir",
+      "proc.name": "binary_mkdir",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "cron_write",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/cron_write",
+    "rule": "Schedule Cron Jobs",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029471076953291,
+      "evt.type": "openat",
+      "fd.name": "/etc/cron.d/lab_fixture",
+      "proc.cmdline": "cron_write",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/cron_write",
+      "proc.name": "cron_write",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_symlink",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/sensitive_symlink",
+    "rule": "Create Symlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.linkpath": "/tmp/lab/link",
+      "evt.arg.target": "/etc/shadow",
+      "evt.time": 1790029476680323477,
+      "evt.type": "symlinkat",
+      "proc.cmdline": "sensitive_symli",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/sensitive_symlink",
+      "proc.name": "sensitive_symli",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "dev_file",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/dev_file",
+    "rule": "Create files below dev",
+    "source": "syscall",
+    "event_fields": {
+      "evt.time": 1790029487911839672,
+      "evt.type": "openat",
+      "fd.name": "/dev/lab_fixture",
+      "proc.cmdline": "dev_file",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/dev_file",
+      "proc.name": "dev_file",
+      "proc.pname": "runc",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "sensitive_symlink",
+    "config": "linux-c-glibc",
+    "executable": "/opt/coverage/linux-c-glibc/coverage/sensitive_symlink",
+    "rule": "Create Symlink Over Sensitive Files",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.linkpath": "/tmp/lab/link",
+      "evt.arg.target": "/etc/shadow",
+      "evt.time": 1790029493532498446,
+      "evt.type": "symlink",
+      "proc.cmdline": "sensitive_symli",
+      "proc.exepath": "/opt/coverage/linux-c-glibc/coverage/sensitive_symlink",
+      "proc.name": "sensitive_symli",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "setid_mode",
+    "config": "linux-go-cgo",
+    "executable": "/opt/coverage/linux-go-cgo/coverage/setid_mode",
+    "rule": "Set Setuid or Setgid bit",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.fd": null,
+      "evt.arg.filename": "/tmp/lab/mode",
+      "evt.arg.mode": "S_IWUSR|S_IRUSR|S_ISUID",
+      "evt.time": 1790029499120988218,
+      "evt.type": "fchmodat",
+      "proc.cmdline": "setid_mode",
+      "proc.exepath": "/opt/coverage/linux-go-cgo/coverage/setid_mode",
+      "proc.name": "setid_mode",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  },
+  {
+    "case": "setid_mode",
+    "config": "linux-go-static",
+    "executable": "/opt/coverage/linux-go-static/coverage/setid_mode",
+    "rule": "Set Setuid or Setgid bit",
+    "source": "syscall",
+    "event_fields": {
+      "evt.arg.fd": null,
+      "evt.arg.filename": "/tmp/lab/mode",
+      "evt.arg.mode": "S_IWUSR|S_IRUSR|S_ISUID",
+      "evt.time": 1790029588248356597,
+      "evt.type": "fchmodat",
+      "proc.cmdline": "setid_mode",
+      "proc.exepath": "/opt/coverage/linux-go-static/coverage/setid_mode",
+      "proc.name": "setid_mode",
+      "proc.pname": "containerd-shim",
+      "proc.tty": 0
+    }
+  }
+]

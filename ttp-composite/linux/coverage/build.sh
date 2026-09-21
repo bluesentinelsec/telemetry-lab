@@ -5,6 +5,8 @@ C_SRC="$HERE/../c"
 OUT="${1:?Usage: build.sh OUTPUT_DIRECTORY}"
 mkdir -p "$OUT"
 OUT=$(cd "$OUT" && pwd)
+export GOCACHE="${GOCACHE:-$OUT/go-cache}"
+export GOPATH="${GOPATH:-$OUT/go-path}"
 for libc in glibc musl; do
   cmake -S "$C_SRC" -B "$OUT/build-$libc" -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_TOOLCHAIN_FILE="$C_SRC/toolchains/linux-$libc.cmake"
@@ -31,10 +33,19 @@ for stdlib in libstdcxx libcxx; do
     readelf -l -d "$program"
   done > "$OUT/elf-$stdlib.txt"
 done
+for config in cgo static; do
+  cgo=0; if [ "$config" = cgo ]; then cgo=1; fi
+  CGO_ENABLED="$cgo" bash "$HERE/../go/coverage/build.sh" "$OUT/image/linux-go-$config"
+  for program in "$OUT/image/linux-go-$config/coverage/"*; do
+    readelf -l -d "$program"
+    go version -m "$program"
+  done > "$OUT/elf-go-$config.txt"
+done
 gcc -static -O2 -Wall -Wextra -Werror "$C_SRC/coverage/helper.c" -o "$OUT/image/helper"
 cp "$HERE/Dockerfile" "$OUT/image/Dockerfile"
 docker build -t lab-falco-coverage:local "$OUT/image"
 sha256sum "$OUT"/image/linux-*/coverage/* "$OUT/image/helper" > "$OUT/binaries.sha256"
+go version > "$OUT/go-version.txt"
 gcc --version > "$OUT/gcc-version.txt"
 clang++ --version > "$OUT/clang-version.txt"
 dpkg-query -W libc6 musl musl-tools libstdc++6 libc++1 libc++abi1 clang > "$OUT/runtime-versions.txt"

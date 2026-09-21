@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check actual ELF artifacts: distinct single-case binaries, correct loader and C++ standard library."""
+"""Check actual ELF artifacts: distinct single-case binaries, declared runtime configuration."""
 import argparse
 import hashlib
 import json
@@ -24,8 +24,20 @@ def verify(directory, libc):
         if digest in hashes:raise ValueError(f'{name} duplicates another executable')
         hashes.add(digest)
         header=subprocess.check_output(['readelf','-l',str(p)],text=True)
-        loader='ld-musl' if libc=='musl' else 'ld-linux'
-        if loader not in header:raise ValueError(f'{name} has the wrong runtime loader')
+        if libc in ('go-cgo','go-static'):
+            dynamic=subprocess.check_output(['readelf','-d',str(p)],text=True)
+            info=subprocess.check_output(['go','version','-m',str(p)],text=True)
+            cgo='1' if libc=='go-cgo' else '0'
+            if not all(setting in info for setting in ('CGO_ENABLED='+cgo,'GOARCH=amd64','GOOS=linux')):
+                raise ValueError(f'{name} has the wrong Go build configuration')
+            if libc=='go-static':
+                if 'INTERP' in header or 'NEEDED' in dynamic:
+                    raise ValueError(f'{name} is not a static Go program')
+            elif 'ld-linux' not in header or '[libc.so.6]' not in dynamic:
+                raise ValueError(f'{name} does not link the cgo/glibc runtime')
+        else:
+            loader='ld-musl' if libc=='musl' else 'ld-linux'
+            if loader not in header:raise ValueError(f'{name} has the wrong runtime loader')
         if libc in ('libstdcxx', 'libcxx'):
             dynamic=subprocess.check_output(['readelf','-d',str(p)],text=True)
             symbols=subprocess.check_output(['readelf','--dyn-syms','--wide',str(p)],text=True)
@@ -43,5 +55,5 @@ def verify(directory, libc):
 if __name__=='__main__':
     parser=argparse.ArgumentParser()
     parser.add_argument('directory',type=Path)
-    parser.add_argument('libc',choices=['glibc','musl','libstdcxx','libcxx'])
+    parser.add_argument('libc',choices=['glibc','musl','libstdcxx','libcxx','go-cgo','go-static'])
     args=parser.parse_args();verify(args.directory,args.libc)

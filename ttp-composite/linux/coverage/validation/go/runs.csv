@@ -1,0 +1,217 @@
+phase,execution,repetition,case,config,control,executable,behavior_ok,collection_ok,valid,target_fired,negative_control_ok,matched_rules,alert_counts
+go-final,0,1,proc_environ,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/proc_environ,True,True,True,True,,Read environment variable from /proc files,"{""Read environment variable from /proc files"": 1}"
+go-final,1,1,shell_config_write,linux-go-static,False,/opt/coverage/linux-go-static/coverage/shell_config_write,True,True,True,True,,Modify Shell Configuration File | Write below root,"{""Modify Shell Configuration File"": 1, ""Write below root"": 1}"
+go-final,2,1,cron_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/cron_write,True,True,True,True,,Schedule Cron Jobs | Write below etc,"{""Schedule Cron Jobs"": 1, ""Write below etc"": 1}"
+go-final,3,1,history_truncate,linux-go-static,False,/opt/coverage/linux-go-static/coverage/history_truncate,True,True,True,True,,Delete or rename shell history | Modify Shell Configuration File,"{""Delete or rename shell history"": 1, ""Modify Shell Configuration File"": 1}"
+go-final,4,1,binary_mkdir,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/binary_mkdir,True,True,True,True,,Mkdir binary dirs | Modify binary dirs,"{""Mkdir binary dirs"": 1, ""Modify binary dirs"": 2}"
+go-final,5,1,exec_shm,linux-go-static,True,/opt/coverage/linux-go-static/coverage/exec_shm,True,True,True,,True,,{}
+go-final,6,1,authorized_keys,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/authorized_keys,True,True,True,True,,Adding ssh keys to authorized_keys | Write below monitored dir,"{""Adding ssh keys to authorized_keys"": 1, ""Write below monitored dir"": 1}"
+go-final,7,1,monitored_write,linux-go-static,False,/opt/coverage/linux-go-static/coverage/monitored_write,True,True,True,True,,Write below monitored dir,"{""Write below monitored dir"": 1}"
+go-final,8,1,sensitive_read,linux-go-static,False,/opt/coverage/linux-go-static/coverage/sensitive_read,True,True,True,True,,Read sensitive file untrusted,"{""Read sensitive file untrusted"": 1}"
+go-final,9,1,metadata_ec2,linux-go-static,False,/opt/coverage/linux-go-static/coverage/metadata_ec2,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container,"{""Contact EC2 Instance Metadata Service From Container"": 1, ""Contact cloud metadata service from container"": 1}"
+go-final,10,1,exec_shm,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/exec_shm,True,True,True,,True,,{}
+go-final,11,1,exec_shm,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/exec_shm,True,True,True,True,,Execution from /dev/shm,"{""Execution from /dev/shm"": 1}"
+go-final,12,1,etc_write,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/etc_write,True,True,True,True,,Write below etc,"{""Write below etc"": 1}"
+go-final,13,1,shell_config_write,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/shell_config_write,True,True,True,,True,,{}
+go-final,14,1,ptrace_attach,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/ptrace_attach,True,True,True,True,,PTRACE attached to process,"{""PTRACE attached to process"": 1}"
+go-final,15,1,ptrace_traceme,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/ptrace_traceme,True,True,True,True,,PTRACE anti-debug attempt,"{""PTRACE anti-debug attempt"": 1}"
+go-final,16,1,log_truncate,linux-go-static,True,/opt/coverage/linux-go-static/coverage/log_truncate,True,True,True,,True,,{}
+go-final,17,1,repository_write,linux-go-static,True,/opt/coverage/linux-go-static/coverage/repository_write,True,True,True,,True,,{}
+go-final,18,1,metadata_cloud,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/metadata_cloud,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container,"{""Contact EC2 Instance Metadata Service From Container"": 1, ""Contact cloud metadata service from container"": 1}"
+go-final,19,1,cron_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/cron_write,True,True,True,,True,,{}
+go-final,20,1,drop_execute,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/drop_execute,True,True,True,,True,,{}
+go-final,21,1,binary_rename,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/binary_rename,True,True,True,,True,,{}
+go-final,22,1,sensitive_read,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/sensitive_read,True,True,True,,True,,{}
+go-final,23,1,traversal_read,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/traversal_read,True,True,True,,True,,{}
+go-final,24,1,sensitive_hardlink,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/sensitive_hardlink,True,True,True,True,,Create Hardlink Over Sensitive Files,"{""Create Hardlink Over Sensitive Files"": 1}"
+go-final,25,1,ssh_read,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/ssh_read,True,True,True,True,,Read ssh information,"{""Read ssh information"": 1}"
+go-final,26,1,authorized_keys,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/authorized_keys,True,True,True,,True,,{}
+go-final,27,1,udp_exchange,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/udp_exchange,True,True,True,True,,Unexpected UDP Traffic,"{""Unexpected UDP Traffic"": 1}"
+go-final,28,1,traversal_read,linux-go-static,True,/opt/coverage/linux-go-static/coverage/traversal_read,True,True,True,,True,,{}
+go-final,29,1,ptrace_traceme,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/ptrace_traceme,True,True,True,,True,,{}
+go-final,30,1,ptrace_attach,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/ptrace_attach,True,True,True,True,,PTRACE attached to process,"{""PTRACE attached to process"": 1}"
+go-final,31,1,metadata_ec2,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/metadata_ec2,True,True,True,,True,,{}
+go-final,32,1,negative,linux-go-static,False,/opt/coverage/linux-go-static/coverage/negative,True,True,True,,True,,{}
+go-final,33,1,binary_rename,linux-go-static,False,/opt/coverage/linux-go-static/coverage/binary_rename,True,True,True,True,,Modify binary dirs,"{""Modify binary dirs"": 1}"
+go-final,34,1,etc_write,linux-go-static,False,/opt/coverage/linux-go-static/coverage/etc_write,True,True,True,True,,Write below etc,"{""Write below etc"": 1}"
+go-final,35,1,reverse_shell,linux-go-static,True,/opt/coverage/linux-go-static/coverage/reverse_shell,True,True,True,,True,,{}
+go-final,36,1,repository_write,linux-go-static,False,/opt/coverage/linux-go-static/coverage/repository_write,True,True,True,True,,Update Package Repository | Write below etc,"{""Update Package Repository"": 1, ""Write below etc"": 1}"
+go-final,37,1,metadata_cloud,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/metadata_cloud,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container,"{""Contact EC2 Instance Metadata Service From Container"": 1, ""Contact cloud metadata service from container"": 1}"
+go-final,38,1,packet_socket,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/packet_socket,True,True,True,,True,,{}
+go-final,39,1,repository_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/repository_write,True,True,True,,True,,{}
+go-final,40,1,monitored_write,linux-go-static,True,/opt/coverage/linux-go-static/coverage/monitored_write,True,True,True,,True,,{}
+go-final,41,1,sensitive_read,linux-go-static,True,/opt/coverage/linux-go-static/coverage/sensitive_read,True,True,True,,True,,{}
+go-final,42,1,binary_mkdir,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/binary_mkdir,True,True,True,True,,Mkdir binary dirs | Modify binary dirs,"{""Mkdir binary dirs"": 1, ""Modify binary dirs"": 1}"
+go-final,43,1,proc_environ,linux-go-static,False,/opt/coverage/linux-go-static/coverage/proc_environ,True,True,True,True,,Read environment variable from /proc files,"{""Read environment variable from /proc files"": 1}"
+go-final,44,1,repository_write,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/repository_write,True,True,True,True,,Update Package Repository | Write below etc,"{""Update Package Repository"": 1, ""Write below etc"": 1}"
+go-final,45,1,binary_write,linux-go-static,True,/opt/coverage/linux-go-static/coverage/binary_write,True,True,True,,True,,{}
+go-final,46,1,metadata_cloud,linux-go-static,False,/opt/coverage/linux-go-static/coverage/metadata_cloud,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container,"{""Contact EC2 Instance Metadata Service From Container"": 1, ""Contact cloud metadata service from container"": 1}"
+go-final,47,1,metadata_ec2,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/metadata_ec2,True,True,True,,True,,{}
+go-final,48,1,sensitive_read,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/sensitive_read,True,True,True,True,,Read sensitive file untrusted,"{""Read sensitive file untrusted"": 1}"
+go-final,49,1,log_truncate,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/log_truncate,True,False,False,,True,,{}
+go-final,50,1,monitored_write,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/monitored_write,True,True,True,,True,,{}
+go-final,51,1,memfd_execute,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/memfd_execute,True,True,True,,True,,{}
+go-final,52,1,proc_environ,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/proc_environ,True,True,True,True,,Read environment variable from /proc files,"{""Read environment variable from /proc files"": 1}"
+go-final,53,1,udp_exchange,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/udp_exchange,True,True,True,,True,,{}
+go-final,54,1,root_write,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/root_write,True,True,True,True,,Write below root,"{""Write below root"": 1}"
+go-final,55,1,drop_execute,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/drop_execute,True,True,True,True,,Drop and execute new binary in container,"{""Drop and execute new binary in container"": 1}"
+go-final,56,1,udp_exchange,linux-go-static,False,/opt/coverage/linux-go-static/coverage/udp_exchange,True,True,True,True,,Unexpected UDP Traffic,"{""Unexpected UDP Traffic"": 1}"
+go-final,57,1,shell_config_write,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/shell_config_write,True,True,True,True,,Modify Shell Configuration File | Write below root,"{""Modify Shell Configuration File"": 1, ""Write below root"": 1}"
+go-final,58,1,root_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/root_write,True,True,True,,True,,{}
+go-final,59,1,proc_environ,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/proc_environ,True,True,True,,True,,{}
+go-final,60,1,cron_write,linux-go-static,True,/opt/coverage/linux-go-static/coverage/cron_write,True,True,True,,True,,{}
+go-final,61,1,etc_write,linux-go-static,True,/opt/coverage/linux-go-static/coverage/etc_write,True,True,True,,True,,{}
+go-final,62,1,ptrace_traceme,linux-go-static,True,/opt/coverage/linux-go-static/coverage/ptrace_traceme,True,True,True,,True,,{}
+go-final,63,1,log_truncate,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/log_truncate,True,True,True,True,,Clear Log Activities,"{""Clear Log Activities"": 1}"
+go-final,64,1,monitored_write,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/monitored_write,True,True,True,True,,Write below monitored dir,"{""Write below monitored dir"": 1}"
+go-final,65,1,proc_environ,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/proc_environ,True,True,True,,True,,{}
+go-final,66,1,drop_execute,linux-go-static,True,/opt/coverage/linux-go-static/coverage/drop_execute,True,True,True,,True,,{}
+go-final,67,1,authorized_keys,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/authorized_keys,True,True,True,,True,,{}
+go-final,68,1,binary_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/binary_write,True,True,True,,True,,{}
+go-final,69,1,proc_environ,linux-go-static,True,/opt/coverage/linux-go-static/coverage/proc_environ,True,True,True,,True,,{}
+go-final,70,1,setid_mode,linux-go-static,False,/opt/coverage/linux-go-static/coverage/setid_mode,True,False,False,True,,Set Setuid or Setgid bit,"{""Set Setuid or Setgid bit"": 1}"
+go-final,71,1,metadata_ec2,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/metadata_ec2,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container,"{""Contact EC2 Instance Metadata Service From Container"": 1, ""Contact cloud metadata service from container"": 1}"
+go-final,72,1,history_truncate,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/history_truncate,True,True,True,True,,Delete or rename shell history | Modify Shell Configuration File,"{""Delete or rename shell history"": 1, ""Modify Shell Configuration File"": 1}"
+go-final,73,1,sensitive_hardlink,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/sensitive_hardlink,True,True,True,True,,Create Hardlink Over Sensitive Files,"{""Create Hardlink Over Sensitive Files"": 1}"
+go-final,74,1,ptrace_traceme,linux-go-static,False,/opt/coverage/linux-go-static/coverage/ptrace_traceme,True,True,True,True,,PTRACE anti-debug attempt,"{""PTRACE anti-debug attempt"": 1}"
+go-final,75,1,negative,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/negative,True,True,True,,True,,{}
+go-final,76,1,setid_mode,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/setid_mode,True,True,True,,True,,{}
+go-final,77,1,repository_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/repository_write,True,True,True,True,,Update Package Repository | Write below etc,"{""Update Package Repository"": 1, ""Write below etc"": 1}"
+go-final,78,1,binary_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/binary_write,True,True,True,True,,Write below binary dir,"{""Write below binary dir"": 1}"
+go-final,79,1,memfd_execute,linux-go-static,True,/opt/coverage/linux-go-static/coverage/memfd_execute,True,True,True,,True,,{}
+go-final,80,1,ptrace_attach,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/ptrace_attach,True,True,True,,True,,{}
+go-final,81,1,dev_file,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/dev_file,True,True,True,,True,,{}
+go-final,82,1,cron_write,linux-go-static,False,/opt/coverage/linux-go-static/coverage/cron_write,True,True,True,True,,Schedule Cron Jobs | Write below etc,"{""Schedule Cron Jobs"": 1, ""Write below etc"": 1}"
+go-final,83,1,reverse_shell,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/reverse_shell,True,True,True,,True,,{}
+go-final,84,1,setid_mode,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/setid_mode,True,True,True,,True,,{}
+go-final,85,1,sensitive_hardlink,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/sensitive_hardlink,True,True,True,,True,,{}
+go-final,86,1,sensitive_read,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/sensitive_read,True,True,True,,True,,{}
+go-final,87,1,root_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/root_write,True,True,True,True,,Write below root,"{""Write below root"": 1}"
+go-final,88,1,binary_write,linux-go-static,False,/opt/coverage/linux-go-static/coverage/binary_write,True,True,True,True,,Write below binary dir,"{""Write below binary dir"": 1}"
+go-final,89,1,root_write,linux-go-static,True,/opt/coverage/linux-go-static/coverage/root_write,True,False,False,,True,,{}
+go-final,90,1,ptrace_traceme,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/ptrace_traceme,True,True,True,,True,,{}
+go-final,91,1,exec_shm,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/exec_shm,True,True,True,True,,Execution from /dev/shm,"{""Execution from /dev/shm"": 1}"
+go-final,92,1,sensitive_hardlink,linux-go-static,True,/opt/coverage/linux-go-static/coverage/sensitive_hardlink,True,True,True,,True,,{}
+go-final,93,1,traversal_read,linux-go-static,False,/opt/coverage/linux-go-static/coverage/traversal_read,True,True,True,True,,Directory traversal monitored file read | Read sensitive file untrusted,"{""Directory traversal monitored file read"": 1, ""Read sensitive file untrusted"": 1}"
+go-final,94,1,binary_mkdir,linux-go-static,True,/opt/coverage/linux-go-static/coverage/binary_mkdir,True,True,True,,True,,{}
+go-final,95,1,memfd_execute,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/memfd_execute,True,True,True,True,,Fileless execution via memfd_create,"{""Fileless execution via memfd_create"": 1}"
+go-final,96,1,sensitive_symlink,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/sensitive_symlink,True,True,True,,True,,{}
+go-final,97,1,memfd_execute,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/memfd_execute,True,True,True,True,,Fileless execution via memfd_create,"{""Fileless execution via memfd_create"": 1}"
+go-final,98,1,monitored_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/monitored_write,True,True,True,True,,Write below monitored dir,"{""Write below monitored dir"": 1}"
+go-final,99,1,packet_socket,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/packet_socket,True,True,True,,True,,{}
+go-final,100,1,authorized_keys,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/authorized_keys,True,True,True,True,,Adding ssh keys to authorized_keys | Write below monitored dir,"{""Adding ssh keys to authorized_keys"": 1, ""Write below monitored dir"": 1}"
+go-final,101,1,packet_socket,linux-go-static,True,/opt/coverage/linux-go-static/coverage/packet_socket,True,True,True,,True,,{}
+go-final,102,1,ssh_read,linux-go-static,False,/opt/coverage/linux-go-static/coverage/ssh_read,True,True,True,True,,Read ssh information,"{""Read ssh information"": 1}"
+go-final,103,1,binary_write,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/binary_write,True,True,True,,True,,{}
+go-final,104,1,authorized_keys,linux-go-static,True,/opt/coverage/linux-go-static/coverage/authorized_keys,True,True,True,,True,,{}
+go-final,105,1,drop_execute,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/drop_execute,True,True,True,,True,,{}
+go-final,106,1,ssh_read,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/ssh_read,True,True,True,,True,,{}
+go-final,107,1,reverse_shell,linux-go-static,False,/opt/coverage/linux-go-static/coverage/reverse_shell,True,True,True,False,,,{}
+go-final,108,1,exec_shm,linux-go-static,False,/opt/coverage/linux-go-static/coverage/exec_shm,True,True,True,True,,Execution from /dev/shm,"{""Execution from /dev/shm"": 1}"
+go-final,109,1,history_truncate,linux-go-static,True,/opt/coverage/linux-go-static/coverage/history_truncate,True,True,True,,True,,{}
+go-final,110,1,sensitive_symlink,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/sensitive_symlink,True,True,True,,True,,{}
+go-final,111,1,dev_file,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/dev_file,True,True,True,,True,,{}
+go-final,112,1,history_truncate,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/history_truncate,True,True,True,True,,Delete or rename shell history | Modify Shell Configuration File,"{""Delete or rename shell history"": 1, ""Modify Shell Configuration File"": 1}"
+go-final,113,1,packet_socket,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/packet_socket,True,True,True,True,,Packet socket created in container,"{""Packet socket created in container"": 1}"
+go-final,114,1,traversal_read,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/traversal_read,True,True,True,True,,Directory traversal monitored file read | Read sensitive file untrusted,"{""Directory traversal monitored file read"": 1, ""Read sensitive file untrusted"": 1}"
+go-final,115,1,traversal_read,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/traversal_read,True,True,True,True,,Directory traversal monitored file read | Read sensitive file untrusted,"{""Directory traversal monitored file read"": 1, ""Read sensitive file untrusted"": 1}"
+go-final,116,1,history_truncate,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/history_truncate,True,True,True,,True,,{}
+go-final,117,1,binary_mkdir,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/binary_mkdir,True,True,True,,True,,{}
+go-final,118,1,ptrace_attach,linux-go-static,False,/opt/coverage/linux-go-static/coverage/ptrace_attach,True,True,True,True,,PTRACE attached to process,"{""PTRACE attached to process"": 1}"
+go-final,119,1,sensitive_read,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/sensitive_read,True,True,True,True,,Read sensitive file untrusted,"{""Read sensitive file untrusted"": 1}"
+go-final,120,1,etc_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/etc_write,True,True,True,,True,,{}
+go-final,121,1,metadata_cloud,linux-go-static,True,/opt/coverage/linux-go-static/coverage/metadata_cloud,True,False,False,,True,,{}
+go-final,122,1,ptrace_traceme,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/ptrace_traceme,True,True,True,True,,PTRACE anti-debug attempt,"{""PTRACE anti-debug attempt"": 1}"
+go-final,123,1,binary_rename,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/binary_rename,True,True,True,True,,Modify binary dirs,"{""Modify binary dirs"": 1}"
+go-final,124,1,shell_config_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/shell_config_write,True,True,True,True,,Modify Shell Configuration File | Write below root,"{""Modify Shell Configuration File"": 1, ""Write below root"": 1}"
+go-final,125,1,setid_mode,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/setid_mode,True,True,True,True,,Set Setuid or Setgid bit,"{""Set Setuid or Setgid bit"": 1}"
+go-final,126,1,etc_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/etc_write,True,True,True,True,,Write below etc,"{""Write below etc"": 1}"
+go-final,127,1,ssh_read,linux-go-static,True,/opt/coverage/linux-go-static/coverage/ssh_read,True,True,True,,True,,{}
+go-final,128,1,memfd_execute,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/memfd_execute,True,True,True,,True,,{}
+go-final,129,1,drop_execute,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/drop_execute,True,True,True,True,,Drop and execute new binary in container,"{""Drop and execute new binary in container"": 1}"
+go-final,130,1,ptrace_attach,linux-go-static,True,/opt/coverage/linux-go-static/coverage/ptrace_attach,True,True,True,,True,,{}
+go-final,131,1,sensitive_symlink,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/sensitive_symlink,True,True,True,True,,Create Symlink Over Sensitive Files,"{""Create Symlink Over Sensitive Files"": 1}"
+go-final,132,1,ssh_read,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/ssh_read,True,True,True,,True,,{}
+go-final,133,1,dev_file,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/dev_file,True,True,True,True,,Create files below dev,"{""Create files below dev"": 1}"
+go-final,134,1,binary_mkdir,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/binary_mkdir,True,True,True,,True,,{}
+go-final,135,1,binary_rename,linux-go-static,True,/opt/coverage/linux-go-static/coverage/binary_rename,True,True,True,,True,,{}
+go-final,136,1,sensitive_symlink,linux-go-static,True,/opt/coverage/linux-go-static/coverage/sensitive_symlink,True,True,True,,True,,{}
+go-final,137,1,root_write,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/root_write,True,True,True,,True,,{}
+go-final,138,1,udp_exchange,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/udp_exchange,True,True,True,,True,,{}
+go-final,139,1,memfd_execute,linux-go-static,False,/opt/coverage/linux-go-static/coverage/memfd_execute,True,True,True,True,,Fileless execution via memfd_create,"{""Fileless execution via memfd_create"": 1}"
+go-final,140,1,packet_socket,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/packet_socket,True,True,True,True,,Packet socket created in container,"{""Packet socket created in container"": 1}"
+go-final,141,1,ssh_read,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/ssh_read,True,True,True,True,,Read ssh information,"{""Read ssh information"": 1}"
+go-final,142,1,udp_exchange,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/udp_exchange,True,True,True,True,,Unexpected UDP Traffic,"{""Unexpected UDP Traffic"": 1}"
+go-final,143,1,metadata_ec2,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/metadata_ec2,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container,"{""Contact EC2 Instance Metadata Service From Container"": 1, ""Contact cloud metadata service from container"": 1}"
+go-final,144,1,shell_config_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/shell_config_write,True,True,True,,True,,{}
+go-final,145,1,metadata_cloud,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/metadata_cloud,True,True,True,,True,,{}
+go-final,146,1,metadata_ec2,linux-go-static,True,/opt/coverage/linux-go-static/coverage/metadata_ec2,True,False,False,,True,,{}
+go-final,147,1,repository_write,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/repository_write,True,True,True,,True,,{}
+go-final,148,1,binary_rename,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/binary_rename,True,True,True,,True,,{}
+go-final,149,1,authorized_keys,linux-go-static,False,/opt/coverage/linux-go-static/coverage/authorized_keys,True,True,True,True,,Adding ssh keys to authorized_keys | Write below monitored dir,"{""Adding ssh keys to authorized_keys"": 1, ""Write below monitored dir"": 1}"
+go-final,150,1,sensitive_hardlink,linux-go-static,False,/opt/coverage/linux-go-static/coverage/sensitive_hardlink,True,True,True,True,,Create Hardlink Over Sensitive Files,"{""Create Hardlink Over Sensitive Files"": 1}"
+go-final,151,1,ptrace_attach,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/ptrace_attach,True,True,True,,True,,{}
+go-final,152,1,setid_mode,linux-go-static,True,/opt/coverage/linux-go-static/coverage/setid_mode,True,True,True,,True,,{}
+go-final,153,1,log_truncate,linux-go-static,False,/opt/coverage/linux-go-static/coverage/log_truncate,True,True,True,True,,Clear Log Activities,"{""Clear Log Activities"": 1}"
+go-final,154,1,drop_execute,linux-go-static,False,/opt/coverage/linux-go-static/coverage/drop_execute,True,True,True,True,,Drop and execute new binary in container,"{""Drop and execute new binary in container"": 1}"
+go-final,155,1,cron_write,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/cron_write,True,True,True,,True,,{}
+go-final,156,1,history_truncate,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/history_truncate,True,True,True,,True,,{}
+go-final,157,1,udp_exchange,linux-go-static,True,/opt/coverage/linux-go-static/coverage/udp_exchange,True,True,True,,True,,{}
+go-final,158,1,exec_shm,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/exec_shm,True,True,True,,True,,{}
+go-final,159,1,etc_write,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/etc_write,True,True,True,,True,,{}
+go-final,160,1,reverse_shell,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/reverse_shell,True,True,True,,True,,{}
+go-final,161,1,monitored_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/monitored_write,True,True,True,,True,,{}
+go-final,162,1,shell_config_write,linux-go-static,True,/opt/coverage/linux-go-static/coverage/shell_config_write,True,True,True,,True,,{}
+go-final,163,1,dev_file,linux-go-static,True,/opt/coverage/linux-go-static/coverage/dev_file,True,True,True,,True,,{}
+go-final,164,1,log_truncate,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/log_truncate,True,True,True,True,,Clear Log Activities,"{""Clear Log Activities"": 1}"
+go-final,165,1,dev_file,linux-go-static,False,/opt/coverage/linux-go-static/coverage/dev_file,True,True,True,True,,Create files below dev,"{""Create files below dev"": 1}"
+go-final,166,1,metadata_cloud,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/metadata_cloud,True,True,True,,True,,{}
+go-final,167,1,sensitive_hardlink,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/sensitive_hardlink,True,True,True,,True,,{}
+go-final,168,1,packet_socket,linux-go-static,False,/opt/coverage/linux-go-static/coverage/packet_socket,True,True,True,True,,Packet socket created in container,"{""Packet socket created in container"": 1}"
+go-final,169,1,binary_write,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/binary_write,True,True,True,True,,Write below binary dir,"{""Write below binary dir"": 1}"
+go-final,170,1,traversal_read,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/traversal_read,True,True,True,,True,,{}
+go-final,171,1,reverse_shell,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/reverse_shell,True,True,True,True,,Redirect STDOUT/STDIN to Network Connection in Container,"{""Redirect STDOUT/STDIN to Network Connection in Container"": 3}"
+go-final,172,1,root_write,linux-go-static,False,/opt/coverage/linux-go-static/coverage/root_write,True,True,True,True,,Write below root,"{""Write below root"": 1}"
+go-final,173,1,binary_rename,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/binary_rename,True,True,True,True,,Modify binary dirs,"{""Modify binary dirs"": 1}"
+go-final,174,1,negative,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/negative,True,True,True,,True,,{}
+go-final,175,1,binary_mkdir,linux-go-static,False,/opt/coverage/linux-go-static/coverage/binary_mkdir,True,True,True,True,,Mkdir binary dirs | Modify binary dirs,"{""Mkdir binary dirs"": 1, ""Modify binary dirs"": 2}"
+go-final,176,1,log_truncate,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/log_truncate,True,True,True,,True,,{}
+go-final,177,1,cron_write,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/cron_write,True,True,True,True,,Schedule Cron Jobs | Write below etc,"{""Schedule Cron Jobs"": 1, ""Write below etc"": 1}"
+go-final,178,1,sensitive_symlink,linux-go-static,False,/opt/coverage/linux-go-static/coverage/sensitive_symlink,True,True,True,True,,Create Symlink Over Sensitive Files,"{""Create Symlink Over Sensitive Files"": 1}"
+go-final,179,1,reverse_shell,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/reverse_shell,True,True,True,False,,,{}
+go-final,180,1,dev_file,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/dev_file,True,True,True,True,,Create files below dev,"{""Create files below dev"": 1}"
+go-final,181,1,sensitive_symlink,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/sensitive_symlink,True,True,True,True,,Create Symlink Over Sensitive Files,"{""Create Symlink Over Sensitive Files"": 1}"
+go-final,182,1,setid_mode,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/setid_mode,True,True,True,True,,Set Setuid or Setgid bit,"{""Set Setuid or Setgid bit"": 1}"
+go-recheck1,0,1,setid_mode,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/setid_mode,True,True,True,True,,Set Setuid or Setgid bit,"{""Set Setuid or Setgid bit"": 1}"
+go-recheck1,1,1,metadata_cloud,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/metadata_cloud,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container,"{""Contact EC2 Instance Metadata Service From Container"": 1, ""Contact cloud metadata service from container"": 1}"
+go-recheck1,2,1,root_write,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/root_write,True,True,True,,True,,{}
+go-recheck1,3,1,metadata_ec2,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/metadata_ec2,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container,"{""Contact EC2 Instance Metadata Service From Container"": 1, ""Contact cloud metadata service from container"": 1}"
+go-recheck1,4,1,metadata_ec2,linux-go-static,False,/opt/coverage/linux-go-static/coverage/metadata_ec2,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container,"{""Contact EC2 Instance Metadata Service From Container"": 1, ""Contact cloud metadata service from container"": 1}"
+go-recheck1,5,1,metadata_ec2,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/metadata_ec2,True,True,True,,True,,{}
+go-recheck1,6,1,setid_mode,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/setid_mode,True,True,True,True,,Set Setuid or Setgid bit,"{""Set Setuid or Setgid bit"": 1}"
+go-recheck1,7,1,log_truncate,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/log_truncate,True,True,True,,True,,{}
+go-recheck1,8,1,metadata_ec2,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/metadata_ec2,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container,"{""Contact EC2 Instance Metadata Service From Container"": 1, ""Contact cloud metadata service from container"": 1}"
+go-recheck1,9,1,setid_mode,linux-go-static,False,/opt/coverage/linux-go-static/coverage/setid_mode,True,True,True,True,,Set Setuid or Setgid bit,"{""Set Setuid or Setgid bit"": 1}"
+go-recheck1,10,1,metadata_cloud,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/metadata_cloud,True,True,True,,True,,{}
+go-recheck1,11,1,root_write,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/root_write,True,True,True,True,,Write below root,"{""Write below root"": 1}"
+go-recheck1,12,1,metadata_cloud,linux-go-static,False,/opt/coverage/linux-go-static/coverage/metadata_cloud,True,False,False,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container,"{""Contact EC2 Instance Metadata Service From Container"": 1, ""Contact cloud metadata service from container"": 1}"
+go-recheck1,13,1,setid_mode,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/setid_mode,True,True,True,,True,,{}
+go-recheck1,14,1,setid_mode,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/setid_mode,True,True,True,,True,,{}
+go-recheck1,15,1,negative,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/negative,True,True,True,,True,,{}
+go-recheck1,16,1,metadata_cloud,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/metadata_cloud,True,True,True,,True,,{}
+go-recheck1,17,1,root_write,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/root_write,True,True,True,True,,Write below root,"{""Write below root"": 1}"
+go-recheck1,18,1,root_write,linux-go-static,False,/opt/coverage/linux-go-static/coverage/root_write,True,True,True,True,,Write below root,"{""Write below root"": 1}"
+go-recheck1,19,1,metadata_ec2,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/metadata_ec2,True,True,True,,True,,{}
+go-recheck1,20,1,setid_mode,linux-go-static,True,/opt/coverage/linux-go-static/coverage/setid_mode,True,True,True,,True,,{}
+go-recheck1,21,1,log_truncate,linux-go-cgo,False,/opt/coverage/linux-go-cgo/coverage/log_truncate,True,True,True,True,,Clear Log Activities,"{""Clear Log Activities"": 1}"
+go-recheck1,22,1,root_write,linux-c-glibc,True,/opt/coverage/linux-c-glibc/coverage/root_write,True,True,True,,True,,{}
+go-recheck1,23,1,negative,linux-go-static,False,/opt/coverage/linux-go-static/coverage/negative,True,True,True,,True,,{}
+go-recheck1,24,1,metadata_ec2,linux-go-static,True,/opt/coverage/linux-go-static/coverage/metadata_ec2,True,True,True,,True,,{}
+go-recheck1,25,1,log_truncate,linux-go-static,True,/opt/coverage/linux-go-static/coverage/log_truncate,True,True,True,,True,,{}
+go-recheck1,26,1,log_truncate,linux-go-static,False,/opt/coverage/linux-go-static/coverage/log_truncate,True,True,True,True,,Clear Log Activities,"{""Clear Log Activities"": 1}"
+go-recheck1,27,1,negative,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/negative,True,True,True,,True,,{}
+go-recheck1,28,1,log_truncate,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/log_truncate,True,True,True,True,,Clear Log Activities,"{""Clear Log Activities"": 1}"
+go-recheck1,29,1,log_truncate,linux-go-cgo,True,/opt/coverage/linux-go-cgo/coverage/log_truncate,True,True,True,,True,,{}
+go-recheck1,30,1,root_write,linux-go-static,True,/opt/coverage/linux-go-static/coverage/root_write,True,True,True,,True,,{}
+go-recheck1,31,1,metadata_cloud,linux-c-glibc,False,/opt/coverage/linux-c-glibc/coverage/metadata_cloud,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container,"{""Contact EC2 Instance Metadata Service From Container"": 1, ""Contact cloud metadata service from container"": 1}"
+go-recheck1,32,1,metadata_cloud,linux-go-static,True,/opt/coverage/linux-go-static/coverage/metadata_cloud,True,True,True,,True,,{}
