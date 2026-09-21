@@ -1,8 +1,8 @@
 name: Build Composites
 
 # Build the TTP composites -- multi-step ATT&CK techniques -- across the same
-# toolchain/runtime substrate matrix as the primitives. The expanded Linux C
-# and C++ suite adds behavior verification and exact-rule evidence tests; live Falco
+# toolchain/runtime substrate matrix as the primitives. The expanded Linux
+# C, C++, and Go suite adds behavior verification and exact-rule evidence tests; live Falco
 # qualification runs on the disposable lab host. Each
 # job stages its config's composites into composite-dist/<config>/ and uploads
 # an artifact named composite-<config>, consumed by the release workflow.
@@ -160,7 +160,7 @@ jobs:
       - name: Install build dependencies
         run: |
           apt-get update
-          apt-get install -y golang gcc git
+          apt-get install -y golang gcc git libc6-dev python3 binutils
 
       - name: Build and stage composites
         working-directory: ttp-composite/linux/go
@@ -170,6 +170,9 @@ jobs:
           for p in reverse_shell imds read_sensitive_file symlink_sensitive clear_log mkdir_bin ptrace_antidebug; do
             go build -o ../../../composite-dist/${{ matrix.config }}/$p ./$p
           done
+          bash coverage/build.sh ../../../composite-dist/${{ matrix.config }}
+          gcc -static -O2 -Wall -Wextra -Werror ../c/coverage/helper.c -o ../../../composite-dist/${{ matrix.config }}/falco_helper
+          go vet ./coverage/...
 
       - name: Upload composites
         uses: actions/upload-artifact@v7

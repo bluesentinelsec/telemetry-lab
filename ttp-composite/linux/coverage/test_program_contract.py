@@ -53,3 +53,23 @@ class ProgramContractTests(unittest.TestCase):
             with patch('verify_programs.subprocess.check_output',side_effect=unused):
                 with self.assertRaisesRegex(ValueError,'does not use'):
                     verify(self.root,runtime)
+
+    def test_go_configuration_cannot_be_relabelled(self):
+        for runtime,cgo in [('go-cgo','1'),('go-static','0')]:
+            def output(args, **kwargs):
+                if args[0]=='go': return f'CGO_ENABLED={cgo} GOOS=linux GOARCH=amd64'
+                if '-l' in args: return 'INTERP ld-linux' if cgo=='1' else 'LOAD'
+                return 'NEEDED [libc.so.6]' if cgo=='1' else ''
+            with patch('verify_programs.subprocess.check_output',side_effect=output):
+                verify(self.root,runtime)
+            def mismatched(args, **kwargs):
+                return output(args).replace('CGO_ENABLED='+cgo,'CGO_ENABLED='+str(1-int(cgo)))
+            with patch('verify_programs.subprocess.check_output',side_effect=mismatched):
+                with self.assertRaisesRegex(ValueError,'wrong Go build configuration'):
+                    verify(self.root,runtime)
+        def relabelled_static(args, **kwargs):
+            if args[0]=='go': return 'CGO_ENABLED=0 GOOS=linux GOARCH=amd64'
+            return 'INTERP ld-linux NEEDED [libc.so.6]'
+        with patch('verify_programs.subprocess.check_output',side_effect=relabelled_static):
+            with self.assertRaisesRegex(ValueError,'not a static Go program'):
+                verify(self.root,'go-static')
