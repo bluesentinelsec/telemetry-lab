@@ -1,5 +1,11 @@
 # ttp-composite
 
+The expanded [Linux C coverage suite](linux/coverage/README.md) implements 30
+explicitly mapped Falco rule tests against a pinned 95-rule corpus. It validates
+behavior independently of alerts and compares glibc with musl. The seven-case
+multi-language pilot described below remains available; the new coverage suite
+has not yet been ported to the other languages or Windows.
+
 Behavioral **composite** techniques for the telemetry-lab study's tier-2
 question: *does execution substrate change whether a shipped behavioral
 detection fires?* Where `ttp-primitives` measures raw telemetry **emission**,
@@ -7,8 +13,9 @@ detection fires?* Where `ttp-primitives` measures raw telemetry **emission**,
 technique implemented natively across the substrate matrix and detonated against
 an unmodified, shipped detector (Falco on Linux).
 
-Composites are validated by **whether a rule fires**, not by unit tests, so
-(unlike the primitives) they carry no test harness.
+The original pilot below validates composites by whether an alert appears.
+The expanded coverage suite adds independent behavioral checks, exact-rule
+attribution, negative controls, and collector-health gates.
 
 ## Layout
 

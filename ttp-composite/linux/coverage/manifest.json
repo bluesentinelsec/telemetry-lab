@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "upstream_commit": "e822409d8a2a28c9719f56ace66e8cadebfd2bc3",
+  "provided_rules": 95,
+  "stock_enabled_rules": 81,
+  "selected_rules": 30,
+  "rule_files": [
+    {
+      "file": "falco_rules.yaml",
+      "sha256": "30a1a60263ab97650c851011468da03b17fc0096a7cfa3b6686eba5de73b865b",
+      "rules": 25,
+      "stock_enabled": 25
+    },
+    {
+      "file": "falco-incubating_rules.yaml",
+      "sha256": "47bf87041e2f39ca336e7acf1ae4e6183771a92e81031f367d01f2b49cabe1ac",
+      "rules": 31,
+      "stock_enabled": 31
+    },
+    {
+      "file": "falco-sandbox_rules.yaml",
+      "sha256": "f05ad34f07c43930932ea6dd84c08a37bc8e5ba9f88901ca091ff1b52b3f33d3",
+      "rules": 39,
+      "stock_enabled": 25
+    }
+  ],
+  "cases": [
+    {
+      "id": "traversal_read",
+      "rule": "Directory traversal monitored file read",
+      "family": "File access",
+      "behavior": "Open a fixture through a path containing at least two parent-directory traversals; control parent-process context."
+    },
+    {
+      "id": "sensitive_read",
+      "rule": "Read sensitive file untrusted",
+      "family": "File access",
+      "behavior": "Read a designated sensitive-path fixture from the native test program."
+    },
+    {
+      "id": "log_truncate",
+      "rule": "Clear Log Activities",
+      "family": "File modification",
+      "behavior": "Truncate a designated test log under /var/log."
+    },
+    {
+      "id": "sensitive_symlink",
+      "rule": "Create Symlink Over Sensitive Files",
+      "family": "File links",
+      "behavior": "Create and remove a symbolic link to a designated sensitive path."
+    },
+    {
+      "id": "sensitive_hardlink",
+      "rule": "Create Hardlink Over Sensitive Files",
+      "family": "File links",
+      "behavior": "Create and remove a hard link to a fixture at a sensitive path; same filesystem and controlled ownership."
+    },
+    {
+      "id": "packet_socket",
+      "rule": "Packet socket created in container",
+      "family": "Network",
+      "behavior": "Create and close an AF_PACKET socket without capturing traffic; fixed CAP_NET_RAW configuration."
+    },
+    {
+      "id": "reverse_shell",
+      "rule": "Redirect STDOUT/STDIN to Network Connection in Container",
+      "family": "Process / network",
+      "behavior": "Execute equivalent loopback reverse-shell behavior; verify command exchange and shell completion."
+    },
+    {
+      "id": "ptrace_attach",
+      "rule": "PTRACE attached to process",
+      "family": "Process inspection",
+      "behavior": "Attach to and detach from a cooperating lab child; no injection; fixed ptrace permissions."
+    },
+    {
+      "id": "ptrace_traceme",
+      "rule": "PTRACE anti-debug attempt",
+      "family": "Process inspection",
+      "behavior": "Execute PTRACE_TRACEME and verify its outcome and clean process completion."
+    },
+    {
+      "id": "exec_shm",
+      "rule": "Execution from /dev/shm",
+      "family": "Execution",
+      "behavior": "Execute a fixed benign helper from an executable /dev/shm fixture mount; no shell-command substitution for native launch."
+    },
+    {
+      "id": "drop_execute",
+      "rule": "Drop and execute new binary in container",
+      "family": "Execution",
+      "behavior": "Copy and execute a fixed benign helper in the container writable layer; verify upper-layer metadata."
+    },
+    {
+      "id": "memfd_execute",
+      "rule": "Fileless execution via memfd_create",
+      "family": "Execution",
+      "behavior": "Load a fixed benign helper into a memfd and execute it; verify helper result."
+    },
+    {
+      "id": "shell_config_write",
+      "rule": "Modify Shell Configuration File",
+      "family": "Persistence-related file activity",
+      "behavior": "Write and restore a designated shell-configuration fixture; do not execute its contents."
+    },
+    {
+      "id": "cron_write",
+      "rule": "Schedule Cron Jobs",
+      "family": "Persistence-related file activity",
+      "behavior": "Write and remove a cron-directory fixture; no active scheduler or job execution."
+    },
+    {
+      "id": "ssh_read",
+      "rule": "Read ssh information",
+      "family": "File access",
+      "behavior": "Read a designated SSH-directory fixture containing synthetic data."
+    },
+    {
+      "id": "udp_exchange",
+      "rule": "Unexpected UDP Traffic",
+      "family": "Network",
+      "behavior": "Exchange UDP data on a port outside the supplied expected-port list using an isolated lab address satisfying the stock network predicates."
+    },
+    {
+      "id": "dev_file",
+      "rule": "Create files below dev",
+      "family": "File creation",
+      "behavior": "Create and remove a regular test file directly under the disposable container /dev."
+    },
+    {
+      "id": "metadata_ec2",
+      "rule": "Contact EC2 Instance Metadata Service From Container",
+      "family": "Network",
+      "behavior": "Connect to a lab-only emulator at 169.254.169.254; no connection to real instance metadata."
+    },
+    {
+      "id": "metadata_cloud",
+      "rule": "Contact cloud metadata service from container",
+      "family": "Network",
+      "behavior": "Same isolated metadata-connection case; score this distinct overlapping rule separately."
+    },
+    {
+      "id": "history_truncate",
+      "rule": "Delete or rename shell history",
+      "family": "File modification",
+      "behavior": "Delete, rename, or truncate a synthetic shell-history fixture; predeclare which operation is tested."
+    },
+    {
+      "id": "setid_mode",
+      "rule": "Set Setuid or Setgid bit",
+      "family": "Permissions",
+      "behavior": "Set and verify mode bits on a non-executed lab file, then restore/delete it."
+    },
+    {
+      "id": "proc_environ",
+      "rule": "Read environment variable from /proc files",
+      "family": "File access",
+      "behavior": "Read a cooperating lab process environment containing synthetic values through /proc."
+    },
+    {
+      "id": "authorized_keys",
+      "rule": "Adding ssh keys to authorized_keys",
+      "family": "Persistence-related file activity",
+      "behavior": "Write and remove a synthetic authorized_keys fixture without enabling SSH access."
+    },
+    {
+      "id": "repository_write",
+      "rule": "Update Package Repository",
+      "family": "File modification",
+      "behavior": "Write and remove a controlled Debian package-source fixture; do not run package updates."
+    },
+    {
+      "id": "binary_write",
+      "rule": "Write below binary dir",
+      "family": "File modification",
+      "behavior": "Write and remove a non-executed fixture in a system binary directory."
+    },
+    {
+      "id": "monitored_write",
+      "rule": "Write below monitored dir",
+      "family": "File modification",
+      "behavior": "Write and remove a fixture in a path selected from the unchanged monitored-directory list."
+    },
+    {
+      "id": "etc_write",
+      "rule": "Write below etc",
+      "family": "File modification",
+      "behavior": "Write and remove a fixture under /etc outside stock exclusion paths."
+    },
+    {
+      "id": "root_write",
+      "rule": "Write below root",
+      "family": "File modification",
+      "behavior": "Write and remove a fixture under /root outside stock exclusions."
+    },
+    {
+      "id": "binary_rename",
+      "rule": "Modify binary dirs",
+      "family": "File modification",
+      "behavior": "Rename or remove a fixture within a system binary directory."
+    },
+    {
+      "id": "binary_mkdir",
+      "rule": "Mkdir binary dirs",
+      "family": "File creation",
+      "behavior": "Create and remove an empty directory under a system binary path."
+    }
+  ],
+  "configs": [
+    "linux-c-glibc",
+    "linux-c-musl"
+  ]
+}

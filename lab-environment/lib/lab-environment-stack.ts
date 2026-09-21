@@ -46,6 +46,8 @@ const WINDOWS_2025_SSM_PARAM =
 export interface LabEnvironmentStackProps extends cdk.StackProps {
   /** EC2 instance type for both hosts. Default: c7i.xlarge (4 vCPU / 8 GiB). */
   readonly instanceType?: string;
+  /** Skip the Windows host when validating Linux-only changes. */
+  readonly linuxOnly?: boolean;
   /** Root volume size in GiB for both hosts. Default: 150. */
   readonly diskGiB?: number;
 }
@@ -236,107 +238,112 @@ export class LabEnvironmentStack extends cdk.Stack {
     });
     cdk.Tags.of(debian).add('Name', 'lab-debian-13');
 
-    // Windows provisioning, in order:
-    //   1. Create the release dir C:\lab and exclude it from Defender FIRST, so
-    //      nothing downloaded into it is scanned/quarantined even in the window
-    //      before Defender is disabled.
-    //   2. Disable Defender broadly -- this is a detection-centric telemetry
-    //      study, so Defender is a confound (it can delay/quarantine primitives
-    //      and perturb ETW). Then remove the Server feature entirely so MsMpEng
-    //      does not run at all (no scan noise, no resource contention); a
-    //      feature removal needs a reboot, taken as the last step. Set-MpPreference
-    //      may be reverted if Tamper Protection is on, so the removal is the
-    //      durable path; both are attempted and verified post-deploy.
-    //   3. Install the AWS CLI for moving bundles/data to and from S3.
-    const windowsUserData = ec2.UserData.forWindows();
-    windowsUserData.addCommands(
-      'New-Item -ItemType Directory -Force -Path C:\\lab | Out-Null',
-      "try { Add-MpPreference -ExclusionPath 'C:\\lab' -ErrorAction Stop } catch {}",
-      'try {',
-      '  Set-MpPreference -DisableRealtimeMonitoring $true -ErrorAction Stop',
-      '  Set-MpPreference -DisableBehaviorMonitoring $true',
-      '  Set-MpPreference -DisableIOAVProtection $true',
-      '  Set-MpPreference -DisableScriptScanning $true',
-      '  Set-MpPreference -DisableArchiveScanning $true',
-      '  Set-MpPreference -MAPSReporting Disabled -SubmitSamplesConsent NeverSend',
-      '  Set-MpPreference -PUAProtection Disabled',
-      '} catch {}',
-      "try { New-Item -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' -Force | Out-Null; " +
-        "Set-ItemProperty 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' -Name 'SmartScreenEnabled' -Value 'Off' } catch {}",
-      '$msi = "$env:TEMP\\AWSCLIV2.msi"',
-      "Invoke-WebRequest -Uri 'https://awscli.amazonaws.com/AWSCLIV2.msi' -OutFile $msi -UseBasicParsing",
-      'Start-Process msiexec.exe -ArgumentList "/i `"$msi`" /qn" -Wait',
-      // --- Detection tooling under test: Sysmon + Hayabusa (latest) ---
-      // Installed BEFORE the Defender feature removal below, because that step may
-      // reboot and end the user-data script. Both are consumed at their LATEST
-      // release (not pinned); scripts/capture-provenance.ps1 records the exact
-      // versions + hashes per deploy. Everything lands under C:\lab, which was
-      // excluded from Defender first, so nothing is scanned/quarantined.
-      'New-Item -ItemType Directory -Force -Path C:\\lab\\sysmon | Out-Null',
-      'New-Item -ItemType Directory -Force -Path C:\\lab\\hayabusa | Out-Null',
-      // Sysmon (ETW sensor): latest from Sysinternals + a log-all config. The
-      // config filters nothing (each event class is onmatch="exclude" with no
-      // rules => nothing excluded => everything logged), so Sigma rules see the
-      // full event stream and a null result means "robust", not "not captured".
-      "Invoke-WebRequest -Uri 'https://download.sysinternals.com/files/Sysmon.zip' -OutFile C:\\lab\\Sysmon.zip -UseBasicParsing",
-      'Expand-Archive -Path C:\\lab\\Sysmon.zip -DestinationPath C:\\lab\\sysmon -Force',
-      "$cfgB64 = 'PFN5c21vbiBzY2hlbWF2ZXJzaW9uPSI0LjkwIj4KICA8SGFzaEFsZ29yaXRobXM+KjwvSGFzaEFsZ29yaXRobXM+CiAgPEV2ZW50RmlsdGVyaW5nPgogICAgPFByb2Nlc3NDcmVhdGUgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGVUaW1lIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxOZXR3b3JrQ29ubmVjdCBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8UHJvY2Vzc1Rlcm1pbmF0ZSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8RHJpdmVyTG9hZCBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8SW1hZ2VMb2FkIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxDcmVhdGVSZW1vdGVUaHJlYWQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFJhd0FjY2Vzc1JlYWQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFByb2Nlc3NBY2Nlc3Mgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGUgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFJlZ2lzdHJ5RXZlbnQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGVTdHJlYW1IYXNoIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxQaXBlRXZlbnQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFdtaUV2ZW50IG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxEbnNRdWVyeSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8RmlsZURlbGV0ZSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8Q2xpcGJvYXJkQ2hhbmdlIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxQcm9jZXNzVGFtcGVyaW5nIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxGaWxlRGVsZXRlRGV0ZWN0ZWQgb25tYXRjaD0iZXhjbHVkZSIvPgogIDwvRXZlbnRGaWx0ZXJpbmc+CjwvU3lzbW9uPgo='",
-      "[IO.File]::WriteAllText('C:\\lab\\sysmon\\config.xml', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($cfgB64)))",
-      '& C:\\lab\\sysmon\\Sysmon64.exe -accepteula -i C:\\lab\\sysmon\\config.xml',
-      // Hayabusa (Sigma evaluator): latest win-x64 release asset resolved via the
-      // GitHub API, extracted to C:\lab\hayabusa; the release bundles its Sigma
-      // ruleset under rules\. Normalize the versioned exe name to hayabusa.exe.
-      "$hdr = @{ 'User-Agent' = 'telemetry-lab' }",
-      "$rel = Invoke-RestMethod -Uri 'https://api.github.com/repos/Yamato-Security/hayabusa/releases/latest' -Headers $hdr",
-      "$asset = $rel.assets | Where-Object { $_.name -like '*-win-x64.zip' -and $_.name -notlike '*live-response*' } | Select-Object -First 1",
-      "Invoke-WebRequest -Uri $asset.browser_download_url -OutFile C:\\lab\\hayabusa.zip -UseBasicParsing",
-      'Expand-Archive -Path C:\\lab\\hayabusa.zip -DestinationPath C:\\lab\\hayabusa -Force',
-      "$hb = Get-ChildItem -Path C:\\lab\\hayabusa -Recurse -Filter 'hayabusa*-win-x64.exe' | Select-Object -First 1",
-      "if ($hb) { Copy-Item $hb.FullName C:\\lab\\hayabusa\\hayabusa.exe -Force }",
-      // --- Lab payload: telemetry-lab release bundle (latest) ---
-      // The project's own release (tmon, tap, ttp-primitives, substrate manifests),
-      // fetched at its latest tag and extracted under C:\lab\telemetry-lab so a fresh
-      // host is experiment-ready. The zip is kept for hashing; inventory.ps1 derives
-      // the version from the extracted directory name and records path + SHA-256.
-      "$tl = Invoke-RestMethod -Uri 'https://api.github.com/repos/bluesentinelsec/telemetry-lab/releases/latest' -Headers $hdr",
-      "$tla = $tl.assets | Where-Object { $_.name -like '*windows.zip' } | Select-Object -First 1",
-      "Invoke-WebRequest -Uri $tla.browser_download_url -OutFile C:\\lab\\telemetry-lab.zip -UseBasicParsing",
-      'Expand-Archive -Path C:\\lab\\telemetry-lab.zip -DestinationPath C:\\lab\\telemetry-lab -Force',
-      // --- Provenance: self-inventory (LAST step before the reboot, everything installed) ---
-      // Decode the authored scripts/inventory-windows.ps1 (embedded at synth) and run
-      // it; it writes C:\lab\inventory.json with versions + SHA-256 + paths. tap reads
-      // this file co-located with telemetry data to stamp analysis output.
-      `$invB64 = '${INVENTORY_WINDOWS_B64}'`,
-      "[IO.File]::WriteAllText('C:\\lab\\inventory-self.ps1', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($invB64)))",
-      'powershell -ExecutionPolicy Bypass -File C:\\lab\\inventory-self.ps1',
-      // Remove Defender entirely; reboot only if the feature removal asks for it.
-      '$rm = $null',
-      'try { $rm = Uninstall-WindowsFeature -Name Windows-Defender -ErrorAction Stop } catch {}',
-      "if ($rm -and $rm.RestartNeeded -eq 'Yes') { Restart-Computer -Force }",
-    );
+    const hosts = [debian];
+    if (!props.linuxOnly) {
+      // Windows provisioning, in order:
+      //   1. Create the release dir C:\lab and exclude it from Defender FIRST, so
+      //      nothing downloaded into it is scanned/quarantined even in the window
+      //      before Defender is disabled.
+      //   2. Disable Defender broadly -- this is a detection-centric telemetry
+      //      study, so Defender is a confound (it can delay/quarantine primitives
+      //      and perturb ETW). Then remove the Server feature entirely so MsMpEng
+      //      does not run at all (no scan noise, no resource contention); a
+      //      feature removal needs a reboot, taken as the last step. Set-MpPreference
+      //      may be reverted if Tamper Protection is on, so the removal is the
+      //      durable path; both are attempted and verified post-deploy.
+      //   3. Install the AWS CLI for moving bundles/data to and from S3.
+      const windowsUserData = ec2.UserData.forWindows();
+      windowsUserData.addCommands(
+        'New-Item -ItemType Directory -Force -Path C:\\lab | Out-Null',
+        "try { Add-MpPreference -ExclusionPath 'C:\\lab' -ErrorAction Stop } catch {}",
+        'try {',
+        '  Set-MpPreference -DisableRealtimeMonitoring $true -ErrorAction Stop',
+        '  Set-MpPreference -DisableBehaviorMonitoring $true',
+        '  Set-MpPreference -DisableIOAVProtection $true',
+        '  Set-MpPreference -DisableScriptScanning $true',
+        '  Set-MpPreference -DisableArchiveScanning $true',
+        '  Set-MpPreference -MAPSReporting Disabled -SubmitSamplesConsent NeverSend',
+        '  Set-MpPreference -PUAProtection Disabled',
+        '} catch {}',
+        "try { New-Item -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' -Force | Out-Null; " +
+          "Set-ItemProperty 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' -Name 'SmartScreenEnabled' -Value 'Off' } catch {}",
+        '$msi = "$env:TEMP\\AWSCLIV2.msi"',
+        "Invoke-WebRequest -Uri 'https://awscli.amazonaws.com/AWSCLIV2.msi' -OutFile $msi -UseBasicParsing",
+        'Start-Process msiexec.exe -ArgumentList "/i `"$msi`" /qn" -Wait',
+        // --- Detection tooling under test: Sysmon + Hayabusa (latest) ---
+        // Installed BEFORE the Defender feature removal below, because that step may
+        // reboot and end the user-data script. Both are consumed at their LATEST
+        // release (not pinned); scripts/capture-provenance.ps1 records the exact
+        // versions + hashes per deploy. Everything lands under C:\lab, which was
+        // excluded from Defender first, so nothing is scanned/quarantined.
+        'New-Item -ItemType Directory -Force -Path C:\\lab\\sysmon | Out-Null',
+        'New-Item -ItemType Directory -Force -Path C:\\lab\\hayabusa | Out-Null',
+        // Sysmon (ETW sensor): latest from Sysinternals + a log-all config. The
+        // config filters nothing (each event class is onmatch="exclude" with no
+        // rules => nothing excluded => everything logged), so Sigma rules see the
+        // full event stream and a null result means "robust", not "not captured".
+        "Invoke-WebRequest -Uri 'https://download.sysinternals.com/files/Sysmon.zip' -OutFile C:\\lab\\Sysmon.zip -UseBasicParsing",
+        'Expand-Archive -Path C:\\lab\\Sysmon.zip -DestinationPath C:\\lab\\sysmon -Force',
+        "$cfgB64 = 'PFN5c21vbiBzY2hlbWF2ZXJzaW9uPSI0LjkwIj4KICA8SGFzaEFsZ29yaXRobXM+KjwvSGFzaEFsZ29yaXRobXM+CiAgPEV2ZW50RmlsdGVyaW5nPgogICAgPFByb2Nlc3NDcmVhdGUgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGVUaW1lIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxOZXR3b3JrQ29ubmVjdCBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8UHJvY2Vzc1Rlcm1pbmF0ZSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8RHJpdmVyTG9hZCBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8SW1hZ2VMb2FkIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxDcmVhdGVSZW1vdGVUaHJlYWQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFJhd0FjY2Vzc1JlYWQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFByb2Nlc3NBY2Nlc3Mgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGUgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFJlZ2lzdHJ5RXZlbnQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGVTdHJlYW1IYXNoIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxQaXBlRXZlbnQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFdtaUV2ZW50IG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxEbnNRdWVyeSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8RmlsZURlbGV0ZSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8Q2xpcGJvYXJkQ2hhbmdlIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxQcm9jZXNzVGFtcGVyaW5nIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxGaWxlRGVsZXRlRGV0ZWN0ZWQgb25tYXRjaD0iZXhjbHVkZSIvPgogIDwvRXZlbnRGaWx0ZXJpbmc+CjwvU3lzbW9uPgo='",
+        "[IO.File]::WriteAllText('C:\\lab\\sysmon\\config.xml', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($cfgB64)))",
+        '& C:\\lab\\sysmon\\Sysmon64.exe -accepteula -i C:\\lab\\sysmon\\config.xml',
+        // Hayabusa (Sigma evaluator): latest win-x64 release asset resolved via the
+        // GitHub API, extracted to C:\lab\hayabusa; the release bundles its Sigma
+        // ruleset under rules\. Normalize the versioned exe name to hayabusa.exe.
+        "$hdr = @{ 'User-Agent' = 'telemetry-lab' }",
+        "$rel = Invoke-RestMethod -Uri 'https://api.github.com/repos/Yamato-Security/hayabusa/releases/latest' -Headers $hdr",
+        "$asset = $rel.assets | Where-Object { $_.name -like '*-win-x64.zip' -and $_.name -notlike '*live-response*' } | Select-Object -First 1",
+        "Invoke-WebRequest -Uri $asset.browser_download_url -OutFile C:\\lab\\hayabusa.zip -UseBasicParsing",
+        'Expand-Archive -Path C:\\lab\\hayabusa.zip -DestinationPath C:\\lab\\hayabusa -Force',
+        "$hb = Get-ChildItem -Path C:\\lab\\hayabusa -Recurse -Filter 'hayabusa*-win-x64.exe' | Select-Object -First 1",
+        "if ($hb) { Copy-Item $hb.FullName C:\\lab\\hayabusa\\hayabusa.exe -Force }",
+        // --- Lab payload: telemetry-lab release bundle (latest) ---
+        // The project's own release (tmon, tap, ttp-primitives, substrate manifests),
+        // fetched at its latest tag and extracted under C:\lab\telemetry-lab so a fresh
+        // host is experiment-ready. The zip is kept for hashing; inventory.ps1 derives
+        // the version from the extracted directory name and records path + SHA-256.
+        "$tl = Invoke-RestMethod -Uri 'https://api.github.com/repos/bluesentinelsec/telemetry-lab/releases/latest' -Headers $hdr",
+        "$tla = $tl.assets | Where-Object { $_.name -like '*windows.zip' } | Select-Object -First 1",
+        "Invoke-WebRequest -Uri $tla.browser_download_url -OutFile C:\\lab\\telemetry-lab.zip -UseBasicParsing",
+        'Expand-Archive -Path C:\\lab\\telemetry-lab.zip -DestinationPath C:\\lab\\telemetry-lab -Force',
+        // --- Provenance: self-inventory (LAST step before the reboot, everything installed) ---
+        // Decode the authored scripts/inventory-windows.ps1 (embedded at synth) and run
+        // it; it writes C:\lab\inventory.json with versions + SHA-256 + paths. tap reads
+        // this file co-located with telemetry data to stamp analysis output.
+        `$invB64 = '${INVENTORY_WINDOWS_B64}'`,
+        "[IO.File]::WriteAllText('C:\\lab\\inventory-self.ps1', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($invB64)))",
+        'powershell -ExecutionPolicy Bypass -File C:\\lab\\inventory-self.ps1',
+        // Remove Defender entirely; reboot only if the feature removal asks for it.
+        '$rm = $null',
+        'try { $rm = Uninstall-WindowsFeature -Name Windows-Defender -ErrorAction Stop } catch {}',
+        "if ($rm -and $rm.RestartNeeded -eq 'Yes') { Restart-Computer -Force }",
+      );
 
-    // Windows Server 2025, x86_64 -- matches the windows-2025 CI runner, so the
-    // UCRT/MSVCRT runtimes and ETW behavior match. AMI resolved via SSM public
-    // parameter at deploy time, so it is region-correct and always current.
-    const windows = new ec2.Instance(this, 'WindowsHost', {
-      vpc,
-      vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
-      instanceType: new ec2.InstanceType(instanceType),
-      machineImage: ec2.MachineImage.fromSsmParameter(WINDOWS_2025_SSM_PARAM, {
-        os: ec2.OperatingSystemType.WINDOWS,
-      }),
-      securityGroup: egressOnlySecurityGroup('WindowsSecurityGroup', 'windows-2025'),
-      blockDevices: [{ deviceName: '/dev/sda1', volume: rootVolume() }],
-      userData: windowsUserData,
-      requireImdsv2: true,
-    });
-    cdk.Tags.of(windows).add('Name', 'lab-windows-2025');
+      // Windows Server 2025, x86_64 -- matches the windows-2025 CI runner, so the
+      // UCRT/MSVCRT runtimes and ETW behavior match. AMI resolved via SSM public
+      // parameter at deploy time, so it is region-correct and always current.
+      const windows = new ec2.Instance(this, 'WindowsHost', {
+        vpc,
+        vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
+        instanceType: new ec2.InstanceType(instanceType),
+        machineImage: ec2.MachineImage.fromSsmParameter(WINDOWS_2025_SSM_PARAM, {
+          os: ec2.OperatingSystemType.WINDOWS,
+        }),
+        securityGroup: egressOnlySecurityGroup('WindowsSecurityGroup', 'windows-2025'),
+        blockDevices: [{ deviceName: '/dev/sda1', volume: rootVolume() }],
+        userData: windowsUserData,
+        requireImdsv2: true,
+      });
+      cdk.Tags.of(windows).add('Name', 'lab-windows-2025');
+      hosts.push(windows);
+      new cdk.CfnOutput(this, 'WindowsInstanceId', { value: windows.instanceId });
+    }
 
     // Grant both hosts the SSM core permissions so Session Manager / RunCommand
     // work explicitly, rather than relying on the account's Default Host
     // Management Configuration being enabled. The ec2.Instance construct creates
     // each host's role, exposed as `.role`.
-    for (const host of [debian, windows]) {
+    for (const host of hosts) {
       host.role.addManagedPolicy(
         iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore'),
       );
@@ -346,7 +353,6 @@ export class LabEnvironmentStack extends cdk.Stack {
 
     new cdk.CfnOutput(this, 'Region', { value: this.region });
     new cdk.CfnOutput(this, 'DebianInstanceId', { value: debian.instanceId });
-    new cdk.CfnOutput(this, 'WindowsInstanceId', { value: windows.instanceId });
     new cdk.CfnOutput(this, 'DataBucketName', { value: dataBucket.bucketName });
   }
 }

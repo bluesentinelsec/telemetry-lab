@@ -47,6 +47,11 @@ is the `windows-2025` runner.
 
 ## Deploy
 
+For Linux-only qualification without provisioning the Windows host, pass
+`-c linuxOnly=true`. Use `-c stackName=FalcoCoverageValidation` to keep a
+temporary validation deployment separate from the normal lab stack. Defaults
+still provision both operating systems under `LabEnvironmentStack`.
+
 ```sh
 cd lab-environment
 npm install

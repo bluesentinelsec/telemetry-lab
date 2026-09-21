@@ -18,7 +18,8 @@ const account = process.env.CDK_DEFAULT_ACCOUNT;
 const instanceType = app.node.tryGetContext('instanceType');
 const diskGiBContext = app.node.tryGetContext('diskGiB');
 
-new LabEnvironmentStack(app, 'LabEnvironmentStack', {
+new LabEnvironmentStack(app, app.node.tryGetContext('stackName') ?? 'LabEnvironmentStack', {
+  linuxOnly: String(app.node.tryGetContext('linuxOnly')) === 'true',
   // A concrete env is required because the Debian AMI is resolved with a
   // context lookup (which needs account + region at synth time).
   env: { account, region },

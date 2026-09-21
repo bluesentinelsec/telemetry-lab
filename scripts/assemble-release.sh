@@ -94,6 +94,13 @@ assemble() {
     compnameargs+=( -name "$c" -o )
     [ "$os" = windows ] && compnameargs+=( -name "$c.exe" -o )
   done
+  if [ "$os" = linux ]; then
+    compnameargs+=( -name falco_cases -o -name falco_helper -o )
+    mkdir -p "$root/ttp-composite/coverage"
+    cp ttp-composite/linux/coverage/manifest.json "$root/ttp-composite/coverage/"
+    cp ttp-composite/linux/coverage/run.py ttp-composite/linux/coverage/validate_manifest.py "$root/ttp-composite/coverage/"
+    cp -R ttp-composite/linux/coverage/rules "$root/ttp-composite/coverage/"
+  fi
   for cfg in $configs; do
     local cdst="$root/ttp-composite/$cfg"
     mkdir -p "$cdst"
