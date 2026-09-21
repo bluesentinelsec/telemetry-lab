@@ -2,7 +2,7 @@ name: Build Composites
 
 # Build the TTP composites -- multi-step ATT&CK techniques -- across the same
 # toolchain/runtime substrate matrix as the primitives. The expanded Linux C
-# suite adds behavior verification and exact-rule evidence tests; live Falco
+# and C++ suite adds behavior verification and exact-rule evidence tests; live Falco
 # qualification runs on the disposable lab host. Each
 # job stages its config's composites into composite-dist/<config>/ and uploads
 # an artifact named composite-<config>, consumed by the release workflow.
@@ -109,7 +109,7 @@ jobs:
       - name: Install build dependencies
         run: |
           apt-get update
-          apt-get install -y cmake git clang libc++-dev libc++abi-dev
+          apt-get install -y cmake git clang libc++-dev libc++abi-dev gcc libc6-dev python3 binutils
 
       - name: Configure (CMake)
         working-directory: ttp-composite/linux/cpp
@@ -121,7 +121,12 @@ jobs:
 
       - name: Stage composites
         working-directory: ttp-composite/linux/cpp
-        run: cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
+        run: |
+          cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
+          gcc -static -O2 -Wall -Wextra -Werror ../c/coverage/helper.c -o ../../../composite-dist/${{ matrix.config }}/falco_helper
+
+      - name: Verify standalone C++ programs and standard library
+        run: python3 ttp-composite/linux/coverage/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.toolchain == 'linux-libstdcxx' && 'libstdcxx' || 'libcxx' }}
 
       - name: Upload composites
         uses: actions/upload-artifact@v7

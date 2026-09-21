@@ -1,6 +1,6 @@
-# Linux Falco coverage: standalone C composites
+# Linux Falco coverage: standalone C and C++ composites
 
-Thirty standalone programs target 30 of the **95** supplied syscall rules in
+Thirty standalone programs per language target 30 of the **95** supplied syscall rules in
 upstream snapshot `e822409d8a2a28c9719f56ace66e8cadebfd2bc3`. All 30 are among
 the 81 stock-enabled rules. The supplied collections contain 25 stable,
 31 incubating, and 39 sandbox rules. `manifest.json` maps each case to its own
@@ -9,10 +9,9 @@ exclusion rationale for all 95 rules.
 
 ## Standalone program contract
 
-Each case has a separate `coverage/<case>/main.c`, CMake target, executable,
+Each case has a separate `coverage/<case>/main.c` or `main.cpp`, CMake target, executable,
 and hash. It runs its one behavior with no case-selection argument. There is
-no `falco_cases` dispatcher, copied dispatcher, or shell wrapper. Both glibc
-and musl builds install the programs under `<configuration>/coverage/` so they
+no `falco_cases` dispatcher, copied dispatcher, or shell wrapper. C (glibc/musl) and C++ (libstdc++/libc++) builds install the programs under `<configuration>/coverage/` so they
 do not overwrite the original seven-composite pilot.
 
 Shared headers provide support functions. The three executable-loading cases
@@ -29,10 +28,30 @@ of the 30 selected rules.
 
 `verify_programs.py` checks the actual artifacts: complete roster, ELF format,
 unique hashes, correct runtime loader, and absence of other cases' success
-markers. CI runs this check for both C builds. Release tests preserve every
+markers. For C++, it also checks the selected dynamic standard library and actual imported
+library symbols. CI runs these checks for all four implemented configurations. Release tests preserve every
 program under its coverage subdirectory and reject accidental replacement of
 legacy binaries. The broader primitive/composite audit is tracked in
 [issue #55](https://github.com/bluesentinelsec/telemetry-lab/issues/55).
+
+## C++ implementation and comparison
+
+Clang++ and C++17 are held constant; the standard library varies between
+libstdc++ and libc++. Both configurations use glibc. File streams perform
+reads, writes, and truncation; `std::filesystem` performs links, rename,
+directory creation, permission changes, and state checks. Streams retain their
+default buffering. Paths, payloads, and success criteria match the C suite.
+A fixed umask of 0077 gives new stream-created files/directories the same
+0600/0700 permissions as the C fixtures.
+
+C++17 has no standard socket, ptrace, fork/exec, or memfd API. Those behaviors
+use native Linux/POSIX calls; helper-source reads use `std::ifstream`. Both
+runtime builds use identical source. The fixed static C helper and shell are
+shared across configurations. Every C++ executable uses the selected library
+for control/success output; this does not imply every tested operation goes
+through a C++ abstraction. The source documents which API is exercised, and
+library internals may legitimately emit different syscalls. Linking alone is
+not evidence that a particular behavior will produce a runtime difference.
 
 ## Requirements and containment
 
@@ -63,16 +82,20 @@ install dependencies and run from the staged repository root:
 
 ```sh
 sudo apt-get update
-sudo apt-get install -y gcc make cmake musl-tools libc6-dev python3-yaml
+sudo apt-get install -y gcc make cmake musl-tools libc6-dev python3-yaml \
+  clang libc++-dev libc++abi-dev binutils
 bash ttp-composite/linux/coverage/build.sh /opt/lab/standalone-build
 sudo bash ttp-composite/linux/coverage/setup-detector.sh
 sudo python3 ttp-composite/linux/coverage/run.py \
   --output /opt/lab/standalone-results --repetitions 3 --seed 20260921
 ```
 
-The same image contains both C configurations. A repetition schedules
-**122 executions**: 30 active programs and 30 same-binary controls for each
-runtime, plus two baseline executions. Three repetitions schedule 366.
+The same image contains all four C and C++ configurations. A repetition schedules
+**244 executions**: 30 active programs and 30 same-binary controls per
+configuration, plus four baselines. Three repetitions schedule 732.
+To validate just C++ (122 executions per repetition), add
+`--config linux-cpp-libstdcxx --config linux-cpp-libcxx`. The selected
+configurations are recorded in provenance; Go and Rust ports are not claimed.
 Each block is randomized. `--case ID` restricts a diagnostic run and includes
 that case's control; it does not validate the complete selection.
 
@@ -96,8 +119,8 @@ increases in any captured drop counter. Invalid attempts remain in the data.
 A healthy, successful behavior with no target alert remains a valid miss.
 
 `qualified_case_configurations` requires both a valid target hit and a valid,
-clean same-binary control for each case/runtime pair. A value of 60 documents positive/control evidence for all programs in both
-C configurations. It is descriptive, not an inclusion requirement: a valid
+clean same-binary control for each case/runtime pair. A value of 60 documents positive/control evidence for all programs in the two
+selected configurations (120 if all four configurations demonstrate positives). It is descriptive, not an inclusion requirement: a valid
 miss in another runtime remains research data once the target rule has been
 demonstrated. The process exits nonzero if a target has never been demonstrated,
 any scheduled attempt is invalid, or any negative control fails. Rechecks
@@ -123,7 +146,7 @@ archive before tearing down the disposable stack.
 python3 -m unittest discover -s ttp-composite/linux/coverage -p 'test_*.py' -v
 ```
 
-Current results are under `validation/`. Earlier dispatcher-based results are
+C results are under `validation/`; C++ results are under `validation/cpp/`. Earlier dispatcher-based results are
 retained under `validation/dispatcher-pilot/` solely as historical evidence;
 they do not validate these replacement executables. Other language ports,
 Windows coverage, and paired telemetry-analysis integration remain in
