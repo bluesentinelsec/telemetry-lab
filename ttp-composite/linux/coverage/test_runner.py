@@ -1,7 +1,7 @@
 import json
 import subprocess
 import unittest
-from run import attributed_alerts, health_ok, score
+from run import attributed_alerts, health_ok, score, suite_ok
 from validate_manifest import validate
 
 
@@ -52,6 +52,17 @@ class EvidenceTests(unittest.TestCase):
         self.assertFalse(contaminated['negative_control_ok'])
         wrong=subprocess.CompletedProcess([],0,'CASE_OK example\n','')
         self.assertFalse(score(case,wrong,[],True,{'target'})['valid'])
+
+    def test_valid_runtime_miss_is_retained_without_disqualifying_demonstrated_rule(self):
+        hit={'case':'example','config':'glibc','valid':True,'target_rule':'target','target_fired':True}
+        miss={**hit,'config':'musl','target_fired':False}
+        control={'case':'example','valid':True,'control':True,'negative_control_ok':True}
+        records=[hit,miss,control.copy(),control.copy()]
+        self.assertTrue(suite_ok(records,{'target'}))
+        self.assertFalse(suite_ok([miss,control],{'target'}))
+        records[-1]={**control,'negative_control_ok':False}
+        self.assertFalse(suite_ok(records,{'target'}))
+        self.assertFalse(suite_ok([hit,{**miss,'valid':False},control],{'target'}))
 
     def test_snapshot_and_mapping_integrity(self):
         self.assertEqual(len(validate()['cases']),30)

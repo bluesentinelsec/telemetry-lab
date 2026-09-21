@@ -76,6 +76,17 @@ def score(case, execution, alerts, collection_ok, selected):
             'negative_control_ok': not (set(matches) & selected) if not target else None,
             'matched_rules': matches}
 
+def suite_ok(records, target_rules):
+    """Require demonstrated targets, not an alert from every runtime.
+
+    A healthy, successful execution without an alert is valid research data.
+    """
+    observed={r['target_rule'] for r in records if r.get('valid') and r.get('target_fired')}
+    return (all(r['valid'] for r in records)
+            and all(r.get('negative_control_ok') for r in records
+                    if r['case']=='negative' or r.get('control'))
+            and set(target_rules) <= observed)
+
 def execute(case, config, output, image, functional_only=False):
     name = 'labcov-' + uuid.uuid4().hex[:16]
     exe = '/opt/coverage/' + config + '/coverage/' + case['id']
@@ -181,7 +192,7 @@ def main():
     print(json.dumps({k:v for k,v in summary.items() if k!='records'},indent=2))
     if args.functional_only:
         return 0 if all(r['behavior_ok'] for r in records) else 1
-    return 0 if all(r['valid'] for r in records) and summary['negative_controls_pass'] and len(paired)==len(target_cases)*len(manifest['configs']) else 1
+    return 0 if suite_ok(records,{c['rule'] for c in target_cases}) else 1
 
 if __name__ == '__main__':
     raise SystemExit(main())

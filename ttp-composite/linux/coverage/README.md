@@ -96,9 +96,11 @@ increases in any captured drop counter. Invalid attempts remain in the data.
 A healthy, successful behavior with no target alert remains a valid miss.
 
 `qualified_case_configurations` requires both a valid target hit and a valid,
-clean same-binary control for each case/runtime pair. It must reach 60 to
-qualify the entire two-runtime selection. The process still exits nonzero
-if any scheduled attempt is invalid or any negative control fails. Rechecks
+clean same-binary control for each case/runtime pair. A value of 60 documents positive/control evidence for all programs in both
+C configurations. It is descriptive, not an inclusion requirement: a valid
+miss in another runtime remains research data once the target rule has been
+demonstrated. The process exits nonzero if a target has never been demonstrated,
+any scheduled attempt is invalid, or any negative control fails. Rechecks
 must be retained alongside the original attempts, not silently substituted.
 
 The controls test whether startup of the program alone triggers a selected
