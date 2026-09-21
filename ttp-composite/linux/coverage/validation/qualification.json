@@ -1,0 +1,165 @@
+{
+  "executions": 186,
+  "valid": 180,
+  "behavior_successes": 186,
+  "qualified_rules": 30,
+  "qualified_rule_names": [
+    "Adding ssh keys to authorized_keys",
+    "Clear Log Activities",
+    "Contact EC2 Instance Metadata Service From Container",
+    "Contact cloud metadata service from container",
+    "Create Hardlink Over Sensitive Files",
+    "Create Symlink Over Sensitive Files",
+    "Create files below dev",
+    "Delete or rename shell history",
+    "Directory traversal monitored file read",
+    "Drop and execute new binary in container",
+    "Execution from /dev/shm",
+    "Fileless execution via memfd_create",
+    "Mkdir binary dirs",
+    "Modify Shell Configuration File",
+    "Modify binary dirs",
+    "PTRACE anti-debug attempt",
+    "PTRACE attached to process",
+    "Packet socket created in container",
+    "Read environment variable from /proc files",
+    "Read sensitive file untrusted",
+    "Read ssh information",
+    "Redirect STDOUT/STDIN to Network Connection in Container",
+    "Schedule Cron Jobs",
+    "Set Setuid or Setgid bit",
+    "Unexpected UDP Traffic",
+    "Update Package Repository",
+    "Write below binary dir",
+    "Write below etc",
+    "Write below monitored dir",
+    "Write below root"
+  ],
+  "negative_controls_pass": true,
+  "functional_only": false,
+  "source_commit": "cfe2068",
+  "host_instance": [
+    {
+      "ImageId": "ami-0c605b75e3a75e872",
+      "InstanceType": "c7i.xlarge",
+      "Architecture": "x86_64",
+      "LaunchTime": "2026-09-21T18:41:19+00:00",
+      "KernelId": null
+    }
+  ],
+  "kernel": "6.12.107+deb13-cloud-amd64",
+  "architecture": "x86_64",
+  "docker": "Docker version 26.1.5+dfsg1, build a72d7cd",
+  "falco": "{\"default_driver_version\":\"11.0.0+driver\",\"driver_api_version\":\"11.0.0\",\"driver_schema_version\":\"4.3.0\",\"engine_version\":\"65\",\"engine_version_semver\":\"0.65.0\",\"falco_version\":\"0.45.0\",\"libs_version\":\"0.26.0\",\"plugin_api_version\":\"3.12.0\"}",
+  "image_id": "sha256:50b4af81a4c56485e8aee6ded0183eddb1074c862d67357fc51d01eec02bdb05",
+  "binary_sha256": "117ab29bdff802ad1cac5f8da15fd071796f20c00f8e72651ef4893cb03f6312  /opt/coverage/linux-c-glibc/falco_cases\nfc4a8c32700eae93127c4034d246c17784e2bf2135a75efe6dae62804e7c1693  /opt/coverage/linux-c-musl/falco_cases\n2a79c78068c3599fb735bccd203d2958e4b2f14eaa86c8eea83958692bbef9fb  /opt/coverage/helper",
+  "suite_files_sha256": {
+    "Dockerfile": "d3f87c17c12ef8816e4dd2d0611c7a71398e90558ec62e336d63b67cccad72b8",
+    "README.md": "223169ed3726f53606e78853dcdd51f2440d6505bcdfff796fea4f152ee1df26",
+    "test_release.py": "2afe7e1416623d0447f32f27b761c0ac1deb27cf3d29f895bb3ff07be81a97a7",
+    "manifest.json": "fd9ed1cc93b1633de8e61648654216cecf4771585e81952509943aa2f949eba6",
+    "run.py": "54c6176fe9e748cf31af15bc5e355c75458bf07eb7475921732a44e0baa33a9b",
+    "._manifest.json": "8de090e2608784b3ac3f8a860b5b8ac437491b05bc3282463178149174734430",
+    "._run.py": "8de090e2608784b3ac3f8a860b5b8ac437491b05bc3282463178149174734430",
+    "build.sh": "3904d931a1915bc0ac01b4c344358eebc6b50606a43d7673267cc51e6863e646",
+    "validate_manifest.py": "a79425dbdef007296f978f9c2c53a560b866775df9f1082a6b420a9b3e652a49",
+    "._rule-inventory.csv": "8de090e2608784b3ac3f8a860b5b8ac437491b05bc3282463178149174734430",
+    "._build.sh": "8de090e2608784b3ac3f8a860b5b8ac437491b05bc3282463178149174734430",
+    "._validate_manifest.py": "8de090e2608784b3ac3f8a860b5b8ac437491b05bc3282463178149174734430",
+    "setup-detector.sh": "1096103aae38096944681187de44b575a6614939fe15ad1916e7fdc6728365ca",
+    "._rules": "8de090e2608784b3ac3f8a860b5b8ac437491b05bc3282463178149174734430",
+    "rule-inventory.csv": "04e0285b559d7dcc4406dfcdfb72453c274c1cd85288c7fe67604037eb5337ab",
+    "._Dockerfile": "8de090e2608784b3ac3f8a860b5b8ac437491b05bc3282463178149174734430",
+    ".gitignore": "32dae3052f331ee34d628ef535709b301259a45df7c7522c4d35dcf49873f00b",
+    "._setup-detector.sh": "8de090e2608784b3ac3f8a860b5b8ac437491b05bc3282463178149174734430",
+    "test_runner.py": "fb0c66996598bb26248dfc9a696ecd6cf663a3b7058cb9c253ad40a0108b59dd",
+    "rules/._falco-sandbox_rules.yaml": "8de090e2608784b3ac3f8a860b5b8ac437491b05bc3282463178149174734430",
+    "rules/falco-sandbox_rules.yaml": "f05ad34f07c43930932ea6dd84c08a37bc8e5ba9f88901ca091ff1b52b3f33d3",
+    "rules/._falco-incubating_rules.yaml": "8de090e2608784b3ac3f8a860b5b8ac437491b05bc3282463178149174734430",
+    "rules/._falco_rules.yaml": "8de090e2608784b3ac3f8a860b5b8ac437491b05bc3282463178149174734430",
+    "rules/falco-incubating_rules.yaml": "47bf87041e2f39ca336e7acf1ae4e6183771a92e81031f367d01f2b49cabe1ac",
+    "rules/._LICENSE.falcosecurity-rules": "8de090e2608784b3ac3f8a860b5b8ac437491b05bc3282463178149174734430",
+    "rules/falco_rules.yaml": "30a1a60263ab97650c851011468da03b17fc0096a7cfa3b6686eba5de73b865b",
+    "rules/LICENSE.falcosecurity-rules": "f65bbfe8deb986105063c967001b84c00232c31ea4b28564d54b5133435c6453"
+  },
+  "rule_snapshot": "e822409d8a2a28c9719f56ace66e8cadebfd2bc3",
+  "random_seed": 20260921,
+  "compiler": "gcc (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "host_runtime_versions": "libc6:amd64\t2.41-12+deb13u4\nmusl:amd64\t1.2.5-3.1~deb13u1\nmusl-tools\t1.2.5-3.1~deb13u1\n",
+  "container_runtime_versions": "libc6:amd64\t2.41-12+deb13u4\nmusl:amd64\t1.2.5-3.1~deb13u1\n",
+  "archive_sha256": "7c08af97314fa2116e4e098968beed20e033b940014ef32fa89a644f4ef4ddd6",
+  "invalid_runs": [
+    {
+      "execution": "0001-linux-c-glibc-ptrace_attach",
+      "case": "ptrace_attach",
+      "config": "linux-c-glibc",
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 5.0,
+          "after": 6.0
+        }
+      }
+    },
+    {
+      "execution": "0010-linux-c-glibc-traversal_read",
+      "case": "traversal_read",
+      "config": "linux-c-glibc",
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 6.0,
+          "after": 7.0
+        }
+      }
+    },
+    {
+      "execution": "0040-linux-c-glibc-monitored_write",
+      "case": "monitored_write",
+      "config": "linux-c-glibc",
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 9.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "execution": "0105-linux-c-musl-packet_socket",
+      "case": "packet_socket",
+      "config": "linux-c-musl",
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 14.0,
+          "after": 15.0
+        }
+      }
+    },
+    {
+      "execution": "0151-linux-c-glibc-shell_config_write",
+      "case": "shell_config_write",
+      "config": "linux-c-glibc",
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 18.0,
+          "after": 19.0
+        }
+      }
+    },
+    {
+      "execution": "0165-linux-c-glibc-ptrace_traceme",
+      "case": "ptrace_traceme",
+      "config": "linux-c-glibc",
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 19.0,
+          "after": 20.0
+        }
+      }
+    }
+  ]
+}

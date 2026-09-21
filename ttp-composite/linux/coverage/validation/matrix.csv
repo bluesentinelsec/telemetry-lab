@@ -1,0 +1,31 @@
+case,target_rule,glibc_attempts,glibc_valid,glibc_valid_target_hits,musl_attempts,musl_valid,musl_valid_target_hits
+traversal_read,Directory traversal monitored file read,3,2,2,3,3,3
+sensitive_read,Read sensitive file untrusted,3,3,3,3,3,3
+log_truncate,Clear Log Activities,3,3,3,3,3,3
+sensitive_symlink,Create Symlink Over Sensitive Files,3,3,3,3,3,3
+sensitive_hardlink,Create Hardlink Over Sensitive Files,3,3,3,3,3,3
+packet_socket,Packet socket created in container,3,3,3,3,2,2
+reverse_shell,Redirect STDOUT/STDIN to Network Connection in Container,3,3,3,3,3,3
+ptrace_attach,PTRACE attached to process,3,2,2,3,3,3
+ptrace_traceme,PTRACE anti-debug attempt,3,2,2,3,3,3
+exec_shm,Execution from /dev/shm,3,3,3,3,3,3
+drop_execute,Drop and execute new binary in container,3,3,3,3,3,3
+memfd_execute,Fileless execution via memfd_create,3,3,3,3,3,3
+shell_config_write,Modify Shell Configuration File,3,2,2,3,3,3
+cron_write,Schedule Cron Jobs,3,3,3,3,3,3
+ssh_read,Read ssh information,3,3,3,3,3,3
+udp_exchange,Unexpected UDP Traffic,3,3,3,3,3,3
+dev_file,Create files below dev,3,3,3,3,3,3
+metadata_ec2,Contact EC2 Instance Metadata Service From Container,3,3,3,3,3,3
+metadata_cloud,Contact cloud metadata service from container,3,3,3,3,3,3
+history_truncate,Delete or rename shell history,3,3,3,3,3,3
+setid_mode,Set Setuid or Setgid bit,3,3,3,3,3,3
+proc_environ,Read environment variable from /proc files,3,3,3,3,3,3
+authorized_keys,Adding ssh keys to authorized_keys,3,3,3,3,3,3
+repository_write,Update Package Repository,3,3,3,3,3,3
+binary_write,Write below binary dir,3,3,3,3,3,3
+monitored_write,Write below monitored dir,3,2,2,3,3,3
+etc_write,Write below etc,3,3,3,3,3,3
+root_write,Write below root,3,3,3,3,3,3
+binary_rename,Modify binary dirs,3,3,3,3,3,3
+binary_mkdir,Mkdir binary dirs,3,3,3,3,3,3

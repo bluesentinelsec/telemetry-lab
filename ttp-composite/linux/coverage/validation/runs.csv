@@ -1,0 +1,187 @@
+execution,repetition,case,configuration,behavior_ok,collection_ok,valid,target_fired,negative_control_ok,matched_rules
+0,1,proc_environ,linux-c-glibc,True,True,True,True,,Read environment variable from /proc files
+1,1,ptrace_attach,linux-c-glibc,True,False,False,True,,PTRACE attached to process
+2,1,proc_environ,linux-c-musl,True,True,True,True,,Read environment variable from /proc files
+3,1,etc_write,linux-c-musl,True,True,True,True,,Write below etc
+4,1,ptrace_traceme,linux-c-glibc,True,True,True,True,,PTRACE anti-debug attempt
+5,1,sensitive_symlink,linux-c-musl,True,True,True,True,,Create Symlink Over Sensitive Files
+6,1,sensitive_read,linux-c-musl,True,True,True,True,,Read sensitive file untrusted
+7,1,repository_write,linux-c-musl,True,True,True,True,,Update Package Repository | Write below etc
+8,1,binary_rename,linux-c-glibc,True,True,True,True,,Modify binary dirs
+9,1,setid_mode,linux-c-musl,True,True,True,True,,Set Setuid or Setgid bit
+10,1,traversal_read,linux-c-glibc,True,False,False,True,,Directory traversal monitored file read | Read sensitive file untrusted
+11,1,binary_write,linux-c-glibc,True,True,True,True,,Write below binary dir
+12,1,negative,linux-c-musl,True,True,True,,True,
+13,1,packet_socket,linux-c-musl,True,True,True,True,,Packet socket created in container
+14,1,sensitive_hardlink,linux-c-musl,True,True,True,True,,Create Hardlink Over Sensitive Files
+15,1,log_truncate,linux-c-musl,True,True,True,True,,Clear Log Activities
+16,1,memfd_execute,linux-c-musl,True,True,True,True,,Fileless execution via memfd_create
+17,1,negative,linux-c-glibc,True,True,True,,True,
+18,1,dev_file,linux-c-musl,True,True,True,True,,Create files below dev
+19,1,root_write,linux-c-glibc,True,True,True,True,,Write below root
+20,1,ptrace_traceme,linux-c-musl,True,True,True,True,,PTRACE anti-debug attempt
+21,1,cron_write,linux-c-glibc,True,True,True,True,,Schedule Cron Jobs | Write below etc
+22,1,metadata_ec2,linux-c-glibc,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+23,1,sensitive_symlink,linux-c-glibc,True,True,True,True,,Create Symlink Over Sensitive Files
+24,1,udp_exchange,linux-c-musl,True,True,True,True,,Unexpected UDP Traffic
+25,1,udp_exchange,linux-c-glibc,True,True,True,True,,Unexpected UDP Traffic
+26,1,reverse_shell,linux-c-musl,True,True,True,True,,Redirect STDOUT/STDIN to Network Connection in Container
+27,1,exec_shm,linux-c-musl,True,True,True,True,,Execution from /dev/shm
+28,1,ssh_read,linux-c-glibc,True,True,True,True,,Read ssh information
+29,1,history_truncate,linux-c-glibc,True,True,True,True,,Delete or rename shell history | Modify Shell Configuration File
+30,1,history_truncate,linux-c-musl,True,True,True,True,,Delete or rename shell history | Modify Shell Configuration File
+31,1,sensitive_hardlink,linux-c-glibc,True,True,True,True,,Create Hardlink Over Sensitive Files
+32,1,metadata_cloud,linux-c-musl,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+33,1,ssh_read,linux-c-musl,True,True,True,True,,Read ssh information
+34,1,authorized_keys,linux-c-glibc,True,True,True,True,,Adding ssh keys to authorized_keys | Write below monitored dir
+35,1,cron_write,linux-c-musl,True,True,True,True,,Schedule Cron Jobs | Write below etc
+36,1,setid_mode,linux-c-glibc,True,True,True,True,,Set Setuid or Setgid bit
+37,1,dev_file,linux-c-glibc,True,True,True,True,,Create files below dev
+38,1,metadata_ec2,linux-c-musl,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+39,1,traversal_read,linux-c-musl,True,True,True,True,,Directory traversal monitored file read | Read sensitive file untrusted
+40,1,monitored_write,linux-c-glibc,True,False,False,True,,Write below monitored dir
+41,1,metadata_cloud,linux-c-glibc,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+42,1,shell_config_write,linux-c-musl,True,True,True,True,,Modify Shell Configuration File | Write below root
+43,1,binary_write,linux-c-musl,True,True,True,True,,Write below binary dir
+44,1,exec_shm,linux-c-glibc,True,True,True,True,,Execution from /dev/shm
+45,1,monitored_write,linux-c-musl,True,True,True,True,,Write below monitored dir
+46,1,binary_rename,linux-c-musl,True,True,True,True,,Modify binary dirs
+47,1,drop_execute,linux-c-glibc,True,True,True,True,,Drop and execute new binary in container
+48,1,drop_execute,linux-c-musl,True,True,True,True,,Drop and execute new binary in container
+49,1,repository_write,linux-c-glibc,True,True,True,True,,Update Package Repository | Write below etc
+50,1,binary_mkdir,linux-c-glibc,True,True,True,True,,Mkdir binary dirs | Modify binary dirs
+51,1,memfd_execute,linux-c-glibc,True,True,True,True,,Fileless execution via memfd_create
+52,1,shell_config_write,linux-c-glibc,True,True,True,True,,Modify Shell Configuration File | Write below root
+53,1,packet_socket,linux-c-glibc,True,True,True,True,,Packet socket created in container
+54,1,authorized_keys,linux-c-musl,True,True,True,True,,Adding ssh keys to authorized_keys | Write below monitored dir
+55,1,binary_mkdir,linux-c-musl,True,True,True,True,,Mkdir binary dirs | Modify binary dirs
+56,1,etc_write,linux-c-glibc,True,True,True,True,,Write below etc
+57,1,log_truncate,linux-c-glibc,True,True,True,True,,Clear Log Activities
+58,1,reverse_shell,linux-c-glibc,True,True,True,True,,Redirect STDOUT/STDIN to Network Connection in Container
+59,1,sensitive_read,linux-c-glibc,True,True,True,True,,Read sensitive file untrusted
+60,1,ptrace_attach,linux-c-musl,True,True,True,True,,PTRACE attached to process
+61,1,root_write,linux-c-musl,True,True,True,True,,Write below root
+62,2,reverse_shell,linux-c-musl,True,True,True,True,,Redirect STDOUT/STDIN to Network Connection in Container
+63,2,binary_rename,linux-c-musl,True,True,True,True,,Modify binary dirs
+64,2,metadata_cloud,linux-c-musl,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+65,2,authorized_keys,linux-c-glibc,True,True,True,True,,Adding ssh keys to authorized_keys | Write below monitored dir
+66,2,metadata_cloud,linux-c-glibc,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+67,2,sensitive_hardlink,linux-c-musl,True,True,True,True,,Create Hardlink Over Sensitive Files
+68,2,sensitive_symlink,linux-c-glibc,True,True,True,True,,Create Symlink Over Sensitive Files
+69,2,memfd_execute,linux-c-glibc,True,True,True,True,,Fileless execution via memfd_create
+70,2,ptrace_traceme,linux-c-musl,True,True,True,True,,PTRACE anti-debug attempt
+71,2,ptrace_attach,linux-c-musl,True,True,True,True,,PTRACE attached to process
+72,2,metadata_ec2,linux-c-musl,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+73,2,drop_execute,linux-c-musl,True,True,True,True,,Drop and execute new binary in container
+74,2,binary_mkdir,linux-c-musl,True,True,True,True,,Mkdir binary dirs | Modify binary dirs
+75,2,traversal_read,linux-c-musl,True,True,True,True,,Directory traversal monitored file read | Read sensitive file untrusted
+76,2,dev_file,linux-c-musl,True,True,True,True,,Create files below dev
+77,2,binary_write,linux-c-glibc,True,True,True,True,,Write below binary dir
+78,2,exec_shm,linux-c-musl,True,True,True,True,,Execution from /dev/shm
+79,2,binary_rename,linux-c-glibc,True,True,True,True,,Modify binary dirs
+80,2,cron_write,linux-c-musl,True,True,True,True,,Schedule Cron Jobs | Write below etc
+81,2,root_write,linux-c-musl,True,True,True,True,,Write below root
+82,2,log_truncate,linux-c-glibc,True,True,True,True,,Clear Log Activities
+83,2,memfd_execute,linux-c-musl,True,True,True,True,,Fileless execution via memfd_create
+84,2,shell_config_write,linux-c-musl,True,True,True,True,,Modify Shell Configuration File | Write below root
+85,2,dev_file,linux-c-glibc,True,True,True,True,,Create files below dev
+86,2,binary_write,linux-c-musl,True,True,True,True,,Write below binary dir
+87,2,repository_write,linux-c-musl,True,True,True,True,,Update Package Repository | Write below etc
+88,2,ptrace_traceme,linux-c-glibc,True,True,True,True,,PTRACE anti-debug attempt
+89,2,log_truncate,linux-c-musl,True,True,True,True,,Clear Log Activities
+90,2,root_write,linux-c-glibc,True,True,True,True,,Write below root
+91,2,sensitive_read,linux-c-musl,True,True,True,True,,Read sensitive file untrusted
+92,2,monitored_write,linux-c-glibc,True,True,True,True,,Write below monitored dir
+93,2,proc_environ,linux-c-musl,True,True,True,True,,Read environment variable from /proc files
+94,2,history_truncate,linux-c-glibc,True,True,True,True,,Delete or rename shell history | Modify Shell Configuration File
+95,2,setid_mode,linux-c-musl,True,True,True,True,,Set Setuid or Setgid bit
+96,2,packet_socket,linux-c-glibc,True,True,True,True,,Packet socket created in container
+97,2,ptrace_attach,linux-c-glibc,True,True,True,True,,PTRACE attached to process
+98,2,metadata_ec2,linux-c-glibc,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+99,2,ssh_read,linux-c-musl,True,True,True,True,,Read ssh information
+100,2,negative,linux-c-musl,True,True,True,,True,
+101,2,etc_write,linux-c-musl,True,True,True,True,,Write below etc
+102,2,traversal_read,linux-c-glibc,True,True,True,True,,Directory traversal monitored file read | Read sensitive file untrusted
+103,2,shell_config_write,linux-c-glibc,True,True,True,True,,Modify Shell Configuration File | Write below root
+104,2,drop_execute,linux-c-glibc,True,True,True,True,,Drop and execute new binary in container
+105,2,packet_socket,linux-c-musl,True,False,False,True,,Packet socket created in container
+106,2,etc_write,linux-c-glibc,True,True,True,True,,Write below etc
+107,2,sensitive_hardlink,linux-c-glibc,True,True,True,True,,Create Hardlink Over Sensitive Files
+108,2,cron_write,linux-c-glibc,True,True,True,True,,Schedule Cron Jobs | Write below etc
+109,2,reverse_shell,linux-c-glibc,True,True,True,True,,Redirect STDOUT/STDIN to Network Connection in Container
+110,2,proc_environ,linux-c-glibc,True,True,True,True,,Read environment variable from /proc files
+111,2,exec_shm,linux-c-glibc,True,True,True,True,,Execution from /dev/shm
+112,2,udp_exchange,linux-c-glibc,True,True,True,True,,Unexpected UDP Traffic
+113,2,history_truncate,linux-c-musl,True,True,True,True,,Delete or rename shell history | Modify Shell Configuration File
+114,2,negative,linux-c-glibc,True,True,True,,True,
+115,2,setid_mode,linux-c-glibc,True,True,True,True,,Set Setuid or Setgid bit
+116,2,udp_exchange,linux-c-musl,True,True,True,True,,Unexpected UDP Traffic
+117,2,monitored_write,linux-c-musl,True,True,True,True,,Write below monitored dir
+118,2,sensitive_symlink,linux-c-musl,True,True,True,True,,Create Symlink Over Sensitive Files
+119,2,repository_write,linux-c-glibc,True,True,True,True,,Update Package Repository | Write below etc
+120,2,binary_mkdir,linux-c-glibc,True,True,True,True,,Mkdir binary dirs | Modify binary dirs
+121,2,ssh_read,linux-c-glibc,True,True,True,True,,Read ssh information
+122,2,sensitive_read,linux-c-glibc,True,True,True,True,,Read sensitive file untrusted
+123,2,authorized_keys,linux-c-musl,True,True,True,True,,Adding ssh keys to authorized_keys | Write below monitored dir
+124,3,log_truncate,linux-c-musl,True,True,True,True,,Clear Log Activities
+125,3,metadata_cloud,linux-c-glibc,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+126,3,ptrace_attach,linux-c-glibc,True,True,True,True,,PTRACE attached to process
+127,3,cron_write,linux-c-glibc,True,True,True,True,,Schedule Cron Jobs | Write below etc
+128,3,etc_write,linux-c-musl,True,True,True,True,,Write below etc
+129,3,metadata_ec2,linux-c-glibc,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+130,3,drop_execute,linux-c-musl,True,True,True,True,,Drop and execute new binary in container
+131,3,binary_mkdir,linux-c-musl,True,True,True,True,,Mkdir binary dirs | Modify binary dirs
+132,3,root_write,linux-c-glibc,True,True,True,True,,Write below root
+133,3,traversal_read,linux-c-glibc,True,True,True,True,,Directory traversal monitored file read | Read sensitive file untrusted
+134,3,history_truncate,linux-c-glibc,True,True,True,True,,Delete or rename shell history | Modify Shell Configuration File
+135,3,sensitive_read,linux-c-glibc,True,True,True,True,,Read sensitive file untrusted
+136,3,repository_write,linux-c-glibc,True,True,True,True,,Update Package Repository | Write below etc
+137,3,exec_shm,linux-c-musl,True,True,True,True,,Execution from /dev/shm
+138,3,packet_socket,linux-c-musl,True,True,True,True,,Packet socket created in container
+139,3,setid_mode,linux-c-musl,True,True,True,True,,Set Setuid or Setgid bit
+140,3,sensitive_hardlink,linux-c-musl,True,True,True,True,,Create Hardlink Over Sensitive Files
+141,3,authorized_keys,linux-c-glibc,True,True,True,True,,Adding ssh keys to authorized_keys | Write below monitored dir
+142,3,ssh_read,linux-c-musl,True,True,True,True,,Read ssh information
+143,3,ptrace_attach,linux-c-musl,True,True,True,True,,PTRACE attached to process
+144,3,monitored_write,linux-c-musl,True,True,True,True,,Write below monitored dir
+145,3,dev_file,linux-c-musl,True,True,True,True,,Create files below dev
+146,3,negative,linux-c-musl,True,True,True,,True,
+147,3,history_truncate,linux-c-musl,True,True,True,True,,Delete or rename shell history | Modify Shell Configuration File
+148,3,ptrace_traceme,linux-c-musl,True,True,True,True,,PTRACE anti-debug attempt
+149,3,memfd_execute,linux-c-musl,True,True,True,True,,Fileless execution via memfd_create
+150,3,monitored_write,linux-c-glibc,True,True,True,True,,Write below monitored dir
+151,3,shell_config_write,linux-c-glibc,True,False,False,True,,Modify Shell Configuration File | Write below root
+152,3,cron_write,linux-c-musl,True,True,True,True,,Schedule Cron Jobs | Write below etc
+153,3,traversal_read,linux-c-musl,True,True,True,True,,Directory traversal monitored file read | Read sensitive file untrusted
+154,3,memfd_execute,linux-c-glibc,True,True,True,True,,Fileless execution via memfd_create
+155,3,sensitive_symlink,linux-c-musl,True,True,True,True,,Create Symlink Over Sensitive Files
+156,3,root_write,linux-c-musl,True,True,True,True,,Write below root
+157,3,negative,linux-c-glibc,True,True,True,,True,
+158,3,drop_execute,linux-c-glibc,True,True,True,True,,Drop and execute new binary in container
+159,3,udp_exchange,linux-c-glibc,True,True,True,True,,Unexpected UDP Traffic
+160,3,authorized_keys,linux-c-musl,True,True,True,True,,Adding ssh keys to authorized_keys | Write below monitored dir
+161,3,dev_file,linux-c-glibc,True,True,True,True,,Create files below dev
+162,3,packet_socket,linux-c-glibc,True,True,True,True,,Packet socket created in container
+163,3,binary_rename,linux-c-glibc,True,True,True,True,,Modify binary dirs
+164,3,sensitive_read,linux-c-musl,True,True,True,True,,Read sensitive file untrusted
+165,3,ptrace_traceme,linux-c-glibc,True,False,False,True,,PTRACE anti-debug attempt
+166,3,log_truncate,linux-c-glibc,True,True,True,True,,Clear Log Activities
+167,3,setid_mode,linux-c-glibc,True,True,True,True,,Set Setuid or Setgid bit
+168,3,reverse_shell,linux-c-glibc,True,True,True,True,,Redirect STDOUT/STDIN to Network Connection in Container
+169,3,repository_write,linux-c-musl,True,True,True,True,,Update Package Repository | Write below etc
+170,3,binary_write,linux-c-musl,True,True,True,True,,Write below binary dir
+171,3,exec_shm,linux-c-glibc,True,True,True,True,,Execution from /dev/shm
+172,3,binary_write,linux-c-glibc,True,True,True,True,,Write below binary dir
+173,3,metadata_ec2,linux-c-musl,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+174,3,proc_environ,linux-c-glibc,True,True,True,True,,Read environment variable from /proc files
+175,3,sensitive_hardlink,linux-c-glibc,True,True,True,True,,Create Hardlink Over Sensitive Files
+176,3,udp_exchange,linux-c-musl,True,True,True,True,,Unexpected UDP Traffic
+177,3,shell_config_write,linux-c-musl,True,True,True,True,,Modify Shell Configuration File | Write below root
+178,3,metadata_cloud,linux-c-musl,True,True,True,True,,Contact EC2 Instance Metadata Service From Container | Contact cloud metadata service from container
+179,3,binary_mkdir,linux-c-glibc,True,True,True,True,,Mkdir binary dirs | Modify binary dirs
+180,3,ssh_read,linux-c-glibc,True,True,True,True,,Read ssh information
+181,3,sensitive_symlink,linux-c-glibc,True,True,True,True,,Create Symlink Over Sensitive Files
+182,3,proc_environ,linux-c-musl,True,True,True,True,,Read environment variable from /proc files
+183,3,reverse_shell,linux-c-musl,True,True,True,True,,Redirect STDOUT/STDIN to Network Connection in Container
+184,3,binary_rename,linux-c-musl,True,True,True,True,,Modify binary dirs
+185,3,etc_write,linux-c-glibc,True,True,True,True,,Write below etc
