@@ -1,0 +1,7 @@
+﻿{
+    "port":  88,
+    "process_id":  4864,
+    "reason":  "Reversed-order recheck of conflicting GUID in UCRT TCP 88",
+    "server_sha256":  "5EE732F725DAE9D5AEF9F1B31E8E35C66DFF9EAC1C43E16DD71451A337A8BE61",
+    "address":  "127.0.0.1"
+}

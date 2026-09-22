@@ -1,0 +1,130 @@
+[0m[38;2;0;255;0m
+┏┓ ┏┳━━━┳┓  ┏┳━━━┳━━┓┏┓ ┏┳━━━┳━━━┓
+┃┃ ┃┃┏━┓┃┗┓┏┛┃┏━┓┃┏┓┃┃┃ ┃┃┏━┓┃┏━┓┃
+┃┗━┛┃┃ ┃┣┓┗┛┏┫┃ ┃┃┗┛┗┫┃ ┃┃┗━━┫┃ ┃┃
+┃┏━┓┃┗━┛┃┗┓┏┛┃┗━┛┃┏━┓┃┃ ┃┣━━┓┃┗━┛┃
+┃┃ ┃┃┏━┓┃ ┃┃ ┃┏━┓┃┗━┛┃┗━┛┃┗━┛┃┏━┓┃
+┗┛ ┗┻┛ ┗┛ ┗┛ ┗┛ ┗┻━━━┻━━━┻━━━┻┛ ┗┛
+   by Yamato Security 
+[0m
+[0m[38;2;255;175;0mAs fast as a peregrine falcon~
+
+[0m[0m[38;2;0;255;0mStart time: [0m2026/09/22 13:07
+[0m[38;2;0;255;0mTotal event log files: [0m1
+[0m[38;2;0;255;0mTotal file size: [0m3.1 MiB
+
+[0m[38;2;255;175;0mLoading detection rules. Please wait.
+
+[0m[38;2;0;255;0mExcluded rules: [0m133
+[0m[38;2;0;255;0mNoisy rules: [0m12 (Disabled)
+
+[0m[38;2;0;255;0mDeprecated rules: [0m228 (5.01%) (Disabled)
+[0m[38;2;0;255;0mExperimental rules: [0m362 (7.95%)
+[0m[38;2;0;255;0mStable rules: [0m166 (3.65%)
+[0m[38;2;0;255;0mTest rules: [0m4,025 (88.40%)
+[0m[38;2;0;255;0mUnsupported rules: [0m42 (0.92%) (Disabled)
+
+[0m[38;2;0;255;0mCorrelation rules: [0m3 (0.07%)
+[0m[38;2;0;255;0mCorrelation referenced rules: [0m3 (0.07%)
+
+[0m[38;2;0;255;0mExpand rules: [0m19 (0.42%)
+[0m[38;2;0;255;0mEnabled expand rules: [0m0 (0.00%)
+
+[0m[38;2;0;255;0mHayabusa rules: [0m91
+[0m[38;2;0;255;0mSigma rules: [0m4,461
+[0m[38;2;0;255;0mhayabusa rules: [0m1
+[0m[38;2;0;255;0mTotal detection rules: [0m4,553
+
+[0m[38;2;255;175;0mCreating the channel filter. Please wait.
+
+[0m[38;2;0;255;0mEvtx files loaded after channel filter: [0m1
+[0m[38;2;0;255;0mDetection rules enabled after channel filter: [0m2,269
+
+[0m[38;2;0;255;0mOutput profile: [0mall-field-info
+
+[0m[38;2;255;175;0mScanning in progress. Please wait.
+
+[0m[38;2;0;255;0mRule Authors:[0m 
+
+╭───────────────────────────────────────────────────────────────╮
+│ frack113 (10)                     Nasreddine Bencherchali (9) │
+│ Florian Roth (4)                  oscd.community (4)          │
+│ Daniil Yugoslavskiy (2)           Gleb Sukhodolskiy (2)       │
+│ Tim Shelton (2)                   Timur Zinniatullin (2)      │
+│ Victor Sergeev (2)                Zach Mathis (2)             │
+│ @0xrawsec (1)                     @blu3_team (1)              │
+│ Ahmed Farouk (1)                  Avneet Singh @v3t0_ (1)     │
+│ Bartlomiej Czyz @bczyz1 (1)       HieuTT35 (1)                │
+│ Jonathan Beierle (1)              Max Altgelt (1)             │
+│ OTR (1)                           Roberto Rodriguez (1)       │
+│ Swachchhanda Shrawan Poudel (1)   The DFIR Report (1)         │
+│ blueteam0ps (1)                   elhoim (1)                  │
+│ wagga (1)                                                     │
+╰─────────────────────────────────╌─────────────────────────────╯
+
+[0m[38;2;0;255;0mResults Summary:
+
+[0m[38;2;255;255;0mEvents with hits[0m / [0m[38;2;0;255;255mTotal events[0m: [0m[38;2;255;255;0m395[0m / [0m[38;2;0;255;255m2,237[0m ([0m[38;2;0;255;0mData reduction: 1,842 events (82.34%)[0m)
+
+[0mTotal | Unique detections: 440 | 25
+[0m[38;2;255;0;0mTotal | Unique emergency detections: 0 (0.00%) | 0 (0.00%)
+[0m[38;2;255;0;0mTotal | Unique critical detections: 2 (0.45%) | 1 (4.00%)
+[0m[38;2;255;193;0mTotal | Unique high detections: 13 (2.95%) | 8 (32.00%)
+[0m[38;2;255;255;0mTotal | Unique medium detections: 47 (10.68%) | 10 (40.00%)
+[0m[38;2;0;255;0mTotal | Unique low detections: 378 (85.91%) | 6 (24.00%)
+[0mTotal | Unique informational detections: 0 (0.00%) | 0 (0.00%)
+
+[0mFirst timestamp: 2026-09-22 13:06:38.512 +00:00
+[0mLast timestamp: 2026-09-22 13:07:01.065 +00:00
+
+[0mFirst detection: 2026-09-22 13:06:38.553 +00:00
+[0mLast detection: 2026-09-22 13:06:58.181 +00:00
+
+[0mDates with most total detections:
+[0m[0m[38;2;255;0;0memergency: n/a[0m, [0m[38;2;255;0;0mcritical: 2026-09-22 (2)[0m, [0m[38;2;255;193;0mhigh: 2026-09-22 (13)[0m, [0m[38;2;255;255;0mmedium: 2026-09-22 (47)[0m, [0m[38;2;0;255;0mlow: 2026-09-22 (378)[0m, [0minformational: n/a
+
+[0mTop 5 computers with most unique detections:
+[0m[38;2;255;0;0memergency: n/a
+[0m[38;2;255;0;0mcritical: EC2AMAZ-PO1UH4O (1)
+[0m[38;2;255;193;0mhigh: EC2AMAZ-PO1UH4O (8)
+[0m[38;2;255;255;0mmedium: EC2AMAZ-PO1UH4O (10)
+[0m[38;2;0;255;0mlow: EC2AMAZ-PO1UH4O (6)
+[0minformational: n/a
+
+╭─────────────────────────────────────────────────────────────────────────────────────╮
+│ Top emergency alerts:                      Top critical alerts:                     │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ n/a                                        Malicious Named Pipe Created (2)         │
+│ n/a                                        n/a                                      │
+│ n/a                                        n/a                                      │
+│ n/a                                        n/a                                      │
+│ n/a                                        n/a                                      │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Top high alerts:                           Top medium alerts:                       │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ RunMRU Registry Key Deletion - R... (4)    Potential Binary Or Script Dropp... (36) │
+│ Suspicious Double Extension File... (3)    Common Autorun Keys Modification (2)     │
+│ Potential Persistence Via App Pa... (1)    Path To Screensaver Binary Modif... (2)  │
+│ Potential Persistence Via Micros... (1)    CurrentVersion Autorun Keys Modi... (1)  │
+│ Suspicious Binaries and Scripts ... (1)    Hidden Executable In NTFS Altern... (1)  │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Top low alerts:                            Top informational alerts:                │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Proc Access (331)                          n/a                                      │
+│ Creation of an Executable by an ... (40)   n/a                                      │
+│ Possible Timestomping (3)                  n/a                                      │
+│ Command Executed Via Run Dialog ... (2)    n/a                                      │
+│ File Creation Date Changed to An... (1)    n/a                                      │
+╰──────────────────────────────────────────╌──────────────────────────────────────────╯
+
+[0m[38;2;0;255;0mSaved file:[0m C:\lab\qualification\msvcrt-nonnetwork-02\alerts.csv (509.5 KiB)
+
+[0m[38;2;0;255;0mElapsed time: [0m00:00:02.681
+
+[0m[38;2;0;255;0mPlease report any issues with Hayabusa rules to: [0mhttps://github.com/Yamato-Security/hayabusa-rules/issues
+[0m[38;2;0;255;0mPlease report any false positives with Sigma rules to: [0mhttps://github.com/SigmaHQ/sigma/issues
+[0m[38;2;0;255;0mPlease submit new Sigma rules with pull requests to: [0mhttps://github.com/SigmaHQ/sigma/pulls
+
+[0m[38;2;255;175;0m塞翁が馬 - Saiou Ga Uma - Misfortune becomes a blessing.
+
+[0m

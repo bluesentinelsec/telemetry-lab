@@ -48,6 +48,8 @@ export interface LabEnvironmentStackProps extends cdk.StackProps {
   readonly instanceType?: string;
   /** Skip the Windows host when validating Linux-only changes. */
   readonly linuxOnly?: boolean;
+  /** Skip Debian when qualifying Windows-only changes. */
+  readonly windowsOnly?: boolean;
   /** Root volume size in GiB for both hosts. Default: 150. */
   readonly diskGiB?: number;
 }
@@ -76,6 +78,7 @@ export class LabEnvironmentStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: LabEnvironmentStackProps = {}) {
     super(scope, id, props);
 
+    if (props.linuxOnly && props.windowsOnly) throw new Error('linuxOnly and windowsOnly are mutually exclusive');
     const instanceType = props.instanceType ?? 'c7i.xlarge';
     const diskGiB = props.diskGiB ?? 150;
 
@@ -217,28 +220,32 @@ export class LabEnvironmentStack extends cdk.Stack {
     // Debian 13 (trixie), x86_64 -- matches the debian:trixie container used in
     // CI, so the libc substrate is identical. AMI resolved by owner + name
     // filter (never a hardcoded ID), so it is correct in any region.
-    const debian = new ec2.Instance(this, 'DebianHost', {
-      vpc,
-      vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
-      instanceType: new ec2.InstanceType(instanceType),
-      machineImage: ec2.MachineImage.lookup({
-        name: 'debian-13-amd64-*',
-        owners: [DEBIAN_AMI_OWNER],
-        filters: {
-          architecture: ['x86_64'],
-          'root-device-type': ['ebs'],
-          'virtualization-type': ['hvm'],
-          state: ['available'],
-        },
-      }),
-      securityGroup: egressOnlySecurityGroup('DebianSecurityGroup', 'debian-13'),
-      blockDevices: [{ deviceName: '/dev/xvda', volume: rootVolume() }],
-      userData: debianUserData,
-      requireImdsv2: true,
-    });
-    cdk.Tags.of(debian).add('Name', 'lab-debian-13');
+    const hosts: ec2.Instance[] = [];
+    if (!props.windowsOnly) {
+      const debian = new ec2.Instance(this, 'DebianHost', {
+        vpc,
+        vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
+        instanceType: new ec2.InstanceType(instanceType),
+        machineImage: ec2.MachineImage.lookup({
+          name: 'debian-13-amd64-*',
+          owners: [DEBIAN_AMI_OWNER],
+          filters: {
+            architecture: ['x86_64'],
+            'root-device-type': ['ebs'],
+            'virtualization-type': ['hvm'],
+            state: ['available'],
+          },
+        }),
+        securityGroup: egressOnlySecurityGroup('DebianSecurityGroup', 'debian-13'),
+        blockDevices: [{ deviceName: '/dev/xvda', volume: rootVolume() }],
+        userData: debianUserData,
+        requireImdsv2: true,
+      });
+      cdk.Tags.of(debian).add('Name', 'lab-debian-13');
 
-    const hosts = [debian];
+      hosts.push(debian);
+      new cdk.CfnOutput(this, 'DebianInstanceId', { value: debian.instanceId });
+    }
     if (!props.linuxOnly) {
       // Windows provisioning, in order:
       //   1. Create the release dir C:\lab and exclude it from Defender FIRST, so
@@ -281,7 +288,8 @@ export class LabEnvironmentStack extends cdk.Stack {
         // Sysmon (ETW sensor): latest from Sysinternals + a log-all config. The
         // config filters nothing (each event class is onmatch="exclude" with no
         // rules => nothing excluded => everything logged), so Sigma rules see the
-        // full event stream and a null result means "robust", not "not captured".
+        // configured event stream. A missing alert still requires collection and
+        // behavior validation before it can be interpreted.
         "Invoke-WebRequest -Uri 'https://download.sysinternals.com/files/Sysmon.zip' -OutFile C:\\lab\\Sysmon.zip -UseBasicParsing",
         'Expand-Archive -Path C:\\lab\\Sysmon.zip -DestinationPath C:\\lab\\sysmon -Force',
         "$cfgB64 = 'PFN5c21vbiBzY2hlbWF2ZXJzaW9uPSI0LjkwIj4KICA8SGFzaEFsZ29yaXRobXM+KjwvSGFzaEFsZ29yaXRobXM+CiAgPEV2ZW50RmlsdGVyaW5nPgogICAgPFByb2Nlc3NDcmVhdGUgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGVUaW1lIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxOZXR3b3JrQ29ubmVjdCBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8UHJvY2Vzc1Rlcm1pbmF0ZSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8RHJpdmVyTG9hZCBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8SW1hZ2VMb2FkIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxDcmVhdGVSZW1vdGVUaHJlYWQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFJhd0FjY2Vzc1JlYWQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFByb2Nlc3NBY2Nlc3Mgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGUgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFJlZ2lzdHJ5RXZlbnQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGVTdHJlYW1IYXNoIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxQaXBlRXZlbnQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFdtaUV2ZW50IG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxEbnNRdWVyeSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8RmlsZURlbGV0ZSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8Q2xpcGJvYXJkQ2hhbmdlIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxQcm9jZXNzVGFtcGVyaW5nIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxGaWxlRGVsZXRlRGV0ZWN0ZWQgb25tYXRjaD0iZXhjbHVkZSIvPgogIDwvRXZlbnRGaWx0ZXJpbmc+CjwvU3lzbW9uPgo='",
@@ -352,7 +360,6 @@ export class LabEnvironmentStack extends cdk.Stack {
     }
 
     new cdk.CfnOutput(this, 'Region', { value: this.region });
-    new cdk.CfnOutput(this, 'DebianInstanceId', { value: debian.instanceId });
     new cdk.CfnOutput(this, 'DataBucketName', { value: dataBucket.bucketName });
   }
 }

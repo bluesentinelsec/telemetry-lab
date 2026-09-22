@@ -1,0 +1,12 @@
+{
+    "IP4Address":  "127.0.0.42",
+    "Name":  "api.ipify.org",
+    "Type":  1,
+    "CharacterSet":  1,
+    "Section":  1,
+    "DataLength":  4,
+    "TTL":  0,
+    "Address":  "127.0.0.42",
+    "IPAddress":  "127.0.0.42",
+    "QueryType":  1
+}

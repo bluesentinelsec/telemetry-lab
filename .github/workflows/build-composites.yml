@@ -29,6 +29,7 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install PyYAML==6.0.2
       - run: python -m unittest discover -s ttp-composite/linux/coverage -p 'test_*.py' -v
+      - run: python -m unittest discover -s ttp-composite/windows/coverage -p 'test_*.py' -v
 
   linux-c:
     # C composites: compiler held constant (gcc), only the C runtime varies
@@ -250,7 +251,6 @@ jobs:
             name: Windows C (MSVCRT)
 
     name: ${{ matrix.name }}
-    continue-on-error: true  # go-back #50: Windows composites non-blocking
     runs-on: windows-2025
     defaults:
       run:
@@ -268,6 +268,7 @@ jobs:
             mingw-w64-${{ matrix.prefix }}-gcc
             mingw-w64-${{ matrix.prefix }}-cmake
             mingw-w64-${{ matrix.prefix }}-ninja
+            mingw-w64-${{ matrix.prefix }}-python
 
       - name: Configure and build
         working-directory: ttp-composite/windows/c
@@ -278,6 +279,25 @@ jobs:
       - name: Stage composites
         working-directory: ttp-composite/windows/c
         run: cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
+
+      - name: Verify standalone programs and CRT imports
+        run: python ttp-composite/windows/coverage/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.msystem == 'UCRT64' && 'ucrt' || 'msvcrt' }}
+
+      - name: Verify non-network behaviors and same-binary controls
+        shell: pwsh
+        run: |
+          $dist = "composite-dist/${{ matrix.config }}/coverage"
+          New-Item -ItemType Directory -Force C:\lab\windows-coverage\fixtures | Out-Null
+          Copy-Item "$dist/fixtures/windows_fixture_helper.exe" C:\lab\windows-coverage\fixtures\helper.exe
+          Copy-Item "$dist/fixtures/fixture.node" C:\lab\windows-coverage\fixtures\fixture.node
+          & ./ttp-composite/windows/coverage/run.ps1 -Programs $dist -Output "${{ runner.temp }}/windows-behavior" -BehaviorOnly
+
+      - name: Upload behavior evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: behavior-${{ matrix.config }}
+          path: ${{ runner.temp }}/windows-behavior
 
       - name: Upload composites
         uses: actions/upload-artifact@v7

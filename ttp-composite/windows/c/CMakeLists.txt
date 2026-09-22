@@ -12,3 +12,5 @@ add_subdirectory(reverse_shell)
 add_subdirectory(imds)
 add_subdirectory(registry_run_key)
 add_subdirectory(startup_folder)
+
+add_subdirectory(coverage)

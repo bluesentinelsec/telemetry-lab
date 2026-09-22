@@ -1,0 +1,132 @@
+[
+  {
+    "path": "alerts.csv",
+    "bytes": 79785,
+    "sha256": "2ab8f6be42a3eb14ac0941b8ee85faecbb2591f0a558d301809c7cd7a09e4b5d"
+  },
+  {
+    "path": "attempts.json",
+    "bytes": 3291,
+    "sha256": "62dabab173a5fa58974fa0d5ece85402b0fa0fbcbc7744bc1656c8a271048d81"
+  },
+  {
+    "path": "build-manifest.json",
+    "bytes": 24236,
+    "sha256": "00e8221df4be7c06cd8781e53c0aa1f68847020840cbb46e2456c232ada36f54"
+  },
+  {
+    "path": "detector-exit.txt",
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  {
+    "path": "dns_ip_lookup-active/attempt.json",
+    "bytes": 742,
+    "sha256": "991fd9b73cefe4ae4bbee515ffab767e8eaf220b2feb6afbc7df41e820c0e1d3"
+  },
+  {
+    "path": "dns_ip_lookup-active/stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "dns_ip_lookup-active/stdout.txt",
+    "bytes": 57,
+    "sha256": "c478db48bd725761a76a4b0925da792516cc253ce8fe7e45c05a79bb82b905b9"
+  },
+  {
+    "path": "dns_ip_lookup-control/attempt.json",
+    "bytes": 742,
+    "sha256": "95044548980a48b2a388638dc91eceaca112f4e2fd5ffcca37d85304a78f75fb"
+  },
+  {
+    "path": "dns_ip_lookup-control/stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "dns_ip_lookup-control/stdout.txt",
+    "bytes": 56,
+    "sha256": "cc1f216e8fc1068c402cec44eb33dc6b510c5807ee71e38d6247d5205e4db583"
+  },
+  {
+    "path": "dns_onion-active/attempt.json",
+    "bytes": 789,
+    "sha256": "8fe20aac28db7ca86ea16fba7c527948402fa5b59fecb2c38fc07edc7b4004ea"
+  },
+  {
+    "path": "dns_onion-active/stderr.txt",
+    "bytes": 71,
+    "sha256": "2eb771fbaf603cec0c08a76816b9e0ca5ee56eaf9f4326a4db7249a9d3749df7"
+  },
+  {
+    "path": "dns_onion-active/stdout.txt",
+    "bytes": 26,
+    "sha256": "29db08330626577081928f0886790bb4ff8de01cbdf77a70f3f1c9455db8d9c8"
+  },
+  {
+    "path": "dns_onion-control/attempt.json",
+    "bytes": 730,
+    "sha256": "c23ee01831f020524db88c1ccb4a160a2fd68c3d2f32b82fe70d1f3820bb4f02"
+  },
+  {
+    "path": "dns_onion-control/stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "dns_onion-control/stdout.txt",
+    "bytes": 48,
+    "sha256": "30621b2dfa398e0952567defe07f6d8f39b73683d761e7452ac55b34801236b2"
+  },
+  {
+    "path": "events.evtx",
+    "bytes": 1118208,
+    "sha256": "833745aa2d31793770b72a7a1b4bfebf5c0c9093db4e4fd1bc4db2c4fb12b542"
+  },
+  {
+    "path": "events.json",
+    "bytes": 276854,
+    "sha256": "06b093d562ede05cdeebe4837b1c97c23590a4db5234458c60062783e9ac91e6"
+  },
+  {
+    "path": "hayabusa.log",
+    "bytes": 8071,
+    "sha256": "df8fc8dc2ec1d87f55e601fc1b051abeb30a456f47f24c38c78c3662b7e60217"
+  },
+  {
+    "path": "hayabusa.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "health.json",
+    "bytes": 225,
+    "sha256": "0146f7377a63246a9e8d7652980cf37d94af62e1e1ca26f10a6d9f0f107717fd"
+  },
+  {
+    "path": "inventory.json",
+    "bytes": 832,
+    "sha256": "39b761b7553c427bc1231839e64eb3f2720e4974409cffc60174d09633fe4c4b"
+  },
+  {
+    "path": "qualification.json",
+    "bytes": 3532,
+    "sha256": "da050478a85f5e62d218699a9219036e47383820e902a4ad308668044e2377f9"
+  },
+  {
+    "path": "rule-inventory.csv",
+    "bytes": 1283214,
+    "sha256": "ada9f35a9e2c179f05f84f842fe73f01d1e45f64f171b3328eb218c82f564035"
+  },
+  {
+    "path": "run-plan.json",
+    "bytes": 165,
+    "sha256": "3968330d52361bbf6d7e9427c4dfd76215c9bc8445e23fdecabb7339a1692b08"
+  },
+  {
+    "path": "selection.json",
+    "bytes": 77475,
+    "sha256": "063f69c32cf433ebe37f5fb0d40fe7e3a747da73b8769252f8c96fcaf976da01"
+  }
+]

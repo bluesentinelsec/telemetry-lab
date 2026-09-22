@@ -1,0 +1,102 @@
+[
+  {
+    "path": "alerts.csv",
+    "bytes": 478495,
+    "sha256": "14f4c4393568a5e3bd669d9133354bd9be1515f3514aed456d48135996ed52c0"
+  },
+  {
+    "path": "attempts.json",
+    "bytes": 1636,
+    "sha256": "365ea4906976e3cad5e46756a7220aec992d9ebbcc0c05114dadb15ae24d4d57"
+  },
+  {
+    "path": "build-manifest.json",
+    "bytes": 10558,
+    "sha256": "3a85614b0d42d225912680797c9e406709daa9543fdee3a29c887931956f7b79"
+  },
+  {
+    "path": "detector-exit.txt",
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  {
+    "path": "dns_ip_lookup-active/attempt.json",
+    "bytes": 744,
+    "sha256": "81f8566ed8b983d6b20817c3d370ab22754f3afe4a7221075488d89359f90a80"
+  },
+  {
+    "path": "dns_ip_lookup-active/stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "dns_ip_lookup-active/stdout.txt",
+    "bytes": 57,
+    "sha256": "c478db48bd725761a76a4b0925da792516cc253ce8fe7e45c05a79bb82b905b9"
+  },
+  {
+    "path": "dns_ip_lookup-control/attempt.json",
+    "bytes": 744,
+    "sha256": "09f8a3dc77da093587c8082fafaa84af9974350e49d3cc47fe8a2bc87ee2449d"
+  },
+  {
+    "path": "dns_ip_lookup-control/stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "dns_ip_lookup-control/stdout.txt",
+    "bytes": 56,
+    "sha256": "cc1f216e8fc1068c402cec44eb33dc6b510c5807ee71e38d6247d5205e4db583"
+  },
+  {
+    "path": "events.evtx",
+    "bytes": 6361088,
+    "sha256": "fdc9b3d151884ce00eeb1bf125bee136eb482f0cbccf8aed8ed3b65f77ecbe4e"
+  },
+  {
+    "path": "events.json",
+    "bytes": 3201961,
+    "sha256": "d109169a9a76eaaea3c686331a6ff5e267be66401807a2bc1e7021fcc0aa9b19"
+  },
+  {
+    "path": "hayabusa.log",
+    "bytes": 8020,
+    "sha256": "4f5972c2b4da3b3b68597f18465831eaa62f5748f68bfdb0532832ea37e2b4e5"
+  },
+  {
+    "path": "hayabusa.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "health.json",
+    "bytes": 225,
+    "sha256": "da79a9e290ad48271abd5d33ea2d90a1312504065c0f1bed2e61e98acdd72306"
+  },
+  {
+    "path": "inventory.json",
+    "bytes": 832,
+    "sha256": "39b761b7553c427bc1231839e64eb3f2720e4974409cffc60174d09633fe4c4b"
+  },
+  {
+    "path": "qualification.json",
+    "bytes": 1904,
+    "sha256": "a84e3d48b99be7c709de084b8a5dc04394b05264c6e526b5c1e8dcbdfa2ff81a"
+  },
+  {
+    "path": "rule-inventory.csv",
+    "bytes": 1283214,
+    "sha256": "ada9f35a9e2c179f05f84f842fe73f01d1e45f64f171b3328eb218c82f564035"
+  },
+  {
+    "path": "run-plan.json",
+    "bytes": 135,
+    "sha256": "f618999b444febde048cdad14703a9c2135f6e6e052f5bbd05ee479971220cc3"
+  },
+  {
+    "path": "selection.json",
+    "bytes": 77475,
+    "sha256": "063f69c32cf433ebe37f5fb0d40fe7e3a747da73b8769252f8c96fcaf976da01"
+  }
+]

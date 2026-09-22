@@ -1,0 +1,67 @@
+[
+  {
+    "path": "api.ipify.org-explicit-server.json",
+    "bytes": 257,
+    "sha256": "13b5f6157f29601ba5705cfcafca63d51db45202964360550b995be3d33452d4"
+  },
+  {
+    "path": "api.ipify.org-response.bin",
+    "bytes": 47,
+    "sha256": "c836073f1913f0ece9fa8582382be194d29b1daed2c8dcead4dd20ca12ce6955"
+  },
+  {
+    "path": "capture.json",
+    "bytes": 63,
+    "sha256": "ee656f6a749441e7884a1868951d1893f0040dc72dabcdd2cdcf85019babe6c3"
+  },
+  {
+    "path": "dns.log",
+    "bytes": 370,
+    "sha256": "8c2cf0630461192abca49e4d6fd62f4f6cd4de3e10230b9bee1ce97f89722f0e"
+  },
+  {
+    "path": "dns.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "events.evtx",
+    "bytes": 3215360,
+    "sha256": "8794e6af3e5b3d4fbecdd26360fc9bdae53a54edb707868d1f6c8a863e268d04"
+  },
+  {
+    "path": "lab.onion-explicit-server-error.txt",
+    "bytes": 612,
+    "sha256": "a136a6bb217eb85356f76583f735aa50f526561073a0c30feeb505906e31d408"
+  },
+  {
+    "path": "lab.onion-response.bin",
+    "bytes": 43,
+    "sha256": "b742a5ffed4dbabf4b914a04ea388674671844ea70bf152db2b70498a888acec"
+  },
+  {
+    "path": "nrpt-after.xml",
+    "bytes": 166,
+    "sha256": "5b164e2bcc2a707041da1d45e63ba2b2ffb122ca6e38979056e33eb004f7dae8"
+  },
+  {
+    "path": "nrpt-before.xml",
+    "bytes": 166,
+    "sha256": "5b164e2bcc2a707041da1d45e63ba2b2ffb122ca6e38979056e33eb004f7dae8"
+  },
+  {
+    "path": "nrpt-effective.xml",
+    "bytes": 19342,
+    "sha256": "a2243764d25e801f10e3717f2489bf8f8de11ea14366f6e759979f379d5ab8fc"
+  },
+  {
+    "path": "results.json",
+    "bytes": 3104,
+    "sha256": "3288548e8ba75e18de1cbc3ca50f3189f869b977a036faa3cfacbf43baba9a45"
+  },
+  {
+    "path": "server-hash.json",
+    "bytes": 200,
+    "sha256": "85d07bac020a4a16261001feacf2f2661e60df6c46f9f972249e6c53a73fb418"
+  }
+]

@@ -1,0 +1,210 @@
+﻿{
+    "runtime":  "msvcrt",
+    "compiler_version":  "16.2.0",
+    "programs":  [
+                     {
+                         "case_id":  "registry_run_key",
+                         "sha256":  "af6f7a423d1b913f3addd8714f8b98ee45eca12973dac14ca9bd5cc96502804b",
+                         "imports":  [
+                                         "ADVAPI32.dll",
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_app_paths",
+                         "sha256":  "06b99eee44022d3e6e0a357322db97aa29288230f29128adfd1f7657a61bc598",
+                         "imports":  [
+                                         "ADVAPI32.dll",
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_active_setup",
+                         "sha256":  "f81292fdbafddfb56ab9ae6ebd5e4ff973749fd8c5909d59812a2066028a7062",
+                         "imports":  [
+                                         "ADVAPI32.dll",
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_screensaver",
+                         "sha256":  "2c92fecdf4bb89992f505fcf0a0b8c99ff14162bf9694580c996a4c5ea609d29",
+                         "imports":  [
+                                         "ADVAPI32.dll",
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_runmru_delete",
+                         "sha256":  "f2b6b93ebaa4377a2a6584d5e843bc70682215f5c7daffa4661d2a5b918baed9",
+                         "imports":  [
+                                         "ADVAPI32.dll",
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "startup_file",
+                         "sha256":  "05a840ac68129f093079e127f4d7ea82961921b4de4045ee2c05403108e1a416",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "powershell_profile",
+                         "sha256":  "cd2b00b70392673dd9b4b2c0a0435932bbc86cb7fc17035c3eaff3582eff11d5",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "public_binary",
+                         "sha256":  "07fec3b750767bfefb5c7686708a2a8907afe0412fe06ce7cb86fdcd46ed34bd",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "double_extension_file",
+                         "sha256":  "d4ee023f95205cf9e94960d5291e4ea8abae39dd729e1685828d6e4191d84a02",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "double_extension_lnk",
+                         "sha256":  "c1903bb1c3bfa77c6b57fed7635ee74e26fd4471b5ace52bf9987b1cc87bceb0",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "office_startup_file",
+                         "sha256":  "e6b7bb4c375e4d91300ee958ab42cd1c0c53cf85e752448172de006364416a8b",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "suspicious_executable_file",
+                         "sha256":  "d588f83a4ab97898ae19b831b065915286db253def2fdabb4963d38bbbd53ea6",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_2525",
+                         "sha256":  "f359d4141268b52f5e551743d2e8e9eb861cdba25b673fff7c05e447f407fbda",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll",
+                                         "WS2_32.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_3389",
+                         "sha256":  "182f08a793f62406e99a3a857c4ffc723b2ed85d5a6595e8fcc86b8573fde494",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll",
+                                         "WS2_32.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_9389",
+                         "sha256":  "dc636ffedd9f1aabf2f573abbc5dd13570ea7b8891beb96ce60518fb3307401f",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll",
+                                         "WS2_32.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_88",
+                         "sha256":  "3cfdac7f09fcfad49df12f3af653b119f9283eadbe103b0e963448afc7805fe5",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll",
+                                         "WS2_32.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_public_path",
+                         "sha256":  "1e47c84af6699137b4af3b242290786023c0a6abfe91008ab6d19fc42fa94871",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll",
+                                         "WS2_32.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "dns_onion",
+                         "sha256":  "56fcc2438db72a07a509b2ba0c2e58053f86e77ee1778bcbca09e5adb23ef299",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll",
+                                         "WS2_32.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "dns_ip_lookup",
+                         "sha256":  "365a5b3f5165d1b9011e49f454b1d9e9e709a62fb6bb4b4d5b9327575c2222af",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll",
+                                         "WS2_32.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "double_extension_execute",
+                         "sha256":  "c9c2d956dd0154a0b3bbc343ff34ff9aeab2cfc6d4540fad53cf1d2b41a62be9",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "creation_time_change",
+                         "sha256":  "e46b2cc00e7c5ac57b310e6aa81ba508883c93bea8c22000e3cb71025dee571b",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "ads_executable",
+                         "sha256":  "d6c9de9ddb504dec175f711787ba60d84cba1b67fa21a2054bc709eee835ea12",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "named_pipe_indicator",
+                         "sha256":  "6ef8b188d6072478d1d09b4293a02b00796f36855e48f29b3ff40bddd679d26e",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "unsigned_node_load",
+                         "sha256":  "1611c06a203c0b775d15ffe15fb802d780d49b3aaeb9e30b006f0e9fa5aadf6f",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "msvcrt.dll"
+                                     ]
+                     }
+                 ]
+}

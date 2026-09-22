@@ -101,6 +101,12 @@ assemble() {
     cp ttp-composite/linux/coverage/run.py ttp-composite/linux/coverage/validate_manifest.py "$root/ttp-composite/coverage/"
     cp -R ttp-composite/linux/coverage/rules "$root/ttp-composite/coverage/"
   fi
+  if [ "$os" = windows ]; then
+    mkdir -p "$root/ttp-composite/coverage"
+    for support in selection.json rule-inventory.csv RULE-LICENSE.md run.ps1 run-local-tcp.ps1 run-local-dns.ps1 analyze.py verify_programs.py; do
+      cp "ttp-composite/windows/coverage/$support" "$root/ttp-composite/coverage/"
+    done
+  fi
   for cfg in $configs; do
     local cdst="$root/ttp-composite/$cfg"
     mkdir -p "$cdst"
@@ -109,6 +115,9 @@ assemble() {
     # composites even if a Windows composite build did not produce an artifact.
     if [ -d "$COMP/composite-$cfg" ]; then
       find "$COMP/composite-$cfg" -path '*/coverage' -prune -o -type f \( "${compnameargs[@]}" -name '*.dll' \) -exec cp {} "$cdst/" \;
+      if [ "$os" = windows ] && [ -d "$COMP/composite-$cfg/coverage" ]; then
+        cp -R "$COMP/composite-$cfg/coverage" "$cdst/coverage"
+      fi
       if [ "$os" = linux ]; then
         chmod +x "$cdst"/* 2>/dev/null || true
         if [ -d "$COMP/composite-$cfg/coverage" ]; then

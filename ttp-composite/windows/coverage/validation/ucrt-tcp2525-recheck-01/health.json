@@ -1,0 +1,10 @@
+﻿{
+    "start_record":  279088,
+    "end_record":  279215,
+    "oldest_remaining_record":  123616,
+    "log_overwritten":  false,
+    "sysmon_service":  "Running",
+    "error_events":  [
+
+                     ]
+}

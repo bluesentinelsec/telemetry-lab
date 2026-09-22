@@ -49,7 +49,8 @@ is the `windows-2025` runner.
 
 For Linux-only qualification without provisioning the Windows host, pass
 `-c linuxOnly=true`. Use `-c stackName=FalcoCoverageValidation` to keep a
-temporary validation deployment separate from the normal lab stack. Defaults
+temporary validation deployment separate from the normal lab stack. Use `-c windowsOnly=true -c stackName=WindowsCValidation` for Windows-only
+qualification. The two OS-only switches are mutually exclusive. Defaults
 still provision both operating systems under `LabEnvironmentStack`.
 
 ```sh
