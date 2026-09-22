@@ -34,6 +34,19 @@ class AttributionTests(unittest.TestCase):
         self.assertEqual(result['outcome'],'attribution-incomplete')
         self.assertFalse(result['valid'])
         self.assertEqual(result['unattributed_target_record_ids'],['2'])
+    def test_stale_nonzero_guid_during_probe_is_incomplete(self):
+        events=copy.deepcopy(self.events)
+        events[1]['fields']=dict(ProcessGuid='old-conhost-guid',ProcessId='100',Image=r'C:\Windows\System32\conhost.exe')
+        result=evaluate(self.attempt,events,[dict(RuleID='target',RecordID='2')])
+        self.assertEqual(result['outcome'],'attribution-incomplete')
+        self.assertEqual(result['conflicting_guid_record_ids'],['2'])
+        self.assertEqual(result['target_record_ids'],[])
+        self.assertEqual(result['unattributed_target_record_ids'],['2'])
+    def test_later_pid_reuse_does_not_invalidate_probe(self):
+        events=copy.deepcopy(self.events)
+        events.append(dict(record_id=3,event_id=3,time_utc='2026-09-22T12:00:20Z',fields=dict(ProcessGuid='later-process',ProcessId='100')))
+        result=evaluate(self.attempt,events,[dict(RuleID='target',RecordID='2')])
+        self.assertEqual(result['outcome'],'alert')
     def test_missing_start_is_invalid(self):
         self.assertEqual(evaluate(self.attempt,self.events[1:],[])['outcome'],'invalid')
 

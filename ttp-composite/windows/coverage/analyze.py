@@ -52,6 +52,14 @@ def evaluate(attempt, events, alerts, healthy=True):
                if e['fields'].get('ProcessGuid') in missing_guid
                and str(e['fields'].get('ProcessId'))==str(process['pid'])
                and start-timedelta(seconds=1)<=timestamp(e['time_utc'])<=end+timedelta(seconds=30)}
+    # Sysmon can also attach an older nonzero GUID after PID reuse. An EID 3
+    # arriving during this measured process's lifetime with its PID but another
+    # GUID is contradictory evidence, never an alert credited by PID alone.
+    conflicting={str(e['record_id']) for e in events
+                 if e['event_id']==3 and e['fields'].get('ProcessGuid') not in guids|missing_guid
+                 and str(e['fields'].get('ProcessId'))==str(process['pid'])
+                 and start<=timestamp(e['time_utc'])<=end}
+    ambiguous |= conflicting
     ambiguous_alerts=[a for a in alerts if a.get('RuleID','').lower()==attempt['rule_id'].lower()
                       and str(a.get('RecordID','')) in ambiguous]
     fired=bool(matches)
@@ -62,7 +70,7 @@ def evaluate(attempt, events, alerts, healthy=True):
     return dict(case_id=attempt['case_id'],runtime=attempt['runtime'],mode=attempt['mode'],
                 rule_id=attempt['rule_id'],valid=valid,outcome=outcome,
                 behavior_ok=attempt['behavior_ok'],process_start_matches=len(starts),
-                ambiguous_record_ids=sorted(ambiguous),unattributed_target_record_ids=sorted({a['RecordID'] for a in ambiguous_alerts}),
+                ambiguous_record_ids=sorted(ambiguous),conflicting_guid_record_ids=sorted(conflicting),unattributed_target_record_ids=sorted({a['RecordID'] for a in ambiguous_alerts}),
                 process_guids=sorted(guids),target_record_ids=sorted({a['RecordID'] for a in matches}),
                 attributable_event_ids=sorted({e['event_id'] for e in events if str(e['record_id']) in attributable}))
 
