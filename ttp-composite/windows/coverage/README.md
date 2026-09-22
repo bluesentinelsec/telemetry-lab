@@ -1,6 +1,6 @@
 # Windows TTP composite rule selection
 
-**Status: implementation and live qualification in progress in PR #60. See [implementation.md](implementation.md) for current results and the approved network fixture contract.**
+**Status: implementation and live qualification in progress in PR #60. See [implementation.md](implementation.md) for current results, the approved fixtures, and the remaining .onion behavior decision.**
 
 The Windows pipeline collects Sysmon events into EVTX and evaluates them with Hayabusa. The subject is the unmodified rule bundle shipped in the Hayabusa 4.1.0 Windows x64 release, not the entire upstream Sigma repository. All 24 selected rules are Sigma-derived Sysmon rules.
 
@@ -12,11 +12,11 @@ The Windows pipeline collects Sysmon events into EVTX and evaluates them with Ha
 | Definitions referencing the Sysmon Operational channel | 2,455 |
 | Sysmon definitions passing the static scope filters below | 2,269 |
 | Proposed target rules | 24 |
-| Target rules demonstrated in both C configurations | 20 |
+| Target rules demonstrated in both C configurations | 23 |
 
 Static filters follow the existing `-m low --no-wizard` configuration: remove informational, deprecated, unsupported, default excluded/noisy IDs, and rules with unresolved expansion placeholders. Overlapping exclusions are counted once. Channel membership means the detection references Sysmon, not that every rule can be satisfied using Sysmon alone. Live Hayabusa 4.1.0 replay now confirms 2,269 rules enabled after channel filtering for the Sysmon EVTX input. That is the configured denominator; it does not mean every rule has a qualified test case.
 
-Proposed scope statement: "We will develop 24 Windows composite tests against 24 selected rules from 2,455 Sysmon-referencing definitions in the pinned Hayabusa bundle." After engine verification and C qualification, report the qualified numerator and configured denominator separately.
+Current qualified scope: "23 standalone Windows C composites have demonstrated alerts against 23 selected rules out of the 2,269 enabled rules in the pinned Hayabusa/Sysmon evaluation." A 24th `.onion` candidate remains implemented but unqualified pending its behavior contract. This numerator counts exact target rules, not every incidental alert in the full ruleset.
 
 ## Selection rationale
 
@@ -249,4 +249,4 @@ The bundled rules repository reports HEAD `fffbdd179c8c8c7554368c443f9ba2917877f
 
 ## Resume decision: issue #59
 
-Windows onboarding is tracked at https://github.com/bluesentinelsec/telemetry-lab/issues/59. The initial candidates are generally accepted, with a new constraint: network composites stay close to basic socket/DNS primitives, without SMTP, RDP, ADWS, Kerberos, or LDAP client libraries or protocol implementations. The four port-based rules may use simple connections to controlled listeners. Defer LDAP SRV discovery unless justified within the existing primitive-level scope without new dependencies. The final count remains TBD; the ledger above reflects the 2026-09-22 refinement, not a frozen implementation commitment. Resume with C, then C++, Go, and Rust in separate feature PRs.
+Windows onboarding is tracked at https://github.com/bluesentinelsec/telemetry-lab/issues/59. The initial candidates are generally accepted, with a new constraint: network composites stay close to basic socket/DNS primitives, without SMTP, RDP, ADWS, Kerberos, or LDAP client libraries or protocol implementations. The four port-based rules may use simple connections to controlled listeners. Defer LDAP SRV discovery unless justified within the existing primitive-level scope without new dependencies. The current C baseline demonstrates 23 targets in both CRTs; the .onion lookup contract remains unresolved. Port the accepted standalone behaviors and exact target IDs to C++, Go, and Rust in separate feature PRs after C scope is finalized.

@@ -1,0 +1,2 @@
+DNS_READY 127.0.0.1:53
+DNS_QUERY api.ipify.org type=1 answer=127.0.0.42

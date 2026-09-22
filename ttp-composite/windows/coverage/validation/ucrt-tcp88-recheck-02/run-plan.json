@@ -1,0 +1,7 @@
+﻿{
+    "runtime":  "ucrt",
+    "cases":  [
+                  "tcp_connect_88"
+              ],
+    "expected_attempts":  2
+}

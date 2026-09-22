@@ -2,26 +2,26 @@
 
 PR #60 implements 24 separate C executables for the candidate scope, built with GCC 16.2.0 in UCRT and MSVCRT configurations. The actual PE import tables establish the intended CRT; compiler versions and executable hashes are recorded in `build-manifest.json`. CI runs the 17 non-network behaviors and each same-binary control on both Windows configurations.
 
-**The onboarding is not complete.** Twenty target rules have been demonstrated with attributable alerts and clean controls in both C configurations. The Public-folder TCP case misses its rule, and the approved RDP, DNS and lifetime changes await requalification. No claim is made that all 24 candidates alert.
+**23 exact targets are demonstrated in both C configurations.** The `.onion` candidate is implemented but its behavior contract remains unresolved. All other approved network fixture changes have been exercised in the lab.
 
 ## Live results
 
-The live Windows Server 2025 host used Sysmon and the exact Hayabusa 4.1.0 bundle recorded in `selection.json`. The full pinned ruleset was evaluated with `dfir-timeline -m low --no-wizard`; the engine reports **2,269 rules enabled after the Sysmon channel filter**. Each campaign preserves the full EVTX, structured event fields, all detector alerts, behavior output, binary/fixture hashes, and process identities.
+The follow-up Windows Server 2025 campaigns used the pinned Hayabusa 4.1.0 bundle and recorded Sysmon/configuration hashes. The engine reports **2,269 enabled Sysmon rules**. Across 100 attempts: 48 attributable target alerts, 50 clean controls, one conflicting-identity attempt and one failed lookup. See `validation/README.md` for the complete matrix and retained initial results.
 
-- All 17 non-network cases: exact target alert in both UCRT and MSVCRT; all 34 associated controls clean.
-- TCP ports 88 and 9389: exact target alert and clean control in both CRTs using a separate localhost echo fixture.
-- TCP port 2525: UCRT alerted with full attribution; the initial MSVCRT attempt emitted an alerting network event with a zero process GUID. That attempt is **attribution-incomplete**, not a valid miss. A targeted recheck in reversed CRT order produced attributable alerts and clean controls in both CRTs. Keep the initial incomplete attempt in the evidence.
-- Public-folder TCP: the byte exchange and process identity checks pass, but both CRTs emit EID 3 with `Image=<unknown process>`. The path predicate does not match. This remains a valid no-alert observation under the recorded capture-health checks, not a qualified positive baseline. It is not established as a CRT-induced difference.
-- RDP/3389 and two DNS cases: not lab-qualified. The revised RDP executable uses connect/send against the existing service; qualification is pending.
+- All 17 non-network targets alert in both CRTs with clean controls.
+- All five TCP targets now have positive examples in both CRTs, including the existing RDP listener and Public-folder path rule. Every TCP program and control uses the same five-second lifetime hold.
+- One UCRT port-88 connection was logged with the probe PID but an older conhost.exe GUID/image. The analyzer flags this as incomplete attribution; the unchanged case alerted correctly in both CRTs on a reversed-order recheck. Keep both observations.
+- The IP-lookup DNS target alerts in both CRTs; the local responder logs the query and returns the fixed 127.0.0.42 answer. Temporary exact-name NRPT entries are removed afterward.
+- Windows rejects `lab.onion` before contacting the local responder. Sysmon still records the attempted query and Hayabusa raises the target alert, but the program's successful-resolution check fails. That run is invalid under the current contract. The user has been asked whether to verify the attempted lookup and expected rejection or defer this case; neither choice has been assumed.
 
-There is no established runtime-induced alert difference in this qualification. The short-lived TCP processes expose asynchronous sensor attribution limitations. Do not remove those attempts or count PID-only associations as successful target-rule attribution.
+The preceding 88 attempts, including two Public-folder misses and one zero-GUID attribution problem, remain preserved separately. No causal runtime-induced alert difference is established by these qualification runs.
 
 ## Approved network fixture contract
 
 The user approved all three fixture decisions on 2026-09-22:
 
 1. Reuse the existing RDP listener. The 3389 program verifies connect and complete send of a fixed 11-byte X.224 request, then closes; it performs no authentication or session setup. No RDP service configuration changes are needed.
-2. Use a local DNS responder with temporary exact-name NRPT policies for `lab.onion` and `api.ipify.org`. The harness returns 127.0.0.42 with zero TTL, records requests, and removes its policies and clears cache afterward. It does not change adapter DNS servers or forward requests externally. The measured programs use ordinary `getaddrinfo`.
+2. Use a local DNS responder with temporary exact-name NRPT policies for `lab.onion` and `api.ipify.org`. The responder returns 127.0.0.42 with zero TTL, records requests, and the harness removes its policies and clears cache afterward. Windows prevents the .onion query from reaching it; that unresolved case is documented above. It does not change adapter DNS servers or forward requests externally. The measured programs use ordinary `getaddrinfo`.
 3. Hold each TCP client alive for five seconds after I/O, with the same hold in each no-I/O control. This is a fixed part of the cross-language behavior contract. It must not be selectively enabled only for cases or runtimes that miss.
 
 Earlier immediate-exit attempts remain in `validation/`; new campaigns evaluate the approved fixtures separately.
@@ -52,9 +52,10 @@ Stage one fixed helper and unsigned module from the UCRT build as `C:\lab\window
   -Output C:\lab\qualification\ucrt-tcp-01 `
   -EchoServer C:\lab\ci-ucrt\coverage\fixtures\windows_echo_server.exe
 
-# Two resolver cases with temporary exact-name DNS routing.
+# Qualified resolver case; omit -Cases only after resolving the .onion contract.
 .\run-local-dns.ps1 -Programs C:\lab\ci-ucrt\coverage `
   -Output C:\lab\qualification\ucrt-dns-01 `
+  -Cases dns_ip_lookup `
   -DnsServer C:\lab\ci-ucrt\coverage\fixtures\windows_dns_server.exe
 ```
 

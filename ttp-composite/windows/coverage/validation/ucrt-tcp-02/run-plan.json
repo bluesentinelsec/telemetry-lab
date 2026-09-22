@@ -1,0 +1,11 @@
+﻿{
+    "runtime":  "ucrt",
+    "cases":  [
+                  "tcp_connect_2525",
+                  "tcp_connect_3389",
+                  "tcp_connect_9389",
+                  "tcp_connect_88",
+                  "tcp_connect_public_path"
+              ],
+    "expected_attempts":  10
+}

@@ -1,0 +1,38 @@
+﻿[
+    {
+        "case_id":  "dns_ip_lookup",
+        "mode":  "control",
+        "rule_id":  "e1d5e512-66be-e3eb-e24b-a9f3545e115a",
+        "runtime":  "msvcrt",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "365a5b3f5165d1b9011e49f454b1d9e9e709a62fb6bb4b4d5b9327575c2222af",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2764,
+                        "start_utc":  "2026-09-22T13:11:10.5039027Z",
+                        "end_utc":  "2026-09-22T13:11:10.5149386Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE dns_ip_lookup\r\nCONTROL_OK dns_ip_lookup\r\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "dns_ip_lookup",
+        "mode":  "active",
+        "rule_id":  "e1d5e512-66be-e3eb-e24b-a9f3545e115a",
+        "runtime":  "msvcrt",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "365a5b3f5165d1b9011e49f454b1d9e9e709a62fb6bb4b4d5b9327575c2222af",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  5052,
+                        "start_utc":  "2026-09-22T13:11:10.5301723Z",
+                        "end_utc":  "2026-09-22T13:11:10.5435070Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE dns_ip_lookup\r\nBEHAVIOR_OK dns_ip_lookup\r\n",
+                        "stderr":  ""
+                    }
+    }
+]

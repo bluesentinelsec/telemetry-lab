@@ -1,0 +1,9 @@
+{
+  "file": "/Users/michaellong/telemetry-lab-data/windows-c-2026-09-22/windows-c-network-followup.tgz",
+  "bytes": 9130735,
+  "sha256": "c95a76ce7bf560543e758f7e783f54122d1d0b55ed28b0f4625f0c0c16eb9c24",
+  "entries": 588,
+  "instance": "i-070993ba9fe1db0fb",
+  "build_workflow_run": 35729429141,
+  "build_commit": "a712ce984b147e76aeb8aa30edf95234b8409e7b"
+}

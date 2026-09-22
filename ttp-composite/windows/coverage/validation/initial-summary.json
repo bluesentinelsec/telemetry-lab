@@ -1,21 +1,21 @@
 {
-  "status": "partial-pending-onion-behavior-decision",
-  "build_workflow_run": 35729429141,
-  "build_commit": "a712ce984b147e76aeb8aa30edf95234b8409e7b",
+  "status": "partial-pending-network-decisions",
+  "build_workflow_run": 35719860078,
+  "build_commit": "9cfab05",
   "compiler_versions": [
     "16.2.0"
   ],
   "candidate_rules": 24,
   "configured_rules": 2269,
-  "qualified_in_both": 23,
-  "attempts": 100,
+  "qualified_in_both": 20,
+  "attempts": 88,
   "outcomes": {
-    "control-pass": 50,
-    "alert": 48,
-    "attribution-incomplete": 1,
-    "invalid": 1
+    "control-pass": 44,
+    "alert": 41,
+    "valid-miss": 2,
+    "attribution-incomplete": 1
   },
-  "analyzer_sha256": "46bfcbd0549cdcb173ada9b1c4b44a00058c85e5e748f09dfe6b7c0dd6b04a2c",
+  "analyzer_sha256": "0cc4e29e9979c716956baa8689fae777fbf821931c2768210586a4f521e3f4fb",
   "matrix": [
     {
       "case_id": "registry_run_key",
@@ -286,18 +286,22 @@
       "rule_id": "f8a59cdc-b3d1-8f59-c3f4-4db6d94e8efc",
       "ucrt": {
         "active_outcomes": [
+          "alert",
           "alert"
         ],
         "control_outcomes": [
+          "control-pass",
           "control-pass"
         ],
         "demonstrated": true
       },
       "msvcrt": {
         "active_outcomes": [
+          "attribution-incomplete",
           "alert"
         ],
         "control_outcomes": [
+          "control-pass",
           "control-pass"
         ],
         "demonstrated": true
@@ -307,22 +311,14 @@
       "case_id": "tcp_connect_3389",
       "rule_id": "f3fa6209-076f-c860-c7cb-e2f6bdd7d3e0",
       "ucrt": {
-        "active_outcomes": [
-          "alert"
-        ],
-        "control_outcomes": [
-          "control-pass"
-        ],
-        "demonstrated": true
+        "active_outcomes": [],
+        "control_outcomes": [],
+        "demonstrated": false
       },
       "msvcrt": {
-        "active_outcomes": [
-          "alert"
-        ],
-        "control_outcomes": [
-          "control-pass"
-        ],
-        "demonstrated": true
+        "active_outcomes": [],
+        "control_outcomes": [],
+        "demonstrated": false
       }
     },
     {
@@ -352,22 +348,18 @@
       "rule_id": "322fd5f2-b5b7-1bf4-58f2-92873dc878bb",
       "ucrt": {
         "active_outcomes": [
-          "attribution-incomplete",
           "alert"
         ],
         "control_outcomes": [
-          "control-pass",
           "control-pass"
         ],
         "demonstrated": true
       },
       "msvcrt": {
         "active_outcomes": [
-          "alert",
           "alert"
         ],
         "control_outcomes": [
-          "control-pass",
           "control-pass"
         ],
         "demonstrated": true
@@ -378,33 +370,29 @@
       "rule_id": "df13f270-859b-272a-9c2a-a0ef744a0480",
       "ucrt": {
         "active_outcomes": [
-          "alert"
+          "valid-miss"
         ],
         "control_outcomes": [
           "control-pass"
         ],
-        "demonstrated": true
+        "demonstrated": false
       },
       "msvcrt": {
         "active_outcomes": [
-          "alert"
+          "valid-miss"
         ],
         "control_outcomes": [
           "control-pass"
         ],
-        "demonstrated": true
+        "demonstrated": false
       }
     },
     {
       "case_id": "dns_onion",
       "rule_id": "29e2035f-b91f-3c35-9a7a-087b864f6d3b",
       "ucrt": {
-        "active_outcomes": [
-          "invalid"
-        ],
-        "control_outcomes": [
-          "control-pass"
-        ],
+        "active_outcomes": [],
+        "control_outcomes": [],
         "demonstrated": false
       },
       "msvcrt": {
@@ -417,24 +405,14 @@
       "case_id": "dns_ip_lookup",
       "rule_id": "e1d5e512-66be-e3eb-e24b-a9f3545e115a",
       "ucrt": {
-        "active_outcomes": [
-          "alert",
-          "alert"
-        ],
-        "control_outcomes": [
-          "control-pass",
-          "control-pass"
-        ],
-        "demonstrated": true
+        "active_outcomes": [],
+        "control_outcomes": [],
+        "demonstrated": false
       },
       "msvcrt": {
-        "active_outcomes": [
-          "alert"
-        ],
-        "control_outcomes": [
-          "control-pass"
-        ],
-        "demonstrated": true
+        "active_outcomes": [],
+        "control_outcomes": [],
+        "demonstrated": false
       }
     },
     {
@@ -550,7 +528,7 @@
   ],
   "campaigns": [
     {
-      "campaign": "ucrt-nonnetwork-02",
+      "campaign": "ucrt-nonnetwork-01",
       "counts": {
         "alert": 17,
         "valid-miss": 0,
@@ -561,18 +539,51 @@
       }
     },
     {
-      "campaign": "ucrt-tcp-02",
+      "campaign": "ucrt-tcp-01",
       "counts": {
-        "alert": 4,
+        "alert": 3,
+        "valid-miss": 1,
+        "control-pass": 4,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "campaign": "ucrt-tcp2525-recheck-01",
+      "counts": {
+        "alert": 1,
         "valid-miss": 0,
-        "control-pass": 5,
+        "control-pass": 1,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "campaign": "msvcrt-nonnetwork-01",
+      "counts": {
+        "alert": 17,
+        "valid-miss": 0,
+        "control-pass": 17,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "campaign": "msvcrt-tcp-01",
+      "counts": {
+        "alert": 2,
+        "valid-miss": 1,
+        "control-pass": 4,
         "control-failed": 0,
         "attribution-incomplete": 1,
         "invalid": 0
       }
     },
     {
-      "campaign": "ucrt-dns-ip-01",
+      "campaign": "msvcrt-tcp2525-recheck-01",
       "counts": {
         "alert": 1,
         "valid-miss": 0,
@@ -580,84 +591,7 @@
         "control-failed": 0,
         "attribution-incomplete": 0,
         "invalid": 0
-      }
-    },
-    {
-      "campaign": "ucrt-tcp88-recheck-02",
-      "counts": {
-        "alert": 1,
-        "valid-miss": 0,
-        "control-pass": 1,
-        "control-failed": 0,
-        "attribution-incomplete": 0,
-        "invalid": 0
-      }
-    },
-    {
-      "campaign": "msvcrt-nonnetwork-02",
-      "counts": {
-        "alert": 17,
-        "valid-miss": 0,
-        "control-pass": 17,
-        "control-failed": 0,
-        "attribution-incomplete": 0,
-        "invalid": 0
-      }
-    },
-    {
-      "campaign": "msvcrt-tcp-02",
-      "counts": {
-        "alert": 5,
-        "valid-miss": 0,
-        "control-pass": 5,
-        "control-failed": 0,
-        "attribution-incomplete": 0,
-        "invalid": 0
-      }
-    },
-    {
-      "campaign": "msvcrt-dns-ip-01",
-      "counts": {
-        "alert": 1,
-        "valid-miss": 0,
-        "control-pass": 1,
-        "control-failed": 0,
-        "attribution-incomplete": 0,
-        "invalid": 0
-      }
-    },
-    {
-      "campaign": "msvcrt-tcp88-recheck-02",
-      "counts": {
-        "alert": 1,
-        "valid-miss": 0,
-        "control-pass": 1,
-        "control-failed": 0,
-        "attribution-incomplete": 0,
-        "invalid": 0
-      }
-    },
-    {
-      "campaign": "ucrt-dns-01",
-      "counts": {
-        "alert": 1,
-        "valid-miss": 0,
-        "control-pass": 2,
-        "control-failed": 0,
-        "attribution-incomplete": 0,
-        "invalid": 1
       }
     }
-  ],
-  "initial_campaigns": {
-    "summary_file": "initial-summary.json",
-    "attempts": 88,
-    "outcomes": {
-      "control-pass": 44,
-      "alert": 41,
-      "valid-miss": 2,
-      "attribution-incomplete": 1
-    },
-    "qualified_in_both": 20
-  }
+  ]
 }
