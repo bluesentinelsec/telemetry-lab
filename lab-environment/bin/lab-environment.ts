@@ -20,6 +20,7 @@ const diskGiBContext = app.node.tryGetContext('diskGiB');
 
 new LabEnvironmentStack(app, app.node.tryGetContext('stackName') ?? 'LabEnvironmentStack', {
   linuxOnly: String(app.node.tryGetContext('linuxOnly')) === 'true',
+  windowsOnly: String(app.node.tryGetContext('windowsOnly')) === 'true',
   // A concrete env is required because the Debian AMI is resolved with a
   // context lookup (which needs account + region at synth time).
   env: { account, region },

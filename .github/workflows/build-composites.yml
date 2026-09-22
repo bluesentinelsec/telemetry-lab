@@ -250,7 +250,6 @@ jobs:
             name: Windows C (MSVCRT)
 
     name: ${{ matrix.name }}
-    continue-on-error: true  # go-back #50: Windows composites non-blocking
     runs-on: windows-2025
     defaults:
       run:
@@ -278,6 +277,9 @@ jobs:
       - name: Stage composites
         working-directory: ttp-composite/windows/c
         run: cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
+
+      - name: Verify standalone programs and CRT imports
+        run: python ttp-composite/windows/coverage/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.msystem == 'UCRT64' && 'ucrt' || 'msvcrt' }}
 
       - name: Upload composites
         uses: actions/upload-artifact@v7

@@ -1,0 +1,1880 @@
+{
+  "provenance": {
+    "hayabusa_version": "4.1.0",
+    "release_url": "https://github.com/Yamato-Security/hayabusa/releases/tag/v4.1.0",
+    "asset_url": "https://github.com/Yamato-Security/hayabusa/releases/download/v4.1.0/hayabusa-4.1.0-win-x64.zip",
+    "asset_sha256": "4d304cc5baaa750ed08cc24b7b89c58ea058740c7e344502d7b82554637543a8",
+    "executable_sha256": "a9603a988b6a8360684dde95d9a65b1793e9415a6ee7cd8b40c601cf3036e623",
+    "bundled_rules_git_head": "fffbdd179c8c8c7554368c443f9ba2917877f108",
+    "release_tag_rules_gitlink": "e9a98d49313eed67fe1a2c21c0b108e04fdebe66",
+    "count_total": 4987,
+    "count_sysmon": 2455,
+    "count_static_eligible_sysmon": 2269,
+    "proposed_rule_count": 24,
+    "qualified_rule_count": 0,
+    "config_sha256": {
+      "exclude_rules.txt": "4b96b19b1b373d39833b07cb8148e5767620381e2c371c78db5f17f9121d8379",
+      "noisy_rules.txt": "636ea2adc5bb63da3e29459c963b7ca676bf5a80a58c0eb7d4ac7e728b766594"
+    },
+    "inventory_sha256": "f3a3ee9b0a8264dca4c9be2c88d5921efbd816029fe1d4d34ba2c57dffe87957"
+  },
+  "candidates": [
+    {
+      "case_id": "registry_run_key",
+      "family": "Registry",
+      "rule_id": "3f59aeed-e4fb-6b21-a7fa-a327fdb8494d",
+      "upstream_related": [
+        {
+          "id": "17f878b8-9968-4578-b814-c4217fc5768c",
+          "type": "obsolete"
+        },
+        {
+          "id": "20f0ee37-5942-4e45-b7d5-c5b5db9df5cd",
+          "type": "derived"
+        }
+      ],
+      "title": "CurrentVersion Autorun Keys Modification",
+      "path": "sigma/sysmon/registry/registry_set/registry_set_asep_reg_keys_modification_currentversion.yml",
+      "sha256": "aaa4765a2769bcd58d6c6d147413e5f8a418bd8b6697d928632a25ed25f2c663",
+      "event_ids": [
+        13
+      ],
+      "level": "medium",
+      "status": "test",
+      "behavior": "Write a nonempty HKCU Run value pointing to a fixed benign helper; read it back and remove it before any logon.",
+      "fixture_requirements": "Use an unused fixture value under the actual Run key; preserve any pre-existing data. Control writes to an ordinary fixture key.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "registry_set": {
+          "EventID": 13,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection_current_version_base": {
+          "TargetObject|contains": "\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion"
+        },
+        "selection_current_version_keys": {
+          "TargetObject|contains": [
+            "\\ShellServiceObjectDelayLoad",
+            "\\Run\\",
+            "\\RunOnce\\",
+            "\\RunOnceEx\\",
+            "\\RunServices\\",
+            "\\RunServicesOnce\\",
+            "\\Policies\\System\\Shell",
+            "\\Policies\\Explorer\\Run",
+            "\\Group Policy\\Scripts\\Startup",
+            "\\Group Policy\\Scripts\\Shutdown",
+            "\\Group Policy\\Scripts\\Logon",
+            "\\Group Policy\\Scripts\\Logoff",
+            "\\Explorer\\ShellServiceObjects",
+            "\\Explorer\\ShellIconOverlayIdentifiers",
+            "\\Explorer\\ShellExecuteHooks",
+            "\\Explorer\\SharedTaskScheduler",
+            "\\Explorer\\Browser Helper Objects",
+            "\\Authentication\\PLAP Providers",
+            "\\Authentication\\Credential Providers",
+            "\\Authentication\\Credential Provider Filters"
+          ]
+        },
+        "filter_main_generic_all": [
+          {
+            "Details": "(Empty)"
+          },
+          {
+            "TargetObject|endswith": "\\NgcFirst\\ConsecutiveSwitchCount"
+          },
+          {
+            "Image|endswith": [
+              "\\AppData\\Local\\Microsoft\\OneDrive\\Update\\OneDriveSetup.exe",
+              "\\AppData\\Roaming\\Spotify\\Spotify.exe",
+              "\\AppData\\Local\\WebEx\\WebexHost.exe"
+            ]
+          },
+          {
+            "Image": [
+              "C:\\WINDOWS\\system32\\devicecensus.exe",
+              "C:\\Windows\\system32\\winsat.exe",
+              "C:\\Program Files\\Microsoft OneDrive\\StandaloneUpdater\\OneDriveSetup.exe",
+              "C:\\Program Files (x86)\\Microsoft OneDrive\\StandaloneUpdater\\OneDriveSetup.exe",
+              "C:\\Program Files\\Microsoft OneDrive\\Update\\OneDriveSetup.exe",
+              "C:\\Program Files (x86)\\Microsoft OneDrive\\Update\\OneDriveSetup.exe",
+              "C:\\Program Files\\Microsoft Office\\root\\integration\\Addons\\OneDriveSetup.exe",
+              "C:\\Program Files (x86)\\Microsoft Office\\root\\integration\\Addons\\OneDriveSetup.exe",
+              "C:\\Program Files\\KeePass Password Safe 2\\ShInstUtil.exe",
+              "C:\\Program Files\\Everything\\Everything.exe",
+              "C:\\Program Files (x86)\\Microsoft Office\\root\\integration\\integrator.exe",
+              "C:\\Program Files\\Microsoft Office\\root\\integration\\integrator.exe"
+            ]
+          }
+        ],
+        "filter_main_null": {
+          "Details": null
+        },
+        "filter_main_logonui": {
+          "Image": "C:\\Windows\\system32\\LogonUI.exe",
+          "TargetObject|contains": [
+            "\\Authentication\\Credential Providers\\{D6886603-9D2F-4EB2-B667-1971041FA96B}\\",
+            "\\Authentication\\Credential Providers\\{BEC09223-B018-416D-A0AC-523971B639F5}\\",
+            "\\Authentication\\Credential Providers\\{8AF662BF-65A0-4D0A-A540-A338A999D36F}\\",
+            "\\Authentication\\Credential Providers\\{27FBDB57-B613-4AF2-9D7E-4FA7A66C21AD}\\"
+          ]
+        },
+        "filter_main_edge": {
+          "Image|startswith": [
+            "C:\\Program Files (x86)\\Microsoft\\EdgeUpdate\\Install\\",
+            "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\",
+            "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          ]
+        },
+        "filter_main_defender": {
+          "Image": "C:\\Program Files\\Windows Defender\\MsMpEng.exe"
+        },
+        "filter_main_teams": {
+          "Image|endswith": "\\Microsoft\\Teams\\current\\Teams.exe",
+          "Details|contains": "\\Microsoft\\Teams\\Update.exe --processStart "
+        },
+        "filter_main_ctfmon": {
+          "Image": "C:\\Windows\\system32\\userinit.exe",
+          "Details": "ctfmon.exe /n"
+        },
+        "filter_optional_dropbox": {
+          "Image": "C:\\Windows\\system32\\regsvr32.exe",
+          "TargetObject|contains": "DropboxExt",
+          "Details|endswith": "A251-47B7-93E1-CDD82E34AF8B}"
+        },
+        "filter_optional_opera_1": {
+          "TargetObject|endswith": "\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\Opera Browser Assistant",
+          "Details": "C:\\Program Files\\Opera\\assistant\\browser_assistant.exe"
+        },
+        "filter_optional_opera_2": {
+          "TargetObject|endswith": "\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\Opera Stable",
+          "Details": [
+            "C:\\Program Files\\Opera\\launcher.exe",
+            "C:\\Program Files (x86)\\Opera\\launcher.exe"
+          ]
+        },
+        "filter_optional_itunes": {
+          "TargetObject|endswith": "\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\iTunesHelper",
+          "Details": "\"C:\\Program Files\\iTunes\\iTunesHelper.exe\""
+        },
+        "filter_optional_zoom": {
+          "TargetObject|endswith": "\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce\\zoommsirepair",
+          "Details": "\"C:\\Program Files\\Zoom\\bin\\installer.exe\" /repair"
+        },
+        "filter_optional_greenshot": {
+          "TargetObject|endswith": "\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\Greenshot",
+          "Details": "C:\\Program Files\\Greenshot\\Greenshot.exe"
+        },
+        "filter_optional_googledrive1": {
+          "TargetObject|endswith": "\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\GoogleDriveFS",
+          "Details|startswith": "C:\\Program Files\\Google\\Drive File Stream\\",
+          "Details|contains": "\\GoogleDriveFS.exe"
+        },
+        "filter_optional_googledrive2": {
+          "TargetObject|contains": "GoogleDrive",
+          "Details": [
+            "{CFE8B367-77A7-41D7-9C90-75D16D7DC6B6}",
+            "{A8E52322-8734-481D-A7E2-27B309EF8D56}",
+            "{C973DA94-CBDF-4E77-81D1-E5B794FBD146}",
+            "{51EF1569-67EE-4AD6-9646-E726C3FFC8A2}"
+          ]
+        },
+        "filter_optional_onedrive": {
+          "Details|startswith": [
+            "C:\\Windows\\system32\\cmd.exe /q /c rmdir /s /q \"C:\\Users\\",
+            "C:\\Windows\\system32\\cmd.exe /q /c del /q \"C:\\Users\\"
+          ],
+          "Details|contains": "\\AppData\\Local\\Microsoft\\OneDrive\\"
+        },
+        "filter_optional_python": {
+          "TargetObject|contains": "\\Microsoft\\Windows\\CurrentVersion\\RunOnce\\{",
+          "Details|contains|all": [
+            "\\AppData\\Local\\Package Cache\\{",
+            "}\\python-"
+          ],
+          "Details|endswith": ".exe\" /burn.runonce"
+        },
+        "filter_optional_officeclicktorun": {
+          "Image|startswith": [
+            "C:\\Program Files\\Common Files\\Microsoft Shared\\ClickToRun\\",
+            "C:\\Program Files (x86)\\Common Files\\Microsoft Shared\\ClickToRun\\"
+          ],
+          "Image|endswith": "\\OfficeClickToRun.exe"
+        },
+        "filter_optional_teams": {
+          "Image|endswith": "\\Microsoft\\Teams\\current\\Teams.exe",
+          "Details|contains": "\\Microsoft\\Teams\\Update.exe --processStart"
+        },
+        "filter_optional_AVG_setup": {
+          "Image|contains": [
+            "C:\\Program Files\\AVG\\Antivirus\\Setup\\",
+            "C:\\Program Files (x86)\\AVG\\Antivirus\\Setup\\",
+            "\\instup.exe"
+          ],
+          "Details": [
+            "\"C:\\Program Files\\AVG\\Antivirus\\AvLaunch.exe\" /gui",
+            "\"C:\\Program Files (x86)\\AVG\\Antivirus\\AvLaunch.exe\" /gui",
+            "{472083B0-C522-11CF-8763-00608CC02F24}",
+            "{472083B1-C522-11CF-8763-00608CC02F24}"
+          ]
+        },
+        "filter_optional_Avast": {
+          "Image|contains": [
+            "C:\\Program Files\\Avast Software\\Avast\\Setup\\",
+            "C:\\Program Files (x86)\\Avast Software\\Avast\\Setup\\",
+            "\\instup.exe"
+          ],
+          "Details": [
+            "\"C:\\Program Files\\Avast Software\\Avast\\AvLaunch.exe\" /gui",
+            "\"C:\\Program Files (x86)\\Avast Software\\Avast\\AvLaunch.exe\" /gui"
+          ]
+        },
+        "filter_optional_AVG_avgtoolsvc": {
+          "Image": [
+            "C:\\Program Files\\AVG\\Antivirus\\avgToolsSvc.exe",
+            "C:\\Program Files (x86)\\AVG\\Antivirus\\avgToolsSvc.exe"
+          ],
+          "TargetObject|contains": "\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\Run\\",
+          "Details": "Binary Data"
+        },
+        "filter_optional_aurora_dashboard": {
+          "Image|endswith": [
+            "\\aurora-agent-64.exe",
+            "\\aurora-agent.exe"
+          ],
+          "TargetObject|endswith": "\\Microsoft\\Windows\\CurrentVersion\\Run\\aurora-dashboard",
+          "Details": "C:\\Program Files\\Aurora-Agent\\tools\\aurora-dashboard.exe"
+        },
+        "filter_optional_everything": {
+          "TargetObject|endswith": "\\Microsoft\\Windows\\CurrentVersion\\Run\\Everything",
+          "Details|endswith": "\\Everything\\Everything.exe\" -startup"
+        },
+        "filter_optional_discord": {
+          "TargetObject|endswith": "\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\Discord",
+          "Details|endswith": "\\Discord\\Update.exe --processStart Discord.exe"
+        },
+        "condition": "registry_set and (all of selection_* and not 1 of filter_main_* and not 1 of filter_optional_*)"
+      }
+    },
+    {
+      "case_id": "registry_app_paths",
+      "family": "Registry",
+      "rule_id": "140df4ae-d66c-c984-2165-595d754d0424",
+      "upstream_related": [
+        {
+          "id": "707e097c-e20f-4f67-8807-1f72ff4500d6",
+          "type": "derived"
+        }
+      ],
+      "title": "Potential Persistence Via App Paths Default Property",
+      "path": "sigma/sysmon/registry/registry_set/registry_set_persistence_app_paths.yml",
+      "sha256": "f08e0d50ccc20d9a508fcbf06ce81c1f44ecb69c01eea4267a30a5499903dbe5",
+      "event_ids": [
+        13
+      ],
+      "level": "high",
+      "status": "test",
+      "behavior": "Set the default App Paths value for an unused helper name to a benign helper under C:\\Users\\Public; read back and restore.",
+      "fixture_requirements": "Path must match a suspicious-location predicate. Do not replace an existing application registration.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "registry_set": {
+          "EventID": 13,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetObject|contains": "\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths",
+          "TargetObject|endswith": [
+            "(Default)",
+            "Path"
+          ],
+          "Details|contains": [
+            "\\Users\\Public",
+            "\\AppData\\Local\\Temp\\",
+            "\\Windows\\Temp\\",
+            "\\Desktop\\",
+            "\\Downloads\\",
+            "%temp%",
+            "%tmp%",
+            "iex",
+            "Invoke-",
+            "rundll32",
+            "regsvr32",
+            "mshta",
+            "cscript",
+            "wscript",
+            ".bat",
+            ".hta",
+            ".dll",
+            ".ps1"
+          ]
+        },
+        "condition": "registry_set and selection"
+      }
+    },
+    {
+      "case_id": "registry_active_setup",
+      "family": "Registry",
+      "rule_id": "46f90542-f6e6-75d1-c29d-e26535273ec0",
+      "upstream_related": [
+        {
+          "id": "c74d7efc-8826-45d9-b8bb-f04fac9e4eff",
+          "type": "derived"
+        }
+      ],
+      "title": "Run Once Task Configuration in Registry",
+      "path": "sigma/sysmon/registry/registry_event/registry_event_runonce_persistence.yml",
+      "sha256": "965e36400ffa0893acc557ade3dea6e8dd500c30ca69212caca112afc11958ab",
+      "event_ids": [
+        12,
+        13,
+        14
+      ],
+      "level": "medium",
+      "status": "test",
+      "behavior": "Write and read back StubPath beneath a fresh Active Setup Installed Components GUID, then remove it.",
+      "fixture_requirements": "Use an isolated user hive and inert helper command; no logon activation. This tests registration evidence, not completed persistence.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "registry_event": {
+          "EventID": [
+            12,
+            13,
+            14
+          ],
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetObject|contains": "\\Microsoft\\Active Setup\\Installed Components",
+          "TargetObject|endswith": "\\StubPath"
+        },
+        "filter_optional_chrome": {
+          "Details|contains|all": [
+            "C:\\Program Files\\Google\\Chrome\\Application\\",
+            "\\Installer\\chrmstp.exe\" --configure-user-settings --verbose-logging --system-level"
+          ]
+        },
+        "filter_optional_edge": {
+          "Details|contains": [
+            "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\",
+            "C:\\Program Files\\Microsoft\\Edge\\Application\\"
+          ],
+          "Details|endswith": "\\Installer\\setup.exe\" --configure-user-settings --verbose-logging --system-level --msedge --channel=stable"
+        },
+        "condition": "registry_event and (selection and not 1 of filter_optional_*)"
+      }
+    },
+    {
+      "case_id": "registry_screensaver",
+      "family": "Registry",
+      "rule_id": "ec1e8c56-2fa0-7417-e4b3-517d291e30b2",
+      "upstream_related": [
+        {
+          "id": "67a6c006-3fbe-46a7-9074-2ba3b82c3000",
+          "type": "derived"
+        }
+      ],
+      "title": "Path To Screensaver Binary Modified",
+      "path": "sigma/sysmon/registry/registry_event/registry_event_modify_screensaver_binary_path.yml",
+      "sha256": "d2a30b705dee39283da46a3cb670c6f41e564525401f6a2f1a58738dd68cec3b",
+      "event_ids": [
+        12,
+        13,
+        14
+      ],
+      "level": "medium",
+      "status": "test",
+      "behavior": "Set and read back the isolated test account SCRNSAVE.EXE value, then restore it.",
+      "fixture_requirements": "Do not activate a screensaver; the native program must not have an excluded explorer.exe or rundll32.exe image name.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "registry_event": {
+          "EventID": [
+            12,
+            13,
+            14
+          ],
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetObject|endswith": "\\Control Panel\\Desktop\\SCRNSAVE.EXE"
+        },
+        "filter": {
+          "Image|endswith": [
+            "\\rundll32.exe",
+            "\\explorer.exe"
+          ]
+        },
+        "condition": "registry_event and (selection and not filter)"
+      }
+    },
+    {
+      "case_id": "registry_runmru_delete",
+      "family": "Registry",
+      "rule_id": "ec2a6d71-1139-d6f1-c39e-e9fc35500540",
+      "upstream_related": [
+        {
+          "id": "c11aecef-9c37-45a6-9c07-bc0782f963fd",
+          "type": "similar"
+        },
+        {
+          "id": "3a9b8c1e-5b2e-4f7a-9d1c-2a7f3b6e1c55",
+          "type": "derived"
+        }
+      ],
+      "title": "RunMRU Registry Key Deletion - Registry",
+      "path": "sigma/sysmon/registry/registry_delete/registry_delete_runmru.yml",
+      "sha256": "95ed3361f1fecc124d9679f6281ffb7e0e04681521b5df6633772005c0d2962b",
+      "event_ids": [
+        12
+      ],
+      "level": "high",
+      "status": "experimental",
+      "behavior": "Delete a harness-seeded RunMRU fixture key in an isolated account; independently verify absence.",
+      "fixture_requirements": "Seed outside the measured window and preserve prior state. The rule also matches creation events because it lacks an EventType filter; control must not create this key.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "registry_delete": {
+          "EventID": 12,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetObject|endswith": "\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RunMRU"
+        },
+        "condition": "registry_delete and selection"
+      }
+    },
+    {
+      "case_id": "startup_file",
+      "family": "File creation",
+      "rule_id": "daaf04a9-5b60-e331-6611-a3a32797e550",
+      "upstream_related": [
+        {
+          "id": "28208707-fe31-437f-9a7f-4b1108b94d2e",
+          "type": "similar"
+        },
+        {
+          "id": "2aa0a6b4-a865-495b-ab51-c28249537b75",
+          "type": "derived"
+        }
+      ],
+      "title": "Startup Folder File Write",
+      "path": "sigma/sysmon/file/file_event/file_event_win_startup_folder_file_write.yml",
+      "sha256": "8436628a01c354875a7b25a48829bbde60b3cf116430fde73ed9c858d821178a",
+      "event_ids": [
+        11
+      ],
+      "level": "medium",
+      "status": "test",
+      "behavior": "Write a fixed inert fixture file to the test account Windows Startup directory; verify bytes, then remove.",
+      "fixture_requirements": "Use a real resolved Startup path. Qualification measures a startup-folder write, not whether a payload executes at logon.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|contains": "\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp"
+        },
+        "filter_main_update": [
+          {
+            "Image": [
+              "C:\\Windows\\System32\\wuauclt.exe",
+              "C:\\Windows\\uus\\ARM64\\wuaucltcore.exe"
+            ]
+          },
+          {
+            "TargetFilename|startswith": [
+              "C:\\$WINDOWS.~BT\\NewOS\\",
+              "C:\\$WinREAgent\\Scratch\\Mount\\"
+            ]
+          }
+        ],
+        "filter_optional_onenote": {
+          "Image|endswith": "\\ONENOTE.EXE",
+          "TargetFilename|endswith": "\\Send to OneNote.lnk"
+        },
+        "condition": "file_event and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+      }
+    },
+    {
+      "case_id": "powershell_profile",
+      "family": "File creation",
+      "rule_id": "5d1e6a6b-91ca-c7e8-821c-5c665ad9ca5e",
+      "upstream_related": [
+        {
+          "id": "b5b78988-486d-4a80-b991-930eff3ff8bf",
+          "type": "derived"
+        }
+      ],
+      "title": "PowerShell Profile Modification",
+      "path": "sigma/sysmon/file/file_event/file_event_win_susp_powershell_profile.yml",
+      "sha256": "69a5f382a6b3a4b786c0f821e54d84b94a0d9a16485a9ebace59b397e1f866d1",
+      "event_ids": [
+        11
+      ],
+      "level": "medium",
+      "status": "test",
+      "behavior": "Create a comment-only Microsoft.PowerShell_profile.ps1 under the isolated test account profile; verify and remove.",
+      "fixture_requirements": "Preserve any existing profile. No PowerShell child is needed to create the artifact.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|endswith": [
+            "\\Microsoft.PowerShell_profile.ps1",
+            "\\PowerShell\\profile.ps1",
+            "\\Program Files\\PowerShell\\7-preview\\profile.ps1",
+            "\\Program Files\\PowerShell\\7\\profile.ps1",
+            "\\Windows\\System32\\WindowsPowerShell\\v1.0\\profile.ps1",
+            "\\WindowsPowerShell\\profile.ps1"
+          ]
+        },
+        "condition": "file_event and selection"
+      }
+    },
+    {
+      "case_id": "public_binary",
+      "family": "File creation",
+      "rule_id": "ef4c38c9-e26f-dcfe-1cbe-6323bafb8f39",
+      "upstream_related": [
+        {
+          "id": "b447f7de-1e53-4cbf-bfb4-f1f6d0b04e4e",
+          "type": "derived"
+        }
+      ],
+      "title": "Suspicious Binaries and Scripts in Public Folder",
+      "path": "sigma/sysmon/file/file_event/file_event_win_susp_public_folder_extension.yml",
+      "sha256": "48cdf88d88f54c06a3e797d92ea8aa8350d49abafe4f838de062cdd6f7aa6f34",
+      "event_ids": [
+        11
+      ],
+      "level": "high",
+      "status": "experimental",
+      "behavior": "Write the same benign PE fixture under C:\\Users\\Public; independently verify its hash.",
+      "fixture_requirements": "Hold destination and fixture bytes constant across all language builds; remove after capture.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|contains": ":\\Users\\Public\\",
+          "TargetFilename|endswith": [
+            ".bat",
+            ".dll",
+            ".exe",
+            ".hta",
+            ".js",
+            ".ps1",
+            ".vbe",
+            ".vbs"
+          ]
+        },
+        "condition": "file_event and selection"
+      }
+    },
+    {
+      "case_id": "double_extension_file",
+      "family": "File creation",
+      "rule_id": "c69c8c8d-4188-72ea-ca61-a2a1a80612b3",
+      "upstream_related": [
+        {
+          "id": "1cdd9a09-06c9-4769-99ff-626e2b3991b8",
+          "type": "derived"
+        },
+        {
+          "id": "3215aa19-f060-4332-86d5-5602511f3ca8",
+          "type": "similar"
+        },
+        {
+          "id": "b4926b47-a9d7-434c-b3a0-adc3fa0bd13e",
+          "type": "derived"
+        }
+      ],
+      "title": "Suspicious Double Extension Files",
+      "path": "sigma/sysmon/file/file_event/file_event_win_susp_double_extension.yml",
+      "sha256": "d1de4431bfaa52ca5b717775027a7dd04aa952e1c66163df71b1df283c462ef8",
+      "event_ids": [
+        11
+      ],
+      "level": "high",
+      "status": "test",
+      "behavior": "Write a fixed benign PE fixture named report.pdf.exe; verify its hash without executing it.",
+      "fixture_requirements": "File creation is the target operation; the measured program itself keeps a neutral name.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection_gen": {
+          "TargetFilename|endswith": [
+            ".exe",
+            ".iso",
+            ".rar",
+            ".svg",
+            ".zip"
+          ],
+          "TargetFilename|contains": [
+            ".doc.",
+            ".docx.",
+            ".gif.",
+            ".jpeg.",
+            ".jpg.",
+            ".mp3.",
+            ".mp4.",
+            ".pdf.",
+            ".png.",
+            ".ppt.",
+            ".pptx.",
+            ".rtf.",
+            ".svg.",
+            ".txt.",
+            ".xls.",
+            ".xlsx."
+          ]
+        },
+        "selection_exe": {
+          "TargetFilename|endswith": [
+            ".rar.exe",
+            ".zip.exe"
+          ]
+        },
+        "filter_icons_linux": {
+          "TargetFilename|startswith": "/usr/share/icons/"
+        },
+        "condition": "file_event and (1 of selection_* and not 1 of filter_*)"
+      }
+    },
+    {
+      "case_id": "double_extension_lnk",
+      "family": "File creation",
+      "rule_id": "6b7cbf57-a67c-6e5a-61c6-4d92d02fff3e",
+      "upstream_related": [
+        {
+          "id": "b4926b47-a9d7-434c-b3a0-adc3fa0bd13e",
+          "type": "derived"
+        },
+        {
+          "id": "3215aa19-f060-4332-86d5-5602511f3ca8",
+          "type": "derived"
+        }
+      ],
+      "title": "Suspicious LNK Double Extension File Created",
+      "path": "sigma/sysmon/file/file_event/file_event_win_susp_lnk_double_extension.yml",
+      "sha256": "e2a7a5794a006c698477ea841d9597ab7af95de8e7281d4a810dbdb57a3fc609",
+      "event_ids": [
+        11
+      ],
+      "level": "medium",
+      "status": "test",
+      "behavior": "Write a fixed valid benign shortcut fixture named report.pdf.lnk outside Recent folders; verify bytes.",
+      "fixture_requirements": "Use the same prebuilt shortcut bytes in every language; do not launch it.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|endswith": ".lnk",
+          "TargetFilename|contains": [
+            ".doc.",
+            ".docx.",
+            ".jpg.",
+            ".pdf.",
+            ".ppt.",
+            ".pptx.",
+            ".xls.",
+            ".xlsx."
+          ]
+        },
+        "filter_main_recent": {
+          "TargetFilename|contains": "\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\"
+        },
+        "filter_optional_office_recent": {
+          "Image|endswith": [
+            "\\excel.exe",
+            "\\powerpnt.exe",
+            "\\winword.exe"
+          ],
+          "TargetFilename|contains": "\\AppData\\Roaming\\Microsoft\\Office\\Recent\\"
+        },
+        "filter_optional_office_excel": {
+          "Image|endswith": "\\excel.exe",
+          "TargetFilename|contains": "\\AppData\\Roaming\\Microsoft\\Excel"
+        },
+        "filter_optional_office_powerpoint": {
+          "Image|endswith": "\\powerpnt.exe",
+          "TargetFilename|contains": "\\AppData\\Roaming\\Microsoft\\PowerPoint"
+        },
+        "filter_optional_office_word": {
+          "Image|endswith": "\\winword.exe",
+          "TargetFilename|contains": "\\AppData\\Roaming\\Microsoft\\Word"
+        },
+        "condition": "file_event and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+      }
+    },
+    {
+      "case_id": "office_startup_file",
+      "family": "File creation",
+      "rule_id": "be512a1b-170e-acff-f35d-0e4b44caa2a3",
+      "upstream_related": [
+        {
+          "id": "0e20c89d-2264-44ae-8238-aeeaba609ece",
+          "type": "derived"
+        }
+      ],
+      "title": "Potential Persistence Via Microsoft Office Startup Folder",
+      "path": "sigma/sysmon/file/file_event/file_event_win_office_startup_persistence.yml",
+      "sha256": "4889cdcb0bc901288fdddbb9f2bdadf6eb34268832eaa4818e7a6fb7dd1131b0",
+      "event_ids": [
+        11
+      ],
+      "level": "high",
+      "status": "test",
+      "behavior": "Write a fixed benign document fixture under the isolated profile Microsoft\\Word\\STARTUP directory; verify and remove.",
+      "fixture_requirements": "The rule detects path and extension, not Office execution; Office need not be installed and persistence is not claimed.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection_word_paths": [
+          {
+            "TargetFilename|contains": "\\Microsoft\\Word\\STARTUP"
+          },
+          {
+            "TargetFilename|contains|all": [
+              "\\Office",
+              "\\Program Files",
+              "\\STARTUP"
+            ]
+          }
+        ],
+        "selection_word_extension": {
+          "TargetFilename|endswith": [
+            ".doc",
+            ".docm",
+            ".docx",
+            ".dot",
+            ".dotm",
+            ".rtf"
+          ]
+        },
+        "selection_excel_paths": [
+          {
+            "TargetFilename|contains": "\\Microsoft\\Excel\\XLSTART"
+          },
+          {
+            "TargetFilename|contains|all": [
+              "\\Office",
+              "\\Program Files",
+              "\\XLSTART"
+            ]
+          }
+        ],
+        "selection_excel_extension": {
+          "TargetFilename|endswith": [
+            ".xls",
+            ".xlsm",
+            ".xlsx",
+            ".xlt",
+            ".xltm"
+          ]
+        },
+        "filter_main_office": {
+          "Image|endswith": [
+            "\\WINWORD.exe",
+            "\\EXCEL.exe"
+          ]
+        },
+        "condition": "file_event and ((all of selection_word_* or all of selection_excel_*) and not filter_main_office)"
+      }
+    },
+    {
+      "case_id": "suspicious_executable_file",
+      "family": "File creation",
+      "rule_id": "9512176f-0e9f-7f30-fa82-d414c1c80248",
+      "upstream_related": [
+        {
+          "id": "74babdd6-a758-4549-9632-26535279e654",
+          "type": "derived"
+        }
+      ],
+      "title": "Suspicious Executable File Creation",
+      "path": "sigma/sysmon/file/file_event/file_event_win_susp_executable_creation.yml",
+      "sha256": "37fa2517cffcd23ee473a5bd23dc32120e34f0b5d54f86ec82eddfb8f3a18a79",
+      "event_ids": [
+        11
+      ],
+      "level": "high",
+      "status": "test",
+      "behavior": "Write a fixed benign PE fixture named lab.sys.exe; independently verify bytes.",
+      "fixture_requirements": "This is a filename-based file-creation predicate, not evidence that a driver was installed.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|endswith": [
+            ":\\$Recycle.Bin.exe",
+            ":\\Documents and Settings.exe",
+            ":\\MSOCache.exe",
+            ":\\PerfLogs.exe",
+            ":\\Recovery.exe",
+            ".bat.exe",
+            ".sys.exe"
+          ]
+        },
+        "condition": "file_event and selection"
+      }
+    },
+    {
+      "case_id": "tcp_connect_2525",
+      "family": "Network",
+      "rule_id": "f8a59cdc-b3d1-8f59-c3f4-4db6d94e8efc",
+      "upstream_related": [
+        {
+          "id": "9976fa64-2804-423c-8a5b-646ade840773",
+          "type": "derived"
+        }
+      ],
+      "title": "Suspicious Outbound SMTP Connections",
+      "path": "sigma/sysmon/network_connection/net_connection_win_susp_outbound_smtp_connections.yml",
+      "sha256": "bfc3f3086a143cd1a9151c8e97f378e892054391495977fdcc062fae52d220ac",
+      "event_ids": [
+        3
+      ],
+      "level": "medium",
+      "status": "test",
+      "behavior": "Use ordinary TCP sockets to connect to a lab-owned private peer on port 2525, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.",
+      "fixture_requirements": "Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "network_connection": {
+          "EventID": 3,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "DestinationPort": [
+            25,
+            587,
+            465,
+            2525
+          ],
+          "Initiated": "true"
+        },
+        "filter_clients": {
+          "Image|endswith": [
+            "\\thunderbird.exe",
+            "\\outlook.exe"
+          ]
+        },
+        "filter_mailserver": {
+          "Image|startswith": "C:\\Program Files\\Microsoft\\Exchange Server\\"
+        },
+        "filter_outlook": {
+          "Image|startswith": "C:\\Program Files\\WindowsApps\\microsoft.windowscommunicationsapps_",
+          "Image|endswith": "\\HxTsr.exe"
+        },
+        "condition": "network_connection and (selection and not 1 of filter_*)"
+      },
+      "previous_case_id": "network_smtp"
+    },
+    {
+      "case_id": "tcp_connect_3389",
+      "family": "Network",
+      "rule_id": "f3fa6209-076f-c860-c7cb-e2f6bdd7d3e0",
+      "upstream_related": [
+        {
+          "id": "ed74fe75-7594-4b4b-ae38-e38e3fd2eb23",
+          "type": "derived"
+        }
+      ],
+      "title": "Outbound RDP Connections Over Non-Standard Tools",
+      "path": "sigma/sysmon/network_connection/net_connection_win_rdp_outbound_over_non_standard_tools.yml",
+      "sha256": "3912ba74ded1f63a795c829524dd695227771ac1e4869ba1c47133f213f1f195",
+      "event_ids": [
+        3
+      ],
+      "level": "high",
+      "status": "test",
+      "behavior": "Use ordinary TCP sockets to connect to a lab-owned private peer on port 3389, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.",
+      "fixture_requirements": "Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "network_connection": {
+          "EventID": 3,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "DestinationPort": 3389,
+          "Initiated": "true"
+        },
+        "filter_main_mstsc": {
+          "Image": [
+            "C:\\Windows\\System32\\mstsc.exe",
+            "C:\\Windows\\SysWOW64\\mstsc.exe"
+          ]
+        },
+        "filter_optional_dns": {
+          "Image": "C:\\Windows\\System32\\dns.exe",
+          "SourcePort": 53,
+          "Protocol": "udp"
+        },
+        "filter_optional_avast": {
+          "Image|endswith": [
+            "\\Avast Software\\Avast\\AvastSvc.exe",
+            "\\Avast\\AvastSvc.exe"
+          ]
+        },
+        "filter_optional_sysinternals_rdcman": {
+          "Image|endswith": "\\RDCMan.exe"
+        },
+        "filter_optional_chrome": {
+          "Image": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+        },
+        "filter_optional_third_party": {
+          "Image|endswith": [
+            "\\FSAssessment.exe",
+            "\\FSDiscovery.exe",
+            "\\MobaRTE.exe",
+            "\\mRemote.exe",
+            "\\mRemoteNG.exe",
+            "\\Passwordstate.exe",
+            "\\RemoteDesktopManager.exe",
+            "\\RemoteDesktopManager64.exe",
+            "\\RemoteDesktopManagerFree.exe",
+            "\\RSSensor.exe",
+            "\\RTS2App.exe",
+            "\\RTSApp.exe",
+            "\\spiceworks-finder.exe",
+            "\\Terminals.exe",
+            "\\ws_TunnelService.exe"
+          ]
+        },
+        "filter_optional_thor": {
+          "Image|endswith": [
+            "\\thor.exe",
+            "\\thor64.exe"
+          ]
+        },
+        "filter_optional_splunk": {
+          "Image|startswith": "C:\\Program Files\\SplunkUniversalForwarder\\bin\\"
+        },
+        "filter_optional_sentinel_one": {
+          "Image|endswith": "\\Ranger\\SentinelRanger.exe"
+        },
+        "filter_optional_firefox": {
+          "Image": "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+        },
+        "filter_optional_tsplus": {
+          "Image": [
+            "C:\\Program Files\\TSplus\\Java\\bin\\HTML5service.exe",
+            "C:\\Program Files (x86)\\TSplus\\Java\\bin\\HTML5service.exe"
+          ]
+        },
+        "filter_optional_null": {
+          "Image": null
+        },
+        "filter_optional_empty": {
+          "Image": ""
+        },
+        "filter_optional_unknown": {
+          "Image": "<unknown process>"
+        },
+        "condition": "network_connection and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+      },
+      "previous_case_id": "network_rdp_port"
+    },
+    {
+      "case_id": "tcp_connect_9389",
+      "family": "Network",
+      "rule_id": "ae8c1c58-4743-c0c8-3b30-7d69f7cbee68",
+      "upstream_related": [
+        {
+          "id": "b3ad3c0f-c949-47a1-a30e-b0491ccae876",
+          "type": "derived"
+        }
+      ],
+      "title": "Uncommon Connection to Active Directory Web Services",
+      "path": "sigma/sysmon/network_connection/net_connection_win_adws_unusual_connection.yml",
+      "sha256": "24db52f2b2d520d45be403cc655646fffe109fe089ff06b6690eec75243fb7c2",
+      "event_ids": [
+        3
+      ],
+      "level": "medium",
+      "status": "test",
+      "behavior": "Use ordinary TCP sockets to connect to a lab-owned private peer on port 9389, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.",
+      "fixture_requirements": "Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "network_connection": {
+          "EventID": 3,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "Initiated": true,
+          "DestinationPort": 9389
+        },
+        "filter_main_dsac": {
+          "Image": "C:\\Windows\\system32\\dsac.exe"
+        },
+        "filter_main_ms_monitoring_agent": {
+          "Image": "C:\\Program Files\\Microsoft Monitoring Agent\\"
+        },
+        "filter_main_powershell": {
+          "Image|startswith": [
+            "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+            "C:\\Program Files\\PowerShell\\7-preview\\pwsh.ex",
+            "C:\\Windows\\System32\\WindowsPowerShell\\",
+            "C:\\Windows\\SysWOW64\\WindowsPowerShell\\"
+          ]
+        },
+        "condition": "network_connection and (selection and not 1 of filter_main_*)"
+      },
+      "previous_case_id": "network_adws_port"
+    },
+    {
+      "case_id": "tcp_connect_88",
+      "family": "Network",
+      "rule_id": "322fd5f2-b5b7-1bf4-58f2-92873dc878bb",
+      "upstream_related": [
+        {
+          "id": "eca91c7c-9214-47b9-b4c5-cb1d7e4f2350",
+          "type": "similar"
+        },
+        {
+          "id": "e54979bd-c5f9-4d6c-967b-a04b19ac4c74",
+          "type": "derived"
+        }
+      ],
+      "title": "Uncommon Outbound Kerberos Connection",
+      "path": "sigma/sysmon/network_connection/net_connection_win_susp_outbound_kerberos_connection.yml",
+      "sha256": "86cfa8d9f1c9b75c26b33c42bd2f9a36848e7c45cbccc60da9f92077040fdefd",
+      "event_ids": [
+        3
+      ],
+      "level": "medium",
+      "status": "test",
+      "behavior": "Use ordinary TCP sockets to connect to a lab-owned private peer on port 88, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.",
+      "fixture_requirements": "Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "network_connection": {
+          "EventID": 3,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "DestinationPort": 88,
+          "Initiated": "true"
+        },
+        "filter_main_lsass": {
+          "Image": "C:\\Windows\\System32\\lsass.exe"
+        },
+        "filter_optional_chrome": {
+          "Image": [
+            "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+            "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+          ]
+        },
+        "filter_optional_firefox": {
+          "Image": [
+            "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe",
+            "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+          ]
+        },
+        "filter_optional_tomcat": {
+          "Image|endswith": "\\tomcat\\bin\\tomcat8.exe"
+        },
+        "condition": "network_connection and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+      },
+      "previous_case_id": "network_kerberos_port"
+    },
+    {
+      "case_id": "tcp_connect_public_path",
+      "family": "Network",
+      "rule_id": "df13f270-859b-272a-9c2a-a0ef744a0480",
+      "upstream_related": [
+        {
+          "id": "8b48ad89-10d8-4382-a546-50588c410f0d",
+          "type": "similar"
+        },
+        {
+          "id": "d635249d-86b5-4dad-a8c7-d7272b788586",
+          "type": "similar"
+        },
+        {
+          "id": "52182dfb-afb7-41db-b4bc-5336cb29b464",
+          "type": "similar"
+        },
+        {
+          "id": "ae02ed70-11aa-4a22-b397-c0d0e8f6ea99",
+          "type": "similar"
+        },
+        {
+          "id": "e0f8ab85-0ac9-423b-a73a-81b3c7b1aa97",
+          "type": "similar"
+        },
+        {
+          "id": "8518ed3d-f7c9-4601-a26c-f361a4256a0c",
+          "type": "similar"
+        },
+        {
+          "id": "42a5f1e7-9603-4f6d-97ae-3f37d130d794",
+          "type": "similar"
+        },
+        {
+          "id": "56454143-524f-49fb-b1c6-3fb8b1ad41fb",
+          "type": "similar"
+        },
+        {
+          "id": "b6e04788-29e1-4557-bb14-77f761848ab8",
+          "type": "similar"
+        },
+        {
+          "id": "a0d7e4d2-bede-4141-8896-bc6e237e977c",
+          "type": "similar"
+        },
+        {
+          "id": "297ae038-edc2-4b2e-bb3e-7c5fc94dd5c7",
+          "type": "similar"
+        },
+        {
+          "id": "7b434893-c57d-4f41-908d-6a17bf1ae98f",
+          "type": "derived"
+        }
+      ],
+      "title": "Network Connection Initiated From Process Located In Potentially Suspicious Or Uncommon Location",
+      "path": "sigma/sysmon/network_connection/net_connection_win_susp_initiated_uncommon_or_suspicious_locations.yml",
+      "sha256": "357b719a28ce09cba18424048f3c38ac910a195b698b261b71fa9d86b7dcbb97",
+      "event_ids": [
+        3
+      ],
+      "level": "high",
+      "status": "test",
+      "behavior": "Execute the standalone program at C:\\Users\\Public\\telemetry-lab\\probe.exe and perform a TCP connect/send/receive exchange with a lab-owned private peer on fixed port 49152.",
+      "fixture_requirements": "Hold the executable location constant across languages. Use a controlled destination hostname outside filter_main_domains. Stage the program before capture; observe the connection from the actual measured process, not a launcher. Confirm bytes received at both ends.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "network_connection": {
+          "EventID": 3,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "Initiated": "true",
+          "Image|contains": [
+            ":\\$Recycle.bin",
+            ":\\Perflogs\\",
+            ":\\Temp\\",
+            ":\\Users\\Default\\",
+            ":\\Users\\Public\\",
+            ":\\Windows\\Fonts\\",
+            ":\\Windows\\IME\\",
+            ":\\Windows\\System32\\Tasks\\",
+            ":\\Windows\\Tasks\\",
+            "\\config\\systemprofile\\",
+            "\\Contacts\\",
+            "\\Favorites\\",
+            "\\Favourites\\",
+            "\\Music\\",
+            "\\Pictures\\",
+            "\\Videos\\",
+            "\\Windows\\addins\\"
+          ]
+        },
+        "filter_main_domains": {
+          "DestinationHostname|endswith": [
+            ".githubusercontent.com",
+            "0x0.st",
+            "anonfiles.com",
+            "bashupload.com",
+            "cdn.discordapp.com",
+            "chunk.io",
+            "ddns.net",
+            "dl.dropboxusercontent.com",
+            "ghostbin.co",
+            "github.com",
+            "glitch.me",
+            "gofile.io",
+            "hastebin.com",
+            "mediafire.com",
+            "mega.co.nz",
+            "mega.nz",
+            "onrender.com",
+            "pages.dev",
+            "paste.ee",
+            "pastebin.com",
+            "pastebin.pl",
+            "pastetext.net",
+            "portmap.io",
+            "privatlab.com",
+            "privatlab.net",
+            "send.exploit.in",
+            "sendspace.com",
+            "storage.googleapis.com",
+            "storjshare.io",
+            "supabase.co",
+            "temp.sh",
+            "transfer.sh",
+            "trycloudflare.com",
+            "ufile.io",
+            "w3spaces.com",
+            "workers.dev",
+            "x0.at"
+          ]
+        },
+        "condition": "network_connection and (selection and not 1 of filter_main_*)"
+      }
+    },
+    {
+      "case_id": "dns_onion",
+      "family": "DNS",
+      "rule_id": "29e2035f-b91f-3c35-9a7a-087b864f6d3b",
+      "upstream_related": [
+        {
+          "id": "8384bd26-bde6-4da9-8e5d-4174a7a47ca2",
+          "type": "similar"
+        },
+        {
+          "id": "a8322756-015c-42e7-afb1-436e85ed3ff5",
+          "type": "similar"
+        },
+        {
+          "id": "b55ca2a3-7cff-4dda-8bdd-c7bfa63bf544",
+          "type": "derived"
+        }
+      ],
+      "title": "DNS Query Tor .Onion Address - Sysmon",
+      "path": "sigma/sysmon/dns_query/dns_query_win_tor_onion_domain_query.yml",
+      "sha256": "f072df6b64abaa7a4413678cd5dbc3adab1d7e381cf1f6d6ad3698a70c795c51",
+      "event_ids": [
+        22
+      ],
+      "level": "high",
+      "status": "test",
+      "behavior": "Resolve lab.onion using the normal language hostname-to-address resolver and an isolated lab DNS server supplying a fixed local answer.",
+      "fixture_requirements": "No Tor client or public forwarding. Independently verify the lookup result and resolver request. Qualify C EID 22 attribution; if the resolver rejects the special-use name, resolve that fixture limitation before accepting this target. Establish the same DNS-cache baseline for each attempt.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "dns_query": {
+          "EventID": 22,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "QueryName|endswith": [
+            ".hiddenservice.net",
+            ".onion.ca",
+            ".onion.cab",
+            ".onion.casa",
+            ".onion.city",
+            ".onion.direct",
+            ".onion.dog",
+            ".onion.glass",
+            ".onion.gq",
+            ".onion.ink",
+            ".onion.it",
+            ".onion.link",
+            ".onion.lt",
+            ".onion.lu",
+            ".onion.nu",
+            ".onion.pet",
+            ".onion.plus",
+            ".onion.rip",
+            ".onion.sh",
+            ".onion.to",
+            ".onion.top",
+            ".onion",
+            ".s1.tor-gateways.de",
+            ".s2.tor-gateways.de",
+            ".s3.tor-gateways.de",
+            ".s4.tor-gateways.de",
+            ".s5.tor-gateways.de",
+            ".t2w.pw",
+            ".tor2web.ae.org",
+            ".tor2web.blutmagie.de",
+            ".tor2web.com",
+            ".tor2web.fi",
+            ".tor2web.io",
+            ".tor2web.org",
+            ".tor2web.xyz",
+            ".torlink.co"
+          ]
+        },
+        "condition": "dns_query and selection"
+      }
+    },
+    {
+      "case_id": "dns_ip_lookup",
+      "family": "DNS",
+      "rule_id": "e1d5e512-66be-e3eb-e24b-a9f3545e115a",
+      "upstream_related": [
+        {
+          "id": "ec82e2a5-81ea-4211-a1f8-37a0286df2c2",
+          "type": "derived"
+        }
+      ],
+      "title": "Suspicious DNS Query for IP Lookup Service APIs",
+      "path": "sigma/sysmon/dns_query/dns_query_win_susp_external_ip_lookup.yml",
+      "sha256": "cd4f9431c6a100f654145c5e7c2da3dcceaca9bdf38eb8bdae3f9c236ab0dac3",
+      "event_ids": [
+        22
+      ],
+      "level": "medium",
+      "status": "test",
+      "behavior": "Resolve api.ipify.org against an isolated lab resolver that supplies a fixed local answer.",
+      "fixture_requirements": "No HTTP client or public service contact. Preserve the hostname, answer, and DNS-cache baseline across languages; independently verify lookup results and resolver request. Keep the executable outside browser image exclusions.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "dns_query": {
+          "EventID": 22,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": [
+          {
+            "QueryName": [
+              "www.ip.cn",
+              "l2.io"
+            ]
+          },
+          {
+            "QueryName|contains": [
+              "api.2ip.ua",
+              "api.bigdatacloud.net",
+              "api.ipify.org",
+              "bot.whatismyipaddress.com",
+              "canireachthe.net",
+              "checkip.amazonaws.com",
+              "checkip.dyndns.org",
+              "curlmyip.com",
+              "db-ip.com",
+              "edns.ip-api.com",
+              "eth0.me",
+              "freegeoip.app",
+              "geoipy.com",
+              "getip.pro",
+              "icanhazip.com",
+              "ident.me",
+              "ifconfig.io",
+              "ifconfig.me",
+              "ip-api.com",
+              "ip.360.cn",
+              "ip.anysrc.net",
+              "ip.taobao.com",
+              "ip.tyk.nu",
+              "ipaddressworld.com",
+              "ipapi.co",
+              "ipconfig.io",
+              "ipecho.net",
+              "ipinfo.io",
+              "ipip.net",
+              "ipof.in",
+              "ipv4.icanhazip.com",
+              "ipv4bot.whatismyipaddress.com",
+              "ipv6-test.com",
+              "ipwho.is",
+              "jsonip.com",
+              "myexternalip.com",
+              "seeip.org",
+              "wgetip.com",
+              "whatismyip.akamai.com",
+              "whois.pconline.com.cn",
+              "wtfismyip.com"
+            ]
+          }
+        ],
+        "filter_optional_brave": {
+          "Image|endswith": "\\brave.exe"
+        },
+        "filter_optional_chrome": {
+          "Image": [
+            "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+            "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+          ]
+        },
+        "filter_optional_firefox": {
+          "Image": [
+            "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+            "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"
+          ]
+        },
+        "filter_optional_ie": {
+          "Image": [
+            "C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe",
+            "C:\\Program Files\\Internet Explorer\\iexplore.exe"
+          ]
+        },
+        "filter_optional_maxthon": {
+          "Image|endswith": "\\maxthon.exe"
+        },
+        "filter_optional_edge_1": [
+          {
+            "Image|startswith": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\"
+          },
+          {
+            "Image|endswith": "\\WindowsApps\\MicrosoftEdge.exe"
+          },
+          {
+            "Image": [
+              "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+              "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe"
+            ]
+          }
+        ],
+        "filter_optional_edge_2": {
+          "Image|startswith": [
+            "C:\\Program Files (x86)\\Microsoft\\EdgeCore\\",
+            "C:\\Program Files\\Microsoft\\EdgeCore\\"
+          ],
+          "Image|endswith": [
+            "\\msedge.exe",
+            "\\msedgewebview2.exe"
+          ]
+        },
+        "filter_optional_opera": {
+          "Image|endswith": "\\opera.exe"
+        },
+        "filter_optional_safari": {
+          "Image|endswith": "\\safari.exe"
+        },
+        "filter_optional_seamonkey": {
+          "Image|endswith": "\\seamonkey.exe"
+        },
+        "filter_optional_vivaldi": {
+          "Image|endswith": "\\vivaldi.exe"
+        },
+        "filter_optional_whale": {
+          "Image|endswith": "\\whale.exe"
+        },
+        "condition": "dns_query and (selection and not 1 of filter_optional_*)"
+      }
+    },
+    {
+      "case_id": "double_extension_execute",
+      "family": "Process creation",
+      "rule_id": "b6ce0b2f-593b-5e1c-e137-d30b2974e30e",
+      "upstream_related": [
+        {
+          "id": "5e6a80c8-2d45-4633-9ef4-fa2671a39c5c",
+          "type": "similar"
+        },
+        {
+          "id": "1cdd9a09-06c9-4769-99ff-626e2b3991b8",
+          "type": "derived"
+        }
+      ],
+      "title": "Suspicious Double Extension File Execution",
+      "path": "sigma/sysmon/process_creation/proc_creation_win_susp_double_extension.yml",
+      "sha256": "75060f9549eae2610d965f2b7fbcaa3d2aaa94459586e8eaa579f4f4b8d29a36",
+      "event_ids": [
+        1
+      ],
+      "level": "high",
+      "status": "stable",
+      "behavior": "Launch a fixed benign report.pdf.exe helper with the same command line and verify its marker and exit code.",
+      "fixture_requirements": "Both Image and CommandLine must match. Control uses the same parent program but does not spawn the matching child.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "process_creation": {
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "Image|endswith": [
+            "      .exe",
+            "______.exe",
+            ".doc.exe",
+            ".doc.js",
+            ".docx.exe",
+            ".docx.js",
+            ".gif.exe",
+            ".jpeg.exe",
+            ".jpg.exe",
+            ".mkv.exe",
+            ".mov.exe",
+            ".mp3.exe",
+            ".mp4.exe",
+            ".pdf.exe",
+            ".pdf.js",
+            ".png.exe",
+            ".ppt.exe",
+            ".ppt.js",
+            ".pptx.exe",
+            ".pptx.js",
+            ".rtf.exe",
+            ".rtf.js",
+            ".svg.exe",
+            ".txt.exe",
+            ".txt.js",
+            ".xls.exe",
+            ".xls.js",
+            ".xlsx.exe",
+            ".xlsx.js",
+            "\u2800\u2800\u2800\u2800\u2800\u2800.exe"
+          ],
+          "CommandLine|contains": [
+            "      .exe",
+            "______.exe",
+            ".doc.exe",
+            ".doc.js",
+            ".docx.exe",
+            ".docx.js",
+            ".gif.exe",
+            ".jpeg.exe",
+            ".jpg.exe",
+            ".mkv.exe",
+            ".mov.exe",
+            ".mp3.exe",
+            ".mp4.exe",
+            ".pdf.exe",
+            ".pdf.js",
+            ".png.exe",
+            ".ppt.exe",
+            ".ppt.js",
+            ".pptx.exe",
+            ".pptx.js",
+            ".rtf.exe",
+            ".rtf.js",
+            ".svg.exe",
+            ".txt.exe",
+            ".txt.js",
+            ".xls.exe",
+            ".xls.js",
+            ".xlsx.exe",
+            ".xlsx.js",
+            "\u2800\u2800\u2800\u2800\u2800\u2800.exe"
+          ]
+        },
+        "condition": "process_creation and selection"
+      }
+    },
+    {
+      "case_id": "creation_time_change",
+      "family": "Timestamp",
+      "rule_id": "1117f7b2-3f59-682b-ad07-081d44ae5ddb",
+      "upstream_related": [
+        {
+          "id": "558eebe5-f2ba-4104-b339-36f7902bcc1a",
+          "type": "derived"
+        }
+      ],
+      "title": "File Creation Date Changed to Another Year",
+      "path": "sigma/sysmon/threat-hunting/file/file_change/file_change_win_date_changed_to_another_year.yml",
+      "sha256": "c793bb81ff4b9ede74efca3a167d991a3fd93424cef6cd56f52c3830929d213b",
+      "event_ids": [
+        2
+      ],
+      "level": "low",
+      "status": "test",
+      "behavior": "Change a harness-seeded file creation time from a fixed 2026 value to a fixed 2019 value; read the timestamp back.",
+      "fixture_requirements": "This rule compares the 202 prefix, not any year change: 2026 to 2025 would not match. Avoid .tmp/.temp and excluded paths.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "file_change": {
+          "EventID": 2,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "PreviousCreationUtcTime|startswith": "202"
+        },
+        "filter_main_creation_time": {
+          "CreationUtcTime|startswith": "202"
+        },
+        "filter_main_program_files": [
+          {
+            "TargetFilename|startswith": [
+              "C:\\Program Files\\",
+              "C:\\Program Files (x86)\\"
+            ]
+          },
+          {
+            "Image|startswith": [
+              "C:\\Program Files\\",
+              "C:\\Program Files (x86)\\"
+            ]
+          }
+        ],
+        "filter_optional_updates": [
+          {
+            "Image": [
+              "C:\\Windows\\system32\\ProvTool.exe",
+              "C:\\Windows\\System32\\usocoreworker.exe",
+              "C:\\Windows\\ImmersiveControlPanel\\SystemSettings.exe"
+            ]
+          },
+          {
+            "TargetFilename|startswith": "C:\\ProgramData\\USOPrivate\\UpdateStore\\"
+          },
+          {
+            "TargetFilename|endswith": [
+              ".tmp",
+              ".temp"
+            ]
+          }
+        ],
+        "filter_optional_cab": {
+          "Image|startswith": "C:\\WINDOWS\\System32\\",
+          "Image|endswith": [
+            "\\TiWorker.exe",
+            "\\svchost.exe",
+            "\\sihclient.exe"
+          ],
+          "TargetFilename|endswith": ".cab"
+        },
+        "filter_optional_msiexec": {
+          "Image": "C:\\Windows\\system32\\msiexec.exe"
+        },
+        "filter_optional_vcredist": {
+          "Image|startswith": "C:\\Windows\\Temp\\",
+          "Image|endswith": "\\VCREDI~1.EXE"
+        },
+        "condition": "file_change and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+      }
+    },
+    {
+      "case_id": "ads_executable",
+      "family": "Alternate data stream",
+      "rule_id": "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0",
+      "upstream_related": [
+        {
+          "id": "b69888d4-380c-45ce-9cf9-d9ce46e67821",
+          "type": "derived"
+        }
+      ],
+      "title": "Hidden Executable In NTFS Alternate Data Stream",
+      "path": "sigma/sysmon/create_stream_hash/create_stream_hash_ads_executable.yml",
+      "sha256": "83e8613e436ccaca6581ca123cc2b04d309a4834c477e702695241eadb3f81f7",
+      "event_ids": [
+        15
+      ],
+      "level": "medium",
+      "status": "test",
+      "behavior": "Write a fixed benign PE with a nonzero import hash to an NTFS alternate data stream and verify its bytes.",
+      "fixture_requirements": "Requires Sysmon EID 15 and IMPHASH in Hash. Do not execute the stream; confirm capture and hash fields during qualification.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "create_stream_hash": {
+          "EventID": 15,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "Hash|contains": "IMPHASH="
+        },
+        "filter_main_null": {
+          "Hash|contains": "IMPHASH=00000000000000000000000000000000"
+        },
+        "condition": "create_stream_hash and (selection and not 1 of filter_main_*)"
+      }
+    },
+    {
+      "case_id": "named_pipe_indicator",
+      "family": "Named pipe",
+      "rule_id": "cb1d1446-f327-1659-42ad-e41a7bc16e36",
+      "upstream_related": [
+        {
+          "id": "fe3ac066-98bb-432a-b1e7-a5229cb39d4a",
+          "type": "derived"
+        }
+      ],
+      "title": "Malicious Named Pipe Created",
+      "path": "sigma/sysmon/pipe_created/pipe_created_susp_malicious_namedpipes.yml",
+      "sha256": "8c6aa25e215cb74281f016359e66c9f46f613d7fb7a782a703f92a6d51be516d",
+      "event_ids": [
+        17,
+        18
+      ],
+      "level": "critical",
+      "status": "test",
+      "behavior": "Create the named pipe \\testPipe, connect a controlled client and exchange a fixed marker.",
+      "fixture_requirements": "This tests a listed pipe-name indicator; it does not emulate the malware families in the rule description. Keep client activity separately attributable.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "pipe_created": {
+          "EventID": [
+            17,
+            18
+          ],
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "PipeName": [
+            "\\46a676ab7f179e511e30dd2dc41bd388",
+            "\\583da945-62af-10e8-4902-a8f205c72b2e",
+            "\\6e7645c4-32c5-4fe3-aabf-e94c2f4370e7",
+            "\\9f81f59bc58452127884ce513865ed20",
+            "\\adschemerpc",
+            "\\ahexec",
+            "\\AnonymousPipe",
+            "\\bc31a7",
+            "\\bc367",
+            "\\bizkaz",
+            "\\csexecsvc",
+            "\\dce_3d",
+            "\\e710f28d59aa529d6792ca6ff0ca1b34",
+            "\\gruntsvc",
+            "\\isapi_dg",
+            "\\isapi_dg2",
+            "\\isapi_http",
+            "\\jaccdpqnvbrrxlaf",
+            "\\lsassw",
+            "\\NamePipe_MoreWindows",
+            "\\pcheap_reuse",
+            "\\Posh*",
+            "\\rpchlp_3",
+            "\\sdlrpc",
+            "\\svcctl",
+            "\\testPipe",
+            "\\winsession"
+          ]
+        },
+        "condition": "pipe_created and selection"
+      }
+    },
+    {
+      "case_id": "unsigned_node_load",
+      "family": "Image load",
+      "rule_id": "8085fb71-ed3b-7920-ca06-f9174665cc8a",
+      "upstream_related": [
+        {
+          "id": "e5f5c693-52d7-4de5-88ae-afbfbce85595",
+          "type": "derived"
+        }
+      ],
+      "title": "Unsigned .node File Loaded",
+      "path": "sigma/sysmon/image_load/image_load_dll_unsigned_node_load.yml",
+      "sha256": "791921f13ca6b7180ab7932bd058f9e58d9b8a92d1f58bcfb24af77886555146",
+      "event_ids": [
+        7
+      ],
+      "level": "medium",
+      "status": "experimental",
+      "behavior": "Load a fixed benign unsigned DLL fixture with a .node extension into the measured process; call a harmless exported function.",
+      "fixture_requirements": "Same helper bytes in every language; verify load and function result. Requires EID 7 plus Signed=false or SignatureStatus=Unavailable; Node.js execution is not claimed.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "image_load": {
+          "EventID": 7,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection_node_extension": {
+          "ImageLoaded|endswith": ".node"
+        },
+        "selection_status": [
+          {
+            "Signed": "false"
+          },
+          {
+            "SignatureStatus": "Unavailable"
+          }
+        ],
+        "filter_optional_vscode_jupyter": {
+          "Image|endswith": "\\Code.exe",
+          "ImageLoaded|contains": ".vscode\\extensions\\ms-toolsai.jupyter-",
+          "ImageLoaded|endswith": [
+            "\\electron.napi.node",
+            "\\node.napi.glibc.node"
+          ]
+        },
+        "filter_optional_vscode_core": {
+          "Image|contains": "\\Microsoft VS Code\\Code.exe",
+          "ImageLoaded|contains": "\\Microsoft VS Code\\resources\\app\\node_modules"
+        },
+        "filter_optional_evernote": {
+          "Image|contains": [
+            "C:\\Program Files (x86)\\",
+            "C:\\Program Files\\",
+            "\\AppData\\Local\\Programs\\"
+          ],
+          "Image|endswith": "\\Evernote\\Evernote.exe",
+          "ImageLoaded|contains": "\\Evernote\\resources\\app"
+        },
+        "condition": "image_load and (all of selection_* and not 1 of filter_optional_*)"
+      }
+    }
+  ],
+  "deferred_candidates": [
+    {
+      "case_id": "dns_ldap_discovery",
+      "family": "DNS",
+      "rule_id": "2701ad60-af1a-a2fc-c2ff-fea10af75a0b",
+      "upstream_related": [
+        {
+          "id": "a21bcd7e-38ec-49ad-b69a-9ea17e69509e",
+          "type": "derived"
+        }
+      ],
+      "title": "DNS Server Discovery Via LDAP Query",
+      "path": "sigma/sysmon/dns_query/dns_query_win_dns_server_discovery_via_ldap_query.yml",
+      "sha256": "e67e68d86307e2896785a1e2203a5b30276fdef315c5a609e7f88a13efd63d4d",
+      "event_ids": [
+        22
+      ],
+      "level": "low",
+      "status": "test",
+      "behavior": "Issue the same _ldap._tcp.lab.test SRV lookup against an isolated resolver; verify its fixed reply.",
+      "fixture_requirements": "Choose equivalent SRV resolution semantics in all four languages. Run outside excluded Windows/Program Files paths.",
+      "qualification": "proposed-not-lab-qualified",
+      "detection": {
+        "dns_query": {
+          "EventID": 22,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "QueryName|startswith": "_ldap."
+        },
+        "filter_main_generic": {
+          "Image|contains": [
+            ":\\Program Files\\",
+            ":\\Program Files (x86)\\",
+            ":\\Windows\\"
+          ]
+        },
+        "filter_main_defender": {
+          "Image|contains": ":\\ProgramData\\Microsoft\\Windows Defender\\Platform\\",
+          "Image|endswith": "\\MsMpEng.exe"
+        },
+        "filter_main_unknown": {
+          "Image": "<unknown process>"
+        },
+        "filter_optional_azure": {
+          "Image|startswith": "C:\\WindowsAzure\\GuestAgent"
+        },
+        "filter_main_null": {
+          "Image": null
+        },
+        "filter_optional_browsers": {
+          "Image|endswith": [
+            "\\chrome.exe",
+            "\\firefox.exe",
+            "\\opera.exe"
+          ]
+        },
+        "condition": "dns_query and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+      },
+      "decision": "Deferred: retain ordinary hostname-to-address resolution in the first pass. The rule only requires a _ldap. query-name prefix; neither LDAP traffic nor SRV type is required by its predicate."
+    }
+  ],
+  "network_scope_revision": {
+    "date": "2026-09-22",
+    "candidate_count": 7,
+    "tcp_candidate_count": 5,
+    "dns_candidate_count": 2,
+    "operation_families": [
+      "TCP connect/send/receive/close",
+      "hostname-to-address resolution"
+    ],
+    "status": "proposed-not-lab-qualified",
+    "measured_program_dependencies": "OS socket/resolver APIs and existing language standard libraries; no application-protocol client libraries",
+    "notes": "Four TCP cases vary destination port. The fifth varies executable location. Seven target rules do not represent seven distinct networking mechanisms."
+  }
+}

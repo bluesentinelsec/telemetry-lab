@@ -85,3 +85,15 @@ test('Linux-only validation omits Windows resources and retains SSM and storage'
   expect(json).not.toContain('DisableRealtimeMonitoring');
   expect(json).toContain('AmazonSSMManagedInstanceCore');
 });
+
+
+test('Windows-only validation excludes the Debian host', () => {
+  const app = new cdk.App();
+  const stack = new LabEnvironmentStack(app, 'WindowsTest', {
+    env: { account: '123456789012', region: 'us-west-2' }, windowsOnly: true,
+  });
+  const template = Template.fromStack(stack);
+  template.resourceCountIs('AWS::EC2::Instance', 1);
+  template.hasOutput('WindowsInstanceId', {});
+  expect(template.toJSON().Outputs.DebianInstanceId).toBeUndefined();
+});
