@@ -4,7 +4,7 @@ import struct
 import unittest
 from pathlib import Path
 from unittest.mock import patch
-from verify_programs import verify_imports, verify_go, pe_imports
+from verify_programs import verify_imports, verify_go, verify_rust, pe_imports
 from bundle_runtime import bundle
 
 
@@ -35,6 +35,20 @@ class RuntimeTests(unittest.TestCase):
         verify_imports(['KERNEL32.dll'],'go-static','probe')
         with self.assertRaises(ValueError):verify_imports(['msvcrt.dll'],'go-cgo','probe')
         with self.assertRaises(ValueError):verify_imports(['ucrtbase.dll'],'go-static','probe')
+
+    def test_rust_linkage_is_verified_in_binary_and_metadata(self):
+        dynamic=['kernel32.dll','ucrtbase.dll','VCRUNTIME140.dll']
+        verify_imports(dynamic,'rust-msvc-dynamic','probe')
+        verify_imports(['kernel32.dll'],'rust-msvc-static','probe')
+        for names,runtime in [(dynamic,'rust-msvc-static'),(['kernel32.dll'],'rust-msvc-dynamic'),(['ucrtbase.dll'],'rust-msvc-dynamic'),(['msvcrt.dll'],'rust-msvc-static')]:
+            with self.assertRaises(ValueError):verify_imports(names,runtime,'probe')
+        for crt,flag in [('dynamic','-'),('static','+')]:
+            data=f'RUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT {crt}\n'.encode()
+            metadata={'target':'x86_64-pc-windows-msvc','crt':crt,'rustflags':f'-C target-feature={flag}crt-static'}
+            verify_rust(data,metadata,'rust-msvc-'+crt,'probe')
+            with self.assertRaises(ValueError):verify_rust(data.replace(b'msvc',b'gnu'),metadata,'rust-msvc-'+crt,'probe')
+            with self.assertRaises(ValueError):verify_rust(data,{**metadata,'rustflags':''},'rust-msvc-'+crt,'probe')
+            with self.assertRaises(ValueError):verify_rust(data,{**metadata,'target':'x86_64-pc-windows-gnu'},'rust-msvc-'+crt,'probe')
 
     def test_pe_imports_follow_rva_not_debug_section_contents(self):
         data=bytearray(0x600);data[:2]=b'MZ';struct.pack_into('<I',data,0x3c,0x80)
