@@ -1,0 +1,1359 @@
+{
+  "source_commit": "9a2d07bb2d1f234f7e40b44d0e022ef437f4fd02",
+  "selected_configs": [
+    "linux-c-glibc",
+    "linux-rust-gnu",
+    "linux-rust-musl"
+  ],
+  "phases": [
+    {
+      "phase": "rust-final",
+      "executions": 183,
+      "valid": 177,
+      "behavior_successes": 183,
+      "qualified_rules": 30,
+      "qualified_rule_names": [
+        "Adding ssh keys to authorized_keys",
+        "Clear Log Activities",
+        "Contact EC2 Instance Metadata Service From Container",
+        "Contact cloud metadata service from container",
+        "Create Hardlink Over Sensitive Files",
+        "Create Symlink Over Sensitive Files",
+        "Create files below dev",
+        "Delete or rename shell history",
+        "Directory traversal monitored file read",
+        "Drop and execute new binary in container",
+        "Execution from /dev/shm",
+        "Fileless execution via memfd_create",
+        "Mkdir binary dirs",
+        "Modify Shell Configuration File",
+        "Modify binary dirs",
+        "PTRACE anti-debug attempt",
+        "PTRACE attached to process",
+        "Packet socket created in container",
+        "Read environment variable from /proc files",
+        "Read sensitive file untrusted",
+        "Read ssh information",
+        "Redirect STDOUT/STDIN to Network Connection in Container",
+        "Schedule Cron Jobs",
+        "Set Setuid or Setgid bit",
+        "Unexpected UDP Traffic",
+        "Update Package Repository",
+        "Write below binary dir",
+        "Write below etc",
+        "Write below monitored dir",
+        "Write below root"
+      ],
+      "negative_controls_pass": false,
+      "qualified_case_configurations": 86,
+      "paired_qualification": [
+        [
+          "authorized_keys",
+          "linux-c-glibc"
+        ],
+        [
+          "authorized_keys",
+          "linux-rust-gnu"
+        ],
+        [
+          "authorized_keys",
+          "linux-rust-musl"
+        ],
+        [
+          "binary_mkdir",
+          "linux-c-glibc"
+        ],
+        [
+          "binary_mkdir",
+          "linux-rust-gnu"
+        ],
+        [
+          "binary_mkdir",
+          "linux-rust-musl"
+        ],
+        [
+          "binary_rename",
+          "linux-c-glibc"
+        ],
+        [
+          "binary_rename",
+          "linux-rust-gnu"
+        ],
+        [
+          "binary_rename",
+          "linux-rust-musl"
+        ],
+        [
+          "binary_write",
+          "linux-c-glibc"
+        ],
+        [
+          "binary_write",
+          "linux-rust-gnu"
+        ],
+        [
+          "binary_write",
+          "linux-rust-musl"
+        ],
+        [
+          "cron_write",
+          "linux-c-glibc"
+        ],
+        [
+          "cron_write",
+          "linux-rust-gnu"
+        ],
+        [
+          "cron_write",
+          "linux-rust-musl"
+        ],
+        [
+          "dev_file",
+          "linux-c-glibc"
+        ],
+        [
+          "dev_file",
+          "linux-rust-gnu"
+        ],
+        [
+          "dev_file",
+          "linux-rust-musl"
+        ],
+        [
+          "drop_execute",
+          "linux-c-glibc"
+        ],
+        [
+          "drop_execute",
+          "linux-rust-musl"
+        ],
+        [
+          "etc_write",
+          "linux-c-glibc"
+        ],
+        [
+          "etc_write",
+          "linux-rust-gnu"
+        ],
+        [
+          "etc_write",
+          "linux-rust-musl"
+        ],
+        [
+          "exec_shm",
+          "linux-c-glibc"
+        ],
+        [
+          "exec_shm",
+          "linux-rust-gnu"
+        ],
+        [
+          "exec_shm",
+          "linux-rust-musl"
+        ],
+        [
+          "history_truncate",
+          "linux-c-glibc"
+        ],
+        [
+          "history_truncate",
+          "linux-rust-gnu"
+        ],
+        [
+          "history_truncate",
+          "linux-rust-musl"
+        ],
+        [
+          "log_truncate",
+          "linux-c-glibc"
+        ],
+        [
+          "log_truncate",
+          "linux-rust-gnu"
+        ],
+        [
+          "log_truncate",
+          "linux-rust-musl"
+        ],
+        [
+          "memfd_execute",
+          "linux-c-glibc"
+        ],
+        [
+          "memfd_execute",
+          "linux-rust-gnu"
+        ],
+        [
+          "memfd_execute",
+          "linux-rust-musl"
+        ],
+        [
+          "metadata_cloud",
+          "linux-c-glibc"
+        ],
+        [
+          "metadata_cloud",
+          "linux-rust-gnu"
+        ],
+        [
+          "metadata_cloud",
+          "linux-rust-musl"
+        ],
+        [
+          "metadata_ec2",
+          "linux-c-glibc"
+        ],
+        [
+          "metadata_ec2",
+          "linux-rust-musl"
+        ],
+        [
+          "monitored_write",
+          "linux-c-glibc"
+        ],
+        [
+          "monitored_write",
+          "linux-rust-gnu"
+        ],
+        [
+          "monitored_write",
+          "linux-rust-musl"
+        ],
+        [
+          "packet_socket",
+          "linux-c-glibc"
+        ],
+        [
+          "packet_socket",
+          "linux-rust-gnu"
+        ],
+        [
+          "packet_socket",
+          "linux-rust-musl"
+        ],
+        [
+          "proc_environ",
+          "linux-c-glibc"
+        ],
+        [
+          "proc_environ",
+          "linux-rust-musl"
+        ],
+        [
+          "ptrace_attach",
+          "linux-c-glibc"
+        ],
+        [
+          "ptrace_attach",
+          "linux-rust-gnu"
+        ],
+        [
+          "ptrace_attach",
+          "linux-rust-musl"
+        ],
+        [
+          "ptrace_traceme",
+          "linux-c-glibc"
+        ],
+        [
+          "ptrace_traceme",
+          "linux-rust-gnu"
+        ],
+        [
+          "ptrace_traceme",
+          "linux-rust-musl"
+        ],
+        [
+          "repository_write",
+          "linux-c-glibc"
+        ],
+        [
+          "repository_write",
+          "linux-rust-gnu"
+        ],
+        [
+          "repository_write",
+          "linux-rust-musl"
+        ],
+        [
+          "reverse_shell",
+          "linux-rust-gnu"
+        ],
+        [
+          "reverse_shell",
+          "linux-rust-musl"
+        ],
+        [
+          "root_write",
+          "linux-c-glibc"
+        ],
+        [
+          "root_write",
+          "linux-rust-gnu"
+        ],
+        [
+          "root_write",
+          "linux-rust-musl"
+        ],
+        [
+          "sensitive_hardlink",
+          "linux-c-glibc"
+        ],
+        [
+          "sensitive_hardlink",
+          "linux-rust-gnu"
+        ],
+        [
+          "sensitive_hardlink",
+          "linux-rust-musl"
+        ],
+        [
+          "sensitive_read",
+          "linux-c-glibc"
+        ],
+        [
+          "sensitive_read",
+          "linux-rust-gnu"
+        ],
+        [
+          "sensitive_read",
+          "linux-rust-musl"
+        ],
+        [
+          "sensitive_symlink",
+          "linux-c-glibc"
+        ],
+        [
+          "sensitive_symlink",
+          "linux-rust-gnu"
+        ],
+        [
+          "sensitive_symlink",
+          "linux-rust-musl"
+        ],
+        [
+          "setid_mode",
+          "linux-c-glibc"
+        ],
+        [
+          "setid_mode",
+          "linux-rust-gnu"
+        ],
+        [
+          "setid_mode",
+          "linux-rust-musl"
+        ],
+        [
+          "shell_config_write",
+          "linux-c-glibc"
+        ],
+        [
+          "shell_config_write",
+          "linux-rust-gnu"
+        ],
+        [
+          "shell_config_write",
+          "linux-rust-musl"
+        ],
+        [
+          "ssh_read",
+          "linux-c-glibc"
+        ],
+        [
+          "ssh_read",
+          "linux-rust-gnu"
+        ],
+        [
+          "ssh_read",
+          "linux-rust-musl"
+        ],
+        [
+          "traversal_read",
+          "linux-c-glibc"
+        ],
+        [
+          "traversal_read",
+          "linux-rust-gnu"
+        ],
+        [
+          "traversal_read",
+          "linux-rust-musl"
+        ],
+        [
+          "udp_exchange",
+          "linux-c-glibc"
+        ],
+        [
+          "udp_exchange",
+          "linux-rust-gnu"
+        ],
+        [
+          "udp_exchange",
+          "linux-rust-musl"
+        ]
+      ],
+      "functional_only": false
+    },
+    {
+      "phase": "rust-recheck1",
+      "executions": 27,
+      "valid": 26,
+      "behavior_successes": 27,
+      "qualified_rules": 4,
+      "qualified_rule_names": [
+        "Contact EC2 Instance Metadata Service From Container",
+        "Drop and execute new binary in container",
+        "Read environment variable from /proc files",
+        "Redirect STDOUT/STDIN to Network Connection in Container"
+      ],
+      "negative_controls_pass": true,
+      "qualified_case_configurations": 11,
+      "paired_qualification": [
+        [
+          "drop_execute",
+          "linux-c-glibc"
+        ],
+        [
+          "drop_execute",
+          "linux-rust-gnu"
+        ],
+        [
+          "drop_execute",
+          "linux-rust-musl"
+        ],
+        [
+          "metadata_ec2",
+          "linux-c-glibc"
+        ],
+        [
+          "metadata_ec2",
+          "linux-rust-gnu"
+        ],
+        [
+          "metadata_ec2",
+          "linux-rust-musl"
+        ],
+        [
+          "proc_environ",
+          "linux-c-glibc"
+        ],
+        [
+          "proc_environ",
+          "linux-rust-musl"
+        ],
+        [
+          "reverse_shell",
+          "linux-c-glibc"
+        ],
+        [
+          "reverse_shell",
+          "linux-rust-gnu"
+        ],
+        [
+          "reverse_shell",
+          "linux-rust-musl"
+        ]
+      ],
+      "functional_only": false
+    }
+  ],
+  "executions": 210,
+  "valid": 203,
+  "behavior_successes": 210,
+  "active_attempts": 102,
+  "valid_target_hits": 99,
+  "valid_target_misses": 0,
+  "control_attempts": 108,
+  "valid_clean_controls": 104,
+  "valid_behavior_control_pairs": 90,
+  "valid_pairs": [
+    [
+      "traversal_read",
+      "linux-c-glibc"
+    ],
+    [
+      "traversal_read",
+      "linux-rust-gnu"
+    ],
+    [
+      "traversal_read",
+      "linux-rust-musl"
+    ],
+    [
+      "sensitive_read",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_read",
+      "linux-rust-gnu"
+    ],
+    [
+      "sensitive_read",
+      "linux-rust-musl"
+    ],
+    [
+      "log_truncate",
+      "linux-c-glibc"
+    ],
+    [
+      "log_truncate",
+      "linux-rust-gnu"
+    ],
+    [
+      "log_truncate",
+      "linux-rust-musl"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-rust-gnu"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-rust-musl"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-rust-gnu"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-rust-musl"
+    ],
+    [
+      "packet_socket",
+      "linux-c-glibc"
+    ],
+    [
+      "packet_socket",
+      "linux-rust-gnu"
+    ],
+    [
+      "packet_socket",
+      "linux-rust-musl"
+    ],
+    [
+      "reverse_shell",
+      "linux-c-glibc"
+    ],
+    [
+      "reverse_shell",
+      "linux-rust-gnu"
+    ],
+    [
+      "reverse_shell",
+      "linux-rust-musl"
+    ],
+    [
+      "ptrace_attach",
+      "linux-c-glibc"
+    ],
+    [
+      "ptrace_attach",
+      "linux-rust-gnu"
+    ],
+    [
+      "ptrace_attach",
+      "linux-rust-musl"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-c-glibc"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-rust-gnu"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-rust-musl"
+    ],
+    [
+      "exec_shm",
+      "linux-c-glibc"
+    ],
+    [
+      "exec_shm",
+      "linux-rust-gnu"
+    ],
+    [
+      "exec_shm",
+      "linux-rust-musl"
+    ],
+    [
+      "drop_execute",
+      "linux-c-glibc"
+    ],
+    [
+      "drop_execute",
+      "linux-rust-gnu"
+    ],
+    [
+      "drop_execute",
+      "linux-rust-musl"
+    ],
+    [
+      "memfd_execute",
+      "linux-c-glibc"
+    ],
+    [
+      "memfd_execute",
+      "linux-rust-gnu"
+    ],
+    [
+      "memfd_execute",
+      "linux-rust-musl"
+    ],
+    [
+      "shell_config_write",
+      "linux-c-glibc"
+    ],
+    [
+      "shell_config_write",
+      "linux-rust-gnu"
+    ],
+    [
+      "shell_config_write",
+      "linux-rust-musl"
+    ],
+    [
+      "cron_write",
+      "linux-c-glibc"
+    ],
+    [
+      "cron_write",
+      "linux-rust-gnu"
+    ],
+    [
+      "cron_write",
+      "linux-rust-musl"
+    ],
+    [
+      "ssh_read",
+      "linux-c-glibc"
+    ],
+    [
+      "ssh_read",
+      "linux-rust-gnu"
+    ],
+    [
+      "ssh_read",
+      "linux-rust-musl"
+    ],
+    [
+      "udp_exchange",
+      "linux-c-glibc"
+    ],
+    [
+      "udp_exchange",
+      "linux-rust-gnu"
+    ],
+    [
+      "udp_exchange",
+      "linux-rust-musl"
+    ],
+    [
+      "dev_file",
+      "linux-c-glibc"
+    ],
+    [
+      "dev_file",
+      "linux-rust-gnu"
+    ],
+    [
+      "dev_file",
+      "linux-rust-musl"
+    ],
+    [
+      "metadata_ec2",
+      "linux-c-glibc"
+    ],
+    [
+      "metadata_ec2",
+      "linux-rust-gnu"
+    ],
+    [
+      "metadata_ec2",
+      "linux-rust-musl"
+    ],
+    [
+      "metadata_cloud",
+      "linux-c-glibc"
+    ],
+    [
+      "metadata_cloud",
+      "linux-rust-gnu"
+    ],
+    [
+      "metadata_cloud",
+      "linux-rust-musl"
+    ],
+    [
+      "history_truncate",
+      "linux-c-glibc"
+    ],
+    [
+      "history_truncate",
+      "linux-rust-gnu"
+    ],
+    [
+      "history_truncate",
+      "linux-rust-musl"
+    ],
+    [
+      "setid_mode",
+      "linux-c-glibc"
+    ],
+    [
+      "setid_mode",
+      "linux-rust-gnu"
+    ],
+    [
+      "setid_mode",
+      "linux-rust-musl"
+    ],
+    [
+      "proc_environ",
+      "linux-c-glibc"
+    ],
+    [
+      "proc_environ",
+      "linux-rust-gnu"
+    ],
+    [
+      "proc_environ",
+      "linux-rust-musl"
+    ],
+    [
+      "authorized_keys",
+      "linux-c-glibc"
+    ],
+    [
+      "authorized_keys",
+      "linux-rust-gnu"
+    ],
+    [
+      "authorized_keys",
+      "linux-rust-musl"
+    ],
+    [
+      "repository_write",
+      "linux-c-glibc"
+    ],
+    [
+      "repository_write",
+      "linux-rust-gnu"
+    ],
+    [
+      "repository_write",
+      "linux-rust-musl"
+    ],
+    [
+      "binary_write",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_write",
+      "linux-rust-gnu"
+    ],
+    [
+      "binary_write",
+      "linux-rust-musl"
+    ],
+    [
+      "monitored_write",
+      "linux-c-glibc"
+    ],
+    [
+      "monitored_write",
+      "linux-rust-gnu"
+    ],
+    [
+      "monitored_write",
+      "linux-rust-musl"
+    ],
+    [
+      "etc_write",
+      "linux-c-glibc"
+    ],
+    [
+      "etc_write",
+      "linux-rust-gnu"
+    ],
+    [
+      "etc_write",
+      "linux-rust-musl"
+    ],
+    [
+      "root_write",
+      "linux-c-glibc"
+    ],
+    [
+      "root_write",
+      "linux-rust-gnu"
+    ],
+    [
+      "root_write",
+      "linux-rust-musl"
+    ],
+    [
+      "binary_rename",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_rename",
+      "linux-rust-gnu"
+    ],
+    [
+      "binary_rename",
+      "linux-rust-musl"
+    ],
+    [
+      "binary_mkdir",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_mkdir",
+      "linux-rust-gnu"
+    ],
+    [
+      "binary_mkdir",
+      "linux-rust-musl"
+    ]
+  ],
+  "qualified_case_configurations": 90,
+  "paired_qualification": [
+    [
+      "traversal_read",
+      "linux-c-glibc"
+    ],
+    [
+      "traversal_read",
+      "linux-rust-gnu"
+    ],
+    [
+      "traversal_read",
+      "linux-rust-musl"
+    ],
+    [
+      "sensitive_read",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_read",
+      "linux-rust-gnu"
+    ],
+    [
+      "sensitive_read",
+      "linux-rust-musl"
+    ],
+    [
+      "log_truncate",
+      "linux-c-glibc"
+    ],
+    [
+      "log_truncate",
+      "linux-rust-gnu"
+    ],
+    [
+      "log_truncate",
+      "linux-rust-musl"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-rust-gnu"
+    ],
+    [
+      "sensitive_symlink",
+      "linux-rust-musl"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-c-glibc"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-rust-gnu"
+    ],
+    [
+      "sensitive_hardlink",
+      "linux-rust-musl"
+    ],
+    [
+      "packet_socket",
+      "linux-c-glibc"
+    ],
+    [
+      "packet_socket",
+      "linux-rust-gnu"
+    ],
+    [
+      "packet_socket",
+      "linux-rust-musl"
+    ],
+    [
+      "reverse_shell",
+      "linux-c-glibc"
+    ],
+    [
+      "reverse_shell",
+      "linux-rust-gnu"
+    ],
+    [
+      "reverse_shell",
+      "linux-rust-musl"
+    ],
+    [
+      "ptrace_attach",
+      "linux-c-glibc"
+    ],
+    [
+      "ptrace_attach",
+      "linux-rust-gnu"
+    ],
+    [
+      "ptrace_attach",
+      "linux-rust-musl"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-c-glibc"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-rust-gnu"
+    ],
+    [
+      "ptrace_traceme",
+      "linux-rust-musl"
+    ],
+    [
+      "exec_shm",
+      "linux-c-glibc"
+    ],
+    [
+      "exec_shm",
+      "linux-rust-gnu"
+    ],
+    [
+      "exec_shm",
+      "linux-rust-musl"
+    ],
+    [
+      "drop_execute",
+      "linux-c-glibc"
+    ],
+    [
+      "drop_execute",
+      "linux-rust-gnu"
+    ],
+    [
+      "drop_execute",
+      "linux-rust-musl"
+    ],
+    [
+      "memfd_execute",
+      "linux-c-glibc"
+    ],
+    [
+      "memfd_execute",
+      "linux-rust-gnu"
+    ],
+    [
+      "memfd_execute",
+      "linux-rust-musl"
+    ],
+    [
+      "shell_config_write",
+      "linux-c-glibc"
+    ],
+    [
+      "shell_config_write",
+      "linux-rust-gnu"
+    ],
+    [
+      "shell_config_write",
+      "linux-rust-musl"
+    ],
+    [
+      "cron_write",
+      "linux-c-glibc"
+    ],
+    [
+      "cron_write",
+      "linux-rust-gnu"
+    ],
+    [
+      "cron_write",
+      "linux-rust-musl"
+    ],
+    [
+      "ssh_read",
+      "linux-c-glibc"
+    ],
+    [
+      "ssh_read",
+      "linux-rust-gnu"
+    ],
+    [
+      "ssh_read",
+      "linux-rust-musl"
+    ],
+    [
+      "udp_exchange",
+      "linux-c-glibc"
+    ],
+    [
+      "udp_exchange",
+      "linux-rust-gnu"
+    ],
+    [
+      "udp_exchange",
+      "linux-rust-musl"
+    ],
+    [
+      "dev_file",
+      "linux-c-glibc"
+    ],
+    [
+      "dev_file",
+      "linux-rust-gnu"
+    ],
+    [
+      "dev_file",
+      "linux-rust-musl"
+    ],
+    [
+      "metadata_ec2",
+      "linux-c-glibc"
+    ],
+    [
+      "metadata_ec2",
+      "linux-rust-gnu"
+    ],
+    [
+      "metadata_ec2",
+      "linux-rust-musl"
+    ],
+    [
+      "metadata_cloud",
+      "linux-c-glibc"
+    ],
+    [
+      "metadata_cloud",
+      "linux-rust-gnu"
+    ],
+    [
+      "metadata_cloud",
+      "linux-rust-musl"
+    ],
+    [
+      "history_truncate",
+      "linux-c-glibc"
+    ],
+    [
+      "history_truncate",
+      "linux-rust-gnu"
+    ],
+    [
+      "history_truncate",
+      "linux-rust-musl"
+    ],
+    [
+      "setid_mode",
+      "linux-c-glibc"
+    ],
+    [
+      "setid_mode",
+      "linux-rust-gnu"
+    ],
+    [
+      "setid_mode",
+      "linux-rust-musl"
+    ],
+    [
+      "proc_environ",
+      "linux-c-glibc"
+    ],
+    [
+      "proc_environ",
+      "linux-rust-gnu"
+    ],
+    [
+      "proc_environ",
+      "linux-rust-musl"
+    ],
+    [
+      "authorized_keys",
+      "linux-c-glibc"
+    ],
+    [
+      "authorized_keys",
+      "linux-rust-gnu"
+    ],
+    [
+      "authorized_keys",
+      "linux-rust-musl"
+    ],
+    [
+      "repository_write",
+      "linux-c-glibc"
+    ],
+    [
+      "repository_write",
+      "linux-rust-gnu"
+    ],
+    [
+      "repository_write",
+      "linux-rust-musl"
+    ],
+    [
+      "binary_write",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_write",
+      "linux-rust-gnu"
+    ],
+    [
+      "binary_write",
+      "linux-rust-musl"
+    ],
+    [
+      "monitored_write",
+      "linux-c-glibc"
+    ],
+    [
+      "monitored_write",
+      "linux-rust-gnu"
+    ],
+    [
+      "monitored_write",
+      "linux-rust-musl"
+    ],
+    [
+      "etc_write",
+      "linux-c-glibc"
+    ],
+    [
+      "etc_write",
+      "linux-rust-gnu"
+    ],
+    [
+      "etc_write",
+      "linux-rust-musl"
+    ],
+    [
+      "root_write",
+      "linux-c-glibc"
+    ],
+    [
+      "root_write",
+      "linux-rust-gnu"
+    ],
+    [
+      "root_write",
+      "linux-rust-musl"
+    ],
+    [
+      "binary_rename",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_rename",
+      "linux-rust-gnu"
+    ],
+    [
+      "binary_rename",
+      "linux-rust-musl"
+    ],
+    [
+      "binary_mkdir",
+      "linux-c-glibc"
+    ],
+    [
+      "binary_mkdir",
+      "linux-rust-gnu"
+    ],
+    [
+      "binary_mkdir",
+      "linux-rust-musl"
+    ]
+  ],
+  "invalid_runs": [
+    {
+      "phase": "rust-final",
+      "execution": "0059-linux-rust-gnu-proc_environ",
+      "case": "proc_environ",
+      "config": "linux-rust-gnu",
+      "control": true,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 6.0,
+          "after": 7.0
+        }
+      }
+    },
+    {
+      "phase": "rust-final",
+      "execution": "0075-linux-rust-gnu-negative",
+      "case": "negative",
+      "config": "linux-rust-gnu",
+      "control": false,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 7.0,
+          "after": 8.0
+        }
+      }
+    },
+    {
+      "phase": "rust-final",
+      "execution": "0129-linux-rust-gnu-drop_execute",
+      "case": "drop_execute",
+      "config": "linux-rust-gnu",
+      "control": false,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 11.0,
+          "after": 12.0
+        }
+      }
+    },
+    {
+      "phase": "rust-final",
+      "execution": "0143-linux-rust-gnu-metadata_ec2",
+      "case": "metadata_ec2",
+      "config": "linux-rust-gnu",
+      "control": false,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 12.0,
+          "after": 13.0
+        }
+      }
+    },
+    {
+      "phase": "rust-final",
+      "execution": "0160-linux-c-glibc-reverse_shell",
+      "case": "reverse_shell",
+      "config": "linux-c-glibc",
+      "control": true,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 13.0,
+          "after": 14.0
+        }
+      }
+    },
+    {
+      "phase": "rust-final",
+      "execution": "0174-linux-c-glibc-negative",
+      "case": "negative",
+      "config": "linux-c-glibc",
+      "control": false,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 14.0,
+          "after": 15.0
+        }
+      }
+    },
+    {
+      "phase": "rust-recheck1",
+      "execution": "0012-linux-rust-gnu-proc_environ",
+      "case": "proc_environ",
+      "config": "linux-rust-gnu",
+      "control": false,
+      "error": null,
+      "drop_counter_changes": {
+        "falcosecurity_scap_n_retrieve_evts_drops_total": {
+          "before": 19.0,
+          "after": 20.0
+        }
+      }
+    }
+  ],
+  "kernel": "6.12.107+deb13-cloud-amd64",
+  "docker": "Docker version 26.1.5+dfsg1, build a72d7cd",
+  "falco": "{\"default_driver_version\":\"11.0.0+driver\",\"driver_api_version\":\"11.0.0\",\"driver_schema_version\":\"4.3.0\",\"engine_version\":\"65\",\"engine_version_semver\":\"0.65.0\",\"falco_version\":\"0.45.0\",\"libs_version\":\"0.26.0\",\"plugin_api_version\":\"3.12.0\"}",
+  "image_id": "sha256:80aac01b923796cad587678762ce1c7bbda3eff1a9db566a02edbbe4784f7dcb",
+  "binary_sha256": "7bb94127b7c44daeb2bc8f31d70668e78fbffa701d62989a34609ad8d359b5be  /opt/coverage/linux-c-glibc/coverage/traversal_read\nfd98b4f9d8ad6ebb2868d053d01bb10620dc588e8c1ee40a0d638f788c4ce635  /opt/coverage/linux-c-glibc/coverage/sensitive_read\n11bd450333ecaab657dab9fcd84aa7e82a4081c0c2a1e631f394a4ba46882d1f  /opt/coverage/linux-c-glibc/coverage/log_truncate\n591c0de4ef3c4a2425a6c41900a319679db908b298c4ab3c176fa1ce755fbb0e  /opt/coverage/linux-c-glibc/coverage/sensitive_symlink\n6836d04171f48cfbccac0e554f44be291ce29ce1a1d281d3b0a8b6980fd6518a  /opt/coverage/linux-c-glibc/coverage/sensitive_hardlink\ndd8346dffdbaffc505ce129e7c29561656fa8325a90a4387afca2a80cf75e36c  /opt/coverage/linux-c-glibc/coverage/packet_socket\nd8e1cd52ad8dd5c9d43caad6adda1a5f67f97e76c1ac7198219c1e201411033e  /opt/coverage/linux-c-glibc/coverage/reverse_shell\ned1fa061bf11e4149e45bcddce7723390b22c4da4d2c242976f6ee35e6484100  /opt/coverage/linux-c-glibc/coverage/ptrace_attach\ne5cb1f78467e4e173169bbc56720f3dc15c0fd243b89664333c4f6b6522e043d  /opt/coverage/linux-c-glibc/coverage/ptrace_traceme\n2c8e499885b5d87c8442e3604e855b2ad4cee205651d3b11b3a5a30fffa0b597  /opt/coverage/linux-c-glibc/coverage/exec_shm\n7a45396e53294d98790b78242d6584f33a20be0a68ca9c91456ce3853c2f2110  /opt/coverage/linux-c-glibc/coverage/drop_execute\n0a1ec3f1832b727e14b25d18335cf96d39c9b476c2893fd220c34a61c3e756e8  /opt/coverage/linux-c-glibc/coverage/memfd_execute\n077e92d719fe2d8df9c6ec4a040f70ba9e8b93620c612f0ad53112fc1f9c4496  /opt/coverage/linux-c-glibc/coverage/shell_config_write\n5f3b1e9f9433b0f944224a38986ad125b97286b5baa1149b9da2f3216a138efb  /opt/coverage/linux-c-glibc/coverage/cron_write\ne15ecd2ea8d2370434cb6806c0579567b1d3f723714e51897c8719226ebf1363  /opt/coverage/linux-c-glibc/coverage/ssh_read\n58f03ef9016e89490a7a605ed18d45911fc9754c67b2e2673e993e00e3cc7892  /opt/coverage/linux-c-glibc/coverage/udp_exchange\nb4df7786c412718ef61c6fe05e71547f56d94601394756010929f702a8c3483b  /opt/coverage/linux-c-glibc/coverage/dev_file\nae866b3d131d9a1e16475ac2aaed0077bf3f7ed5c391a71f8144796ed826f9c1  /opt/coverage/linux-c-glibc/coverage/metadata_ec2\n17a77a2a839a32a306381efc942b046ada1bf615623ca0ae5b64e8a80495f1ef  /opt/coverage/linux-c-glibc/coverage/metadata_cloud\n1f7c2d67aa73ebfd2b9078276375fb9ec0dd9904b3cadc8b69245428d86b42b2  /opt/coverage/linux-c-glibc/coverage/history_truncate\nbc410c50f9ef7aac42bbf3c6d9d2672dea307e760ce92b2297bdde446e269b90  /opt/coverage/linux-c-glibc/coverage/setid_mode\nc6c0b8b86bdb3491b173e0ebf6d80c9f6b8480e06965ed74777f81d7bcb7615b  /opt/coverage/linux-c-glibc/coverage/proc_environ\nf6cc19278baf5194832620efcd423ccecdccdfb6fb90eaf1da00ef31d1c42715  /opt/coverage/linux-c-glibc/coverage/authorized_keys\n6fdf4df3c5ff9855638fb9634d809e59337a54a58234754435daa080440974d2  /opt/coverage/linux-c-glibc/coverage/repository_write\nfdea155588cd913506002758ec99774d5e68f4bf9c37976c6314d05ff5093699  /opt/coverage/linux-c-glibc/coverage/binary_write\n5fd49dbbf572e3ac93d063b921fb305acf5d140571162d66c33938d17b5e5903  /opt/coverage/linux-c-glibc/coverage/monitored_write\n3debcae37f372b7fc29eb51cf4d172614c2c7d6d855467652c6a7dac84d461e8  /opt/coverage/linux-c-glibc/coverage/etc_write\n1883b6710c1fe33d093f2a730b0dcff62dfccb0908e9669351f2820d54d17336  /opt/coverage/linux-c-glibc/coverage/root_write\n760f3cd326dd70c2f812e3d85b732198a588cee4c6157fe246a787a09e5c94e4  /opt/coverage/linux-c-glibc/coverage/binary_rename\n0664d98d2eea16483fbe3d6045337a7312ede3a59e60666cc9a154de2cd6fd73  /opt/coverage/linux-c-glibc/coverage/binary_mkdir\n762a3f2600842d370d514371ae857d82d34763bb94e93cb4e67c1691bb868e72  /opt/coverage/linux-c-glibc/coverage/negative\n8f335612fa3904fd30a3ee25f7b467d611c5d52838aaf05593d4cb0176aa0ef2  /opt/coverage/linux-c-glibc/coverage/fixture_prepare\n5932bf3252dd7dc0bc34527216ef4924518e240657022fa2a3d6f0a1b40be1e9  /opt/coverage/linux-rust-gnu/coverage/traversal_read\n2503f063bba372ec8ab3fa5368a656f5f0d6ef809a186ef7276474c0ebacb88f  /opt/coverage/linux-rust-gnu/coverage/sensitive_read\nc00ae56dafd0538098dbf5b9f0744ea847c36cfae71a83d1b8732defdab6671d  /opt/coverage/linux-rust-gnu/coverage/log_truncate\nb2c2918edfa8951e17965514d33d9589ae2c22b84bdec33d98cc45fa446a477e  /opt/coverage/linux-rust-gnu/coverage/sensitive_symlink\n0bc657fa038e529a877ef8bf3302e2604930d5343071c6c382739c5bf6be3b48  /opt/coverage/linux-rust-gnu/coverage/sensitive_hardlink\na11ee6dcace9286fcf7fb80d371f64cce5b6e2077d392dbc848971e62f8075c6  /opt/coverage/linux-rust-gnu/coverage/packet_socket\na18ee86c695b4dddd403845fe56762fd87b03782e0bd78bf4be7eb52d6965db3  /opt/coverage/linux-rust-gnu/coverage/reverse_shell\n120acb64ff55a87bed8b4530aacf7876329bd2fba651e90a5ff6b853132f07d2  /opt/coverage/linux-rust-gnu/coverage/ptrace_attach\n369f74e1021489b4adfeb3699526f7a18bbd83a9455bf985f692cdbb10eef457  /opt/coverage/linux-rust-gnu/coverage/ptrace_traceme\n2fe1f7b659c039603ba43133eb86d2da7ec5bdbb44c75c171653be6b64262ad2  /opt/coverage/linux-rust-gnu/coverage/exec_shm\n49544f1384c8b7300b3ca79e64f7b9a30b516c71271c93574c598c8c27f8085f  /opt/coverage/linux-rust-gnu/coverage/drop_execute\na35e0a33e4fe0d3710c9e8ff682e4ee623e9284337a0d5577ff8d77c7cdf66bd  /opt/coverage/linux-rust-gnu/coverage/memfd_execute\n2cad6fc253918f18bcf4c178eb68dc9b45c7014443dba3d3e92eb9361b7c6aec  /opt/coverage/linux-rust-gnu/coverage/shell_config_write\ne65e3bb6ab0841f4edce46de7d935fd61e6bdc524afffd836b4c12b1e659ae11  /opt/coverage/linux-rust-gnu/coverage/cron_write\n6a04850396971c96938da2b5a99c7fc8cc6f32fe1ad0b32054bebcd3b8677d01  /opt/coverage/linux-rust-gnu/coverage/ssh_read\nb1c49ef6a60a7a00f97b2e59ae53fa0e4aca90f15f632a4feb70096ec31bbb44  /opt/coverage/linux-rust-gnu/coverage/udp_exchange\n3b69890f4a8402d39b11627effc2eaa88192fc47ce6b477c1ff8ad3e8b50a5cb  /opt/coverage/linux-rust-gnu/coverage/dev_file\naff2465760f585acf66b18c7a17599474ceadfdcc2bb9f264375861c63e1bc87  /opt/coverage/linux-rust-gnu/coverage/metadata_ec2\n1846c206218b885b06feff3f01cc5a3e32f4f77102e14ec37df446f9ca81056d  /opt/coverage/linux-rust-gnu/coverage/metadata_cloud\nea01c1d3682e795ce9b19c828d3c775282436bf389210b9f2b1e5f03e28ca0d2  /opt/coverage/linux-rust-gnu/coverage/history_truncate\n392e98ede401dfd25d9e6cafc3cb44e62ba7d5ff8b498dd9e8cdcd78a4d2fdd3  /opt/coverage/linux-rust-gnu/coverage/setid_mode\n9df7fe78061be2735f5ce5bd41a198c43e604fac00e396692241c8a159487c68  /opt/coverage/linux-rust-gnu/coverage/proc_environ\n7c432ac13170fe7437c36f0bc009c3361ae8de5d0dcf9df4af3cd34f31944014  /opt/coverage/linux-rust-gnu/coverage/authorized_keys\nb20e9c8a46b9be723951b94f2d65671602e7231582590f5792f003f6cbfe59e6  /opt/coverage/linux-rust-gnu/coverage/repository_write\n471680e9f916400824d6828e8e08e3e25a7427b8562c81eb002917caa582f915  /opt/coverage/linux-rust-gnu/coverage/binary_write\nc5d0ff5d1b4ba03b119380844a5b632b2af55b33e4e3eff25df86c887030b591  /opt/coverage/linux-rust-gnu/coverage/monitored_write\n7507c59f9ef212b0e5a62918205df92e2c0b38ff35b5b8de837163f02dc477c5  /opt/coverage/linux-rust-gnu/coverage/etc_write\n9f4db4ec5d59091dae16c9c080f8145f0cf78c570d6f6d2fa7979d70507c089f  /opt/coverage/linux-rust-gnu/coverage/root_write\n345998484549323d8caf59a283109786007fafee51d33826f93fa47e2dd11781  /opt/coverage/linux-rust-gnu/coverage/binary_rename\n27e3098623f23e273cd4e28a33bae4418fed828316e654ad2df80a6af2134365  /opt/coverage/linux-rust-gnu/coverage/binary_mkdir\n9d542958e1b0128c8801ee7cce9d38f78710b8b75c4365e0fc0bb7b105a89690  /opt/coverage/linux-rust-gnu/coverage/negative\n860b95eb3ce61bd9ccdbe946d0c6843d876c037893ffcbe2f38f3b91fc1d4c33  /opt/coverage/linux-rust-gnu/coverage/fixture_prepare\n8a1243ab0c872c22df273f9c8813665eebee1e21db877e93009d1a55fba20081  /opt/coverage/linux-rust-musl/coverage/traversal_read\n6a33003ca5cb584c7d51b5656c975a8126645aa606a38b21b62ea4a5f12d4df7  /opt/coverage/linux-rust-musl/coverage/sensitive_read\n99d99e1392f30379be9b8f08b57cf394f5193236cdfb8b1818540b762a17ea94  /opt/coverage/linux-rust-musl/coverage/log_truncate\nbf8f133db4fe865674e551bade56b2a2d1281398861cb7520de48baab8086713  /opt/coverage/linux-rust-musl/coverage/sensitive_symlink\n7a1936e0fef9acc8c6aa7ef69dd5d1c66e423f45846af1c962d56d28ded21dad  /opt/coverage/linux-rust-musl/coverage/sensitive_hardlink\n3e194c84f48933ab4a66f1a150924924a131b949b1ddace2045b3378b8b7281d  /opt/coverage/linux-rust-musl/coverage/packet_socket\ncae131d5dcee2fda7f7d6b2680c30634ffb0a98a9fef06c6a594f603f23ab48f  /opt/coverage/linux-rust-musl/coverage/reverse_shell\n46757203c3b7a8a651d36b623a7fdcd08214b82f36326fdb5bfa83c430308324  /opt/coverage/linux-rust-musl/coverage/ptrace_attach\n9ac2daa86e0c3dabd04b2224fe5bdfbeef6c59112158864ae00f578866b084c4  /opt/coverage/linux-rust-musl/coverage/ptrace_traceme\n5912a9ed6033d563517c2b5bee297fde97ad82dea2d81c7d22f7a6732582768d  /opt/coverage/linux-rust-musl/coverage/exec_shm\nd97d38ee01138daa726857a29893deda0804542e23579ded7183b03d95b59e39  /opt/coverage/linux-rust-musl/coverage/drop_execute\n5685f09402bc4235eb88103e03d9727e90508cbd840c9bffee565df7288f3686  /opt/coverage/linux-rust-musl/coverage/memfd_execute\n73392631eb36caad61108d3192b4ffdde4e3c26a452d01cc4d704faed0702cc3  /opt/coverage/linux-rust-musl/coverage/shell_config_write\n7544e673a8b50e99a945ac5782f7d24bef3d09e7b37ea75bea9cbb75e747d173  /opt/coverage/linux-rust-musl/coverage/cron_write\n776941efea89094dfd0a85fc721fd4f0dbee92e5b71b46b2d797f07ce20d18f3  /opt/coverage/linux-rust-musl/coverage/ssh_read\n7196590cebbe8d820c5a8900abca5da54bd1bdb35359e90e409013854bafbff8  /opt/coverage/linux-rust-musl/coverage/udp_exchange\na11479694166bfc349ee48a83863155aa24f27fd293bade48a0b0950c2f54b29  /opt/coverage/linux-rust-musl/coverage/dev_file\n48b5e24b32d3f96f3c9e0fc9067c6c6eba6add628626ff48f9c72c8fd36da301  /opt/coverage/linux-rust-musl/coverage/metadata_ec2\nfc806ac8cf667f10c2e72ffaee05528b74fea5dd3f76a2b54113c3618821eca2  /opt/coverage/linux-rust-musl/coverage/metadata_cloud\n687465dae2c56489cbeb0465fc286ab21a8d4d78e125550f44137f441fc84ddb  /opt/coverage/linux-rust-musl/coverage/history_truncate\n50090d39c41a124ba8e03e9c8445a05cc6faa46b886cd03917248038f465075f  /opt/coverage/linux-rust-musl/coverage/setid_mode\n37a42d7ed841109b3c00c09e676e1a27bde62f5039f2d2d2486948550d465207  /opt/coverage/linux-rust-musl/coverage/proc_environ\n9ea881872e9026670a4da3ae9a275901f62e7f5809f2f97e2fa6f52b14c57785  /opt/coverage/linux-rust-musl/coverage/authorized_keys\ned02347b6f7f00cfd623531ee7f9992b35b390ca5cdd5aa5fe5fb07474f14f03  /opt/coverage/linux-rust-musl/coverage/repository_write\n729e327747d073c413278c989bbdfcbf0a8494218fe321c2b64b711becf1075f  /opt/coverage/linux-rust-musl/coverage/binary_write\ne7d8c305efcf55497f1c3c2fff11150166298082f4ab01dc8c8d6f34b98e34cc  /opt/coverage/linux-rust-musl/coverage/monitored_write\n0c3cc80e19ce071336390b674d2189589342609e2555e662d3bb5b206f8c2554  /opt/coverage/linux-rust-musl/coverage/etc_write\n6ed84d51eccc07cab6457d58ce527f5b59c04f541b9a628d0e0006287a2654e1  /opt/coverage/linux-rust-musl/coverage/root_write\nd6c08b7d1b7ed6deca096ce46c19de7ebf1e793e7a2e10be894a6eb945573d22  /opt/coverage/linux-rust-musl/coverage/binary_rename\n5cb1e4d8bd54012c092bdfaaa1467929d004dc6e8facc1046239ec8445279371  /opt/coverage/linux-rust-musl/coverage/binary_mkdir\n2ad253ef5e783a36858a2642c900d8d412cffeb2e4e738df17bb75eb5c335673  /opt/coverage/linux-rust-musl/coverage/negative\n9a39b862c27c01de63f8af3a22c72481df3669afe14defbcf65a71f371c0479e  /opt/coverage/linux-rust-musl/coverage/fixture_prepare\n2a79c78068c3599fb735bccd203d2958e4b2f14eaa86c8eea83958692bbef9fb  /opt/coverage/helper",
+  "suite_files_sha256": {
+    "Dockerfile": "272fcfd5f6b6d9baf1646fb31a8a3c4e7d53b2ac5e512292a547a7785ea1d613",
+    "README.md": "1034fe590ccb673f8180a0182a6116c470df5473e0076706f3c4c65e926ebf27",
+    "test_program_contract.py": "1d3cf6316b040d0eca7f38173529b081998522829da82bf27d9a9604f90ce8a7",
+    "test_release.py": "dfd17d8b7c71fe4a4ed35c359d61feb089873fd03780f8b654a0c0e9777e20b6",
+    "manifest.json": "8a8df084cc57ec50579f41e895d3bd6e4ee11f3420e6a4dbb20164b89b353a20",
+    "run.py": "51d2dcfc541dead43858b393cf64dc4c53b81b7e03fb2cd8b9063ad923d695a7",
+    "build.sh": "e37bcbb4ebc4b64f1350fea29a7fb4a9155581d83d5b424756c069a678b49e9b",
+    "validate_manifest.py": "64e7c7473e0d16e5b77162afaa32562386aa694d97e4037fc0e65b1c4a142cb8",
+    "behavior-contract.md": "9a0598f7670268a1629654a7b9004b5a9c3b28847c0e90a8c8a1bc517dd7b0ce",
+    "setup-detector.sh": "1096103aae38096944681187de44b575a6614939fe15ad1916e7fdc6728365ca",
+    "verify_programs.py": "3182ef43e74b01c2d3d53370532a3b2d4175f626b9536cc53610d762c499e28b",
+    "rule-inventory.csv": "d0c93a05636a625ac62b3adb50a1b782b487de93bf3615c6c31e5b0c217e44f3",
+    ".gitignore": "32dae3052f331ee34d628ef535709b301259a45df7c7522c4d35dcf49873f00b",
+    "test_runner.py": "d215baa7cdfa67b8b37c4563c2f3d3681895df6f2626f7aa1131daa320aa460c",
+    "validation/README.md": "f293b57a6c7a79860fd8efc474d448973aaf40bb1e6368ceec31b1ad95806487",
+    "validation/rule-predicates.json": "4aa879349fd3ff2be3872f2db4d9d91c020588a2c67611b95092414d2591525e",
+    "validation/qualification.json": "74dde22848c69c32ebe38b1e26a7bafcee369b9738689c89a7267faf2f9c8f1d",
+    "validation/alert-evidence.json": "0a5e1127e34efede5b88cc5e598dee32440c017784e822114d20c9c2702dba76",
+    "validation/runs.csv": "37ba159e23b2cd9ee36d9ba6319156854e31263cdf57462c4b1a399f7a98361d",
+    "validation/matrix.csv": "464d82acce7d5c6df272c06c6f19f08b3a7d44bd4a0389b0e403b11e82c72fa9",
+    "rules/falco-sandbox_rules.yaml": "f05ad34f07c43930932ea6dd84c08a37bc8e5ba9f88901ca091ff1b52b3f33d3",
+    "rules/falco-incubating_rules.yaml": "47bf87041e2f39ca336e7acf1ae4e6183771a92e81031f367d01f2b49cabe1ac",
+    "rules/falco_rules.yaml": "30a1a60263ab97650c851011468da03b17fc0096a7cfa3b6686eba5de73b865b",
+    "rules/LICENSE.falcosecurity-rules": "f65bbfe8deb986105063c967001b84c00232c31ea4b28564d54b5133435c6453",
+    "validation/dispatcher-pilot/README.md": "26e39ef3500407689cd45ec5a8126f448827de12709ec6a210d748d2a18f0f75",
+    "validation/dispatcher-pilot/qualification.json": "8e5c0844f48adb4b020e206024f16a0c54fd5c79314fc3e31372ca3e47f9a65a",
+    "validation/dispatcher-pilot/runs.csv": "f62fa97cd3e5773d953677b05ff04ba6a4920d92f46dbaf60e21bfa7bfbff6be",
+    "validation/dispatcher-pilot/matrix.csv": "c39913afa790f02ddf53f5bedfacf8f93550b7e186f3c4d812dbfdef0ba737b0",
+    "validation/go/README.md": "5bcacb9174bd3694bf31c1886af5e8fc93da68d2589734da3291c810754a02d1",
+    "validation/go/binary-mkdir-events.json": "806536d3964764b495d94e2f93cc501e6839fa3a2e2c4363571ca7b72076540f",
+    "validation/go/reverse-shell-traces.md": "4f364a46bcfaa09c1f99923b7f9772bb8f576ee9ddaa7b5f2f786faaf03d4beb",
+    "validation/go/alert-deltas.json": "48db69b2b94fdcd1344e05c3ace25997c93f669e5adc5e1f58dc5cfd7b569888",
+    "validation/go/qualification.json": "adf118a2db81469b3a93aee3d8850c60e06cbae5965670337471f2f13c9b27c3",
+    "validation/go/alert-evidence.json": "10c185035f5eee0d2729b93f43c0a9948045eb00849f9caa37d028db3bca97de",
+    "validation/go/runs.csv": "e77bb52bc79894bd3ebfdde8e6b9474452eaefbaf95607441d3643c7afea360a",
+    "validation/go/matrix.csv": "4d49732ce96db73175e2a4e5192eea0b0fd8b35edb69e6ddf3ffc862a2329a5a",
+    "validation/cpp/README.md": "309774d1aff19dfced468f9c828a8b0a710e853042f85538dc226b9e5c341c15",
+    "validation/cpp/qualification.json": "8e88e3f1843f0313232df65b3fc81e2cd36771f56de5f762db2d577aca9e5768",
+    "validation/cpp/alert-evidence.json": "1d1df74c7b33dd98d60ce0010da3619e2d2301c2eec703539ddfadeca3f3ae05",
+    "validation/cpp/runs.csv": "9af6d1cad7e766e2f689723033c62227df460b7ec7c7986eb7a099f0684734d0",
+    "validation/cpp/matrix.csv": "6e3b50776fd93df6a732353eee9530c5d29823857425ba759eb84f44ff8ce66c"
+  },
+  "host_instance": {
+    "InstanceId": "i-0693cc786086c736e",
+    "InstanceType": "c7i.xlarge",
+    "ImageId": "ami-0c605b75e3a75e872",
+    "Architecture": "x86_64",
+    "LaunchTime": "2026-09-21T23:18:43+00:00",
+    "AvailabilityZone": "us-west-2b"
+  },
+  "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
+  "container_runtime_versions": "libc++1:amd64\t1:19.0-63\nlibc++1-19:amd64\t1:19.1.7-3+b1\nlibc++abi1:amd64\t1:19.0-63\nlibc++abi1-19:amd64\t1:19.1.7-3+b1\nlibc6:amd64\t2.41-12+deb13u4\nlibstdc++6:amd64\t14.2.0-19\nmusl:amd64\t1.2.5-3.1~deb13u1\n",
+  "archive_sha256": "9f084f9da2a9a5f8f282d3654bd896c586ecdaecfd250bac1007952b076622dd",
+  "static_glibc_package": "libc6-dev:amd64\t2.41-12+deb13u4\n",
+  "static_glibc_archive_sha256": "679612af043ab6a3eb9af24136b8d0c9ba1e10114f047271386ee7fa37031326  /usr/lib/x86_64-linux-gnu/libc.a\n",
+  "rust_target_library_hashes": {
+    "gnu": "2d4da067f66156aa780e989a34077c389238ae79179157f087f79d818b6070d5  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libmemchr-0e3477fb2664a277.rmeta\na8d590efe36486cd55d413c046a344bb5dbaa4e378c5a6dae6a5b178a8f79593  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcompiler_builtins-2d2ab9fb0fe1def5.rmeta\n406ab55585760fd8ebc05ac90f0f6f02f92959184d1f9cd7b5aab3420bc3153a  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd_detect-f99feda5ce9e492a.rmeta\nb7b2ddc6169ad7bb67cb085e770da3d71ecfa94d40fe532801bb993710fc2a0d  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libaddr2line-09755979c57b7e64.rlib\n40a11efa12c9adba45094d6ff63f19d786ba54141392f06c0bc8716a070ab3f4  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_demangle-cfd0ab54bb33760e.rlib\n0660a62b129e7bf22327b44e94b8ad67cc2178c303f13ab6dbd348bfd067d6ef  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc-stable_rt.msan.a\n6282ff8e4f12520674b9ad5c57adc233ae380531ec1a9aa2dc2662c76a572a70  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_literal_escaper-092f9360013d9ea8.rlib\n0488007b741ea68fc01fe5e2e375cb82a20763eb0f5aa4b69cb49d208c1a7558  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libgetopts-3faf21cb4217a5c4.rmeta\n9bcb7ac2880f01055170c5c4d7f383a1174cd5e97e6c4f440a103fec521b6561  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libunwind-3ec41d3a5a80a4a4.rlib\nea6eea65e99c8c64c146175a2e8eb0b5fdd0cadfb9cb13ade7d3d03fdd7a1e61  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/liballoc-1ad4f876c768bda9.rlib\n0dbdcbf63016c82b39a198bff4a7ba83eea5d328e02160c3da0f2a912007083f  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libobject-7ff85ea729a864ff.rlib\nd45f3cda78a7c97c30d725291aa19bed5c6b685956c6893090455c926b232160  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libprofiler_builtins-c32d328e982fa0b5.rlib\n7654d6670b95687fa287aa2dbc26d56dd3be9b3ea81512ba470153db872be11d  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libadler2-dca52f01a59c33e7.rmeta\nf2aee7121a3e066d30359e6b29df90b3fc728cb50181fa680f95f285b88fe997  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libpanic_unwind-549498e8b2e4d924.rmeta\n8fa4d65760374eecc76781188ab6e05d88371894eef007d7ab96663631604a94  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_std_workspace_alloc-145a318e0772276c.rmeta\n0e5683f313cff28797243affbed81afd4e9f722d24caf1420262913c3031059f  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd-64f5f36fb0927694.rmeta\nc0331cc120c407caa406efec35c2be6f406ef0ea4e4cded0bcc7fccee07226da  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libtest-4052f37fcd02ccef.rmeta\n1361a106f31f3904b746184d932035960908b03739d0f8989ddba8a5cedd249b  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libprofiler_builtins-c32d328e982fa0b5.rmeta\n650e82ccdaa1b942154e6db8198e1f48d5dc681baecfa05d5ea1cdf693fc829e  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_literal_escaper-092f9360013d9ea8.rmeta\n282049582837a493253bcc4c61e8e923f8151a1bb26feb688acb2b5549ed591b  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc-stable_rt.asan.a\n9bd33cd6e75b4f4713783972dd0ce2d930e82a1793544de24808a704b3b1f1b4  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libminiz_oxide-e44eaef1807e5fc0.rmeta\n8e51ae0b8f75378ed0cb4bfdc730111ce1db72ddde68de0062014600033a8050  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc-stable_rt.safestack.a\n18285161e0c3e2bf8bc9b74d609a49ff27d0676b0c00a40b3730110e1df942bc  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libtest-4052f37fcd02ccef.rlib\n89ec5773a62128a7691b43f8f58bd907a3b23470617b78b8a07c077399ba583d  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/liblibc-06449a08aaab5e30.rmeta\n571e9b27e76900c9be94977540553c77379396156aa966715897facce50df1b8  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libgetopts-3faf21cb4217a5c4.rlib\ncf0b708f1240644c0f5d0d672913a9998e9e8320184bc6073a4fbb8c07d55f3e  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd_detect-f99feda5ce9e492a.rlib\n7bf5b192b2634563576b9d8969817babc04cbe21c959d9b70ce2cef0d7d31f07  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_std_workspace_core-cb0d4d77988d81b5.rmeta\nf0ac0bd459f2298baed57f0bbcff64a25f40f9e71fc3073c5c25dc3cd58a1d9c  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc-stable_rt.rtsan.a\nb98c5cee91b2f30c87caf42d9fe975a0407fb0f9996d8c762d1738a826a892ef  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libmemchr-0e3477fb2664a277.rlib\n19cee31621ce0c4037472d286f45832ac7fa9bf62b5a7a7222392c71a42a2009  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libhashbrown-143c77bb957d9940.rlib\nedfabcfc08a89f34212414bc8138f3461463612a671d9734238147074244bba3  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libobject-7ff85ea729a864ff.rmeta\n75baa52c1f030187625786027ac4030b27ff82c5a324dc31e064528185f3b737  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libadler2-dca52f01a59c33e7.rlib\n0c732a6a7773a1dc84de4b110ff75d72b327c82597e08d0cc8106e85d03164eb  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libproc_macro-90f1d29c414141c0.rlib\nf0d2145c01473567f0c0235768352fe373c49c80b47e8fcf0c695f0281aeb6db  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/liblibc-06449a08aaab5e30.rlib\nff8a804f07c2145fb1a0c0c96add1b032bb816cfe8ccb701700033d6b49f4f8c  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libpanic_abort-c4dfdaf0b4399055.rmeta\n1c262a8222305bf9e5925183fe14f20144ddfb84cefee76ff6eff945f0dfaa05  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcompiler_builtins-2d2ab9fb0fe1def5.rlib\n2a28d6b3b3ad2fb5c88ad53053846c51cbce7218f52289ab58256f8769982116  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libgimli-9a1fede77fbbf2f0.rlib\n3cdc0c7d26d5fd2aa3917fd1ee34fac80bc8d569ae57ec92a049436af0836425  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc-stable_rt.lsan.a\n3056ab9b675fa0f293f4998b62bcd324923002a3f3638e40a30ae2d1681eb910  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcfg_if-360da4ba13154744.rlib\nab8c10edf4f723c54915357ad7b41cd1269b5f8d49ef304bbd8a0cf21b030258  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_std_workspace_alloc-145a318e0772276c.rlib\n66a8125b7c18a57d0ca69b422e7b3019e060a9a32c5ef6c5aa5ae0c195391dd1  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_std_workspace_std-04ecf85ec5d31aba.rlib\nb59d86deff1cba568a18c095d41a9f6645bbaab3faa38f1fc6cca44d1e5d720c  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libproc_macro-90f1d29c414141c0.rmeta\nafccbbad6e2b80c3134f0e018a2629f3f08c0c8a9457df774f83ab7e6d73916f  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libpanic_unwind-549498e8b2e4d924.rlib\n0c06de8c1ce571a587568d60b73cd599c483ddb66b0cdadf0873ee9def2f4442  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libsysroot-002faa2f1d166f98.rlib\nb4d99e606c6f45654c397c2754ef5e06b514085ffd9a8afec7bf3cd3ba5078aa  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_std_workspace_core-cb0d4d77988d81b5.rlib\nee2027babacb51106ae42e3f8d651c3ec763651365b74db35cc10b0961b4033f  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libunwind-3ec41d3a5a80a4a4.rmeta\nc040da93caf73df2afaa5ea20ed90b0071e7ef71b53d6aed535c68d3e5fbdffd  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcore-df1bddb45adbe94b.rlib\nff41a68be3139e7f199e59c2bf8bd9e37c02125761bac6ba3ca906171b34272c  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc-stable_rt.tsan.a\n2988c07760fd0baeab583e75dc23aa56a56c5d169d94bcaeceb1c933318e32bb  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd-64f5f36fb0927694.so\naf2c5cc016d855075045195d8e59bc830108d5f2bca60c9238749878254055b2  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc-stable_rt.dfsan.a\n10b1ed7dcb0b8b5dbf520507b9c7e498aa9608d6de05f3d4c90c19d18fcec6b7  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libsysroot-002faa2f1d166f98.rmeta\n82f47369404e639a55eb105daef089b1a4c3e874c3dcb3bd01fe420dfb8769f3  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libaddr2line-09755979c57b7e64.rmeta\nbf156342c5f849f27d8f53003131bc7c0e675143389d84dd549b2ebbaccfaa2f  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd-64f5f36fb0927694.rlib\n0cde6977be726e5a3fe8c03950551798c78afc53b8e4ecd3e4b1e929d4bdfa05  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcfg_if-360da4ba13154744.rmeta\n2227c643549e1dbf7cab374e066e375c86192fbad7ea1973f4a2ffdab5962709  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/liballoc-1ad4f876c768bda9.rmeta\n68eb2a85c688cb8d910be4222ec37ca366bd7cdfbb05d9ff923b09a06aa57a3a  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libminiz_oxide-e44eaef1807e5fc0.rlib\nee3ef25a4507609475833ba95359daa74828fee265b6bbaa51e9de4e75a6a794  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libpanic_abort-c4dfdaf0b4399055.rlib\n82704e45a991c12de6adf3e6107b751a82f19d65a5907b8d5440e96d8f522e02  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libgimli-9a1fede77fbbf2f0.rmeta\ne1d3830e4dcadd046a4f4abcf4d8249a4bb4f7832902598f117fbe4c035f71eb  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcore-df1bddb45adbe94b.rmeta\n34a95cbdbb9c6cdd1c9d448fd790a7982f7e99b2366f69575fcbaf3c2422f790  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libhashbrown-143c77bb957d9940.rmeta\n861f965d5cbfbe4a087f87d9b61738f2b287c07cae08c8f03500390c91606e23  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_std_workspace_std-04ecf85ec5d31aba.rmeta\nac4a36c00afb3fa1d8e75111acc4f8c2a4bb0f7c61ba58ea1c198ceb560a1926  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_demangle-cfd0ab54bb33760e.rmeta\n",
+    "musl": "20de0681b08ba6060d1bca0a4f5c5390bd3e7d4d11be99293fa65bdc4dda7345  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libmemchr-0dd0ede832fdc973.rlib\ne617afde3a52f86dc0f0c77fb0a9ad2f88d4ba814df9239e83a9eceaf3f317cb  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libproc_macro-f63cb96b8458f80f.rlib\nefbd1cf1069043d13002b09f8a762cb101322ebcce31f64deb14616bd0450313  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libcompiler_builtins-684ebc5246920c3d.rmeta\n20b81d07d5f43d63f7fc1663a0ede1e336765af6b3d22ba347b11129acab6491  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libadler2-bc0523200cd65c09.rmeta\n22d435ca5c4c811bb38dde0e48273593c69d203489c1152c5f6811bd0d85f2ce  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/librustc-stable_rt.msan.a\n6d70130dae9581e628e7a2f380d376b9573e44ab4d0cec98e0b3ddd3fc591440  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libpanic_unwind-dda921a72a56d867.rlib\nde4f119c9da10c29015825f8d3607d82fb6c50ee650c153af9e92b5888d039c1  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libstd-6907478b6d5e889b.rmeta\n5c145daa2179493ad95b31c8692b76aea79b3f4b47a66d6409c450b88e76278b  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libminiz_oxide-4132cf8e97ece731.rlib\n2391b3d68a4744f42a4d5c4415e8bd9f0b55331cb778eb7adc1e7c26e50463f4  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libtest-1e1461334f7f07f1.rlib\n1ab0b9a1254a862d3492ba170780ad7f8db3c63af2a450b4f35ad91a41bb1b75  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libsysroot-6040fb8b7199d8de.rmeta\n6b64abca5922ee0020d5dcaed12d45366a274dc15ad8884b26784994f3fe210c  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libunwind-890b6e0b468265ea.rlib\n2a27acac21047dcadd885c72cd9f715902ea670093ddb3283f886e82fac3c7f7  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/librustc_demangle-fea8c50f6372cb6b.rlib\n317c2906382e2be12a9d32b4f1734aaed8da4638e05c160b060b91e9597c583f  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libgimli-a10f7ac90fd844b8.rmeta\n4b4161bb47f6a9e61f8e945c3e87040ab7b1a75df6131a524f4a72ad652d044f  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/librustc_literal_escaper-c2d873d330ff2018.rmeta\n618858393f89ca6551145e9fe9ab687a38c2f281aa3aad6400ca772f0e5849b9  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libgetopts-d01d64705a93387d.rlib\ne01ccb73145b354013b592b06c998045e8470b7513a41d07ac9433b49bc01047  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libtest-1e1461334f7f07f1.rmeta\nd684c9df790bb39cfdec4dfa22a98dce54bfedf1715a45ee778f862b2ea5c348  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libobject-719635739f933bf7.rlib\n1248e552284517c9cb12d9070fbc161e99b046a65a9839c1ea10f7e916a6e85d  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libstd_detect-227cf999cd30474a.rmeta\n60c07d1eff6780480bf66cd1ef4882ca84facc5e205fefcdc23fe7fef7c8ee18  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libproc_macro-f63cb96b8458f80f.rmeta\n33aa88b0f98a56e061028cc4b838d345d6cc18482f6584281ca7be7834a01c09  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/librustc_literal_escaper-c2d873d330ff2018.rlib\n2d62757617cc0247d1c65738e396dd7bfce371ae9892e8f97cc971db7a950ea9  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libpanic_abort-0ae382ce61724e37.rmeta\n7f289bcf2d82165dd74ff46877bfe199b4687e165a82eaed5afb633ea5bb593d  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libminiz_oxide-4132cf8e97ece731.rmeta\n433471a29f12308dbbb33f391d1a1c5a4097ed744094c63b50cdbc9a3f60318a  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libpanic_unwind-dda921a72a56d867.rmeta\n634ffd1e41d4fc80ffbb174845d6f0405999ca1e93f63bac1baf5adbccd49452  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libprofiler_builtins-e128812af2dc6500.rlib\na7822d70c6cc1d1d7335f4e9075be18a9ef8f3f7557e3122b8a23dc773c61bc4  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libcfg_if-975626414d0194b8.rlib\n92dae576bf2b34d04fbf95ea3c79cdae29cadbceb1dcdaff9f60bd53f9f7383a  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/librustc-stable_rt.asan.a\nf1cd0977de343072a0e982084325f0bac50c12738df600094130e8deb8badc86  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libpanic_abort-0ae382ce61724e37.rlib\na7e3e28667b1bf1fca3e3dfe65255df824c56316e05ddfd12af58db02d9fcfcf  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libstd-6907478b6d5e889b.rlib\n3570c6c210870ac86229a941ee4f63c1c342969eccde4592fb335bbf031713d1  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/liblibc-ab5c76520c543a52.rmeta\nad0ec7c15cf97706c2a45dc8f5d074d878728aa3bc9f26fd9b3e0229b01db89d  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libgetopts-d01d64705a93387d.rmeta\n32b7dc6b9f99beb7a1082977f1d3cbb9de0b6e221aa1e1071ce1abefed1217c4  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/librustc_std_workspace_alloc-2a3cf12da458bfac.rmeta\n89a9ed1ce5e532171c47d035ade2ea7120ab0de2ae907d7238c16c5b39a78e68  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/librustc_std_workspace_std-f9cdbd6e367f5733.rmeta\n9bec7ba10fb4b9be3dcd31237bce0d0c669ecac509083dbed734b0604e9cab1c  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/librustc_std_workspace_core-869274958823946a.rmeta\n3a34d0d911a74dd133efa79cf9bcc2300d036b3e9c1fdd45f2d32fb3ee4f3993  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libaddr2line-e0771a618e592e99.rlib\n9f5512cc8b0d269a2b3e3a581d9c4a574a6d68206eca1fdd3a6ca7b8f6ade5b9  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/librustc_demangle-fea8c50f6372cb6b.rmeta\n7891c57e63026d1b9c74128af7d7334bc87b1a3d4f5c07b95748f1f8606ab68d  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libstd-6907478b6d5e889b.so\necbab99788aae722fe90ae788c3de7bb789becf6d3dbe20e7a6fcae4db959af7  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libhashbrown-7e95459b82b788ce.rmeta\n0a38e41f932df23cb2a3b11efee921007d5730d25347195d9245be2ec0a9f600  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libstd_detect-227cf999cd30474a.rlib\n214d3a8fcf2fb5f9c745cf99f6f0640d706d9ac84f15702fe2ad66ea741ad4ff  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/librustc_std_workspace_std-f9cdbd6e367f5733.rlib\nb7b55e00a5ae461d39f4fd49e32d86a3aae1d9356b9bb4fea071e5328f1d11d3  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/librustc-stable_rt.lsan.a\nd62caa2f589e60fb70fca4dfb2b5d45a17719cd6af67f8274a145366a525fbdf  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/librustc_std_workspace_alloc-2a3cf12da458bfac.rlib\n9fb184e69e920bf73b799309894f04d581b1c855d17a5fdd5100d7bb7791944b  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libprofiler_builtins-e128812af2dc6500.rmeta\n57450115d7850c08ebc5732f6cd0dab8a53637abda51051f38bf5a729fbd9065  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libcore-5742c2f222531cae.rmeta\n7092055b91c78a4e7631b8b7438fb833c006e30a0acd6a2db0bd5335517570cc  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/librustc-stable_rt.tsan.a\nf878cfdd70be40d6a9f1b81fb3ccfb56fec5b652307deb48574b251a71b64501  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libcfg_if-975626414d0194b8.rmeta\nbdfd43e6e8e3f84440e7c1b346e0f6b4d1e935eeebc23efabf4869de0d76623e  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libsysroot-6040fb8b7199d8de.rlib\ne9d357e69681a78ff669af24182102ab6e41fee14b09d08555aed27dba0c6e17  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libcompiler_builtins-684ebc5246920c3d.rlib\nb124c71cd940497ea9b3b18a53d4f73dc0078dcb53ad4196781101b76fecf131  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libmemchr-0dd0ede832fdc973.rmeta\naeb29319a1b98ecdedd545e614b6867b01f4c7a4017f402ba3a86018e0e71a94  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/liballoc-924df7cf38fb930e.rlib\n644a8a494a20e8aa9812ad15f7516decf5578c0fa9d44675ca66c8a4c9cb7feb  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libcore-5742c2f222531cae.rlib\n6184018d24863f74b0efc2ffde1ad0215ac19952fe88c98a079c54f1168da5d7  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/liblibc-ab5c76520c543a52.rlib\n794abd4b28db5de5f993b1445460d90fa3191cc9556a8b8881d5d34a5e8dfa87  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/crtn.o\n03c4111a1bc81580c7388e4227a889cebe978faa46c965bbdde4f2d8de1fc3a2  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/crt1.o\neb16569e611a5d6cdda2e7604fd6402a3ad810817dd8d63ed50baa2ce8070aaa  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/libunwind.a\n5343749d306ea3578a4ae5c796be362100273f3314cec283be621bbe4a8ec720  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/crti.o\n297960e338581a38bbfcbee45169a847bcdc5527ccaf68abe95b72b3b0856bed  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/crtbegin.o\n0d11009c048ae289cdf184d726b767debc2972321e143838d28d7b6802b69c7c  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/crtendS.o\n7998a49f23b463b1bf59aecd8fde59df5d0f0bf819d1272d92c6f00ae81fc429  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/rcrt1.o\ne699c64b0c6b427d89ad5bf767bf78beb30c19930c5dedff635951636e8f9f70  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/libc.a\ncfb5b001408261d562d809eea6af636cf7ac10a233895a611ef79bbe4f8c60de  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/Scrt1.o\n297960e338581a38bbfcbee45169a847bcdc5527ccaf68abe95b72b3b0856bed  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/crtbeginS.o\n0d11009c048ae289cdf184d726b767debc2972321e143838d28d7b6802b69c7c  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/crtend.o\n6f886cc2c5b86cba0eae09dba26bf6c02c4ea44cb6cfe6f2c0a23b4db786309a  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/liballoc-924df7cf38fb930e.rmeta\n48585d9e0949013ebf6a92b5f1b9c15f82e2370a07fa62e74f8826655301a052  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libadler2-bc0523200cd65c09.rlib\n14357f810ec188fb6e4f92da40e52ca68439b0b1c44f6e5c74f369f84a903253  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libaddr2line-e0771a618e592e99.rmeta\ne1ac918727af24ec45e0f31230fe57433bddbfa0d8f11ebef823d53a40f1b0b5  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/librustc_std_workspace_core-869274958823946a.rlib\n0e8d0a5d2d6b1750aadeb1b349723568673246a87a22031adb6ad4ed58c34c8f  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libobject-719635739f933bf7.rmeta\n21dad10509b56996d4d0de4407f58798186379059241ea01ff1a01358d3072d3  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libunwind-890b6e0b468265ea.rmeta\n085e4dac94cfb5943b547edaa25ab56f45b51b8f5de8aa8c701816b23d8560be  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libgimli-a10f7ac90fd844b8.rlib\ndf6d53c079df60a8686890beed9b32fcc49bd28b77ea4c4b9db7723608f3b828  /opt/lab/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libhashbrown-7e95459b82b788ce.rlib\n"
+  }
+}

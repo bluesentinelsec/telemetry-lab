@@ -1,4 +1,4 @@
-# Linux Falco coverage: standalone C, C++, and Go composites
+# Linux Falco coverage: standalone C, C++, Go, and Rust composites
 
 Thirty standalone programs per language target 30 of the **95** supplied syscall rules in
 upstream snapshot `e822409d8a2a28c9719f56ace66e8cadebfd2bc3`. All 30 are among
@@ -14,7 +14,7 @@ inputs, and required outcome for subsequent language ports.
 
 Each case has a separate `coverage/<case>/main.c` or `main.cpp` or `main.go`, build target, executable,
 and hash. It runs its one behavior with no case-selection argument. There is
-no `falco_cases` dispatcher, copied dispatcher, or shell wrapper. C (glibc/musl), C++ (libstdc++/libc++), and Go (cgo/static) builds install the programs under `<configuration>/coverage/` so they
+no `falco_cases` dispatcher, copied dispatcher, or shell wrapper. C (glibc/musl), C++ (libstdc++/libc++), Go (cgo/static), and Rust (static GNU/musl) builds install the programs under `<configuration>/coverage/` so they
 do not overwrite the original seven-composite pilot.
 
 Shared headers provide support functions. The three executable-loading cases
@@ -32,7 +32,7 @@ of the 30 selected rules.
 `verify_programs.py` checks the actual artifacts: complete roster, ELF format,
 unique hashes, correct runtime loader, and absence of other cases' success
 markers. For C++, it also checks the selected dynamic standard library and actual imported
-library symbols. CI runs these checks for all six implemented configurations. Release tests preserve every
+library symbols. CI runs these checks for all eight implemented configurations. Release tests preserve every
 program under its coverage subdirectory and reject accidental replacement of
 legacy binaries. The broader primitive/composite audit is tracked in
 [issue #55](https://github.com/bluesentinelsec/telemetry-lab/issues/55).
@@ -89,9 +89,42 @@ A valid miss is preserved. The runner still requires all selected targets to
 be demonstrated somewhere in the selected run; include the C reference rather
 than changing a Go implementation or target rule just to make that gate pass.
 
+## Rust implementation and comparison
+
+Each selected case has its own `coverage/<case>/main.rs` and Cargo binary target.
+Rust 1.98.1 and the same source are held constant across
+`x86_64-unknown-linux-gnu` and `x86_64-unknown-linux-musl`; both use static CRT
+linking, following the existing Rust matrix. The pinned `libc` crate (0.2.177)
+provides bindings for native APIs; it is not the linked C runtime itself.
+GNU links the build host's static glibc; musl links the target toolchain's
+bundled static musl. Their target-specific Rust standard libraries also differ,
+so this compares target/runtime configurations rather than isolating libc alone.
+The compiler, target libraries, and executable hashes must be frozen for the
+final experiment. Artifact verification requires static ELF properties, a
+compile-target marker, and actual GNU/musl startup symbols, not just filenames.
+
+File behavior uses `std::fs`, `OpenOptions`, and Unix permission/link extensions.
+Networking uses `std::net`; child execution uses `std::process::Command`.
+The reverse shell retains the existing Rust pilot's direct `TcpStream` to
+`OwnedFd` to `Stdio` conversions, with the same shell command and checked reply
+as C/C++/Go. Rust's memfd case uses a native memfd plus `Command` execution
+through `/proc/self/fd/`, because std has no `fexecve` interface. The memfd is
+kept open across exec and the exact fixed helper output is checked.
+
+The packet socket and ptrace cases use explicit native APIs through `libc`.
+Ptrace uses fork-only disposable children, matching the C fixtures. No Rust
+threads are started in those binaries before fork, and the child uses only
+native calls before `_exit` or its pause loop. This avoids disguising a child
+exec/startup difference as a ptrace/runtime effect. Both Rust configurations
+use identical behavior, paths, payloads, helper, and independent checks.
+Standard-library bookkeeping and verification may still emit different events;
+valid misses and additional rule matches remain research data.
+
 ## Requirements and containment
 
 Use the project's disposable Debian 13 x86-64 EC2 lab with Docker and Falco.
+Rustup must provide the pinned Rust toolchain and both Linux targets; SSM
+sessions should set explicit `CARGO_HOME`, `RUSTUP_HOME`, and cargo `PATH`.
 The programs require a Docker fixture environment. The runner creates a fresh
 container with no external networking for each execution. Metadata-service
 and UDP peers are sockets in that container's private network namespace;
@@ -126,15 +159,16 @@ sudo python3 ttp-composite/linux/coverage/run.py \
   --output /opt/lab/standalone-results --repetitions 3 --seed 20260921
 ```
 
-The same image contains all six C, C++, and Go configurations. A repetition schedules
-**366 executions**: 30 active programs and 30 same-binary controls per
-configuration, plus six baselines. Three repetitions schedule 1098.
+The same image contains all eight C, C++, Go, and Rust configurations. A repetition schedules
+**488 executions**: 30 active programs and 30 same-binary controls per
+configuration, plus eight baselines. Three repetitions schedule 1464.
 To validate just C++ (122 executions per repetition), add
 `--config linux-cpp-libstdcxx --config linux-cpp-libcxx`. The selected
 configurations are recorded in provenance. For a Go qualification with a C
 reference under the same image and host, use `--config linux-c-glibc
 --config linux-go-cgo --config linux-go-static` (183 executions per repetition).
-Rust ports are not yet claimed.
+For Rust with the same C reference, use `--config linux-c-glibc
+--config linux-rust-gnu --config linux-rust-musl` (also 183 executions).
 Each block is randomized. `--case ID` restricts a diagnostic run and includes
 that case's control; it does not validate the complete selection.
 
@@ -159,7 +193,7 @@ A healthy, successful behavior with no target alert remains a valid miss.
 
 `qualified_case_configurations` requires both a valid target hit and a valid,
 clean same-binary control for each case/runtime pair. A value of 60 documents positive/control evidence for all programs in the two
-selected configurations (180 if all six configurations demonstrate positives). It is descriptive, not an inclusion requirement: a valid
+selected configurations (240 if all eight configurations demonstrate positives). It is descriptive, not an inclusion requirement: a valid
 miss in another runtime remains research data once the target rule has been
 demonstrated. The process exits nonzero if a target has never been demonstrated,
 any scheduled attempt is invalid, or any negative control fails. Rechecks
@@ -185,7 +219,7 @@ archive before tearing down the disposable stack.
 python3 -m unittest discover -s ttp-composite/linux/coverage -p 'test_*.py' -v
 ```
 
-C results are under `validation/`; C++ results are under `validation/cpp/`; Go results are under `validation/go/`. Earlier dispatcher-based results are
+C results are under `validation/`; C++ results are under `validation/cpp/`; Go results are under `validation/go/`; Rust results are under `validation/rust/`. Earlier dispatcher-based results are
 retained under `validation/dispatcher-pilot/` solely as historical evidence;
 they do not validate these replacement executables. Other language ports,
 Windows coverage, and paired telemetry-analysis integration remain in

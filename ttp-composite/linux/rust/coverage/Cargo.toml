@@ -1,0 +1,136 @@
+[package]
+name = "coverage_suite"
+version = "0.1.0"
+edition = "2021"
+autobins = false
+
+[dependencies]
+libc = "=0.2.177"
+
+[[bin]]
+name = "coverage_traversal_read"
+path = "traversal_read/main.rs"
+
+[[bin]]
+name = "coverage_sensitive_read"
+path = "sensitive_read/main.rs"
+
+[[bin]]
+name = "coverage_ssh_read"
+path = "ssh_read/main.rs"
+
+[[bin]]
+name = "coverage_shell_config_write"
+path = "shell_config_write/main.rs"
+
+[[bin]]
+name = "coverage_cron_write"
+path = "cron_write/main.rs"
+
+[[bin]]
+name = "coverage_dev_file"
+path = "dev_file/main.rs"
+
+[[bin]]
+name = "coverage_authorized_keys"
+path = "authorized_keys/main.rs"
+
+[[bin]]
+name = "coverage_repository_write"
+path = "repository_write/main.rs"
+
+[[bin]]
+name = "coverage_binary_write"
+path = "binary_write/main.rs"
+
+[[bin]]
+name = "coverage_monitored_write"
+path = "monitored_write/main.rs"
+
+[[bin]]
+name = "coverage_etc_write"
+path = "etc_write/main.rs"
+
+[[bin]]
+name = "coverage_root_write"
+path = "root_write/main.rs"
+
+[[bin]]
+name = "coverage_log_truncate"
+path = "log_truncate/main.rs"
+
+[[bin]]
+name = "coverage_history_truncate"
+path = "history_truncate/main.rs"
+
+[[bin]]
+name = "coverage_packet_socket"
+path = "packet_socket/main.rs"
+
+[[bin]]
+name = "coverage_reverse_shell"
+path = "reverse_shell/main.rs"
+
+[[bin]]
+name = "coverage_ptrace_attach"
+path = "ptrace_attach/main.rs"
+
+[[bin]]
+name = "coverage_ptrace_traceme"
+path = "ptrace_traceme/main.rs"
+
+[[bin]]
+name = "coverage_udp_exchange"
+path = "udp_exchange/main.rs"
+
+[[bin]]
+name = "coverage_metadata_ec2"
+path = "metadata_ec2/main.rs"
+
+[[bin]]
+name = "coverage_metadata_cloud"
+path = "metadata_cloud/main.rs"
+
+[[bin]]
+name = "coverage_exec_shm"
+path = "exec_shm/main.rs"
+
+[[bin]]
+name = "coverage_drop_execute"
+path = "drop_execute/main.rs"
+
+[[bin]]
+name = "coverage_memfd_execute"
+path = "memfd_execute/main.rs"
+
+[[bin]]
+name = "coverage_sensitive_symlink"
+path = "sensitive_symlink/main.rs"
+
+[[bin]]
+name = "coverage_sensitive_hardlink"
+path = "sensitive_hardlink/main.rs"
+
+[[bin]]
+name = "coverage_setid_mode"
+path = "setid_mode/main.rs"
+
+[[bin]]
+name = "coverage_proc_environ"
+path = "proc_environ/main.rs"
+
+[[bin]]
+name = "coverage_binary_rename"
+path = "binary_rename/main.rs"
+
+[[bin]]
+name = "coverage_binary_mkdir"
+path = "binary_mkdir/main.rs"
+
+[[bin]]
+name = "coverage_negative"
+path = "negative/main.rs"
+
+[[bin]]
+name = "coverage_fixture_prepare"
+path = "fixture_prepare/main.rs"

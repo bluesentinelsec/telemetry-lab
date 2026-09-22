@@ -242,7 +242,9 @@
     "linux-cpp-libstdcxx",
     "linux-cpp-libcxx",
     "linux-go-cgo",
-    "linux-go-static"
+    "linux-go-static",
+    "linux-rust-gnu",
+    "linux-rust-musl"
   ],
   "program_contract": "one standalone executable per case; no runtime case dispatcher"
 }

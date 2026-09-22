@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "coverage",
     "reverse_shell",
     "imds",
     "read_sensitive_file",

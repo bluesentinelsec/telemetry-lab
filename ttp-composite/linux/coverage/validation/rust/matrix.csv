@@ -1,0 +1,91 @@
+case,rule,configuration,active_attempts,valid_active,valid_target_hits,valid_target_misses,control_attempts,valid_controls,clean_valid_controls,valid_behavior_control_pair,positive_control_pair
+traversal_read,Directory traversal monitored file read,linux-c-glibc,1,1,1,0,1,1,1,True,True
+traversal_read,Directory traversal monitored file read,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+traversal_read,Directory traversal monitored file read,linux-rust-musl,1,1,1,0,1,1,1,True,True
+sensitive_read,Read sensitive file untrusted,linux-c-glibc,1,1,1,0,1,1,1,True,True
+sensitive_read,Read sensitive file untrusted,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+sensitive_read,Read sensitive file untrusted,linux-rust-musl,1,1,1,0,1,1,1,True,True
+log_truncate,Clear Log Activities,linux-c-glibc,1,1,1,0,1,1,1,True,True
+log_truncate,Clear Log Activities,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+log_truncate,Clear Log Activities,linux-rust-musl,1,1,1,0,1,1,1,True,True
+sensitive_symlink,Create Symlink Over Sensitive Files,linux-c-glibc,1,1,1,0,1,1,1,True,True
+sensitive_symlink,Create Symlink Over Sensitive Files,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+sensitive_symlink,Create Symlink Over Sensitive Files,linux-rust-musl,1,1,1,0,1,1,1,True,True
+sensitive_hardlink,Create Hardlink Over Sensitive Files,linux-c-glibc,1,1,1,0,1,1,1,True,True
+sensitive_hardlink,Create Hardlink Over Sensitive Files,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+sensitive_hardlink,Create Hardlink Over Sensitive Files,linux-rust-musl,1,1,1,0,1,1,1,True,True
+packet_socket,Packet socket created in container,linux-c-glibc,1,1,1,0,1,1,1,True,True
+packet_socket,Packet socket created in container,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+packet_socket,Packet socket created in container,linux-rust-musl,1,1,1,0,1,1,1,True,True
+reverse_shell,Redirect STDOUT/STDIN to Network Connection in Container,linux-c-glibc,2,2,2,0,2,1,1,True,True
+reverse_shell,Redirect STDOUT/STDIN to Network Connection in Container,linux-rust-gnu,2,2,2,0,2,2,2,True,True
+reverse_shell,Redirect STDOUT/STDIN to Network Connection in Container,linux-rust-musl,2,2,2,0,2,2,2,True,True
+ptrace_attach,PTRACE attached to process,linux-c-glibc,1,1,1,0,1,1,1,True,True
+ptrace_attach,PTRACE attached to process,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+ptrace_attach,PTRACE attached to process,linux-rust-musl,1,1,1,0,1,1,1,True,True
+ptrace_traceme,PTRACE anti-debug attempt,linux-c-glibc,1,1,1,0,1,1,1,True,True
+ptrace_traceme,PTRACE anti-debug attempt,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+ptrace_traceme,PTRACE anti-debug attempt,linux-rust-musl,1,1,1,0,1,1,1,True,True
+exec_shm,Execution from /dev/shm,linux-c-glibc,1,1,1,0,1,1,1,True,True
+exec_shm,Execution from /dev/shm,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+exec_shm,Execution from /dev/shm,linux-rust-musl,1,1,1,0,1,1,1,True,True
+drop_execute,Drop and execute new binary in container,linux-c-glibc,2,2,2,0,2,2,2,True,True
+drop_execute,Drop and execute new binary in container,linux-rust-gnu,2,1,1,0,2,2,2,True,True
+drop_execute,Drop and execute new binary in container,linux-rust-musl,2,2,2,0,2,2,2,True,True
+memfd_execute,Fileless execution via memfd_create,linux-c-glibc,1,1,1,0,1,1,1,True,True
+memfd_execute,Fileless execution via memfd_create,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+memfd_execute,Fileless execution via memfd_create,linux-rust-musl,1,1,1,0,1,1,1,True,True
+shell_config_write,Modify Shell Configuration File,linux-c-glibc,1,1,1,0,1,1,1,True,True
+shell_config_write,Modify Shell Configuration File,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+shell_config_write,Modify Shell Configuration File,linux-rust-musl,1,1,1,0,1,1,1,True,True
+cron_write,Schedule Cron Jobs,linux-c-glibc,1,1,1,0,1,1,1,True,True
+cron_write,Schedule Cron Jobs,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+cron_write,Schedule Cron Jobs,linux-rust-musl,1,1,1,0,1,1,1,True,True
+ssh_read,Read ssh information,linux-c-glibc,1,1,1,0,1,1,1,True,True
+ssh_read,Read ssh information,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+ssh_read,Read ssh information,linux-rust-musl,1,1,1,0,1,1,1,True,True
+udp_exchange,Unexpected UDP Traffic,linux-c-glibc,1,1,1,0,1,1,1,True,True
+udp_exchange,Unexpected UDP Traffic,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+udp_exchange,Unexpected UDP Traffic,linux-rust-musl,1,1,1,0,1,1,1,True,True
+dev_file,Create files below dev,linux-c-glibc,1,1,1,0,1,1,1,True,True
+dev_file,Create files below dev,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+dev_file,Create files below dev,linux-rust-musl,1,1,1,0,1,1,1,True,True
+metadata_ec2,Contact EC2 Instance Metadata Service From Container,linux-c-glibc,2,2,2,0,2,2,2,True,True
+metadata_ec2,Contact EC2 Instance Metadata Service From Container,linux-rust-gnu,2,1,1,0,2,2,2,True,True
+metadata_ec2,Contact EC2 Instance Metadata Service From Container,linux-rust-musl,2,2,2,0,2,2,2,True,True
+metadata_cloud,Contact cloud metadata service from container,linux-c-glibc,1,1,1,0,1,1,1,True,True
+metadata_cloud,Contact cloud metadata service from container,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+metadata_cloud,Contact cloud metadata service from container,linux-rust-musl,1,1,1,0,1,1,1,True,True
+history_truncate,Delete or rename shell history,linux-c-glibc,1,1,1,0,1,1,1,True,True
+history_truncate,Delete or rename shell history,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+history_truncate,Delete or rename shell history,linux-rust-musl,1,1,1,0,1,1,1,True,True
+setid_mode,Set Setuid or Setgid bit,linux-c-glibc,1,1,1,0,1,1,1,True,True
+setid_mode,Set Setuid or Setgid bit,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+setid_mode,Set Setuid or Setgid bit,linux-rust-musl,1,1,1,0,1,1,1,True,True
+proc_environ,Read environment variable from /proc files,linux-c-glibc,2,2,2,0,2,2,2,True,True
+proc_environ,Read environment variable from /proc files,linux-rust-gnu,2,1,1,0,2,1,1,True,True
+proc_environ,Read environment variable from /proc files,linux-rust-musl,2,2,2,0,2,2,2,True,True
+authorized_keys,Adding ssh keys to authorized_keys,linux-c-glibc,1,1,1,0,1,1,1,True,True
+authorized_keys,Adding ssh keys to authorized_keys,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+authorized_keys,Adding ssh keys to authorized_keys,linux-rust-musl,1,1,1,0,1,1,1,True,True
+repository_write,Update Package Repository,linux-c-glibc,1,1,1,0,1,1,1,True,True
+repository_write,Update Package Repository,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+repository_write,Update Package Repository,linux-rust-musl,1,1,1,0,1,1,1,True,True
+binary_write,Write below binary dir,linux-c-glibc,1,1,1,0,1,1,1,True,True
+binary_write,Write below binary dir,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+binary_write,Write below binary dir,linux-rust-musl,1,1,1,0,1,1,1,True,True
+monitored_write,Write below monitored dir,linux-c-glibc,1,1,1,0,1,1,1,True,True
+monitored_write,Write below monitored dir,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+monitored_write,Write below monitored dir,linux-rust-musl,1,1,1,0,1,1,1,True,True
+etc_write,Write below etc,linux-c-glibc,1,1,1,0,1,1,1,True,True
+etc_write,Write below etc,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+etc_write,Write below etc,linux-rust-musl,1,1,1,0,1,1,1,True,True
+root_write,Write below root,linux-c-glibc,1,1,1,0,1,1,1,True,True
+root_write,Write below root,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+root_write,Write below root,linux-rust-musl,1,1,1,0,1,1,1,True,True
+binary_rename,Modify binary dirs,linux-c-glibc,1,1,1,0,1,1,1,True,True
+binary_rename,Modify binary dirs,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+binary_rename,Modify binary dirs,linux-rust-musl,1,1,1,0,1,1,1,True,True
+binary_mkdir,Mkdir binary dirs,linux-c-glibc,1,1,1,0,1,1,1,True,True
+binary_mkdir,Mkdir binary dirs,linux-rust-gnu,1,1,1,0,1,1,1,True,True
+binary_mkdir,Mkdir binary dirs,linux-rust-musl,1,1,1,0,1,1,1,True,True
