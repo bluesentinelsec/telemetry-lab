@@ -74,3 +74,7 @@ The analyzer joins rule IDs to event record IDs and process GUIDs, including mea
 ## Evidence
 
 See `validation/` for compact per-attempt qualifications, provenance, and hashes linking to locally archived raw campaigns. Full raw data and both CI artifact bundles are archived under `/Users/michaellong/telemetry-lab-data/windows-c-2026-09-22`. Initial development failures are preserved separately from the CI-built qualification campaigns; they are not silently treated as passing runs.
+
+## Local DNS record retest
+
+A subsequent diagnostic verified that the local server answers `lab.onion A 127.0.0.42` over UDP, but both unchanged CRT programs still return WSAHOST_NOT_FOUND. The result persists with exact-name NRPT routing, after a settling interval, and with the adapter pointed directly at the local DNS server; the ordinary DNS lookup succeeds in all three configurations. This approach does not resolve the remaining case, so it is not adopted. Temporary DNS settings were restored. See the [diagnostic evidence](validation/onion-dns-diagnostic/README.md); its 12 invocations are separate from qualification counts.

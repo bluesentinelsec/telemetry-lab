@@ -1,0 +1,9 @@
+Resolve-DnsName : lab.onion : DNS name does not exist
+At C:\ProgramData\Amazon\SSM\InstanceData\i-0bb86143c80a31134\document\orchestration\2ff7f5cf-3bf1-4518-b623-ba772d99f3
+19\awsrunPowerShellScript\0.awsrunPowerShellScript\_script.ps1:61 char:8
++   try {Resolve-DnsName -Name $name -Type A -Server 127.0.0.1 -DnsOnly ...
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ResourceUnavailable: (lab.onion:String) [Resolve-DnsName], Win32Exception
+    + FullyQualifiedErrorId : DNS_ERROR_RCODE_NAME_ERROR,Microsoft.DnsClient.Commands.ResolveDnsName
+ 
+

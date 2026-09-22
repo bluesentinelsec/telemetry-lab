@@ -1,0 +1,22 @@
+{
+  "status": "local-dns-record-does-not-satisfy-current-onion-behavior",
+  "measured_source_changed": false,
+  "program_invocations": 12,
+  "onion_successes": 0,
+  "onion_failures": 6,
+  "ordinary_dns_successes": 6,
+  "runtimes": [
+    "ucrt",
+    "msvcrt"
+  ],
+  "phases": [
+    "immediate NRPT",
+    "NRPT after 10 seconds",
+    "adapter DNS server"
+  ],
+  "record": "lab.onion A 127.0.0.42",
+  "direct_udp_answer_verified": true,
+  "qualified_target_count_unchanged": 23,
+  "host_file_changed": false,
+  "temporary_dns_settings_restored": true
+}

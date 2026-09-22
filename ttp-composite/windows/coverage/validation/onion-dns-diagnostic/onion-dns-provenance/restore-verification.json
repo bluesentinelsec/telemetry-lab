@@ -1,0 +1,8 @@
+﻿{
+    "adapter_nameserver_restored":  true,
+    "nrpt_rule_count":  0,
+    "static_nameserver":  "",
+    "dns_servers":  [
+                        "10.0.0.2"
+                    ]
+}

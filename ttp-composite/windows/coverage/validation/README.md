@@ -45,3 +45,7 @@ CI artifact source: [run 35729429141](https://github.com/bluesentinelsec/telemet
 `initial-summary.json` preserves the preceding 88 CI-built attempts: 41 target alerts, 44 clean controls, two Public-folder misses and one incomplete-attribution attempt. Those campaign folders remain unchanged. The stricter analyzer was checked against all 88 original outcomes and leaves their classifications unchanged. The separate cross-compiled development pilots are excluded from both counts.
 
 Per-campaign folders retain behavior output, exact-rule outcomes, process identities, artifact manifests, capture-health checks and raw-file hashes. Full EVTX/JSON/CSV, fixture logs, initial failures, and both sets of CI artifacts are archived locally under `/Users/michaellong/telemetry-lab-data/windows-c-2026-09-22`. Qualification JSON files are derived locally from the archived raw captures.
+
+## Local DNS record retest
+
+A subsequent diagnostic verified that the local server answers `lab.onion A 127.0.0.42` over UDP, but both unchanged CRT programs still return WSAHOST_NOT_FOUND. The result persists with exact-name NRPT routing, after a settling interval, and with the adapter pointed directly at the local DNS server; the ordinary DNS lookup succeeds in all three configurations. This approach does not resolve the remaining case, so it is not adopted. Temporary DNS settings were restored. See the [diagnostic evidence](onion-dns-diagnostic/README.md); its 12 invocations are separate from qualification counts.

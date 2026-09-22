@@ -1,0 +1,90 @@
+﻿[
+    {
+        "start":  "2026-09-22T18:00:00.9425431Z",
+        "stdout":  "COMPOSITE_CASE dns_onion\r\n",
+        "case":  "dns_onion",
+        "phase":  "immediate",
+        "end":  "2026-09-22T18:00:00.9598041Z",
+        "stderr":  "FAIL line=76 expression=rc==0 \u0026\u0026 answers!=NULL winerror=11001 errno=0\r\n",
+        "pid":  3992,
+        "exit_code":  1,
+        "crt":  "ucrt"
+    },
+    {
+        "start":  "2026-09-22T18:00:00.9844880Z",
+        "stdout":  "COMPOSITE_CASE dns_ip_lookup\r\nBEHAVIOR_OK dns_ip_lookup\r\n",
+        "case":  "dns_ip_lookup",
+        "phase":  "immediate",
+        "end":  "2026-09-22T18:00:00.9995512Z",
+        "stderr":  "",
+        "pid":  2068,
+        "exit_code":  0,
+        "crt":  "ucrt"
+    },
+    {
+        "start":  "2026-09-22T18:00:01.0051146Z",
+        "stdout":  "COMPOSITE_CASE dns_onion\r\n",
+        "case":  "dns_onion",
+        "phase":  "immediate",
+        "end":  "2026-09-22T18:00:01.0175639Z",
+        "stderr":  "FAIL line=76 expression=rc==0 \u0026\u0026 answers!=NULL winerror=11001 errno=0\r\n",
+        "pid":  3808,
+        "exit_code":  1,
+        "crt":  "msvcrt"
+    },
+    {
+        "start":  "2026-09-22T18:00:01.0228039Z",
+        "stdout":  "COMPOSITE_CASE dns_ip_lookup\r\nBEHAVIOR_OK dns_ip_lookup\r\n",
+        "case":  "dns_ip_lookup",
+        "phase":  "immediate",
+        "end":  "2026-09-22T18:00:01.0366915Z",
+        "stderr":  "",
+        "pid":  4956,
+        "exit_code":  0,
+        "crt":  "msvcrt"
+    },
+    {
+        "start":  "2026-09-22T18:00:11.2158778Z",
+        "stdout":  "COMPOSITE_CASE dns_onion\r\n",
+        "case":  "dns_onion",
+        "phase":  "settled",
+        "end":  "2026-09-22T18:00:11.2257192Z",
+        "stderr":  "FAIL line=76 expression=rc==0 \u0026\u0026 answers!=NULL winerror=11001 errno=0\r\n",
+        "pid":  4360,
+        "exit_code":  1,
+        "crt":  "msvcrt"
+    },
+    {
+        "start":  "2026-09-22T18:00:11.2316842Z",
+        "stdout":  "COMPOSITE_CASE dns_ip_lookup\r\nBEHAVIOR_OK dns_ip_lookup\r\n",
+        "case":  "dns_ip_lookup",
+        "phase":  "settled",
+        "end":  "2026-09-22T18:00:11.2421611Z",
+        "stderr":  "",
+        "pid":  4896,
+        "exit_code":  0,
+        "crt":  "msvcrt"
+    },
+    {
+        "start":  "2026-09-22T18:00:11.2475670Z",
+        "stdout":  "COMPOSITE_CASE dns_onion\r\n",
+        "case":  "dns_onion",
+        "phase":  "settled",
+        "end":  "2026-09-22T18:00:11.2574850Z",
+        "stderr":  "FAIL line=76 expression=rc==0 \u0026\u0026 answers!=NULL winerror=11001 errno=0\r\n",
+        "pid":  4940,
+        "exit_code":  1,
+        "crt":  "ucrt"
+    },
+    {
+        "start":  "2026-09-22T18:00:11.2619704Z",
+        "stdout":  "COMPOSITE_CASE dns_ip_lookup\r\nBEHAVIOR_OK dns_ip_lookup\r\n",
+        "case":  "dns_ip_lookup",
+        "phase":  "settled",
+        "end":  "2026-09-22T18:00:11.2724860Z",
+        "stderr":  "",
+        "pid":  4732,
+        "exit_code":  0,
+        "crt":  "ucrt"
+    }
+]

@@ -1,0 +1,30 @@
+﻿[
+    {
+        "stdout":  "COMPOSITE_CASE dns_onion\r\n",
+        "case":  "dns_onion",
+        "stderr":  "FAIL line=76 expression=rc==0 \u0026\u0026 answers!=NULL winerror=11001 errno=0\r\n",
+        "crt":  "ucrt",
+        "exit_code":  1
+    },
+    {
+        "stdout":  "COMPOSITE_CASE dns_ip_lookup\r\nBEHAVIOR_OK dns_ip_lookup\r\n",
+        "case":  "dns_ip_lookup",
+        "stderr":  "",
+        "crt":  "ucrt",
+        "exit_code":  0
+    },
+    {
+        "stdout":  "COMPOSITE_CASE dns_onion\r\n",
+        "case":  "dns_onion",
+        "stderr":  "FAIL line=76 expression=rc==0 \u0026\u0026 answers!=NULL winerror=11001 errno=0\r\n",
+        "crt":  "msvcrt",
+        "exit_code":  1
+    },
+    {
+        "stdout":  "COMPOSITE_CASE dns_ip_lookup\r\nBEHAVIOR_OK dns_ip_lookup\r\n",
+        "case":  "dns_ip_lookup",
+        "stderr":  "",
+        "crt":  "msvcrt",
+        "exit_code":  0
+    }
+]

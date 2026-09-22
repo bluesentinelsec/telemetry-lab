@@ -1,0 +1,82 @@
+[
+  {
+    "path": "analyze.py",
+    "bytes": 6067,
+    "sha256": "46bfcbd0549cdcb173ada9b1c4b44a00058c85e5e748f09dfe6b7c0dd6b04a2c"
+  },
+  {
+    "path": "diagnostics-all.evtx",
+    "bytes": 17895424,
+    "sha256": "33e71c5640a574d337a1fcffe390a6a34493b6b922036b700929f2e332148cbc"
+  },
+  {
+    "path": "inventory.json",
+    "bytes": 2926,
+    "sha256": "156282c958ce9d4fae076aa381f4e453bca77b799f8f80f9cd227ff5c5d40c8d"
+  },
+  {
+    "path": "msvcrt-build-manifest.json",
+    "bytes": 5551,
+    "sha256": "4e9998651144f679319bda7e64349bac19a621affb3223ddf6858b2d961c5d69"
+  },
+  {
+    "path": "nrpt-final.xml",
+    "bytes": 166,
+    "sha256": "5b164e2bcc2a707041da1d45e63ba2b2ffb122ca6e38979056e33eb004f7dae8"
+  },
+  {
+    "path": "rdp-final.json",
+    "bytes": 226,
+    "sha256": "e5f6fb2e2f07bedfee47ed72b1b7adb8cf9761c2eea8b913391d90d99d601e57"
+  },
+  {
+    "path": "restore-verification.json",
+    "bytes": 193,
+    "sha256": "6a8a6decb7f3fbbd6aa62568567ad67eb722f0629f9000adaf595e321a74b420"
+  },
+  {
+    "path": "rule-inventory.csv",
+    "bytes": 1283214,
+    "sha256": "ada9f35a9e2c179f05f84f842fe73f01d1e45f64f171b3328eb218c82f564035"
+  },
+  {
+    "path": "run-local-dns.ps1",
+    "bytes": 2680,
+    "sha256": "799bd594e3eb11c49c58c98135679c29417bab25d4ba4d5ead7b8ff294e1a7e5"
+  },
+  {
+    "path": "run.ps1",
+    "bytes": 13833,
+    "sha256": "08dc4d4d20ec848cb341594c40e83f8b903364410e1e37582975b8644432add5"
+  },
+  {
+    "path": "selection.json",
+    "bytes": 77605,
+    "sha256": "d634be4207c819c8e474f0985a0b94fe6d6e3a7d04a76727e9842ea52e9f01a5"
+  },
+  {
+    "path": "sysmon-config.xml",
+    "bytes": 857,
+    "sha256": "1b6dfee11caab7aaade70610652fa5bff8b99dda1b24e723d1009e15b50d724f"
+  },
+  {
+    "path": "sysmon-live-config.txt",
+    "bytes": 4908,
+    "sha256": "5a833b7d77bc03683caf7cd09754229895430b9fe3b66eb53390c14146c93954"
+  },
+  {
+    "path": "ucrt-build-manifest.json",
+    "bytes": 13685,
+    "sha256": "c59226a4a3dd5a97af0d4db6904b7ee99906a3d450c1ddf2c871c82600cf4f9f"
+  },
+  {
+    "path": "windows-onion-adapter-staged.ps1",
+    "bytes": 3031,
+    "sha256": "3cbf3840c35414a9b61dc37059a7a97a786a99fa6559c4f3cdb98f8e22ebb731"
+  },
+  {
+    "path": "windows-onion-start.ps1",
+    "bytes": 5247,
+    "sha256": "0695ee3fde3f4c67c14e256af9ca5714cefde9ad5e6cc11ad62daa553d5e9961"
+  }
+]

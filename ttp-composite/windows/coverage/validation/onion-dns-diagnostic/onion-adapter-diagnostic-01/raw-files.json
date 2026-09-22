@@ -1,0 +1,32 @@
+[
+  {
+    "path": "dns-after.xml",
+    "bytes": 52856,
+    "sha256": "b9ed129f8342dc9546cfd9d3bf9817fbb089ccf24edf8137ed009540b9ee2be4"
+  },
+  {
+    "path": "dns-before.xml",
+    "bytes": 52856,
+    "sha256": "c1a416b344baa6c9c5cc170b43a0e67d0c125c07021326bd659610beb10ff2fa"
+  },
+  {
+    "path": "dns.log",
+    "bytes": 124,
+    "sha256": "cbd622467177c6f1703048ec3f00808923d46baf13b7dac1d56c8d8317bdc502"
+  },
+  {
+    "path": "dns.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "mode-before.json",
+    "bytes": 130,
+    "sha256": "1b59dcf1ee4b4ff55940ce32742fb24c8643f9d9e7f49d2be99bd019a1b0f1d1"
+  },
+  {
+    "path": "results.json",
+    "bytes": 940,
+    "sha256": "b582ae84656189830a636ecb03bb5a4f972ffe002591faae44ec2ec25d9d59e0"
+  }
+]

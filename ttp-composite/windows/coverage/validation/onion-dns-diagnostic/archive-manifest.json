@@ -1,0 +1,9 @@
+{
+  "file": "/Users/michaellong/telemetry-lab-data/windows-c-2026-09-22/windows-c-onion-dns.tgz",
+  "bytes": 2127476,
+  "sha256": "bda36a3e54a6871a1c4f69c76c37857ced50597663b467507734e30770d92904",
+  "entries": 39,
+  "instance": "i-0bb86143c80a31134",
+  "build_commit": "a712ce984b147e76aeb8aa30edf95234b8409e7b",
+  "build_workflow_run": 35729429141
+}
