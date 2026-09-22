@@ -1,0 +1,268 @@
+{
+  "healthy": true,
+  "attempts": [
+    {
+      "case_id": "tcp_connect_2525",
+      "runtime": "libstdcxx",
+      "mode": "control",
+      "rule_id": "f8a59cdc-b3d1-8f59-c3f4-4db6d94e8efc",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{544087ca-d254-6ab2-b100-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "frack113",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_susp_outbound_smtp_connections.yml"
+    },
+    {
+      "case_id": "tcp_connect_2525",
+      "runtime": "libstdcxx",
+      "mode": "active",
+      "rule_id": "f8a59cdc-b3d1-8f59-c3f4-4db6d94e8efc",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{544087ca-d259-6ab2-b200-000000007d00}"
+      ],
+      "target_record_ids": [
+        "188475"
+      ],
+      "attributable_event_ids": [
+        1,
+        3,
+        5,
+        7
+      ],
+      "rule_authors": "frack113",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_susp_outbound_smtp_connections.yml"
+    },
+    {
+      "case_id": "tcp_connect_3389",
+      "runtime": "libstdcxx",
+      "mode": "control",
+      "rule_id": "f3fa6209-076f-c860-c7cb-e2f6bdd7d3e0",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{544087ca-d25e-6ab2-b300-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Markus Neis",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_rdp_outbound_over_non_standard_tools.yml"
+    },
+    {
+      "case_id": "tcp_connect_3389",
+      "runtime": "libstdcxx",
+      "mode": "active",
+      "rule_id": "f3fa6209-076f-c860-c7cb-e2f6bdd7d3e0",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{544087ca-d263-6ab2-b400-000000007d00}"
+      ],
+      "target_record_ids": [
+        "188550"
+      ],
+      "attributable_event_ids": [
+        1,
+        3,
+        5,
+        7
+      ],
+      "rule_authors": "Markus Neis",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_rdp_outbound_over_non_standard_tools.yml"
+    },
+    {
+      "case_id": "tcp_connect_9389",
+      "runtime": "libstdcxx",
+      "mode": "control",
+      "rule_id": "ae8c1c58-4743-c0c8-3b30-7d69f7cbee68",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{544087ca-d268-6ab2-b500-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "@kostastsale",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_adws_unusual_connection.yml"
+    },
+    {
+      "case_id": "tcp_connect_9389",
+      "runtime": "libstdcxx",
+      "mode": "active",
+      "rule_id": "ae8c1c58-4743-c0c8-3b30-7d69f7cbee68",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{544087ca-d26d-6ab2-c400-000000007d00}"
+      ],
+      "target_record_ids": [
+        "193560"
+      ],
+      "attributable_event_ids": [
+        1,
+        3,
+        5,
+        7
+      ],
+      "rule_authors": "@kostastsale",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_adws_unusual_connection.yml"
+    },
+    {
+      "case_id": "tcp_connect_88",
+      "runtime": "libstdcxx",
+      "mode": "control",
+      "rule_id": "322fd5f2-b5b7-1bf4-58f2-92873dc878bb",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{544087ca-d272-6ab2-c500-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Ilyas Ochkov, oscd.community",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_susp_outbound_kerberos_connection.yml"
+    },
+    {
+      "case_id": "tcp_connect_88",
+      "runtime": "libstdcxx",
+      "mode": "active",
+      "rule_id": "322fd5f2-b5b7-1bf4-58f2-92873dc878bb",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{544087ca-d277-6ab2-c600-000000007d00}"
+      ],
+      "target_record_ids": [
+        "193633"
+      ],
+      "attributable_event_ids": [
+        1,
+        3,
+        5,
+        7
+      ],
+      "rule_authors": "Ilyas Ochkov, oscd.community",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_susp_outbound_kerberos_connection.yml"
+    },
+    {
+      "case_id": "tcp_connect_public_path",
+      "runtime": "libstdcxx",
+      "mode": "control",
+      "rule_id": "df13f270-859b-272a-9c2a-a0ef744a0480",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{544087ca-d27c-6ab2-c700-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Florian Roth (Nextron Systems), Nasreddine Bencherchali (Nextron Systems)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_susp_initiated_uncommon_or_suspicious_locations.yml"
+    },
+    {
+      "case_id": "tcp_connect_public_path",
+      "runtime": "libstdcxx",
+      "mode": "active",
+      "rule_id": "df13f270-859b-272a-9c2a-a0ef744a0480",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{544087ca-d281-6ab2-c800-000000007d00}"
+      ],
+      "target_record_ids": [
+        "193705"
+      ],
+      "attributable_event_ids": [
+        1,
+        3,
+        5,
+        7
+      ],
+      "rule_authors": "Florian Roth (Nextron Systems), Nasreddine Bencherchali (Nextron Systems)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_susp_initiated_uncommon_or_suspicious_locations.yml"
+    }
+  ],
+  "counts": {
+    "alert": 5,
+    "valid-miss": 0,
+    "control-pass": 5,
+    "control-failed": 0,
+    "attribution-incomplete": 0,
+    "invalid": 0
+  }
+}

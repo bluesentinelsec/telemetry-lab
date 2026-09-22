@@ -1,0 +1,113 @@
+{
+  "build_commit": "b650f8b115b95a8d21e03f32dbf486ccbfa6b980",
+  "build_workflow_run": 35770862507,
+  "instance": "i-058bec46fe2bef79b",
+  "cases_implemented": 24,
+  "enabled_sysmon_rules": 2269,
+  "qualified_rules_by_runtime": {
+    "libcxx": 23,
+    "libstdcxx": 23
+  },
+  "attempts": 100,
+  "counts": {
+    "alert": 47,
+    "valid-miss": 0,
+    "control-pass": 50,
+    "control-failed": 0,
+    "attribution-incomplete": 1,
+    "invalid": 2
+  },
+  "campaigns": {
+    "libcxx-dns-01": {
+      "alert": 0,
+      "valid-miss": 0,
+      "control-pass": 1,
+      "control-failed": 0,
+      "attribution-incomplete": 1,
+      "invalid": 0
+    },
+    "libcxx-dns-recheck-02": {
+      "alert": 1,
+      "valid-miss": 0,
+      "control-pass": 1,
+      "control-failed": 0,
+      "attribution-incomplete": 0,
+      "invalid": 0
+    },
+    "libcxx-nonnetwork-01": {
+      "alert": 17,
+      "valid-miss": 0,
+      "control-pass": 17,
+      "control-failed": 0,
+      "attribution-incomplete": 0,
+      "invalid": 0
+    },
+    "libcxx-onion-01": {
+      "alert": 0,
+      "valid-miss": 0,
+      "control-pass": 1,
+      "control-failed": 0,
+      "attribution-incomplete": 0,
+      "invalid": 1
+    },
+    "libcxx-tcp-01": {
+      "alert": 5,
+      "valid-miss": 0,
+      "control-pass": 5,
+      "control-failed": 0,
+      "attribution-incomplete": 0,
+      "invalid": 0
+    },
+    "libstdcxx-dns-01": {
+      "alert": 1,
+      "valid-miss": 0,
+      "control-pass": 1,
+      "control-failed": 0,
+      "attribution-incomplete": 0,
+      "invalid": 0
+    },
+    "libstdcxx-dns-recheck-02": {
+      "alert": 1,
+      "valid-miss": 0,
+      "control-pass": 1,
+      "control-failed": 0,
+      "attribution-incomplete": 0,
+      "invalid": 0
+    },
+    "libstdcxx-nonnetwork-01": {
+      "alert": 17,
+      "valid-miss": 0,
+      "control-pass": 17,
+      "control-failed": 0,
+      "attribution-incomplete": 0,
+      "invalid": 0
+    },
+    "libstdcxx-onion-01": {
+      "alert": 0,
+      "valid-miss": 0,
+      "control-pass": 1,
+      "control-failed": 0,
+      "attribution-incomplete": 0,
+      "invalid": 1
+    },
+    "libstdcxx-tcp-01": {
+      "alert": 5,
+      "valid-miss": 0,
+      "control-pass": 5,
+      "control-failed": 0,
+      "attribution-incomplete": 0,
+      "invalid": 0
+    }
+  },
+  "raw_archive_root": "/Users/michaellong/telemetry-lab-data/windows-cpp-2026-09-22",
+  "ci_artifacts": {
+    "ci-libcxx.zip": {
+      "bytes": 1336001,
+      "sha256": "161b48b3ebd00a152ffbdf2dc5d1d7e1efccdb767b6de297471832136a30db41"
+    },
+    "ci-libstdcxx.zip": {
+      "bytes": 1440130,
+      "sha256": "3e77fad91caf5d014cc0b21f6e00020f929db4d7c4de15d76ddcc803575dd8af"
+    }
+  }
+}

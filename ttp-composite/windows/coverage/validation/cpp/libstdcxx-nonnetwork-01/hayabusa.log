@@ -1,0 +1,131 @@
+[0m[38;2;0;255;0m
+ΓöÅΓöô ΓöÅΓö│ΓöüΓöüΓöüΓö│Γöô  ΓöÅΓö│ΓöüΓöüΓöüΓö│ΓöüΓöüΓöôΓöÅΓöô ΓöÅΓö│ΓöüΓöüΓöüΓö│ΓöüΓöüΓöüΓöô
+ΓöâΓöâ ΓöâΓöâΓöÅΓöüΓöôΓöâΓöùΓöôΓöÅΓö¢ΓöâΓöÅΓöüΓöôΓöâΓöÅΓöôΓöâΓöâΓöâ ΓöâΓöâΓöÅΓöüΓöôΓöâΓöÅΓöüΓöôΓöâ
+ΓöâΓöùΓöüΓö¢ΓöâΓöâ ΓöâΓöúΓöôΓöùΓö¢ΓöÅΓö½Γöâ ΓöâΓöâΓöùΓö¢ΓöùΓö½Γöâ ΓöâΓöâΓöùΓöüΓöüΓö½Γöâ ΓöâΓöâ
+ΓöâΓöÅΓöüΓöôΓöâΓöùΓöüΓö¢ΓöâΓöùΓöôΓöÅΓö¢ΓöâΓöùΓöüΓö¢ΓöâΓöÅΓöüΓöôΓöâΓöâ ΓöâΓöúΓöüΓöüΓöôΓöâΓöùΓöüΓö¢Γöâ
+ΓöâΓöâ ΓöâΓöâΓöÅΓöüΓöôΓöâ ΓöâΓöâ ΓöâΓöÅΓöüΓöôΓöâΓöùΓöüΓö¢ΓöâΓöùΓöüΓö¢ΓöâΓöùΓöüΓö¢ΓöâΓöÅΓöüΓöôΓöâ
+ΓöùΓö¢ ΓöùΓö╗Γö¢ ΓöùΓö¢ ΓöùΓö¢ ΓöùΓö¢ ΓöùΓö╗ΓöüΓöüΓöüΓö╗ΓöüΓöüΓöüΓö╗ΓöüΓöüΓöüΓö╗Γö¢ ΓöùΓö¢
+   by Yamato Security 
+[0m
+[0m[38;2;255;175;0mTaking threat detection to the next level~
+
+[0m[0m[38;2;0;255;0mStart time: [0m2026/09/22 19:08
+[0m[38;2;0;255;0mTotal event log files: [0m1
+[0m[38;2;0;255;0mTotal file size: [0m4.1 MiB
+
+[0m[38;2;255;175;0mLoading detection rules. Please wait.
+
+[0m[38;2;0;255;0mExcluded rules: [0m133
+[0m[38;2;0;255;0mNoisy rules: [0m12 (Disabled)
+
+[0m[38;2;0;255;0mDeprecated rules: [0m228 (5.01%) (Disabled)
+[0m[38;2;0;255;0mExperimental rules: [0m362 (7.95%)
+[0m[38;2;0;255;0mStable rules: [0m166 (3.65%)
+[0m[38;2;0;255;0mTest rules: [0m4,025 (88.40%)
+[0m[38;2;0;255;0mUnsupported rules: [0m42 (0.92%) (Disabled)
+
+[0m[38;2;0;255;0mCorrelation rules: [0m3 (0.07%)
+[0m[38;2;0;255;0mCorrelation referenced rules: [0m3 (0.07%)
+
+[0m[38;2;0;255;0mExpand rules: [0m19 (0.42%)
+[0m[38;2;0;255;0mEnabled expand rules: [0m0 (0.00%)
+
+[0m[38;2;0;255;0mHayabusa rules: [0m91
+[0m[38;2;0;255;0mSigma rules: [0m4,461
+[0m[38;2;0;255;0mhayabusa rules: [0m1
+[0m[38;2;0;255;0mTotal detection rules: [0m4,553
+
+[0m[38;2;255;175;0mCreating the channel filter. Please wait.
+
+[0m[38;2;0;255;0mEvtx files loaded after channel filter: [0m1
+[0m[38;2;0;255;0mDetection rules enabled after channel filter: [0m2,269
+
+[0m[38;2;0;255;0mOutput profile: [0mall-field-info
+
+[0m[38;2;255;175;0mScanning in progress. Please wait.
+
+[0m[38;2;0;255;0mRule Authors:[0m 
+
+Γò¡ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+Γöé frack113 (11)                 Nasreddine Bencherchali (10)    Γöé
+Γöé Florian Roth (5)              oscd.community (4)              Γöé
+Γöé Zach Mathis (3)               Daniil Yugoslavskiy (2)         Γöé
+Γöé Gleb Sukhodolskiy (2)         Tim Shelton (2)                 Γöé
+Γöé Timur Zinniatullin (2)        Victor Sergeev (2)              Γöé
+Γöé @0xrawsec (1)                 @blu3_team (1)                  Γöé
+Γöé Ahmed Farouk (1)              Avneet Singh @v3t0_ (1)         Γöé
+Γöé Bartlomiej Czyz @bczyz1 (1)   Center for Threat Inform... (1) Γöé
+Γöé HieuTT35 (1)                  Jonathan Beierle (1)            Γöé
+Γöé Max Altgelt (1)               OTR (1)                         Γöé
+Γöé Roberto Rodriguez (1)         Swachchhanda Shrawan Poudel (1) Γöé
+Γöé The DFIR Report (1)           X__Junior (1)                   Γöé
+Γöé blueteam0ps (1)               elhoim (1)                      Γöé
+Γöé wagga (1)                                                     Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓòîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò»
+
+[0m[38;2;0;255;0mResults Summary:
+
+[0m[38;2;255;255;0mEvents with hits[0m / [0m[38;2;0;255;255mTotal events[0m: [0m[38;2;255;255;0m879[0m / [0m[38;2;0;255;255m2,854[0m ([0m[38;2;0;255;0mData reduction: 1,975 events (69.20%)[0m)
+
+[0mTotal | Unique detections: 930 | 30
+[0m[38;2;255;0;0mTotal | Unique emergency detections: 0 (0.00%) | 0 (0.00%)
+[0m[38;2;255;0;0mTotal | Unique critical detections: 2 (0.22%) | 1 (3.33%)
+[0m[38;2;255;193;0mTotal | Unique high detections: 21 (2.26%) | 9 (30.00%)
+[0m[38;2;255;255;0mTotal | Unique medium detections: 94 (10.11%) | 13 (43.33%)
+[0m[38;2;0;255;0mTotal | Unique low detections: 813 (87.42%) | 7 (23.33%)
+[0mTotal | Unique informational detections: 0 (0.00%) | 0 (0.00%)
+
+[0mFirst timestamp: 2026-09-22 19:08:06.016 +00:00
+[0mLast timestamp: 2026-09-22 19:08:43.863 +00:00
+
+[0mFirst detection: 2026-09-22 19:08:06.059 +00:00
+[0mLast detection: 2026-09-22 19:08:29.445 +00:00
+
+[0mDates with most total detections:
+[0m[0m[38;2;255;0;0memergency: n/a[0m, [0m[38;2;255;0;0mcritical: 2026-09-22 (2)[0m, [0m[38;2;255;193;0mhigh: 2026-09-22 (21)[0m, [0m[38;2;255;255;0mmedium: 2026-09-22 (94)[0m, [0m[38;2;0;255;0mlow: 2026-09-22 (813)[0m, [0minformational: n/a
+
+[0mTop 5 computers with most unique detections:
+[0m[38;2;255;0;0memergency: n/a
+[0m[38;2;255;0;0mcritical: EC2AMAZ-2VIVJM1 (1)
+[0m[38;2;255;193;0mhigh: EC2AMAZ-2VIVJM1 (9)
+[0m[38;2;255;255;0mmedium: EC2AMAZ-2VIVJM1 (13)
+[0m[38;2;0;255;0mlow: EC2AMAZ-2VIVJM1 (7)
+[0minformational: n/a
+
+Γò¡ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+Γöé Top emergency alerts:                      Top critical alerts:                     Γöé
+Γö£ΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓöñ
+Γöé n/a                                        Malicious Named Pipe Created (2)         Γöé
+Γöé n/a                                        n/a                                      Γöé
+Γöé n/a                                        n/a                                      Γöé
+Γöé n/a                                        n/a                                      Γöé
+Γöé n/a                                        n/a                                      Γöé
+Γö£ΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓöñ
+Γöé Top high alerts:                           Top medium alerts:                       Γöé
+Γö£ΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓöñ
+Γöé RunMRU Registry Key Deletion - R... (4)    Potential Binary Or Script Dropp... (42) Γöé
+Γöé Suspicious Binaries and Scripts ... (4)    Potential Wazuh Security Platfor... (35) Γöé
+Γöé Windows Shell/Scripting Applicat... (4)    Raw Access Read (3)                      Γöé
+Γöé Suspicious Double Extension File... (3)    Common Autorun Keys Modification (2)     Γöé
+Γöé Uncommon File Created In Office ... (2)    Elevated System Shell Spawned (2)        Γöé
+Γö£ΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓöñ
+Γöé Top low alerts:                            Top informational alerts:                Γöé
+Γö£ΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓöñ
+Γöé Proc Access (758)                          n/a                                      Γöé
+Γöé Creation of an Executable by an ... (40)   n/a                                      Γöé
+Γöé Scheduled Task Created - Registr... (8)    n/a                                      Γöé
+Γöé Possible Timestomping (3)                  n/a                                      Γöé
+Γöé Command Executed Via Run Dialog ... (2)    n/a                                      Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓòîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò»
+
+[0m[38;2;0;255;0mSaved file:[0m C:\lab\qualification\libstdcxx-nonnetwork-01\alerts.csv (970.3 KiB)
+
+[0m[38;2;0;255;0mElapsed time: [0m00:00:02.679
+
+[0m[38;2;0;255;0mPlease report any issues with Hayabusa rules to: [0mhttps://github.com/Yamato-Security/hayabusa-rules/issues
+[0m[38;2;0;255;0mPlease report any false positives with Sigma rules to: [0mhttps://github.com/SigmaHQ/sigma/issues
+[0m[38;2;0;255;0mPlease submit new Sigma rules with pull requests to: [0mhttps://github.com/SigmaHQ/sigma/pulls
+
+[0m[38;2;255;175;0mτäíσ┐╡τäíµâ│ - Munen Musou - No assumptions, no preconceptions.
+
+[0m

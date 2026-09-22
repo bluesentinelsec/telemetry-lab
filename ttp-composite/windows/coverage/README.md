@@ -1,6 +1,6 @@
 # Windows TTP composite rule selection
 
-**Status: implementation and live qualification in progress in PR #60. See [implementation.md](implementation.md) for current results, the approved fixtures, and the remaining .onion behavior decision.**
+**Status: Windows C merged in PR #60 with 23 qualified targets and one unresolved `.onion` candidate. C++ in PR #61 demonstrates the same 23 targets in libstdc++ and libc++; see the [live evidence](validation/cpp/README.md) and [runtime and equivalence contract](../cpp/coverage/README.md). See [implementation.md](implementation.md) for C results and approved fixtures.**
 
 The Windows pipeline collects Sysmon events into EVTX and evaluates them with Hayabusa. The subject is the unmodified rule bundle shipped in the Hayabusa 4.1.0 Windows x64 release, not the entire upstream Sigma repository. All 24 selected rules are Sigma-derived Sysmon rules.
 

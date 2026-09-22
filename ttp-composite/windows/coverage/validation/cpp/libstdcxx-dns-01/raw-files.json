@@ -1,0 +1,82 @@
+{
+  "alerts.csv": {
+    "bytes": 69324,
+    "sha256": "e6d59eb4ba770c06ad93fc6b422bf9c6ea5821b59db05fb78cbd4dfee475992b"
+  },
+  "attempts.json": {
+    "bytes": 1642,
+    "sha256": "21f4272b3c8981ce7112a1b2067b07374ed382889a961b2c4f5279efb9bd57a3"
+  },
+  "build-manifest.json": {
+    "bytes": 29830,
+    "sha256": "af6961124efbeb9aeda1664f6934c6a6b181b55070c3483e04408063210567d1"
+  },
+  "detector-exit.txt": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "dns_ip_lookup-active/attempt.json": {
+    "bytes": 747,
+    "sha256": "0ffefedd68b21a46ab7c754addb2b025d74220b5d08b83f143271f53a8db30b8"
+  },
+  "dns_ip_lookup-active/stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dns_ip_lookup-active/stdout.txt": {
+    "bytes": 57,
+    "sha256": "c478db48bd725761a76a4b0925da792516cc253ce8fe7e45c05a79bb82b905b9"
+  },
+  "dns_ip_lookup-control/attempt.json": {
+    "bytes": 747,
+    "sha256": "9b328f6246441e4f9f12cdeb1cc0d8e2f1b8d20bdd1de83ba2020415fa4f78cf"
+  },
+  "dns_ip_lookup-control/stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dns_ip_lookup-control/stdout.txt": {
+    "bytes": 56,
+    "sha256": "cc1f216e8fc1068c402cec44eb33dc6b510c5807ee71e38d6247d5205e4db583"
+  },
+  "events.evtx": {
+    "bytes": 1118208,
+    "sha256": "74d24f83559144a5be3644906789d94bba2a78b089ecca47c36cbe53428b5fb5"
+  },
+  "events.json": {
+    "bytes": 120732,
+    "sha256": "b9d20b029577841f50dd7708dfca6b0377a1900b5bb65c8e7c317580d3a5c48f"
+  },
+  "hayabusa.log": {
+    "bytes": 10952,
+    "sha256": "6a24edaf32df84b7b09d43d69d1aa7ae8e742967a87918ab81b4014374e28503"
+  },
+  "hayabusa.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "health.json": {
+    "bytes": 225,
+    "sha256": "b23fa1ef57ab5afdd973a3ee9b22769baba50b85469a24486e4fb7ea75821ca9"
+  },
+  "inventory.json": {
+    "bytes": 832,
+    "sha256": "8067d078a08114c74b58e343ed7df6ade4220f5b8fd99e8208e68cebf0ecd569"
+  },
+  "qualification.json": {
+    "bytes": 1910,
+    "sha256": "2b041196fb32c1778d155ceced7aa0401d6f40ba2b75955157f24fe15e12b063"
+  },
+  "rule-inventory.csv": {
+    "bytes": 1283214,
+    "sha256": "ada9f35a9e2c179f05f84f842fe73f01d1e45f64f171b3328eb218c82f564035"
+  },
+  "run-plan.json": {
+    "bytes": 138,
+    "sha256": "4bf70c3b5031fef28b5ddcab5739e3f1095bebbf8b4fe7a21fe9d948911a9fec"
+  },
+  "selection.json": {
+    "bytes": 77605,
+    "sha256": "d634be4207c819c8e474f0985a0b94fe6d6e3a7d04a76727e9842ea52e9f01a5"
+  }
+}

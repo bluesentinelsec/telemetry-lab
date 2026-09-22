@@ -1,0 +1,6 @@
+# Preserve Windows evidence bytes, including CRLF, BOMs and detector formatting.
+*.json -text whitespace=cr-at-eol
+*.txt -text whitespace=cr-at-eol
+*.log -text -whitespace
+*.stderr -text -whitespace
+*.xml -text -whitespace

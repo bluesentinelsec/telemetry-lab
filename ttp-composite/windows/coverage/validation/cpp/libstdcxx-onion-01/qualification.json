@@ -1,0 +1,65 @@
+{
+  "healthy": true,
+  "attempts": [
+    {
+      "case_id": "dns_onion",
+      "runtime": "libstdcxx",
+      "mode": "control",
+      "rule_id": "29e2035f-b91f-3c35-9a7a-087b864f6d3b",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{544087ca-d3a1-6ab2-2a01-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "frack113",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/dns_query/dns_query_win_tor_onion_domain_query.yml"
+    },
+    {
+      "case_id": "dns_onion",
+      "runtime": "libstdcxx",
+      "mode": "active",
+      "rule_id": "29e2035f-b91f-3c35-9a7a-087b864f6d3b",
+      "valid": false,
+      "outcome": "invalid",
+      "behavior_ok": false,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{544087ca-d3a1-6ab2-2b01-000000007d00}"
+      ],
+      "target_record_ids": [
+        "217485"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        12,
+        22
+      ],
+      "rule_authors": "frack113",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/dns_query/dns_query_win_tor_onion_domain_query.yml"
+    }
+  ],
+  "counts": {
+    "alert": 0,
+    "valid-miss": 0,
+    "control-pass": 1,
+    "control-failed": 0,
+    "attribution-incomplete": 0,
+    "invalid": 1
+  }
+}
