@@ -8,7 +8,7 @@ Both configurations use the same Go compiler, source and pinned `golang.org/x/sy
 
 The verifier checks each binary's Go build settings and actual `runtime/cgo` symbols, in addition to its single case marker and unique hash. cgo binaries must import UCRT and must not import MSVCRT; pure-Go binaries must not directly import either C runtime. Both still depend on Windows system DLLs: the existing `go-static` configuration name means pure Go here, not a fully static Windows executable. Go may dynamically load system libraries through Windows APIs in either configuration.
 
-Compiler identity, Go build metadata, PE imports, and executable/dependency hashes are retained in the build manifest. Any non-system DLL dependencies are bundled and staged using the shared runner. CI requires both Go jobs and exercises 17 non-network cases plus their same-binary controls.
+Compiler identity, Go build metadata, PE imports, and executable/dependency hashes are retained in the build manifest. The runner also verifies the staged executable hash immediately before launch; Sysmon hashes for reused paths are retained as sensor observations. Any non-system DLL dependencies are bundled and staged using the shared runner. CI requires both Go jobs and exercises 17 non-network cases plus their same-binary controls.
 
 ## Behavioral equivalence
 
