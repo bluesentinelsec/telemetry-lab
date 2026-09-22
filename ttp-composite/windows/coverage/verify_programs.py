@@ -45,7 +45,8 @@ def verify(directory, runtime, objdump='objdump', compiler='gcc'):
         if markers != {case}:raise ValueError(f'{case}: incorrect case markers {markers}')
         programs.append(dict(case_id=case,sha256=hashlib.sha256(data).hexdigest(),imports=imports))
     if len({p['sha256'] for p in programs})!=len(programs):raise ValueError('Duplicate binary')
-    compiler_version=subprocess.check_output([compiler,'-dumpfullversion'],text=True).strip()
+    version_flag='-dumpversion' if runtime in ('libstdcxx','libcxx') else '-dumpfullversion'
+    compiler_version=subprocess.check_output([compiler,version_flag],text=True).strip()
     identity=subprocess.check_output([compiler,'--version'],text=True).splitlines()[0]
     dlls=[]
     for dll in sorted(directory.glob('*.dll')):
