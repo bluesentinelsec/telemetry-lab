@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
-from verify_programs import verify_imports
+from verify_programs import verify_imports, verify_go
 from bundle_runtime import bundle
 
 
@@ -22,6 +22,18 @@ class RuntimeTests(unittest.TestCase):
         for runtime in ['ucrt','msvcrt']:
             with self.assertRaises(ValueError):
                 verify_imports(['ucrtbase.dll','msvcrt.dll'],runtime,'probe')
+
+    def test_go_requires_real_cgo_linkage_and_matching_metadata(self):
+        for runtime,flag,symbol in [('go-cgo','1','runtime/cgo.goStart'),('go-static','0','runtime.main')]:
+            info=f"build CGO_ENABLED={flag}\nbuild GOOS=windows\nbuild GOARCH=amd64\n"
+            verify_go(info,symbol,runtime,'probe')
+            with self.assertRaises(ValueError):verify_go(info.replace('windows','linux'),symbol,runtime,'probe')
+            wrong='runtime.main' if flag=='1' else 'runtime/cgo.goStart'
+            with self.assertRaises(ValueError):verify_go(info,wrong,runtime,'probe')
+        verify_imports(['ucrtbase.dll','KERNEL32.dll'],'go-cgo','probe')
+        verify_imports(['KERNEL32.dll'],'go-static','probe')
+        with self.assertRaises(ValueError):verify_imports(['msvcrt.dll'],'go-cgo','probe')
+        with self.assertRaises(ValueError):verify_imports(['ucrtbase.dll'],'go-static','probe')
 
     def test_bundle_follows_indirect_imports_in_nested_program_groups(self):
         with tempfile.TemporaryDirectory() as tmp:

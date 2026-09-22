@@ -110,9 +110,8 @@ assemble() {
   for cfg in $configs; do
     local cdst="$root/ttp-composite/$cfg"
     mkdir -p "$cdst"
-    # Tolerate a missing composite-<config> artifact: legacy Windows Go composite CI
-    # jobs remain non-blocking (go-backs), so a bundle stays valid with its Linux
-    # composites even if a Windows composite build did not produce an artifact.
+    # Tolerate partial component sets when assembling an explicitly partial bundle.
+    # All implemented Windows composite configurations are required in build CI.
     if [ -d "$COMP/composite-$cfg" ]; then
       find "$COMP/composite-$cfg" -path '*/coverage' -prune -o -type f \( "${compnameargs[@]}" -name '*.dll' \) -exec cp {} "$cdst/" \;
       if [ "$os" = windows ] && [ -d "$COMP/composite-$cfg/coverage" ]; then

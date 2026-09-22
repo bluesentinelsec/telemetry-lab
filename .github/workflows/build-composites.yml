@@ -397,7 +397,6 @@ jobs:
             name: Windows Go (pure-Go)
 
     name: ${{ matrix.name }}
-    continue-on-error: true  # go-back #50: Windows composites non-blocking
     runs-on: windows-2025
     env:
       CGO_ENABLED: ${{ matrix.cgo }}
@@ -409,17 +408,40 @@ jobs:
         with:
           go-version-file: ttp-composite/windows/go/go.mod
 
-      # cgo needs a C compiler; the runner ships MinGW gcc (UCRT) at C:\mingw64.
-      # Harmless for the pure-Go build.
-      - name: Add MinGW to PATH
-        run: Add-Content -Path $env:GITHUB_PATH -Value "C:\mingw64\bin"
+      # A known UCRT toolchain supplies the cgo runtime and fixed C fixtures.
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          path-type: inherit
+          update: true
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-python
 
-      - name: Build and stage composites
+      - name: Build, verify and stage composites
+        shell: msys2 {0}
         working-directory: ttp-composite/windows/go
         run: |
-          foreach ($p in "reverse_shell","imds","registry_run_key","startup_folder") {
+          for p in reverse_shell imds registry_run_key startup_folder; do
             go build -o "../../../composite-dist/${{ matrix.config }}/$p.exe" "./$p"
-          }
+          done
+          bash coverage/build.sh ../../../composite-dist/${{ matrix.config }}
+
+      - name: Verify non-network behaviors and same-binary controls
+        shell: pwsh
+        run: |
+          $dist = "composite-dist/${{ matrix.config }}/coverage"
+          New-Item -ItemType Directory -Force C:\lab\windows-coverage\fixtures | Out-Null
+          Copy-Item "$dist/fixtures/windows_fixture_helper.exe" C:\lab\windows-coverage\fixtures\helper.exe
+          Copy-Item "$dist/fixtures/fixture.node" C:\lab\windows-coverage\fixtures\fixture.node
+          & ./ttp-composite/windows/coverage/run.ps1 -Programs $dist -Output "${{ runner.temp }}/windows-behavior" -BehaviorOnly
+
+      - name: Upload behavior evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: behavior-${{ matrix.config }}
+          path: ${{ runner.temp }}/windows-behavior
 
       - name: Upload composites
         uses: actions/upload-artifact@v7
