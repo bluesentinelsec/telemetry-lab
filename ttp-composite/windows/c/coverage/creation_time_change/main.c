@@ -1,6 +1,7 @@
 #include "../common.h"
 
 int main(int argc, char **argv) {
+    puts("COMPOSITE_CASE creation_time_change");
     if (!fixture_begin(argc,argv,"creation_time_change")) return 0;
     HANDLE file=CreateFileA(ROOT "\\work\\timestamp.txt",FILE_READ_ATTRIBUTES|FILE_WRITE_ATTRIBUTES,FILE_SHARE_READ,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,NULL);
     CHECK(file!=INVALID_HANDLE_VALUE);

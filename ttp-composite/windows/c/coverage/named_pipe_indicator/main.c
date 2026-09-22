@@ -1,6 +1,7 @@
 #include "../common.h"
 
 int main(int argc, char **argv) {
+    puts("COMPOSITE_CASE named_pipe_indicator");
     if (!fixture_begin(argc,argv,"named_pipe_indicator")) return 0;
     const char *path="\\\\.\\pipe\\testPipe";
     HANDLE server=CreateNamedPipeA(path,PIPE_ACCESS_DUPLEX|FILE_FLAG_FIRST_PIPE_INSTANCE,PIPE_TYPE_BYTE|PIPE_READMODE_BYTE|PIPE_WAIT,1,1024,1024,5000,NULL);

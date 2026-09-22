@@ -25,7 +25,7 @@ def verify(directory, runtime, objdump='objdump', compiler='gcc'):
         if runtime=='ucrt' and (not ucrt or msvcrt):raise ValueError(f'{case}: wrong CRT {imports}')
         if runtime=='msvcrt' and (not msvcrt or ucrt):raise ValueError(f'{case}: wrong CRT {imports}')
         # Each executable embeds its sole fixed case ID; no unrelated case IDs.
-        markers={c for c in cases if (c+'\0').encode() in data}
+        markers={c for c in cases if ('COMPOSITE_CASE '+c+'\0').encode() in data}
         if markers != {case}:raise ValueError(f'{case}: incorrect case markers {markers}')
         programs.append(dict(case_id=case,sha256=hashlib.sha256(data).hexdigest(),imports=imports))
     if len({p['sha256'] for p in programs})!=len(programs):raise ValueError('Duplicate binary')

@@ -1,6 +1,7 @@
 #include "../common.h"
 
 int main(int argc, char **argv) {
+    puts("COMPOSITE_CASE registry_runmru_delete");
     if (!fixture_begin(argc,argv,"registry_runmru_delete")) return 0;
     const char *path="Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RunMRU";
     CHECK(RegDeleteTreeA(HKEY_CURRENT_USER,path)==ERROR_SUCCESS);
