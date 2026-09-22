@@ -24,8 +24,11 @@ try {
  if($process.HasExited){throw 'DNS fixture failed to start'}
  $policy=Add-DnsClientNrptRule -Namespace $names -NameServers '127.0.0.1' -Comment 'Telemetry lab temporary exact-name fixture' -PassThru
  Clear-DnsClientCache
+ Get-DnsClientNrptPolicy -Effective | Export-Clixml "$fixtureOutput\nrpt-effective.xml"
  @{server_sha256=(Get-FileHash $DnsServer).Hash;process_id=$process.Id;names=$names;address='127.0.0.1';answer='127.0.0.42';policy_name=$policy.Name} | ConvertTo-Json | Set-Content "$fixtureOutput\fixture.json" -Encoding UTF8
  & "$PSScriptRoot\run.ps1" -Programs $Programs -Output $Output -Cases @('dns_onion','dns_ip_lookup') -IncludeNetwork -Hayabusa $Hayabusa
+ $queries=Get-Content "$fixtureOutput\dns.log" -Raw
+ foreach($name in $names){if(!$queries.Contains("DNS_QUERY $name type=1 answer=127.0.0.42")){throw "No responder-side A-query evidence for $name"}}
 } finally {
  if($policy){Remove-DnsClientNrptRule -Name $policy.Name -Force}
  Clear-DnsClientCache

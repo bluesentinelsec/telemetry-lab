@@ -1,6 +1,6 @@
 # Windows TTP composite rule selection
 
-**Status: implementation and live qualification in progress in PR #60. See [implementation.md](implementation.md) for current results and pending network decisions.**
+**Status: implementation and live qualification in progress in PR #60. See [implementation.md](implementation.md) for current results and the approved network fixture contract.**
 
 The Windows pipeline collects Sysmon events into EVTX and evaluates them with Hayabusa. The subject is the unmodified rule bundle shipped in the Hayabusa 4.1.0 Windows x64 release, not the entire upstream Sigma repository. All 24 selected rules are Sigma-derived Sysmon rules.
 
@@ -153,35 +153,35 @@ Network scope refined on 2026-09-22: see [network-scope.md](network-scope.md). S
 
 - Bundled rule ID: `f8a59cdc-b3d1-8f59-c3f4-4db6d94e8efc`.
 - File: `sigma/sysmon/network_connection/net_connection_win_susp_outbound_smtp_connections.yml`.
-- Behavior: Use ordinary TCP sockets to connect to a lab-owned private peer on port 2525, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.
-- Conditions: Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.
+- Behavior: Use ordinary TCP sockets to connect to a localhost echo fixture (127.0.0.1) on port 2525, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends. Keep the process alive for five seconds after I/O, equally in the same-binary control.
+- Conditions: Use the same neutral executable path/name and localhost IPv4 destination across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.
 
 ### tcp_connect_3389: Outbound RDP Connections Over Non-Standard Tools
 
 - Bundled rule ID: `f3fa6209-076f-c860-c7cb-e2f6bdd7d3e0`.
 - File: `sigma/sysmon/network_connection/net_connection_win_rdp_outbound_over_non_standard_tools.yml`.
-- Behavior: Use ordinary TCP sockets to connect to a lab-owned private peer on port 3389, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.
-- Conditions: Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.
+- Behavior: Connect to the existing RDP listener at 127.0.0.1:3389, send the fixed 11-byte X.224 connection request, and close without authentication or a session. Hold the process alive for five seconds after I/O, equally in the same-binary control.
+- Conditions: Existing Windows RDP listener; leave service configuration intact. Verify connect and complete send. The rule uses connection metadata, not payload contents. Keep address, payload, path and lifetime identical across languages.
 
 ### tcp_connect_9389: Uncommon Connection to Active Directory Web Services
 
 - Bundled rule ID: `ae8c1c58-4743-c0c8-3b30-7d69f7cbee68`.
 - File: `sigma/sysmon/network_connection/net_connection_win_adws_unusual_connection.yml`.
-- Behavior: Use ordinary TCP sockets to connect to a lab-owned private peer on port 9389, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.
-- Conditions: Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.
+- Behavior: Use ordinary TCP sockets to connect to a localhost echo fixture (127.0.0.1) on port 9389, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends. Keep the process alive for five seconds after I/O, equally in the same-binary control.
+- Conditions: Use the same neutral executable path/name and localhost IPv4 destination across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.
 
 ### tcp_connect_88: Uncommon Outbound Kerberos Connection
 
 - Bundled rule ID: `322fd5f2-b5b7-1bf4-58f2-92873dc878bb`.
 - File: `sigma/sysmon/network_connection/net_connection_win_susp_outbound_kerberos_connection.yml`.
-- Behavior: Use ordinary TCP sockets to connect to a lab-owned private peer on port 88, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.
-- Conditions: Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.
+- Behavior: Use ordinary TCP sockets to connect to a localhost echo fixture (127.0.0.1) on port 88, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends. Keep the process alive for five seconds after I/O, equally in the same-binary control.
+- Conditions: Use the same neutral executable path/name and localhost IPv4 destination across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.
 
 ### tcp_connect_public_path: Network Connection Initiated From Process Located In Potentially Suspicious Or Uncommon Location
 
 - Bundled rule ID: `df13f270-859b-272a-9c2a-a0ef744a0480`.
 - File: `sigma/sysmon/network_connection/net_connection_win_susp_initiated_uncommon_or_suspicious_locations.yml`.
-- Behavior: Execute the standalone program at C:\Users\Public\telemetry-lab\probe.exe and perform a TCP connect/send/receive exchange with a lab-owned private peer on fixed port 49152.
+- Behavior: Execute the standalone program at C:\Users\Public\telemetry-lab\probe.exe and perform a TCP connect/send/receive exchange with a localhost echo fixture (127.0.0.1) on fixed port 49152. Keep the process alive for five seconds after I/O, equally in the same-binary control.
 - Conditions: Hold the executable location constant across languages. Use a controlled destination hostname outside filter_main_domains. Stage the program before capture; observe the connection from the actual measured process, not a launcher. Confirm bytes received at both ends.
 
 ### dns_onion: DNS Query Tor .Onion Address - Sysmon
@@ -189,14 +189,14 @@ Network scope refined on 2026-09-22: see [network-scope.md](network-scope.md). S
 - Bundled rule ID: `29e2035f-b91f-3c35-9a7a-087b864f6d3b`.
 - File: `sigma/sysmon/dns_query/dns_query_win_tor_onion_domain_query.yml`.
 - Behavior: Resolve lab.onion using the normal language hostname-to-address resolver and an isolated lab DNS server supplying a fixed local answer.
-- Conditions: No Tor client or public forwarding. Independently verify the lookup result and resolver request. Qualify C EID 22 attribution; if the resolver rejects the special-use name, resolve that fixture limitation before accepting this target. Establish the same DNS-cache baseline for each attempt.
+- Conditions: No Tor client or public forwarding. Independently verify the lookup result and resolver request. Qualify C EID 22 attribution; if the resolver rejects the special-use name, resolve that fixture limitation before accepting this target. Establish the same DNS-cache baseline for each attempt. Use a harness-only UDP responder on 127.0.0.1:53 and temporary exact-name NRPT entries. Return 127.0.0.42 with zero TTL; remove entries and clear cache afterward.
 
 ### dns_ip_lookup: Suspicious DNS Query for IP Lookup Service APIs
 
 - Bundled rule ID: `e1d5e512-66be-e3eb-e24b-a9f3545e115a`.
 - File: `sigma/sysmon/dns_query/dns_query_win_susp_external_ip_lookup.yml`.
 - Behavior: Resolve api.ipify.org against an isolated lab resolver that supplies a fixed local answer.
-- Conditions: No HTTP client or public service contact. Preserve the hostname, answer, and DNS-cache baseline across languages; independently verify lookup results and resolver request. Keep the executable outside browser image exclusions.
+- Conditions: No HTTP client or public service contact. Preserve the hostname, answer, and DNS-cache baseline across languages; independently verify lookup results and resolver request. Keep the executable outside browser image exclusions. Use a harness-only UDP responder on 127.0.0.1:53 and temporary exact-name NRPT entries. Return 127.0.0.42 with zero TTL; remove entries and clear cache afterward.
 
 ### double_extension_execute: Suspicious Double Extension File Execution
 

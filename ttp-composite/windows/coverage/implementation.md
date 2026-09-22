@@ -2,7 +2,7 @@
 
 PR #60 implements 24 separate C executables for the candidate scope, built with GCC 16.2.0 in UCRT and MSVCRT configurations. The actual PE import tables establish the intended CRT; compiler versions and executable hashes are recorded in `build-manifest.json`. CI runs the 17 non-network behaviors and each same-binary control on both Windows configurations.
 
-**The onboarding is not complete.** Twenty target rules have been demonstrated with attributable alerts and clean controls in both C configurations. The Public-folder TCP case misses its rule, and the RDP and two DNS fixtures remain pending user decisions. No claim is made that all 24 candidates alert.
+**The onboarding is not complete.** Twenty target rules have been demonstrated with attributable alerts and clean controls in both C configurations. The Public-folder TCP case misses its rule, and the approved RDP, DNS and lifetime changes await requalification. No claim is made that all 24 candidates alert.
 
 ## Live results
 
@@ -12,17 +12,19 @@ The live Windows Server 2025 host used Sysmon and the exact Hayabusa 4.1.0 bundl
 - TCP ports 88 and 9389: exact target alert and clean control in both CRTs using a separate localhost echo fixture.
 - TCP port 2525: UCRT alerted with full attribution; the initial MSVCRT attempt emitted an alerting network event with a zero process GUID. That attempt is **attribution-incomplete**, not a valid miss. A targeted recheck in reversed CRT order produced attributable alerts and clean controls in both CRTs. Keep the initial incomplete attempt in the evidence.
 - Public-folder TCP: the byte exchange and process identity checks pass, but both CRTs emit EID 3 with `Image=<unknown process>`. The path predicate does not match. This remains a valid no-alert observation under the recorded capture-health checks, not a qualified positive baseline. It is not established as a CRT-induced difference.
-- RDP/3389 and two DNS cases: not lab-qualified. The current RDP executable expects echo semantics and must not be run against the existing RDP service as though it were an echo listener.
+- RDP/3389 and two DNS cases: not lab-qualified. The revised RDP executable uses connect/send against the existing service; qualification is pending.
 
 There is no established runtime-induced alert difference in this qualification. The short-lived TCP processes expose asynchronous sensor attribution limitations. Do not remove those attempts or count PID-only associations as successful target-rule attribution.
 
-## Pending network decisions (requested from the user)
+## Approved network fixture contract
 
-1. RDP occupies port 3389: use the existing listener with connect-and-send behavior, or temporarily stop RDP and use the echo fixture. No service changes have been made.
-2. DNS: approve a local responder and temporary resolver configuration, or defer the two DNS tests. No DNS configuration has been changed.
-3. Process lifetime: test a fixed five-second post-I/O pause in all TCP implementations and controls, or retain immediate exit and defer the path-based rule. No pause has been added.
+The user approved all three fixture decisions on 2026-09-22:
 
-The 24-rule selection is a candidate ledger, not a finalized experiment matrix. Freeze the qualified set only after these decisions and any required requalification.
+1. Reuse the existing RDP listener. The 3389 program verifies connect and complete send of a fixed 11-byte X.224 request, then closes; it performs no authentication or session setup. No RDP service configuration changes are needed.
+2. Use a local DNS responder with temporary exact-name NRPT policies for `lab.onion` and `api.ipify.org`. The harness returns 127.0.0.42 with zero TTL, records requests, and removes its policies and clears cache afterward. It does not change adapter DNS servers or forward requests externally. The measured programs use ordinary `getaddrinfo`.
+3. Hold each TCP client alive for five seconds after I/O, with the same hold in each no-I/O control. This is a fixed part of the cross-language behavior contract. It must not be selectively enabled only for cases or runtimes that miss.
+
+Earlier immediate-exit attempts remain in `validation/`; new campaigns evaluate the approved fixtures separately.
 
 ## Reproduce
 
@@ -45,10 +47,15 @@ Stage one fixed helper and unsigned module from the UCRT build as `C:\lab\window
 # Default: 17 non-network cases, each with a same-binary control.
 .\run.ps1 -Programs C:\lab\ci-ucrt\coverage -Output C:\lab\qualification\ucrt-nonnetwork-01
 
-# Four currently available TCP fixtures; does not touch RDP or DNS.
+# Five TCP cases: four echo fixtures plus the existing RDP listener.
 .\run-local-tcp.ps1 -Programs C:\lab\ci-ucrt\coverage `
   -Output C:\lab\qualification\ucrt-tcp-01 `
   -EchoServer C:\lab\ci-ucrt\coverage\fixtures\windows_echo_server.exe
+
+# Two resolver cases with temporary exact-name DNS routing.
+.\run-local-dns.ps1 -Programs C:\lab\ci-ucrt\coverage `
+  -Output C:\lab\qualification\ucrt-dns-01 `
+  -DnsServer C:\lab\ci-ucrt\coverage\fixtures\windows_dns_server.exe
 ```
 
 Each output directory must be new; old attempts are retained. `run.ps1` holds an exclusive machine-wide run mutex. The runner uses a fresh dedicated host and refuses unexpected pre-existing fixture files/RunMRU history; registry values it temporarily sets are restored. Run qualification sequentially and archive evidence before destroying the stack.
