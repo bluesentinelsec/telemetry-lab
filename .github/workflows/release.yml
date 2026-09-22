@@ -74,4 +74,4 @@ jobs:
             --target "${{ github.sha }}" \
             --title "telemetry-lab ${V}" \
             --latest \
-            --notes "Development release. Pre-compiled tmon, tap, the TTP primitives, and the TTP composites (multi-step ATT&CK techniques) across all 14 toolchain/runtime configs. Linux bundle is a .tar.gz; Windows bundle is a .zip. See the bundled README.txt for usage."
+            --notes "Development release. Pre-compiled tmon, tap, the TTP primitives, and the TTP composites (multi-step ATT&CK techniques) across 14 primitive and 16 composite toolchain/runtime configurations. Linux bundle is a .tar.gz; Windows bundle is a .zip. See the bundled README.txt for usage."

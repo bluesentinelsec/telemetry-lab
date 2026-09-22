@@ -28,3 +28,7 @@ From a Visual Studio x64 development shell with the pinned Rust toolchain and Py
 ```
 
 CI requires both builds and 17 non-network behavior/control pairs per build. Use the shared run.ps1, run-local-tcp.ps1 and run-local-dns.ps1 for live qualification. Build/behavior checks alone do not demonstrate detector outcomes. Full repetitions and paired tmon collection remain the experiment phase.
+
+## Live qualification
+
+Both configurations demonstrated all 23 qualified targets with clean controls: 46 attributable target alerts and 46 clean controls in the complete comparison. No paired all-rule alert-count differences were observed. The `.onion` candidate remains outside qualified scope. See the [evidence report](../coverage/validation/rust/README.md) for runtime-load verification, sensor observations and all retained attempts.

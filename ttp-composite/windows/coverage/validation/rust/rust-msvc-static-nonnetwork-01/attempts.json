@@ -1,0 +1,648 @@
+﻿[
+    {
+        "case_id":  "registry_run_key",
+        "mode":  "control",
+        "rule_id":  "3f59aeed-e4fb-6b21-a7fa-a327fdb8494d",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "b51a23182efe8d3ce792e2850f07fc0c66116a468d28c9376fc8256a18102b18",
+        "staged_sha256":  "b51a23182efe8d3ce792e2850f07fc0c66116a468d28c9376fc8256a18102b18",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2180,
+                        "start_utc":  "2026-09-22T22:19:16.4138240Z",
+                        "end_utc":  "2026-09-22T22:19:16.4256095Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_run_key\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK registry_run_key\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_run_key",
+        "mode":  "active",
+        "rule_id":  "3f59aeed-e4fb-6b21-a7fa-a327fdb8494d",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "b51a23182efe8d3ce792e2850f07fc0c66116a468d28c9376fc8256a18102b18",
+        "staged_sha256":  "b51a23182efe8d3ce792e2850f07fc0c66116a468d28c9376fc8256a18102b18",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1204,
+                        "start_utc":  "2026-09-22T22:19:16.4381917Z",
+                        "end_utc":  "2026-09-22T22:19:16.4473534Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_run_key\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK registry_run_key\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_app_paths",
+        "mode":  "control",
+        "rule_id":  "140df4ae-d66c-c984-2165-595d754d0424",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "f6c6a9c7a5aae65dcd9a8d577b8928cfbe03fc97655ff2ab1909af3768375177",
+        "staged_sha256":  "f6c6a9c7a5aae65dcd9a8d577b8928cfbe03fc97655ff2ab1909af3768375177",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3668,
+                        "start_utc":  "2026-09-22T22:19:16.4593797Z",
+                        "end_utc":  "2026-09-22T22:19:16.4723115Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_app_paths\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK registry_app_paths\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_app_paths",
+        "mode":  "active",
+        "rule_id":  "140df4ae-d66c-c984-2165-595d754d0424",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "f6c6a9c7a5aae65dcd9a8d577b8928cfbe03fc97655ff2ab1909af3768375177",
+        "staged_sha256":  "f6c6a9c7a5aae65dcd9a8d577b8928cfbe03fc97655ff2ab1909af3768375177",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3608,
+                        "start_utc":  "2026-09-22T22:19:16.4830972Z",
+                        "end_utc":  "2026-09-22T22:19:16.4922852Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_app_paths\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK registry_app_paths\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_active_setup",
+        "mode":  "control",
+        "rule_id":  "46f90542-f6e6-75d1-c29d-e26535273ec0",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "4f9da73be2457328af7f9efd2e58a6ee3546432c1ef3f4da7c60988e1de6c108",
+        "staged_sha256":  "4f9da73be2457328af7f9efd2e58a6ee3546432c1ef3f4da7c60988e1de6c108",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4168,
+                        "start_utc":  "2026-09-22T22:19:16.5046405Z",
+                        "end_utc":  "2026-09-22T22:19:16.5167770Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_active_setup\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK registry_active_setup\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_active_setup",
+        "mode":  "active",
+        "rule_id":  "46f90542-f6e6-75d1-c29d-e26535273ec0",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "4f9da73be2457328af7f9efd2e58a6ee3546432c1ef3f4da7c60988e1de6c108",
+        "staged_sha256":  "4f9da73be2457328af7f9efd2e58a6ee3546432c1ef3f4da7c60988e1de6c108",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3960,
+                        "start_utc":  "2026-09-22T22:19:16.5277147Z",
+                        "end_utc":  "2026-09-22T22:19:16.5377474Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_active_setup\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK registry_active_setup\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_screensaver",
+        "mode":  "control",
+        "rule_id":  "ec1e8c56-2fa0-7417-e4b3-517d291e30b2",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "823fd29b4ccf909417ccce855078d988fbef0238f1387821fc56397afaf5e7c8",
+        "staged_sha256":  "823fd29b4ccf909417ccce855078d988fbef0238f1387821fc56397afaf5e7c8",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3028,
+                        "start_utc":  "2026-09-22T22:19:16.5503073Z",
+                        "end_utc":  "2026-09-22T22:19:16.5630139Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_screensaver\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK registry_screensaver\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_screensaver",
+        "mode":  "active",
+        "rule_id":  "ec1e8c56-2fa0-7417-e4b3-517d291e30b2",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "823fd29b4ccf909417ccce855078d988fbef0238f1387821fc56397afaf5e7c8",
+        "staged_sha256":  "823fd29b4ccf909417ccce855078d988fbef0238f1387821fc56397afaf5e7c8",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1072,
+                        "start_utc":  "2026-09-22T22:19:16.5743132Z",
+                        "end_utc":  "2026-09-22T22:19:16.5849093Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_screensaver\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK registry_screensaver\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_runmru_delete",
+        "mode":  "control",
+        "rule_id":  "ec2a6d71-1139-d6f1-c39e-e9fc35500540",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "80885c37d52dbabe8dead0e7c1c7c3fa5df991d2c2e233a2368f8a6f09324fc2",
+        "staged_sha256":  "80885c37d52dbabe8dead0e7c1c7c3fa5df991d2c2e233a2368f8a6f09324fc2",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2192,
+                        "start_utc":  "2026-09-22T22:19:16.5958744Z",
+                        "end_utc":  "2026-09-22T22:19:16.6093570Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_runmru_delete\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK registry_runmru_delete\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_runmru_delete",
+        "mode":  "active",
+        "rule_id":  "ec2a6d71-1139-d6f1-c39e-e9fc35500540",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "80885c37d52dbabe8dead0e7c1c7c3fa5df991d2c2e233a2368f8a6f09324fc2",
+        "staged_sha256":  "80885c37d52dbabe8dead0e7c1c7c3fa5df991d2c2e233a2368f8a6f09324fc2",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4824,
+                        "start_utc":  "2026-09-22T22:19:16.6223583Z",
+                        "end_utc":  "2026-09-22T22:19:16.6312681Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_runmru_delete\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK registry_runmru_delete\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "startup_file",
+        "mode":  "control",
+        "rule_id":  "daaf04a9-5b60-e331-6611-a3a32797e550",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "af129762e6342240e4a35c33237da4dc17961a9b47868fd21a2361ec4e9ab5dc",
+        "staged_sha256":  "af129762e6342240e4a35c33237da4dc17961a9b47868fd21a2361ec4e9ab5dc",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2060,
+                        "start_utc":  "2026-09-22T22:19:16.6443211Z",
+                        "end_utc":  "2026-09-22T22:19:16.6560802Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE startup_file\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK startup_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "startup_file",
+        "mode":  "active",
+        "rule_id":  "daaf04a9-5b60-e331-6611-a3a32797e550",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "af129762e6342240e4a35c33237da4dc17961a9b47868fd21a2361ec4e9ab5dc",
+        "staged_sha256":  "af129762e6342240e4a35c33237da4dc17961a9b47868fd21a2361ec4e9ab5dc",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4608,
+                        "start_utc":  "2026-09-22T22:19:16.6676477Z",
+                        "end_utc":  "2026-09-22T22:19:16.6768779Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE startup_file\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK startup_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "powershell_profile",
+        "mode":  "control",
+        "rule_id":  "5d1e6a6b-91ca-c7e8-821c-5c665ad9ca5e",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "9d48be7bf279300e4efc9025d1f9d1015d3e99b0d042e60095f3073353d3bde1",
+        "staged_sha256":  "9d48be7bf279300e4efc9025d1f9d1015d3e99b0d042e60095f3073353d3bde1",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1344,
+                        "start_utc":  "2026-09-22T22:19:16.6915616Z",
+                        "end_utc":  "2026-09-22T22:19:16.7022980Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE powershell_profile\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK powershell_profile\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "powershell_profile",
+        "mode":  "active",
+        "rule_id":  "5d1e6a6b-91ca-c7e8-821c-5c665ad9ca5e",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "9d48be7bf279300e4efc9025d1f9d1015d3e99b0d042e60095f3073353d3bde1",
+        "staged_sha256":  "9d48be7bf279300e4efc9025d1f9d1015d3e99b0d042e60095f3073353d3bde1",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3976,
+                        "start_utc":  "2026-09-22T22:19:16.7142625Z",
+                        "end_utc":  "2026-09-22T22:19:16.7218096Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE powershell_profile\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK powershell_profile\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "public_binary",
+        "mode":  "control",
+        "rule_id":  "ef4c38c9-e26f-dcfe-1cbe-6323bafb8f39",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "459a3af928e0019946a699c66413684ea068b44e90f5819e1992646287020e53",
+        "staged_sha256":  "459a3af928e0019946a699c66413684ea068b44e90f5819e1992646287020e53",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1104,
+                        "start_utc":  "2026-09-22T22:19:16.7369735Z",
+                        "end_utc":  "2026-09-22T22:19:16.7460332Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE public_binary\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK public_binary\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "public_binary",
+        "mode":  "active",
+        "rule_id":  "ef4c38c9-e26f-dcfe-1cbe-6323bafb8f39",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "459a3af928e0019946a699c66413684ea068b44e90f5819e1992646287020e53",
+        "staged_sha256":  "459a3af928e0019946a699c66413684ea068b44e90f5819e1992646287020e53",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2916,
+                        "start_utc":  "2026-09-22T22:19:16.7589902Z",
+                        "end_utc":  "2026-09-22T22:19:16.7681160Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE public_binary\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK public_binary\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "double_extension_file",
+        "mode":  "control",
+        "rule_id":  "c69c8c8d-4188-72ea-ca61-a2a1a80612b3",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "f4d46dd46208e00afabc6efa7a107820102c28a89f45255571421c9f706bbd5f",
+        "staged_sha256":  "f4d46dd46208e00afabc6efa7a107820102c28a89f45255571421c9f706bbd5f",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2020,
+                        "start_utc":  "2026-09-22T22:19:16.7852282Z",
+                        "end_utc":  "2026-09-22T22:19:16.7935043Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE double_extension_file\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK double_extension_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "double_extension_file",
+        "mode":  "active",
+        "rule_id":  "c69c8c8d-4188-72ea-ca61-a2a1a80612b3",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "f4d46dd46208e00afabc6efa7a107820102c28a89f45255571421c9f706bbd5f",
+        "staged_sha256":  "f4d46dd46208e00afabc6efa7a107820102c28a89f45255571421c9f706bbd5f",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2716,
+                        "start_utc":  "2026-09-22T22:19:16.8062081Z",
+                        "end_utc":  "2026-09-22T22:19:16.8158466Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE double_extension_file\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK double_extension_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "double_extension_lnk",
+        "mode":  "control",
+        "rule_id":  "6b7cbf57-a67c-6e5a-61c6-4d92d02fff3e",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "40a635016deb116fe27ff14476bb81f55a6befd1696baa08512a9acb94873320",
+        "staged_sha256":  "40a635016deb116fe27ff14476bb81f55a6befd1696baa08512a9acb94873320",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3172,
+                        "start_utc":  "2026-09-22T22:19:16.8299329Z",
+                        "end_utc":  "2026-09-22T22:19:16.8414926Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE double_extension_lnk\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK double_extension_lnk\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "double_extension_lnk",
+        "mode":  "active",
+        "rule_id":  "6b7cbf57-a67c-6e5a-61c6-4d92d02fff3e",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "40a635016deb116fe27ff14476bb81f55a6befd1696baa08512a9acb94873320",
+        "staged_sha256":  "40a635016deb116fe27ff14476bb81f55a6befd1696baa08512a9acb94873320",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2748,
+                        "start_utc":  "2026-09-22T22:19:16.8533893Z",
+                        "end_utc":  "2026-09-22T22:19:16.8634773Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE double_extension_lnk\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK double_extension_lnk\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "office_startup_file",
+        "mode":  "control",
+        "rule_id":  "be512a1b-170e-acff-f35d-0e4b44caa2a3",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "f423e0cb773f445b3bc0612a52b6071e4a56eae41e011d1fdd9e7a3e8efa385d",
+        "staged_sha256":  "f423e0cb773f445b3bc0612a52b6071e4a56eae41e011d1fdd9e7a3e8efa385d",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  664,
+                        "start_utc":  "2026-09-22T22:19:16.8778137Z",
+                        "end_utc":  "2026-09-22T22:19:16.8865678Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE office_startup_file\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK office_startup_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "office_startup_file",
+        "mode":  "active",
+        "rule_id":  "be512a1b-170e-acff-f35d-0e4b44caa2a3",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "f423e0cb773f445b3bc0612a52b6071e4a56eae41e011d1fdd9e7a3e8efa385d",
+        "staged_sha256":  "f423e0cb773f445b3bc0612a52b6071e4a56eae41e011d1fdd9e7a3e8efa385d",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1696,
+                        "start_utc":  "2026-09-22T22:19:16.8990381Z",
+                        "end_utc":  "2026-09-22T22:19:16.9080045Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE office_startup_file\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK office_startup_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "suspicious_executable_file",
+        "mode":  "control",
+        "rule_id":  "9512176f-0e9f-7f30-fa82-d414c1c80248",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "4de7ccf99c47fd4d31e4e6528f37861750c825438b50a1b0f810978d04d94663",
+        "staged_sha256":  "4de7ccf99c47fd4d31e4e6528f37861750c825438b50a1b0f810978d04d94663",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4892,
+                        "start_utc":  "2026-09-22T22:19:16.9226326Z",
+                        "end_utc":  "2026-09-22T22:19:16.9307051Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE suspicious_executable_file\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK suspicious_executable_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "suspicious_executable_file",
+        "mode":  "active",
+        "rule_id":  "9512176f-0e9f-7f30-fa82-d414c1c80248",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "4de7ccf99c47fd4d31e4e6528f37861750c825438b50a1b0f810978d04d94663",
+        "staged_sha256":  "4de7ccf99c47fd4d31e4e6528f37861750c825438b50a1b0f810978d04d94663",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4912,
+                        "start_utc":  "2026-09-22T22:19:16.9419890Z",
+                        "end_utc":  "2026-09-22T22:19:16.9506595Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE suspicious_executable_file\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK suspicious_executable_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "double_extension_execute",
+        "mode":  "control",
+        "rule_id":  "b6ce0b2f-593b-5e1c-e137-d30b2974e30e",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "f24978765b99793716033eb7e8bef4f3cfd27bd1a9536276d8f748461778f708",
+        "staged_sha256":  "f24978765b99793716033eb7e8bef4f3cfd27bd1a9536276d8f748461778f708",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1164,
+                        "start_utc":  "2026-09-22T22:19:16.9665237Z",
+                        "end_utc":  "2026-09-22T22:19:16.9765660Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE double_extension_execute\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK double_extension_execute\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "double_extension_execute",
+        "mode":  "active",
+        "rule_id":  "b6ce0b2f-593b-5e1c-e137-d30b2974e30e",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "f24978765b99793716033eb7e8bef4f3cfd27bd1a9536276d8f748461778f708",
+        "staged_sha256":  "f24978765b99793716033eb7e8bef4f3cfd27bd1a9536276d8f748461778f708",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  944,
+                        "start_utc":  "2026-09-22T22:19:16.9909560Z",
+                        "end_utc":  "2026-09-22T22:19:17.0057083Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE double_extension_execute\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nFIXTURE_HELPER_OK\r\nBEHAVIOR_OK double_extension_execute\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "creation_time_change",
+        "mode":  "control",
+        "rule_id":  "1117f7b2-3f59-682b-ad07-081d44ae5ddb",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "dd3fa802097a06c2d34a82a6e1333ec6d699a91ec46539a440bd4a6a932ce886",
+        "staged_sha256":  "dd3fa802097a06c2d34a82a6e1333ec6d699a91ec46539a440bd4a6a932ce886",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4260,
+                        "start_utc":  "2026-09-22T22:19:17.0217448Z",
+                        "end_utc":  "2026-09-22T22:19:17.0312803Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE creation_time_change\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK creation_time_change\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "creation_time_change",
+        "mode":  "active",
+        "rule_id":  "1117f7b2-3f59-682b-ad07-081d44ae5ddb",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "dd3fa802097a06c2d34a82a6e1333ec6d699a91ec46539a440bd4a6a932ce886",
+        "staged_sha256":  "dd3fa802097a06c2d34a82a6e1333ec6d699a91ec46539a440bd4a6a932ce886",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  720,
+                        "start_utc":  "2026-09-22T22:19:17.0450661Z",
+                        "end_utc":  "2026-09-22T22:19:17.0542049Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE creation_time_change\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK creation_time_change\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "ads_executable",
+        "mode":  "control",
+        "rule_id":  "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "a7a3fb269e24d37884a4043475e1654321bac48bccd0059156d7f8275c6f8f06",
+        "staged_sha256":  "a7a3fb269e24d37884a4043475e1654321bac48bccd0059156d7f8275c6f8f06",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3228,
+                        "start_utc":  "2026-09-22T22:19:17.0680528Z",
+                        "end_utc":  "2026-09-22T22:19:17.0761034Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE ads_executable\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK ads_executable\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "ads_executable",
+        "mode":  "active",
+        "rule_id":  "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "a7a3fb269e24d37884a4043475e1654321bac48bccd0059156d7f8275c6f8f06",
+        "staged_sha256":  "a7a3fb269e24d37884a4043475e1654321bac48bccd0059156d7f8275c6f8f06",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3852,
+                        "start_utc":  "2026-09-22T22:19:17.0896612Z",
+                        "end_utc":  "2026-09-22T22:19:17.0981751Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE ads_executable\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK ads_executable\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "named_pipe_indicator",
+        "mode":  "control",
+        "rule_id":  "cb1d1446-f327-1659-42ad-e41a7bc16e36",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "e890f9f0b7388c1fa7431ca137a243936df2cdf1a1abdaa4a42107fb47be4224",
+        "staged_sha256":  "e890f9f0b7388c1fa7431ca137a243936df2cdf1a1abdaa4a42107fb47be4224",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2968,
+                        "start_utc":  "2026-09-22T22:19:17.1117546Z",
+                        "end_utc":  "2026-09-22T22:19:17.1240417Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE named_pipe_indicator\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK named_pipe_indicator\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "named_pipe_indicator",
+        "mode":  "active",
+        "rule_id":  "cb1d1446-f327-1659-42ad-e41a7bc16e36",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "e890f9f0b7388c1fa7431ca137a243936df2cdf1a1abdaa4a42107fb47be4224",
+        "staged_sha256":  "e890f9f0b7388c1fa7431ca137a243936df2cdf1a1abdaa4a42107fb47be4224",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4956,
+                        "start_utc":  "2026-09-22T22:19:17.1353553Z",
+                        "end_utc":  "2026-09-22T22:19:17.1429049Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE named_pipe_indicator\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK named_pipe_indicator\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "unsigned_node_load",
+        "mode":  "control",
+        "rule_id":  "8085fb71-ed3b-7920-ca06-f9174665cc8a",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "5c47d87ec374f0118a184356b83e3a9483faecf9ddc70bc261b422100e743e20",
+        "staged_sha256":  "5c47d87ec374f0118a184356b83e3a9483faecf9ddc70bc261b422100e743e20",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4800,
+                        "start_utc":  "2026-09-22T22:19:17.1559225Z",
+                        "end_utc":  "2026-09-22T22:19:17.1670784Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE unsigned_node_load\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK unsigned_node_load\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "unsigned_node_load",
+        "mode":  "active",
+        "rule_id":  "8085fb71-ed3b-7920-ca06-f9174665cc8a",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "5c47d87ec374f0118a184356b83e3a9483faecf9ddc70bc261b422100e743e20",
+        "staged_sha256":  "5c47d87ec374f0118a184356b83e3a9483faecf9ddc70bc261b422100e743e20",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1896,
+                        "start_utc":  "2026-09-22T22:19:17.1772350Z",
+                        "end_utc":  "2026-09-22T22:19:17.1864736Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE unsigned_node_load\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK unsigned_node_load\n",
+                        "stderr":  ""
+                    }
+    }
+]

@@ -1,0 +1,178 @@
+{
+  "alerts.csv": {
+    "bytes": 533788,
+    "sha256": "1d241cba12308f29caaf1451dadb06d127a845691acfa124cd1fd251d3ee32ea"
+  },
+  "attempts.json": {
+    "bytes": 9831,
+    "sha256": "9f4f741f143d26282092ab569d75c538dc3f5dfbecdc083f423f5e0e6fdbdcb6"
+  },
+  "build-manifest.json": {
+    "bytes": 15417,
+    "sha256": "e439632403bc695ea2a2b555f64f620f38d04c146196b8ee94100db33d0b8f8b"
+  },
+  "detector-exit.txt": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "events.evtx": {
+    "bytes": 3215360,
+    "sha256": "b826d81b3cc12d173e516acf8245cac9048604ddad3566e89213698d266c1e66"
+  },
+  "events.json": {
+    "bytes": 1569255,
+    "sha256": "38254e3746d65d93489506d8f41dca8d219668f930d4f23c548ab3857dae5285"
+  },
+  "hayabusa.log": {
+    "bytes": 8236,
+    "sha256": "8cc1d169c1674ed1a238dc7429cda42babe6fc9a3579a1fe14b1d61709508ed5"
+  },
+  "hayabusa.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "health.json": {
+    "bytes": 225,
+    "sha256": "41103538245244a12eef901b0549532e881ee0bf5eab5c81362813d075b8163b"
+  },
+  "inventory.json": {
+    "bytes": 832,
+    "sha256": "8067d078a08114c74b58e343ed7df6ade4220f5b8fd99e8208e68cebf0ecd569"
+  },
+  "qualification.json": {
+    "bytes": 8987,
+    "sha256": "0823e6031835b8e42f1361cdc1b75db40d86bdaea799798202d6156cbba51cc4"
+  },
+  "rule-inventory.csv": {
+    "bytes": 1283214,
+    "sha256": "ada9f35a9e2c179f05f84f842fe73f01d1e45f64f171b3328eb218c82f564035"
+  },
+  "run-plan.json": {
+    "bytes": 310,
+    "sha256": "2c8d82f739a3ec0b4a999d5538df4d05d101f6dca8b393ec427c47149e4d9104"
+  },
+  "selection.json": {
+    "bytes": 77605,
+    "sha256": "d634be4207c819c8e474f0985a0b94fe6d6e3a7d04a76727e9842ea52e9f01a5"
+  },
+  "tcp_connect_2525-active/attempt.json": {
+    "bytes": 905,
+    "sha256": "ac2e36c9e9df03f2ce18dbb107b487335b7235306c3d209d19a5f0f7299797d5"
+  },
+  "tcp_connect_2525-active/stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "tcp_connect_2525-active/stdout.txt": {
+    "bytes": 113,
+    "sha256": "37478870405ad2e0167b6dd05ea5cd68008dc4852edb6dc95435e73f7eeab18c"
+  },
+  "tcp_connect_2525-control/attempt.json": {
+    "bytes": 905,
+    "sha256": "bec2421791a986a4a6c15d371f82d74ed9b253d08adcb1d9dfcf49097e73d72e"
+  },
+  "tcp_connect_2525-control/stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "tcp_connect_2525-control/stdout.txt": {
+    "bytes": 112,
+    "sha256": "239fed9ac87ab124b7a9a9e1ea7b3b1cffcae4a68b9b13d779e3922d65a95ccd"
+  },
+  "tcp_connect_3389-active/attempt.json": {
+    "bytes": 905,
+    "sha256": "0848286897982e8e901ea2c3e2e47392055657c7e8beff2a629ae593243c9f7b"
+  },
+  "tcp_connect_3389-active/stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "tcp_connect_3389-active/stdout.txt": {
+    "bytes": 113,
+    "sha256": "2f8692bd375f72e1f2f8005f85aeffddb715c065d82cf7ebd2412ec1a7880e76"
+  },
+  "tcp_connect_3389-control/attempt.json": {
+    "bytes": 905,
+    "sha256": "19cd7db31d34c15c2674a419794d1cfbc54eb7387dae5410f2132f996c262990"
+  },
+  "tcp_connect_3389-control/stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "tcp_connect_3389-control/stdout.txt": {
+    "bytes": 112,
+    "sha256": "866b9393634d65e8fa8265cea10f42c2bef782c28b265a622551c3ac8bdd002f"
+  },
+  "tcp_connect_88-active/attempt.json": {
+    "bytes": 899,
+    "sha256": "2fbaef43be903f213f9d3a9472dbc9412252d774790161c4d43fdf1727aa5329"
+  },
+  "tcp_connect_88-active/stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "tcp_connect_88-active/stdout.txt": {
+    "bytes": 109,
+    "sha256": "0ef84841e802e5e603a110fea3c68c0d5e8536cc1150a3613693decd139ad2a0"
+  },
+  "tcp_connect_88-control/attempt.json": {
+    "bytes": 899,
+    "sha256": "80db33f5c1bf1a8663748ae61757c87ce9f55ac88ab02d0ec3b0ae0506643af4"
+  },
+  "tcp_connect_88-control/stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "tcp_connect_88-control/stdout.txt": {
+    "bytes": 108,
+    "sha256": "2041fcda91c92452a8af9684f2f2e830a8e25437967433f114de858b4fb80abd"
+  },
+  "tcp_connect_9389-active/attempt.json": {
+    "bytes": 905,
+    "sha256": "0f5702db8fb5aec82e7521eafd5e10c72598acd062cf62f5d0262329eb34a51b"
+  },
+  "tcp_connect_9389-active/stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "tcp_connect_9389-active/stdout.txt": {
+    "bytes": 113,
+    "sha256": "6629a39f47f038fdaa43d18a696685e3d63c15eedc85c7bb577da76cada3604d"
+  },
+  "tcp_connect_9389-control/attempt.json": {
+    "bytes": 905,
+    "sha256": "c23004bce5218fe25e15b518493ffc9fb40f5065941773b948c3cbe25f1fa879"
+  },
+  "tcp_connect_9389-control/stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "tcp_connect_9389-control/stdout.txt": {
+    "bytes": 112,
+    "sha256": "968233bca23046746233f5a667ff217231b358fb8c8db44d26a0d33f12b1f241"
+  },
+  "tcp_connect_public_path-active/attempt.json": {
+    "bytes": 928,
+    "sha256": "f97f646fe29582d19b6f4077ff3b179d77a5c5191d283a2ec5c5896e52f319b8"
+  },
+  "tcp_connect_public_path-active/stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "tcp_connect_public_path-active/stdout.txt": {
+    "bytes": 127,
+    "sha256": "fde3f282452215cc0710027f73730e9e5503216aec849d1aee183ac162366f3a"
+  },
+  "tcp_connect_public_path-control/attempt.json": {
+    "bytes": 927,
+    "sha256": "4221a59db1b01e312b2e1ad3ed1c018b79a3795fde416f563ddd6231ccf308fa"
+  },
+  "tcp_connect_public_path-control/stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "tcp_connect_public_path-control/stdout.txt": {
+    "bytes": 126,
+    "sha256": "e327b9dac1cfc32b352098956efda4a20a72c7f16883f5b7c8c1810c2247b7e6"
+  }
+}

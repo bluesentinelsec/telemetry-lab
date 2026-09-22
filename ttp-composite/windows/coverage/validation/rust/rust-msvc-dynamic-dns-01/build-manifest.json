@@ -1,0 +1,433 @@
+﻿{
+    "runtime":  "rust-msvc-dynamic",
+    "language":  "rust",
+    "compiler_version":  "1.98.1",
+    "compiler_identity":  "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+    "programs":  [
+                     {
+                         "case_id":  "registry_run_key",
+                         "sha256":  "3f2f998c7f3199db047092bbc9770730700dd023ac3ed1b204e78b9d4c77abaf",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "advapi32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_app_paths",
+                         "sha256":  "dff1160946c25e9676015b5f2b3ae014708d31e512e095f73343cc2e0c8d1ef5",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "advapi32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_active_setup",
+                         "sha256":  "ebb0e92b49156cec709ee0bb373363aa37bde146ddb420b5ef68820177e1c286",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "advapi32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_screensaver",
+                         "sha256":  "67f4027d6d3feb1a604deec55799ade916f7eb4fd986e9ce53654ad50534f53c",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "advapi32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_runmru_delete",
+                         "sha256":  "26bcec1176f1455b504c9ab5e06de5f0b2b6d3a450a0669c6988d012315494a0",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "advapi32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "startup_file",
+                         "sha256":  "37e5b4bbbb09e9e321c7703fe77b44e23ab327c0a7696c04edeeab3d573e0440",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "powershell_profile",
+                         "sha256":  "9e075985b0d784531c711b84ed807c595202b572c332da00e68278cce19ca95c",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "public_binary",
+                         "sha256":  "4e93511680bf3d32cde95057bdf6e1e211c3a07bcec49dcfc1cbd14d93b73bcf",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "double_extension_file",
+                         "sha256":  "1d54bf6d2c8f8995d10a4b6c5a7e91d1e29907059b954feba37a4894471ea155",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "double_extension_lnk",
+                         "sha256":  "0b3a7a2a25ba7a3df99b1f5e93ba92e91e781ab16a6e602b10d8d5c913807e5a",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "office_startup_file",
+                         "sha256":  "8960b973229c16037e0660735a95df135ef322f8ecc88a4af09d08096d880d13",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "suspicious_executable_file",
+                         "sha256":  "50de4b2cf77000cd3ccfc448ab110018d8c9049f28b9f21ee8ded0177f254722",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_2525",
+                         "sha256":  "02ce3d3e98ba0c27c0b383eb0f32733edb14570d950178b7a47545d9a42964b2",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "ws2_32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_3389",
+                         "sha256":  "53b5f2491a41d48cb487dcfee15ee77e905b2e535f5f9c801466a8fb7af03b47",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "ws2_32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_9389",
+                         "sha256":  "20d34b13ecda6deddcf2dbe879b9f55ea6abe0adb1763787e0fd61d06403cb76",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "ws2_32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_88",
+                         "sha256":  "4fe80a39f3f89304b7420892c8978c0782bf640c6e0107472f0876059695fa7a",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "ws2_32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_public_path",
+                         "sha256":  "1ed7b0151a4d3097538d86fc15b6e1d42f6b3e79306120d5efc3a4658219e985",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "ws2_32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "dns_onion",
+                         "sha256":  "db25e11ee729d54f1b1b3ca961dac923002c5fcb5d6d1c813bbaca02f318af1f",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "ws2_32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "dns_ip_lookup",
+                         "sha256":  "cdbcfb56a29f81a87c64616115b805abd52cf65692609787c4f954068bb9db39",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "ws2_32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "double_extension_execute",
+                         "sha256":  "4bd2bd3d41c844ec843b443de80208467af289590242358933149198707578ea",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "creation_time_change",
+                         "sha256":  "f72c86a8d298944e5003e58f9c22490e38cf1e725f1dd169a2f730a5aa017cea",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "ads_executable",
+                         "sha256":  "18d9d45c8a8204e4b9c17311d118617bb051524594210a689f4b2b7f25399883",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "named_pipe_indicator",
+                         "sha256":  "6a930542634b118c0dde091c750429dd4656d2d1ef6077f1f51286c17b92dade",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "unsigned_node_load",
+                         "sha256":  "7a7c30ca5f729077384fb4b9af4fc125c9f242032cedb1ddb3b2e43db6fa19cd",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll",
+                                         "VCRUNTIME140.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll"
+                                     ]
+                     }
+                 ],
+    "dependent_dlls":  [
+                           {
+                               "name":  "VCRUNTIME140.dll",
+                               "sha256":  "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+                               "imports":  [
+                                               "api-ms-win-crt-runtime-l1-1-0.dll",
+                                               "api-ms-win-crt-heap-l1-1-0.dll",
+                                               "api-ms-win-crt-string-l1-1-0.dll",
+                                               "api-ms-win-crt-stdio-l1-1-0.dll",
+                                               "api-ms-win-crt-convert-l1-1-0.dll",
+                                               "KERNEL32.dll"
+                                           ]
+                           }
+                       ],
+    "rust_build":  {
+                       "linker_identity":  "Microsoft (R) Incremental Linker Version 14.51.36256.0",
+                       "cfg":  [
+                                   "debug_assertions",
+                                   "panic=\"unwind\"",
+                                   "target_abi=\"\"",
+                                   "target_arch=\"x86_64\"",
+                                   "target_endian=\"little\"",
+                                   "target_env=\"msvc\"",
+                                   "target_family=\"windows\"",
+                                   "target_feature=\"cmpxchg16b\"",
+                                   "target_feature=\"fxsr\"",
+                                   "target_feature=\"sse\"",
+                                   "target_feature=\"sse2\"",
+                                   "target_feature=\"sse3\"",
+                                   "target_has_atomic=\"128\"",
+                                   "target_has_atomic=\"16\"",
+                                   "target_has_atomic=\"32\"",
+                                   "target_has_atomic=\"64\"",
+                                   "target_has_atomic=\"8\"",
+                                   "target_has_atomic=\"ptr\"",
+                                   "target_has_atomic_primitive_alignment=\"128\"",
+                                   "target_has_atomic_primitive_alignment=\"16\"",
+                                   "target_has_atomic_primitive_alignment=\"32\"",
+                                   "target_has_atomic_primitive_alignment=\"64\"",
+                                   "target_has_atomic_primitive_alignment=\"8\"",
+                                   "target_has_atomic_primitive_alignment=\"ptr\"",
+                                   "target_os=\"windows\"",
+                                   "target_pointer_width=\"64\"",
+                                   "target_vendor=\"pc\"",
+                                   "windows"
+                               ],
+                       "windows_sdk_version":  "10.0.26100.0\\",
+                       "rustflags":  "-C target-feature=-crt-static",
+                       "rustc_verbose":  "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+                       "crt":  "dynamic",
+                       "vc_tools_version":  "14.51.36231",
+                       "target":  "x86_64-pc-windows-msvc"
+                   }
+}

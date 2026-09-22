@@ -2,14 +2,15 @@ telemetry-lab — pre-compiled bundle
 ===================================
 
 A development release of the telemetry-lab study tooling: the process-scoped
-telemetry monitor (tmon), the analysis pipeline (tap), and the TTP primitives
-built across every in-scope toolchain/runtime configuration.
+telemetry monitor (tmon), the analysis pipeline (tap), and the TTP primitives and composites
+built across their implemented toolchain/runtime configurations.
 
 Layout
 ------
   tmon/            the telemetry monitor for this OS
   tap/             the telemetry analysis pipeline for this OS
-  ttp-primitives/  one folder per config, each with: empty, file_io, spawn
+  ttp-primitives/  one folder per config, with platform-specific primitive executables
+  ttp-composite/   per-config standalone coverage programs and shared runners
   substrate/       per-config static substrate-verification records
   manifest.json    version, commit, and the configs in this bundle
 
@@ -32,6 +33,11 @@ Analyzing collected data
 
 Notes
 -----
+- manifest.json lists primitive configs and composite_configs separately.
+  Windows Rust currently provides composites only (dynamic/static MSVC CRT).
+- The qualified composite mapping covers 30 Linux Falco targets and 23 Windows
+  Hayabusa/Sysmon targets. The additional Windows .onion program is unqualified;
+  legacy pilot programs are separate from this mapping. See repository evidence.
 - Linux tmon needs glibc, libelf1, zlib1g, libzstd1 (present on the lab AMI).
 - Windows binaries are unsigned; on the lab host Defender is disabled and
   execution is non-interactive (SSM), so SmartScreen does not prompt. If a file

@@ -1,0 +1,40 @@
+﻿[
+    {
+        "case_id":  "dns_onion",
+        "mode":  "control",
+        "rule_id":  "29e2035f-b91f-3c35-9a7a-087b864f6d3b",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "8a499514c2bf7fc4cea6386af332b3eeb748bafa004dfa99686f1df296d5349e",
+        "staged_sha256":  "8a499514c2bf7fc4cea6386af332b3eeb748bafa004dfa99686f1df296d5349e",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1624,
+                        "start_utc":  "2026-09-22T22:22:19.9538200Z",
+                        "end_utc":  "2026-09-22T22:22:19.9836609Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE dns_onion\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK dns_onion\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "dns_onion",
+        "mode":  "active",
+        "rule_id":  "29e2035f-b91f-3c35-9a7a-087b864f6d3b",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "8a499514c2bf7fc4cea6386af332b3eeb748bafa004dfa99686f1df296d5349e",
+        "staged_sha256":  "8a499514c2bf7fc4cea6386af332b3eeb748bafa004dfa99686f1df296d5349e",
+        "behavior_ok":  false,
+        "process":  {
+                        "pid":  3208,
+                        "start_utc":  "2026-09-22T22:22:20.0016287Z",
+                        "end_utc":  "2026-09-22T22:22:20.0169940Z",
+                        "exit_code":  101,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE dns_onion\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\n",
+                        "stderr":  "\nthread \u0027main\u0027 (3764) panicked at src\\netio.rs:28:55:\ncalled `Result::unwrap()` on an `Err` value: Os { code: 11001, kind: Uncategorized, message: \"No such host is known.\" }\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+                    }
+    }
+]

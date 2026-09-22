@@ -1,6 +1,6 @@
 # Windows TTP composite rule selection
 
-**Status: C and C++ are merged; Go in PR #62 demonstrates the same 23 targets in cgo and pure-Go builds. All three languages implement 24 standalone cases, with `.onion` still unqualified. See the [Go evidence](validation/go/README.md), [C++ evidence](validation/cpp/README.md), and [C results](implementation.md).**
+**Status: C, C++ and Go are merged; Rust in PR #63 completes the four-language implementations. Each language implements 24 standalone cases and demonstrates the same 23 targets in both configurations. `.onion` remains an unqualified diagnostic. See [Rust evidence](validation/rust/README.md), [Go evidence](validation/go/README.md), [C++ evidence](validation/cpp/README.md), and [C results](implementation.md). The cross-platform scope is in [SCOPE.md](../../SCOPE.md).**
 
 The Windows pipeline collects Sysmon events into EVTX and evaluates them with Hayabusa. The subject is the unmodified rule bundle shipped in the Hayabusa 4.1.0 Windows x64 release, not the entire upstream Sigma repository. All 24 selected rules are Sigma-derived Sysmon rules.
 
@@ -11,18 +11,18 @@ The Windows pipeline collects Sysmon events into EVTX and evaluates them with Ha
 | All supplied rule definitions | 4,987 |
 | Definitions referencing the Sysmon Operational channel | 2,455 |
 | Sysmon definitions passing the static scope filters below | 2,269 |
-| Proposed target rules | 24 |
-| Target rules demonstrated in both C configurations | 23 |
+| Implemented candidate targets | 24 |
+| Qualified targets demonstrated in each of eight configurations | 23 |
 
 Static filters follow the existing `-m low --no-wizard` configuration: remove informational, deprecated, unsupported, default excluded/noisy IDs, and rules with unresolved expansion placeholders. Overlapping exclusions are counted once. Channel membership means the detection references Sysmon, not that every rule can be satisfied using Sysmon alone. Live Hayabusa 4.1.0 replay now confirms 2,269 rules enabled after channel filtering for the Sysmon EVTX input. That is the configured denominator; it does not mean every rule has a qualified test case.
 
-Current qualified scope: "23 standalone Windows C composites have demonstrated alerts against 23 selected rules out of the 2,269 enabled rules in the pinned Hayabusa/Sysmon evaluation." A 24th `.onion` candidate remains implemented but unqualified pending its behavior contract. This numerator counts exact target rules, not every incidental alert in the full ruleset.
+Current qualified scope: "23 standalone Windows composites per language have demonstrated alerts against 23 selected rules out of the 2,269 enabled rules in the pinned Hayabusa/Sysmon evaluation." A 24th `.onion` candidate remains implemented as an unqualified diagnostic and is excluded from the 23-rule selection; its successful-resolution contract is unchanged. This numerator counts exact target rules, not every incidental alert in the full ruleset.
 
 ## Selection rationale
 
 Choose directly reproducible operations with specific event predicates, equivalents in all four languages, independent behavior checks, and controllable fixtures. Avoid building the scope from wrappers around PowerShell or reg.exe, since those would mainly measure a common child tool. Include path/name-based rules where the program must actually create, execute, load, or resolve the matching artifact; label those limits explicitly. The 24 targets span nine behavior families. Their predicates reference 12 event IDs; an individual case may exercise only one of a rule's permitted event IDs.
 
-## Proposed cases
+## Implemented candidates
 
 Network scope refined on 2026-09-22: see [network-scope.md](network-scope.md). Seven network/DNS candidates use basic TCP I/O or ordinary hostname resolution; the LDAP-discovery candidate is deferred.
 
@@ -239,7 +239,7 @@ Network scope refined on 2026-09-22: see [network-scope.md](network-scope.md). S
 - Existing `reverse_shell`, `imds`, `registry_run_key`, and `startup_folder` programs are not automatically qualified against this bundle. Run-key and Startup behaviors have explicit targets above. The old reverse-shell command-process assumption and IMDS attempt need exact rule mapping and behavior evidence before reuse.
 - Defer rules requiring Security audit events, PowerShell logs, Defender logs, Office execution, domain infrastructure, custom Sysmon RuleName values, or unavailable event classes. Those requirements would expand the current collection scope.
 - Do not represent port-only connections, file-name indicators, DNS names, or persistence-location writes as full successful attacks. They reproduce the observable conditions the selected rules actually evaluate.
-- The existing Windows build matrix covers C, C++, and Go configurations. Rust Windows toolchains/runtime configurations still need to be selected and validated; Linux GNU/musl configurations cannot simply be copied over.
+- The Windows matrix has eight configurations: C UCRT/MSVCRT, C++ libstdc++/libc++, Go cgo/pure Go, and Rust MSVC dynamic/static CRT. Rust pins one compiler and target, varying CRT linkage; it does not copy the Linux GNU/musl axis.
 
 ## Provenance and reproducibility
 
@@ -247,6 +247,6 @@ Network scope refined on 2026-09-22: see [network-scope.md](network-scope.md). S
 
 The bundled rules repository reports HEAD `fffbdd179c8c8c7554368c443f9ba2917877f108`, while the Hayabusa release tag points its rules gitlink at `e9a98d49313eed67fe1a2c21c0b108e04fdebe66`. The release ZIP and per-file hashes are authoritative for this inventory; do not substitute the tag gitlink snapshot. No installed lab rules or deployment configuration have been changed.
 
-## Resume decision: issue #59
+## Onboarding and experiment follow-up: issue #59
 
-Windows onboarding is tracked at https://github.com/bluesentinelsec/telemetry-lab/issues/59. The initial candidates are generally accepted, with a new constraint: network composites stay close to basic socket/DNS primitives, without SMTP, RDP, ADWS, Kerberos, or LDAP client libraries or protocol implementations. The four port-based rules may use simple connections to controlled listeners. Defer LDAP SRV discovery unless justified within the existing primitive-level scope without new dependencies. The current C baseline demonstrates 23 targets in both CRTs; the .onion lookup contract remains unresolved. Port the accepted standalone behaviors and exact target IDs to C++, Go, and Rust in separate feature PRs after C scope is finalized.
+Windows onboarding is tracked at https://github.com/bluesentinelsec/telemetry-lab/issues/59. The initial candidates are generally accepted, with a new constraint: network composites stay close to basic socket/DNS primitives, without SMTP, RDP, ADWS, Kerberos, or LDAP client libraries or protocol implementations. The four port-based rules may use simple connections to controlled listeners. Defer LDAP SRV discovery unless justified within the existing primitive-level scope without new dependencies. The C baseline and all C++/Go/Rust configurations demonstrate the same 23 targets. The `.onion` program is retained outside qualified scope with its original success requirement. Language onboarding is complete in PR #63; the full experiment freeze, paired tmon integration and repetitions remain #54.

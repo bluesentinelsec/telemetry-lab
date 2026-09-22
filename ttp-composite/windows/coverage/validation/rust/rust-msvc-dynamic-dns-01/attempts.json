@@ -1,0 +1,40 @@
+﻿[
+    {
+        "case_id":  "dns_ip_lookup",
+        "mode":  "control",
+        "rule_id":  "e1d5e512-66be-e3eb-e24b-a9f3545e115a",
+        "runtime":  "rust-msvc-dynamic",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "cdbcfb56a29f81a87c64616115b805abd52cf65692609787c4f954068bb9db39",
+        "staged_sha256":  "cdbcfb56a29f81a87c64616115b805abd52cf65692609787c4f954068bb9db39",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4988,
+                        "start_utc":  "2026-09-22T22:17:58.8626709Z",
+                        "end_utc":  "2026-09-22T22:17:58.8744619Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE dns_ip_lookup\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT dynamic\n\nCONTROL_OK dns_ip_lookup\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "dns_ip_lookup",
+        "mode":  "active",
+        "rule_id":  "e1d5e512-66be-e3eb-e24b-a9f3545e115a",
+        "runtime":  "rust-msvc-dynamic",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "cdbcfb56a29f81a87c64616115b805abd52cf65692609787c4f954068bb9db39",
+        "staged_sha256":  "cdbcfb56a29f81a87c64616115b805abd52cf65692609787c4f954068bb9db39",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2140,
+                        "start_utc":  "2026-09-22T22:17:58.8908587Z",
+                        "end_utc":  "2026-09-22T22:17:58.9084421Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE dns_ip_lookup\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT dynamic\n\nBEHAVIOR_OK dns_ip_lookup\n",
+                        "stderr":  ""
+                    }
+    }
+]
