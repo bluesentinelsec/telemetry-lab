@@ -33,3 +33,7 @@ CGO_ENABLED=0 bash coverage/build.sh ../../../composite-dist/windows-go-static
 ```
 
 The build stages the 24 executables, C support fixtures and manifest. Live qualification uses the shared non-network, TCP and DNS runners with fixed reference fixtures; see the [reference procedure](../../coverage/implementation.md). CI behavior checks do not establish alert coverage. Live outcomes, invalid attempts and attribution failures must be retained separately; repeated experiments and paired tmon measurements remain #54.
+
+## Live qualification
+
+Both configurations demonstrated all 23 qualified target rules and clean controls. The full follow-up has 46 attributable alerts and 46 clean controls; no paired rule-count differences were observed. Both `.onion` lookups failed their inherited success requirement. The shared runner now checks staged binary hashes and tolerates bounded post-exit image locks. Initial harness failures and repeated Sysmon image-hash discrepancies are retained in the [qualification report](../../coverage/validation/go/README.md).

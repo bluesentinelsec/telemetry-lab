@@ -1,0 +1,8 @@
+Remove-Item : Cannot remove item C:\lab\windows-coverage\run\probe.exe: The process cannot access the file 
+'C:\lab\windows-coverage\run\probe.exe' because it is being used by another process.
+At C:\lab\go-support\run.ps1:173 char:30
++         if (Test-Path $exe) {Remove-Item $exe -Force}
++                              ~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : WriteError: (C:\lab\windows-coverage\run\probe.exe:FileInfo) [Remove-Item], IOException
+    + FullyQualifiedErrorId : RemoveFileSystemItemIOError,Microsoft.PowerShell.Commands.RemoveItemCommand
+

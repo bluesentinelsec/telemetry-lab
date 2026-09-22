@@ -1,0 +1,10 @@
+{
+  "bytes": 10396597,
+  "sha256": "8b69d5a1496a2ea42fed18e896a8e714fa5c45be4c726e3bebca4f1ca96fa703",
+  "entries": 849,
+  "file": "/Users/michaellong/telemetry-lab-data/windows-go-2026-09-22/windows-go-evidence.tgz",
+  "build_workflow_run": 35779833371,
+  "build_commit": "ee4518d5b360f9b9fface4b1b632ee1c44cd9731",
+  "runner_commit": "76ab32b9a60f5d18dd1de165ff5ff573b3daf19c",
+  "instance": "i-09603a5b866fdda95"
+}

@@ -1,0 +1,515 @@
+﻿{
+    "runtime":  "go-static",
+    "language":  "go",
+    "compiler_version":  "go1.23.12",
+    "compiler_identity":  "go version go1.23.12 windows/amd64",
+    "programs":  [
+                     {
+                         "case_id":  "registry_run_key",
+                         "sha256":  "91e1b2fcb2eca6f20fd8f4f2ac2824d47c795e1ea7e1365f7529630d2d0f9ab6",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/registry_run_key.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/registry_run_key\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tdep\tgolang.org/x/sys\tv0.24.0\th1:Twjiwq9dn6R1fQcyiK+wQyHWfaz/BJB+YIpzU/Cv3Xg=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "registry_app_paths",
+                         "sha256":  "352ac9bcc73a233987de7b82b29fa102b4c06a173598e7c707f8cedcd7c915ed",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/registry_app_paths.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/registry_app_paths\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tdep\tgolang.org/x/sys\tv0.24.0\th1:Twjiwq9dn6R1fQcyiK+wQyHWfaz/BJB+YIpzU/Cv3Xg=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "registry_active_setup",
+                         "sha256":  "5c8e92ab6dc7275826fe46741b739f20cadd5ff468a846d8fc990537bbcc29f8",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/registry_active_setup.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/registry_active_setup\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tdep\tgolang.org/x/sys\tv0.24.0\th1:Twjiwq9dn6R1fQcyiK+wQyHWfaz/BJB+YIpzU/Cv3Xg=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "registry_screensaver",
+                         "sha256":  "3ee16c61f24c1de3c045e186d1cde69f68a6868b33af8f698e18a751a967daff",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/registry_screensaver.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/registry_screensaver\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tdep\tgolang.org/x/sys\tv0.24.0\th1:Twjiwq9dn6R1fQcyiK+wQyHWfaz/BJB+YIpzU/Cv3Xg=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "registry_runmru_delete",
+                         "sha256":  "06277140ca877b02be4d5ef8b37a3149f24f6b1c6c691d6d2567986b098dee49",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/registry_runmru_delete.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/registry_runmru_delete\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tdep\tgolang.org/x/sys\tv0.24.0\th1:Twjiwq9dn6R1fQcyiK+wQyHWfaz/BJB+YIpzU/Cv3Xg=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "startup_file",
+                         "sha256":  "440ac3cb21d087c4f011e1dab11f318e290ad91e66fb082a20ab0e6742938266",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/startup_file.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/startup_file\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "powershell_profile",
+                         "sha256":  "5f4765530e337f0bb7ad1b64e64932c2041b8c3b3757e6235041be15c9211848",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/powershell_profile.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/powershell_profile\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "public_binary",
+                         "sha256":  "6c27e0e683197b62d7d2b03c16aa748ef0261e533e4b8602ca6a59eb3bffcf5f",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/public_binary.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/public_binary\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "double_extension_file",
+                         "sha256":  "963cfb85d32bc3c73a9678b1f3725fa2d102405006c812123ef5eb7464626ab7",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/double_extension_file.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/double_extension_file\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "double_extension_lnk",
+                         "sha256":  "16c64f2b117ba85645a98f8ec9ee92d9c7ee71bc2049f9d90688de12a196440a",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/double_extension_lnk.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/double_extension_lnk\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "office_startup_file",
+                         "sha256":  "04a93604de97eea8872e308fdf29b2b1c3f74fa8b3e40437775ad1558a508731",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/office_startup_file.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/office_startup_file\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "suspicious_executable_file",
+                         "sha256":  "4749f3c96ee5c599b9375c1428fccb8d999f9b01d25aa9ab0c1d33617288590d",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/suspicious_executable_file.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/suspicious_executable_file\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "tcp_connect_2525",
+                         "sha256":  "e9904979174338a2853593c092c74938901e12026c10904f9e708cc4f1b69e28",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/tcp_connect_2525.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/tcp_connect_2525\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "tcp_connect_3389",
+                         "sha256":  "7786f46e5fb990b650112627ba02c2ccf6f8c6bb00b8b6d07e287533046ef65a",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/tcp_connect_3389.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/tcp_connect_3389\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "tcp_connect_9389",
+                         "sha256":  "25db25df20703b6c008daf2857c8277cdc0af9307d8a4c6618d870f5b6475ada",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/tcp_connect_9389.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/tcp_connect_9389\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "tcp_connect_88",
+                         "sha256":  "1da5af018b351b562baccee176b9ddd0f9b78b1d0f0bd52957dd4cd9caf8d9b3",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/tcp_connect_88.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/tcp_connect_88\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "tcp_connect_public_path",
+                         "sha256":  "56dce9a115d62d4534d8f1995814b6584b5ff7b86e1a2fc6aca900d212673381",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/tcp_connect_public_path.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/tcp_connect_public_path\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "dns_onion",
+                         "sha256":  "2a8f23cbb9b150210d8c4b62ec48030d2af6cb63d966de74442757ea4de3de22",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/dns_onion.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/dns_onion\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "dns_ip_lookup",
+                         "sha256":  "56713636f20ac0bfd87c44a72ed4dc566e8ea08399eb8c2b5c4e15296e62e8ee",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/dns_ip_lookup.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/dns_ip_lookup\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "double_extension_execute",
+                         "sha256":  "fda55a36592babbdc7ad85966e2860acaa342d98e5c83b3e48b5e6eac897ccdf",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/double_extension_execute.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/double_extension_execute\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "creation_time_change",
+                         "sha256":  "dfce3416a31f31f9038d874d6c71b2fcb62c7c9fb0eea5bdf312bbb016fa5d7d",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/creation_time_change.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/creation_time_change\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tdep\tgolang.org/x/sys\tv0.24.0\th1:Twjiwq9dn6R1fQcyiK+wQyHWfaz/BJB+YIpzU/Cv3Xg=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "ads_executable",
+                         "sha256":  "9980cd824f947a41211b03e05d14068cb0026af440c7c74fa23f5b260536b944",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/ads_executable.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/ads_executable\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "named_pipe_indicator",
+                         "sha256":  "af2ac9606f96412106aaad2af3a39f421ab764c461ec9dfa25ccd412c671acdc",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/named_pipe_indicator.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/named_pipe_indicator\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tdep\tgolang.org/x/sys\tv0.24.0\th1:Twjiwq9dn6R1fQcyiK+wQyHWfaz/BJB+YIpzU/Cv3Xg=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     },
+                     {
+                         "case_id":  "unsigned_node_load",
+                         "sha256":  "dfc2f49c53eb37cd31e118db309db7c4443386821239225fa795d909e609de82",
+                         "imports":  [
+                                         "kernel32.dll"
+                                     ],
+                         "go_build_settings":  {
+                                                   "-buildmode":  "exe",
+                                                   "-compiler":  "gc",
+                                                   "-trimpath":  "true",
+                                                   "CGO_ENABLED":  "0",
+                                                   "GOARCH":  "amd64",
+                                                   "GOOS":  "windows",
+                                                   "GOAMD64":  "v1",
+                                                   "vcs":  "git",
+                                                   "vcs.revision":  "45c7bbcd276b8754169bd06114d55baed38e83a1",
+                                                   "vcs.time":  "2026-09-22T20:22:10Z",
+                                                   "vcs.modified":  "false"
+                                               },
+                         "go_build_info":  "D:/a/telemetry-lab/telemetry-lab/composite-dist/windows-go-static/coverage/unsigned_node_load.exe: go1.23.12\n\tpath\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/unsigned_node_load\n\tmod\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go\t(devel)\t\n\tdep\tgolang.org/x/sys\tv0.24.0\th1:Twjiwq9dn6R1fQcyiK+wQyHWfaz/BJB+YIpzU/Cv3Xg=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=windows\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=45c7bbcd276b8754169bd06114d55baed38e83a1\n\tbuild\tvcs.time=2026-09-22T20:22:10Z\n\tbuild\tvcs.modified=false\n"
+                     }
+                 ],
+    "dependent_dlls":  [
+
+                       ]
+}

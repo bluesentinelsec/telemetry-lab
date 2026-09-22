@@ -1,0 +1,5 @@
+﻿{
+    "path":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+    "sha256":  "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e",
+    "reason":  "Owned DNS control image left by the retained initial cleanup failure"
+}

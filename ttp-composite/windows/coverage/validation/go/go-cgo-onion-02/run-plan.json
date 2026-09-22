@@ -1,0 +1,7 @@
+﻿{
+    "runtime":  "go-cgo",
+    "cases":  [
+                  "dns_onion"
+              ],
+    "expected_attempts":  2
+}

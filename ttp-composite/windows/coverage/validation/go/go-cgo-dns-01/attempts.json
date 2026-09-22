@@ -1,0 +1,18 @@
+﻿{
+    "case_id":  "dns_ip_lookup",
+    "mode":  "control",
+    "rule_id":  "e1d5e512-66be-e3eb-e24b-a9f3545e115a",
+    "runtime":  "go-cgo",
+    "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+    "sha256":  "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e",
+    "behavior_ok":  true,
+    "process":  {
+                    "pid":  4832,
+                    "start_utc":  "2026-09-22T20:29:16.4026472Z",
+                    "end_utc":  "2026-09-22T20:29:16.4489385Z",
+                    "exit_code":  0,
+                    "timed_out":  false,
+                    "stdout":  "COMPOSITE_CASE dns_ip_lookup\nCONTROL_OK dns_ip_lookup\n",
+                    "stderr":  ""
+                }
+}

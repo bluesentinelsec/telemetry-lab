@@ -1,0 +1,241 @@
+{
+  "build_commit": "ee4518d5b360f9b9fface4b1b632ee1c44cd9731",
+  "build_workflow_run": 35779833371,
+  "runner_commit": "76ab32b9a60f5d18dd1de165ff5ff573b3daf19c",
+  "runner_sha256": "e4afafd2e054639fa7ba1a1cb2c19b49748062db9793c4da6a4666f39ec99746",
+  "instance": "i-09603a5b866fdda95",
+  "cases_implemented": 24,
+  "enabled_sysmon_rules": 2269,
+  "qualified_rules_by_runtime": {
+    "go-cgo": 23,
+    "go-static": 23
+  },
+  "attempts": 141,
+  "counts": {
+    "alert": 68,
+    "valid-miss": 0,
+    "control-pass": 70,
+    "control-failed": 0,
+    "attribution-incomplete": 0,
+    "invalid": 3
+  },
+  "campaigns": {
+    "go-cgo-dns-01": {
+      "counts": {
+        "alert": 0,
+        "valid-miss": 0,
+        "control-pass": 0,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 1
+      },
+      "healthy": false,
+      "expected_attempts": 2,
+      "recorded_attempts": 1,
+      "complete": false
+    },
+    "go-cgo-dns-02": {
+      "counts": {
+        "alert": 1,
+        "valid-miss": 0,
+        "control-pass": 1,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": true,
+      "expected_attempts": 2,
+      "recorded_attempts": 2,
+      "complete": true
+    },
+    "go-cgo-nonnetwork-01": {
+      "counts": {
+        "alert": 17,
+        "valid-miss": 0,
+        "control-pass": 17,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": true,
+      "expected_attempts": 34,
+      "recorded_attempts": 34,
+      "complete": true
+    },
+    "go-cgo-nonnetwork-02": {
+      "counts": {
+        "alert": 17,
+        "valid-miss": 0,
+        "control-pass": 17,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": true,
+      "expected_attempts": 34,
+      "recorded_attempts": 34,
+      "complete": true
+    },
+    "go-cgo-onion-02": {
+      "counts": {
+        "alert": 0,
+        "valid-miss": 0,
+        "control-pass": 1,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 1
+      },
+      "healthy": true,
+      "expected_attempts": 2,
+      "recorded_attempts": 2,
+      "complete": true
+    },
+    "go-cgo-tcp-01": {
+      "counts": {
+        "alert": 5,
+        "valid-miss": 0,
+        "control-pass": 5,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": true,
+      "expected_attempts": 10,
+      "recorded_attempts": 10,
+      "complete": true
+    },
+    "go-cgo-tcp-02": {
+      "counts": {
+        "alert": 5,
+        "valid-miss": 0,
+        "control-pass": 5,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": true,
+      "expected_attempts": 10,
+      "recorded_attempts": 10,
+      "complete": true
+    },
+    "go-static-dns-01": {
+      "counts": {
+        "alert": 0,
+        "valid-miss": 0,
+        "control-pass": 0,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": false,
+      "expected_attempts": 2,
+      "recorded_attempts": 0,
+      "complete": false
+    },
+    "go-static-dns-02": {
+      "counts": {
+        "alert": 1,
+        "valid-miss": 0,
+        "control-pass": 1,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": true,
+      "expected_attempts": 2,
+      "recorded_attempts": 2,
+      "complete": true
+    },
+    "go-static-nonnetwork-01": {
+      "counts": {
+        "alert": 0,
+        "valid-miss": 0,
+        "control-pass": 0,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": false,
+      "expected_attempts": 34,
+      "recorded_attempts": 0,
+      "complete": false
+    },
+    "go-static-nonnetwork-02": {
+      "counts": {
+        "alert": 17,
+        "valid-miss": 0,
+        "control-pass": 17,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": true,
+      "expected_attempts": 34,
+      "recorded_attempts": 34,
+      "complete": true
+    },
+    "go-static-onion-02": {
+      "counts": {
+        "alert": 0,
+        "valid-miss": 0,
+        "control-pass": 1,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 1
+      },
+      "healthy": true,
+      "expected_attempts": 2,
+      "recorded_attempts": 2,
+      "complete": true
+    },
+    "go-static-tcp-01": {
+      "counts": {
+        "alert": 0,
+        "valid-miss": 0,
+        "control-pass": 0,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": false,
+      "expected_attempts": 10,
+      "recorded_attempts": 0,
+      "complete": false
+    },
+    "go-static-tcp-02": {
+      "counts": {
+        "alert": 5,
+        "valid-miss": 0,
+        "control-pass": 5,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": true,
+      "expected_attempts": 10,
+      "recorded_attempts": 10,
+      "complete": true
+    }
+  },
+  "raw_archive_root": "/Users/michaellong/telemetry-lab-data/windows-go-2026-09-22",
+  "ci_artifacts": {
+    "ci-go-cgo.zip": {
+      "bytes": 43235630,
+      "sha256": "fb490b402c71768dabfe265149411fa03d6de6305be1c7b4631a36bc9d7c0e40"
+    },
+    "ci-go-static.zip": {
+      "bytes": 44625498,
+      "sha256": "1b8a91c9cd611a8df9c9b28a9900f4863164a97f00f0795e2fa209c3925d837f"
+    }
+  },
+  "support_bundles": {
+    "support-v2.zip": {
+      "bytes": 498492,
+      "sha256": "db992c030da99005c53df6ade5df6840d64c49c046d6f88b1b73c28c86b1f27b"
+    },
+    "support.zip": {
+      "bytes": 497523,
+      "sha256": "29ee42dceb302d004f749dbc3ae349c6cd0678ca7c7d5d4634c7b55a86bf285f"
+    }
+  }
+}

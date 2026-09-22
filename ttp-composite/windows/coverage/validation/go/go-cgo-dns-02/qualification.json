@@ -1,0 +1,68 @@
+{
+  "healthy": true,
+  "complete": true,
+  "expected_attempts": 2,
+  "recorded_attempts": 2,
+  "attempts": [
+    {
+      "case_id": "dns_ip_lookup",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "e1d5e512-66be-e3eb-e24b-a9f3545e115a",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e6d3-6ab2-9201-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Brandon George (blog post), Thomas Patzke",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/dns_query/dns_query_win_susp_external_ip_lookup.yml"
+    },
+    {
+      "case_id": "dns_ip_lookup",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "e1d5e512-66be-e3eb-e24b-a9f3545e115a",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e6d4-6ab2-9301-000000007d00}"
+      ],
+      "target_record_ids": [
+        "268695"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        12,
+        22
+      ],
+      "rule_authors": "Brandon George (blog post), Thomas Patzke",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/dns_query/dns_query_win_susp_external_ip_lookup.yml"
+    }
+  ],
+  "counts": {
+    "alert": 1,
+    "valid-miss": 0,
+    "control-pass": 1,
+    "control-failed": 0,
+    "attribution-incomplete": 0,
+    "invalid": 0
+  }
+}

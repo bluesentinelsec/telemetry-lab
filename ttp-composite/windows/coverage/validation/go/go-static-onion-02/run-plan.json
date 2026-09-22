@@ -1,0 +1,7 @@
+﻿{
+    "runtime":  "go-static",
+    "cases":  [
+                  "dns_onion"
+              ],
+    "expected_attempts":  2
+}
