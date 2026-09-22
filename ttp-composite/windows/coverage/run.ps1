@@ -30,6 +30,23 @@ $createdDirs = [Collections.Generic.List[string]]::new()
 function Ensure-Directory([string]$path) {
   if (!(Test-Path $path)) { New-Item -ItemType Directory -Path $path -Force | Out-Null; $createdDirs.Add($path) }
 }
+function Remove-OwnedFile([string]$path) {
+  # A sensor can still hold the image briefly after the measured process exits.
+  # Retry only cleanup of harness-owned files; never extend the measured lifetime.
+  for($retry=0;$retry -le 50;$retry++) {
+    try {
+      Remove-Item $path -Force -ErrorAction Stop
+      if($retry){@{path=$path;retries=$retry;removed=$true} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"}
+      return
+    } catch [System.IO.IOException] {
+      if($retry -eq 50){
+        @{path=$path;retries=$retry;removed=$false;error=$_.Exception.Message} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"
+        throw
+      }
+      Start-Sleep -Milliseconds 100
+    }
+  }
+}
 function Save-RegistryValue([string]$path,[string]$name) {
   $key=[Microsoft.Win32.Registry]::CurrentUser.OpenSubKey($path,$true)
   $keyExisted=$null -ne $key
@@ -160,18 +177,22 @@ try {
         if ($id -eq 'double_extension_execute') {Copy-Item "$root\fixtures\helper.exe" $target}
         if ($id -eq 'ads_executable') {[IO.File]::WriteAllText("$root\work\carrier.txt",'fixture')}
         Copy-Item $source $exe
+        # Sysmon may retain an older hash for a reused image path. Independently
+        # verify the actual staged file before launch; preserve sensor metadata.
+        $stagedHash=(Get-FileHash $exe -Algorithm SHA256).Hash.ToLower()
+        if($stagedHash -ne $manifest[0].sha256){throw "Staged artifact mismatch $id"}
         if ($case.family -eq 'DNS') {Clear-DnsClientCache}
         $run=Invoke-Probe $exe $mode $folder
         $prefix=if($mode -eq 'control'){'CONTROL_OK'}else{'BEHAVIOR_OK'}
         $ok=(!$run.timed_out -and $run.exit_code -eq 0 -and $run.stdout.Contains("$prefix $id"))
-        $attempt=[ordered]@{case_id=$id;mode=$mode;rule_id=$case.rule_id;runtime=$build.runtime;executable=$exe;sha256=$manifest[0].sha256;behavior_ok=$ok;process=$run}
+        $attempt=[ordered]@{case_id=$id;mode=$mode;rule_id=$case.rule_id;runtime=$build.runtime;executable=$exe;sha256=$manifest[0].sha256;staged_sha256=$stagedHash;behavior_ok=$ok;process=$run}
         $attempts.Add([pscustomobject]$attempt)
         $attempt | ConvertTo-Json -Depth 8 | Set-Content "$folder\attempt.json" -Encoding UTF8
         Write-Host "$($build.runtime) $id $mode behavior=$ok"
       } finally {
         # All cleanup is performed by the harness, after the measured process exits.
-        if (Test-Path $exe) {Remove-Item $exe -Force}
-        if ($id -ne 'ads_executable' -and $targetOwned -and $target -and (Test-Path $target)) {Remove-Item $target -Force}
+        if (Test-Path $exe) {Remove-OwnedFile $exe}
+        if ($id -ne 'ads_executable' -and $targetOwned -and $target -and (Test-Path $target)) {Remove-OwnedFile $target}
         if ($targetOwned -and $id -eq 'ads_executable') {Remove-Item "$root\work\carrier.txt" -Force -ErrorAction SilentlyContinue}
         if ($runmruOwned) {[Microsoft.Win32.Registry]::CurrentUser.DeleteSubKeyTree($runmru,$false)}
         Restore-Registry
@@ -184,13 +205,13 @@ try {
 } finally {
   # Always persist attempts, even if fixture/runtime cleanup fails.
   try {
-    foreach($dll in $stagedDlls){Remove-Item $dll -Force}
+    foreach($dll in $stagedDlls){Remove-OwnedFile $dll}
     Restore-Registry
   } catch {
     $_ | Out-String | Set-Content "$Output\cleanup-error.txt"
     if(!$executionError){$executionError=$_}
   } finally {
-    $attempts.ToArray() | ConvertTo-Json -Depth 10 | Set-Content "$Output\attempts.json" -Encoding UTF8
+    ConvertTo-Json -InputObject @($attempts.ToArray()) -Depth 10 | Set-Content "$Output\attempts.json" -Encoding UTF8
   }
 }
 if ($BehaviorOnly) {

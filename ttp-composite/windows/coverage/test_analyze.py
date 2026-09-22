@@ -1,6 +1,11 @@
 import copy
 import unittest
-from analyze import evaluate
+import json
+import tempfile
+import subprocess
+import sys
+from pathlib import Path
+from analyze import evaluate, analyze
 
 class AttributionTests(unittest.TestCase):
     def setUp(self):
@@ -49,5 +54,27 @@ class AttributionTests(unittest.TestCase):
         self.assertEqual(result['outcome'],'alert')
     def test_missing_start_is_invalid(self):
         self.assertEqual(evaluate(self.attempt,self.events[1:],[])['outcome'],'invalid')
+
+    def test_staged_binary_must_match_manifest(self):
+        self.attempt.update(sha256='expected',staged_sha256='different')
+        self.assertEqual(evaluate(self.attempt,self.events,[dict(RuleID='target',RecordID='2')])['outcome'],'invalid')
+        self.attempt['staged_sha256']='expected'
+        self.events[0]['fields']['Hashes']='SHA256=previous-case'
+        self.assertEqual(evaluate(self.attempt,self.events,[dict(RuleID='target',RecordID='2')])['outcome'],'alert')
+
+    def test_campaign_aborted_before_first_attempt_is_not_success(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            for name,value in {'events.json':[], 'health.json':{'log_overwritten':False,'sysmon_service':'Running','error_events':[]},
+                               'run-plan.json':{'cases':['registry_run_key'],'expected_attempts':2}}.items():
+                (root/name).write_text(json.dumps(value))
+            (root/'alerts.csv').write_text('RuleID,RecordID\n')
+            (root/'detector-exit.txt').write_text('0')
+            (root/'execution-error.txt').write_text('Fixture precondition failed')
+            result=analyze(root)
+            self.assertFalse(result['healthy']);self.assertFalse(result['complete'])
+            self.assertEqual(result['recorded_attempts'],0)
+            command=subprocess.run([sys.executable,str(Path(__file__).with_name('analyze.py')),str(root)],capture_output=True)
+            self.assertEqual(command.returncode,1)
 
 if __name__=='__main__':unittest.main()

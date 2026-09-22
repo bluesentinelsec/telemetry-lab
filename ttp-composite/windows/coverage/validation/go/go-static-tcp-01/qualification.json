@@ -1,0 +1,15 @@
+{
+  "healthy": false,
+  "complete": false,
+  "expected_attempts": 10,
+  "recorded_attempts": 0,
+  "attempts": [],
+  "counts": {
+    "alert": 0,
+    "valid-miss": 0,
+    "control-pass": 0,
+    "control-failed": 0,
+    "attribution-incomplete": 0,
+    "invalid": 0
+  }
+}

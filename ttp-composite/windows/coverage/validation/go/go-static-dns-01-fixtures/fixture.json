@@ -1,0 +1,10 @@
+﻿{
+    "server_sha256":  "07451FA33BE2105F6DCECA2F0D0E074D3B1EABBF68DF78E1BA91C5408B41EC04",
+    "answer":  "127.0.0.42",
+    "process_id":  3332,
+    "policy_name":  "{C575C188-9F37-414A-B020-ACA92C2F1A6E}",
+    "address":  "127.0.0.1",
+    "names":  [
+                  "api.ipify.org"
+              ]
+}

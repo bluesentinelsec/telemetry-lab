@@ -1,0 +1,74 @@
+{
+  "alerts.csv": {
+    "bytes": 390291,
+    "sha256": "cd543b0ab591dcec8b05a1049c91a9ad193881664597ed7a5c5c16f87ad719e4"
+  },
+  "attempts.json": {
+    "bytes": 740,
+    "sha256": "df3caa4da735de1f4d822818d0cc9435a7a7eddd9c9831e613007c3b031c671d"
+  },
+  "build-manifest.json": {
+    "bytes": 62931,
+    "sha256": "a1e908e4b1f885e16f3d1dfc400b33d53ed47d8a5b0fc8a0d8728d75444f2017"
+  },
+  "detector-exit.txt": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "dns_ip_lookup-control/attempt.json": {
+    "bytes": 740,
+    "sha256": "df3caa4da735de1f4d822818d0cc9435a7a7eddd9c9831e613007c3b031c671d"
+  },
+  "dns_ip_lookup-control/stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dns_ip_lookup-control/stdout.txt": {
+    "bytes": 54,
+    "sha256": "17f691f25f8092fe245b8a6fe26d4c9e632d8b8012dc7e6481c58450c6e00592"
+  },
+  "events.evtx": {
+    "bytes": 2166784,
+    "sha256": "21da8ff223babe9318736d7bf422c8618083d8913a833494040736488ecee8b2"
+  },
+  "events.json": {
+    "bytes": 791266,
+    "sha256": "c4ad4e1f71853dae0ca77aad5a1c125d822d2c7d98f3f200526c2c4564db2280"
+  },
+  "execution-error.txt": {
+    "bytes": 578,
+    "sha256": "629bbf566f1888891600925c31ae96bbf6cc90652632efb6d32ab05b3b3757f0"
+  },
+  "hayabusa.log": {
+    "bytes": 7970,
+    "sha256": "2279fd25428c733c2a57558cd09973f63d66e7f99907e9389e96588e3a93ede2"
+  },
+  "hayabusa.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "health.json": {
+    "bytes": 225,
+    "sha256": "2fa6200fe6aa9ac83d8bb0a10919a9a9f51bfee9ecb1c74cd0013789c66404c6"
+  },
+  "inventory.json": {
+    "bytes": 832,
+    "sha256": "8067d078a08114c74b58e343ed7df6ade4220f5b8fd99e8208e68cebf0ecd569"
+  },
+  "qualification.json": {
+    "bytes": 1100,
+    "sha256": "d71dfa95d6038bc4054c07c1b461fa50e55cd1116e8f88aa2fcaef9fdf292685"
+  },
+  "rule-inventory.csv": {
+    "bytes": 1283214,
+    "sha256": "ada9f35a9e2c179f05f84f842fe73f01d1e45f64f171b3328eb218c82f564035"
+  },
+  "run-plan.json": {
+    "bytes": 135,
+    "sha256": "f84a8ea9bdfe9f4b1189c1c9b56e0cbfb4b305da24c03f35a346f1339df66441"
+  },
+  "selection.json": {
+    "bytes": 77605,
+    "sha256": "d634be4207c819c8e474f0985a0b94fe6d6e3a7d04a76727e9842ea52e9f01a5"
+  }
+}

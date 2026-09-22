@@ -1,0 +1,648 @@
+﻿[
+    {
+        "case_id":  "registry_run_key",
+        "mode":  "control",
+        "rule_id":  "3f59aeed-e4fb-6b21-a7fa-a327fdb8494d",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "91e1b2fcb2eca6f20fd8f4f2ac2824d47c795e1ea7e1365f7529630d2d0f9ab6",
+        "staged_sha256":  "91e1b2fcb2eca6f20fd8f4f2ac2824d47c795e1ea7e1365f7529630d2d0f9ab6",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4256,
+                        "start_utc":  "2026-09-22T20:37:13.5079909Z",
+                        "end_utc":  "2026-09-22T20:37:13.5216225Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_run_key\nCONTROL_OK registry_run_key\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_run_key",
+        "mode":  "active",
+        "rule_id":  "3f59aeed-e4fb-6b21-a7fa-a327fdb8494d",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "91e1b2fcb2eca6f20fd8f4f2ac2824d47c795e1ea7e1365f7529630d2d0f9ab6",
+        "staged_sha256":  "91e1b2fcb2eca6f20fd8f4f2ac2824d47c795e1ea7e1365f7529630d2d0f9ab6",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3584,
+                        "start_utc":  "2026-09-22T20:37:13.5571246Z",
+                        "end_utc":  "2026-09-22T20:37:13.5758718Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_run_key\nBEHAVIOR_OK registry_run_key\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_app_paths",
+        "mode":  "control",
+        "rule_id":  "140df4ae-d66c-c984-2165-595d754d0424",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "352ac9bcc73a233987de7b82b29fa102b4c06a173598e7c707f8cedcd7c915ed",
+        "staged_sha256":  "352ac9bcc73a233987de7b82b29fa102b4c06a173598e7c707f8cedcd7c915ed",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1904,
+                        "start_utc":  "2026-09-22T20:37:13.6132312Z",
+                        "end_utc":  "2026-09-22T20:37:13.6274882Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_app_paths\nCONTROL_OK registry_app_paths\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_app_paths",
+        "mode":  "active",
+        "rule_id":  "140df4ae-d66c-c984-2165-595d754d0424",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "352ac9bcc73a233987de7b82b29fa102b4c06a173598e7c707f8cedcd7c915ed",
+        "staged_sha256":  "352ac9bcc73a233987de7b82b29fa102b4c06a173598e7c707f8cedcd7c915ed",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4100,
+                        "start_utc":  "2026-09-22T20:37:13.6605998Z",
+                        "end_utc":  "2026-09-22T20:37:13.6749589Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_app_paths\nBEHAVIOR_OK registry_app_paths\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_active_setup",
+        "mode":  "control",
+        "rule_id":  "46f90542-f6e6-75d1-c29d-e26535273ec0",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "5c8e92ab6dc7275826fe46741b739f20cadd5ff468a846d8fc990537bbcc29f8",
+        "staged_sha256":  "5c8e92ab6dc7275826fe46741b739f20cadd5ff468a846d8fc990537bbcc29f8",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4884,
+                        "start_utc":  "2026-09-22T20:37:13.7114347Z",
+                        "end_utc":  "2026-09-22T20:37:13.7252968Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_active_setup\nCONTROL_OK registry_active_setup\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_active_setup",
+        "mode":  "active",
+        "rule_id":  "46f90542-f6e6-75d1-c29d-e26535273ec0",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "5c8e92ab6dc7275826fe46741b739f20cadd5ff468a846d8fc990537bbcc29f8",
+        "staged_sha256":  "5c8e92ab6dc7275826fe46741b739f20cadd5ff468a846d8fc990537bbcc29f8",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4696,
+                        "start_utc":  "2026-09-22T20:37:13.7580399Z",
+                        "end_utc":  "2026-09-22T20:37:13.7724101Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_active_setup\nBEHAVIOR_OK registry_active_setup\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_screensaver",
+        "mode":  "control",
+        "rule_id":  "ec1e8c56-2fa0-7417-e4b3-517d291e30b2",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "3ee16c61f24c1de3c045e186d1cde69f68a6868b33af8f698e18a751a967daff",
+        "staged_sha256":  "3ee16c61f24c1de3c045e186d1cde69f68a6868b33af8f698e18a751a967daff",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3936,
+                        "start_utc":  "2026-09-22T20:37:13.8097923Z",
+                        "end_utc":  "2026-09-22T20:37:13.8248493Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_screensaver\nCONTROL_OK registry_screensaver\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_screensaver",
+        "mode":  "active",
+        "rule_id":  "ec1e8c56-2fa0-7417-e4b3-517d291e30b2",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "3ee16c61f24c1de3c045e186d1cde69f68a6868b33af8f698e18a751a967daff",
+        "staged_sha256":  "3ee16c61f24c1de3c045e186d1cde69f68a6868b33af8f698e18a751a967daff",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2180,
+                        "start_utc":  "2026-09-22T20:37:13.8579585Z",
+                        "end_utc":  "2026-09-22T20:37:13.8762738Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_screensaver\nBEHAVIOR_OK registry_screensaver\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_runmru_delete",
+        "mode":  "control",
+        "rule_id":  "ec2a6d71-1139-d6f1-c39e-e9fc35500540",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "06277140ca877b02be4d5ef8b37a3149f24f6b1c6c691d6d2567986b098dee49",
+        "staged_sha256":  "06277140ca877b02be4d5ef8b37a3149f24f6b1c6c691d6d2567986b098dee49",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1436,
+                        "start_utc":  "2026-09-22T20:37:13.9133782Z",
+                        "end_utc":  "2026-09-22T20:37:13.9269310Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_runmru_delete\nCONTROL_OK registry_runmru_delete\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "registry_runmru_delete",
+        "mode":  "active",
+        "rule_id":  "ec2a6d71-1139-d6f1-c39e-e9fc35500540",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "06277140ca877b02be4d5ef8b37a3149f24f6b1c6c691d6d2567986b098dee49",
+        "staged_sha256":  "06277140ca877b02be4d5ef8b37a3149f24f6b1c6c691d6d2567986b098dee49",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4620,
+                        "start_utc":  "2026-09-22T20:37:13.9604984Z",
+                        "end_utc":  "2026-09-22T20:37:13.9757573Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE registry_runmru_delete\nBEHAVIOR_OK registry_runmru_delete\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "startup_file",
+        "mode":  "control",
+        "rule_id":  "daaf04a9-5b60-e331-6611-a3a32797e550",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "440ac3cb21d087c4f011e1dab11f318e290ad91e66fb082a20ab0e6742938266",
+        "staged_sha256":  "440ac3cb21d087c4f011e1dab11f318e290ad91e66fb082a20ab0e6742938266",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3904,
+                        "start_utc":  "2026-09-22T20:37:14.0126744Z",
+                        "end_utc":  "2026-09-22T20:37:14.0238385Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE startup_file\nCONTROL_OK startup_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "startup_file",
+        "mode":  "active",
+        "rule_id":  "daaf04a9-5b60-e331-6611-a3a32797e550",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "440ac3cb21d087c4f011e1dab11f318e290ad91e66fb082a20ab0e6742938266",
+        "staged_sha256":  "440ac3cb21d087c4f011e1dab11f318e290ad91e66fb082a20ab0e6742938266",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4740,
+                        "start_utc":  "2026-09-22T20:37:14.0550177Z",
+                        "end_utc":  "2026-09-22T20:37:14.0688503Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE startup_file\nBEHAVIOR_OK startup_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "powershell_profile",
+        "mode":  "control",
+        "rule_id":  "5d1e6a6b-91ca-c7e8-821c-5c665ad9ca5e",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "5f4765530e337f0bb7ad1b64e64932c2041b8c3b3757e6235041be15c9211848",
+        "staged_sha256":  "5f4765530e337f0bb7ad1b64e64932c2041b8c3b3757e6235041be15c9211848",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3512,
+                        "start_utc":  "2026-09-22T20:37:14.1067234Z",
+                        "end_utc":  "2026-09-22T20:37:14.1192056Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE powershell_profile\nCONTROL_OK powershell_profile\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "powershell_profile",
+        "mode":  "active",
+        "rule_id":  "5d1e6a6b-91ca-c7e8-821c-5c665ad9ca5e",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "5f4765530e337f0bb7ad1b64e64932c2041b8c3b3757e6235041be15c9211848",
+        "staged_sha256":  "5f4765530e337f0bb7ad1b64e64932c2041b8c3b3757e6235041be15c9211848",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2552,
+                        "start_utc":  "2026-09-22T20:37:14.1528492Z",
+                        "end_utc":  "2026-09-22T20:37:14.1669063Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE powershell_profile\nBEHAVIOR_OK powershell_profile\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "public_binary",
+        "mode":  "control",
+        "rule_id":  "ef4c38c9-e26f-dcfe-1cbe-6323bafb8f39",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "6c27e0e683197b62d7d2b03c16aa748ef0261e533e4b8602ca6a59eb3bffcf5f",
+        "staged_sha256":  "6c27e0e683197b62d7d2b03c16aa748ef0261e533e4b8602ca6a59eb3bffcf5f",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3852,
+                        "start_utc":  "2026-09-22T20:37:14.2033167Z",
+                        "end_utc":  "2026-09-22T20:37:14.2159341Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE public_binary\nCONTROL_OK public_binary\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "public_binary",
+        "mode":  "active",
+        "rule_id":  "ef4c38c9-e26f-dcfe-1cbe-6323bafb8f39",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "6c27e0e683197b62d7d2b03c16aa748ef0261e533e4b8602ca6a59eb3bffcf5f",
+        "staged_sha256":  "6c27e0e683197b62d7d2b03c16aa748ef0261e533e4b8602ca6a59eb3bffcf5f",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1372,
+                        "start_utc":  "2026-09-22T20:37:14.2486350Z",
+                        "end_utc":  "2026-09-22T20:37:14.2630194Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE public_binary\nBEHAVIOR_OK public_binary\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "double_extension_file",
+        "mode":  "control",
+        "rule_id":  "c69c8c8d-4188-72ea-ca61-a2a1a80612b3",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "963cfb85d32bc3c73a9678b1f3725fa2d102405006c812123ef5eb7464626ab7",
+        "staged_sha256":  "963cfb85d32bc3c73a9678b1f3725fa2d102405006c812123ef5eb7464626ab7",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4660,
+                        "start_utc":  "2026-09-22T20:37:14.2992941Z",
+                        "end_utc":  "2026-09-22T20:37:14.3115683Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE double_extension_file\nCONTROL_OK double_extension_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "double_extension_file",
+        "mode":  "active",
+        "rule_id":  "c69c8c8d-4188-72ea-ca61-a2a1a80612b3",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "963cfb85d32bc3c73a9678b1f3725fa2d102405006c812123ef5eb7464626ab7",
+        "staged_sha256":  "963cfb85d32bc3c73a9678b1f3725fa2d102405006c812123ef5eb7464626ab7",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2208,
+                        "start_utc":  "2026-09-22T20:37:14.3439204Z",
+                        "end_utc":  "2026-09-22T20:37:14.3579635Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE double_extension_file\nBEHAVIOR_OK double_extension_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "double_extension_lnk",
+        "mode":  "control",
+        "rule_id":  "6b7cbf57-a67c-6e5a-61c6-4d92d02fff3e",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "16c64f2b117ba85645a98f8ec9ee92d9c7ee71bc2049f9d90688de12a196440a",
+        "staged_sha256":  "16c64f2b117ba85645a98f8ec9ee92d9c7ee71bc2049f9d90688de12a196440a",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2976,
+                        "start_utc":  "2026-09-22T20:37:14.3943112Z",
+                        "end_utc":  "2026-09-22T20:37:14.4083586Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE double_extension_lnk\nCONTROL_OK double_extension_lnk\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "double_extension_lnk",
+        "mode":  "active",
+        "rule_id":  "6b7cbf57-a67c-6e5a-61c6-4d92d02fff3e",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "16c64f2b117ba85645a98f8ec9ee92d9c7ee71bc2049f9d90688de12a196440a",
+        "staged_sha256":  "16c64f2b117ba85645a98f8ec9ee92d9c7ee71bc2049f9d90688de12a196440a",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3192,
+                        "start_utc":  "2026-09-22T20:37:14.4408808Z",
+                        "end_utc":  "2026-09-22T20:37:14.4527216Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE double_extension_lnk\nBEHAVIOR_OK double_extension_lnk\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "office_startup_file",
+        "mode":  "control",
+        "rule_id":  "be512a1b-170e-acff-f35d-0e4b44caa2a3",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "04a93604de97eea8872e308fdf29b2b1c3f74fa8b3e40437775ad1558a508731",
+        "staged_sha256":  "04a93604de97eea8872e308fdf29b2b1c3f74fa8b3e40437775ad1558a508731",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1788,
+                        "start_utc":  "2026-09-22T20:37:14.4883309Z",
+                        "end_utc":  "2026-09-22T20:37:14.5007730Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE office_startup_file\nCONTROL_OK office_startup_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "office_startup_file",
+        "mode":  "active",
+        "rule_id":  "be512a1b-170e-acff-f35d-0e4b44caa2a3",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "04a93604de97eea8872e308fdf29b2b1c3f74fa8b3e40437775ad1558a508731",
+        "staged_sha256":  "04a93604de97eea8872e308fdf29b2b1c3f74fa8b3e40437775ad1558a508731",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  564,
+                        "start_utc":  "2026-09-22T20:37:14.5308174Z",
+                        "end_utc":  "2026-09-22T20:37:14.5479215Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE office_startup_file\nBEHAVIOR_OK office_startup_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "suspicious_executable_file",
+        "mode":  "control",
+        "rule_id":  "9512176f-0e9f-7f30-fa82-d414c1c80248",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "4749f3c96ee5c599b9375c1428fccb8d999f9b01d25aa9ab0c1d33617288590d",
+        "staged_sha256":  "4749f3c96ee5c599b9375c1428fccb8d999f9b01d25aa9ab0c1d33617288590d",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  936,
+                        "start_utc":  "2026-09-22T20:37:14.5837867Z",
+                        "end_utc":  "2026-09-22T20:37:14.5961105Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE suspicious_executable_file\nCONTROL_OK suspicious_executable_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "suspicious_executable_file",
+        "mode":  "active",
+        "rule_id":  "9512176f-0e9f-7f30-fa82-d414c1c80248",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "4749f3c96ee5c599b9375c1428fccb8d999f9b01d25aa9ab0c1d33617288590d",
+        "staged_sha256":  "4749f3c96ee5c599b9375c1428fccb8d999f9b01d25aa9ab0c1d33617288590d",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4848,
+                        "start_utc":  "2026-09-22T20:37:14.6264849Z",
+                        "end_utc":  "2026-09-22T20:37:14.6392797Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE suspicious_executable_file\nBEHAVIOR_OK suspicious_executable_file\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "double_extension_execute",
+        "mode":  "control",
+        "rule_id":  "b6ce0b2f-593b-5e1c-e137-d30b2974e30e",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "fda55a36592babbdc7ad85966e2860acaa342d98e5c83b3e48b5e6eac897ccdf",
+        "staged_sha256":  "fda55a36592babbdc7ad85966e2860acaa342d98e5c83b3e48b5e6eac897ccdf",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2816,
+                        "start_utc":  "2026-09-22T20:37:14.6776468Z",
+                        "end_utc":  "2026-09-22T20:37:14.6894729Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE double_extension_execute\nCONTROL_OK double_extension_execute\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "double_extension_execute",
+        "mode":  "active",
+        "rule_id":  "b6ce0b2f-593b-5e1c-e137-d30b2974e30e",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "fda55a36592babbdc7ad85966e2860acaa342d98e5c83b3e48b5e6eac897ccdf",
+        "staged_sha256":  "fda55a36592babbdc7ad85966e2860acaa342d98e5c83b3e48b5e6eac897ccdf",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4396,
+                        "start_utc":  "2026-09-22T20:37:14.7247901Z",
+                        "end_utc":  "2026-09-22T20:37:14.7458735Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE double_extension_execute\nBEHAVIOR_OK double_extension_execute\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "creation_time_change",
+        "mode":  "control",
+        "rule_id":  "1117f7b2-3f59-682b-ad07-081d44ae5ddb",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "dfce3416a31f31f9038d874d6c71b2fcb62c7c9fb0eea5bdf312bbb016fa5d7d",
+        "staged_sha256":  "dfce3416a31f31f9038d874d6c71b2fcb62c7c9fb0eea5bdf312bbb016fa5d7d",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3804,
+                        "start_utc":  "2026-09-22T20:37:14.7852601Z",
+                        "end_utc":  "2026-09-22T20:37:14.7998784Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE creation_time_change\nCONTROL_OK creation_time_change\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "creation_time_change",
+        "mode":  "active",
+        "rule_id":  "1117f7b2-3f59-682b-ad07-081d44ae5ddb",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "dfce3416a31f31f9038d874d6c71b2fcb62c7c9fb0eea5bdf312bbb016fa5d7d",
+        "staged_sha256":  "dfce3416a31f31f9038d874d6c71b2fcb62c7c9fb0eea5bdf312bbb016fa5d7d",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1400,
+                        "start_utc":  "2026-09-22T20:37:14.8345659Z",
+                        "end_utc":  "2026-09-22T20:37:14.8517005Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE creation_time_change\nBEHAVIOR_OK creation_time_change\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "ads_executable",
+        "mode":  "control",
+        "rule_id":  "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "9980cd824f947a41211b03e05d14068cb0026af440c7c74fa23f5b260536b944",
+        "staged_sha256":  "9980cd824f947a41211b03e05d14068cb0026af440c7c74fa23f5b260536b944",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4312,
+                        "start_utc":  "2026-09-22T20:37:14.8891833Z",
+                        "end_utc":  "2026-09-22T20:37:14.9030969Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE ads_executable\nCONTROL_OK ads_executable\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "ads_executable",
+        "mode":  "active",
+        "rule_id":  "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "9980cd824f947a41211b03e05d14068cb0026af440c7c74fa23f5b260536b944",
+        "staged_sha256":  "9980cd824f947a41211b03e05d14068cb0026af440c7c74fa23f5b260536b944",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4340,
+                        "start_utc":  "2026-09-22T20:37:14.9340893Z",
+                        "end_utc":  "2026-09-22T20:37:14.9479822Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE ads_executable\nBEHAVIOR_OK ads_executable\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "named_pipe_indicator",
+        "mode":  "control",
+        "rule_id":  "cb1d1446-f327-1659-42ad-e41a7bc16e36",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "af2ac9606f96412106aaad2af3a39f421ab764c461ec9dfa25ccd412c671acdc",
+        "staged_sha256":  "af2ac9606f96412106aaad2af3a39f421ab764c461ec9dfa25ccd412c671acdc",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1408,
+                        "start_utc":  "2026-09-22T20:37:14.9835998Z",
+                        "end_utc":  "2026-09-22T20:37:14.9973475Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE named_pipe_indicator\nCONTROL_OK named_pipe_indicator\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "named_pipe_indicator",
+        "mode":  "active",
+        "rule_id":  "cb1d1446-f327-1659-42ad-e41a7bc16e36",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "af2ac9606f96412106aaad2af3a39f421ab764c461ec9dfa25ccd412c671acdc",
+        "staged_sha256":  "af2ac9606f96412106aaad2af3a39f421ab764c461ec9dfa25ccd412c671acdc",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  576,
+                        "start_utc":  "2026-09-22T20:37:15.0305277Z",
+                        "end_utc":  "2026-09-22T20:37:15.0440816Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE named_pipe_indicator\nBEHAVIOR_OK named_pipe_indicator\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "unsigned_node_load",
+        "mode":  "control",
+        "rule_id":  "8085fb71-ed3b-7920-ca06-f9174665cc8a",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "dfc2f49c53eb37cd31e118db309db7c4443386821239225fa795d909e609de82",
+        "staged_sha256":  "dfc2f49c53eb37cd31e118db309db7c4443386821239225fa795d909e609de82",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3116,
+                        "start_utc":  "2026-09-22T20:37:15.0806669Z",
+                        "end_utc":  "2026-09-22T20:37:15.0946256Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE unsigned_node_load\nCONTROL_OK unsigned_node_load\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "unsigned_node_load",
+        "mode":  "active",
+        "rule_id":  "8085fb71-ed3b-7920-ca06-f9174665cc8a",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "dfc2f49c53eb37cd31e118db309db7c4443386821239225fa795d909e609de82",
+        "staged_sha256":  "dfc2f49c53eb37cd31e118db309db7c4443386821239225fa795d909e609de82",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4668,
+                        "start_utc":  "2026-09-22T20:37:15.1276173Z",
+                        "end_utc":  "2026-09-22T20:37:15.2044018Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE unsigned_node_load\nBEHAVIOR_OK unsigned_node_load\n",
+                        "stderr":  ""
+                    }
+    }
+]

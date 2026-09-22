@@ -30,7 +30,7 @@ class ReleaseTests(unittest.TestCase):
                 for name in ids+['negative','fixture_prepare']:
                     fixture('composite-'+config+'/coverage/'+name)
                     (components/('composite-'+config+'/coverage/'+name)).write_text('standalone '+name)
-            for config in windows[:4]:
+            for config in windows:
                 fixture('composite-'+config+'/coverage/registry_run_key.exe')
                 fixture('composite-'+config+'/coverage/build-manifest.json')
                 fixture('composite-'+config+'/coverage/fixtures/windows_fixture_helper.exe')
@@ -51,13 +51,12 @@ class ReleaseTests(unittest.TestCase):
                 self.assertIn(prefix+'coverage/rules/falco_rules.yaml',names)
             with zipfile.ZipFile(output/'telemetry-lab-test-windows.zip') as archive:
                 names=set(archive.namelist());prefix='telemetry-lab-test-windows/ttp-composite/'
-                for config in windows[:4]:
+                for config in windows:
                     self.assertIn(prefix+config+'/coverage/registry_run_key.exe',names)
                     self.assertIn(prefix+config+'/coverage/build-manifest.json',names)
                     self.assertIn(prefix+config+'/coverage/fixtures/windows_fixture_helper.exe',names)
                 for config in windows[2:4]:
                     self.assertIn(prefix+config+'/coverage/libfixture.dll',names)
-                self.assertNotIn(prefix+windows[4]+'/coverage/registry_run_key.exe',names)
                 for support in ['selection.json','rule-inventory.csv','run.ps1','run-local-tcp.ps1','run-local-dns.ps1','analyze.py']:
                     self.assertIn(prefix+'coverage/'+support,names)
 

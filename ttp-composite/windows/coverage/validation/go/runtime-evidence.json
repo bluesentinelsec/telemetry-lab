@@ -1,0 +1,2971 @@
+{
+  "attempts": 141,
+  "prelaunch_hash_recorded": 96,
+  "prelaunch_artifact_verified": 96,
+  "linkage_verified": 141,
+  "sysmon_hash_matches": 17,
+  "sysmon_hash_differences": 124,
+  "records": [
+    {
+      "campaign": "go-cgo-dns-01",
+      "case_id": "dns_ip_lookup",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        225861
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        225870
+      ]
+    },
+    {
+      "campaign": "go-cgo-dns-02",
+      "case_id": "dns_ip_lookup",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e",
+      "staged_sha256": "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        268626
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        268634
+      ]
+    },
+    {
+      "campaign": "go-cgo-dns-02",
+      "case_id": "dns_ip_lookup",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e",
+      "staged_sha256": "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        268656
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        268664
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "registry_run_key",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        214944
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        214954
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "registry_run_key",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215014
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        215022
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "registry_app_paths",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "e493d38714bf771497a65310e03eb86a128f2a1ae6a6c67f0b0906204b274832",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215052
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215060
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "registry_app_paths",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "e493d38714bf771497a65310e03eb86a128f2a1ae6a6c67f0b0906204b274832",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215082
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215090
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "registry_active_setup",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "7da9277c13885aeefea18dfcd126cf4b5c80a7d2d5f532979bdf4b8c85744e69",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215119
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215127
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "registry_active_setup",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "7da9277c13885aeefea18dfcd126cf4b5c80a7d2d5f532979bdf4b8c85744e69",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215149
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215157
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "registry_screensaver",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "c892679f9f102e1fcbc0174fe59126d076c59b4e8c2274af54bb4ae742474173",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215181
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215189
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "registry_screensaver",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "c892679f9f102e1fcbc0174fe59126d076c59b4e8c2274af54bb4ae742474173",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215209
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215217
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "registry_runmru_delete",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "9ea21f7ee00cb923ebfc3dc732acfa71cb5adc2d43f5348194ac392af43deea1",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215243
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215251
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "registry_runmru_delete",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "9ea21f7ee00cb923ebfc3dc732acfa71cb5adc2d43f5348194ac392af43deea1",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215274
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215282
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "startup_file",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "17b193ae6028753040bc28db9081a8efb63a7afc9af6c7f85792e19bdec296e7",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215309
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215317
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "startup_file",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "17b193ae6028753040bc28db9081a8efb63a7afc9af6c7f85792e19bdec296e7",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215336
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215344
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "powershell_profile",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "0ae63cd00a517abf984924bbe744013375928f4a528e99858c2b9fd43b2c5931",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215366
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215374
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "powershell_profile",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "0ae63cd00a517abf984924bbe744013375928f4a528e99858c2b9fd43b2c5931",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215393
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215401
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "public_binary",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "bded304b2ba0467808c140b5b511859f3bdd358f979df68b180224983bf014dc",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215422
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215430
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "public_binary",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "bded304b2ba0467808c140b5b511859f3bdd358f979df68b180224983bf014dc",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215449
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215457
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "double_extension_file",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "3c1083a664ae24d8f563e556ea04a6011ec2343b86c65386faecc86c79fad4b9",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215478
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215486
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "double_extension_file",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "3c1083a664ae24d8f563e556ea04a6011ec2343b86c65386faecc86c79fad4b9",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215505
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215513
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "double_extension_lnk",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "c8c4bcb895a16451e3a1f33156a25ce8db399a76a33850ccad7b0948ec022469",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215534
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215542
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "double_extension_lnk",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "c8c4bcb895a16451e3a1f33156a25ce8db399a76a33850ccad7b0948ec022469",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215561
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215569
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "office_startup_file",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "e9a434c5a3f497c214b702f81dc2204ce1d8b6c7d6e3412bb8cfd8aa7d8017a9",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215592
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215600
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "office_startup_file",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "e9a434c5a3f497c214b702f81dc2204ce1d8b6c7d6e3412bb8cfd8aa7d8017a9",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215619
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215627
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "suspicious_executable_file",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "5de758f16d235cb46d376f7ff9b7b44e1df43d343d2833a2cba5e28102991f89",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215648
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215656
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "suspicious_executable_file",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "5de758f16d235cb46d376f7ff9b7b44e1df43d343d2833a2cba5e28102991f89",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215675
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215683
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "double_extension_execute",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "a0c67ee1cf46e906e0c4f21b76378e37a9ace552c049b90e3776ef9b0149dfd1",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215705
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215713
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "double_extension_execute",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "a0c67ee1cf46e906e0c4f21b76378e37a9ace552c049b90e3776ef9b0149dfd1",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215734
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215742
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "creation_time_change",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "f2eeae2c763c0d0cb40f1f6d301fd5d56cb563dd247dc3b6fa2709331e98496b",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215780
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215788
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "creation_time_change",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "f2eeae2c763c0d0cb40f1f6d301fd5d56cb563dd247dc3b6fa2709331e98496b",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215811
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215819
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "ads_executable",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "10a2c11fe7a393c50435a25bf3357ef9d1fa80b96e423146614d072a4872d938",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215842
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215850
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "ads_executable",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "10a2c11fe7a393c50435a25bf3357ef9d1fa80b96e423146614d072a4872d938",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215871
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215879
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "named_pipe_indicator",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "81a35d61d24bd1f7574d60c576ac2ced185d2e485df82700c07c5fa0f2a1437a",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215902
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215910
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "named_pipe_indicator",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "81a35d61d24bd1f7574d60c576ac2ced185d2e485df82700c07c5fa0f2a1437a",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215930
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        215938
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "unsigned_node_load",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        215970
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        215979
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-01",
+      "case_id": "unsigned_node_load",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        216000
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        216008
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "registry_run_key",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88",
+      "staged_sha256": "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        259843
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        259851
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "registry_run_key",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88",
+      "staged_sha256": "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        259886
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        259899
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "registry_app_paths",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "e493d38714bf771497a65310e03eb86a128f2a1ae6a6c67f0b0906204b274832",
+      "staged_sha256": "e493d38714bf771497a65310e03eb86a128f2a1ae6a6c67f0b0906204b274832",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        259938
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        259946
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "registry_app_paths",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "e493d38714bf771497a65310e03eb86a128f2a1ae6a6c67f0b0906204b274832",
+      "staged_sha256": "e493d38714bf771497a65310e03eb86a128f2a1ae6a6c67f0b0906204b274832",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260022
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260030
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "registry_active_setup",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "7da9277c13885aeefea18dfcd126cf4b5c80a7d2d5f532979bdf4b8c85744e69",
+      "staged_sha256": "7da9277c13885aeefea18dfcd126cf4b5c80a7d2d5f532979bdf4b8c85744e69",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260079
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260087
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "registry_active_setup",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "7da9277c13885aeefea18dfcd126cf4b5c80a7d2d5f532979bdf4b8c85744e69",
+      "staged_sha256": "7da9277c13885aeefea18dfcd126cf4b5c80a7d2d5f532979bdf4b8c85744e69",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260109
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260117
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "registry_screensaver",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "c892679f9f102e1fcbc0174fe59126d076c59b4e8c2274af54bb4ae742474173",
+      "staged_sha256": "c892679f9f102e1fcbc0174fe59126d076c59b4e8c2274af54bb4ae742474173",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260141
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260149
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "registry_screensaver",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "c892679f9f102e1fcbc0174fe59126d076c59b4e8c2274af54bb4ae742474173",
+      "staged_sha256": "c892679f9f102e1fcbc0174fe59126d076c59b4e8c2274af54bb4ae742474173",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260169
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260177
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "registry_runmru_delete",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "9ea21f7ee00cb923ebfc3dc732acfa71cb5adc2d43f5348194ac392af43deea1",
+      "staged_sha256": "9ea21f7ee00cb923ebfc3dc732acfa71cb5adc2d43f5348194ac392af43deea1",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260203
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260211
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "registry_runmru_delete",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "9ea21f7ee00cb923ebfc3dc732acfa71cb5adc2d43f5348194ac392af43deea1",
+      "staged_sha256": "9ea21f7ee00cb923ebfc3dc732acfa71cb5adc2d43f5348194ac392af43deea1",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260234
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260242
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "startup_file",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "17b193ae6028753040bc28db9081a8efb63a7afc9af6c7f85792e19bdec296e7",
+      "staged_sha256": "17b193ae6028753040bc28db9081a8efb63a7afc9af6c7f85792e19bdec296e7",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260265
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260273
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "startup_file",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "17b193ae6028753040bc28db9081a8efb63a7afc9af6c7f85792e19bdec296e7",
+      "staged_sha256": "17b193ae6028753040bc28db9081a8efb63a7afc9af6c7f85792e19bdec296e7",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260292
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260300
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "powershell_profile",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "0ae63cd00a517abf984924bbe744013375928f4a528e99858c2b9fd43b2c5931",
+      "staged_sha256": "0ae63cd00a517abf984924bbe744013375928f4a528e99858c2b9fd43b2c5931",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260321
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260329
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "powershell_profile",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "0ae63cd00a517abf984924bbe744013375928f4a528e99858c2b9fd43b2c5931",
+      "staged_sha256": "0ae63cd00a517abf984924bbe744013375928f4a528e99858c2b9fd43b2c5931",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260374
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260382
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "public_binary",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "bded304b2ba0467808c140b5b511859f3bdd358f979df68b180224983bf014dc",
+      "staged_sha256": "bded304b2ba0467808c140b5b511859f3bdd358f979df68b180224983bf014dc",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260477
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260485
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "public_binary",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "bded304b2ba0467808c140b5b511859f3bdd358f979df68b180224983bf014dc",
+      "staged_sha256": "bded304b2ba0467808c140b5b511859f3bdd358f979df68b180224983bf014dc",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260642
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260653
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "double_extension_file",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "3c1083a664ae24d8f563e556ea04a6011ec2343b86c65386faecc86c79fad4b9",
+      "staged_sha256": "3c1083a664ae24d8f563e556ea04a6011ec2343b86c65386faecc86c79fad4b9",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260789
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260799
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "double_extension_file",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "3c1083a664ae24d8f563e556ea04a6011ec2343b86c65386faecc86c79fad4b9",
+      "staged_sha256": "3c1083a664ae24d8f563e556ea04a6011ec2343b86c65386faecc86c79fad4b9",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        260931
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        260942
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "double_extension_lnk",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "c8c4bcb895a16451e3a1f33156a25ce8db399a76a33850ccad7b0948ec022469",
+      "staged_sha256": "c8c4bcb895a16451e3a1f33156a25ce8db399a76a33850ccad7b0948ec022469",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        261088
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        261102
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "double_extension_lnk",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "c8c4bcb895a16451e3a1f33156a25ce8db399a76a33850ccad7b0948ec022469",
+      "staged_sha256": "c8c4bcb895a16451e3a1f33156a25ce8db399a76a33850ccad7b0948ec022469",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        261280
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        261446
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "office_startup_file",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "e9a434c5a3f497c214b702f81dc2204ce1d8b6c7d6e3412bb8cfd8aa7d8017a9",
+      "staged_sha256": "e9a434c5a3f497c214b702f81dc2204ce1d8b6c7d6e3412bb8cfd8aa7d8017a9",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        261563
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        261571
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "office_startup_file",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "e9a434c5a3f497c214b702f81dc2204ce1d8b6c7d6e3412bb8cfd8aa7d8017a9",
+      "staged_sha256": "e9a434c5a3f497c214b702f81dc2204ce1d8b6c7d6e3412bb8cfd8aa7d8017a9",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        261592
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        261600
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "suspicious_executable_file",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "5de758f16d235cb46d376f7ff9b7b44e1df43d343d2833a2cba5e28102991f89",
+      "staged_sha256": "5de758f16d235cb46d376f7ff9b7b44e1df43d343d2833a2cba5e28102991f89",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        261623
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        261631
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "suspicious_executable_file",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "5de758f16d235cb46d376f7ff9b7b44e1df43d343d2833a2cba5e28102991f89",
+      "staged_sha256": "5de758f16d235cb46d376f7ff9b7b44e1df43d343d2833a2cba5e28102991f89",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        261652
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        261660
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "double_extension_execute",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "a0c67ee1cf46e906e0c4f21b76378e37a9ace552c049b90e3776ef9b0149dfd1",
+      "staged_sha256": "a0c67ee1cf46e906e0c4f21b76378e37a9ace552c049b90e3776ef9b0149dfd1",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        261682
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        261690
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "double_extension_execute",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "a0c67ee1cf46e906e0c4f21b76378e37a9ace552c049b90e3776ef9b0149dfd1",
+      "staged_sha256": "a0c67ee1cf46e906e0c4f21b76378e37a9ace552c049b90e3776ef9b0149dfd1",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        261711
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        261719
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "creation_time_change",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "f2eeae2c763c0d0cb40f1f6d301fd5d56cb563dd247dc3b6fa2709331e98496b",
+      "staged_sha256": "f2eeae2c763c0d0cb40f1f6d301fd5d56cb563dd247dc3b6fa2709331e98496b",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        261754
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        261762
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "creation_time_change",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "f2eeae2c763c0d0cb40f1f6d301fd5d56cb563dd247dc3b6fa2709331e98496b",
+      "staged_sha256": "f2eeae2c763c0d0cb40f1f6d301fd5d56cb563dd247dc3b6fa2709331e98496b",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        261785
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        261793
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "ads_executable",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "10a2c11fe7a393c50435a25bf3357ef9d1fa80b96e423146614d072a4872d938",
+      "staged_sha256": "10a2c11fe7a393c50435a25bf3357ef9d1fa80b96e423146614d072a4872d938",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        261816
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        261824
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "ads_executable",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "10a2c11fe7a393c50435a25bf3357ef9d1fa80b96e423146614d072a4872d938",
+      "staged_sha256": "10a2c11fe7a393c50435a25bf3357ef9d1fa80b96e423146614d072a4872d938",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        261845
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        261853
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "named_pipe_indicator",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "81a35d61d24bd1f7574d60c576ac2ced185d2e485df82700c07c5fa0f2a1437a",
+      "staged_sha256": "81a35d61d24bd1f7574d60c576ac2ced185d2e485df82700c07c5fa0f2a1437a",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        261876
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        261884
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "named_pipe_indicator",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "81a35d61d24bd1f7574d60c576ac2ced185d2e485df82700c07c5fa0f2a1437a",
+      "staged_sha256": "81a35d61d24bd1f7574d60c576ac2ced185d2e485df82700c07c5fa0f2a1437a",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        261912
+      ],
+      "sysmon_sha256": [
+        "8d336aa39eb3224852f3c349f1bb49b0019b7d1b9a6798968bb9fbaa16a21d88"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        261924
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "unsigned_node_load",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f",
+      "staged_sha256": "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        262020
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        262028
+      ]
+    },
+    {
+      "campaign": "go-cgo-nonnetwork-02",
+      "case_id": "unsigned_node_load",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f",
+      "staged_sha256": "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        262048
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        262056
+      ]
+    },
+    {
+      "campaign": "go-cgo-onion-02",
+      "case_id": "dns_onion",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "d91efdcc46662acd99256ca184424e853445c37912e1293d325682acd9b8746d",
+      "staged_sha256": "d91efdcc46662acd99256ca184424e853445c37912e1293d325682acd9b8746d",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        278458
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        278467
+      ]
+    },
+    {
+      "campaign": "go-cgo-onion-02",
+      "case_id": "dns_onion",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "d91efdcc46662acd99256ca184424e853445c37912e1293d325682acd9b8746d",
+      "staged_sha256": "d91efdcc46662acd99256ca184424e853445c37912e1293d325682acd9b8746d",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        278527
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        278535
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-01",
+      "case_id": "tcp_connect_2525",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "cc5e99fbedcc832415228c0b711d539dbc8761f149c6e22dc031cf83a4fc1ac6",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        218733
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        218741
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-01",
+      "case_id": "tcp_connect_2525",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "cc5e99fbedcc832415228c0b711d539dbc8761f149c6e22dc031cf83a4fc1ac6",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        218765
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        218773
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-01",
+      "case_id": "tcp_connect_3389",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "8e4dc4e9ff653d52bfd0c4f30f4ea4e86d0e61cec7a2821aea17f4084bbed4fe",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        218799
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        218807
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-01",
+      "case_id": "tcp_connect_3389",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "8e4dc4e9ff653d52bfd0c4f30f4ea4e86d0e61cec7a2821aea17f4084bbed4fe",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        218827
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        218835
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-01",
+      "case_id": "tcp_connect_9389",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "0f490b59886fa631ea955e4ef99ebb6a4b9e2b3d51b1138bea4591fd728fb675",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        218864
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        218872
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-01",
+      "case_id": "tcp_connect_9389",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "0f490b59886fa631ea955e4ef99ebb6a4b9e2b3d51b1138bea4591fd728fb675",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        218895
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        218903
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-01",
+      "case_id": "tcp_connect_88",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "52562273a3d0c49e6ca1feade54809a700cc6a22df4fe6ea7a9f38000453bfe9",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        223542
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        223550
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-01",
+      "case_id": "tcp_connect_88",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "52562273a3d0c49e6ca1feade54809a700cc6a22df4fe6ea7a9f38000453bfe9",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        223817
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        223825
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-01",
+      "case_id": "tcp_connect_public_path",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "0207bd149b0c516bbf946afa8bea20c2117b5a6e14b1248cfe1f2f676eb524c2",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        223850
+      ],
+      "sysmon_sha256": [
+        "0207bd149b0c516bbf946afa8bea20c2117b5a6e14b1248cfe1f2f676eb524c2"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        223859
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-01",
+      "case_id": "tcp_connect_public_path",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "0207bd149b0c516bbf946afa8bea20c2117b5a6e14b1248cfe1f2f676eb524c2",
+      "staged_sha256": null,
+      "prelaunch_hash_recorded": false,
+      "prelaunch_artifact_verified": false,
+      "linkage_verified": true,
+      "start_records": [
+        223880
+      ],
+      "sysmon_sha256": [
+        "0207bd149b0c516bbf946afa8bea20c2117b5a6e14b1248cfe1f2f676eb524c2"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        223888
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-02",
+      "case_id": "tcp_connect_2525",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "cc5e99fbedcc832415228c0b711d539dbc8761f149c6e22dc031cf83a4fc1ac6",
+      "staged_sha256": "cc5e99fbedcc832415228c0b711d539dbc8761f149c6e22dc031cf83a4fc1ac6",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        266590
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        266599
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-02",
+      "case_id": "tcp_connect_2525",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "cc5e99fbedcc832415228c0b711d539dbc8761f149c6e22dc031cf83a4fc1ac6",
+      "staged_sha256": "cc5e99fbedcc832415228c0b711d539dbc8761f149c6e22dc031cf83a4fc1ac6",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        266668
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        266676
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-02",
+      "case_id": "tcp_connect_3389",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "8e4dc4e9ff653d52bfd0c4f30f4ea4e86d0e61cec7a2821aea17f4084bbed4fe",
+      "staged_sha256": "8e4dc4e9ff653d52bfd0c4f30f4ea4e86d0e61cec7a2821aea17f4084bbed4fe",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        266710
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        266718
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-02",
+      "case_id": "tcp_connect_3389",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "8e4dc4e9ff653d52bfd0c4f30f4ea4e86d0e61cec7a2821aea17f4084bbed4fe",
+      "staged_sha256": "8e4dc4e9ff653d52bfd0c4f30f4ea4e86d0e61cec7a2821aea17f4084bbed4fe",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        266758
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        266766
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-02",
+      "case_id": "tcp_connect_9389",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "0f490b59886fa631ea955e4ef99ebb6a4b9e2b3d51b1138bea4591fd728fb675",
+      "staged_sha256": "0f490b59886fa631ea955e4ef99ebb6a4b9e2b3d51b1138bea4591fd728fb675",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        266791
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        266799
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-02",
+      "case_id": "tcp_connect_9389",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "0f490b59886fa631ea955e4ef99ebb6a4b9e2b3d51b1138bea4591fd728fb675",
+      "staged_sha256": "0f490b59886fa631ea955e4ef99ebb6a4b9e2b3d51b1138bea4591fd728fb675",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        266821
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        266829
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-02",
+      "case_id": "tcp_connect_88",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "52562273a3d0c49e6ca1feade54809a700cc6a22df4fe6ea7a9f38000453bfe9",
+      "staged_sha256": "52562273a3d0c49e6ca1feade54809a700cc6a22df4fe6ea7a9f38000453bfe9",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        266857
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        266865
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-02",
+      "case_id": "tcp_connect_88",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "52562273a3d0c49e6ca1feade54809a700cc6a22df4fe6ea7a9f38000453bfe9",
+      "staged_sha256": "52562273a3d0c49e6ca1feade54809a700cc6a22df4fe6ea7a9f38000453bfe9",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        266885
+      ],
+      "sysmon_sha256": [
+        "7d8d4a5edef6b2bb0a77b1f141e28efc19d15c8b931ca47515cfa7e8cb88358f"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        266893
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-02",
+      "case_id": "tcp_connect_public_path",
+      "mode": "control",
+      "runtime": "go-cgo",
+      "expected_sha256": "0207bd149b0c516bbf946afa8bea20c2117b5a6e14b1248cfe1f2f676eb524c2",
+      "staged_sha256": "0207bd149b0c516bbf946afa8bea20c2117b5a6e14b1248cfe1f2f676eb524c2",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        267018
+      ],
+      "sysmon_sha256": [
+        "0207bd149b0c516bbf946afa8bea20c2117b5a6e14b1248cfe1f2f676eb524c2"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        267026
+      ]
+    },
+    {
+      "campaign": "go-cgo-tcp-02",
+      "case_id": "tcp_connect_public_path",
+      "mode": "active",
+      "runtime": "go-cgo",
+      "expected_sha256": "0207bd149b0c516bbf946afa8bea20c2117b5a6e14b1248cfe1f2f676eb524c2",
+      "staged_sha256": "0207bd149b0c516bbf946afa8bea20c2117b5a6e14b1248cfe1f2f676eb524c2",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        267050
+      ],
+      "sysmon_sha256": [
+        "0207bd149b0c516bbf946afa8bea20c2117b5a6e14b1248cfe1f2f676eb524c2"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        267058
+      ]
+    },
+    {
+      "campaign": "go-static-dns-02",
+      "case_id": "dns_ip_lookup",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "56713636f20ac0bfd87c44a72ed4dc566e8ea08399eb8c2b5c4e15296e62e8ee",
+      "staged_sha256": "56713636f20ac0bfd87c44a72ed4dc566e8ea08399eb8c2b5c4e15296e62e8ee",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        275382
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        275392
+      ]
+    },
+    {
+      "campaign": "go-static-dns-02",
+      "case_id": "dns_ip_lookup",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "56713636f20ac0bfd87c44a72ed4dc566e8ea08399eb8c2b5c4e15296e62e8ee",
+      "staged_sha256": "56713636f20ac0bfd87c44a72ed4dc566e8ea08399eb8c2b5c4e15296e62e8ee",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        275410
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        275420
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "registry_run_key",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "91e1b2fcb2eca6f20fd8f4f2ac2824d47c795e1ea7e1365f7529630d2d0f9ab6",
+      "staged_sha256": "91e1b2fcb2eca6f20fd8f4f2ac2824d47c795e1ea7e1365f7529630d2d0f9ab6",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269315
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269325
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "registry_run_key",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "91e1b2fcb2eca6f20fd8f4f2ac2824d47c795e1ea7e1365f7529630d2d0f9ab6",
+      "staged_sha256": "91e1b2fcb2eca6f20fd8f4f2ac2824d47c795e1ea7e1365f7529630d2d0f9ab6",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269343
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269353
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "registry_app_paths",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "352ac9bcc73a233987de7b82b29fa102b4c06a173598e7c707f8cedcd7c915ed",
+      "staged_sha256": "352ac9bcc73a233987de7b82b29fa102b4c06a173598e7c707f8cedcd7c915ed",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269375
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269385
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "registry_app_paths",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "352ac9bcc73a233987de7b82b29fa102b4c06a173598e7c707f8cedcd7c915ed",
+      "staged_sha256": "352ac9bcc73a233987de7b82b29fa102b4c06a173598e7c707f8cedcd7c915ed",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269403
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269413
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "registry_active_setup",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "5c8e92ab6dc7275826fe46741b739f20cadd5ff468a846d8fc990537bbcc29f8",
+      "staged_sha256": "5c8e92ab6dc7275826fe46741b739f20cadd5ff468a846d8fc990537bbcc29f8",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269435
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269445
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "registry_active_setup",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "5c8e92ab6dc7275826fe46741b739f20cadd5ff468a846d8fc990537bbcc29f8",
+      "staged_sha256": "5c8e92ab6dc7275826fe46741b739f20cadd5ff468a846d8fc990537bbcc29f8",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269464
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269474
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "registry_screensaver",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "3ee16c61f24c1de3c045e186d1cde69f68a6868b33af8f698e18a751a967daff",
+      "staged_sha256": "3ee16c61f24c1de3c045e186d1cde69f68a6868b33af8f698e18a751a967daff",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269495
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269505
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "registry_screensaver",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "3ee16c61f24c1de3c045e186d1cde69f68a6868b33af8f698e18a751a967daff",
+      "staged_sha256": "3ee16c61f24c1de3c045e186d1cde69f68a6868b33af8f698e18a751a967daff",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269521
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269531
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "registry_runmru_delete",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "06277140ca877b02be4d5ef8b37a3149f24f6b1c6c691d6d2567986b098dee49",
+      "staged_sha256": "06277140ca877b02be4d5ef8b37a3149f24f6b1c6c691d6d2567986b098dee49",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269554
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269564
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "registry_runmru_delete",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "06277140ca877b02be4d5ef8b37a3149f24f6b1c6c691d6d2567986b098dee49",
+      "staged_sha256": "06277140ca877b02be4d5ef8b37a3149f24f6b1c6c691d6d2567986b098dee49",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269583
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269593
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "startup_file",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "440ac3cb21d087c4f011e1dab11f318e290ad91e66fb082a20ab0e6742938266",
+      "staged_sha256": "440ac3cb21d087c4f011e1dab11f318e290ad91e66fb082a20ab0e6742938266",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269613
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269623
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "startup_file",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "440ac3cb21d087c4f011e1dab11f318e290ad91e66fb082a20ab0e6742938266",
+      "staged_sha256": "440ac3cb21d087c4f011e1dab11f318e290ad91e66fb082a20ab0e6742938266",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269638
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269648
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "powershell_profile",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "5f4765530e337f0bb7ad1b64e64932c2041b8c3b3757e6235041be15c9211848",
+      "staged_sha256": "5f4765530e337f0bb7ad1b64e64932c2041b8c3b3757e6235041be15c9211848",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269665
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269675
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "powershell_profile",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "5f4765530e337f0bb7ad1b64e64932c2041b8c3b3757e6235041be15c9211848",
+      "staged_sha256": "5f4765530e337f0bb7ad1b64e64932c2041b8c3b3757e6235041be15c9211848",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269690
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269700
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "public_binary",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "6c27e0e683197b62d7d2b03c16aa748ef0261e533e4b8602ca6a59eb3bffcf5f",
+      "staged_sha256": "6c27e0e683197b62d7d2b03c16aa748ef0261e533e4b8602ca6a59eb3bffcf5f",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269717
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269727
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "public_binary",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "6c27e0e683197b62d7d2b03c16aa748ef0261e533e4b8602ca6a59eb3bffcf5f",
+      "staged_sha256": "6c27e0e683197b62d7d2b03c16aa748ef0261e533e4b8602ca6a59eb3bffcf5f",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269742
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269752
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "double_extension_file",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "963cfb85d32bc3c73a9678b1f3725fa2d102405006c812123ef5eb7464626ab7",
+      "staged_sha256": "963cfb85d32bc3c73a9678b1f3725fa2d102405006c812123ef5eb7464626ab7",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269769
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269779
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "double_extension_file",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "963cfb85d32bc3c73a9678b1f3725fa2d102405006c812123ef5eb7464626ab7",
+      "staged_sha256": "963cfb85d32bc3c73a9678b1f3725fa2d102405006c812123ef5eb7464626ab7",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269794
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269804
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "double_extension_lnk",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "16c64f2b117ba85645a98f8ec9ee92d9c7ee71bc2049f9d90688de12a196440a",
+      "staged_sha256": "16c64f2b117ba85645a98f8ec9ee92d9c7ee71bc2049f9d90688de12a196440a",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269821
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269831
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "double_extension_lnk",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "16c64f2b117ba85645a98f8ec9ee92d9c7ee71bc2049f9d90688de12a196440a",
+      "staged_sha256": "16c64f2b117ba85645a98f8ec9ee92d9c7ee71bc2049f9d90688de12a196440a",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269846
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269856
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "office_startup_file",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "04a93604de97eea8872e308fdf29b2b1c3f74fa8b3e40437775ad1558a508731",
+      "staged_sha256": "04a93604de97eea8872e308fdf29b2b1c3f74fa8b3e40437775ad1558a508731",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269873
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269883
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "office_startup_file",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "04a93604de97eea8872e308fdf29b2b1c3f74fa8b3e40437775ad1558a508731",
+      "staged_sha256": "04a93604de97eea8872e308fdf29b2b1c3f74fa8b3e40437775ad1558a508731",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269898
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269908
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "suspicious_executable_file",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "4749f3c96ee5c599b9375c1428fccb8d999f9b01d25aa9ab0c1d33617288590d",
+      "staged_sha256": "4749f3c96ee5c599b9375c1428fccb8d999f9b01d25aa9ab0c1d33617288590d",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269925
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269935
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "suspicious_executable_file",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "4749f3c96ee5c599b9375c1428fccb8d999f9b01d25aa9ab0c1d33617288590d",
+      "staged_sha256": "4749f3c96ee5c599b9375c1428fccb8d999f9b01d25aa9ab0c1d33617288590d",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269950
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269960
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "double_extension_execute",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "fda55a36592babbdc7ad85966e2860acaa342d98e5c83b3e48b5e6eac897ccdf",
+      "staged_sha256": "fda55a36592babbdc7ad85966e2860acaa342d98e5c83b3e48b5e6eac897ccdf",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        269978
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        269988
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "double_extension_execute",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "fda55a36592babbdc7ad85966e2860acaa342d98e5c83b3e48b5e6eac897ccdf",
+      "staged_sha256": "fda55a36592babbdc7ad85966e2860acaa342d98e5c83b3e48b5e6eac897ccdf",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        270005
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        270015
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "creation_time_change",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "dfce3416a31f31f9038d874d6c71b2fcb62c7c9fb0eea5bdf312bbb016fa5d7d",
+      "staged_sha256": "dfce3416a31f31f9038d874d6c71b2fcb62c7c9fb0eea5bdf312bbb016fa5d7d",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        270048
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        270058
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "creation_time_change",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "dfce3416a31f31f9038d874d6c71b2fcb62c7c9fb0eea5bdf312bbb016fa5d7d",
+      "staged_sha256": "dfce3416a31f31f9038d874d6c71b2fcb62c7c9fb0eea5bdf312bbb016fa5d7d",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        270077
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        270087
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "ads_executable",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "9980cd824f947a41211b03e05d14068cb0026af440c7c74fa23f5b260536b944",
+      "staged_sha256": "9980cd824f947a41211b03e05d14068cb0026af440c7c74fa23f5b260536b944",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        270106
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        270116
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "ads_executable",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "9980cd824f947a41211b03e05d14068cb0026af440c7c74fa23f5b260536b944",
+      "staged_sha256": "9980cd824f947a41211b03e05d14068cb0026af440c7c74fa23f5b260536b944",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        270133
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        270143
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "named_pipe_indicator",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "af2ac9606f96412106aaad2af3a39f421ab764c461ec9dfa25ccd412c671acdc",
+      "staged_sha256": "af2ac9606f96412106aaad2af3a39f421ab764c461ec9dfa25ccd412c671acdc",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        270162
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        270172
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "named_pipe_indicator",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "af2ac9606f96412106aaad2af3a39f421ab764c461ec9dfa25ccd412c671acdc",
+      "staged_sha256": "af2ac9606f96412106aaad2af3a39f421ab764c461ec9dfa25ccd412c671acdc",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        270188
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        270198
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "unsigned_node_load",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "dfc2f49c53eb37cd31e118db309db7c4443386821239225fa795d909e609de82",
+      "staged_sha256": "dfc2f49c53eb37cd31e118db309db7c4443386821239225fa795d909e609de82",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        270216
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        270226
+      ]
+    },
+    {
+      "campaign": "go-static-nonnetwork-02",
+      "case_id": "unsigned_node_load",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "dfc2f49c53eb37cd31e118db309db7c4443386821239225fa795d909e609de82",
+      "staged_sha256": "dfc2f49c53eb37cd31e118db309db7c4443386821239225fa795d909e609de82",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        270242
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        270265
+      ]
+    },
+    {
+      "campaign": "go-static-onion-02",
+      "case_id": "dns_onion",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "2a8f23cbb9b150210d8c4b62ec48030d2af6cb63d966de74442757ea4de3de22",
+      "staged_sha256": "2a8f23cbb9b150210d8c4b62ec48030d2af6cb63d966de74442757ea4de3de22",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        279422
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        279432
+      ]
+    },
+    {
+      "campaign": "go-static-onion-02",
+      "case_id": "dns_onion",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "2a8f23cbb9b150210d8c4b62ec48030d2af6cb63d966de74442757ea4de3de22",
+      "staged_sha256": "2a8f23cbb9b150210d8c4b62ec48030d2af6cb63d966de74442757ea4de3de22",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        279450
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        279460
+      ]
+    },
+    {
+      "campaign": "go-static-tcp-02",
+      "case_id": "tcp_connect_2525",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "e9904979174338a2853593c092c74938901e12026c10904f9e708cc4f1b69e28",
+      "staged_sha256": "e9904979174338a2853593c092c74938901e12026c10904f9e708cc4f1b69e28",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        273862
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        273872
+      ]
+    },
+    {
+      "campaign": "go-static-tcp-02",
+      "case_id": "tcp_connect_2525",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "e9904979174338a2853593c092c74938901e12026c10904f9e708cc4f1b69e28",
+      "staged_sha256": "e9904979174338a2853593c092c74938901e12026c10904f9e708cc4f1b69e28",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        273891
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        273901
+      ]
+    },
+    {
+      "campaign": "go-static-tcp-02",
+      "case_id": "tcp_connect_3389",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "7786f46e5fb990b650112627ba02c2ccf6f8c6bb00b8b6d07e287533046ef65a",
+      "staged_sha256": "7786f46e5fb990b650112627ba02c2ccf6f8c6bb00b8b6d07e287533046ef65a",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        273924
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        273935
+      ]
+    },
+    {
+      "campaign": "go-static-tcp-02",
+      "case_id": "tcp_connect_3389",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "7786f46e5fb990b650112627ba02c2ccf6f8c6bb00b8b6d07e287533046ef65a",
+      "staged_sha256": "7786f46e5fb990b650112627ba02c2ccf6f8c6bb00b8b6d07e287533046ef65a",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        273951
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        273961
+      ]
+    },
+    {
+      "campaign": "go-static-tcp-02",
+      "case_id": "tcp_connect_9389",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "25db25df20703b6c008daf2857c8277cdc0af9307d8a4c6618d870f5b6475ada",
+      "staged_sha256": "25db25df20703b6c008daf2857c8277cdc0af9307d8a4c6618d870f5b6475ada",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        274005
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        274015
+      ]
+    },
+    {
+      "campaign": "go-static-tcp-02",
+      "case_id": "tcp_connect_9389",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "25db25df20703b6c008daf2857c8277cdc0af9307d8a4c6618d870f5b6475ada",
+      "staged_sha256": "25db25df20703b6c008daf2857c8277cdc0af9307d8a4c6618d870f5b6475ada",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        274031
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        274041
+      ]
+    },
+    {
+      "campaign": "go-static-tcp-02",
+      "case_id": "tcp_connect_88",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "1da5af018b351b562baccee176b9ddd0f9b78b1d0f0bd52957dd4cd9caf8d9b3",
+      "staged_sha256": "1da5af018b351b562baccee176b9ddd0f9b78b1d0f0bd52957dd4cd9caf8d9b3",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        274062
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        274072
+      ]
+    },
+    {
+      "campaign": "go-static-tcp-02",
+      "case_id": "tcp_connect_88",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "1da5af018b351b562baccee176b9ddd0f9b78b1d0f0bd52957dd4cd9caf8d9b3",
+      "staged_sha256": "1da5af018b351b562baccee176b9ddd0f9b78b1d0f0bd52957dd4cd9caf8d9b3",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        274122
+      ],
+      "sysmon_sha256": [
+        "7ec0763568f556e458fe9cd40c4d4df643cc979c287cab00f91fdf2669aa037e"
+      ],
+      "sysmon_hash_matches": false,
+      "ucrt_load_records": [
+        274132
+      ]
+    },
+    {
+      "campaign": "go-static-tcp-02",
+      "case_id": "tcp_connect_public_path",
+      "mode": "control",
+      "runtime": "go-static",
+      "expected_sha256": "56dce9a115d62d4534d8f1995814b6584b5ff7b86e1a2fc6aca900d212673381",
+      "staged_sha256": "56dce9a115d62d4534d8f1995814b6584b5ff7b86e1a2fc6aca900d212673381",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        274161
+      ],
+      "sysmon_sha256": [
+        "56dce9a115d62d4534d8f1995814b6584b5ff7b86e1a2fc6aca900d212673381"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        274172
+      ]
+    },
+    {
+      "campaign": "go-static-tcp-02",
+      "case_id": "tcp_connect_public_path",
+      "mode": "active",
+      "runtime": "go-static",
+      "expected_sha256": "56dce9a115d62d4534d8f1995814b6584b5ff7b86e1a2fc6aca900d212673381",
+      "staged_sha256": "56dce9a115d62d4534d8f1995814b6584b5ff7b86e1a2fc6aca900d212673381",
+      "prelaunch_hash_recorded": true,
+      "prelaunch_artifact_verified": true,
+      "linkage_verified": true,
+      "start_records": [
+        274189
+      ],
+      "sysmon_sha256": [
+        "56dce9a115d62d4534d8f1995814b6584b5ff7b86e1a2fc6aca900d212673381"
+      ],
+      "sysmon_hash_matches": true,
+      "ucrt_load_records": [
+        274199
+      ]
+    }
+  ]
+}

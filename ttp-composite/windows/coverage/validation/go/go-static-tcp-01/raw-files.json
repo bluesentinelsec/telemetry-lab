@@ -1,0 +1,58 @@
+{
+  "alerts.csv": {
+    "bytes": 416221,
+    "sha256": "0c71ff73800bacb8e57b177dd869e28210c88a39c9656cf7c0aaed5feef3c335"
+  },
+  "build-manifest.json": {
+    "bytes": 47908,
+    "sha256": "6a7aab35584a841069b12afca7647920c24498698691bc90159335e6f77b0c54"
+  },
+  "detector-exit.txt": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "events.evtx": {
+    "bytes": 6361088,
+    "sha256": "c161b53b9b9e5b5455b836cf60fb0d46577c310751c8ae67edaa84d953749b28"
+  },
+  "events.json": {
+    "bytes": 3107744,
+    "sha256": "bbd71a97c9c9e0ce81153e29573ea0a70caca278a23b29bd1b9a7bcba523ae8b"
+  },
+  "execution-error.txt": {
+    "bytes": 481,
+    "sha256": "1a1e7911f98be5521b6c8c0505c3f50a2fa2d4eab411334957cd7d30fff52d9c"
+  },
+  "hayabusa.log": {
+    "bytes": 7220,
+    "sha256": "fbe133659aa213b66628f977dbf6a9015b66b9ec2516ecd6d55542e5cd8ecc4d"
+  },
+  "hayabusa.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "health.json": {
+    "bytes": 225,
+    "sha256": "1f41d1f4acc7dd7bfde9e13ab46d2ab3200d6cd9148f6e1a3488426a3ed6033b"
+  },
+  "inventory.json": {
+    "bytes": 832,
+    "sha256": "8067d078a08114c74b58e343ed7df6ade4220f5b8fd99e8208e68cebf0ecd569"
+  },
+  "qualification.json": {
+    "bytes": 269,
+    "sha256": "2c1fd8ec76439b5f41dd2b725135a5d6dc304fe81966a8806b1ce392a4a0427b"
+  },
+  "rule-inventory.csv": {
+    "bytes": 1283214,
+    "sha256": "ada9f35a9e2c179f05f84f842fe73f01d1e45f64f171b3328eb218c82f564035"
+  },
+  "run-plan.json": {
+    "bytes": 303,
+    "sha256": "1658284f3912c0b3bc36ff7358328fdb416e91f9647d964b8a5eba04fbe2169d"
+  },
+  "selection.json": {
+    "bytes": 77605,
+    "sha256": "d634be4207c819c8e474f0985a0b94fe6d6e3a7d04a76727e9842ea52e9f01a5"
+  }
+}

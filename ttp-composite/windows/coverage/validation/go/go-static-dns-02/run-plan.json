@@ -1,0 +1,7 @@
+﻿{
+    "runtime":  "go-static",
+    "cases":  [
+                  "dns_ip_lookup"
+              ],
+    "expected_attempts":  2
+}

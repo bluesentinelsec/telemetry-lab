@@ -1,0 +1,885 @@
+{
+  "healthy": true,
+  "complete": true,
+  "expected_attempts": 34,
+  "recorded_attempts": 34,
+  "attempts": [
+    {
+      "case_id": "registry_run_key",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "3f59aeed-e4fb-6b21-a7fa-a327fdb8494d",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48d-6ab2-af00-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Victor Sergeev, Daniil Yugoslavskiy, Gleb Sukhodolskiy, Timur Zinniatullin, oscd.community, Tim Shelton, frack113 (split)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_asep_reg_keys_modification_currentversion.yml"
+    },
+    {
+      "case_id": "registry_run_key",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "3f59aeed-e4fb-6b21-a7fa-a327fdb8494d",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48d-6ab2-b000-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215032"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        13
+      ],
+      "rule_authors": "Victor Sergeev, Daniil Yugoslavskiy, Gleb Sukhodolskiy, Timur Zinniatullin, oscd.community, Tim Shelton, frack113 (split)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_asep_reg_keys_modification_currentversion.yml"
+    },
+    {
+      "case_id": "registry_app_paths",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "140df4ae-d66c-c984-2165-595d754d0424",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48d-6ab2-b100-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Nasreddine Bencherchali (Nextron Systems)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_persistence_app_paths.yml"
+    },
+    {
+      "case_id": "registry_app_paths",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "140df4ae-d66c-c984-2165-595d754d0424",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48d-6ab2-b200-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215100"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        13
+      ],
+      "rule_authors": "Nasreddine Bencherchali (Nextron Systems)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_persistence_app_paths.yml"
+    },
+    {
+      "case_id": "registry_active_setup",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "46f90542-f6e6-75d1-c29d-e26535273ec0",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-b300-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Avneet Singh @v3t0_, oscd.community",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_event/registry_event_runonce_persistence.yml"
+    },
+    {
+      "case_id": "registry_active_setup",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "46f90542-f6e6-75d1-c29d-e26535273ec0",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-b400-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215167"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        13
+      ],
+      "rule_authors": "Avneet Singh @v3t0_, oscd.community",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_event/registry_event_runonce_persistence.yml"
+    },
+    {
+      "case_id": "registry_screensaver",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "ec1e8c56-2fa0-7417-e4b3-517d291e30b2",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-b500-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Bartlomiej Czyz @bczyz1, oscd.community",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_event/registry_event_modify_screensaver_binary_path.yml"
+    },
+    {
+      "case_id": "registry_screensaver",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "ec1e8c56-2fa0-7417-e4b3-517d291e30b2",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-b600-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215227"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        13
+      ],
+      "rule_authors": "Bartlomiej Czyz @bczyz1, oscd.community",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_event/registry_event_modify_screensaver_binary_path.yml"
+    },
+    {
+      "case_id": "registry_runmru_delete",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "ec2a6d71-1139-d6f1-c39e-e9fc35500540",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-b700-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Swachchhanda Shrawan Poudel (Nextron Systems)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_delete/registry_delete_runmru.yml"
+    },
+    {
+      "case_id": "registry_runmru_delete",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "ec2a6d71-1139-d6f1-c39e-e9fc35500540",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-b800-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215292"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        12
+      ],
+      "rule_authors": "Swachchhanda Shrawan Poudel (Nextron Systems)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_delete/registry_delete_runmru.yml"
+    },
+    {
+      "case_id": "startup_file",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "daaf04a9-5b60-e331-6611-a3a32797e550",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-b900-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_startup_folder_file_write.yml"
+    },
+    {
+      "case_id": "startup_file",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "daaf04a9-5b60-e331-6611-a3a32797e550",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-ba00-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215351"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        11
+      ],
+      "rule_authors": "Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_startup_folder_file_write.yml"
+    },
+    {
+      "case_id": "powershell_profile",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "5d1e6a6b-91ca-c7e8-821c-5c665ad9ca5e",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-bb00-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "HieuTT35, Nasreddine Bencherchali (Nextron Systems)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_powershell_profile.yml"
+    },
+    {
+      "case_id": "powershell_profile",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "5d1e6a6b-91ca-c7e8-821c-5c665ad9ca5e",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-bc00-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215408"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        11
+      ],
+      "rule_authors": "HieuTT35, Nasreddine Bencherchali (Nextron Systems)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_powershell_profile.yml"
+    },
+    {
+      "case_id": "public_binary",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "ef4c38c9-e26f-dcfe-1cbe-6323bafb8f39",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-bd00-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "The DFIR Report",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_public_folder_extension.yml"
+    },
+    {
+      "case_id": "public_binary",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "ef4c38c9-e26f-dcfe-1cbe-6323bafb8f39",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-be00-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215464"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        11
+      ],
+      "rule_authors": "The DFIR Report",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_public_folder_extension.yml"
+    },
+    {
+      "case_id": "double_extension_file",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "c69c8c8d-4188-72ea-ca61-a2a1a80612b3",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-bf00-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Nasreddine Bencherchali (Nextron Systems), frack113",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_double_extension.yml"
+    },
+    {
+      "case_id": "double_extension_file",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "c69c8c8d-4188-72ea-ca61-a2a1a80612b3",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-c000-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215520"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        11
+      ],
+      "rule_authors": "Nasreddine Bencherchali (Nextron Systems), frack113",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_double_extension.yml"
+    },
+    {
+      "case_id": "double_extension_lnk",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "6b7cbf57-a67c-6e5a-61c6-4d92d02fff3e",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48e-6ab2-c100-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Nasreddine Bencherchali (Nextron Systems), frack113",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_lnk_double_extension.yml"
+    },
+    {
+      "case_id": "double_extension_lnk",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "6b7cbf57-a67c-6e5a-61c6-4d92d02fff3e",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48f-6ab2-c200-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215576"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        11
+      ],
+      "rule_authors": "Nasreddine Bencherchali (Nextron Systems), frack113",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_lnk_double_extension.yml"
+    },
+    {
+      "case_id": "office_startup_file",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "be512a1b-170e-acff-f35d-0e4b44caa2a3",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48f-6ab2-c300-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Max Altgelt (Nextron Systems), Nasreddine Bencherchali (Nextron Systems)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_office_startup_persistence.yml"
+    },
+    {
+      "case_id": "office_startup_file",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "be512a1b-170e-acff-f35d-0e4b44caa2a3",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48f-6ab2-c400-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215634"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        11
+      ],
+      "rule_authors": "Max Altgelt (Nextron Systems), Nasreddine Bencherchali (Nextron Systems)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_office_startup_persistence.yml"
+    },
+    {
+      "case_id": "suspicious_executable_file",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "9512176f-0e9f-7f30-fa82-d414c1c80248",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48f-6ab2-c500-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "frack113",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_executable_creation.yml"
+    },
+    {
+      "case_id": "suspicious_executable_file",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "9512176f-0e9f-7f30-fa82-d414c1c80248",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48f-6ab2-c600-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215690"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        11
+      ],
+      "rule_authors": "frack113",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_executable_creation.yml"
+    },
+    {
+      "case_id": "double_extension_execute",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "b6ce0b2f-593b-5e1c-e137-d30b2974e30e",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48f-6ab2-c700-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Florian Roth (Nextron Systems), @blu3_team (idea), Nasreddine Bencherchali (Nextron Systems)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/process_creation/proc_creation_win_susp_double_extension.yml"
+    },
+    {
+      "case_id": "double_extension_execute",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "b6ce0b2f-593b-5e1c-e137-d30b2974e30e",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48f-6ab2-c800-000000007d00}",
+        "{31703105-e48f-6ab2-c900-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215750"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Florian Roth (Nextron Systems), @blu3_team (idea), Nasreddine Bencherchali (Nextron Systems)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/process_creation/proc_creation_win_susp_double_extension.yml"
+    },
+    {
+      "case_id": "creation_time_change",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "1117f7b2-3f59-682b-ad07-081d44ae5ddb",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48f-6ab2-ca00-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "frack113, Florian Roth (Nextron Systems)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/threat-hunting/file/file_change/file_change_win_date_changed_to_another_year.yml"
+    },
+    {
+      "case_id": "creation_time_change",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "1117f7b2-3f59-682b-ad07-081d44ae5ddb",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48f-6ab2-cb00-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215827"
+      ],
+      "attributable_event_ids": [
+        1,
+        2,
+        5,
+        7
+      ],
+      "rule_authors": "frack113, Florian Roth (Nextron Systems)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/threat-hunting/file/file_change/file_change_win_date_changed_to_another_year.yml"
+    },
+    {
+      "case_id": "ads_executable",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48f-6ab2-cc00-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Florian Roth (Nextron Systems), @0xrawsec",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_stream_hash/create_stream_hash_ads_executable.yml"
+    },
+    {
+      "case_id": "ads_executable",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48f-6ab2-cd00-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215888"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        11,
+        15
+      ],
+      "rule_authors": "Florian Roth (Nextron Systems), @0xrawsec",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_stream_hash/create_stream_hash_ads_executable.yml"
+    },
+    {
+      "case_id": "named_pipe_indicator",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "cb1d1446-f327-1659-42ad-e41a7bc16e36",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48f-6ab2-ce00-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Florian Roth (Nextron Systems), blueteam0ps, elhoim",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/pipe_created/pipe_created_susp_malicious_namedpipes.yml"
+    },
+    {
+      "case_id": "named_pipe_indicator",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "cb1d1446-f327-1659-42ad-e41a7bc16e36",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48f-6ab2-cf00-000000007d00}"
+      ],
+      "target_record_ids": [
+        "215946",
+        "215947"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7,
+        17,
+        18
+      ],
+      "rule_authors": "Florian Roth (Nextron Systems), blueteam0ps, elhoim",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/pipe_created/pipe_created_susp_malicious_namedpipes.yml"
+    },
+    {
+      "case_id": "unsigned_node_load",
+      "runtime": "go-cgo",
+      "mode": "control",
+      "rule_id": "8085fb71-ed3b-7920-ca06-f9174665cc8a",
+      "valid": true,
+      "outcome": "control-pass",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e48f-6ab2-d000-000000007d00}"
+      ],
+      "target_record_ids": [],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Jonathan Beierle (@hullabrian)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/image_load/image_load_dll_unsigned_node_load.yml"
+    },
+    {
+      "case_id": "unsigned_node_load",
+      "runtime": "go-cgo",
+      "mode": "active",
+      "rule_id": "8085fb71-ed3b-7920-ca06-f9174665cc8a",
+      "valid": true,
+      "outcome": "alert",
+      "behavior_ok": true,
+      "process_start_matches": 1,
+      "ambiguous_record_ids": [],
+      "conflicting_guid_record_ids": [],
+      "unattributed_target_record_ids": [],
+      "process_guids": [
+        "{31703105-e490-6ab2-d100-000000007d00}"
+      ],
+      "target_record_ids": [
+        "216021"
+      ],
+      "attributable_event_ids": [
+        1,
+        5,
+        7
+      ],
+      "rule_authors": "Jonathan Beierle (@hullabrian)",
+      "rule_source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/image_load/image_load_dll_unsigned_node_load.yml"
+    }
+  ],
+  "counts": {
+    "alert": 17,
+    "valid-miss": 0,
+    "control-pass": 17,
+    "control-failed": 0,
+    "attribution-incomplete": 0,
+    "invalid": 0
+  }
+}

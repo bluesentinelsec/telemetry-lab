@@ -1,0 +1,8 @@
+Unexpected staged executable: C:\lab\windows-coverage\run\probe.exe
+At C:\lab\go-support\run.ps1:144 char:28
++ ...      if (Test-Path $exe) {throw "Unexpected staged executable: $exe"}
++                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Unexpected stag...e\run\probe.exe:String) [], RuntimeException
+    + FullyQualifiedErrorId : Unexpected staged executable: C:\lab\windows-coverage\run\probe.exe
+ 
+

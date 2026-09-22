@@ -1,0 +1,40 @@
+﻿[
+    {
+        "case_id":  "dns_onion",
+        "mode":  "control",
+        "rule_id":  "29e2035f-b91f-3c35-9a7a-087b864f6d3b",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "2a8f23cbb9b150210d8c4b62ec48030d2af6cb63d966de74442757ea4de3de22",
+        "staged_sha256":  "2a8f23cbb9b150210d8c4b62ec48030d2af6cb63d966de74442757ea4de3de22",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4048,
+                        "start_utc":  "2026-09-22T20:41:07.7861268Z",
+                        "end_utc":  "2026-09-22T20:41:07.8045035Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE dns_onion\nCONTROL_OK dns_onion\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "dns_onion",
+        "mode":  "active",
+        "rule_id":  "29e2035f-b91f-3c35-9a7a-087b864f6d3b",
+        "runtime":  "go-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "2a8f23cbb9b150210d8c4b62ec48030d2af6cb63d966de74442757ea4de3de22",
+        "staged_sha256":  "2a8f23cbb9b150210d8c4b62ec48030d2af6cb63d966de74442757ea4de3de22",
+        "behavior_ok":  false,
+        "process":  {
+                        "pid":  4844,
+                        "start_utc":  "2026-09-22T20:41:07.8513361Z",
+                        "end_utc":  "2026-09-22T20:41:07.8781955Z",
+                        "exit_code":  2,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE dns_onion\n",
+                        "stderr":  "panic: lookup lab.onion: no such host\n\ngoroutine 1 [running]:\ngithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/internal/fixture.Must(...)\n\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/internal/fixture/common.go:21\ngithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/internal/netio.Resolve({0xa4869e, 0x9})\n\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/internal/netio/netio.go:42 +0x1b9\nmain.main()\n\tgithub.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/dns_onion/main.go:16 +0x70\n"
+                    }
+    }
+]
