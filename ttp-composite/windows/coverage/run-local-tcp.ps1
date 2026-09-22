@@ -7,9 +7,10 @@ param(
   [string]$Hayabusa='C:\lab\hayabusa\hayabusa.exe'
 )
 $ErrorActionPreference='Stop'
-# 3389 is deliberately not claimed here: its existing RDP listener is a pending user decision.
+# Use the existing RDP service; never replace it with an echo server.
+if (!(Get-NetTCPConnection -State Listen -LocalPort 3389 -ErrorAction SilentlyContinue)) {throw 'Existing RDP listener is required'}
 $ports=@(88,2525,9389,49152)
-$cases=@('tcp_connect_88','tcp_connect_2525','tcp_connect_9389','tcp_connect_public_path')
+$cases=@('tcp_connect_3389','tcp_connect_88','tcp_connect_2525','tcp_connect_9389','tcp_connect_public_path')
 $fixtureOutput="$Output-fixtures"
 if(Test-Path $fixtureOutput){throw 'Fixture evidence exists; choose a new output directory'}
 New-Item -ItemType Directory $fixtureOutput -Force | Out-Null
@@ -23,7 +24,7 @@ try {
  }
  Start-Sleep -Seconds 1
  foreach($p in $processes){if($p.HasExited){throw 'Echo fixture failed to start'}}
- @{server_sha256=(Get-FileHash $EchoServer).Hash;ports=$ports;bind_address='127.0.0.1';process_ids=@($processes.Id)} | ConvertTo-Json | Set-Content "$fixtureOutput\fixture.json" -Encoding UTF8
+ @{server_sha256=(Get-FileHash $EchoServer).Hash;ports=$ports;rdp_listener=@(Get-NetTCPConnection -State Listen -LocalPort 3389 | Select-Object LocalAddress,LocalPort,OwningProcess);bind_address='127.0.0.1';process_ids=@($processes.Id)} | ConvertTo-Json -Depth 4 | Set-Content "$fixtureOutput\fixture.json" -Encoding UTF8
  & "$PSScriptRoot\run.ps1" -Programs $Programs -Output $Output -Cases $cases -IncludeNetwork -Hayabusa $Hayabusa
 } finally {
  foreach($p in $processes){if(!$p.HasExited){Stop-Process -Id $p.Id -Force};$p.Dispose()}

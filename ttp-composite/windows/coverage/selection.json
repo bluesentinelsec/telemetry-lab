@@ -19,7 +19,7 @@
     "inventory_sha256": "ada9f35a9e2c179f05f84f842fe73f01d1e45f64f171b3328eb218c82f564035",
     "engine_verified_enabled_sysmon_rules": 2269,
     "engine_verification_evidence": "validation/ucrt-nonnetwork-01/hayabusa.log",
-    "qualification_status": "20 targets demonstrated with valid alerts and clean controls in both C CRTs; network stabilization and four remaining candidates pending user decisions"
+    "qualification_status": "20 targets previously demonstrated; approved RDP, local DNS and fixed TCP lifetime changes await requalification"
   },
   "candidates": [
     {
@@ -896,9 +896,9 @@
       ],
       "level": "medium",
       "status": "test",
-      "behavior": "Use ordinary TCP sockets to connect to a lab-owned private peer on port 2525, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.",
-      "fixture_requirements": "Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "behavior": "Use ordinary TCP sockets to connect to a localhost echo fixture (127.0.0.1) on port 2525, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends. Keep the process alive for five seconds after I/O, equally in the same-binary control.",
+      "fixture_requirements": "Use the same neutral executable path/name and localhost IPv4 destination across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
+      "qualification": "pending-requalification",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -951,9 +951,9 @@
       ],
       "level": "high",
       "status": "test",
-      "behavior": "Use ordinary TCP sockets to connect to a lab-owned private peer on port 3389, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.",
-      "fixture_requirements": "Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
-      "qualification": "pending-network-decision",
+      "behavior": "Connect to the existing RDP listener at 127.0.0.1:3389, send the fixed 11-byte X.224 connection request, and close without authentication or a session. Hold the process alive for five seconds after I/O, equally in the same-binary control.",
+      "fixture_requirements": "Existing Windows RDP listener; leave service configuration intact. Verify connect and complete send. The rule uses connection metadata, not payload contents. Keep address, payload, path and lifetime identical across languages.",
+      "qualification": "pending-requalification",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -1060,9 +1060,9 @@
       ],
       "level": "medium",
       "status": "test",
-      "behavior": "Use ordinary TCP sockets to connect to a lab-owned private peer on port 9389, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.",
-      "fixture_requirements": "Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "behavior": "Use ordinary TCP sockets to connect to a localhost echo fixture (127.0.0.1) on port 9389, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends. Keep the process alive for five seconds after I/O, equally in the same-binary control.",
+      "fixture_requirements": "Use the same neutral executable path/name and localhost IPv4 destination across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
+      "qualification": "pending-requalification",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -1115,9 +1115,9 @@
       ],
       "level": "medium",
       "status": "test",
-      "behavior": "Use ordinary TCP sockets to connect to a lab-owned private peer on port 88, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.",
-      "fixture_requirements": "Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "behavior": "Use ordinary TCP sockets to connect to a localhost echo fixture (127.0.0.1) on port 88, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends. Keep the process alive for five seconds after I/O, equally in the same-binary control.",
+      "fixture_requirements": "Use the same neutral executable path/name and localhost IPv4 destination across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
+      "qualification": "pending-requalification",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -1214,9 +1214,9 @@
       ],
       "level": "high",
       "status": "test",
-      "behavior": "Execute the standalone program at C:\\Users\\Public\\telemetry-lab\\probe.exe and perform a TCP connect/send/receive exchange with a lab-owned private peer on fixed port 49152.",
+      "behavior": "Execute the standalone program at C:\\Users\\Public\\telemetry-lab\\probe.exe and perform a TCP connect/send/receive exchange with a localhost echo fixture (127.0.0.1) on fixed port 49152. Keep the process alive for five seconds after I/O, equally in the same-binary control.",
       "fixture_requirements": "Hold the executable location constant across languages. Use a controlled destination hostname outside filter_main_domains. Stage the program before capture; observe the connection from the actual measured process, not a launcher. Confirm bytes received at both ends.",
-      "qualification": "pending-network-decision",
+      "qualification": "pending-requalification",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -1318,8 +1318,8 @@
       "level": "high",
       "status": "test",
       "behavior": "Resolve lab.onion using the normal language hostname-to-address resolver and an isolated lab DNS server supplying a fixed local answer.",
-      "fixture_requirements": "No Tor client or public forwarding. Independently verify the lookup result and resolver request. Qualify C EID 22 attribution; if the resolver rejects the special-use name, resolve that fixture limitation before accepting this target. Establish the same DNS-cache baseline for each attempt.",
-      "qualification": "pending-network-decision",
+      "fixture_requirements": "No Tor client or public forwarding. Independently verify the lookup result and resolver request. Qualify C EID 22 attribution; if the resolver rejects the special-use name, resolve that fixture limitation before accepting this target. Establish the same DNS-cache baseline for each attempt. Use a harness-only UDP responder on 127.0.0.1:53 and temporary exact-name NRPT entries. Return 127.0.0.42 with zero TTL; remove entries and clear cache afterward.",
+      "qualification": "pending-qualification",
       "detection": {
         "dns_query": {
           "EventID": 22,
@@ -1390,8 +1390,8 @@
       "level": "medium",
       "status": "test",
       "behavior": "Resolve api.ipify.org against an isolated lab resolver that supplies a fixed local answer.",
-      "fixture_requirements": "No HTTP client or public service contact. Preserve the hostname, answer, and DNS-cache baseline across languages; independently verify lookup results and resolver request. Keep the executable outside browser image exclusions.",
-      "qualification": "pending-network-decision",
+      "fixture_requirements": "No HTTP client or public service contact. Preserve the hostname, answer, and DNS-cache baseline across languages; independently verify lookup results and resolver request. Keep the executable outside browser image exclusions. Use a harness-only UDP responder on 127.0.0.1:53 and temporary exact-name NRPT entries. Return 127.0.0.42 with zero TTL; remove entries and clear cache afterward.",
+      "qualification": "pending-qualification",
       "detection": {
         "dns_query": {
           "EventID": 22,
