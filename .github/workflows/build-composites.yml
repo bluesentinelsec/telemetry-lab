@@ -322,7 +322,6 @@ jobs:
             name: Windows C++ (libc++)
 
     name: ${{ matrix.name }}
-    continue-on-error: true  # go-back #50: Windows composites non-blocking
     runs-on: windows-2025
     defaults:
       run:
@@ -342,6 +341,7 @@ jobs:
             mingw-w64-ucrt-x86_64-libc++
             mingw-w64-ucrt-x86_64-cmake
             mingw-w64-ucrt-x86_64-ninja
+            mingw-w64-ucrt-x86_64-python
 
       - name: Configure and build
         working-directory: ttp-composite/windows/cpp
@@ -353,17 +353,27 @@ jobs:
         working-directory: ttp-composite/windows/cpp
         run: cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
 
-      # Ship the C++ runtime DLLs beside the exe: the loader searches the
-      # executable's own directory first, so the composites run on a stock
-      # Windows host. Keep only the MSYS2/UCRT64 libraries (the rest are Windows
-      # system DLLs that are always present).
-      - name: Bundle runtime DLLs
+      - name: Bundle actual runtime DLL dependencies
+        run: python ttp-composite/windows/coverage/bundle_runtime.py composite-dist/${{ matrix.config }}
+
+      - name: Verify standalone programs, C++ library and CRT imports
+        run: python ttp-composite/windows/coverage/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.toolchain == 'windows-libstdcxx' && 'libstdcxx' || 'libcxx' }} --compiler clang++
+
+      - name: Verify non-network behaviors and same-binary controls
+        shell: pwsh
         run: |
-          distdir="composite-dist/${{ matrix.config }}"
-          for exe in "$distdir"/*.exe; do ldd "$exe"; done \
-            | awk '$3 ~ /\/ucrt64\//{print $3}' | sort -u \
-            | while read -r dll; do cp -v "$dll" "$distdir/"; done
-          echo "bundle contents:"; ls -l "$distdir"
+          $dist = "composite-dist/${{ matrix.config }}/coverage"
+          New-Item -ItemType Directory -Force C:\lab\windows-coverage\fixtures | Out-Null
+          Copy-Item "$dist/fixtures/windows_fixture_helper.exe" C:\lab\windows-coverage\fixtures\helper.exe
+          Copy-Item "$dist/fixtures/fixture.node" C:\lab\windows-coverage\fixtures\fixture.node
+          & ./ttp-composite/windows/coverage/run.ps1 -Programs $dist -Output "${{ runner.temp }}/windows-behavior" -BehaviorOnly
+
+      - name: Upload behavior evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: behavior-${{ matrix.config }}
+          path: ${{ runner.temp }}/windows-behavior
 
       - name: Upload composites
         uses: actions/upload-artifact@v7

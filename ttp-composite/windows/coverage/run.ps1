@@ -25,6 +25,7 @@ $Programs = (Resolve-Path $Programs).Path
 $env:TELEMETRY_LAB_FIXTURE = '1'
 $attempts = [Collections.Generic.List[object]]::new()
 $changes = [Collections.Generic.List[object]]::new()
+$stagedDlls = [Collections.Generic.List[string]]::new()
 $createdDirs = [Collections.Generic.List[string]]::new()
 function Ensure-Directory([string]$path) {
   if (!(Test-Path $path)) { New-Item -ItemType Directory -Path $path -Force | Out-Null; $createdDirs.Add($path) }
@@ -110,6 +111,19 @@ if (!$BehaviorOnly) {
 $executionError=$null
 try {
   foreach($dir in @($root,"$root\run","$root\work","$root\fixtures",'C:\Users\Public\telemetry-lab')) {Ensure-Directory $dir}
+  # The DLLs are part of the measured runtime configuration. Stage exactly the
+  # verified bundle beside neutral/public probe paths; never rely on host PATH.
+  foreach($dll in @($build.dependent_dlls)) {
+    if(!$dll){continue}
+    if([IO.Path]::GetFileName($dll.name) -ne $dll.name -or $dll.name -notmatch '\.dll$'){throw 'Invalid DLL manifest path'}
+    $source=Join-Path $Programs $dll.name
+    if((Get-FileHash $source).Hash.ToLower() -ne $dll.sha256){throw "DLL hash mismatch: $($dll.name)"}
+    foreach($directory in @("$root\run",'C:\Users\Public\telemetry-lab')) {
+      $dest=Join-Path $directory $dll.name
+      if(Test-Path $dest){throw "Unexpected staged runtime DLL: $dest"}
+      Copy-Item $source $dest;$stagedDlls.Add($dest)
+    }
+  }
   # Fixtures come from one fixed reference build for all configurations. Caller stages them.
   foreach($file in @('helper.exe','fixture.node')) {if (!(Test-Path "$root\fixtures\$file")) {throw "Missing fixed helper $file"}}
   [IO.File]::WriteAllText("$root\fixtures\text.txt","telemetry-lab`n")
@@ -168,8 +182,16 @@ try {
   $executionError=$_
   $_ | Out-String | Set-Content "$Output\execution-error.txt"
 } finally {
-  Restore-Registry
-  $attempts.ToArray() | ConvertTo-Json -Depth 10 | Set-Content "$Output\attempts.json" -Encoding UTF8
+  # Always persist attempts, even if fixture/runtime cleanup fails.
+  try {
+    foreach($dll in $stagedDlls){Remove-Item $dll -Force}
+    Restore-Registry
+  } catch {
+    $_ | Out-String | Set-Content "$Output\cleanup-error.txt"
+    if(!$executionError){$executionError=$_}
+  } finally {
+    $attempts.ToArray() | ConvertTo-Json -Depth 10 | Set-Content "$Output\attempts.json" -Encoding UTF8
+  }
 }
 if ($BehaviorOnly) {
   if ($executionError) {throw $executionError}
