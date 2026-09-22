@@ -1,9 +1,10 @@
 """Reject invalid runtime comparisons before running a Windows campaign."""
 import tempfile
+import struct
 import unittest
 from pathlib import Path
 from unittest.mock import patch
-from verify_programs import verify_imports, verify_go
+from verify_programs import verify_imports, verify_go, pe_imports
 from bundle_runtime import bundle
 
 
@@ -34,6 +35,27 @@ class RuntimeTests(unittest.TestCase):
         verify_imports(['KERNEL32.dll'],'go-static','probe')
         with self.assertRaises(ValueError):verify_imports(['msvcrt.dll'],'go-cgo','probe')
         with self.assertRaises(ValueError):verify_imports(['ucrtbase.dll'],'go-static','probe')
+
+    def test_pe_imports_follow_rva_not_debug_section_contents(self):
+        data=bytearray(0x600);data[:2]=b'MZ';struct.pack_into('<I',data,0x3c,0x80)
+        data[0x80:0x84]=b'PE\0\0';struct.pack_into('<HH',data,0x84,0x8664,2)
+        struct.pack_into('<H',data,0x94,240);optional=0x98
+        struct.pack_into('<H',data,optional,0x20b)
+        struct.pack_into('<I',data,optional+108,16)
+        struct.pack_into('<II',data,optional+120,0x2000,40)
+        for i,(name,rva,raw) in enumerate([(b'.zdebug',0x1000,0x200),(b'.idata',0x2000,0x400)]):
+            section=optional+240+40*i;data[section:section+len(name)]=name
+            struct.pack_into('<IIII',data,section+8,0x200,rva,0x200,raw)
+        # Unrelated strings/debug data must not be mistaken for imports.
+        data[0x200:0x20a]=b'msvcrt.dll'
+        struct.pack_into('<IIIII',data,0x400,0x2080,0,0,0x2050,0x2090)
+        data[0x450:0x45d]=b'kernel32.dll\0'
+        with tempfile.TemporaryDirectory() as tmp:
+            p=Path(tmp)/'probe.exe';p.write_bytes(data)
+            self.assertEqual(pe_imports(p),['kernel32.dll'])
+            for offset,value in [(0x400+12,0x8000),(optional+120,0),(0x420,1)]:
+                broken=bytearray(data);struct.pack_into('<I',broken,offset,value);p.write_bytes(broken)
+                with self.assertRaises(ValueError):pe_imports(p)
 
     def test_bundle_follows_indirect_imports_in_nested_program_groups(self):
         with tempfile.TemporaryDirectory() as tmp:

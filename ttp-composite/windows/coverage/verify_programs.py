@@ -5,12 +5,59 @@ import hashlib
 import json
 import re
 import subprocess
+import struct
 from pathlib import Path
 
 
-def pe_imports(path,objdump='objdump'):
-    report=subprocess.check_output([objdump,'-p',str(path)],text=True)
-    return re.findall(r'DLL Name:\s*(\S+)',report)
+def pe_imports(path,objdump=None):
+    """Read PE64 import descriptors without objdump's debug-section expansion.
+
+    The optional objdump argument is retained for existing helper callers.
+    Format: https://learn.microsoft.com/en-us/windows/win32/debug/pe-format
+    """
+    data=Path(path).read_bytes()
+    def unpack(fmt,offset):
+        if offset<0 or offset+struct.calcsize(fmt)>len(data):
+            raise ValueError(f'{path}: truncated PE structure')
+        return struct.unpack_from(fmt,data,offset)
+    if data[:2]!=b'MZ':raise ValueError(f'{path}: missing DOS header')
+    pe=unpack('<I',0x3c)[0]
+    if data[pe:pe+4]!=b'PE\0\0':raise ValueError(f'{path}: missing PE signature')
+    machine,count=unpack('<HH',pe+4);optional_size=unpack('<H',pe+20)[0]
+    optional=pe+24
+    if machine!=0x8664 or unpack('<H',optional)[0]!=0x20b or optional_size<128:
+        raise ValueError(f'{path}: expected x64 PE32+')
+    directories=unpack('<I',optional+108)[0]
+    if directories<2:raise ValueError(f'{path}: missing import data directory')
+    if directories>13 and optional_size>=224 and any(unpack('<II',optional+216)):
+        raise ValueError(f'{path}: delay imports require explicit validation')
+    rva,size=unpack('<II',optional+120)
+    if not rva or not size:raise ValueError(f'{path}: absent import table')
+    sections=[unpack('<IIII',optional+optional_size+40*i+8) for i in range(count)]
+    def offset(address,length=1):
+        matches=[raw+address-va for virtual,va,raw_size,raw in sections
+                 if va<=address and address+length<=va+raw_size]
+        if len(matches)!=1 or matches[0]+length>len(data):
+            raise ValueError(f'{path}: invalid/ambiguous import RVA {address:#x}')
+        return matches[0]
+    imports=[]
+    for position in range(0,size-19,20):
+        descriptor=unpack('<IIIII',offset(rva+position,20))
+        if not any(descriptor):
+            if not imports:raise ValueError(f'{path}: empty import descriptor list')
+            return imports
+        name_rva=descriptor[3];name=bytearray()
+        for i in range(256):
+            byte=data[offset(name_rva+i)]
+            if not byte:break
+            name.append(byte)
+        else:raise ValueError(f'{path}: unterminated DLL name')
+        try:decoded=name.decode('ascii')
+        except UnicodeDecodeError as error:raise ValueError(f'{path}: invalid DLL name') from error
+        if not decoded or '/' in decoded or '\\' in decoded:
+            raise ValueError(f'{path}: invalid DLL import name')
+        imports.append(decoded)
+    raise ValueError(f'{path}: unterminated import descriptor table')
 
 
 def verify_imports(imports,runtime,label):
