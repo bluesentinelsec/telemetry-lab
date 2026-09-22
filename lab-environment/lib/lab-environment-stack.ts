@@ -222,29 +222,29 @@ export class LabEnvironmentStack extends cdk.Stack {
     // filter (never a hardcoded ID), so it is correct in any region.
     const hosts: ec2.Instance[] = [];
     if (!props.windowsOnly) {
-    const debian = new ec2.Instance(this, 'DebianHost', {
-      vpc,
-      vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
-      instanceType: new ec2.InstanceType(instanceType),
-      machineImage: ec2.MachineImage.lookup({
-        name: 'debian-13-amd64-*',
-        owners: [DEBIAN_AMI_OWNER],
-        filters: {
-          architecture: ['x86_64'],
-          'root-device-type': ['ebs'],
-          'virtualization-type': ['hvm'],
-          state: ['available'],
-        },
-      }),
-      securityGroup: egressOnlySecurityGroup('DebianSecurityGroup', 'debian-13'),
-      blockDevices: [{ deviceName: '/dev/xvda', volume: rootVolume() }],
-      userData: debianUserData,
-      requireImdsv2: true,
-    });
-    cdk.Tags.of(debian).add('Name', 'lab-debian-13');
+      const debian = new ec2.Instance(this, 'DebianHost', {
+        vpc,
+        vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
+        instanceType: new ec2.InstanceType(instanceType),
+        machineImage: ec2.MachineImage.lookup({
+          name: 'debian-13-amd64-*',
+          owners: [DEBIAN_AMI_OWNER],
+          filters: {
+            architecture: ['x86_64'],
+            'root-device-type': ['ebs'],
+            'virtualization-type': ['hvm'],
+            state: ['available'],
+          },
+        }),
+        securityGroup: egressOnlySecurityGroup('DebianSecurityGroup', 'debian-13'),
+        blockDevices: [{ deviceName: '/dev/xvda', volume: rootVolume() }],
+        userData: debianUserData,
+        requireImdsv2: true,
+      });
+      cdk.Tags.of(debian).add('Name', 'lab-debian-13');
 
-    hosts.push(debian);
-    new cdk.CfnOutput(this, 'DebianInstanceId', { value: debian.instanceId });
+      hosts.push(debian);
+      new cdk.CfnOutput(this, 'DebianInstanceId', { value: debian.instanceId });
     }
     if (!props.linuxOnly) {
       // Windows provisioning, in order:

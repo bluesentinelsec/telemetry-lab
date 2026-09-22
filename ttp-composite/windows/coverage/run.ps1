@@ -8,6 +8,9 @@ param(
   [switch]$IncludeNetwork,
   [switch]$BehaviorOnly
 )
+$lock = [Threading.Mutex]::new($false, 'Global\TelemetryLabWindowsQualification')
+if (!$lock.WaitOne(0)) { $lock.Dispose(); throw 'Another Windows qualification run is active' }
+try {
 $ErrorActionPreference = 'Stop'
 $root = 'C:\lab\windows-coverage'
 $channel = 'Microsoft-Windows-Sysmon/Operational'
@@ -100,7 +103,8 @@ if (!$BehaviorOnly) {
     if ((Get-FileHash $path).Hash.ToLower() -ne $entry.sha256) {throw "Rule hash differs: $($entry.path)"}
   }
 }
-$fixtureNames=@('text.txt','profile.ps1','document.rtf','fixture.lnk')
+@{cases=@($allCases.case_id);runtime=$build.runtime;expected_attempts=2*$allCases.Count} | ConvertTo-Json | Set-Content "$Output\run-plan.json" -Encoding UTF8
+$executionError=$null
 try {
   foreach($dir in @($root,"$root\run","$root\work","$root\fixtures",'C:\Users\Public\telemetry-lab')) {Ensure-Directory $dir}
   # Fixtures come from one fixed reference build for all configurations. Caller stages them.
@@ -123,7 +127,8 @@ try {
       if (Test-Path $exe) {throw "Unexpected staged executable: $exe"}
       try {
         if ($target) {
-          if (Test-Path $target) {throw "Fixture already exists: $target"}
+          if ($id -ne 'ads_executable' -and (Test-Path $target)) {throw "Fixture already exists: $target"}
+          if ($id -eq 'ads_executable' -and (Test-Path "$root\work\carrier.txt")) {throw 'Carrier file already exists'}
           Ensure-Directory (Split-Path $target)
           $targetOwned=$true
         }
@@ -149,18 +154,22 @@ try {
       } finally {
         # All cleanup is performed by the harness, after the measured process exits.
         if (Test-Path $exe) {Remove-Item $exe -Force}
-        if ($targetOwned -and $target -and (Test-Path $target)) {Remove-Item $target -Force}
-        if ($id -eq 'ads_executable') {Remove-Item "$root\work\carrier.txt" -Force -ErrorAction SilentlyContinue}
+        if ($id -ne 'ads_executable' -and $targetOwned -and $target -and (Test-Path $target)) {Remove-Item $target -Force}
+        if ($targetOwned -and $id -eq 'ads_executable') {Remove-Item "$root\work\carrier.txt" -Force -ErrorAction SilentlyContinue}
         if ($runmruOwned) {[Microsoft.Win32.Registry]::CurrentUser.DeleteSubKeyTree($runmru,$false)}
         Restore-Registry
       }
     }
   }
+} catch {
+  $executionError=$_
+  $_ | Out-String | Set-Content "$Output\execution-error.txt"
 } finally {
   Restore-Registry
   $attempts.ToArray() | ConvertTo-Json -Depth 10 | Set-Content "$Output\attempts.json" -Encoding UTF8
 }
 if ($BehaviorOnly) {
+  if ($executionError) {throw $executionError}
   if (@($attempts | Where-Object {!$_.behavior_ok}).Count) {throw 'Behavior validation failed'}
   exit 0
 }
@@ -182,4 +191,7 @@ Push-Location (Split-Path $Hayabusa)
 try { & $Hayabusa csv-timeline -f "$Output\events.evtx" -o "$Output\alerts.csv" -r $rules -m low --no-wizard -p all-field-info -C 2>&1 | Out-File "$Output\hayabusa.log" -Encoding UTF8; $detectorExit=$LASTEXITCODE } finally {Pop-Location}
 [IO.File]::WriteAllText("$Output\detector-exit.txt",[string]$detectorExit)
 if ($detectorExit -ne 0) {throw 'Hayabusa evaluation failed; preserve evidence'}
+if ($executionError) {throw $executionError}
 if (@($attempts | Where-Object {!$_.behavior_ok}).Count) {throw 'One or more behavior checks failed; preserve evidence'}
+
+} finally { $lock.ReleaseMutex(); $lock.Dispose() }
