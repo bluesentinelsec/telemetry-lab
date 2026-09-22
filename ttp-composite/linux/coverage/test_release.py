@@ -54,7 +54,7 @@ class ReleaseTests(unittest.TestCase):
                     self.assertIn(prefix+config+'/coverage/build-manifest.json',names)
                     self.assertIn(prefix+config+'/coverage/fixtures/windows_fixture_helper.exe',names)
                 self.assertNotIn(prefix+windows[2]+'/coverage/registry_run_key.exe',names)
-                for support in ['selection.json','rule-inventory.csv','run.ps1','analyze.py']:
+                for support in ['selection.json','rule-inventory.csv','run.ps1','run-local-tcp.ps1','run-local-dns.ps1','analyze.py']:
                     self.assertIn(prefix+'coverage/'+support,names)
 
 

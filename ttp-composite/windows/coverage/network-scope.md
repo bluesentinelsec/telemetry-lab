@@ -1,6 +1,6 @@
 # Refined Windows network TTP Composite scope
 
-Status: seven proposed standalone cases targeting seven unmodified rules; not yet lab-qualified. These replace the earlier network/DNS candidate subset. The overall proposal remains 24 candidates. Subject: the inventoried Hayabusa 4.1.0 Windows release bundle, with exact rule IDs and hashes in `selection.json`.
+Status: seven standalone cases targeting seven unmodified rules; approved local fixtures are undergoing qualification. These replace the earlier network/DNS candidate subset. The overall proposal remains 24 candidates. Subject: the inventoried Hayabusa 4.1.0 Windows release bundle, with exact rule IDs and hashes in `selection.json`.
 
 ## Decision
 
@@ -14,25 +14,24 @@ Replace the LDAP-discovery DNS candidate with a TCP connection from a rule-liste
 
 | Case | Measured behavior | Exact bundled rule | Rule ID |
 |---|---|---|---|
-| `tcp_connect_2525` | TCP exchange to private peer:2525 | Suspicious Outbound SMTP Connections | `f8a59cdc-b3d1-8f59-c3f4-4db6d94e8efc` |
-| `tcp_connect_3389` | TCP exchange to private peer:3389 | Outbound RDP Connections Over Non-Standard Tools | `f3fa6209-076f-c860-c7cb-e2f6bdd7d3e0` |
-| `tcp_connect_9389` | TCP exchange to private peer:9389 | Uncommon Connection to Active Directory Web Services | `ae8c1c58-4743-c0c8-3b30-7d69f7cbee68` |
-| `tcp_connect_88` | TCP exchange to private peer:88 | Uncommon Outbound Kerberos Connection | `322fd5f2-b5b7-1bf4-58f2-92873dc878bb` |
-| `tcp_connect_public_path` | TCP exchange to private peer:49152 from C:\Users\Public\telemetry-lab\probe.exe | Network Connection Initiated From Process Located In Potentially Suspicious Or Uncommon Location | `df13f270-859b-272a-9c2a-a0ef744a0480` |
+| `tcp_connect_2525` | TCP exchange to 127.0.0.1:2525 | Suspicious Outbound SMTP Connections | `f8a59cdc-b3d1-8f59-c3f4-4db6d94e8efc` |
+| `tcp_connect_3389` | TCP connect/send to existing RDP at 127.0.0.1:3389 | Outbound RDP Connections Over Non-Standard Tools | `f3fa6209-076f-c860-c7cb-e2f6bdd7d3e0` |
+| `tcp_connect_9389` | TCP exchange to 127.0.0.1:9389 | Uncommon Connection to Active Directory Web Services | `ae8c1c58-4743-c0c8-3b30-7d69f7cbee68` |
+| `tcp_connect_88` | TCP exchange to 127.0.0.1:88 | Uncommon Outbound Kerberos Connection | `322fd5f2-b5b7-1bf4-58f2-92873dc878bb` |
+| `tcp_connect_public_path` | TCP exchange to 127.0.0.1:49152 from C:\Users\Public\telemetry-lab\probe.exe | Network Connection Initiated From Process Located In Potentially Suspicious Or Uncommon Location | `df13f270-859b-272a-9c2a-a0ef744a0480` |
 | `dns_onion` | Resolve lab.onion through isolated lab DNS | DNS Query Tor .Onion Address - Sysmon | `29e2035f-b91f-3c35-9a7a-087b864f6d3b` |
 | `dns_ip_lookup` | Resolve api.ipify.org through isolated lab DNS | Suspicious DNS Query for IP Lookup Service APIs | `e1d5e512-66be-e3eb-e24b-a9f3545e115a` |
 
-The four port cases share the same socket behavior and differ only in the fixed destination port. This increases rule coverage, not the number of independent networking mechanisms. The executable-location case adds a different rule predicate. The two DNS cases use different name predicates with the same resolver operation.
+Three port cases and the path case use a fixed echo exchange; RDP uses connect/send against the existing listener without authentication. This increases rule coverage, not the number of independent networking mechanisms. The executable-location case adds a different rule predicate. The two DNS cases use different name predicates with the same resolver operation.
 
 ## Fixtures and qualification
 
-- **TCP:** use a harness-owned private peer with listeners on the five fixed ports. The peer echoes a fixed marker; both sides verify complete send/receive, handling partial I/O and bounded timeouts. No SMTP/RDP/ADWS/Kerberos server is needed. Keep the peer and its logging outside the measured process, and capture its receipt independently.
-- **Network placement:** use a separate reachable peer rather than depending on loopback telemetry. The selected five rules have no blanket private-address exclusion. Actual Sysmon capture still needs a C qualification run. Hold address family, peer address, port, payload, attempt count, and executable path constant for each case across languages. Do not rename a binary to a trusted application to exploit or bypass a rule's exclusions.
-- **Executable location:** stage the location-sensitive binary before the capture window. Its own initiated connection must generate the target event; merely creating a file in Public is insufficient. Use a controlled peer name such as `peer.lab.test`, outside the rule's excluded hostname suffixes. A raw-IP destination's actual DestinationHostname must be checked during qualification, not assumed.
-- **DNS:** call the normal language resolver against an isolated system DNS configuration. The resolver supplies deterministic local answers for `lab.onion` and `api.ipify.org`; it must not forward them publicly. Resolve only—do not connect to either named service. Use no HTTP client, Tor client, LDAP library, custom DNS protocol implementation, or hosts-file substitution. Confirm the lookup result and resolver-side query evidence separately from Sysmon.
+- **TCP:** harness-owned echo listeners on 127.0.0.1 ports 88, 2525, 9389 and 49152 verify the fixed marker exchange. Port 3389 uses the existing RDP listener and an 11-byte X.224 request; successful connect and complete send are checked without requiring an echo or establishing an authenticated session. No service is stopped or reconfigured.
+- **Network placement:** qualification confirmed Sysmon captures loopback connections. Hold IPv4 address, port, payload, attempt count and executable path constant across languages. All five TCP programs and their controls wait five seconds after I/O (or skipped I/O). This fixed lifetime is part of the experimental contract; earlier immediate-exit observations remain in the evidence.
+- **DNS:** call the normal language resolver against temporary exact-name NRPT policies directing only the two names to a harness-only UDP responder at 127.0.0.1:53. The responder supplies 127.0.0.42 with zero TTL as deterministic local answers for `lab.onion` and `api.ipify.org`; it must not forward them publicly. Resolve only—do not connect to either named service. Use no HTTP client, Tor client, LDAP library, custom DNS protocol implementation, or hosts-file substitution. Confirm the lookup result and resolver-side query evidence separately from Sysmon.
 - **DNS cache:** establish and record the same cache baseline before every active/control attempt. Record query names, address family behavior, results and resolver traffic. A cached lookup or missing sensor event must not be mistaken for failed behavior. Qualification must show that the C baseline emits an attributable EID 22; rejection of a special-use name is a fixture/behavior issue to resolve, not automatically a detection miss.
 - **APIs:** C/C++ use Windows socket/resolver APIs, Go uses its standard `net` library, and Rust uses its standard networking facilities. Preserve the existing compiler/runtime axes and verify their actual Windows resolver behavior; do not assume Go's cgo/pure-Go Windows builds select different resolvers or force every language through a shared external implementation.
-- **Controls:** run each same binary at the same path with the target operation disabled. Retain neutral behavior controls during initial qualification: the same TCP exchange on a non-target port, the location-sensitive exchange from a neutral path, and a neutral DNS name. These show that a matching connection/query predicate matters; they do not replace the same-binary no-behavior control.
+- **Controls:** run each same binary at the same path with the target operation disabled. Additional neutral-port/path/name experiments can support predicate analysis; these are not counted as completed qualification controls.
 - **Attribution:** score exact bundled rule IDs and correlate their event records with the measured process identity and capture window. Require independent behavior success and a C baseline alert, then preserve valid misses in later runtime configurations. No alert alone is insufficient evidence of a runtime effect.
 
 ## Outside the initial network scope
