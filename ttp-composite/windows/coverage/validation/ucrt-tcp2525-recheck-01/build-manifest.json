@@ -1,0 +1,378 @@
+﻿{
+    "runtime":  "ucrt",
+    "compiler_version":  "16.2.0",
+    "programs":  [
+                     {
+                         "case_id":  "registry_run_key",
+                         "sha256":  "a541ee4d19847e1829d1f9016c5366b3c19faa4c658ae01870a8d4138a220f9f",
+                         "imports":  [
+                                         "ADVAPI32.dll",
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_app_paths",
+                         "sha256":  "048794956072ed6b13d25fc40c955d460a4c4015afa1748c250124031259af80",
+                         "imports":  [
+                                         "ADVAPI32.dll",
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_active_setup",
+                         "sha256":  "ad891b78f57425fbe572b98eedeeebb9e864da9757aac616097e073df61c6f48",
+                         "imports":  [
+                                         "ADVAPI32.dll",
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_screensaver",
+                         "sha256":  "d145371622d624ea7b57e2e492802389e7fa93eb10c068c7ca341d69d43ba87a",
+                         "imports":  [
+                                         "ADVAPI32.dll",
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_runmru_delete",
+                         "sha256":  "1ab29fffb6337ee7b87cf34d37af5ee99a999d3e800cf5c1caddafd8f478d8a1",
+                         "imports":  [
+                                         "ADVAPI32.dll",
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "startup_file",
+                         "sha256":  "99500a48494a4b9a761e1dea06d29804bccb6dcdb08339338de26a2299649e31",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "powershell_profile",
+                         "sha256":  "c6097b13aea39d8e89c36e71e6c9232f54d64e0a34d7dcd9816f6e80cefa725f",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "public_binary",
+                         "sha256":  "0ce7bc6cd13eaf1ca7d60e6af445824b2bab9e86390f067e9ed3c3669c51b846",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "double_extension_file",
+                         "sha256":  "19bae9d82b434b04ac43dddf8e9126bd97bd0a0b16587d45ceed90c990e40f4f",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "double_extension_lnk",
+                         "sha256":  "e356df4f59d0ce1c498b6a09e49cbbf3d915fb13b136acf1551d0414e204af17",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "office_startup_file",
+                         "sha256":  "bcb330c50e1cd438290bce7336769296f31627a3bf0a86d16a781ba94c4ab63f",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "suspicious_executable_file",
+                         "sha256":  "34a0a2aff7b04020174b93dcd2e232e7d7f43d5999f71e1f877c3af8c5ffec62",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_2525",
+                         "sha256":  "2a77cc8a6398d8757729f0d67425ab520e84aa4c4cb97bdc00d871d2b989d6be",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll",
+                                         "WS2_32.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_3389",
+                         "sha256":  "2c34bd22725a072a8e5e2615871d4f19a2bbdbe312df95e012ed8dfa50ae6bac",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll",
+                                         "WS2_32.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_9389",
+                         "sha256":  "fbd02bebca3cb3f1b555ed61cc4a398214254b77aa5524c385c720fa723d1f4b",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll",
+                                         "WS2_32.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_88",
+                         "sha256":  "d60e685033db986952f5119c4ef05779e66429ac759c3c37961cdf87e864eeb7",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll",
+                                         "WS2_32.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_public_path",
+                         "sha256":  "515dbf22ae6f6477f9464eb6c0f1fc53dc78376527b95527e1cd01e9f2b8f07e",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll",
+                                         "WS2_32.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "dns_onion",
+                         "sha256":  "7d4a5861491d1f4f0f7211aed649ef554bff95267c3ddb2b399a64480d9cc1bf",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll",
+                                         "WS2_32.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "dns_ip_lookup",
+                         "sha256":  "eb3f87d0b16db3deba6efe2cb0b3a8397b59da71b66fc783c253b1bccc53d0d2",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll",
+                                         "WS2_32.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "double_extension_execute",
+                         "sha256":  "fa7091aa95323209393aa92c2e3fe1ae29d4b6a5b07d5bcc3ccf63277321f52f",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "creation_time_change",
+                         "sha256":  "527c34025d2d8cbe7fad28a367df1646ca8005b6bb222ca98eea9fb0f3af22bd",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "ads_executable",
+                         "sha256":  "087e9de64745e3c0ddc0315829dc9a0d61eca7951ea51e839cc860f334280af9",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "named_pipe_indicator",
+                         "sha256":  "b34e0be7637741cc84458f516fad8be03d35c9103e2824cf87155cb8011448ea",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "unsigned_node_load",
+                         "sha256":  "83fab558c17b2509554fa216bb606cd517f1bbc5e6c8fb9a65e6c4e8128a6ebc",
+                         "imports":  [
+                                         "KERNEL32.dll",
+                                         "api-ms-win-crt-environment-l1-1-0.dll",
+                                         "api-ms-win-crt-heap-l1-1-0.dll",
+                                         "api-ms-win-crt-locale-l1-1-0.dll",
+                                         "api-ms-win-crt-math-l1-1-0.dll",
+                                         "api-ms-win-crt-private-l1-1-0.dll",
+                                         "api-ms-win-crt-runtime-l1-1-0.dll",
+                                         "api-ms-win-crt-stdio-l1-1-0.dll",
+                                         "api-ms-win-crt-string-l1-1-0.dll"
+                                     ]
+                     }
+                 ]
+}

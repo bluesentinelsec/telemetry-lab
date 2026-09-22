@@ -1,0 +1,597 @@
+{
+  "status": "partial-pending-network-decisions",
+  "build_workflow_run": 35719860078,
+  "build_commit": "9cfab05",
+  "compiler_versions": [
+    "16.2.0"
+  ],
+  "candidate_rules": 24,
+  "configured_rules": 2269,
+  "qualified_in_both": 20,
+  "attempts": 88,
+  "outcomes": {
+    "control-pass": 44,
+    "alert": 41,
+    "valid-miss": 2,
+    "attribution-incomplete": 1
+  },
+  "analyzer_sha256": "0cc4e29e9979c716956baa8689fae777fbf821931c2768210586a4f521e3f4fb",
+  "matrix": [
+    {
+      "case_id": "registry_run_key",
+      "rule_id": "3f59aeed-e4fb-6b21-a7fa-a327fdb8494d",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "registry_app_paths",
+      "rule_id": "140df4ae-d66c-c984-2165-595d754d0424",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "registry_active_setup",
+      "rule_id": "46f90542-f6e6-75d1-c29d-e26535273ec0",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "registry_screensaver",
+      "rule_id": "ec1e8c56-2fa0-7417-e4b3-517d291e30b2",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "registry_runmru_delete",
+      "rule_id": "ec2a6d71-1139-d6f1-c39e-e9fc35500540",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "startup_file",
+      "rule_id": "daaf04a9-5b60-e331-6611-a3a32797e550",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "powershell_profile",
+      "rule_id": "5d1e6a6b-91ca-c7e8-821c-5c665ad9ca5e",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "public_binary",
+      "rule_id": "ef4c38c9-e26f-dcfe-1cbe-6323bafb8f39",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "double_extension_file",
+      "rule_id": "c69c8c8d-4188-72ea-ca61-a2a1a80612b3",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "double_extension_lnk",
+      "rule_id": "6b7cbf57-a67c-6e5a-61c6-4d92d02fff3e",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "office_startup_file",
+      "rule_id": "be512a1b-170e-acff-f35d-0e4b44caa2a3",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "suspicious_executable_file",
+      "rule_id": "9512176f-0e9f-7f30-fa82-d414c1c80248",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "tcp_connect_2525",
+      "rule_id": "f8a59cdc-b3d1-8f59-c3f4-4db6d94e8efc",
+      "ucrt": {
+        "active_outcomes": [
+          "alert",
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass",
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "attribution-incomplete",
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass",
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "tcp_connect_3389",
+      "rule_id": "f3fa6209-076f-c860-c7cb-e2f6bdd7d3e0",
+      "ucrt": {
+        "active_outcomes": [],
+        "control_outcomes": [],
+        "demonstrated": false
+      },
+      "msvcrt": {
+        "active_outcomes": [],
+        "control_outcomes": [],
+        "demonstrated": false
+      }
+    },
+    {
+      "case_id": "tcp_connect_9389",
+      "rule_id": "ae8c1c58-4743-c0c8-3b30-7d69f7cbee68",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "tcp_connect_88",
+      "rule_id": "322fd5f2-b5b7-1bf4-58f2-92873dc878bb",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "tcp_connect_public_path",
+      "rule_id": "df13f270-859b-272a-9c2a-a0ef744a0480",
+      "ucrt": {
+        "active_outcomes": [
+          "valid-miss"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": false
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "valid-miss"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": false
+      }
+    },
+    {
+      "case_id": "dns_onion",
+      "rule_id": "29e2035f-b91f-3c35-9a7a-087b864f6d3b",
+      "ucrt": {
+        "active_outcomes": [],
+        "control_outcomes": [],
+        "demonstrated": false
+      },
+      "msvcrt": {
+        "active_outcomes": [],
+        "control_outcomes": [],
+        "demonstrated": false
+      }
+    },
+    {
+      "case_id": "dns_ip_lookup",
+      "rule_id": "e1d5e512-66be-e3eb-e24b-a9f3545e115a",
+      "ucrt": {
+        "active_outcomes": [],
+        "control_outcomes": [],
+        "demonstrated": false
+      },
+      "msvcrt": {
+        "active_outcomes": [],
+        "control_outcomes": [],
+        "demonstrated": false
+      }
+    },
+    {
+      "case_id": "double_extension_execute",
+      "rule_id": "b6ce0b2f-593b-5e1c-e137-d30b2974e30e",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "creation_time_change",
+      "rule_id": "1117f7b2-3f59-682b-ad07-081d44ae5ddb",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "ads_executable",
+      "rule_id": "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "named_pipe_indicator",
+      "rule_id": "cb1d1446-f327-1659-42ad-e41a7bc16e36",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    },
+    {
+      "case_id": "unsigned_node_load",
+      "rule_id": "8085fb71-ed3b-7920-ca06-f9174665cc8a",
+      "ucrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      },
+      "msvcrt": {
+        "active_outcomes": [
+          "alert"
+        ],
+        "control_outcomes": [
+          "control-pass"
+        ],
+        "demonstrated": true
+      }
+    }
+  ],
+  "campaigns": [
+    {
+      "campaign": "ucrt-nonnetwork-01",
+      "counts": {
+        "alert": 17,
+        "valid-miss": 0,
+        "control-pass": 17,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "campaign": "ucrt-tcp-01",
+      "counts": {
+        "alert": 3,
+        "valid-miss": 1,
+        "control-pass": 4,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "campaign": "ucrt-tcp2525-recheck-01",
+      "counts": {
+        "alert": 1,
+        "valid-miss": 0,
+        "control-pass": 1,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "campaign": "msvcrt-nonnetwork-01",
+      "counts": {
+        "alert": 17,
+        "valid-miss": 0,
+        "control-pass": 17,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "campaign": "msvcrt-tcp-01",
+      "counts": {
+        "alert": 2,
+        "valid-miss": 1,
+        "control-pass": 4,
+        "control-failed": 0,
+        "attribution-incomplete": 1,
+        "invalid": 0
+      }
+    },
+    {
+      "campaign": "msvcrt-tcp2525-recheck-01",
+      "counts": {
+        "alert": 1,
+        "valid-miss": 0,
+        "control-pass": 1,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      }
+    }
+  ]
+}

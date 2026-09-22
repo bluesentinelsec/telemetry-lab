@@ -11,12 +11,15 @@
     "count_sysmon": 2455,
     "count_static_eligible_sysmon": 2269,
     "proposed_rule_count": 24,
-    "qualified_rule_count": 0,
+    "qualified_rule_count": 20,
     "config_sha256": {
       "exclude_rules.txt": "4b96b19b1b373d39833b07cb8148e5767620381e2c371c78db5f17f9121d8379",
       "noisy_rules.txt": "636ea2adc5bb63da3e29459c963b7ca676bf5a80a58c0eb7d4ac7e728b766594"
     },
-    "inventory_sha256": "ada9f35a9e2c179f05f84f842fe73f01d1e45f64f171b3328eb218c82f564035"
+    "inventory_sha256": "ada9f35a9e2c179f05f84f842fe73f01d1e45f64f171b3328eb218c82f564035",
+    "engine_verified_enabled_sysmon_rules": 2269,
+    "engine_verification_evidence": "validation/ucrt-nonnetwork-01/hayabusa.log",
+    "qualification_status": "20 targets demonstrated with valid alerts and clean controls in both C CRTs; network stabilization and four remaining candidates pending user decisions"
   },
   "candidates": [
     {
@@ -43,7 +46,7 @@
       "status": "test",
       "behavior": "Write a nonempty HKCU Run value pointing to a fixed benign helper; read it back and remove it before any logon.",
       "fixture_requirements": "Use an unused fixture value under the actual Run key; preserve any pre-existing data. Control writes to an ordinary fixture key.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "registry_set": {
           "EventID": 13,
@@ -254,7 +257,10 @@
           "Details|endswith": "\\Discord\\Update.exe --processStart Discord.exe"
         },
         "condition": "registry_set and (all of selection_* and not 1 of filter_main_* and not 1 of filter_optional_*)"
-      }
+      },
+      "authors": "Victor Sergeev, Daniil Yugoslavskiy, Gleb Sukhodolskiy, Timur Zinniatullin, oscd.community, Tim Shelton, frack113 (split)",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_asep_reg_keys_modification_currentversion.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "registry_app_paths",
@@ -276,7 +282,7 @@
       "status": "test",
       "behavior": "Set the default App Paths value for an unused helper name to a benign helper under C:\\Users\\Public; read back and restore.",
       "fixture_requirements": "Path must match a suspicious-location predicate. Do not replace an existing application registration.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "registry_set": {
           "EventID": 13,
@@ -310,7 +316,10 @@
           ]
         },
         "condition": "registry_set and selection"
-      }
+      },
+      "authors": "Nasreddine Bencherchali (Nextron Systems)",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_persistence_app_paths.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "registry_active_setup",
@@ -334,7 +343,7 @@
       "status": "test",
       "behavior": "Write and read back StubPath beneath a fresh Active Setup Installed Components GUID, then remove it.",
       "fixture_requirements": "Use an isolated user hive and inert helper command; no logon activation. This tests registration evidence, not completed persistence.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "registry_event": {
           "EventID": [
@@ -362,7 +371,10 @@
           "Details|endswith": "\\Installer\\setup.exe\" --configure-user-settings --verbose-logging --system-level --msedge --channel=stable"
         },
         "condition": "registry_event and (selection and not 1 of filter_optional_*)"
-      }
+      },
+      "authors": "Avneet Singh @v3t0_, oscd.community",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_event/registry_event_runonce_persistence.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "registry_screensaver",
@@ -386,7 +398,7 @@
       "status": "test",
       "behavior": "Set and read back the isolated test account SCRNSAVE.EXE value, then restore it.",
       "fixture_requirements": "Do not activate a screensaver; the native program must not have an excluded explorer.exe or rundll32.exe image name.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "registry_event": {
           "EventID": [
@@ -406,7 +418,10 @@
           ]
         },
         "condition": "registry_event and (selection and not filter)"
-      }
+      },
+      "authors": "Bartlomiej Czyz @bczyz1, oscd.community",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_event/registry_event_modify_screensaver_binary_path.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "registry_runmru_delete",
@@ -432,7 +447,7 @@
       "status": "experimental",
       "behavior": "Delete a harness-seeded RunMRU fixture key in an isolated account; independently verify absence.",
       "fixture_requirements": "Seed outside the measured window and preserve prior state. The rule also matches creation events because it lacks an EventType filter; control must not create this key.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "registry_delete": {
           "EventID": 12,
@@ -442,7 +457,10 @@
           "TargetObject|endswith": "\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RunMRU"
         },
         "condition": "registry_delete and selection"
-      }
+      },
+      "authors": "Swachchhanda Shrawan Poudel (Nextron Systems)",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_delete/registry_delete_runmru.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "startup_file",
@@ -468,7 +486,7 @@
       "status": "test",
       "behavior": "Write a fixed inert fixture file to the test account Windows Startup directory; verify bytes, then remove.",
       "fixture_requirements": "Use a real resolved Startup path. Qualification measures a startup-folder write, not whether a payload executes at logon.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "file_event": {
           "EventID": 11,
@@ -496,7 +514,10 @@
           "TargetFilename|endswith": "\\Send to OneNote.lnk"
         },
         "condition": "file_event and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
-      }
+      },
+      "authors": "Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_startup_folder_file_write.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "powershell_profile",
@@ -518,7 +539,7 @@
       "status": "test",
       "behavior": "Create a comment-only Microsoft.PowerShell_profile.ps1 under the isolated test account profile; verify and remove.",
       "fixture_requirements": "Preserve any existing profile. No PowerShell child is needed to create the artifact.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "file_event": {
           "EventID": 11,
@@ -535,7 +556,10 @@
           ]
         },
         "condition": "file_event and selection"
-      }
+      },
+      "authors": "HieuTT35, Nasreddine Bencherchali (Nextron Systems)",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_powershell_profile.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "public_binary",
@@ -557,7 +581,7 @@
       "status": "experimental",
       "behavior": "Write the same benign PE fixture under C:\\Users\\Public; independently verify its hash.",
       "fixture_requirements": "Hold destination and fixture bytes constant across all language builds; remove after capture.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "file_event": {
           "EventID": 11,
@@ -577,7 +601,10 @@
           ]
         },
         "condition": "file_event and selection"
-      }
+      },
+      "authors": "The DFIR Report",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_public_folder_extension.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "double_extension_file",
@@ -607,7 +634,7 @@
       "status": "test",
       "behavior": "Write a fixed benign PE fixture named report.pdf.exe; verify its hash without executing it.",
       "fixture_requirements": "File creation is the target operation; the measured program itself keeps a neutral name.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "file_event": {
           "EventID": 11,
@@ -650,7 +677,10 @@
           "TargetFilename|startswith": "/usr/share/icons/"
         },
         "condition": "file_event and (1 of selection_* and not 1 of filter_*)"
-      }
+      },
+      "authors": "Nasreddine Bencherchali (Nextron Systems), frack113",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_double_extension.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "double_extension_lnk",
@@ -676,7 +706,7 @@
       "status": "test",
       "behavior": "Write a fixed valid benign shortcut fixture named report.pdf.lnk outside Recent folders; verify bytes.",
       "fixture_requirements": "Use the same prebuilt shortcut bytes in every language; do not launch it.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "file_event": {
           "EventID": 11,
@@ -719,7 +749,10 @@
           "TargetFilename|contains": "\\AppData\\Roaming\\Microsoft\\Word"
         },
         "condition": "file_event and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
-      }
+      },
+      "authors": "Nasreddine Bencherchali (Nextron Systems), frack113",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_lnk_double_extension.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "office_startup_file",
@@ -741,7 +774,7 @@
       "status": "test",
       "behavior": "Write a fixed benign document fixture under the isolated profile Microsoft\\Word\\STARTUP directory; verify and remove.",
       "fixture_requirements": "The rule detects path and extension, not Office execution; Office need not be installed and persistence is not claimed.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "file_event": {
           "EventID": 11,
@@ -797,7 +830,10 @@
           ]
         },
         "condition": "file_event and ((all of selection_word_* or all of selection_excel_*) and not filter_main_office)"
-      }
+      },
+      "authors": "Max Altgelt (Nextron Systems), Nasreddine Bencherchali (Nextron Systems)",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_office_startup_persistence.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "suspicious_executable_file",
@@ -819,7 +855,7 @@
       "status": "test",
       "behavior": "Write a fixed benign PE fixture named lab.sys.exe; independently verify bytes.",
       "fixture_requirements": "This is a filename-based file-creation predicate, not evidence that a driver was installed.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "file_event": {
           "EventID": 11,
@@ -837,7 +873,10 @@
           ]
         },
         "condition": "file_event and selection"
-      }
+      },
+      "authors": "frack113",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_executable_creation.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "tcp_connect_2525",
@@ -859,7 +898,7 @@
       "status": "test",
       "behavior": "Use ordinary TCP sockets to connect to a lab-owned private peer on port 2525, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.",
       "fixture_requirements": "Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -889,7 +928,10 @@
         },
         "condition": "network_connection and (selection and not 1 of filter_*)"
       },
-      "previous_case_id": "network_smtp"
+      "previous_case_id": "network_smtp",
+      "authors": "frack113",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_susp_outbound_smtp_connections.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "tcp_connect_3389",
@@ -911,7 +953,7 @@
       "status": "test",
       "behavior": "Use ordinary TCP sockets to connect to a lab-owned private peer on port 3389, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.",
       "fixture_requirements": "Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "pending-network-decision",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -995,7 +1037,10 @@
         },
         "condition": "network_connection and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
       },
-      "previous_case_id": "network_rdp_port"
+      "previous_case_id": "network_rdp_port",
+      "authors": "Markus Neis",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_rdp_outbound_over_non_standard_tools.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "tcp_connect_9389",
@@ -1017,7 +1062,7 @@
       "status": "test",
       "behavior": "Use ordinary TCP sockets to connect to a lab-owned private peer on port 9389, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.",
       "fixture_requirements": "Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -1043,7 +1088,10 @@
         },
         "condition": "network_connection and (selection and not 1 of filter_main_*)"
       },
-      "previous_case_id": "network_adws_port"
+      "previous_case_id": "network_adws_port",
+      "authors": "@kostastsale",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_adws_unusual_connection.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "tcp_connect_88",
@@ -1069,7 +1117,7 @@
       "status": "test",
       "behavior": "Use ordinary TCP sockets to connect to a lab-owned private peer on port 88, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends.",
       "fixture_requirements": "Use the same neutral executable path/name and private IPv4 peer across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -1099,7 +1147,10 @@
         },
         "condition": "network_connection and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
       },
-      "previous_case_id": "network_kerberos_port"
+      "previous_case_id": "network_kerberos_port",
+      "authors": "Ilyas Ochkov, oscd.community",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_susp_outbound_kerberos_connection.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "tcp_connect_public_path",
@@ -1165,7 +1216,7 @@
       "status": "test",
       "behavior": "Execute the standalone program at C:\\Users\\Public\\telemetry-lab\\probe.exe and perform a TCP connect/send/receive exchange with a lab-owned private peer on fixed port 49152.",
       "fixture_requirements": "Hold the executable location constant across languages. Use a controlled destination hostname outside filter_main_domains. Stage the program before capture; observe the connection from the actual measured process, not a launcher. Confirm bytes received at both ends.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "pending-network-decision",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -1235,7 +1286,10 @@
           ]
         },
         "condition": "network_connection and (selection and not 1 of filter_main_*)"
-      }
+      },
+      "authors": "Florian Roth (Nextron Systems), Nasreddine Bencherchali (Nextron Systems)",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/network_connection/net_connection_win_susp_initiated_uncommon_or_suspicious_locations.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "dns_onion",
@@ -1265,7 +1319,7 @@
       "status": "test",
       "behavior": "Resolve lab.onion using the normal language hostname-to-address resolver and an isolated lab DNS server supplying a fixed local answer.",
       "fixture_requirements": "No Tor client or public forwarding. Independently verify the lookup result and resolver request. Qualify C EID 22 attribution; if the resolver rejects the special-use name, resolve that fixture limitation before accepting this target. Establish the same DNS-cache baseline for each attempt.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "pending-network-decision",
       "detection": {
         "dns_query": {
           "EventID": 22,
@@ -1312,7 +1366,10 @@
           ]
         },
         "condition": "dns_query and selection"
-      }
+      },
+      "authors": "frack113",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/dns_query/dns_query_win_tor_onion_domain_query.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "dns_ip_lookup",
@@ -1334,7 +1391,7 @@
       "status": "test",
       "behavior": "Resolve api.ipify.org against an isolated lab resolver that supplies a fixed local answer.",
       "fixture_requirements": "No HTTP client or public service contact. Preserve the hostname, answer, and DNS-cache baseline across languages; independently verify lookup results and resolver request. Keep the executable outside browser image exclusions.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "pending-network-decision",
       "detection": {
         "dns_query": {
           "EventID": 22,
@@ -1457,7 +1514,10 @@
           "Image|endswith": "\\whale.exe"
         },
         "condition": "dns_query and (selection and not 1 of filter_optional_*)"
-      }
+      },
+      "authors": "Brandon George (blog post), Thomas Patzke",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/dns_query/dns_query_win_susp_external_ip_lookup.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "double_extension_execute",
@@ -1483,7 +1543,7 @@
       "status": "stable",
       "behavior": "Launch a fixed benign report.pdf.exe helper with the same command line and verify its marker and exit code.",
       "fixture_requirements": "Both Image and CommandLine must match. Control uses the same parent program but does not spawn the matching child.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "process_creation": {
           "EventID": 1,
@@ -1556,7 +1616,10 @@
           ]
         },
         "condition": "process_creation and selection"
-      }
+      },
+      "authors": "Florian Roth (Nextron Systems), @blu3_team (idea), Nasreddine Bencherchali (Nextron Systems)",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/process_creation/proc_creation_win_susp_double_extension.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "creation_time_change",
@@ -1578,7 +1641,7 @@
       "status": "test",
       "behavior": "Change a harness-seeded file creation time from a fixed 2026 value to a fixed 2019 value; read the timestamp back.",
       "fixture_requirements": "This rule compares the 202 prefix, not any year change: 2026 to 2025 would not match. Avoid .tmp/.temp and excluded paths.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "file_change": {
           "EventID": 2,
@@ -1639,7 +1702,10 @@
           "Image|endswith": "\\VCREDI~1.EXE"
         },
         "condition": "file_change and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
-      }
+      },
+      "authors": "frack113, Florian Roth (Nextron Systems)",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/threat-hunting/file/file_change/file_change_win_date_changed_to_another_year.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "ads_executable",
@@ -1661,7 +1727,7 @@
       "status": "test",
       "behavior": "Write a fixed benign PE with a nonzero import hash to an NTFS alternate data stream and verify its bytes.",
       "fixture_requirements": "Requires Sysmon EID 15 and IMPHASH in Hash. Do not execute the stream; confirm capture and hash fields during qualification.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "create_stream_hash": {
           "EventID": 15,
@@ -1674,7 +1740,10 @@
           "Hash|contains": "IMPHASH=00000000000000000000000000000000"
         },
         "condition": "create_stream_hash and (selection and not 1 of filter_main_*)"
-      }
+      },
+      "authors": "Florian Roth (Nextron Systems), @0xrawsec",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_stream_hash/create_stream_hash_ads_executable.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "named_pipe_indicator",
@@ -1697,7 +1766,7 @@
       "status": "test",
       "behavior": "Create the named pipe \\testPipe, connect a controlled client and exchange a fixed marker.",
       "fixture_requirements": "This tests a listed pipe-name indicator; it does not emulate the malware families in the rule description. Keep client activity separately attributable.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "pipe_created": {
           "EventID": [
@@ -1738,7 +1807,10 @@
           ]
         },
         "condition": "pipe_created and selection"
-      }
+      },
+      "authors": "Florian Roth (Nextron Systems), blueteam0ps, elhoim",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/pipe_created/pipe_created_susp_malicious_namedpipes.yml",
+      "license": "Detection Rule License 1.1"
     },
     {
       "case_id": "unsigned_node_load",
@@ -1760,7 +1832,7 @@
       "status": "experimental",
       "behavior": "Load a fixed benign unsigned DLL fixture with a .node extension into the measured process; call a harmless exported function.",
       "fixture_requirements": "Same helper bytes in every language; verify load and function result. Requires EID 7 plus Signed=false or SignatureStatus=Unavailable; Node.js execution is not claimed.",
-      "qualification": "proposed-not-lab-qualified",
+      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
       "detection": {
         "image_load": {
           "EventID": 7,
@@ -1799,7 +1871,10 @@
           "ImageLoaded|contains": "\\Evernote\\resources\\app"
         },
         "condition": "image_load and (all of selection_* and not 1 of filter_optional_*)"
-      }
+      },
+      "authors": "Jonathan Beierle (@hullabrian)",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/image_load/image_load_dll_unsigned_node_load.yml",
+      "license": "Detection Rule License 1.1"
     }
   ],
   "deferred_candidates": [
@@ -1861,7 +1936,10 @@
         },
         "condition": "dns_query and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
       },
-      "decision": "Deferred: retain ordinary hostname-to-address resolution in the first pass. The rule only requires a _ldap. query-name prefix; neither LDAP traffic nor SRV type is required by its predicate."
+      "decision": "Deferred: retain ordinary hostname-to-address resolution in the first pass. The rule only requires a _ldap. query-name prefix; neither LDAP traffic nor SRV type is required by its predicate.",
+      "authors": "frack113",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/dns_query/dns_query_win_dns_server_discovery_via_ldap_query.yml",
+      "license": "Detection Rule License 1.1"
     }
   ],
   "network_scope_revision": {

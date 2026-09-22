@@ -1,0 +1,119 @@
+[0m[38;2;0;255;0m
+┏┓ ┏┳━━━┳┓  ┏┳━━━┳━━┓┏┓ ┏┳━━━┳━━━┓
+┃┃ ┃┃┏━┓┃┗┓┏┛┃┏━┓┃┏┓┃┃┃ ┃┃┏━┓┃┏━┓┃
+┃┗━┛┃┃ ┃┣┓┗┛┏┫┃ ┃┃┗┛┗┫┃ ┃┃┗━━┫┃ ┃┃
+┃┏━┓┃┗━┛┃┗┓┏┛┃┗━┛┃┏━┓┃┃ ┃┣━━┓┃┗━┛┃
+┃┃ ┃┃┏━┓┃ ┃┃ ┃┏━┓┃┗━┛┃┗━┛┃┗━┛┃┏━┓┃
+┗┛ ┗┻┛ ┗┛ ┗┛ ┗┛ ┗┻━━━┻━━━┻━━━┻┛ ┗┛
+   by Yamato Security 
+[0m
+[0m[38;2;255;175;0mFinding needles in the hay stack~
+
+[0m[0m[38;2;0;255;0mStart time: [0m2026/09/22 11:22
+[0m[38;2;0;255;0mTotal event log files: [0m1
+[0m[38;2;0;255;0mTotal file size: [0m1.1 MiB
+
+[0m[38;2;255;175;0mLoading detection rules. Please wait.
+
+[0m[38;2;0;255;0mExcluded rules: [0m133
+[0m[38;2;0;255;0mNoisy rules: [0m12 (Disabled)
+
+[0m[38;2;0;255;0mDeprecated rules: [0m228 (5.01%) (Disabled)
+[0m[38;2;0;255;0mExperimental rules: [0m362 (7.95%)
+[0m[38;2;0;255;0mStable rules: [0m166 (3.65%)
+[0m[38;2;0;255;0mTest rules: [0m4,025 (88.40%)
+[0m[38;2;0;255;0mUnsupported rules: [0m42 (0.92%) (Disabled)
+
+[0m[38;2;0;255;0mCorrelation rules: [0m3 (0.07%)
+[0m[38;2;0;255;0mCorrelation referenced rules: [0m3 (0.07%)
+
+[0m[38;2;0;255;0mExpand rules: [0m19 (0.42%)
+[0m[38;2;0;255;0mEnabled expand rules: [0m0 (0.00%)
+
+[0m[38;2;0;255;0mHayabusa rules: [0m91
+[0m[38;2;0;255;0mSigma rules: [0m4,461
+[0m[38;2;0;255;0mhayabusa rules: [0m1
+[0m[38;2;0;255;0mTotal detection rules: [0m4,553
+
+[0m[38;2;255;175;0mCreating the channel filter. Please wait.
+
+[0m[38;2;0;255;0mEvtx files loaded after channel filter: [0m1
+[0m[38;2;0;255;0mDetection rules enabled after channel filter: [0m2,269
+
+[0m[38;2;0;255;0mOutput profile: [0mall-field-info
+
+[0m[38;2;255;175;0mScanning in progress. Please wait.
+
+[0m[38;2;0;255;0mRule Authors:[0m 
+
+╭───────────────────────────────────────────────╮
+│ frack113 (4)      Nasreddine Bencherchali (1) │
+│ Zach Mathis (1)                               │
+╰─────────────────╌─────────────────────────────╯
+
+[0m[38;2;0;255;0mResults Summary:
+
+[0m[38;2;255;255;0mEvents with hits[0m / [0m[38;2;0;255;255mTotal events[0m: [0m[38;2;255;255;0m31[0m / [0m[38;2;0;255;255m195[0m ([0m[38;2;0;255;0mData reduction: 164 events (84.10%)[0m)
+
+[0mTotal | Unique detections: 33 | 5
+[0m[38;2;255;0;0mTotal | Unique emergency detections: 0 (0.00%) | 0 (0.00%)
+[0m[38;2;255;0;0mTotal | Unique critical detections: 0 (0.00%) | 0 (0.00%)
+[0m[38;2;255;193;0mTotal | Unique high detections: 0 (0.00%) | 0 (0.00%)
+[0m[38;2;255;255;0mTotal | Unique medium detections: 3 (9.09%) | 2 (40.00%)
+[0m[38;2;0;255;0mTotal | Unique low detections: 30 (90.91%) | 3 (60.00%)
+[0mTotal | Unique informational detections: 0 (0.00%) | 0 (0.00%)
+
+[0mFirst timestamp: 2026-09-22 11:21:45.481 +00:00
+[0mLast timestamp: 2026-09-22 11:22:05.314 +00:00
+
+[0mFirst detection: 2026-09-22 11:21:45.481 +00:00
+[0mLast detection: 2026-09-22 11:21:51.271 +00:00
+
+[0mDates with most total detections:
+[0m[0m[38;2;255;0;0memergency: n/a[0m, [0m[38;2;255;0;0mcritical: n/a[0m, [0m[38;2;255;193;0mhigh: n/a[0m, [0m[38;2;255;255;0mmedium: 2026-09-22 (3)[0m, [0m[38;2;0;255;0mlow: 2026-09-22 (30)[0m, [0minformational: n/a
+
+[0mTop 5 computers with most unique detections:
+[0m[38;2;255;0;0memergency: n/a
+[0m[38;2;255;0;0mcritical: n/a
+[0m[38;2;255;193;0mhigh: n/a
+[0m[38;2;255;255;0mmedium: EC2AMAZ-O72H9FU (2)
+[0m[38;2;0;255;0mlow: EC2AMAZ-O72H9FU (3)
+[0minformational: n/a
+
+╭───────────────────────────────────────────────────────────────────────────────────╮
+│ Top emergency alerts:                     Top critical alerts:                    │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ n/a                                       n/a                                     │
+│ n/a                                       n/a                                     │
+│ n/a                                       n/a                                     │
+│ n/a                                       n/a                                     │
+│ n/a                                       n/a                                     │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Top high alerts:                          Top medium alerts:                      │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ n/a                                       Potential Binary Or Script Dropp... (2) │
+│ n/a                                       Suspicious Outbound SMTP Connect... (1) │
+│ n/a                                       n/a                                     │
+│ n/a                                       n/a                                     │
+│ n/a                                       n/a                                     │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Top low alerts:                           Top informational alerts:               │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Proc Access (27)                          n/a                                     │
+│ Creation of an Executable by an ... (2)   n/a                                     │
+│ PowerShell Script Dropped Via Po... (1)   n/a                                     │
+│ n/a                                       n/a                                     │
+│ n/a                                       n/a                                     │
+╰─────────────────────────────────────────╌─────────────────────────────────────────╯
+
+[0m[38;2;0;255;0mSaved file:[0m C:\lab\qualification\msvcrt-tcp2525-recheck-01\alerts.csv (34.2 KiB)
+
+[0m[38;2;0;255;0mElapsed time: [0m00:00:02.265
+
+[0m[38;2;0;255;0mPlease report any issues with Hayabusa rules to: [0mhttps://github.com/Yamato-Security/hayabusa-rules/issues
+[0m[38;2;0;255;0mPlease report any false positives with Sigma rules to: [0mhttps://github.com/SigmaHQ/sigma/issues
+[0m[38;2;0;255;0mPlease submit new Sigma rules with pull requests to: [0mhttps://github.com/SigmaHQ/sigma/pulls
+
+[0m[38;2;255;175;0m百聞は一見に如かず - Hyakubun Wa Ikken Ni Shikazu - Seeing once is better than hearing a hundred times.
+
+[0m

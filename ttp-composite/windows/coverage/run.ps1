@@ -98,6 +98,9 @@ if (!$BehaviorOnly) {
   # Verify the exact executable and complete inventory, not just selected rules.
   if ((Get-FileHash $Hayabusa).Hash.ToLower() -ne $selection.provenance.executable_sha256) {throw 'Hayabusa artifact differs from selection'}
   $rules=Join-Path (Split-Path $Hayabusa) 'rules'
+  foreach($property in $selection.provenance.config_sha256.PSObject.Properties) {
+    if((Get-FileHash (Join-Path "$rules\config" $property.Name)).Hash.ToLower() -ne $property.Value){throw "Rule filter configuration differs: $($property.Name)"}
+  }
   foreach($entry in (Import-Csv "$PSScriptRoot\rule-inventory.csv")) {
     $path=Join-Path $rules $entry.path
     if ((Get-FileHash $path).Hash.ToLower() -ne $entry.sha256) {throw "Rule hash differs: $($entry.path)"}
@@ -184,11 +187,23 @@ $events | ConvertTo-Json -Depth 8 -Compress | Set-Content "$Output\events.json" 
 $first=(Get-WinEvent -LogName $channel -Oldest -MaxEvents 1).RecordId
 $health=[ordered]@{start_record=$startRecord;end_record=$endRecord;oldest_remaining_record=$first;log_overwritten=($first -gt ($startRecord+1));sysmon_service=(Get-Service Sysmon64).Status.ToString();error_events=@($events | Where-Object {$_.event_id -in @(4,16,255)})}
 $health | ConvertTo-Json -Depth 8 | Set-Content "$Output\health.json" -Encoding UTF8
+Copy-Item "$PSScriptRoot\selection.json" "$Output\selection.json"
+Copy-Item "$PSScriptRoot\rule-inventory.csv" "$Output\rule-inventory.csv"
 $build | ConvertTo-Json -Depth 8 | Set-Content "$Output\build-manifest.json" -Encoding UTF8
 $inventory=[ordered]@{os=(Get-CimInstance Win32_OperatingSystem | Select-Object Caption,Version,BuildNumber);sysmon=(Get-Item C:\lab\sysmon\Sysmon64.exe).VersionInfo.FileVersion;sysmon_sha256=(Get-FileHash C:\lab\sysmon\Sysmon64.exe).Hash;sysmon_config_sha256=(Get-FileHash C:\lab\sysmon\config.xml).Hash;hayabusa_sha256=(Get-FileHash $Hayabusa).Hash;fixture_helper_sha256=(Get-FileHash "$root\fixtures\helper.exe").Hash;fixture_module_sha256=(Get-FileHash "$root\fixtures\fixture.node").Hash;identity=[Security.Principal.WindowsIdentity]::GetCurrent().Name;selection_sha256=(Get-FileHash "$PSScriptRoot\selection.json").Hash}
 $inventory | ConvertTo-Json -Depth 6 | Set-Content "$Output\inventory.json" -Encoding UTF8
-Push-Location (Split-Path $Hayabusa)
-try { & $Hayabusa csv-timeline -f "$Output\events.evtx" -o "$Output\alerts.csv" -r $rules -m low --no-wizard -p all-field-info -C 2>&1 | Out-File "$Output\hayabusa.log" -Encoding UTF8; $detectorExit=$LASTEXITCODE } finally {Pop-Location}
+$detector=[Diagnostics.Process]::new()
+$info=[Diagnostics.ProcessStartInfo]::new()
+$info.FileName=$Hayabusa; $info.WorkingDirectory=Split-Path $Hayabusa; $info.UseShellExecute=$false
+$info.RedirectStandardOutput=$true; $info.RedirectStandardError=$true
+$info.Arguments="dfir-timeline -f `"$Output\events.evtx`" -o `"$Output\alerts.csv`" -r `"$rules`" -m low --no-wizard -p all-field-info -C"
+$detector.StartInfo=$info
+if (!$detector.Start()) {throw 'Cannot start Hayabusa'}
+$detectorOut=$detector.StandardOutput.ReadToEndAsync();$detectorErr=$detector.StandardError.ReadToEndAsync()
+if (!$detector.WaitForExit(180000)) {$detector.Kill();$detector.WaitForExit()}
+[IO.File]::WriteAllText("$Output\hayabusa.log",$detectorOut.Result)
+[IO.File]::WriteAllText("$Output\hayabusa.stderr",$detectorErr.Result)
+$detectorExit=$detector.ExitCode;$detector.Dispose()
 [IO.File]::WriteAllText("$Output\detector-exit.txt",[string]$detectorExit)
 if ($detectorExit -ne 0) {throw 'Hayabusa evaluation failed; preserve evidence'}
 if ($executionError) {throw $executionError}

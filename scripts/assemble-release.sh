@@ -103,7 +103,7 @@ assemble() {
   fi
   if [ "$os" = windows ]; then
     mkdir -p "$root/ttp-composite/coverage"
-    for support in selection.json rule-inventory.csv run.ps1 analyze.py verify_programs.py; do
+    for support in selection.json rule-inventory.csv RULE-LICENSE.md run.ps1 run-local-tcp.ps1 analyze.py verify_programs.py; do
       cp "ttp-composite/windows/coverage/$support" "$root/ttp-composite/coverage/"
     done
   fi

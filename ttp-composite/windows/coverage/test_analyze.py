@@ -26,6 +26,14 @@ class AttributionTests(unittest.TestCase):
     def test_control_alert_is_failure(self):
         self.attempt['mode']='control'
         self.assertEqual(evaluate(self.attempt,self.events,[dict(RuleID='target',RecordID='2')])['outcome'],'control-failed')
+    def test_zero_guid_alert_is_not_a_valid_miss(self):
+        events=copy.deepcopy(self.events)
+        events[1]['fields']=dict(ProcessGuid='{00000000-0000-0000-0000-000000000000}',ProcessId='100',UtcTime='2026-09-22 12:00:00.500')
+        events[1]['time_utc']='2026-09-22T12:00:03Z'
+        result=evaluate(self.attempt,events,[dict(RuleID='target',RecordID='2')])
+        self.assertEqual(result['outcome'],'attribution-incomplete')
+        self.assertFalse(result['valid'])
+        self.assertEqual(result['unattributed_target_record_ids'],['2'])
     def test_missing_start_is_invalid(self):
         self.assertEqual(evaluate(self.attempt,self.events[1:],[])['outcome'],'invalid')
 

@@ -67,11 +67,13 @@ wevtutil epl "Microsoft-Windows-Sysmon/Operational" $evtx 2>$null
 $csv = "$lab\hayabusa-firetest.csv"
 Remove-Item $csv -EA SilentlyContinue
 $rulesArg = @(); if ($rulesDir) { $rulesArg = @("-r", $rulesDir.FullName) }
-# csv-timeline over the single EVTX; -m low = include low+ severity; --no-wizard
+# Timeline over the single EVTX; -m low = include low+ severity; --no-wizard
 # scans all rules non-interactively (-w is its alias, so don't pass both); -C
 # overwrites the output. Run from the hayabusa dir so relative rules resolve.
 Push-Location "$lab\hayabusa"
-& $hbExe csv-timeline -f $evtx -o $csv @rulesArg -m low --no-wizard -C 2>&1 | Tee-Object -Variable hbOut | Out-Null
+$helpText = (& $hbExe help 2>&1 | Out-String)
+$timelineCommand = if ($helpText -match 'dfir-timeline') { 'dfir-timeline' } else { 'csv-timeline' }
+& $hbExe $timelineCommand -f $evtx -o $csv @rulesArg -m low --no-wizard -C 2>&1 | Tee-Object -Variable hbOut | Out-Null
 Pop-Location
 Write-Host ($hbOut | Select-Object -Last 25 | Out-String)
 

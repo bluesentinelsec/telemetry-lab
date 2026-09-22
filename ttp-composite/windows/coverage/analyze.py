@@ -3,7 +3,7 @@
 import argparse
 import csv
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 
@@ -17,7 +17,8 @@ def as_list(value):
 
 
 def timestamp(value):
-    return datetime.fromisoformat(value.replace('Z','+00:00'))
+    parsed=datetime.fromisoformat(value.replace('Z','+00:00'))
+    return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
 
 
 def evaluate(attempt, events, alerts, healthy=True):
@@ -42,12 +43,26 @@ def evaluate(attempt, events, alerts, healthy=True):
     attributable={str(e['record_id']) for e in events if e['fields'].get('ProcessGuid') in guids}
     matches=[a for a in alerts if a.get('RuleID','').lower()==attempt['rule_id'].lower()
              and str(a.get('RecordID','')) in attributable]
+    # A zero GUID is a loss of attribution, not proof that this program had no alert.
+    # PID and event arrival within the bounded drain window only flag ambiguity;
+    # they never award a positive result. EventData.UtcTime can precede process
+    # creation in these asynchronous Sysmon network records.
+    missing_guid={'',None,'{00000000-0000-0000-0000-000000000000}'}
+    ambiguous={str(e['record_id']) for e in events
+               if e['fields'].get('ProcessGuid') in missing_guid
+               and str(e['fields'].get('ProcessId'))==str(process['pid'])
+               and start-timedelta(seconds=1)<=timestamp(e['time_utc'])<=end+timedelta(seconds=30)}
+    ambiguous_alerts=[a for a in alerts if a.get('RuleID','').lower()==attempt['rule_id'].lower()
+                      and str(a.get('RecordID','')) in ambiguous]
     fired=bool(matches)
     outcome=('invalid' if not valid else 'control-failed' if attempt['mode']=='control' and fired
              else 'control-pass' if attempt['mode']=='control' else 'alert' if fired else 'valid-miss')
+    if valid and ambiguous:
+        valid=False;outcome='attribution-incomplete'
     return dict(case_id=attempt['case_id'],runtime=attempt['runtime'],mode=attempt['mode'],
                 rule_id=attempt['rule_id'],valid=valid,outcome=outcome,
                 behavior_ok=attempt['behavior_ok'],process_start_matches=len(starts),
+                ambiguous_record_ids=sorted(ambiguous),unattributed_target_record_ids=sorted({a['RecordID'] for a in ambiguous_alerts}),
                 process_guids=sorted(guids),target_record_ids=sorted({a['RecordID'] for a in matches}),
                 attributable_event_ids=sorted({e['event_id'] for e in events if str(e['record_id']) in attributable}))
 
@@ -63,8 +78,14 @@ def analyze(directory):
     healthy=(complete and not (directory/'execution-error.txt').exists() and detector_ok and not health['log_overwritten'] and health['sysmon_service']=='Running'
              and not as_list(health['error_events']))
     rows=[evaluate(a,events,alerts,healthy) for a in attempts]
+    catalog=read_json(Path(__file__).with_name('selection.json'))
+    rules={c['rule_id']:c for c in catalog['candidates']}
+    for row in rows:
+        rule=rules[row['rule_id']]
+        row['rule_authors']=rule.get('authors','')
+        row['rule_source_url']=rule.get('source_url','')
     result=dict(healthy=healthy,attempts=rows,
-                counts={key:sum(r['outcome']==key for r in rows) for key in ['alert','valid-miss','control-pass','control-failed','invalid']})
+                counts={key:sum(r['outcome']==key for r in rows) for key in ['alert','valid-miss','control-pass','control-failed','attribution-incomplete','invalid']})
     (directory/'qualification.json').write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps(result['counts']))
     return result

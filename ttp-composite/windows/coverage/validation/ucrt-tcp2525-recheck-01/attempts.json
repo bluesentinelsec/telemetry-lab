@@ -1,0 +1,38 @@
+﻿[
+    {
+        "case_id":  "tcp_connect_2525",
+        "mode":  "control",
+        "rule_id":  "f8a59cdc-b3d1-8f59-c3f4-4db6d94e8efc",
+        "runtime":  "ucrt",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "2a77cc8a6398d8757729f0d67425ab520e84aa4c4cb97bdc00d871d2b989d6be",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4524,
+                        "start_utc":  "2026-09-22T11:22:26.0356081Z",
+                        "end_utc":  "2026-09-22T11:22:26.0456470Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE tcp_connect_2525\r\nCONTROL_OK tcp_connect_2525\r\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "tcp_connect_2525",
+        "mode":  "active",
+        "rule_id":  "f8a59cdc-b3d1-8f59-c3f4-4db6d94e8efc",
+        "runtime":  "ucrt",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "2a77cc8a6398d8757729f0d67425ab520e84aa4c4cb97bdc00d871d2b989d6be",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  5008,
+                        "start_utc":  "2026-09-22T11:22:26.0535963Z",
+                        "end_utc":  "2026-09-22T11:22:26.0632642Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE tcp_connect_2525\r\nBEHAVIOR_OK tcp_connect_2525\r\n",
+                        "stderr":  ""
+                    }
+    }
+]

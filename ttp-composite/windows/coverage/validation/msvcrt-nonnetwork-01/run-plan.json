@@ -1,0 +1,23 @@
+﻿{
+    "runtime":  "msvcrt",
+    "cases":  [
+                  "registry_run_key",
+                  "registry_app_paths",
+                  "registry_active_setup",
+                  "registry_screensaver",
+                  "registry_runmru_delete",
+                  "startup_file",
+                  "powershell_profile",
+                  "public_binary",
+                  "double_extension_file",
+                  "double_extension_lnk",
+                  "office_startup_file",
+                  "suspicious_executable_file",
+                  "double_extension_execute",
+                  "creation_time_change",
+                  "ads_executable",
+                  "named_pipe_indicator",
+                  "unsigned_node_load"
+              ],
+    "expected_attempts":  34
+}

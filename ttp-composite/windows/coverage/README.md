@@ -1,6 +1,6 @@
 # Windows TTP composite rule selection
 
-**Status: proposed scope; 24 candidates, zero newly lab-qualified tests.**
+**Status: implementation and live qualification in progress in PR #60. See [implementation.md](implementation.md) for current results and pending network decisions.**
 
 The Windows pipeline collects Sysmon events into EVTX and evaluates them with Hayabusa. The subject is the unmodified rule bundle shipped in the Hayabusa 4.1.0 Windows x64 release, not the entire upstream Sigma repository. All 24 selected rules are Sigma-derived Sysmon rules.
 
@@ -12,9 +12,9 @@ The Windows pipeline collects Sysmon events into EVTX and evaluates them with Ha
 | Definitions referencing the Sysmon Operational channel | 2,455 |
 | Sysmon definitions passing the static scope filters below | 2,269 |
 | Proposed target rules | 24 |
-| Newly lab-qualified target rules | 0 |
+| Target rules demonstrated in both C configurations | 20 |
 
-Static filters follow the existing `-m low --no-wizard` configuration: remove informational, deprecated, unsupported, default excluded/noisy IDs, and rules with unresolved expansion placeholders. Overlapping exclusions are counted once. Channel membership means the detection references Sysmon, not that every rule can be satisfied using Sysmon alone. This inventory is not an engine-load or lab-coverage result; rule compilation, channel dependencies, and actual event capture must be confirmed before freezing the final denominator.
+Static filters follow the existing `-m low --no-wizard` configuration: remove informational, deprecated, unsupported, default excluded/noisy IDs, and rules with unresolved expansion placeholders. Overlapping exclusions are counted once. Channel membership means the detection references Sysmon, not that every rule can be satisfied using Sysmon alone. Live Hayabusa 4.1.0 replay now confirms 2,269 rules enabled after channel filtering for the Sysmon EVTX input. That is the configured denominator; it does not mean every rule has a qualified test case.
 
 Proposed scope statement: "We will develop 24 Windows composite tests against 24 selected rules from 2,455 Sysmon-referencing definitions in the pinned Hayabusa bundle." After engine verification and C qualification, report the qualified numerator and configured denominator separately.
 
