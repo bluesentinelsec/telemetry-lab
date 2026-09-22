@@ -1,0 +1,9 @@
+{
+  "bytes": 8462007,
+  "sha256": "3960e0f0248799d4e8e106f2eb2822abe1caf918683e6d237fcc264fea2d76e0",
+  "entries": 604,
+  "file": "/Users/michaellong/telemetry-lab-data/windows-cpp-2026-09-22/windows-cpp-evidence.tgz",
+  "build_workflow_run": 35770862507,
+  "build_commit": "b650f8b115b95a8d21e03f32dbf486ccbfa6b980",
+  "instance": "i-058bec46fe2bef79b"
+}

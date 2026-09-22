@@ -34,3 +34,7 @@ python ttp-composite/windows/coverage/verify_programs.py \
 ```
 
 Repeat with `windows-libcxx.cmake`, a separate build/output directory and `libcxx` verifier argument. Shared `run.ps1`, `run-local-tcp.ps1` and `run-local-dns.ps1 -Cases dns_ip_lookup` accept either verified coverage directory. See the [reference procedure](../../coverage/implementation.md) for fixed fixtures, pinned detection tools, attribution and archiving. CI behavior checks do not establish alert qualification; live evidence is recorded separately.
+
+## Live qualification
+
+Both configurations demonstrated all 23 qualified C target rules and clean controls. One initial libc++ DNS result lost process attribution; an unchanged reversed-order recheck passed. Both `.onion` attempts failed their inherited resolution check. All attempts and actual loaded-DLL hashes are retained in the [qualification report](../../coverage/validation/cpp/README.md). No valid target-alert difference was observed.

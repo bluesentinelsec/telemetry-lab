@@ -1,0 +1,3413 @@
+{
+  "attempts": 100,
+  "verified": 100,
+  "records": [
+    {
+      "campaign": "libcxx-dns-01",
+      "case_id": "dns_ip_lookup",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            210077
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            210075
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            210076
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-dns-01",
+      "case_id": "dns_ip_lookup",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            210108
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            210107
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            210110
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-dns-recheck-02",
+      "case_id": "dns_ip_lookup",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            223323
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            223321
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            223322
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-dns-recheck-02",
+      "case_id": "dns_ip_lookup",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            223367
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            223366
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            223369
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "registry_run_key",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            199802
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            199792
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            199793
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "registry_run_key",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            199828
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            199829,
+            199830
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            199831
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "registry_app_paths",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            199863
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            199864
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            199865
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "registry_app_paths",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            199896
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            199897
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            199898
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "registry_active_setup",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            199931
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            199930
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            199932
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "registry_active_setup",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            199964
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            199963
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            199965
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "registry_screensaver",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            199996
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            199997
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            199998
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "registry_screensaver",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200027
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200028
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200029
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "registry_runmru_delete",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200063
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200062
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200064
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "registry_runmru_delete",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200097
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200096
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200098
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "startup_file",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200125
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200124
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200126
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "startup_file",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200156
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200155
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200157
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "powershell_profile",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200189
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200188
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200190
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "powershell_profile",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200219
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200220
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200221
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "public_binary",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200253
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200252
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200254
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "public_binary",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200284
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200283
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200285
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "double_extension_file",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200317
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200316
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200318
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "double_extension_file",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200348
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200347
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200349
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "double_extension_lnk",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200381
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200380
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200382
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "double_extension_lnk",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200412
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200411
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200413
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "office_startup_file",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200445
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200444
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200446
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "office_startup_file",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200475
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200476
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200477
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "suspicious_executable_file",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200509
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200508
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200510
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "suspicious_executable_file",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200540
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200539
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200541
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "double_extension_execute",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200574
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200573
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200575
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "double_extension_execute",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200606
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200607
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200608
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "creation_time_change",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200652
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200653
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200654
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "creation_time_change",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200686
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200687
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200688
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "ads_executable",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200721
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200720
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200722
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "ads_executable",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200754
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200753
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200755
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "named_pipe_indicator",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200789
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200788
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200790
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "named_pipe_indicator",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200820
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200819
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200821
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "unsigned_node_load",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200853
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200852
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200854
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-nonnetwork-01",
+      "case_id": "unsigned_node_load",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            200884
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            200883
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            200885
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-onion-01",
+      "case_id": "dns_onion",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            218361
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            218360
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            218362
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-onion-01",
+      "case_id": "dns_onion",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            218393
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            218392
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            218395
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-tcp-01",
+      "case_id": "tcp_connect_2525",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            204724
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            204722
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            204723
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-tcp-01",
+      "case_id": "tcp_connect_2525",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            204754
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            204752
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            204756
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-tcp-01",
+      "case_id": "tcp_connect_3389",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            204790
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            204789
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            204792
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-tcp-01",
+      "case_id": "tcp_connect_3389",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            206229
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            206227
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            206228
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-tcp-01",
+      "case_id": "tcp_connect_9389",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            207621
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            207619
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            207623
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-tcp-01",
+      "case_id": "tcp_connect_9389",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            207937
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            207936
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            207939
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-tcp-01",
+      "case_id": "tcp_connect_88",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            207980
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            207979
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            207982
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-tcp-01",
+      "case_id": "tcp_connect_88",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            208011
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            208012
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            208014
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-tcp-01",
+      "case_id": "tcp_connect_public_path",
+      "mode": "control",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            208054
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            208051
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            208053
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libcxx-tcp-01",
+      "case_id": "tcp_connect_public_path",
+      "mode": "active",
+      "runtime": "libcxx",
+      "dependencies": [
+        {
+          "dll": "libc++.dll",
+          "sha256": "ae3ce30b60cd10b0a41721aeca97e5dd1f9d756afc7bfbf85b5c72b0756ef1a1",
+          "record_ids": [
+            208083
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            208082
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            208085
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-dns-01",
+      "case_id": "dns_ip_lookup",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            198912
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            198910
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            198911
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-dns-01",
+      "case_id": "dns_ip_lookup",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            198945
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            198944
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            198946
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-dns-recheck-02",
+      "case_id": "dns_ip_lookup",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            225680
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            225678
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            225679
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-dns-recheck-02",
+      "case_id": "dns_ip_lookup",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            225730
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            225728
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            225731
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "registry_run_key",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184098
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184090
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184095
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "registry_run_key",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184185
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184184
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184186
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "registry_app_paths",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184224
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184223
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184225
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "registry_app_paths",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184257
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184256
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184258
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "registry_active_setup",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184295
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184294
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184296
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "registry_active_setup",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184328
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184327
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184329
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "registry_screensaver",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184361
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184360
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184362
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "registry_screensaver",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184392
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184391
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184393
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "registry_runmru_delete",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184427
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184426
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184428
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "registry_runmru_delete",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184462
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184460
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184461
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "startup_file",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184492
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184493
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184494
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "startup_file",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184523
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184525
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184524
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "powershell_profile",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184557
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184559
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184558
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "powershell_profile",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184588
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184590
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184589
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "public_binary",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184621
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184623
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184622
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "public_binary",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184652
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184653
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184654
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "double_extension_file",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184685
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184687
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184686
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "double_extension_file",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184716
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184717
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184718
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "double_extension_lnk",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184749
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184751
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184750
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "double_extension_lnk",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184780
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184781
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184782
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "office_startup_file",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184815
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184816
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184817
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "office_startup_file",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184846
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184848
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184847
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "suspicious_executable_file",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184879
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184881
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184880
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "suspicious_executable_file",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184910
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184912
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184911
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "double_extension_execute",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184945
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184944
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184946
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "double_extension_execute",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            184978
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            184977
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            184979
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "creation_time_change",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            185027
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            185026
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            185028
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "creation_time_change",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            185061
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            185060
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            185062
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "ads_executable",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            185094
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            185095
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            185096
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "ads_executable",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            185127
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            185128
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            185129
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "named_pipe_indicator",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            185163
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            185162
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            185164
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "named_pipe_indicator",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            185194
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            185193
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            185195
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "unsigned_node_load",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            185227
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            185226
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            185228,
+            185229
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-nonnetwork-01",
+      "case_id": "unsigned_node_load",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            185259
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            185258
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            185260
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-onion-01",
+      "case_id": "dns_onion",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            217405
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            217403
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            217404
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-onion-01",
+      "case_id": "dns_onion",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            217451
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            217449
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            217452
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-tcp-01",
+      "case_id": "tcp_connect_2525",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            188415
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            188413
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            188414
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-tcp-01",
+      "case_id": "tcp_connect_2525",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            188464
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            188462
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            188465,
+            188466
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-tcp-01",
+      "case_id": "tcp_connect_3389",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            188503
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            188501
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            188504,
+            188505
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-tcp-01",
+      "case_id": "tcp_connect_3389",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            188536
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            188534
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            188537
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-tcp-01",
+      "case_id": "tcp_connect_9389",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            189046
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            189045
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            189047,
+            189048
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-tcp-01",
+      "case_id": "tcp_connect_9389",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            193523
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            193521
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            193524
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-tcp-01",
+      "case_id": "tcp_connect_88",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            193587
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            193585
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            193588,
+            193589
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-tcp-01",
+      "case_id": "tcp_connect_88",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            193622
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            193620
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            193623,
+            193624
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-tcp-01",
+      "case_id": "tcp_connect_public_path",
+      "mode": "control",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            193664
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            193662
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            193663
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    },
+    {
+      "campaign": "libstdcxx-tcp-01",
+      "case_id": "tcp_connect_public_path",
+      "mode": "active",
+      "runtime": "libstdcxx",
+      "dependencies": [
+        {
+          "dll": "libgcc_s_seh-1.dll",
+          "sha256": "68ca4574b331402879dec403ba4f14491c9b8fc4aa3f4a41432008714b9bc5df",
+          "record_ids": [
+            193695
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libstdc++-6.dll",
+          "sha256": "b30dbd914d903992acb28b38455947153886656beafbd91c465c31aa258f9c45",
+          "record_ids": [
+            193693
+          ],
+          "verified": true
+        },
+        {
+          "dll": "libwinpthread-1.dll",
+          "sha256": "d1b3564a65a000a4eab341641d1f4f1a9c80ca91cc69b20e79999e55ef0b1613",
+          "record_ids": [
+            193696
+          ],
+          "verified": true
+        }
+      ],
+      "mixed_library_records": [],
+      "verified": true
+    }
+  ]
+}

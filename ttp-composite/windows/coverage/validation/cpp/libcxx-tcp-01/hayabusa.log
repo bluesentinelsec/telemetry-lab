@@ -1,0 +1,123 @@
+[0m[38;2;0;255;0m
+ΓöÅΓöô ΓöÅΓö│ΓöüΓöüΓöüΓö│Γöô  ΓöÅΓö│ΓöüΓöüΓöüΓö│ΓöüΓöüΓöôΓöÅΓöô ΓöÅΓö│ΓöüΓöüΓöüΓö│ΓöüΓöüΓöüΓöô
+ΓöâΓöâ ΓöâΓöâΓöÅΓöüΓöôΓöâΓöùΓöôΓöÅΓö¢ΓöâΓöÅΓöüΓöôΓöâΓöÅΓöôΓöâΓöâΓöâ ΓöâΓöâΓöÅΓöüΓöôΓöâΓöÅΓöüΓöôΓöâ
+ΓöâΓöùΓöüΓö¢ΓöâΓöâ ΓöâΓöúΓöôΓöùΓö¢ΓöÅΓö½Γöâ ΓöâΓöâΓöùΓö¢ΓöùΓö½Γöâ ΓöâΓöâΓöùΓöüΓöüΓö½Γöâ ΓöâΓöâ
+ΓöâΓöÅΓöüΓöôΓöâΓöùΓöüΓö¢ΓöâΓöùΓöôΓöÅΓö¢ΓöâΓöùΓöüΓö¢ΓöâΓöÅΓöüΓöôΓöâΓöâ ΓöâΓöúΓöüΓöüΓöôΓöâΓöùΓöüΓö¢Γöâ
+ΓöâΓöâ ΓöâΓöâΓöÅΓöüΓöôΓöâ ΓöâΓöâ ΓöâΓöÅΓöüΓöôΓöâΓöùΓöüΓö¢ΓöâΓöùΓöüΓö¢ΓöâΓöùΓöüΓö¢ΓöâΓöÅΓöüΓöôΓöâ
+ΓöùΓö¢ ΓöùΓö╗Γö¢ ΓöùΓö¢ ΓöùΓö¢ ΓöùΓö¢ ΓöùΓö╗ΓöüΓöüΓöüΓö╗ΓöüΓöüΓöüΓö╗ΓöüΓöüΓöüΓö╗Γö¢ ΓöùΓö¢
+   by Yamato Security 
+[0m
+[0m[38;2;255;175;0mSetting new standards in Windows event visibility~
+
+[0m[0m[38;2;0;255;0mStart time: [0m2026/09/22 19:13
+[0m[38;2;0;255;0mTotal event log files: [0m1
+[0m[38;2;0;255;0mTotal file size: [0m3.1 MiB
+
+[0m[38;2;255;175;0mLoading detection rules. Please wait.
+
+[0m[38;2;0;255;0mExcluded rules: [0m133
+[0m[38;2;0;255;0mNoisy rules: [0m12 (Disabled)
+
+[0m[38;2;0;255;0mDeprecated rules: [0m228 (5.01%) (Disabled)
+[0m[38;2;0;255;0mExperimental rules: [0m362 (7.95%)
+[0m[38;2;0;255;0mStable rules: [0m166 (3.65%)
+[0m[38;2;0;255;0mTest rules: [0m4,025 (88.40%)
+[0m[38;2;0;255;0mUnsupported rules: [0m42 (0.92%) (Disabled)
+
+[0m[38;2;0;255;0mCorrelation rules: [0m3 (0.07%)
+[0m[38;2;0;255;0mCorrelation referenced rules: [0m3 (0.07%)
+
+[0m[38;2;0;255;0mExpand rules: [0m19 (0.42%)
+[0m[38;2;0;255;0mEnabled expand rules: [0m0 (0.00%)
+
+[0m[38;2;0;255;0mHayabusa rules: [0m91
+[0m[38;2;0;255;0mSigma rules: [0m4,461
+[0m[38;2;0;255;0mhayabusa rules: [0m1
+[0m[38;2;0;255;0mTotal detection rules: [0m4,553
+
+[0m[38;2;255;175;0mCreating the channel filter. Please wait.
+
+[0m[38;2;0;255;0mEvtx files loaded after channel filter: [0m1
+[0m[38;2;0;255;0mDetection rules enabled after channel filter: [0m2,269
+
+[0m[38;2;0;255;0mOutput profile: [0mall-field-info
+
+[0m[38;2;255;175;0mScanning in progress. Please wait.
+
+[0m[38;2;0;255;0mRule Authors:[0m 
+
+Γò¡ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+Γöé frack113 (4)                  Florian Roth (3)                Γöé
+Γöé Nasreddine Bencherchali (2)   Zach Mathis (2)                 Γöé
+Γöé @kostastsale (1)              Center for Threat Inform... (1) Γöé
+Γöé Ilyas Ochkov (1)              Markus Neis (1)                 Γöé
+Γöé The DFIR Report (1)           X__Junior (1)                   Γöé
+Γöé oscd.community (1)                                            Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓòîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò»
+
+[0m[38;2;0;255;0mResults Summary:
+
+[0m[38;2;255;255;0mEvents with hits[0m / [0m[38;2;0;255;255mTotal events[0m: [0m[38;2;255;255;0m225[0m / [0m[38;2;0;255;255m3,577[0m ([0m[38;2;0;255;0mData reduction: 3,352 events (93.71%)[0m)
+
+[0mTotal | Unique detections: 246 | 15
+[0m[38;2;255;0;0mTotal | Unique emergency detections: 0 (0.00%) | 0 (0.00%)
+[0m[38;2;255;0;0mTotal | Unique critical detections: 0 (0.00%) | 0 (0.00%)
+[0m[38;2;255;193;0mTotal | Unique high detections: 12 (4.88%) | 4 (26.67%)
+[0m[38;2;255;255;0mTotal | Unique medium detections: 36 (14.63%) | 7 (46.67%)
+[0m[38;2;0;255;0mTotal | Unique low detections: 198 (80.49%) | 4 (26.67%)
+[0mTotal | Unique informational detections: 0 (0.00%) | 0 (0.00%)
+
+[0mFirst timestamp: 2026-09-22 19:12:07.242 +00:00
+[0mLast timestamp: 2026-09-22 19:13:11.144 +00:00
+
+[0mFirst detection: 2026-09-22 19:12:07.265 +00:00
+[0mLast detection: 2026-09-22 19:13:11.144 +00:00
+
+[0mDates with most total detections:
+[0m[0m[38;2;255;0;0memergency: n/a[0m, [0m[38;2;255;0;0mcritical: n/a[0m, [0m[38;2;255;193;0mhigh: 2026-09-22 (12)[0m, [0m[38;2;255;255;0mmedium: 2026-09-22 (36)[0m, [0m[38;2;0;255;0mlow: 2026-09-22 (198)[0m, [0minformational: n/a
+
+[0mTop 5 computers with most unique detections:
+[0m[38;2;255;0;0memergency: n/a
+[0m[38;2;255;0;0mcritical: n/a
+[0m[38;2;255;193;0mhigh: EC2AMAZ-2VIVJM1 (4)
+[0m[38;2;255;255;0mmedium: EC2AMAZ-2VIVJM1 (7)
+[0m[38;2;0;255;0mlow: EC2AMAZ-2VIVJM1 (4)
+[0minformational: n/a
+
+Γò¡ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+Γöé Top emergency alerts:                      Top critical alerts:                     Γöé
+Γö£ΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓöñ
+Γöé n/a                                        n/a                                      Γöé
+Γöé n/a                                        n/a                                      Γöé
+Γöé n/a                                        n/a                                      Γöé
+Γöé n/a                                        n/a                                      Γöé
+Γöé n/a                                        n/a                                      Γöé
+Γö£ΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓöñ
+Γöé Top high alerts:                           Top medium alerts:                       Γöé
+Γö£ΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓöñ
+Γöé Suspicious Binaries and Scripts ... (5)    Potential Binary Or Script Dropp... (16) Γöé
+Γöé Windows Shell/Scripting Applicat... (5)    Potential Wazuh Security Platfor... (10) Γöé
+Γöé Network Connection Initiated Fro... (1)    Raw Access Read (6)                      Γöé
+Γöé Outbound RDP Connections Over No... (1)    Network Connection Initiated Fro... (1)  Γöé
+Γöé n/a                                        Suspicious Outbound SMTP Connect... (1)  Γöé
+Γö£ΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓöñ
+Γöé Top low alerts:                            Top informational alerts:                Γöé
+Γö£ΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓòîΓöñ
+Γöé Proc Access (171)                          n/a                                      Γöé
+Γöé Scheduled Task Created - Registr... (16)   n/a                                      Γöé
+Γöé Creation of an Executable by an ... (10)   n/a                                      Γöé
+Γöé PowerShell Script Dropped Via Po... (1)    n/a                                      Γöé
+Γöé n/a                                        n/a                                      Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓòîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò»
+
+[0m[38;2;0;255;0mSaved file:[0m C:\lab\qualification\libcxx-tcp-01\alerts.csv (255.9 KiB)
+
+[0m[38;2;0;255;0mElapsed time: [0m00:00:02.613
+
+[0m[38;2;0;255;0mPlease report any issues with Hayabusa rules to: [0mhttps://github.com/Yamato-Security/hayabusa-rules/issues
+[0m[38;2;0;255;0mPlease report any false positives with Sigma rules to: [0mhttps://github.com/SigmaHQ/sigma/issues
+[0m[38;2;0;255;0mPlease submit new Sigma rules with pull requests to: [0mhttps://github.com/SigmaHQ/sigma/pulls
+
+[0m[38;2;255;175;0mµÖéµ¥Ñπüƒπéè - Toki Kitari - The time has come.
+
+[0m

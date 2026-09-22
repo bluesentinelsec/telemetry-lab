@@ -1,0 +1,38 @@
+﻿[
+    {
+        "case_id":  "dns_onion",
+        "mode":  "control",
+        "rule_id":  "29e2035f-b91f-3c35-9a7a-087b864f6d3b",
+        "runtime":  "libstdcxx",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "07d619bb0d17d7fb417a6ec24cdae050cc5d9be92555c83fca32be41567fbf7f",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1316,
+                        "start_utc":  "2026-09-22T19:14:41.4291431Z",
+                        "end_utc":  "2026-09-22T19:14:41.4627278Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE dns_onion\r\nCONTROL_OK dns_onion\r\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "dns_onion",
+        "mode":  "active",
+        "rule_id":  "29e2035f-b91f-3c35-9a7a-087b864f6d3b",
+        "runtime":  "libstdcxx",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "07d619bb0d17d7fb417a6ec24cdae050cc5d9be92555c83fca32be41567fbf7f",
+        "behavior_ok":  false,
+        "process":  {
+                        "pid":  4244,
+                        "start_utc":  "2026-09-22T19:14:41.5026716Z",
+                        "end_utc":  "2026-09-22T19:14:41.5187413Z",
+                        "exit_code":  1,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE dns_onion\r\n",
+                        "stderr":  "FAIL line=94 expression=rc==0 \u0026\u0026 answers!=NULL winerror=11001 errno=0\r\n"
+                    }
+    }
+]

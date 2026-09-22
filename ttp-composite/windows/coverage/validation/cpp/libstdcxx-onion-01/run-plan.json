@@ -1,0 +1,7 @@
+﻿{
+    "runtime":  "libstdcxx",
+    "cases":  [
+                  "dns_onion"
+              ],
+    "expected_attempts":  2
+}
