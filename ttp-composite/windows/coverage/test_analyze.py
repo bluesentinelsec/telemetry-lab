@@ -1,0 +1,32 @@
+import copy
+import unittest
+from analyze import evaluate
+
+class AttributionTests(unittest.TestCase):
+    def setUp(self):
+        self.attempt=dict(case_id='case',mode='active',runtime='ucrt',rule_id='target',executable=r'C:\lab\probe.exe',behavior_ok=True,process=dict(pid=100,start_utc='2026-09-22T12:00:00Z',end_utc='2026-09-22T12:00:01Z'))
+        self.events=[dict(record_id=1,event_id=1,time_utc='2026-09-22T12:00:00.100Z',fields=dict(ProcessId='100',Image=r'C:\lab\probe.exe',ProcessGuid='probe')),dict(record_id=2,event_id=3,time_utc='2026-09-22T12:00:00.500Z',fields=dict(ProcessGuid='probe'))]
+    def test_exact_id_and_process_required(self):
+        self.assertEqual(evaluate(self.attempt,self.events,[dict(RuleID='other',RecordID='2')])['outcome'],'valid-miss')
+        self.assertEqual(evaluate(self.attempt,self.events,[dict(RuleID='target',RecordID='999')])['outcome'],'valid-miss')
+        self.assertEqual(evaluate(self.attempt,self.events,[dict(RuleID='target',RecordID='2')])['outcome'],'alert')
+    def test_helper_or_cleanup_alert_not_attributed(self):
+        events=self.events+[dict(record_id=3,event_id=3,time_utc='2026-09-22T12:00:00Z',fields=dict(ProcessGuid='harness'))]
+        self.assertEqual(evaluate(self.attempt,events,[dict(RuleID='target',RecordID='3')])['outcome'],'valid-miss')
+    def test_descendant_supported(self):
+        events=self.events+[dict(record_id=3,event_id=1,time_utc='2026-09-22T12:00:00.700Z',fields=dict(ProcessGuid='child',ParentProcessGuid='probe'))]
+        self.assertEqual(evaluate(self.attempt,events,[dict(RuleID='target',RecordID='3')])['outcome'],'alert')
+    def test_bad_behavior_or_capture_not_a_miss(self):
+        self.assertEqual(evaluate(self.attempt,self.events,[],False)['outcome'],'invalid')
+        self.attempt['behavior_ok']=False
+        self.assertEqual(evaluate(self.attempt,self.events,[])['outcome'],'invalid')
+    def test_pid_reuse_does_not_join(self):
+        events=copy.deepcopy(self.events);events[0]['time_utc']='2026-09-22T11:00:00Z'
+        self.assertEqual(evaluate(self.attempt,events,[])['outcome'],'invalid')
+    def test_control_alert_is_failure(self):
+        self.attempt['mode']='control'
+        self.assertEqual(evaluate(self.attempt,self.events,[dict(RuleID='target',RecordID='2')])['outcome'],'control-failed')
+    def test_missing_start_is_invalid(self):
+        self.assertEqual(evaluate(self.attempt,self.events[1:],[])['outcome'],'invalid')
+
+if __name__=='__main__':unittest.main()
