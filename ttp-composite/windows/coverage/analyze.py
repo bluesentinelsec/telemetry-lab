@@ -27,7 +27,8 @@ def evaluate(attempt, events, alerts, healthy=True):
             and str(e['fields'].get('ProcessId'))==str(process['pid'])
             and e['fields'].get('Image','').lower()==attempt['executable'].lower()
             and start-timedelta(milliseconds=100)<=timestamp(e['time_utc'])<=end+timedelta(seconds=1)]
-    valid=healthy and attempt['behavior_ok'] and len(starts)==1
+    staged_ok=('staged_sha256' not in attempt or attempt['staged_sha256']==attempt.get('sha256'))
+    valid=healthy and attempt['behavior_ok'] and len(starts)==1 and staged_ok
     guids={e['fields'].get('ProcessGuid') for e in starts}
     guids.discard(None)
     # Include only descendants of the uniquely identified measured process.
@@ -76,7 +77,7 @@ def evaluate(attempt, events, alerts, healthy=True):
 
 
 def analyze(directory):
-    attempts=as_list(read_json(directory/'attempts.json'))
+    attempts=as_list(read_json(directory/'attempts.json')) if (directory/'attempts.json').exists() else []
     events=as_list(read_json(directory/'events.json'))
     health=read_json(directory/'health.json')
     with (directory/'alerts.csv').open(encoding='utf-8-sig',newline='') as f:alerts=list(csv.DictReader(f))
@@ -92,7 +93,7 @@ def analyze(directory):
         rule=rules[row['rule_id']]
         row['rule_authors']=rule.get('authors','')
         row['rule_source_url']=rule.get('source_url','')
-    result=dict(healthy=healthy,attempts=rows,
+    result=dict(healthy=healthy,complete=complete,expected_attempts=plan['expected_attempts'],recorded_attempts=len(attempts),attempts=rows,
                 counts={key:sum(r['outcome']==key for r in rows) for key in ['alert','valid-miss','control-pass','control-failed','attribution-incomplete','invalid']})
     (directory/'qualification.json').write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps(result['counts']))
@@ -102,4 +103,4 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('directory',type=Path)
     args=parser.parse_args();result=analyze(args.directory)
     # Qualification requires target alerts; valid misses are still retained as data.
-    raise SystemExit(0 if all(r['outcome'] in ('alert','control-pass') for r in result['attempts']) else 1)
+    raise SystemExit(0 if result['healthy'] and result['attempts'] and all(r['outcome'] in ('alert','control-pass') for r in result['attempts']) else 1)
