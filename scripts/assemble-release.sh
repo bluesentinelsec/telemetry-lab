@@ -98,7 +98,7 @@ assemble() {
     compnameargs+=( -name falco_helper -o )
     mkdir -p "$root/ttp-composite/coverage"
     cp ttp-composite/linux/coverage/manifest.json "$root/ttp-composite/coverage/"
-    cp ttp-composite/linux/coverage/run.py ttp-composite/linux/coverage/validate_manifest.py "$root/ttp-composite/coverage/"
+    cp ttp-composite/linux/coverage/run.py ttp-composite/linux/coverage/validate_manifest.py ttp-composite/linux/coverage/setup-detector.sh ttp-composite/linux/coverage/Dockerfile "$root/ttp-composite/coverage/"
     cp -R ttp-composite/linux/coverage/rules "$root/ttp-composite/coverage/"
   fi
   if [ "$os" = windows ]; then
@@ -112,8 +112,6 @@ assemble() {
   for cfg in $composite_configs; do
     local cdst="$root/ttp-composite/$cfg"
     mkdir -p "$cdst"
-    # Tolerate partial component sets when assembling an explicitly partial bundle.
-    # All implemented Windows composite configurations are required in build CI.
     if [ -d "$COMP/composite-$cfg" ]; then
       find "$COMP/composite-$cfg" -path '*/coverage' -prune -o -type f \( "${compnameargs[@]}" -name '*.dll' \) -exec cp {} "$cdst/" \;
       if [ "$os" = windows ] && [ -d "$COMP/composite-$cfg/coverage" ]; then
@@ -127,7 +125,7 @@ assemble() {
         fi
       fi
     else
-      echo "::warning::composite artifacts absent for $cfg -- skipped"
+      echo "::error::composite artifacts absent for $cfg" >&2; exit 1
     fi
   done
 
@@ -153,9 +151,14 @@ assemble() {
 EOF
   cp scripts/release-README.txt "$root/README.txt"
 
+  # Reject incomplete matrices and record the exact bytes being released.
+  python3 scripts/validate-release.py "$root" --write
+
   # Archive (idiomatic per OS).
   if [ "$os" = linux ]; then
-    tar -C "$OUT" -czf "${OUT}/${name}.tar.gz" "$name"
+    local tar_flags=()
+    if [ "$(uname -s)" = Darwin ]; then tar_flags=(--no-mac-metadata --no-xattrs); fi
+    COPYFILE_DISABLE=1 tar "${tar_flags[@]}" -C "$OUT" -czf "${OUT}/${name}.tar.gz" "$name"
   else
     (cd "$OUT" && zip -qr "${name}.zip" "$name")
   fi

@@ -1,12 +1,17 @@
 # ttp-composite
 
-The expanded [Linux C coverage suite](linux/coverage/README.md) implements 30
-standalone C programs with explicit Falco rule mappings against a pinned
-95-rule corpus. Every measured composite is its own executable; a shared
-case-dispatch program does not satisfy the experiment contract. It validates
-behavior independently of alerts and compares glibc with musl. The seven-case
-multi-language pilot described below remains available; the new coverage suite
-has not yet been ported to the other languages or Windows.
+The expanded [Linux coverage suite](linux/coverage/README.md) implements 30
+standalone programs per configuration in C, C++, Go, and Rust, mapped to a
+pinned 95-rule Falco corpus. The [Windows coverage suite](windows/coverage/README.md)
+implements 24 standalone programs per configuration in those same four
+languages: 23 qualified Sysmon/Hayabusa targets and one unqualified `.onion`
+diagnostic. Both platforms have eight composite configurations.
+
+Each measured composite is its own executable. The coverage runners validate
+behavior independently of alerts, attribute exact rules, run same-binary
+controls, and check collector health. The original seven-case Linux and
+four-case Windows pilots remain available separately; the historical Linux
+pilot results below do not replace coverage-suite qualification.
 
 Behavioral **composite** techniques for the telemetry-lab study's tier-2
 question: *does execution substrate change whether a shipped behavioral

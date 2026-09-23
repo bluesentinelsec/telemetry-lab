@@ -1,0 +1,26 @@
+name: Release packaging checks
+on:
+  pull_request:
+    paths: ['scripts/**', '.github/workflows/release-checks.yml']
+  push:
+    branches: [main]
+    paths: ['scripts/**', '.github/workflows/release-checks.yml']
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: python3 -m unittest discover -s scripts/tests -v
+      - run: bash -n scripts/assemble-release.sh
+      - run: python3 -m py_compile scripts/validate-release.py scripts/e2e/*.py
+  powershell:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v7
+      - shell: pwsh
+        run: |
+          Get-ChildItem scripts/e2e/*.ps1 | ForEach-Object {
+            $errors=$null; $tokens=$null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName,[ref]$tokens,[ref]$errors)
+            if($errors.Count){throw ($errors | Out-String)}
+          }
