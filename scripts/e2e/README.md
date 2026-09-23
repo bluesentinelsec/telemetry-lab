@@ -17,6 +17,10 @@ folders, its bundled `coverage/Dockerfile`, and a single fixed C
   pilot programs and preserve detector evidence. Pilots lack the expanded
   suite's independent behavior contracts; exit success is not qualification.
 
+`recheck-linux.py BUNDLE CAMPAIGN OUTPUT --image IMAGE` rechecks only
+behavior-successful attempts that failed collector health, using the original
+image ID. It never reruns a valid miss or erases an original result.
+
 Run campaigns serially on each host so their collectors and fixtures do not
 interfere. Different OS hosts can run concurrently. Preserve every attempt,
 including failures; diagnose failures and use new output directories for

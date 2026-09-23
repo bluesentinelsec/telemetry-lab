@@ -19,12 +19,16 @@ from pathlib import Path
 p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('bundle',type=Path);p.add_argument('output',type=Path)
 p.add_argument('--image',default='lab-falco-coverage:release030')
+p.add_argument('--config',action='append');p.add_argument('--case',action='append')
 a=p.parse_args();a.output.mkdir(parents=True,exist_ok=False)
 sys.path.insert(0,str(a.bundle/'ttp-composite/coverage'))
 import run as coverage
 manifest=json.loads((a.bundle/'manifest.json').read_text());rows=[]
-for config in manifest['composite_configs']:
- for case in manifest['composites']:
+configs=a.config or manifest['composite_configs'];cases=a.case or manifest['composites']
+if not set(configs)<=set(manifest['composite_configs']) or not set(cases)<=set(manifest['composites']):
+ raise SystemExit('Unknown pilot configuration/case')
+for config in configs:
+ for case in cases:
   dest=a.output/f'{config}-{case}';dest.mkdir()
   exe=f'/opt/coverage/{config}/{case}'
   cid=coverage.command(['docker','create','--name','legacy-'+uuid.uuid4().hex[:12],'--network','none','--cap-add','SYS_PTRACE','--cap-add','NET_ADMIN','--security-opt','seccomp=unconfined',a.image])
