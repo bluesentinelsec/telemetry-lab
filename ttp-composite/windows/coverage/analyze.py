@@ -53,13 +53,21 @@ def evaluate(attempt, events, alerts, healthy=True):
                if e['fields'].get('ProcessGuid') in missing_guid
                and str(e['fields'].get('ProcessId'))==str(process['pid'])
                and start-timedelta(seconds=1)<=timestamp(e['time_utc'])<=end+timedelta(seconds=30)}
-    # Sysmon can also attach an older nonzero GUID after PID reuse. An EID 3
-    # arriving during this measured process's lifetime with its PID but another
-    # GUID is contradictory evidence, never an alert credited by PID alone.
+    # Network and DNS records can arrive after process exit carrying a stale
+    # nonzero GUID (including an old svchost GUID). Treat them as ambiguous,
+    # not a detector miss. A positively observed later process start can prove
+    # legitimate PID reuse; event arrival time alone cannot do so.
+    def later_pid_reuse(event):
+        return any(e['event_id']==1
+                   and e['fields'].get('ProcessGuid')==event['fields'].get('ProcessGuid')
+                   and str(e['fields'].get('ProcessId'))==str(process['pid'])
+                   and end<timestamp(e['time_utc'])<=timestamp(event['time_utc'])
+                   for e in events)
     conflicting={str(e['record_id']) for e in events
-                 if e['event_id']==3 and e['fields'].get('ProcessGuid') not in guids|missing_guid
+                 if e['event_id'] in (3,22) and e['fields'].get('ProcessGuid') not in guids|missing_guid
                  and str(e['fields'].get('ProcessId'))==str(process['pid'])
-                 and start<=timestamp(e['time_utc'])<=end}
+                 and start-timedelta(seconds=1)<=timestamp(e['time_utc'])<=end+timedelta(seconds=30)
+                 and not later_pid_reuse(e)}
     ambiguous |= conflicting
     ambiguous_alerts=[a for a in alerts if a.get('RuleID','').lower()==attempt['rule_id'].lower()
                       and str(a.get('RecordID','')) in ambiguous]
