@@ -61,7 +61,7 @@ for service in ("falco-coverage.service", "falco-modern-bpf.service"):
             falco = candidate
             break
 if os.path.exists(falco):
-    version_output = stdout(falco, "--version")
+    version_output = stdout(falco, "--version", "-o", "json_output=true")
     try:
         falco_version = json.loads(version_output)["falco_version"]
     except (ValueError, KeyError, TypeError):

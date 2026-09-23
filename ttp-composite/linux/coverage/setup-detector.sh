@@ -10,7 +10,7 @@ systemctl stop falco-coverage.service 2>/dev/null || true
 # health gate unchanged. FALCO_BIN is an explicit override for diagnostics.
 if [[ -z ${FALCO_BIN:-} ]]; then
   FALCO_BIN=/usr/bin/falco
-  version=$("$FALCO_BIN" --version | python3 -c 'import json,sys; print(json.load(sys.stdin)["falco_version"])')
+  version=$("$FALCO_BIN" --version -o json_output=true | python3 -c 'import json,sys; print(json.load(sys.stdin)["falco_version"])')
   if [[ "$version" == 0.45.0 ]]; then
     FALCO_BIN=$(bash "$HERE/falco-health-fix/install.sh")
   fi

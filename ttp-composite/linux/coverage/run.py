@@ -30,7 +30,7 @@ def detector_provenance():
     executable = Path('/proc') / pid / 'exe'
     binary = executable.resolve(strict=True)
     result = {'path': str(binary), 'sha256': hashlib.sha256(executable.read_bytes()).hexdigest(),
-              'version': json.loads(command([str(executable), '--version']))}
+              'version': json.loads(command([str(executable), '--version', '-o', 'json_output=true']))}
     receipt = binary.parent.parent / 'receipt.json'
     if receipt.is_file():
         result['build_receipt'] = json.loads(receipt.read_text())

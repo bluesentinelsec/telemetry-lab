@@ -84,7 +84,7 @@ receipt=dict(falco_commit=sys.argv[3],libs_commit=sys.argv[4],
     inputs={n:hashlib.sha256((src/n).read_bytes()).hexdigest()
             for n in ('install.sh','preserve-partial-enter.patch','regression.cpp')},
     binary_sha256=hashlib.sha256((out/'bin/falco').read_bytes()).hexdigest(),
-    version=json.loads(subprocess.check_output([str(out/'bin/falco'),'--version'],text=True)))
+    version=json.loads(subprocess.check_output([str(out/'bin/falco'),'--version','-o','json_output=true'],text=True)))
 (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
 PY
 printf '%s\n' "$PREFIX/bin/falco"
