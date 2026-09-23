@@ -38,7 +38,20 @@ jobs:
           echo "version=$v"    >> "$GITHUB_OUTPUT"
           echo "tag=v$v"       >> "$GITHUB_OUTPUT"
 
+      # A release may be assembled, validated in the lab, and published from
+      # its exact tested archives. A resulting tag event must not rebuild it.
+      - name: Check for an already published release
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.v.outputs.tag }}
+        run: |
+          if [ "$(gh release view "$RELEASE_TAG" --json isDraft -q '.isDraft' 2>/dev/null)" = false ]; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Download component artifacts (latest green main runs)
+        if: steps.existing.outputs.published != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -56,6 +69,7 @@ jobs:
           echo "components:"; ls components
 
       - name: Assemble archives
+        if: steps.existing.outputs.published != 'true'
         env:
           GITHUB_SHA: ${{ github.sha }}
         run: |
@@ -64,6 +78,7 @@ jobs:
           ls -la out/*.tar.gz out/*.zip
 
       - name: Publish release
+        if: steps.existing.outputs.published != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

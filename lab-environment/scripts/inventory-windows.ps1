@@ -5,13 +5,18 @@
 #
 # tap discovers this file co-located with telemetry data and stamps analysis output
 # with it, so every result traces back to exact versions + hashes.
+param(
+  [string]$Output="C:\lab\inventory.json",
+  [string]$Bundle="",
+  [string]$Archive="C:\lab\telemetry-lab.zip"
+)
 $ErrorActionPreference = "Continue"
-$out = "C:\lab\inventory.json"
+$out = $Output
 
 function Sha($p) { if (Test-Path $p) { (Get-FileHash $p -Algorithm SHA256).Hash } else { $null } }
 
 # telemetry-lab release: version comes from the extracted dir name.
-$base = Get-ChildItem "C:\lab\telemetry-lab" -Directory -Filter 'telemetry-lab-*-windows' -EA SilentlyContinue | Select-Object -First 1
+$base = if ($Bundle) { Get-Item $Bundle -ErrorAction Stop } else { Get-ChildItem "C:\lab\telemetry-lab" -Directory -Filter 'telemetry-lab-*-windows' -EA SilentlyContinue | Select-Object -First 1 }
 $ver = if ($base) { ($base.Name -replace '^telemetry-lab-','' -replace '-windows$','') } else { "" }
 
 $comps = @()
@@ -24,7 +29,7 @@ if (Test-Path $hb) {
   $hv = (& $hb help 2>&1 | Select-String -Pattern '\d+\.\d+\.\d+' | Select-Object -First 1).Matches.Value
   $comps += [ordered]@{ name="hayabusa"; type="detector"; version=$hv; sha256=(Sha $hb); path=$hb }
 }
-$zip = "C:\lab\telemetry-lab.zip"
+$zip = $Archive
 if ((Test-Path $zip) -and $base) {
   $comps += [ordered]@{ name="telemetry-lab"; type="release"; version=$ver; sha256=(Sha $zip); path=$base.FullName }
 }

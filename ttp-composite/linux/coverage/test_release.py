@@ -1,5 +1,6 @@
 """Ensure the C, C++, Go, and Rust suites survive release assembly without inventing ports."""
 import json
+import hashlib
 import subprocess
 import tarfile
 import tempfile
@@ -22,8 +23,15 @@ class ReleaseTests(unittest.TestCase):
             windows=['windows-c-ucrt','windows-c-msvcrt','windows-cpp-libstdcxx',
                      'windows-cpp-libcxx','windows-go-cgo','windows-go-static']
             for config in linux+windows:
-                fixture(config+'/empty'+('.exe' if config.startswith('windows') else ''))
-                fixture('composite-'+config+'/reverse_shell'+('.exe' if config.startswith('windows') else ''))
+                win=config.startswith('windows');suffix='.exe' if win else ''
+                primitives=['empty','file_io','spawn']
+                if not win:
+                    primitives+=['process_exec','process_enumeration','thread_create','directory_enumeration',
+                                 'memory_allocate','pipe_ipc','tcp_client','tcp_server','dns_lookup','http_client']
+                for name in primitives:fixture(config+'/'+name+suffix)
+                pilots=['reverse_shell','imds']+(['registry_run_key','startup_folder'] if win else
+                    ['read_sensitive_file','symlink_sensitive','clear_log','mkdir_bin','ptrace_antidebug'])
+                for name in pilots:fixture('composite-'+config+'/'+name+suffix)
             for config in linux:
                 fixture('composite-'+config+'/falco_helper')
                 ids=[c['id'] for c in json.loads((repo/'ttp-composite/linux/coverage/manifest.json').read_text())['cases']]
@@ -32,8 +40,12 @@ class ReleaseTests(unittest.TestCase):
                     (components/('composite-'+config+'/coverage/'+name)).write_text('standalone '+name)
             windows_composites=windows+['windows-rust-msvc-dynamic','windows-rust-msvc-static']
             for config in windows_composites:
-                fixture('composite-'+config+'/coverage/registry_run_key.exe')
-                fixture('composite-'+config+'/coverage/build-manifest.json')
+                selected=json.loads((repo/'ttp-composite/windows/coverage/selection.json').read_text())['candidates']
+                programs=[]
+                for case in selected:
+                    fixture('composite-'+config+'/coverage/'+case['case_id']+'.exe')
+                    programs.append(dict(case_id=case['case_id'],sha256=hashlib.sha256(b'fixture').hexdigest()))
+                (components/('composite-'+config+'/coverage/build-manifest.json')).write_text(json.dumps(dict(programs=programs,dependent_dlls=[])))
                 fixture('composite-'+config+'/coverage/fixtures/windows_fixture_helper.exe')
             for config in windows[2:4]:
                 fixture('composite-'+config+'/coverage/libfixture.dll')

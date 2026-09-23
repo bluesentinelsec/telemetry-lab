@@ -6,9 +6,11 @@
 # tap discovers this file co-located with telemetry data and stamps analysis
 # output with it, so every result traces back to exact versions + hashes.
 set -uo pipefail
-OUT=/opt/lab/inventory.json
+OUT="${1:-/opt/lab/inventory.json}"
+BUNDLE="${2:-}"
+ARCHIVE="${3:-/opt/lab/telemetry-lab.tar.gz}"
 
-python3 - "$OUT" <<'PY'
+python3 - "$OUT" "$BUNDLE" "$ARCHIVE" <<'PY'
 import hashlib, json, os, platform, re, subprocess, sys
 from datetime import datetime, timezone
 
@@ -31,9 +33,9 @@ def stdout(*cmd):
         return ""
 
 # telemetry-lab release: version comes from the extracted dir name.
-base = ""
+base = sys.argv[2]
 for d in sorted(os.listdir("/opt/lab")) if os.path.isdir("/opt/lab") else []:
-    if d.startswith("telemetry-lab-") and d.endswith("-linux"):
+    if not base and d.startswith("telemetry-lab-") and d.endswith("-linux"):
         base = os.path.join("/opt/lab", d)
         break
 m = re.match(r"telemetry-lab-(.+)-linux$", os.path.basename(base)) if base else None
@@ -50,9 +52,14 @@ except OSError:
 comps = []
 falco = "/usr/bin/falco"
 if os.path.exists(falco):
-    fm = re.search(r"\d+\.\d+\.\d+", stdout(falco, "--version"))
+    version_output = stdout(falco, "--version")
+    try:
+        falco_version = json.loads(version_output)["falco_version"]
+    except (ValueError, KeyError, TypeError):
+        fm = re.search(r"(?im)^Falco version:\s*(\d+\.\d+\.\d+)", version_output)
+        falco_version = fm.group(1) if fm else None
     comps.append({"name": "falco", "type": "detector",
-                  "version": fm.group(0) if fm else None,
+                  "version": falco_version,
                   "sha256": sha256(falco), "path": falco})
 
 # Container detonation runtime: Docker daemon + the constant substrate base image.
@@ -67,7 +74,7 @@ if os.path.exists(docker):
         comps.append({"name": "lab-substrate-image", "type": "container",
                       "version": "debian:13", "sha256": img.replace("sha256:", ""),
                       "path": "lab-substrate:13"})
-tgz = "/opt/lab/telemetry-lab.tar.gz"
+tgz = sys.argv[3]
 if os.path.exists(tgz):
     comps.append({"name": "telemetry-lab", "type": "release", "version": ver,
                   "sha256": sha256(tgz), "path": base})

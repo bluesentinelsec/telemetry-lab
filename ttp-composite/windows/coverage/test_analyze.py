@@ -50,8 +50,27 @@ class AttributionTests(unittest.TestCase):
     def test_later_pid_reuse_does_not_invalidate_probe(self):
         events=copy.deepcopy(self.events)
         events.append(dict(record_id=3,event_id=3,time_utc='2026-09-22T12:00:20Z',fields=dict(ProcessGuid='later-process',ProcessId='100')))
+        events.append(dict(record_id=4,event_id=1,time_utc='2026-09-22T12:00:19Z',fields=dict(ProcessGuid='later-process',ProcessId='100',Image=r'C:\Windows\other.exe')))
         result=evaluate(self.attempt,events,[dict(RuleID='target',RecordID='2')])
         self.assertEqual(result['outcome'],'alert')
+    def test_delayed_dns_with_stale_guid_is_not_a_valid_miss(self):
+        events=copy.deepcopy(self.events)
+        events.append(dict(record_id=3,event_id=22,time_utc='2026-09-22T12:00:03Z',
+                           fields=dict(ProcessGuid='old-svchost',ProcessId='100',
+                                       Image=r'C:\Windows\System32\svchost.exe',
+                                       QueryName='api.ipify.org',UtcTime='2026-09-22 11:59:59.500')))
+        result=evaluate(self.attempt,events,[])
+        self.assertEqual(result['outcome'],'attribution-incomplete')
+        self.assertFalse(result['valid'])
+        self.assertEqual(result['conflicting_guid_record_ids'],['3'])
+        self.assertEqual(result['target_record_ids'],[])
+
+    def test_unproven_later_pid_reuse_is_ambiguous(self):
+        events=copy.deepcopy(self.events)
+        events.append(dict(record_id=3,event_id=3,time_utc='2026-09-22T12:00:03Z',
+                           fields=dict(ProcessGuid='unknown',ProcessId='100')))
+        self.assertEqual(evaluate(self.attempt,events,[])['outcome'],'attribution-incomplete')
+
     def test_missing_start_is_invalid(self):
         self.assertEqual(evaluate(self.attempt,self.events[1:],[])['outcome'],'invalid')
 
