@@ -154,8 +154,8 @@ def composite_rows(root):
         original_campaigns={}
         campaign_log=root/host/'windows/composites/campaigns.json'
         failed_originals={r['campaign'] for r in rows(campaign_log) if r.get('error')} if campaign_log.exists() else set()
-        folders=[(p,'initial') for p in sorted((root/host/'windows/composites').glob('*-windows-*'))]
-        folders += [(p,'replacement') for p in sorted((root/host/'windows/composites-replacements').glob('*-windows-*'))]
+        folders=[(p,'initial') for p in sorted((root/host/'windows/composites').glob('*-windows-*')) if p.is_dir()]
+        folders += [(p,'replacement') for p in sorted((root/host/'windows/composites-replacements').glob('*-windows-*')) if p.is_dir()]
         for folder,role in folders:
             if not (folder/'health.json').exists():
                 campaigns.append(dict(host=host,campaign=folder.name,error='incomplete: no health.json'));continue
