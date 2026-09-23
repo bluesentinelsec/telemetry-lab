@@ -31,12 +31,14 @@ for config in configs:
  for case in cases:
   dest=a.output/f'{config}-{case}';dest.mkdir()
   exe=f'/opt/coverage/{config}/{case}'
-  cid=coverage.command(['docker','create','--name','legacy-'+uuid.uuid4().hex[:12],'--network','none','--cap-add','SYS_PTRACE','--cap-add','NET_ADMIN','--security-opt','seccomp=unconfined',a.image])
+  # Match the original pilot's Docker bridge: IMDS opens and closes the
+  # existing EC2 listener without sending HTTP or reading metadata. A loopback
+  # alias without a listener would silently turn this case into a failed connect.
+  cid=coverage.command(['docker','create','--name','legacy-'+uuid.uuid4().hex[:12],'--network','bridge','--cap-add','SYS_PTRACE','--security-opt','seccomp=unconfined',a.image])
   row=dict(config=config,case=case,container_id=cid,valid=False,
            binary_sha256=hashlib.sha256((a.bundle/'ttp-composite'/config/case).read_bytes()).hexdigest())
   try:
    coverage.command(['docker','start',cid])
-   coverage.command(['docker','exec',cid,'ip','addr','add','169.254.169.254/32','dev','lo'])
    coverage.command(['docker','exec',cid,f'/opt/coverage/{config}/coverage/fixture_prepare'])
    time.sleep(2)
    before=coverage.detector_state()

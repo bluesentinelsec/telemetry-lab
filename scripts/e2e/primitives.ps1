@@ -13,10 +13,20 @@ foreach($config in $manifest.configs) {
   $exe="$Bundle\ttp-primitives\$config\$case.exe"
   $raw="$Output\raw\$config-$case.jsonl"
   $argsList=@('--format','json','-o',$raw,'--meta','os=windows','--meta',"config=$config",'--meta',"primitive=$case",'--meta','iteration=1','--meta',"host=$env:COMPUTERNAME",'--meta',"language=$($config.Split('-')[1])",'--meta',"runtime=$($config.Split('-')[2..($config.Split('-').Length-1)] -join '-')",'--',$exe)
-  $process=Start-Process "$Bundle\tmon\tmon.exe" -ArgumentList $argsList -PassThru -NoNewWindow -RedirectStandardOutput "$raw.stdout" -RedirectStandardError "$raw.stderr"
+  # Windows PowerShell Start-Process can lose ExitCode after asynchronous
+  # launch. Own the Process handle directly and drain both streams.
+  $info=[Diagnostics.ProcessStartInfo]::new()
+  $info.FileName="$Bundle\tmon\tmon.exe"; $info.UseShellExecute=$false
+  $info.Arguments=($argsList | ForEach-Object {'"{0}"' -f $_}) -join ' '
+  $info.RedirectStandardOutput=$true; $info.RedirectStandardError=$true
+  $process=[Diagnostics.Process]::new();$process.StartInfo=$info
+  if(!$process.Start()){throw 'Cannot launch tmon'}
+  $stdoutTask=$process.StandardOutput.ReadToEndAsync();$stderrTask=$process.StandardError.ReadToEndAsync()
   $finished=$process.WaitForExit(180000)
-  if(!$finished){Stop-Process -Id $process.Id -Force}
+  if(!$finished){$process.Kill()}
   $process.WaitForExit()
+  [IO.File]::WriteAllText("$raw.stdout",$stdoutTask.Result)
+  [IO.File]::WriteAllText("$raw.stderr",$stderrTask.Result)
   $code=$process.ExitCode
   $summaries=@()
   if(Test-Path $raw){$summaries=@(Get-Content $raw | ForEach-Object {ConvertFrom-Json $_} | Where-Object record -eq 'summary')}

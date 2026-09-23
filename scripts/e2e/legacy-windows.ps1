@@ -25,11 +25,18 @@ try {
    $exe="$Bundle\ttp-composite\$config\$case.exe"
    $dest="$Output\$config-$case";New-Item -ItemType Directory $dest | Out-Null
    $started=[DateTime]::UtcNow
-   $process=Start-Process $exe -PassThru -NoNewWindow -RedirectStandardOutput "$dest\stdout.txt" -RedirectStandardError "$dest\stderr.txt"
+   $info=[Diagnostics.ProcessStartInfo]::new()
+   $info.FileName=$exe;$info.UseShellExecute=$false
+   $info.RedirectStandardOutput=$true;$info.RedirectStandardError=$true
+   $process=[Diagnostics.Process]::new();$process.StartInfo=$info
+   if(!$process.Start()){throw 'Cannot launch pilot program'}
+   $stdoutTask=$process.StandardOutput.ReadToEndAsync();$stderrTask=$process.StandardError.ReadToEndAsync()
    $probePid=$process.Id
    $finished=$process.WaitForExit(30000)
-   if(!$finished){Stop-Process -Id $probePid -Force}
+   if(!$finished){$process.Kill()}
    $process.WaitForExit()
+   [IO.File]::WriteAllText("$dest\stdout.txt",$stdoutTask.Result)
+   [IO.File]::WriteAllText("$dest\stderr.txt",$stderrTask.Result)
    $row=[pscustomobject]@{config=$config;case=$case;executable=$exe;sha256=(Get-FileHash $exe).Hash.ToLower();pid=$probePid;start_utc=$started.ToString('o');end_utc=[DateTime]::UtcNow.ToString('o');exit_code=$process.ExitCode;timed_out=(!$finished)}
    $rows.Add($row);$process.Dispose()
    $rows | ConvertTo-Json -Depth 5 | Set-Content "$Output\attempts.json" -Encoding UTF8
@@ -56,7 +63,17 @@ $events=@(Get-WinEvent -Path "$Output\events.evtx" -Oldest | ForEach-Object {
 $events | ConvertTo-Json -Depth 7 | Set-Content "$Output\events.json" -Encoding UTF8
 $oldest=(Get-WinEvent -LogName $channel -Oldest -MaxEvents 1).RecordId
 @{start_record=$startRecord;end_record=$endRecord;log_overwritten=($oldest -gt ($startRecord+1));sysmon_service=(Get-Service Sysmon64).Status.ToString();error_events=@($events | Where-Object event_id -in @(4,16,255))} | ConvertTo-Json -Depth 7 | Set-Content "$Output\health.json" -Encoding UTF8
-Push-Location C:\lab\hayabusa
-try {& .\hayabusa.exe dfir-timeline -f "$Output\events.evtx" -o "$Output\alerts.csv" -r .\rules -m low --no-wizard -p all-field-info -C *> "$Output\detector.log"; $code=$LASTEXITCODE} finally {Pop-Location}
+$info=[Diagnostics.ProcessStartInfo]::new()
+$info.FileName='C:\lab\hayabusa\hayabusa.exe';$info.WorkingDirectory='C:\lab\hayabusa';$info.UseShellExecute=$false
+$info.Arguments="dfir-timeline -f `"$Output\events.evtx`" -o `"$Output\alerts.csv`" -r .\rules -m low --no-wizard -p all-field-info -C"
+$info.RedirectStandardOutput=$true;$info.RedirectStandardError=$true
+$detector=[Diagnostics.Process]::new();$detector.StartInfo=$info
+if(!$detector.Start()){throw 'Cannot launch Hayabusa'}
+$stdoutTask=$detector.StandardOutput.ReadToEndAsync();$stderrTask=$detector.StandardError.ReadToEndAsync()
+if(!$detector.WaitForExit(120000)){$detector.Kill();throw 'Hayabusa timed out'}
+$detector.WaitForExit();$code=$detector.ExitCode
+[IO.File]::WriteAllText("$Output\detector.log",$stdoutTask.Result)
+[IO.File]::WriteAllText("$Output\detector.stderr",$stderrTask.Result)
+$detector.Dispose()
 $code | Set-Content "$Output\detector-exit.txt"
 if($code -or @($rows | Where-Object {$_.exit_code -ne 0 -or $_.timed_out}).Count){throw 'Legacy execution failed; preserve evidence'}

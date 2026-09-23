@@ -24,3 +24,6 @@ jobs:
             [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName,[ref]$tokens,[ref]$errors)
             if($errors.Count){throw ($errors | Out-String)}
           }
+      - name: Exercise process exit and collector-health gates on Windows PowerShell
+        shell: powershell
+        run: ./scripts/tests/primitives-windows.ps1
