@@ -1,0 +1,153 @@
+{
+  "build_commit": "e753bfc685990769f1b51f540e1a930355628529",
+  "build_workflow_run": 35789991409,
+  "runner_commit": "e753bfc685990769f1b51f540e1a930355628529",
+  "runner_sha256": "e4afafd2e054639fa7ba1a1cb2c19b49748062db9793c4da6a4666f39ec99746",
+  "instance": "i-00dff35aa6cd24908",
+  "cases_implemented": 24,
+  "enabled_sysmon_rules": 2269,
+  "qualified_rules_by_runtime": {
+    "rust-msvc-dynamic": 23,
+    "rust-msvc-static": 23
+  },
+  "attempts": 96,
+  "counts": {
+    "alert": 46,
+    "valid-miss": 0,
+    "control-pass": 48,
+    "control-failed": 0,
+    "attribution-incomplete": 0,
+    "invalid": 2
+  },
+  "campaigns": {
+    "rust-msvc-dynamic-dns-01": {
+      "counts": {
+        "alert": 1,
+        "valid-miss": 0,
+        "control-pass": 1,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": true,
+      "expected_attempts": 2,
+      "recorded_attempts": 2,
+      "complete": true
+    },
+    "rust-msvc-dynamic-nonnetwork-01": {
+      "counts": {
+        "alert": 17,
+        "valid-miss": 0,
+        "control-pass": 17,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": true,
+      "expected_attempts": 34,
+      "recorded_attempts": 34,
+      "complete": true
+    },
+    "rust-msvc-dynamic-onion-01": {
+      "counts": {
+        "alert": 0,
+        "valid-miss": 0,
+        "control-pass": 1,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 1
+      },
+      "healthy": true,
+      "expected_attempts": 2,
+      "recorded_attempts": 2,
+      "complete": true
+    },
+    "rust-msvc-dynamic-tcp-01": {
+      "counts": {
+        "alert": 5,
+        "valid-miss": 0,
+        "control-pass": 5,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": true,
+      "expected_attempts": 10,
+      "recorded_attempts": 10,
+      "complete": true
+    },
+    "rust-msvc-static-dns-01": {
+      "counts": {
+        "alert": 1,
+        "valid-miss": 0,
+        "control-pass": 1,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": true,
+      "expected_attempts": 2,
+      "recorded_attempts": 2,
+      "complete": true
+    },
+    "rust-msvc-static-nonnetwork-01": {
+      "counts": {
+        "alert": 17,
+        "valid-miss": 0,
+        "control-pass": 17,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": true,
+      "expected_attempts": 34,
+      "recorded_attempts": 34,
+      "complete": true
+    },
+    "rust-msvc-static-onion-01": {
+      "counts": {
+        "alert": 0,
+        "valid-miss": 0,
+        "control-pass": 1,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 1
+      },
+      "healthy": true,
+      "expected_attempts": 2,
+      "recorded_attempts": 2,
+      "complete": true
+    },
+    "rust-msvc-static-tcp-01": {
+      "counts": {
+        "alert": 5,
+        "valid-miss": 0,
+        "control-pass": 5,
+        "control-failed": 0,
+        "attribution-incomplete": 0,
+        "invalid": 0
+      },
+      "healthy": true,
+      "expected_attempts": 10,
+      "recorded_attempts": 10,
+      "complete": true
+    }
+  },
+  "raw_archive_root": "/Users/michaellong/telemetry-lab-data/windows-rust-2026-09-22",
+  "ci_artifacts": {
+    "composite-windows-rust-msvc-dynamic.zip": {
+      "bytes": 2255333,
+      "sha256": "0e1ecc741eedff5b3ea7f9297cb71670caf289789f578b2d4baebfeb6fbeb9b0"
+    },
+    "composite-windows-rust-msvc-static.zip": {
+      "bytes": 3403536,
+      "sha256": "2e82798330d508969c6194caf4f9254cd78b3e96aab9283cf745cac81dbb024b"
+    }
+  },
+  "support_bundles": {
+    "support.zip": {
+      "bytes": 515534,
+      "sha256": "5f96a251dd729a4ba90a48e77fd733b611d47e2518190b9385725041495a3205"
+    }
+  }
+}

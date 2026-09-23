@@ -1,0 +1,9 @@
+{
+  "bytes": 6685451,
+  "sha256": "c287db2666c42dac0bce3ba10a17338adf90abf8cda16285e0ba6285bfae544b",
+  "file": "/Users/michaellong/telemetry-lab-data/windows-rust-2026-09-22/windows-rust-evidence.tgz",
+  "verified_files": 435,
+  "build_commit": "e753bfc685990769f1b51f540e1a930355628529",
+  "build_workflow_run": 35789991409,
+  "instance": "i-00dff35aa6cd24908"
+}

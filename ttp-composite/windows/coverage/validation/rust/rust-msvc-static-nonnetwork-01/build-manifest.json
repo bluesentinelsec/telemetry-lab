@@ -1,0 +1,279 @@
+﻿{
+    "runtime":  "rust-msvc-static",
+    "language":  "rust",
+    "compiler_version":  "1.98.1",
+    "compiler_identity":  "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+    "programs":  [
+                     {
+                         "case_id":  "registry_run_key",
+                         "sha256":  "b51a23182efe8d3ce792e2850f07fc0c66116a468d28c9376fc8256a18102b18",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "advapi32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_app_paths",
+                         "sha256":  "f6c6a9c7a5aae65dcd9a8d577b8928cfbe03fc97655ff2ab1909af3768375177",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "advapi32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_active_setup",
+                         "sha256":  "4f9da73be2457328af7f9efd2e58a6ee3546432c1ef3f4da7c60988e1de6c108",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "advapi32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_screensaver",
+                         "sha256":  "823fd29b4ccf909417ccce855078d988fbef0238f1387821fc56397afaf5e7c8",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "advapi32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "registry_runmru_delete",
+                         "sha256":  "80885c37d52dbabe8dead0e7c1c7c3fa5df991d2c2e233a2368f8a6f09324fc2",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "advapi32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "startup_file",
+                         "sha256":  "af129762e6342240e4a35c33237da4dc17961a9b47868fd21a2361ec4e9ab5dc",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "powershell_profile",
+                         "sha256":  "9d48be7bf279300e4efc9025d1f9d1015d3e99b0d042e60095f3073353d3bde1",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "public_binary",
+                         "sha256":  "459a3af928e0019946a699c66413684ea068b44e90f5819e1992646287020e53",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "double_extension_file",
+                         "sha256":  "f4d46dd46208e00afabc6efa7a107820102c28a89f45255571421c9f706bbd5f",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "double_extension_lnk",
+                         "sha256":  "40a635016deb116fe27ff14476bb81f55a6befd1696baa08512a9acb94873320",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "office_startup_file",
+                         "sha256":  "f423e0cb773f445b3bc0612a52b6071e4a56eae41e011d1fdd9e7a3e8efa385d",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "suspicious_executable_file",
+                         "sha256":  "4de7ccf99c47fd4d31e4e6528f37861750c825438b50a1b0f810978d04d94663",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_2525",
+                         "sha256":  "58dd1a82f3598cf81dbd4c07f5323a7dc4bda9cca89370aa98f2aa9efaa76fc5",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "ws2_32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_3389",
+                         "sha256":  "879413035eb7e0ef57ba4ec814e33fef888abe471f9ad6f41c7acce55d9d95be",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "ws2_32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_9389",
+                         "sha256":  "c82d909f6f985cf590bf557016a349160d6d4ee8bf46cc2fef5b062f2329eac7",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "ws2_32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_88",
+                         "sha256":  "dabf933904dfab92b1e605a318bb3c984ba44eab39d3273fd47d0a8c7eaca147",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "ws2_32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "tcp_connect_public_path",
+                         "sha256":  "c9c9194fe869c1949e9384ed8344496d77c157dd68aea5366862cacf36ca18ac",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "ws2_32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "dns_onion",
+                         "sha256":  "8a499514c2bf7fc4cea6386af332b3eeb748bafa004dfa99686f1df296d5349e",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "ws2_32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "dns_ip_lookup",
+                         "sha256":  "a684103a3f1b8c9cb5f93d0a7a22cc94cb15283d9be86807c2f6cfc42a5aa10d",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "ws2_32.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "double_extension_execute",
+                         "sha256":  "f24978765b99793716033eb7e8bef4f3cfd27bd1a9536276d8f748461778f708",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "creation_time_change",
+                         "sha256":  "dd3fa802097a06c2d34a82a6e1333ec6d699a91ec46539a440bd4a6a932ce886",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "ads_executable",
+                         "sha256":  "a7a3fb269e24d37884a4043475e1654321bac48bccd0059156d7f8275c6f8f06",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "named_pipe_indicator",
+                         "sha256":  "e890f9f0b7388c1fa7431ca137a243936df2cdf1a1abdaa4a42107fb47be4224",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     },
+                     {
+                         "case_id":  "unsigned_node_load",
+                         "sha256":  "5c47d87ec374f0118a184356b83e3a9483faecf9ddc70bc261b422100e743e20",
+                         "imports":  [
+                                         "api-ms-win-core-synch-l1-2-0.dll",
+                                         "kernel32.dll",
+                                         "ntdll.dll"
+                                     ]
+                     }
+                 ],
+    "dependent_dlls":  [
+
+                       ],
+    "rust_build":  {
+                       "rustflags":  "-C target-feature=+crt-static",
+                       "vc_tools_version":  "14.51.36231",
+                       "windows_sdk_version":  "10.0.26100.0\\",
+                       "target":  "x86_64-pc-windows-msvc",
+                       "cfg":  [
+                                   "debug_assertions",
+                                   "panic=\"unwind\"",
+                                   "target_abi=\"\"",
+                                   "target_arch=\"x86_64\"",
+                                   "target_endian=\"little\"",
+                                   "target_env=\"msvc\"",
+                                   "target_family=\"windows\"",
+                                   "target_feature=\"cmpxchg16b\"",
+                                   "target_feature=\"crt-static\"",
+                                   "target_feature=\"fxsr\"",
+                                   "target_feature=\"sse\"",
+                                   "target_feature=\"sse2\"",
+                                   "target_feature=\"sse3\"",
+                                   "target_has_atomic=\"128\"",
+                                   "target_has_atomic=\"16\"",
+                                   "target_has_atomic=\"32\"",
+                                   "target_has_atomic=\"64\"",
+                                   "target_has_atomic=\"8\"",
+                                   "target_has_atomic=\"ptr\"",
+                                   "target_has_atomic_primitive_alignment=\"128\"",
+                                   "target_has_atomic_primitive_alignment=\"16\"",
+                                   "target_has_atomic_primitive_alignment=\"32\"",
+                                   "target_has_atomic_primitive_alignment=\"64\"",
+                                   "target_has_atomic_primitive_alignment=\"8\"",
+                                   "target_has_atomic_primitive_alignment=\"ptr\"",
+                                   "target_os=\"windows\"",
+                                   "target_pointer_width=\"64\"",
+                                   "target_vendor=\"pc\"",
+                                   "windows"
+                               ],
+                       "rustc_verbose":  "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+                       "linker_identity":  "Microsoft (R) Incremental Linker Version 14.51.36256.0",
+                       "crt":  "static"
+                   }
+}

@@ -64,7 +64,7 @@ def verify_imports(imports,runtime,label):
     names={n.lower() for n in imports}
     ucrt=any(n.startswith(('api-ms-win-crt-','ucrtbase')) for n in names)
     msvcrt='msvcrt.dll' in names
-    if runtime in ('ucrt','libstdcxx','libcxx','go-cgo') and (not ucrt or msvcrt):
+    if runtime in ('ucrt','libstdcxx','libcxx','go-cgo','rust-msvc-dynamic') and (not ucrt or msvcrt):
         raise ValueError(f'{label}: wrong CRT {imports}')
     if runtime=='msvcrt' and (not msvcrt or ucrt):
         raise ValueError(f'{label}: wrong CRT {imports}')
@@ -72,6 +72,12 @@ def verify_imports(imports,runtime,label):
         raise ValueError(f'{label}: pure-Go binary imports a C runtime')
     if runtime in ('go-cgo','go-static') and names & {'libstdc++-6.dll','libc++.dll'}:
         raise ValueError(f'{label}: unexpected C++ runtime in Go build')
+    if runtime.startswith('rust-msvc-'):
+        crt_dll=ucrt or msvcrt or any(n.startswith(('vcruntime','msvcp','libstdc++','libc++','libgcc','libwinpthread')) for n in names)
+        if runtime=='rust-msvc-static' and crt_dll:
+            raise ValueError(f'{label}: static Rust CRT imports runtime DLLs {imports}')
+        if runtime=='rust-msvc-dynamic' and not any(n.startswith('vcruntime') for n in names):
+            raise ValueError(f'{label}: dynamic Rust build lacks VCRUNTIME import')
     required={'libstdcxx':'libstdc++-6.dll','libcxx':'libc++.dll'}.get(runtime)
     if required:
         other='libc++.dll' if runtime=='libstdcxx' else 'libstdc++-6.dll'
@@ -90,12 +96,27 @@ def verify_go(info, symbols, runtime, label):
     return settings
 
 
+def verify_rust(data, metadata, runtime, label):
+    crt='static' if runtime=='rust-msvc-static' else 'dynamic'
+    if metadata.get('target')!='x86_64-pc-windows-msvc' or metadata.get('crt')!=crt:
+        raise ValueError(f'{label}: incorrect Rust build metadata')
+    flag='+' if crt=='static' else '-'
+    if metadata.get('rustflags')!=f'-C target-feature={flag}crt-static':
+        raise ValueError(f'{label}: incorrect Rust CRT build flags')
+    if b'RUST_TARGET x86_64-pc-windows-msvc\n' not in data or f'RUST_CRT {crt}\n'.encode() not in data:
+        raise ValueError(f'{label}: compiled Rust target/CRT marker differs')
+    other='dynamic' if crt=='static' else 'static'
+    if f'RUST_CRT {other}\n'.encode() in data:
+        raise ValueError(f'{label}: mixed Rust CRT markers')
+
+
 def verify(directory, runtime, objdump='objdump', compiler='gcc'):
     spec=json.loads(Path(__file__).with_name('selection.json').read_text())
     cases=[c['case_id'] for c in spec['candidates']]
     actual={p.stem for p in directory.glob('*.exe')}
     if actual != set(cases):
         raise ValueError(f'Roster differs: missing={set(cases)-actual}, extra={actual-set(cases)}')
+    rust_metadata=json.loads((directory/'rust-build.json').read_text(encoding='utf-8-sig')) if runtime.startswith('rust-msvc-') else None
     programs=[]
     for case in cases:
         p=directory/(case+'.exe');data=p.read_bytes()
@@ -103,7 +124,7 @@ def verify(directory, runtime, objdump='objdump', compiler='gcc'):
         imports=pe_imports(p,objdump)
         verify_imports(imports,runtime,case)
         # Each executable embeds its sole fixed case ID; no unrelated case IDs.
-        terminator='\n' if runtime in ('go-cgo','go-static') else '\0'
+        terminator='\n' if runtime in ('go-cgo','go-static') or rust_metadata else '\0'
         markers={c for c in cases if ('COMPOSITE_CASE '+c+terminator).encode() in data}
         if markers != {case}:raise ValueError(f'{case}: incorrect case markers {markers}')
         entry=dict(case_id=case,sha256=hashlib.sha256(data).hexdigest(),imports=imports)
@@ -112,10 +133,14 @@ def verify(directory, runtime, objdump='objdump', compiler='gcc'):
             symbols=subprocess.check_output(['go','tool','nm',str(p)],text=True)
             entry['go_build_settings']=verify_go(info,symbols,runtime,case)
             entry['go_build_info']=info
+        if rust_metadata:verify_rust(data,rust_metadata,runtime,case)
         programs.append(entry)
     if len({p['sha256'] for p in programs})!=len(programs):raise ValueError('Duplicate binary')
     is_go=runtime in ('go-cgo','go-static')
-    if is_go:
+    if rust_metadata:
+        identity=rust_metadata['rustc_verbose']
+        compiler_version=next(line.removeprefix('release: ') for line in identity.splitlines() if line.startswith('release: '))
+    elif is_go:
         identity=subprocess.check_output(['go','version'],text=True).strip()
         compiler_version=subprocess.check_output(['go','env','GOVERSION'],text=True).strip()
     else:
@@ -136,9 +161,10 @@ def verify(directory, runtime, objdump='objdump', compiler='gcc'):
     bundled={d['name'].lower() for d in dlls}
     for entry in programs+dlls:
         for name in entry['imports']:
-            if name.lower().startswith(('libstdc++','libc++','libgcc','libunwind','libwinpthread','libatomic')) and name.lower() not in bundled:
+            if name.lower().startswith(('libstdc++','libc++','libgcc','libunwind','libwinpthread','libatomic','vcruntime')) and name.lower() not in bundled:
                 raise ValueError(f'Missing bundled runtime dependency: {name}')
-    result=dict(runtime=runtime,language='go' if is_go else 'cpp' if runtime in ('libstdcxx','libcxx') else 'c',compiler_version=compiler_version,compiler_identity=identity,programs=programs,dependent_dlls=dlls)
+    result=dict(runtime=runtime,language='rust' if rust_metadata else 'go' if is_go else 'cpp' if runtime in ('libstdcxx','libcxx') else 'c',compiler_version=compiler_version,compiler_identity=identity,programs=programs,dependent_dlls=dlls)
+    if rust_metadata:result['rust_build']=rust_metadata
     if runtime=='go-cgo':
         result['c_compiler_identity']=subprocess.check_output([compiler,'--version'],text=True).splitlines()[0]
     (directory/'build-manifest.json').write_text(json.dumps(result,indent=2)+'\n')
@@ -147,6 +173,6 @@ def verify(directory, runtime, objdump='objdump', compiler='gcc'):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('directory',type=Path)
-    parser.add_argument('runtime',choices=['ucrt','msvcrt','libstdcxx','libcxx','go-cgo','go-static']);parser.add_argument('--objdump',default='objdump')
+    parser.add_argument('runtime',choices=['ucrt','msvcrt','libstdcxx','libcxx','go-cgo','go-static','rust-msvc-dynamic','rust-msvc-static']);parser.add_argument('--objdump',default='objdump')
     parser.add_argument('--compiler',default='gcc')
     a=parser.parse_args();verify(a.directory,a.runtime,a.objdump,a.compiler)

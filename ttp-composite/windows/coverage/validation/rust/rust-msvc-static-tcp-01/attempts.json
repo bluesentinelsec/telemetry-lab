@@ -1,0 +1,192 @@
+﻿[
+    {
+        "case_id":  "tcp_connect_2525",
+        "mode":  "control",
+        "rule_id":  "f8a59cdc-b3d1-8f59-c3f4-4db6d94e8efc",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "58dd1a82f3598cf81dbd4c07f5323a7dc4bda9cca89370aa98f2aa9efaa76fc5",
+        "staged_sha256":  "58dd1a82f3598cf81dbd4c07f5323a7dc4bda9cca89370aa98f2aa9efaa76fc5",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2416,
+                        "start_utc":  "2026-09-22T22:19:58.3474572Z",
+                        "end_utc":  "2026-09-22T22:20:03.3589638Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE tcp_connect_2525\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK tcp_connect_2525\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "tcp_connect_2525",
+        "mode":  "active",
+        "rule_id":  "f8a59cdc-b3d1-8f59-c3f4-4db6d94e8efc",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "58dd1a82f3598cf81dbd4c07f5323a7dc4bda9cca89370aa98f2aa9efaa76fc5",
+        "staged_sha256":  "58dd1a82f3598cf81dbd4c07f5323a7dc4bda9cca89370aa98f2aa9efaa76fc5",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  3464,
+                        "start_utc":  "2026-09-22T22:20:03.3709434Z",
+                        "end_utc":  "2026-09-22T22:20:08.3839968Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE tcp_connect_2525\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK tcp_connect_2525\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "tcp_connect_3389",
+        "mode":  "control",
+        "rule_id":  "f3fa6209-076f-c860-c7cb-e2f6bdd7d3e0",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "879413035eb7e0ef57ba4ec814e33fef888abe471f9ad6f41c7acce55d9d95be",
+        "staged_sha256":  "879413035eb7e0ef57ba4ec814e33fef888abe471f9ad6f41c7acce55d9d95be",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2632,
+                        "start_utc":  "2026-09-22T22:20:08.3979955Z",
+                        "end_utc":  "2026-09-22T22:20:13.4126346Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE tcp_connect_3389\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK tcp_connect_3389\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "tcp_connect_3389",
+        "mode":  "active",
+        "rule_id":  "f3fa6209-076f-c860-c7cb-e2f6bdd7d3e0",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "879413035eb7e0ef57ba4ec814e33fef888abe471f9ad6f41c7acce55d9d95be",
+        "staged_sha256":  "879413035eb7e0ef57ba4ec814e33fef888abe471f9ad6f41c7acce55d9d95be",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1324,
+                        "start_utc":  "2026-09-22T22:20:13.4245939Z",
+                        "end_utc":  "2026-09-22T22:20:18.4368639Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE tcp_connect_3389\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK tcp_connect_3389\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "tcp_connect_9389",
+        "mode":  "control",
+        "rule_id":  "ae8c1c58-4743-c0c8-3b30-7d69f7cbee68",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "c82d909f6f985cf590bf557016a349160d6d4ee8bf46cc2fef5b062f2329eac7",
+        "staged_sha256":  "c82d909f6f985cf590bf557016a349160d6d4ee8bf46cc2fef5b062f2329eac7",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  2864,
+                        "start_utc":  "2026-09-22T22:20:18.4507303Z",
+                        "end_utc":  "2026-09-22T22:20:23.4650853Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE tcp_connect_9389\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK tcp_connect_9389\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "tcp_connect_9389",
+        "mode":  "active",
+        "rule_id":  "ae8c1c58-4743-c0c8-3b30-7d69f7cbee68",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "c82d909f6f985cf590bf557016a349160d6d4ee8bf46cc2fef5b062f2329eac7",
+        "staged_sha256":  "c82d909f6f985cf590bf557016a349160d6d4ee8bf46cc2fef5b062f2329eac7",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1340,
+                        "start_utc":  "2026-09-22T22:20:23.4774414Z",
+                        "end_utc":  "2026-09-22T22:20:28.4897914Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE tcp_connect_9389\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK tcp_connect_9389\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "tcp_connect_88",
+        "mode":  "control",
+        "rule_id":  "322fd5f2-b5b7-1bf4-58f2-92873dc878bb",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "dabf933904dfab92b1e605a318bb3c984ba44eab39d3273fd47d0a8c7eaca147",
+        "staged_sha256":  "dabf933904dfab92b1e605a318bb3c984ba44eab39d3273fd47d0a8c7eaca147",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4528,
+                        "start_utc":  "2026-09-22T22:20:28.5028839Z",
+                        "end_utc":  "2026-09-22T22:20:33.5167268Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE tcp_connect_88\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK tcp_connect_88\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "tcp_connect_88",
+        "mode":  "active",
+        "rule_id":  "322fd5f2-b5b7-1bf4-58f2-92873dc878bb",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\lab\\windows-coverage\\run\\probe.exe",
+        "sha256":  "dabf933904dfab92b1e605a318bb3c984ba44eab39d3273fd47d0a8c7eaca147",
+        "staged_sha256":  "dabf933904dfab92b1e605a318bb3c984ba44eab39d3273fd47d0a8c7eaca147",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  1336,
+                        "start_utc":  "2026-09-22T22:20:33.5296639Z",
+                        "end_utc":  "2026-09-22T22:20:38.5440347Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE tcp_connect_88\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK tcp_connect_88\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "tcp_connect_public_path",
+        "mode":  "control",
+        "rule_id":  "df13f270-859b-272a-9c2a-a0ef744a0480",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\Users\\Public\\telemetry-lab\\probe.exe",
+        "sha256":  "c9c9194fe869c1949e9384ed8344496d77c157dd68aea5366862cacf36ca18ac",
+        "staged_sha256":  "c9c9194fe869c1949e9384ed8344496d77c157dd68aea5366862cacf36ca18ac",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  560,
+                        "start_utc":  "2026-09-22T22:20:38.5580018Z",
+                        "end_utc":  "2026-09-22T22:20:43.5697232Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE tcp_connect_public_path\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nCONTROL_OK tcp_connect_public_path\n",
+                        "stderr":  ""
+                    }
+    },
+    {
+        "case_id":  "tcp_connect_public_path",
+        "mode":  "active",
+        "rule_id":  "df13f270-859b-272a-9c2a-a0ef744a0480",
+        "runtime":  "rust-msvc-static",
+        "executable":  "C:\\Users\\Public\\telemetry-lab\\probe.exe",
+        "sha256":  "c9c9194fe869c1949e9384ed8344496d77c157dd68aea5366862cacf36ca18ac",
+        "staged_sha256":  "c9c9194fe869c1949e9384ed8344496d77c157dd68aea5366862cacf36ca18ac",
+        "behavior_ok":  true,
+        "process":  {
+                        "pid":  4656,
+                        "start_utc":  "2026-09-22T22:20:43.5823500Z",
+                        "end_utc":  "2026-09-22T22:20:48.5954746Z",
+                        "exit_code":  0,
+                        "timed_out":  false,
+                        "stdout":  "COMPOSITE_CASE tcp_connect_public_path\nRUST_TARGET x86_64-pc-windows-msvc\nRUST_CRT static\n\nBEHAVIOR_OK tcp_connect_public_path\n",
+                        "stderr":  ""
+                    }
+    }
+]

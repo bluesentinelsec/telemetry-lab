@@ -107,7 +107,9 @@ assemble() {
       cp "ttp-composite/windows/coverage/$support" "$root/ttp-composite/coverage/"
     done
   fi
-  for cfg in $configs; do
+  local composite_configs="$configs"
+  if [ "$os" = windows ]; then composite_configs="$composite_configs windows-rust-msvc-dynamic windows-rust-msvc-static"; fi
+  for cfg in $composite_configs; do
     local cdst="$root/ttp-composite/$cfg"
     mkdir -p "$cdst"
     # Tolerate partial component sets when assembling an explicitly partial bundle.
@@ -130,8 +132,9 @@ assemble() {
   done
 
   # Manifest.
-  local cfgjson primjson compjson
+  local cfgjson primjson compjson compcfgjson
   cfgjson=$(printf '"%s",' $configs); cfgjson="[${cfgjson%,}]"
+  compcfgjson=$(printf '"%s",' $composite_configs); compcfgjson="[${compcfgjson%,}]"
   primjson=$(printf '"%s",' $prims); primjson="[${primjson%,}]"
   compjson=$(printf '"%s",' $comps); compjson="[${compjson%,}]"
   cat > "$root/manifest.json" <<EOF
@@ -144,7 +147,8 @@ assemble() {
   "tools": ["tmon", "tap"],
   "primitives": ${primjson},
   "composites": ${compjson},
-  "configs": ${cfgjson}
+  "configs": ${cfgjson},
+  "composite_configs": ${compcfgjson}
 }
 EOF
   cp scripts/release-README.txt "$root/README.txt"

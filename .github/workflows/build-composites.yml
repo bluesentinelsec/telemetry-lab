@@ -448,3 +448,49 @@ jobs:
         with:
           name: composite-${{ matrix.config }}
           path: composite-dist/${{ matrix.config }}
+
+  windows-rust:
+    # Same Rust compiler, MSVC target, SDK and source; vary CRT linkage only.
+    strategy:
+      fail-fast: false
+      matrix:
+        crt: [dynamic, static]
+    name: Windows Rust (MSVC, ${{ matrix.crt }} CRT)
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+      - name: Install pinned Rust toolchain
+        shell: pwsh
+        run: |
+          rustup toolchain install 1.98.1 --profile minimal
+          if ($LASTEXITCODE) { throw 'Toolchain installation failed' }
+          rustup target add x86_64-pc-windows-msvc --toolchain 1.98.1
+          if ($LASTEXITCODE) { throw 'Target installation failed' }
+      - name: Build, verify and stage standalone programs
+        shell: pwsh
+        run: ./ttp-composite/windows/rust/build.ps1 -Output "composite-dist/windows-rust-msvc-${{ matrix.crt }}" -Crt '${{ matrix.crt }}'
+      - name: Verify non-network behaviors and same-binary controls
+        shell: pwsh
+        run: |
+          $dist = "composite-dist/windows-rust-msvc-${{ matrix.crt }}/coverage"
+          New-Item -ItemType Directory -Force C:\lab\windows-coverage\fixtures | Out-Null
+          Copy-Item "$dist/fixtures/windows_fixture_helper.exe" C:\lab\windows-coverage\fixtures\helper.exe
+          Copy-Item "$dist/fixtures/fixture.node" C:\lab\windows-coverage\fixtures\fixture.node
+          & ./ttp-composite/windows/coverage/run.ps1 -Programs $dist -Output "${{ runner.temp }}/windows-behavior" -BehaviorOnly
+      - name: Upload behavior evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: behavior-windows-rust-msvc-${{ matrix.crt }}
+          path: ${{ runner.temp }}/windows-behavior
+      - name: Upload composites
+        uses: actions/upload-artifact@v7
+        with:
+          name: composite-windows-rust-msvc-${{ matrix.crt }}
+          path: composite-dist/windows-rust-msvc-${{ matrix.crt }}
