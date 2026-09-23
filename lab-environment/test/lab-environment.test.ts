@@ -97,3 +97,17 @@ test('Windows-only validation excludes the Debian host', () => {
   template.hasOutput('WindowsInstanceId', {});
   expect(template.toJSON().Outputs.DebianInstanceId).toBeUndefined();
 });
+
+test('parallel disposable stacks have distinct launch-template names', () => {
+  const app = new cdk.App();
+  const names: string[] = [];
+  const stacks = ['PilotA', 'PilotB'].map(id => new LabEnvironmentStack(app, id, {
+    env: { account: '123456789012', region: 'us-west-2' },
+  }));
+  for (const stack of stacks) {
+    const resources = Template.fromStack(stack).findResources('AWS::EC2::LaunchTemplate');
+    for (const resource of Object.values(resources)) names.push(resource.Properties.LaunchTemplateName);
+  }
+  expect(names).toHaveLength(4);
+  expect(new Set(names).size).toBe(4);
+});

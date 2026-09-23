@@ -6,7 +6,8 @@ param(
   [string]$Hayabusa = 'C:\lab\hayabusa\hayabusa.exe',
   [string[]]$Cases = @(),
   [switch]$IncludeNetwork,
-  [switch]$BehaviorOnly
+  [switch]$BehaviorOnly,
+  [int]$Seed = -1
 )
 $lock = [Threading.Mutex]::new($false, 'Global\TelemetryLabWindowsQualification')
 if (!$lock.WaitOne(0)) { $lock.Dispose(); throw 'Another Windows qualification run is active' }
@@ -18,6 +19,11 @@ $selection = Get-Content "$PSScriptRoot\selection.json" -Raw | ConvertFrom-Json
 $build = Get-Content "$Programs\build-manifest.json" -Raw | ConvertFrom-Json
 $allCases = @($selection.candidates | Where-Object { (!$Cases.Count -or $_.case_id -in $Cases) -and ($IncludeNetwork -or $_.family -notin @('Network','DNS')) })
 if (!$allCases.Count) { throw 'No selected cases' }
+$rng=$null
+if($Seed -ge 0) {
+  $rng=[Random]::new($Seed)
+  for($i=$allCases.Count-1;$i -gt 0;$i--){$j=$rng.Next($i+1);$tmp=$allCases[$i];$allCases[$i]=$allCases[$j];$allCases[$j]=$tmp}
+}
 if (Test-Path $Output) { throw 'Evidence directory already exists; retain previous attempts and use a new directory' }
 New-Item -ItemType Directory -Path $Output -Force | Out-Null
 $Output = (Resolve-Path $Output).Path
@@ -124,7 +130,7 @@ if (!$BehaviorOnly) {
     if ((Get-FileHash $path).Hash.ToLower() -ne $entry.sha256) {throw "Rule hash differs: $($entry.path)"}
   }
 }
-@{cases=@($allCases.case_id);runtime=$build.runtime;expected_attempts=2*$allCases.Count} | ConvertTo-Json | Set-Content "$Output\run-plan.json" -Encoding UTF8
+@{cases=@($allCases.case_id);runtime=$build.runtime;seed=$Seed;expected_attempts=2*$allCases.Count} | ConvertTo-Json | Set-Content "$Output\run-plan.json" -Encoding UTF8
 $executionError=$null
 try {
   foreach($dir in @($root,"$root\run","$root\work","$root\fixtures",'C:\Users\Public\telemetry-lab')) {Ensure-Directory $dir}
@@ -153,7 +159,9 @@ try {
     $source=Join-Path $Programs "$id.exe"
     $manifest=@($build.programs | Where-Object {$_.case_id -eq $id})
     if ($manifest.Count -ne 1 -or (Get-FileHash $source).Hash.ToLower() -ne $manifest[0].sha256) {throw "Artifact mismatch $id"}
-    foreach($mode in @('control','active')) {
+    $modes=@('control','active')
+    if($rng -and $rng.Next(2) -eq 1){$modes=@('active','control')}
+    foreach($mode in $modes) {
       $folder=Join-Path $Output "$id-$mode"; New-Item -ItemType Directory $folder | Out-Null
       $targetOwned=$false;$runmruOwned=$false
       $target=$files[$id];$exe="$root\run\probe.exe"

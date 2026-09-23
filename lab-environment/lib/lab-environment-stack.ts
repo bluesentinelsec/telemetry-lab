@@ -77,6 +77,8 @@ export interface LabEnvironmentStackProps extends cdk.StackProps {
 export class LabEnvironmentStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: LabEnvironmentStackProps = {}) {
     super(scope, id, props);
+    // IMDSv2 templates are added during synthesis; use CDK's stack-unique names.
+    this.node.setContext('@aws-cdk/aws-ec2:uniqueImdsv2TemplateName', true);
 
     if (props.linuxOnly && props.windowsOnly) throw new Error('linuxOnly and windowsOnly are mutually exclusive');
     const instanceType = props.instanceType ?? 'c7i.xlarge';
