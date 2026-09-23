@@ -151,17 +151,27 @@ def composite_rows(root):
                 r['fired']=r['target_fired'] if r['mode']=='active' else bool(r.get('target_rule') and r['target_rule'] in r.get('matched_rules',[]))
                 r['any_selected_control_alert']=r['mode']!='active' and r.get('negative_control_ok') is False
                 answer.append(r)
-        for folder in sorted((root/host/'windows/composites').glob('*-windows-*')):
+        original_campaigns={}
+        campaign_log=root/host/'windows/composites/campaigns.json'
+        failed_originals={r['campaign'] for r in rows(campaign_log) if r.get('error')} if campaign_log.exists() else set()
+        folders=[(p,'initial') for p in sorted((root/host/'windows/composites').glob('*-windows-*'))]
+        folders += [(p,'replacement') for p in sorted((root/host/'windows/composites-replacements').glob('*-windows-*'))]
+        for folder,role in folders:
             if not (folder/'health.json').exists():
                 campaigns.append(dict(host=host,campaign=folder.name,error='incomplete: no health.json'));continue
             try:
                 with contextlib.redirect_stdout(io.StringIO()):result=module.analyze(folder)
             except Exception as e:
                 campaigns.append(dict(host=host,campaign=folder.name,error=str(e)));continue
-            campaigns.append(dict(host=host,campaign=folder.name,**{k:result[k] for k in ('healthy','complete','expected_attempts','recorded_attempts','counts')}))
+            if role=='initial':original_campaigns[folder.name]=result
+            else:
+                original=original_campaigns.get(folder.name)
+                if folder.name not in failed_originals or (original is not None and (original['healthy'] or any(r['valid'] for r in original['attempts']))):
+                    raise ValueError(f'Replacement would repeat interpretable original outcomes: {host}/{folder.name}')
+            campaigns.append(dict(host=host,campaign=folder.name,attempt_role=role,**{k:result[k] for k in ('healthy','complete','expected_attempts','recorded_attempts','counts')}))
             rep,cfg=folder.name.split('-',1)
             for x in result['attempts']:
-                r=dict(x,os='windows',host=host,case=x['case_id'],config=cfg,repetition=int(rep),fired=bool(x['target_record_ids']),evidence_path=str(folder.relative_to(root)))
+                r=dict(x,os='windows',host=host,case=x['case_id'],config=cfg,repetition=int(rep),fired=bool(x['target_record_ids']),evidence_path=str(folder.relative_to(root)),attempt_role=role)
                 answer.append(r)
     return answer,campaigns
 
@@ -177,6 +187,17 @@ def analyze_composites(data):
             hosts={h:binomial(sum(r['fired'] for r in valid if r['host']==h),sum(r['host']==h for r in valid)) for h in sorted({r['host'] for r in attempts})},
             any_selected_control_alerts=sum(r.get('any_selected_control_alert',False) for r in valid)))
     return output
+
+
+def effective_slots(data):
+    """Use explicitly identified replacements for matrix coverage, retain all data elsewhere."""
+    def slot(r):return (r['os'],r['host'],r['case'],r['config'],r['repetition'],r['mode'])
+    replacements={slot(r) for r in data if r.get('attempt_role')=='replacement'}
+    for r in data:
+        if r.get('attempt_role')!='replacement' and slot(r) in replacements:
+            if r['valid']:raise ValueError('Cannot replace a valid observation')
+            continue
+        yield r
 
 
 def matrix_audit(data, expected, modes=None):
@@ -198,6 +219,7 @@ def main():
       composite_attempts=len(composites),composite_valid=sum(r['valid'] for r in composites),
       primitive_cells=pc,post_first_primitive_cells=repeated_cells,composite_cells=cc,contrasts=contrasts,
       invalid_composite_attempts=[r for r in composites if not r['valid']],windows_campaigns=campaigns,
+      windows_initial_batch_errors=[dict(r,host=h) for h in 'ABC' if (a.root/h/'windows/composites/campaigns.json').exists() for r in rows(a.root/h/'windows/composites/campaigns.json') if r.get('error')],
       expected=dict(primitive_cells=122,composite_active_cells=424,primitive_executions=3660,composite_executions=25680),
       limitations=['Pointwise run-level intervals and counts; not simultaneous suite-wide coverage.',
                   'Hosts are clusters. Three hosts cannot establish broad between-host precision.',
@@ -211,7 +233,7 @@ def main():
             else:cases=[r['case_id'] for r in read(Path(__file__).resolve().parents[2]/'ttp-composite/windows/coverage/selection.json')['candidates'] if r['case_id']!='dns_onion']
             expected_c.extend((os,case,cfg) for case in cases for cfg in manifest['composite_configs'])
         result['matrix_audit']={'primitives':matrix_audit(primitives,expected_p),
-             'composites':matrix_audit([r for r in composites if r['mode']!='negative'],expected_c,['active','control']),
+             'composites':matrix_audit([r for r in effective_slots(composites) if r['mode']!='negative'],expected_c,['active','control']),
              'negative':matrix_audit([r for r in composites if r['mode']=='negative'],[('linux','negative',cfg) for cfg in read(a.bundles/'telemetry-lab-0.3.0-linux/manifest.json')['configs']],['negative'])}
     (a.output/'analysis.json').write_text(json.dumps(result,indent=2)+'\n')
     (a.output/'primitive-event-composition.json').write_text(json.dumps(composition,indent=2)+'\n')

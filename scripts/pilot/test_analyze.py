@@ -2,7 +2,7 @@
 import math
 import unittest
 from scipy.stats import t
-from analyze import binomial, metrics, need, matrix_audit
+from analyze import binomial, metrics, need, matrix_audit, effective_slots
 
 class PlanningTests(unittest.TestCase):
     def test_required_count_is_minimum_satisfying_t_margin(self):
@@ -37,5 +37,14 @@ class PlanningTests(unittest.TestCase):
         self.assertGreater(need(20,5,power=.9),need(20,5))
         self.assertGreater(need(20,2.5),need(20,5))
         self.assertIsNone(need(20,0))
+
+    def test_replacements_do_not_erase_failures_or_repeat_valid_misses(self):
+        original=dict(os='windows',host='B',case='probe',config='windows-c-ucrt',repetition=9,mode='active',valid=False,attempt_role='initial')
+        replacement=dict(original,valid=True,attempt_role='replacement')
+        data=[original,replacement]
+        self.assertEqual(list(effective_slots(data)),[replacement])
+        self.assertEqual(len(data),2)
+        with self.assertRaises(ValueError):list(effective_slots([dict(original,valid=True,fired=False),replacement]))
+        self.assertEqual(list(effective_slots([original])),[original])
 
 if __name__=='__main__':unittest.main()

@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([Parameter(Mandatory=$true)][string]$Bundle,[Parameter(Mandatory=$true)][string]$Output,[int]$Repetitions=10,[int]$Seed=1,[string]$HostId='pilot')
+param([Parameter(Mandatory=$true)][string]$Bundle,[Parameter(Mandatory=$true)][string]$Output,[int]$Repetitions=10,[int]$Seed=1,[string]$HostId='pilot',[string]$ReplaceFailedFrom='')
 $ErrorActionPreference='Stop'
 if(Test-Path $Output){throw 'Output exists'}
 New-Item -ItemType Directory $Output | Out-Null
@@ -16,7 +16,15 @@ for($rep=1;$rep -le $Repetitions;$rep++) {
  for($i=$configs.Count-1;$i -gt 0;$i--){$j=$rng.Next($i+1);$tmp=$configs[$i];$configs[$i]=$configs[$j];$configs[$j]=$tmp}
  foreach($config in $configs){$plan+=[pscustomobject]@{host=$HostId;config=$config;repetition=$rep;seed=$rng.Next(1,2147483647)}}
 }
-@{seed=$Seed;host=$HostId;cases=$cases;plan=$plan} | ConvertTo-Json -Depth 6 | Set-Content "$Output\plan.json" -Encoding UTF8
+if($ReplaceFailedFrom) {
+ $original=Get-Content "$ReplaceFailedFrom\campaigns.json" -Raw | ConvertFrom-Json
+ $originalPlan=Get-Content "$ReplaceFailedFrom\plan.json" -Raw | ConvertFrom-Json
+ if($original.Count -ne $originalPlan.plan.Count){throw 'Original campaign has not finished'}
+ $failed=@($original | Where-Object {$_.error} | ForEach-Object campaign)
+ $plan=@($originalPlan.plan | Where-Object {('{0:D2}-{1}' -f $_.repetition,$_.config) -in $failed})
+ if(!$plan.Count -or $plan.Count -ne $failed.Count){throw 'No unambiguous failed batches to replace'}
+}
+@{seed=$Seed;host=$HostId;cases=$cases;plan=$plan;replaces_failed_from=$ReplaceFailedFrom} | ConvertTo-Json -Depth 6 | Set-Content "$Output\plan.json" -Encoding UTF8
 if(!(Get-NetTCPConnection -State Listen -LocalPort 3389 -ErrorAction SilentlyContinue)){throw 'Existing RDP listener required'}
 if(Get-NetUDPEndpoint -LocalPort 53 -ErrorAction SilentlyContinue){throw 'UDP 53 occupied'}
 foreach($rule in @(Get-DnsClientNrptRule)){foreach($name in $rule.Namespace){if($name -in @('.','api.ipify.org','.ipify.org','.org')){throw 'Overlapping DNS policy'}}}
