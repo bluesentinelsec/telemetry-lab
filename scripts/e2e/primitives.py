@@ -4,18 +4,24 @@ import argparse
 import hashlib
 import json
 import platform
+import shutil
 import subprocess
 from pathlib import Path
 
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('bundle', type=Path)
 p.add_argument('output', type=Path)
+p.add_argument('--inventory', type=Path, required=True)
 a = p.parse_args()
 a.bundle = a.bundle.resolve()
 a.output.mkdir(parents=True, exist_ok=False)
 raw = a.output / 'raw'
 raw.mkdir()
 m = json.loads((a.bundle / 'manifest.json').read_text())
+inventory = json.loads(a.inventory.read_text())
+if inventory['telemetry_lab_release'] != m['version']:
+    raise SystemExit('Inventory must describe the tested bundle')
+shutil.copyfile(a.inventory, raw / 'inventory.json')
 rows = []
 for config in m['configs']:
     for case in m['primitives']:

@@ -1,9 +1,12 @@
 [CmdletBinding()]
-param([Parameter(Mandatory=$true)][string]$Bundle,[Parameter(Mandatory=$true)][string]$Output)
+param([Parameter(Mandatory=$true)][string]$Bundle,[Parameter(Mandatory=$true)][string]$Output,[Parameter(Mandatory=$true)][string]$Inventory)
 $ErrorActionPreference='Stop'
 if(Test-Path $Output){throw 'Evidence directory already exists'}
 New-Item -ItemType Directory "$Output\raw" -Force | Out-Null
 $manifest=Get-Content "$Bundle\manifest.json" -Raw | ConvertFrom-Json
+$inventoryData=Get-Content $Inventory -Raw | ConvertFrom-Json
+if($inventoryData.telemetry_lab_release -ne $manifest.version){throw 'Inventory must describe the tested bundle'}
+Copy-Item $Inventory "$Output\raw\inventory.json"
 $rows=[Collections.Generic.List[object]]::new()
 foreach($config in $manifest.configs) {
  foreach($case in $manifest.primitives) {

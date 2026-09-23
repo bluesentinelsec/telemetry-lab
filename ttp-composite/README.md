@@ -86,11 +86,12 @@ captured under `tmon`:
 | Go | 2 | 1 | 0 | **3** | **4** | **fifo** (pipe → stdio) | evades |
 
 C/C++/Rust `dup2` the connected socket directly onto the shell's fd 0/1/2
-(`fd.type=ipv4`). Go's `os/exec` cannot hand a `net.Conn` (not an `*os.File`) to
-the child, so it creates OS pipes (`pipe2`) and `dup3`s those onto the shell's
+(`fd.type=ipv4`). The Go pilot passes a `net.Conn` to `os/exec` rather than an `*os.File`,
+so this implementation creates OS pipes (`pipe2`) and `dup3`s those onto the shell's
 stdio, relaying bytes with goroutines — the shell's stdio are FIFOs
-(`fd.type=fifo`), so the rule never matches. The evasion is a property of the
-**language runtime's process/IO model**, not of libc linkage.
+(`fd.type=fifo`), so the rule never matches. This observed miss depends on the chosen Go I/O implementation; it does not
+show that Go cannot pass a socket descriptor directly. Both cgo settings missed
+in this pilot.
 
 ## Reproduce
 

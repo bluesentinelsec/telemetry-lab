@@ -160,6 +160,7 @@ EOF
     if [ "$(uname -s)" = Darwin ]; then tar_flags=(--no-mac-metadata --no-xattrs); fi
     COPYFILE_DISABLE=1 tar "${tar_flags[@]}" -C "$OUT" -czf "${OUT}/${name}.tar.gz" "$name"
   else
+    rm -f "${OUT}/${name}.zip"
     (cd "$OUT" && zip -qr "${name}.zip" "$name")
   fi
   echo "assembled ${name}"

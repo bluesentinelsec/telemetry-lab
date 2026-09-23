@@ -5,9 +5,9 @@ Validate the assembled release bytes on disposable hosts deployed by
 folders, its bundled `coverage/Dockerfile`, and a single fixed C
 `falco_helper` copied as `helper`. Do not rebuild programs on the lab host.
 
-- `primitives.py BUNDLE OUTPUT` runs every shipped Linux primitive once under
+- `primitives.py BUNDLE OUTPUT --inventory INVENTORY` runs every shipped Linux primitive once under
   the bundled tmon and passes the raw JSONL to the bundled tap.
-- `primitives.ps1 -Bundle BUNDLE -Output OUTPUT` does the same on Windows.
+- `primitives.ps1 -Bundle BUNDLE -Output OUTPUT -Inventory INVENTORY` does the same on Windows.
 - Use the existing `ttp-composite/coverage/run.py --repetitions 1` on Linux.
   On Windows, run `run.ps1`, `run-local-tcp.ps1`, and `run-local-dns.ps1` for
   each composite configuration. Run `dns_onion` separately: successful
@@ -32,3 +32,8 @@ host inventories, rule inventories, raw telemetry, EVTX/Falco records,
 analysis outputs, and a report distinguishing valid misses, invalid attempts,
 and rechecks. Verify final asset hashes against the tested binaries. One
 iteration is a release smoke test, not the dissertation's repeated experiment.
+
+Generate a fresh host inventory with `lab-environment/scripts/inventory-linux.sh
+OUTPUT BUNDLE ARCHIVE` or `inventory-windows.ps1 -Output OUTPUT -Bundle BUNDLE
+-Archive ARCHIVE`. Pass that inventory to the primitive runner so tap records
+the tested release, rather than the older release installed during boot.
