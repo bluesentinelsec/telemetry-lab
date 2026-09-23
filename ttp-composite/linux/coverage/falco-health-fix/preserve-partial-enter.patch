@@ -1,0 +1,30 @@
+--- a/userspace/libsinsp/parsers.cpp
++++ b/userspace/libsinsp/parsers.cpp
+@@ -99,13 +99,22 @@
+ 	// them, and the scap converter still return them to sinsp: this is done in order to let the
+ 	// parser leverage the enter event parameters in case the exit event lacks of some parameters
+ 	// (i.e. empty parameters coming from old exit event encodings).
+-	case PPME_SYSCALL_EXECVE_19_E:
+-		// note: in all these cases, if one of the expected parameters is empty, so is for the other
+-		// ones, so just check the presence of the first one, and avoid to store the event as it
+-		// doesn't bring any info.
+-		if(evt.get_param(0)->empty()) {
++	case PPME_SYSCALL_EXECVE_19_E: {
++		// Converted legacy enter events can have no parameters. Live events can instead
++		// contain a failed pathname read alongside valid flags/mode (for example, a
++		// pathname page not yet faulted in at syscall entry). Preserve those partial
++		// events for pairing and let the exit parser fall back to its pathname.
++		bool has_data = false;
++		for(uint32_t i = 0; i < evt.get_num_params(); ++i) {
++			if(!evt.get_param(i)->empty()) {
++				has_data = true;
++				break;
++			}
++		}
++		if(!has_data) {
+ 			break;
+ 		}
++	}
+ 		// fallthrough
+ 	// See comment above about why we still store `PPME_SYSCALL_EXECVEAT_E` events.
+ 	case PPME_SYSCALL_EXECVEAT_E:

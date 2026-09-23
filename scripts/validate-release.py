@@ -19,6 +19,8 @@ def validate(root):
     else:
         cases = [c['id'] for c in json.loads((coverage / 'manifest.json').read_text())['cases']]
         cases += ['negative', 'fixture_prepare']
+        required += [f'ttp-composite/coverage/falco-health-fix/{name}' for name in
+                     ('install.sh', 'preserve-partial-enter.patch', 'regression.cpp')]
     for config in manifest['composite_configs']:
         prefix = f'ttp-composite/{config}'
         required += [f'{prefix}/coverage/{name}{suffix}' for name in cases]

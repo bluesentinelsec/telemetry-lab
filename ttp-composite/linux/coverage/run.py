@@ -23,6 +23,19 @@ SERVICE = 'falco-coverage.service'
 def command(args, **kwargs):
     return subprocess.run(args, text=True, capture_output=True, check=True, timeout=60, **kwargs).stdout.strip()
 
+def detector_provenance():
+    pid = command(['systemctl', 'show', SERVICE, '-p', 'MainPID', '--value'])
+    if not pid.isdigit() or int(pid) == 0:
+        raise RuntimeError('Cannot inventory a stopped detector')
+    executable = Path('/proc') / pid / 'exe'
+    binary = executable.resolve(strict=True)
+    result = {'path': str(binary), 'sha256': hashlib.sha256(executable.read_bytes()).hexdigest(),
+              'version': json.loads(command([str(executable), '--version']))}
+    receipt = binary.parent.parent / 'receipt.json'
+    if receipt.is_file():
+        result['build_receipt'] = json.loads(receipt.read_text())
+    return result
+
 def detector_state():
     state = command(['systemctl', 'show', SERVICE, '-p', 'ActiveState', '-p', 'MainPID'])
     if 'ActiveState=active' not in state or 'MainPID=0' in state:
@@ -159,7 +172,7 @@ def main():
     provenance={'manifest':manifest,'selected_configs':configs,'image_id':image_id,'seed':args.seed,'plan':plan,
                 'kernel':command(['uname','-r']),'architecture':command(['uname','-m']),
                 'docker':command(['docker','--version']),
-                'falco':command(['falco','--version']) if not args.functional_only else None}
+                'falco':detector_provenance() if not args.functional_only else None}
     here=Path(__file__).resolve().parent
     provenance['suite_files_sha256']={
         str(p.relative_to(here)):hashlib.sha256(p.read_bytes()).hexdigest()

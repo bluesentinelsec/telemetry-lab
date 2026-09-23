@@ -5,7 +5,17 @@ HERE=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 python3 "$HERE/validate_manifest.py"
 systemctl stop falco-modern-bpf.service
 systemctl stop falco-coverage.service 2>/dev/null || true
-systemd-run --unit=falco-coverage --collect /usr/bin/falco \
+# Falco 0.45.0/libsinsp 0.26.0 discards live entry events when only their
+# pathname is unreadable. Use the pinned parser fix; keep rules and the strict
+# health gate unchanged. FALCO_BIN is an explicit override for diagnostics.
+if [[ -z ${FALCO_BIN:-} ]]; then
+  FALCO_BIN=/usr/bin/falco
+  version=$("$FALCO_BIN" --version | python3 -c 'import json,sys; print(json.load(sys.stdin)["falco_version"])')
+  if [[ "$version" == 0.45.0 ]]; then
+    FALCO_BIN=$(bash "$HERE/falco-health-fix/install.sh")
+  fi
+fi
+systemd-run --unit=falco-coverage --collect "$FALCO_BIN" \
   -c /etc/falco/falco.yaml \
   -r "$HERE/rules/falco_rules.yaml" \
   -r "$HERE/rules/falco-incubating_rules.yaml" \

@@ -1,0 +1,51 @@
+name: Falco collector regression
+on:
+  pull_request:
+    paths:
+      - 'ttp-composite/linux/coverage/falco-health-fix/**'
+      - '.github/workflows/falco-health-regression.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'ttp-composite/linux/coverage/falco-health-fix/**'
+      - '.github/workflows/falco-health-regression.yml'
+jobs:
+  parser:
+    runs-on: ubuntu-latest
+    container: debian:13
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build the pinned fix and run parser regression tests
+        run: |
+          apt-get update -qq
+          apt-get install -y --no-install-recommends python3 ca-certificates
+          bash ttp-composite/linux/coverage/falco-health-fix/install.sh
+      - name: Prove the regression fails without the patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=/opt/telemetry-lab/falco-health-build
+          patch="$GITHUB_WORKSPACE/ttp-composite/linux/coverage/falco-health-fix/preserve-partial-enter.patch"
+          git -C "$root/libs-source" apply --reverse "$patch"
+          cmake --build "$root/falco-build" --target empty-enter-regression -j4
+          if "$root/falco-build/empty-enter-regression" > "$root/logs/unpatched-regression.log" 2>&1; then
+            cat "$root/logs/unpatched-regression.log"
+            echo 'Regression unexpectedly passed without the fix' >&2
+            exit 1
+          fi
+          cat "$root/logs/unpatched-regression.log"
+          grep -F '[  FAILED  ] sinsp_with_test_input.OpenEntryUnreadablePathKeepsPairAndExitPath' "$root/logs/unpatched-regression.log"
+          grep -F '[  FAILED  ] sinsp_with_test_input.CreatEntryUnreadablePathKeepsPairAndExitPath' "$root/logs/unpatched-regression.log"
+          grep -F '[  PASSED  ] 2 tests.' "$root/logs/unpatched-regression.log"
+          grep -Fx ' 2 FAILED TESTS' "$root/logs/unpatched-regression.log"
+          git -C "$root/libs-source" apply "$patch"
+          cmake --build "$root/falco-build" --target empty-enter-regression -j4
+          "$root/falco-build/empty-enter-regression"
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: falco-parser-regression
+          path: |
+            /opt/telemetry-lab/falco-health-build/logs/
+            /opt/telemetry-lab/falco-0.45.0-healthfix.1/receipt.json

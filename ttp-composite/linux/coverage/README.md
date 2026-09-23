@@ -136,6 +136,10 @@ an unconfined seccomp profile for the exercised syscalls, and makes the private
 filesystem mounts. Files are synthetic or confined to the disposable layer;
 container removal cleans them up. No persistence fixture is activated.
 
+## Collector health
+
+Falco 0.45.0 uses a [pinned libsinsp parser fix](falco-health-fix/README.md) for partially populated syscall-entry events. Setup builds and tests it on the lab host, preserves the packaged detector, and records the actual running binary and build receipt. Detection rules and strict health checks remain unchanged.
+
 ## Deploy and run
 
 Deploy through the existing infrastructure:

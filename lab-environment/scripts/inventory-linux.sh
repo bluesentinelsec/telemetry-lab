@@ -51,6 +51,15 @@ except OSError:
 
 comps = []
 falco = "/usr/bin/falco"
+# Inventory the running detector, including a locally patched coverage build.
+# The distribution binary remains installed but may not be the measured one.
+for service in ("falco-coverage.service", "falco-modern-bpf.service"):
+    pid = stdout("systemctl", "show", service, "-p", "MainPID", "--value").strip()
+    if pid.isdigit() and int(pid) > 0:
+        candidate = os.path.realpath(f"/proc/{pid}/exe")
+        if os.path.isfile(candidate):
+            falco = candidate
+            break
 if os.path.exists(falco):
     version_output = stdout(falco, "--version")
     try:
@@ -61,6 +70,10 @@ if os.path.exists(falco):
     comps.append({"name": "falco", "type": "detector",
                   "version": falco_version,
                   "sha256": sha256(falco), "path": falco})
+    receipt = os.path.join(os.path.dirname(os.path.dirname(falco)), "receipt.json")
+    if os.path.isfile(receipt):
+        comps.append({"name": "falco-build-receipt", "type": "provenance",
+                      "version": falco_version, "sha256": sha256(receipt), "path": receipt})
 
 # Container detonation runtime: Docker daemon + the constant substrate base image.
 docker = "/usr/bin/docker"

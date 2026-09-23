@@ -16,6 +16,9 @@ class ReleaseTests(unittest.TestCase):
         for name in ['tmon/tmon','tap/tap','ttp-primitives/linux-c-glibc/empty','ttp-composite/linux-c-glibc/reverse_shell','ttp-composite/linux-c-glibc/coverage/target','ttp-composite/linux-c-glibc/coverage/negative','ttp-composite/linux-c-glibc/coverage/fixture_prepare']:
             p=self.root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b'program')
         p=self.root/'ttp-composite/coverage/manifest.json';p.parent.mkdir();p.write_text(json.dumps(dict(cases=[dict(id='target')])))
+        for name in ('install.sh','preserve-partial-enter.patch','regression.cpp'):
+            p=self.root/'ttp-composite/coverage/falco-health-fix'/name
+            p.parent.mkdir(exist_ok=True);p.write_text('collector support')
 
     def test_complete_bundle_and_tampering(self):
         original=release.validate(self.root)
@@ -33,5 +36,9 @@ class ReleaseTests(unittest.TestCase):
     def test_empty_monitor(self):
         (self.root/'tmon/tmon').write_bytes(b'')
         with self.assertRaisesRegex(ValueError,'tmon/tmon'):release.validate(self.root)
+
+    def test_missing_collector_fix(self):
+        (self.root/'ttp-composite/coverage/falco-health-fix/install.sh').unlink()
+        with self.assertRaisesRegex(ValueError,'falco-health-fix/install.sh'):release.validate(self.root)
 
 if __name__=='__main__':unittest.main()
