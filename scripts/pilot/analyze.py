@@ -161,7 +161,7 @@ def composite_rows(root):
             campaigns.append(dict(host=host,campaign=folder.name,**{k:result[k] for k in ('healthy','complete','expected_attempts','recorded_attempts','counts')}))
             rep,cfg=folder.name.split('-',1)
             for x in result['attempts']:
-                r=dict(x,os='windows',host=host,case=x['case_id'],config=cfg,repetition=int(rep),fired=bool(x['target_record_ids']))
+                r=dict(x,os='windows',host=host,case=x['case_id'],config=cfg,repetition=int(rep),fired=bool(x['target_record_ids']),evidence_path=str(folder.relative_to(root)))
                 answer.append(r)
     return answer,campaigns
 
@@ -196,7 +196,8 @@ def main():
     composites,campaigns=composite_rows(a.root);cc=analyze_composites(composites)
     result=dict(primitive_attempts=len(primitives),primitive_valid=sum(r['valid'] for r in primitives),
       composite_attempts=len(composites),composite_valid=sum(r['valid'] for r in composites),
-      primitive_cells=pc,post_first_primitive_cells=repeated_cells,composite_cells=cc,contrasts=contrasts,windows_campaigns=campaigns,
+      primitive_cells=pc,post_first_primitive_cells=repeated_cells,composite_cells=cc,contrasts=contrasts,
+      invalid_composite_attempts=[r for r in composites if not r['valid']],windows_campaigns=campaigns,
       expected=dict(primitive_cells=122,composite_active_cells=424,primitive_executions=3660,composite_executions=25680),
       limitations=['Pointwise run-level intervals and counts; not simultaneous suite-wide coverage.',
                   'Hosts are clusters. Three hosts cannot establish broad between-host precision.',
