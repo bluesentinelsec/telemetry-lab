@@ -30,7 +30,7 @@ mkdir -p "$ROOT/logs" "$PREFIX/bin"
 trap 'echo "Falco build failed; see $ROOT/logs" >&2' ERR
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq > "$ROOT/logs/deps.log" 2>&1
-apt-get install -y --no-install-recommends build-essential cmake ninja-build git clang llvm \
+apt-get install -y --no-install-recommends build-essential cmake ninja-build git clang llvm bpftool \
     pkg-config autoconf automake libtool libelf-dev zlib1g-dev libssl-dev \
     libcurl4-openssl-dev libtbb-dev libjsoncpp-dev libre2-dev libgtest-dev libgmock-dev \
     uthash-dev >> "$ROOT/logs/deps.log" 2>&1
