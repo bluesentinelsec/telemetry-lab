@@ -25,7 +25,7 @@ normalizer checks native hashes against the extracted immutable bundle.
 
 Pass the archived study directory as the sole argument to these scripts:
 
-1. `normalize.py` (one compressed host archive at a time)
+1. `normalize.py` (read-only tar access, one compressed host archive at a time)
 2. `audit.py` and `provenance.py`
 3. `analyze.py` (500 resamples by default)
 4. `diagnostics.py` and `composite_diagnostics.py`
@@ -35,7 +35,11 @@ Pass the archived study directory as the sole argument to these scripts:
 `normalize.py` skips hosts with existing verification files. Reproduce in a copy
 without `normalized/` and `analysis/` to force verification from the raw archives;
 preserve the original archive receipts, protocol, allocation, and input files.
-Rules are verified against the corresponding archived source revision.
+Rules are verified against the corresponding archived source revision. macOS
+AppleDouble `._` metadata entries in the recorded directory inventory are verified
+against the frozen support archive and recorded separately; Falco loads only the
+three explicitly named rule files. `test_archive_io.py` checks archive-path reads
+and hashes against ordinary extracted-file reads.
 
 `test_analysis.py` covers the old and new host/count designs, a deliberately late
 opposite detection outcome, unknown-outcome denominators, and control alerts on
