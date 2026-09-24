@@ -13,6 +13,7 @@ for x in records:
    unused_bootstrap_images[x['host']]=c;continue
   if c.get('sha256'):sets[os+'/'+c['name']].add(c['sha256'].lower())
  if os=='linux':
+  if x.get('packages_sha256'):sets['linux/installed_packages'].add(x['packages_sha256'])
   p=x['provenance'];sets['linux/container_image'].add(p['image_id']);sets['linux/falco_binary'].add(p['falco']['sha256'].lower())
   for name,digest in p['rules_sha256'].items():
    assert hashlib.sha256((r/'ttp-composite/linux/coverage/rules'/name).read_bytes()).hexdigest()==digest

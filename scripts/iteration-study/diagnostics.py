@@ -8,8 +8,9 @@ with (out/'primitive-cells.csv').open() as f:rows=list(csv.DictReader(f))
 groups=collections.defaultdict(dict)
 for r in rows:groups[(r['os'],r['case'],r['config'])][int(r['n'])]=float(r['development_mean'])
 changes=[]
-for n in range(10,101,10):
- values=[(abs(v[n]-v[m])/v[100]*100,key,m) for key,v in groups.items() for m in range(n,101,10)]
+ns=sorted({n for v in groups.values() for n in v})
+for n in ns:
+ values=[(abs(v[n]-v[m])/v[max(ns)]*100,key,m) for key,v in groups.items() for m in ns if m>=n]
  if values:
   worst=max(values);changes.append(dict(n=n,max_change_from_any_later_mean_percent=worst[0],cell=worst[1],later_n=worst[2]))
 write('later-mean-change-diagnostic.json',changes)
@@ -41,7 +42,7 @@ for p in (b/'normalized').glob('*-verification.json'):
  timed=[r for r in rs if r.get('started_epoch') is not None and r.get('seconds') is not None]
  if not timed:continue
  start=min(r['started_epoch'] for r in timed);end=max(r['started_epoch']+r['seconds'] for r in timed)
- row=dict(host=x['host'],os=x['os'],primitive_wall_seconds=end-start,primitive_records=len(rs),collector_interruption=bool(x.get('interruption_reconciliation') or x.get('windows_resumption_complete')))
+ row=dict(host=x['host'],os=x['os'],primitive_wall_seconds=end-start,primitive_records=len(rs),collector_interruption=bool(x.get('interruption_reconciliation') or x.get('windows_resumption_complete') or x.get('collector_restarts')))
  if x.get('collection_ended'):
   totalend=datetime.datetime.fromisoformat(x['collection_ended'].replace('Z','+00:00')).timestamp()
   row['composite_wall_seconds_including_fixture_and_evaluation']=totalend-end;row['composite_records']=x['composite_count']

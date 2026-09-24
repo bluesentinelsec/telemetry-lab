@@ -133,7 +133,7 @@ test('twenty Linux replication hosts use the frozen AMI and omit Windows', () =>
   const app = new cdk.App();
   const stack = new LabEnvironmentStack(app, 'LinuxTwenty', {
     env: { account: '123456789012', region: 'us-west-2' }, hostPairs: 20,
-    linuxOnly: true, debianAmiId: 'ami-0123456789abcdef0',
+    linuxOnly: true, debianAmiId: 'ami-0123456789abcdef0', availabilityZones: ['us-west-2b','us-west-2c'],
   });
   const template = Template.fromStack(stack);
   template.resourceCountIs('AWS::EC2::Instance', 20);
@@ -141,6 +141,9 @@ test('twenty Linux replication hosts use the frozen AMI and omit Windows', () =>
   for (const r of Object.values(template.findResources('AWS::EC2::Instance'))) {
     expect(r.Properties.ImageId).toBe('ami-0123456789abcdef0');
   }
+  const subnets = Object.values(template.findResources('AWS::EC2::Instance')).map(r => JSON.stringify(r.Properties.SubnetId));
+  expect(new Set(subnets).size).toBe(2);
+  expect(subnets.filter(s => s === subnets[0])).toHaveLength(10);
   template.hasOutput('DebianInstanceIdPair20', {});
   expect(JSON.stringify(template.toJSON())).not.toContain('WindowsInstanceId');
 });

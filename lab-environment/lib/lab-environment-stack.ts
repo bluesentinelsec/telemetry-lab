@@ -56,6 +56,7 @@ export interface LabEnvironmentStackProps extends cdk.StackProps {
   readonly hostPairs?: number;
   /** Optional frozen Debian AMI for replication studies. */
   readonly debianAmiId?: string;
+  readonly availabilityZones?: string[];
 }
 
 /**
@@ -112,7 +113,7 @@ export class LabEnvironmentStack extends cdk.Stack {
     // created and destroyed with the stack, so `cdk destroy` leaves nothing
     // behind, and it never depends on the account's default VPC existing.
     const vpc = new ec2.Vpc(this, 'LabVpc', {
-      maxAzs: 2,
+      ...(props.availabilityZones ? { availabilityZones: props.availabilityZones } : { maxAzs: 2 }),
       natGateways: 0,
       subnetConfiguration: [
         { name: 'public', subnetType: ec2.SubnetType.PUBLIC, cidrMask: 24 },
@@ -234,7 +235,7 @@ export class LabEnvironmentStack extends cdk.Stack {
     if (!props.windowsOnly) {
       const debian = new ec2.Instance(this, 'DebianHost' + suffix, {
         vpc,
-        vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
+        vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC, availabilityZones: [vpc.availabilityZones[(pair - 1) % vpc.availabilityZones.length]] },
         instanceType: new ec2.InstanceType(instanceType),
         machineImage: props.debianAmiId ? ec2.MachineImage.genericLinux({ [this.region]: props.debianAmiId }) : ec2.MachineImage.lookup({
           name: 'debian-13-amd64-*',
@@ -342,7 +343,7 @@ export class LabEnvironmentStack extends cdk.Stack {
       // parameter at deploy time, so it is region-correct and always current.
       const windows = new ec2.Instance(this, 'WindowsHost' + suffix, {
         vpc,
-        vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
+        vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC, availabilityZones: [vpc.availabilityZones[(pair - 1) % vpc.availabilityZones.length]] },
         instanceType: new ec2.InstanceType(instanceType),
         machineImage: ec2.MachineImage.fromSsmParameter(WINDOWS_2025_SSM_PARAM, {
           os: ec2.OperatingSystemType.WINDOWS,

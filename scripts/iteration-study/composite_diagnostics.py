@@ -6,7 +6,7 @@ turn unobservable outcomes into detector misses or create additional executions.
 import collections,json,sys
 from pathlib import Path
 import numpy as np
-b=Path(sys.argv[1]);out=b/'analysis';allocation=json.loads((b/'allocation.json').read_text());hosts=sorted(allocation)
+b=Path(sys.argv[1]);out=b/'analysis';allocation=json.loads((b/'allocation.json').read_text());hosts=sorted(allocation);H=len(hosts);D=len(allocation[hosts[0]]['development'])
 groups=collections.defaultdict(list)
 for p in (b/'normalized').glob('*-composites.jsonl'):
  for line in p.read_text().splitlines():
@@ -16,23 +16,23 @@ def classify(rs):
  return 'unknown' if not values else 'always' if all(values) else 'never' if not any(values) else 'mixed'
 def save(name,x):(out/name).write_text(json.dumps(x,indent=2)+'\n')
 results=[];curves=collections.defaultdict(list)
-rng=np.random.default_rng(20260924);orders=np.array([[rng.permutation(10) for _ in hosts] for _ in range(500)])
+rng=np.random.default_rng(20260924);orders=np.array([[rng.permutation(D) for _ in hosts] for _ in range(500)])
 for key,rs in sorted(groups.items()):
  slots={(r['host'],r['repetition']):r for r in rs}
  development=[r for h in hosts for rep in allocation[h]['development'] if (r:=slots.get((h,rep))) is not None]
  validation=[r for h in hosts for rep in allocation[h]['validation'] if (r:=slots.get((h,rep))) is not None]
  good=[r for r in development+validation if r['valid']];unknown=[r for r in development+validation if not r['valid']]
  first_mixed=None;first_validation_disagreement=None
- valid_matrix=np.zeros((10,10),bool);fired_matrix=np.zeros((10,10),bool)
+ valid_matrix=np.zeros((H,D),bool);fired_matrix=np.zeros((H,D),bool)
  for hi,h in enumerate(hosts):
   for j,rep in enumerate(allocation[h]['development']):
    r=slots.get((h,rep));valid_matrix[hi,j]=bool(r and r['valid']);fired_matrix[hi,j]=bool(r and r['valid'] and r['fired'])
- for k in range(1,11):
-  n=k*10;selected=[r for h in hosts for rep in allocation[h]['development'][:k] if (r:=slots.get((h,rep))) is not None]
+ for k in range(1,D+1):
+  n=k*H;selected=[r for h in hosts for rep in allocation[h]['development'][:k] if (r:=slots.get((h,rep))) is not None]
   dc=classify(selected);vc=classify(validation)
   if dc=='mixed' and first_mixed is None:first_mixed=n
   if dc!=vc and first_validation_disagreement is None:first_validation_disagreement=n
-  hi=np.arange(10)[None,:,None];ix=orders[:,:,:k]
+  hi=np.arange(H)[None,:,None];ix=orders[:,:,:k]
   nv=valid_matrix[hi,ix].sum(axis=(1,2));nf=fired_matrix[hi,ix].sum(axis=(1,2))
   classes=np.where(nv==0,'unknown',np.where(nf==0,'never',np.where(nf==nv,'always','mixed')))
   known=[r for r in selected if r['valid']];alerts=sum(r['fired'] for r in known);missing=n-len(known)

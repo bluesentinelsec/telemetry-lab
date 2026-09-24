@@ -15,6 +15,11 @@ def sha(p):
  with p.open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
 def write_rows(p,rs):p.write_text(''.join(json.dumps(r)+'\n' for r in rs))
 
+def linux_alert_outcome(row):
+ # Controls are expected to trigger none of the selected rules, including rules
+ # other than their paired target. Negative controls have no target_rule at all.
+ return bool(row['target_fired']) if row['mode']=='active' else row.get('negative_control_ok') is False
+
 def normalize(folder,host,os,out):
  manifest=read(BUNDLES/f'telemetry-lab-0.3.0-{os}/files.sha256.json')
  prim=[];comp=[];campaigns=[];check=collections.Counter();provenance={};invalid_health_batches=[]
@@ -45,7 +50,8 @@ def normalize(folder,host,os,out):
    p=cp/row['batch']/f"{i:05d}-{row['config']}-{row['case']}";assert read(p/'result.json')==row
    assert not row['valid'] or health[row['batch']]
    row.update(host=host,os=os,mode='negative' if row['case']=='negative' else 'control' if row['control'] else 'active')
-   row['fired']=row['target_fired'] if row['mode']=='active' else bool(row.get('target_rule') and row['target_rule'] in row.get('matched_rules',[]))
+   row['target_rule_fired']=bool(row.get('target_rule') and row['target_rule'] in row.get('matched_rules',[]))
+   row['fired']=linux_alert_outcome(row)
    row['any_selected_control_alert']=row['mode']!='active' and row.get('negative_control_ok') is False
    row['seconds']=(row['ended_ns']-row['started_ns'])/1e9 if 'ended_ns' in row and 'started_ns' in row else None
    comp.append(row);check['composite_rows_verified']+=1
@@ -73,6 +79,8 @@ def normalize(folder,host,os,out):
  slots=[(r['case'],r['config'],r['mode'],r['repetition']) for r in comp];assert len(set(slots))==len(slots)
  write_rows(out/f'{host}-{os}-primitives.jsonl',prim);write_rows(out/f'{host}-{os}-composites.jsonl',comp)
  result=dict(host=host,os=os,counts=dict(check),primitive_count=len(prim),composite_count=len(comp),primitive_invalid=sum(not r['valid'] for r in prim),composite_invalid=sum(not r['valid'] for r in comp),campaigns=campaigns,provenance=provenance,inventory=read(folder/'inventory.json'),collection_started=(folder/'collection-started.txt').read_text(encoding='utf-8-sig').strip() if (folder/'collection-started.txt').exists() else None,collection_ended=(folder/'collection-ended.txt').read_text(encoding='utf-8-sig').strip() if (folder/'collection-ended.txt').exists() else None)
+ result['collector_recovery_preflight']=[read(p) for p in sorted((folder/'collector-recovery-preflight').glob('*.json'))]
+ result['packages_sha256']=sha(folder/'packages.txt') if (folder/'packages.txt').exists() else None
  result['invalid_health_batches']=invalid_health_batches
  result['collector_restarts']=[read(p) for p in sorted((folder/'composites').glob('collector-restart-*.json'))]
  result['collection_exit_codes']={p.name:p.read_text(encoding='utf-8-sig').strip() for p in folder.glob('*.exit')}
@@ -93,7 +101,9 @@ if __name__=='__main__':
   for archive in sorted((BASE/'archives').glob('H??-*.tar.gz')):
    host,os=archive.name.removesuffix('.tar.gz').split('-')
    if (out/f'{host}-{os}-verification.json').exists():continue
-   receipt=read(archive.with_name(archive.name.removesuffix('.tar.gz')+'-verified.json'));assert sha(archive)==receipt['sha256']
+   receipt_path=archive.with_name(archive.name.removesuffix('.tar.gz')+'-verified.json')
+   if not receipt_path.exists():continue # Another host may still be downloading.
+   receipt=read(receipt_path);assert sha(archive)==receipt['sha256']
    with tempfile.TemporaryDirectory(prefix='iteration-study-',dir=BASE) as tmp:
     subprocess.run(['tar','-xzf',str(archive),'-C',tmp],check=True)
     normalize(Path(tmp),host,os,out)
