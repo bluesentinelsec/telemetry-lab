@@ -70,7 +70,7 @@ for k in range(1,D+1):
  if not err:continue
  bv=np.array(bootvol);bc=np.array(boottv);sv=np.array(sensvol);sc=np.array(senstv)
  curves.append(dict(n=n,cells=len(err),volume_error_percent=summary(err),composition_tv_pp=summary(tv),host_bootstrap_max_volume_error_95_interval=np.quantile(bv.max(axis=0),[.025,.975]).tolist(),host_bootstrap_max_tv_95_interval=np.quantile(bc.max(axis=0),[.025,.975]).tolist(),volume_cells_within={str(x):sum(e<=x for e in err) for x in (1,2,5,10)},composition_cells_within={str(x):sum(e<=x for e in tv) for x in (1,2,5)},cells_with_new_validation_types=sum(r['new_validation_event_types']>0 for r in cellcurves if r['n']==n)))
- senscurves.append(dict(n=n,random_order_max_volume_p50=float(np.quantile(sv.max(axis=0),.5)),random_order_max_volume_p95=float(np.quantile(sv.max(axis=0),.95)),random_order_max_tv_p50=float(np.quantile(sc.max(axis=0),.5)),random_order_max_tv_p95=float(np.quantile(sc.max(axis=0),.95)),all_cells_joint_pass_fraction={str(x):float(((sv.max(axis=0)<=x)&(sc.max(axis=0)<=x)).mean()) for x in (1,2,5,10)}))
+ senscurves.append(dict(n=n,primary_joint_pass_fraction=float(((sv.max(axis=0)<=2)&(sc.max(axis=0)<=1)).mean()),random_order_max_volume_p50=float(np.quantile(sv.max(axis=0),.5)),random_order_max_volume_p95=float(np.quantile(sv.max(axis=0),.95)),random_order_max_tv_p50=float(np.quantile(sc.max(axis=0),.5)),random_order_max_tv_p95=float(np.quantile(sc.max(axis=0),.95)),all_cells_joint_pass_fraction={str(x):float(((sv.max(axis=0)<=x)&(sc.max(axis=0)<=x)).mean()) for x in (1,2,5,10)}))
  # Paired language/runtime comparisons, aligned by host and actual repetition.
  pairs=collections.defaultdict(list)
  for key in matrices:pairs[(key[0],key[1],key[2].split('-')[1])].append(key)
