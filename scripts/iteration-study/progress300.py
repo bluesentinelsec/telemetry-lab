@@ -31,6 +31,11 @@ for cohort in ('primitives','composites'):
    out[cohort]['invalid_repetitions']=dict(collections.Counter(r['repetition'] for r in rows if not r['valid']))
    out[cohort]['invalid_causes']=dict(collections.Counter('collection' if not r.get('collection_ok') else 'behavior' for r in rows if not r['valid']))
    out[cohort]['native_attempt_states']=dict(collections.Counter(r.get('native_attempt_state','unrecorded') for r in rows))
+   failures=[]
+   for batch in sorted({r['batch'] for r in rows if not r.get('collection_ok')})[-5:]:
+    h=json.loads((p/cohort/batch/'health.json').read_text());b,a=h['before'],h['after']
+    failures.append(dict(batch=batch,service_changed=b['service']!=a['service'],counter_decreases={k:[v,a['counters'].get(k)] for k,v in b['counters'].items() if k in a['counters'] and a['counters'][k]<v},drops_changed={k:[v,a['counters'].get(k)] for k,v in b['counters'].items() if 'drops' in k and a['counters'].get(k)!=v},errors=[x.get('error') for x in (b,a) if x.get('error')]))
+   out[cohort]['recent_quality_failures']=failures
   if cohort=='composites' and len(rows)<15128 and (p/'composites.exit').exists() and not (p/'composites-resumption-started.txt').exists():out['error']='Composite collector ended before all planned slots; inspect composites.log'
 print(json.dumps(out))
 END"""

@@ -53,6 +53,8 @@ def normalize(folder,host,os,out):
    row['target_rule_fired']=bool(row.get('target_rule') and row['target_rule'] in row.get('matched_rules',[]))
    row['fired']=linux_alert_outcome(row)
    row['any_selected_control_alert']=row['mode']!='active' and row.get('negative_control_ok') is False
+   row['invalid_reasons']=[name for name,good in (('behavior',row.get('behavior_ok')),('collection',row.get('collection_ok'))) if not good]
+   row['outcome']='unknown-'+'-and-'.join(row['invalid_reasons']) if not row['valid'] else 'alert' if row['fired'] else 'no-alert'
    row['seconds']=(row['ended_ns']-row['started_ns'])/1e9 if 'ended_ns' in row and 'started_ns' in row else None
    comp.append(row);check['composite_rows_verified']+=1
  elif os=='windows':
