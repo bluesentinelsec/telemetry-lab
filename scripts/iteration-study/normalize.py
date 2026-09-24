@@ -106,6 +106,10 @@ if __name__=='__main__':
    receipt_path=archive.with_name(archive.name.removesuffix('.tar.gz')+'-verified.json')
    if not receipt_path.exists():continue # Another host may still be downloading.
    receipt=read(receipt_path);assert sha(archive)==receipt['sha256']
-   with tempfile.TemporaryDirectory(prefix='iteration-study-',dir=BASE) as tmp:
-    subprocess.run(['tar','-xzf',str(archive),'-C',tmp],check=True)
-    normalize(Path(tmp),host,os,out)
+   if os=='linux':
+    from archive_io import evidence_archive
+    with evidence_archive(archive,BASE) as folder:normalize(folder,host,os,out)
+   else:
+    with tempfile.TemporaryDirectory(prefix='iteration-study-',dir=BASE) as tmp:
+     subprocess.run(['tar','-xzf',str(archive),'-C',tmp],check=True)
+     normalize(Path(tmp),host,os,out)
