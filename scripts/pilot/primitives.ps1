@@ -29,6 +29,7 @@ foreach($cell in $plan) {
   $info.Arguments=($argsList | ForEach-Object {'"{0}"' -f $_}) -join ' '
   $info.RedirectStandardOutput=$true; $info.RedirectStandardError=$true
   $process=[Diagnostics.Process]::new();$process.StartInfo=$info
+  $started=[DateTimeOffset]::UtcNow
   if(!$process.Start()){throw 'Cannot launch tmon'}
   $stdoutTask=$process.StandardOutput.ReadToEndAsync();$stderrTask=$process.StandardError.ReadToEndAsync()
   $finished=$process.WaitForExit(180000)
@@ -40,7 +41,7 @@ foreach($cell in $plan) {
   $summaries=@()
   if(Test-Path $raw){$summaries=@(Get-Content $raw | ForEach-Object {ConvertFrom-Json $_} | Where-Object record -eq 'summary')}
   $valid=$finished -and $code -eq 0 -and $summaries.Count -eq 1 -and $summaries[0].target_exit_code -eq 0 -and $summaries[0].lost -eq 0 -and $summaries[0].total_events -gt 0
-  $row=[pscustomobject]@{config=$config;case=$case;repetition=$rep;host=$HostId;os="windows";raw="raw/$rep-$config-$case.jsonl";exit_code=$code;timed_out=(!$finished);valid=$valid;binary_sha256=(Get-FileHash $exe).Hash.ToLower();summary=$summaries}
+  $row=[pscustomobject]@{config=$config;case=$case;repetition=$rep;host=$HostId;os="windows";raw="raw/$rep-$config-$case.jsonl";exit_code=$code;timed_out=(!$finished);started_epoch=$started.ToUnixTimeMilliseconds()/1000.0;seconds=([DateTimeOffset]::UtcNow-$started).TotalSeconds;valid=$valid;binary_sha256=(Get-FileHash $exe).Hash.ToLower();summary=$summaries}
   $rows.Add($row)
   $rows | ConvertTo-Json -Depth 8 | Set-Content "$Output\results.json" -Encoding UTF8
   $row | ConvertTo-Json -Depth 5 -Compress | Write-Output

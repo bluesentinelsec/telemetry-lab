@@ -37,21 +37,21 @@ function Ensure-Directory([string]$path) {
   if (!(Test-Path $path)) { New-Item -ItemType Directory -Path $path -Force | Out-Null; $createdDirs.Add($path) }
 }
 function Remove-OwnedFile([string]$path) {
-  # A sensor can still hold the image briefly after the measured process exits.
-  # Retry only cleanup of harness-owned files; never extend the measured lifetime.
-  for($retry=0;$retry -le 50;$retry++) {
-    try {
-      Remove-Item $path -Force -ErrorAction Stop
+  # Verify the cleanup postcondition: a sensor can delay or veto deletion
+  # without Remove-Item raising an exception. Only harness-owned paths enter here.
+  $lastError='File still exists after deletion request'
+  for($retry=0;$retry -le 100;$retry++) {
+    if (!(Test-Path -LiteralPath $path)) { return }
+    try { Remove-Item -LiteralPath $path -Force -ErrorAction Stop }
+    catch [System.IO.IOException] { $lastError=$_.Exception.Message }
+    if (!(Test-Path -LiteralPath $path)) {
       if($retry){@{path=$path;retries=$retry;removed=$true} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"}
       return
-    } catch [System.IO.IOException] {
-      if($retry -eq 50){
-        @{path=$path;retries=$retry;removed=$false;error=$_.Exception.Message} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"
-        throw
-      }
-      Start-Sleep -Milliseconds 100
     }
+    if($retry -lt 100){Start-Sleep -Milliseconds 100}
   }
+  @{path=$path;retries=100;removed=$false;error=$lastError} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"
+  throw "Cleanup postcondition failed for ${path}: $lastError"
 }
 function Save-RegistryValue([string]$path,[string]$name) {
   $key=[Microsoft.Win32.Registry]::CurrentUser.OpenSubKey($path,$true)

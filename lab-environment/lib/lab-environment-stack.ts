@@ -52,6 +52,8 @@ export interface LabEnvironmentStackProps extends cdk.StackProps {
   readonly windowsOnly?: boolean;
   /** Root volume size in GiB for both hosts. Default: 150. */
   readonly diskGiB?: number;
+  /** Independent host pairs for a blocked replication study (1..10). */
+  readonly hostPairs?: number;
 }
 
 /**
@@ -83,6 +85,8 @@ export class LabEnvironmentStack extends cdk.Stack {
     if (props.linuxOnly && props.windowsOnly) throw new Error('linuxOnly and windowsOnly are mutually exclusive');
     const instanceType = props.instanceType ?? 'c7i.xlarge';
     const diskGiB = props.diskGiB ?? 150;
+    const hostPairs = props.hostPairs ?? 1;
+    if (!Number.isInteger(hostPairs) || hostPairs < 1 || hostPairs > 10) throw new Error('hostPairs must be 1..10');
 
     cdk.Tags.of(this).add('Project', 'telemetry-lab');
     cdk.Tags.of(this).add('Component', 'lab-environment');
@@ -223,8 +227,10 @@ export class LabEnvironmentStack extends cdk.Stack {
     // CI, so the libc substrate is identical. AMI resolved by owner + name
     // filter (never a hardcoded ID), so it is correct in any region.
     const hosts: ec2.Instance[] = [];
+    for (let pair = 1; pair <= hostPairs; pair++) {
+    const suffix = pair === 1 ? '' : `Pair${String(pair).padStart(2, '0')}`;
     if (!props.windowsOnly) {
-      const debian = new ec2.Instance(this, 'DebianHost', {
+      const debian = new ec2.Instance(this, 'DebianHost' + suffix, {
         vpc,
         vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
         instanceType: new ec2.InstanceType(instanceType),
@@ -238,7 +244,7 @@ export class LabEnvironmentStack extends cdk.Stack {
             state: ['available'],
           },
         }),
-        securityGroup: egressOnlySecurityGroup('DebianSecurityGroup', 'debian-13'),
+        securityGroup: egressOnlySecurityGroup('DebianSecurityGroup' + suffix, 'debian-13'),
         blockDevices: [{ deviceName: '/dev/xvda', volume: rootVolume() }],
         userData: debianUserData,
         requireImdsv2: true,
@@ -246,7 +252,7 @@ export class LabEnvironmentStack extends cdk.Stack {
       cdk.Tags.of(debian).add('Name', 'lab-debian-13');
 
       hosts.push(debian);
-      new cdk.CfnOutput(this, 'DebianInstanceId', { value: debian.instanceId });
+      new cdk.CfnOutput(this, 'DebianInstanceId' + suffix, { value: debian.instanceId });
     }
     if (!props.linuxOnly) {
       // Windows provisioning, in order:
@@ -332,22 +338,24 @@ export class LabEnvironmentStack extends cdk.Stack {
       // Windows Server 2025, x86_64 -- matches the windows-2025 CI runner, so the
       // UCRT/MSVCRT runtimes and ETW behavior match. AMI resolved via SSM public
       // parameter at deploy time, so it is region-correct and always current.
-      const windows = new ec2.Instance(this, 'WindowsHost', {
+      const windows = new ec2.Instance(this, 'WindowsHost' + suffix, {
         vpc,
         vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
         instanceType: new ec2.InstanceType(instanceType),
         machineImage: ec2.MachineImage.fromSsmParameter(WINDOWS_2025_SSM_PARAM, {
           os: ec2.OperatingSystemType.WINDOWS,
         }),
-        securityGroup: egressOnlySecurityGroup('WindowsSecurityGroup', 'windows-2025'),
+        securityGroup: egressOnlySecurityGroup('WindowsSecurityGroup' + suffix, 'windows-2025'),
         blockDevices: [{ deviceName: '/dev/sda1', volume: rootVolume() }],
         userData: windowsUserData,
         requireImdsv2: true,
       });
       cdk.Tags.of(windows).add('Name', 'lab-windows-2025');
       hosts.push(windows);
-      new cdk.CfnOutput(this, 'WindowsInstanceId', { value: windows.instanceId });
+      new cdk.CfnOutput(this, 'WindowsInstanceId' + suffix, { value: windows.instanceId });
     }
+
+    } // independent host pairs
 
     // Grant both hosts the SSM core permissions so Session Manager / RunCommand
     // work explicitly, rather than relying on the account's Default Host
