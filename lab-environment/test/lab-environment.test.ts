@@ -111,3 +111,19 @@ test('parallel disposable stacks have distinct launch-template names', () => {
   expect(names).toHaveLength(4);
   expect(new Set(names).size).toBe(4);
 });
+
+test('replication fleet shares infrastructure and isolates every host', () => {
+  const app = new cdk.App();
+  const stack = new LabEnvironmentStack(app, 'Replication', {
+    env: { account: '123456789012', region: 'us-west-2' }, hostPairs: 10,
+  });
+  const template = Template.fromStack(stack);
+  template.resourceCountIs('AWS::EC2::VPC', 1);
+  template.resourceCountIs('AWS::S3::Bucket', 1);
+  template.resourceCountIs('AWS::EC2::Instance', 20);
+  template.resourceCountIs('AWS::EC2::SecurityGroup', 20);
+  const names = Object.values(template.findResources('AWS::EC2::LaunchTemplate')).map(r => r.Properties.LaunchTemplateName);
+  expect(new Set(names).size).toBe(20);
+  template.hasOutput('WindowsInstanceIdPair10', {});
+  template.hasOutput('DebianInstanceIdPair10', {});
+});
