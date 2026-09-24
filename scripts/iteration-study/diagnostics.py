@@ -26,6 +26,15 @@ for key,rs in sorted(bycell.items()):
  for event in sorted(vt-dt):rare.append(dict(os=key[0],case=key[1],config=key[2],event=event,development_occurrences=0,development_n=len(d),validation_occurrences=sum(r['event_counts'].get(event,0)>0 for r in v),validation_n=len(v)))
  values=np.array([sum(r['event_counts'].values()) for r in d+v]);ranges.append(dict(os=key[0],case=key[1],config=key[2],n=len(values),min=int(values.min()),max=int(values.max()),median=float(np.median(values)),mean=float(values.mean()),sd=float(values.std(ddof=1)),cv_percent=float(values.std(ddof=1)/values.mean()*100)))
 write('rare-validation-only-events.json',rare);write('subsequent-run-ranges.json',ranges)
+# Explain observed run variation without dropping outliers or assigning a cause.
+if ranges:
+ worst=max(ranges,key=lambda r:r['cv_percent']);key=(worst['os'],worst['case'],worst['config'])
+ rs=[r for r in bycell[key] if r['valid'] and r['repetition'] in alloc[r['host']]['development']+alloc[r['host']]['validation']]
+ totals=np.array([sum(r['event_counts'].values()) for r in rs]);events=[]
+ for event in sorted(set().union(*(r['event_counts'] for r in rs))):
+  values=np.array([r['event_counts'].get(event,0) for r in rs])
+  events.append(dict(event=event,min=int(values.min()),max=int(values.max()),mean=float(values.mean()),sd=float(values.std(ddof=1)),covariance_with_total=float(np.cov(values,totals)[0,1])))
+ write('highest-variability-cell-events.json',dict(os=key[0],case=key[1],config=key[2],n=len(rs),events=sorted(events,key=lambda r:r['sd'],reverse=True)))
 timings=[]
 for p in (b/'normalized').glob('*-verification.json'):
  x=json.loads(p.read_text());rs=byhost[x['host'],x['os']]
