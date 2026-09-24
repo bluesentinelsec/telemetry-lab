@@ -69,6 +69,11 @@ parts += ['## Quality and scope',f"Normalized records: {counts['primitive_attemp
  'This is a Linux precision/stability pilot, not a power calculation for Chapter 3’s multiplicity-adjusted confirmatory comparisons. No minimum effect size was specified for that calculation. Fix the eventual repetition count before confirmatory collection, keep pilot observations out of that dataset, and evaluate Windows separately.',
  'The initial us-west-2a provisioning attempt failed for lack of capacity before any measurements. The successful fleet used the same AMI and instance type across us-west-2b and us-west-2c. This is recorded in `study-deviations.json`.',
  'Alternative precision targets and all-cell versus 95%-of-cell criteria are reported in `analysis/plateau-thresholds.json`. The prior 100-run study is not pooled into this experiment. Release publication remains deferred.']
+verification=[json.loads(p.read_text()) for p in (b/'normalized').glob('*-verification.json')]
+restarts=[dict(host=r['host'],**q) for r in verification for q in r.get('collector_restarts',[])]
+health=[dict(host=r['host'],**q) for r in verification for q in r.get('invalid_health_batches',[])]
+if composites:
+ parts += [f"Collector quality: {len(health)} batches failed the fixed health checks; {len(restarts)} in-study collector restarts were recorded. A restart preserves the affected batch as unknown and resumes only later planned attempts using verified frozen provenance. These restarts are separate from the deliberate pre-collection recovery preflights.",f"Unknown outcome categories: `{json.dumps(counts['composite_unknown_reasons'],sort_keys=True)}`. Batch-level health snapshots and restart evidence remain in each host archive and normalized verification file."]
 timings=read('collection-durations.json',[])
 if timings:
  pt=[r['primitive_wall_seconds'] for r in timings];ct=[r['composite_wall_seconds_including_fixture_and_evaluation'] for r in timings if 'composite_wall_seconds_including_fixture_and_evaluation' in r and not r['collector_interruption']]

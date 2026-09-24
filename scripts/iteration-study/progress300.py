@@ -52,6 +52,9 @@ for cmd,selected in commands:
  by_instance={r['InstanceId']:r for r in states}
  for x in selected:
   v=by_instance.get(x['instance'],{});plugins=v.get('CommandPlugins',[])
+  if plugins and '---Output truncated---' in plugins[0].get('Output',''):
+   full=json.loads(aws('ssm','get-command-invocation','--command-id',cmd,'--instance-id',x['instance']))
+   plugins[0]['Output']=full.get('StandardOutputContent','')
   row=dict(host=x['host'],os=x['os'],status=v.get('Status','Pending'),output=plugins[0].get('Output','') if plugins else '',error='')
   result.append(row);print(json.dumps(row),flush=True)
 for x in fleet:
