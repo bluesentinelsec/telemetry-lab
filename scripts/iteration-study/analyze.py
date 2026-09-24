@@ -75,14 +75,14 @@ for k in range(1,11):
   left,right=sorted(keys);l,r=matrices[left],matrices[right]
   vd=r['validation']['volume']-l['validation']['volume'];dd=r['development']['volume'][:,:k]-l['development']['volume'][:,:k]
   scale=(r['validation']['volume'].mean()+l['validation']['volume'].mean())/2;reference=vd.mean();half=ci_half_host(vd.mean(axis=1));estimate=dd.mean()
-  contrastcurves.append(dict(n=n,os=os,case=case,language=lang,left=left[2],right=right[2],reference_delta=float(reference),estimated_delta=float(estimate),normalized_error_percent=float(abs(estimate-reference)/scale*100),reference_host_ci95_half=float(half),development_host_ci95_half=ci_half_host(dd.mean(axis=1)),reference_effect_percent=float(reference/scale*100),relative_contrast_error_percent=float(abs(estimate-reference)/abs(reference)*100) if abs(reference)>half else None,reference_distinguishable=bool(abs(reference)>half),sign_agrees=bool(np.sign(reference)==np.sign(estimate))))
+  contrastcurves.append(dict(n=n,os=os,case=case,language=lang,left=left[2],right=right[2],reference_delta=float(reference),estimated_delta=float(estimate),normalized_error_percent=float(abs(estimate-reference)/scale*100),reference_host_ci95_half=float(half),development_host_ci95_half=ci_half_host(dd.mean(axis=1)),reference_effect_percent=float(reference/scale*100),relative_contrast_error_percent=float(abs(estimate-reference)/abs(reference)*100) if abs(reference)>half else None,reference_distinguishable=bool(abs(reference)>half),development_distinguishable=bool(abs(estimate)>ci_half_host(dd.mean(axis=1))),sign_agrees=bool(np.sign(reference)==np.sign(estimate))))
   # Chapter 3's empty-control adjustment, paired within host/repetition.
   el=matrices.get((os,'empty',left[2]));er=matrices.get((os,'empty',right[2]))
   if case!='empty' and el is not None and er is not None:
    av=vd-(er['validation']['volume']-el['validation']['volume'])
    ad=dd-(er['development']['volume'][:,:k]-el['development']['volume'][:,:k])
    ar=av.mean();ah=ci_half_host(av.mean(axis=1));ae=ad.mean()
-   contrastcurves[-1].update(adjusted_reference_delta=float(ar),adjusted_estimated_delta=float(ae),adjusted_normalized_error_percent=float(abs(ae-ar)/scale*100),adjusted_reference_host_ci95_half=float(ah),adjusted_reference_distinguishable=bool(abs(ar)>ah),adjusted_sign_agrees=bool(np.sign(ar)==np.sign(ae)),adjusted_relative_contrast_error_percent=float(abs(ae-ar)/abs(ar)*100) if abs(ar)>ah else None)
+   contrastcurves[-1].update(adjusted_reference_delta=float(ar),adjusted_estimated_delta=float(ae),adjusted_normalized_error_percent=float(abs(ae-ar)/scale*100),adjusted_reference_host_ci95_half=float(ah),adjusted_reference_distinguishable=bool(abs(ar)>ah),adjusted_development_host_ci95_half=ci_half_host(ad.mean(axis=1)),adjusted_development_distinguishable=bool(abs(ae)>ci_half_host(ad.mean(axis=1))),adjusted_sign_agrees=bool(np.sign(ar)==np.sign(ae)),adjusted_relative_contrast_error_percent=float(abs(ae-ar)/abs(ar)*100) if abs(ar)>ah else None)
   types=sorted(set(l['types'])|set(r['types']))
   def jaccard(kind):
    arrays=[]
