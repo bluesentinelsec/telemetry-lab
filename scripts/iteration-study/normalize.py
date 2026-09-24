@@ -72,6 +72,11 @@ def normalize(folder,host,os,out):
  write_rows(out/f'{host}-{os}-primitives.jsonl',prim);write_rows(out/f'{host}-{os}-composites.jsonl',comp)
  result=dict(host=host,os=os,counts=dict(check),primitive_count=len(prim),composite_count=len(comp),primitive_invalid=sum(not r['valid'] for r in prim),composite_invalid=sum(not r['valid'] for r in comp),campaigns=campaigns,provenance=provenance,inventory=read(folder/'inventory.json'),collection_started=(folder/'collection-started.txt').read_text(encoding='utf-8-sig').strip() if (folder/'collection-started.txt').exists() else None,collection_ended=(folder/'collection-ended.txt').read_text(encoding='utf-8-sig').strip() if (folder/'collection-ended.txt').exists() else None)
  result['invalid_health_batches']=invalid_health_batches
+ result['collection_exit_codes']={p.name:p.read_text(encoding='utf-8-sig').strip() for p in folder.glob('*.exit')}
+ campaigns_file=folder/'composites/campaigns.json'
+ result['campaign_execution_errors']=[r for r in rows(campaigns_file) if r.get('error')] if campaigns_file.exists() else []
+ interruption=folder/'composites/interruption-reconciliation.json'
+ result['interruption_reconciliation']=read(interruption) if interruption.exists() else None
  (out/f'{host}-{os}-verification.json').write_text(json.dumps(result,indent=2))
  print(host,os,'normalized',len(prim),len(comp),result['composite_invalid'],flush=True)
 

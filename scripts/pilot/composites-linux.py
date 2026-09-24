@@ -12,11 +12,12 @@ p=argparse.ArgumentParser();p.add_argument('bundle',type=Path);p.add_argument('o
 p.add_argument('--image',required=True);p.add_argument('--seed',type=int,required=True);p.add_argument('--host-id',required=True)
 p.add_argument('--repetitions',type=int,default=10);p.add_argument('--batch-size',type=int,default=16)
 p.add_argument('--case',action='append',dest='cases')
+p.add_argument('--resume',action='store_true',help='Resume only unexecuted slots after reconciling preserved prior attempts')
 a=p.parse_args();sys.path.insert(0,str(a.bundle/'ttp-composite/coverage'))
 import run as cov
 m=cov.validate();selected={c['rule'] for c in m['cases']};cases=[c for c in m['cases'] if not a.cases or c['id'] in a.cases]
 if a.cases and set(a.cases)-{c['id'] for c in cases}:raise SystemExit('Unknown case')
-a.output.mkdir(parents=True,exist_ok=False);rng=random.Random(a.seed);plan=[]
+a.output.mkdir(parents=True,exist_ok=a.resume);rng=random.Random(a.seed);plan=[]
 for rep in range(1,a.repetitions+1):
  block=[dict(config=cfg,case=c,repetition=rep) for cfg in m['configs'] for c in cases+[{**c,'control':True} for c in cases]+[{'id':'negative'}]]
  rng.shuffle(block);plan+=block
@@ -24,13 +25,20 @@ image_id=cov.command(['docker','image','inspect',a.image,'--format','{{.Id}}'])
 provenance=dict(seed=a.seed,host=a.host_id,plan=plan,batch_size=a.batch_size,image_id=image_id,falco=cov.detector_provenance(),
  rules_sha256={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in (a.bundle/'ttp-composite/coverage/rules').glob('*.yaml')},
  binaries=cov.command(['docker','run','--rm','--network','none',image_id,'sha256sum',*['/opt/coverage/'+cfg+'/coverage/'+c for cfg in m['configs'] for c in [x['id'] for x in cases]+['negative','fixture_prepare']]]))
-(a.output/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
 rows=[]
+if a.resume:
+ assert json.loads((a.output/'provenance.json').read_text())==provenance,'Frozen provenance changed'
+ rows=[json.loads(line) for line in (a.output/'results.jsonl').read_text().splitlines()]
+ assert len(rows)%a.batch_size==0 and len(rows)<len(plan),'Resume requires reconciled complete batch boundaries'
+ for row,item in zip(rows,plan):
+  assert (row['config'],row['case'],row['control'],row['repetition'])==(item['config'],item['case']['id'],bool(item['case'].get('control')),item['repetition'])
+ (a.output/f'resume-provenance-{len(rows):05d}.json').write_text(json.dumps(dict(resume_offset=len(rows),provenance=provenance),indent=2)+'\n')
+else:(a.output/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
 def time_ns(event):
  value=event['time'];match=re.fullmatch(r'(.*?)(?:\.(\d+))?Z',value)
  if not match:raise ValueError('Unexpected Falco event time: '+value)
  return int(datetime.datetime.fromisoformat(match[1]+'+00:00').timestamp())*10**9+int((match[2] or '').ljust(9,'0')[:9])
-for offset in range(0,len(plan),a.batch_size):
+for offset in range(len(rows),len(plan),a.batch_size):
  batch=plan[offset:offset+a.batch_size];folder=a.output/f'batch-{offset:05d}';folder.mkdir();containers=[];pending=[]
  time.sleep(1) # settle previous batch teardown before the strict group snapshot
  before=cov.detector_state();latest=cov.command(['journalctl','-u',cov.SERVICE,'-n','1','--show-cursor','--no-pager']);cursor=re.search(r'-- cursor: (.+)',latest).group(1)
