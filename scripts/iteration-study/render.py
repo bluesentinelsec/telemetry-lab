@@ -17,6 +17,14 @@ for n in range(10,101,10):
  raw=max(float(r['normalized_error_percent']) for r in rs);ad=max((float(r['adjusted_normalized_error_percent']) for r in adj),default=0);j=max(float(r['jaccard_error_pp']) for r in rs)
  flips=sum(r['reference_distinguishable']=='True' and r['sign_agrees']=='False' for r in rs);aflips=sum(r['adjusted_reference_distinguishable']=='True' and r['adjusted_sign_agrees']=='False' for r in adj)
  lines.append(f'| {n} | {raw:.3f}% | {ad:.3f}% | {j:.3f} pp | {flips} / {aflips} |')
+lines+=['','Direction agreement is weaker than statistical sensitivity. The following counts show validation contrasts whose exploratory host-level interval excludes zero but whose development interval includes zero. These pointwise intervals are repeatability diagnostics, not the multiplicity-adjusted confirmatory tests. A zero count is not a power guarantee.','', '| Repetitions | Raw contrasts not resolved | Adjusted contrasts not resolved |','|---:|---:|---:|']
+for n in range(10,101,10):
+ rs=[r for r in contr if int(r['n'])==n]
+ vals=[]
+ for prefix in ('','adjusted_'):
+  refs=[r for r in rs if r.get(prefix+'reference_distinguishable')=='True']
+  vals.append(f"{sum(r.get(prefix+'development_distinguishable')!='True' for r in refs)} / {len(refs)}")
+ lines.append(f'| {n} | {vals[0]} | {vals[1]} |')
 lines+=['','## Detection outcomes','', 'Unknown or missing observations are not detector misses. Classification is always-alert, never-alert, mixed, or unknown among valid records. Agreement below is with the separate validation set. Raw per-case counts and exact pointwise intervals appear in composite-cells.csv.','', '| Repetitions | Platform / mode | Cells | Classification agreement | Mixed cells | Unknown or missing attempts |','|---:|---|---:|---:|---:|---:|']
 for r in cc:lines.append(f"| {r['n']} | {r['os']} / {r['mode']} | {r['cells']} | {r['class_agreement']} | {r['mixed_development']} | {r['unknown_or_missing']} |")
 lines+=['','## First-launch effects','', 'The initial execution on each host is retained as a separate condition. This is compatible with the Chapter 3 warm-up provision; it does not remove ordinary program startup and teardown from subsequent runs.','', '| Test/configuration | Initial mean events | Validation mean events | Initial excess |','|---|---:|---:|---:|']
