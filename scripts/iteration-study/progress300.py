@@ -13,7 +13,7 @@ for os in ('linux','windows'):
  selected=[x for x in fleet if x['os']==os and x['instance'] in online and x['instance'] not in archived]
  if not selected:continue
  if os=='linux':script="""python3 - <<'END'
-import json,pathlib
+import json,pathlib,collections
 p=pathlib.Path('/opt/pilot/evidence');out={}
 preflight=list((p/'collector-recovery-preflight').glob('*.json'))
 if preflight:
@@ -26,7 +26,11 @@ for cohort in ('primitives','composites'):
    try:rows.append(json.loads(line))
    except ValueError:pass
   out[cohort]={'count':len(rows),'invalid':sum(not r['valid'] for r in rows),'last_rep':rows[-1]['repetition'] if rows else None}
-  if cohort=='composites':out[cohort]['collector_restarts']=len(list((p/cohort).glob('collector-restart-*.json')))
+  if cohort=='composites':
+   out[cohort]['collector_restarts']=len(list((p/cohort).glob('collector-restart-*.json')))
+   out[cohort]['invalid_repetitions']=dict(collections.Counter(r['repetition'] for r in rows if not r['valid']))
+   out[cohort]['invalid_causes']=dict(collections.Counter('collection' if not r.get('collection_ok') else 'behavior' for r in rows if not r['valid']))
+   out[cohort]['native_attempt_states']=dict(collections.Counter(r.get('native_attempt_state','unrecorded') for r in rows))
   if cohort=='composites' and len(rows)<15128 and (p/'composites.exit').exists() and not (p/'composites-resumption-started.txt').exists():out['error']='Composite collector ended before all planned slots; inspect composites.log'
 print(json.dumps(out))
 END"""

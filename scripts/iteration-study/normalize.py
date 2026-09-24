@@ -18,7 +18,7 @@ def write_rows(p,rs):p.write_text(''.join(json.dumps(r)+'\n' for r in rs))
 def linux_alert_outcome(row):
  # Controls are expected to trigger none of the selected rules, including rules
  # other than their paired target. Negative controls have no target_rule at all.
- return bool(row['target_fired']) if row['mode']=='active' else row.get('negative_control_ok') is False
+ return bool(row.get('target_fired')) if row['mode']=='active' else row.get('negative_control_ok') is False
 
 def normalize(folder,host,os,out):
  manifest=read(BUNDLES/f'telemetry-lab-0.3.0-{os}/files.sha256.json')

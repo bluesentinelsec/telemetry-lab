@@ -65,7 +65,7 @@ for k in range(1,D+1):
   sv=abs(d['volume'][hidx,ix].mean(axis=(1,2))-ref)/ref*100
   sc=abs(d['composition'][hidx,ix].mean(axis=(1,2))-refc).sum(axis=1)/2*100
   sensvol.append(sv);senstv.append(sc);err.append(ve);tv.append(ce)
-  cellcurves.append(dict(n=n,os=key[0],case=key[1],config=key[2],relative_volume_error_percent=float(ve),composition_tv_pp=float(ce),development_mean=float(x.mean()),validation_mean=float(ref),validation_host_half_percent=ci_half_host(v['volume'].mean(axis=1))/ref*100,development_host_half_percent=ci_half_host(x.mean(axis=1))/ref*100,new_validation_event_types=int(new.sum()),new_validation_event_max_prevalence=float(v['presence'][:,:,new].mean(axis=(0,1)).max()) if new.any() else 0.,order_error_p95_percent=float(np.quantile(sv,.95)),order_tv_p95_pp=float(np.quantile(sc,.95))))
+  cellcurves.append(dict(n=n,os=key[0],case=key[1],config=key[2],relative_volume_error_percent=float(ve),composition_tv_pp=float(ce),development_mean=float(x.mean()),validation_mean=float(ref),validation_host_half_percent=ci_half_host(v['volume'].mean(axis=1))/ref*100,development_host_half_percent=ci_half_host(x.mean(axis=1))/x.mean()*100,new_validation_event_types=int(new.sum()),new_validation_event_max_prevalence=float(v['presence'][:,:,new].mean(axis=(0,1)).max()) if new.any() else 0.,order_error_p95_percent=float(np.quantile(sv,.95)),order_tv_p95_pp=float(np.quantile(sc,.95))))
   cellcurves[-1].update(development_host_se_percent=float(x.mean(axis=1).std(ddof=1)/np.sqrt(H)/x.mean()*100),development_iid_se_percent=float(x.std(ddof=1)/np.sqrt(n)/x.mean()*100))
  if not err:continue
  bv=np.array(bootvol);bc=np.array(boottv);sv=np.array(sensvol);sc=np.array(senstv)
