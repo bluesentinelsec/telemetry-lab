@@ -69,6 +69,15 @@ parts += ['## Quality and scope',f"Normalized records: {counts['primitive_attemp
  'This is a Linux precision/stability pilot, not a power calculation for Chapter 3’s multiplicity-adjusted confirmatory comparisons. No minimum effect size was specified for that calculation. Fix the eventual repetition count before confirmatory collection, keep pilot observations out of that dataset, and evaluate Windows separately.',
  'The initial us-west-2a provisioning attempt failed for lack of capacity before any measurements. The successful fleet used the same AMI and instance type across us-west-2b and us-west-2c. This is recorded in `study-deviations.json`.',
  'Alternative precision targets and all-cell versus 95%-of-cell criteria are reported in `analysis/plateau-thresholds.json`. The prior 100-run study is not pooled into this experiment. Release publication remains deferred.']
+reconciliation=b/'package-inventory-reconciliation.json'
+if not reconciliation.exists():reconciliation=b.parent/'package-inventory-reconciliation.json'
+if reconciliation.exists():
+ r=json.loads(reconciliation.read_text())
+ parts += [f"Package-inventory reconciliation: H06’s stage snapshot omitted `inspectorssmplugin 1.0.531`; installation completed at {r['installation_completed_utc']}, four seconds before collection started. The snapshot differs from the other 19 hosts only by that package line. Original inventories and installation timing remain archived; measurement-time package inventories reconcile to the same digest. AWS documents this plugin as automatically installed through Systems Manager ([AWS documentation](https://docs.aws.amazon.com/inspector/latest/user/inspector-ssm-plugin.html))."]
+exclusion=read('host-exclusion-H06.json')
+if exclusion:
+ r=next(x for x in exclusion['curves'] if x['full_fleet_n']==300)
+ parts += [f"A secondary sensitivity check retaining the same per-host blocks but excluding H06 changed the largest complete-sample mean by {r['max_volume_change_from_full_fleet_percent']:.3f}% and composition by {r['max_composition_change_from_full_fleet_pp']:.3f} pp. That check has 285 rather than 300 observations per cell; the primary 20-host dataset is unchanged."]
 verification=[json.loads(p.read_text()) for p in (b/'normalized').glob('*-verification.json')]
 restarts=[dict(host=r['host'],**q) for r in verification for q in r.get('collector_restarts',[])]
 health=[dict(host=r['host'],**q) for r in verification for q in r.get('invalid_health_batches',[])]
