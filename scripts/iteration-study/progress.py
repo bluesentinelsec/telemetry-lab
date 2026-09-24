@@ -27,6 +27,10 @@ $r | ConvertTo-Json -Compress -Depth 4"""
  cmd=json.loads(aws('ssm','send-command','--cli-input-json',json.dumps(args)))['Command']['CommandId'];commands.append((cmd,selected))
 time.sleep(10);result=[]
 for cmd,selected in commands:
+ states=json.loads(aws('ssm','list-command-invocations','--command-id',cmd,'--details'))['CommandInvocations']
+ by_instance={r['InstanceId']:r for r in states}
  for x in selected:
-  v=json.loads(aws('ssm','get-command-invocation','--command-id',cmd,'--instance-id',x['instance']));row=dict(host=x['host'],os=x['os'],status=v['Status'],output=v.get('StandardOutputContent',''),error=v.get('StandardErrorContent',''));result.append(row);print(json.dumps(row),flush=True)
+  v=by_instance.get(x['instance'],{});plugins=v.get('CommandPlugins',[])
+  row=dict(host=x['host'],os=x['os'],status=v.get('Status','Pending'),output=plugins[0].get('Output','') if plugins else '',error='')
+  result.append(row);print(json.dumps(row),flush=True)
 with (BASE/'progress.jsonl').open('a') as f:f.write(json.dumps(dict(time=time.time(),hosts=result))+'\n')
