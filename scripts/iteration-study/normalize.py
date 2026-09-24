@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Verify and normalize one host archive at a time, preserving compressed raw evidence."""
-import os,collections,contextlib,hashlib,importlib.util,io,json,subprocess,sys,tempfile
+import os,collections,contextlib,fcntl,hashlib,importlib.util,io,json,subprocess,sys,tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 BASE=Path(sys.argv[1]) if len(sys.argv)>1 else Path('/Users/michaellong/telemetry-lab-data/iteration-study-2026-09-23')
@@ -50,9 +50,11 @@ def normalize(folder,host,os,out):
    row['seconds']=(row['ended_ns']-row['started_ns'])/1e9 if 'ended_ns' in row and 'started_ns' in row else None
    comp.append(row);check['composite_rows_verified']+=1
  elif os=='windows':
-  for cp in sorted((folder/'composites').glob('*-windows-*')):
+  for cp in sorted([*(folder/'composites').glob('*-windows-*'),*(folder/'composites-resumed').glob('*-windows-*')]):
    if not cp.is_dir():continue
    rep,cfg=cp.name.split('-',1)
+   if cp.parent.name=='composites-resumed':
+    assert (cp/'prior-attempts.json').read_bytes()==(folder/'composites'/cp.name/'attempts.json').read_bytes(),'Resumption did not preserve original attempts'
    if not (cp/'health.json').exists():campaigns.append(dict(campaign=cp.name,error='No health.json'));continue
    with contextlib.redirect_stdout(io.StringIO()):result=wc.analyze(cp)
    original=rows(cp/'attempts.json');omap={(x['case_id'],x['mode']):x for x in original}
@@ -61,12 +63,12 @@ def normalize(folder,host,os,out):
     assert x['sha256'].lower()==manifest[key].lower(),key
     assert x.get('staged_sha256','').lower()==x['sha256'].lower(),key
     check['native_composite_hashes_verified']+=1
-   campaigns.append(dict(campaign=cp.name,**{k:result[k] for k in ('healthy','complete','expected_attempts','recorded_attempts','counts')}))
+   campaigns.append(dict(campaign=cp.name,segment=cp.parent.name,**{k:result[k] for k in ('healthy','complete','expected_attempts','recorded_attempts','counts')}))
    for r in result['attempts']:
     x=omap[(r['case_id'],r['mode'])]
-    r.update(host=host,os=os,config=cfg,case=r['case_id'],repetition=int(rep),fired=bool(r['target_record_ids']),started_epoch=wc.timestamp(x['process']['start_utc']).timestamp(),seconds=(wc.timestamp(x['process']['end_utc'])-wc.timestamp(x['process']['start_utc'])).total_seconds())
+    r.update(host=host,os=os,config=cfg,case=r['case_id'],repetition=int(rep),fired=bool(r['target_record_ids']),segment=cp.parent.name,started_epoch=wc.timestamp(x['process']['start_utc']).timestamp(),seconds=(wc.timestamp(x['process']['end_utc'])-wc.timestamp(x['process']['start_utc'])).total_seconds())
     comp.append(r);check['composite_rows_verified']+=1
-  provenance={'inventories':[read(p) for p in (folder/'composites').glob('*/inventory.json')]}
+  provenance={'inventories':[read(p) for p in [*(folder/'composites').glob('*/inventory.json'),*(folder/'composites-resumed').glob('*/inventory.json')]]}
  slots=[(r['case'],r['config'],r['repetition']) for r in prim];assert len(set(slots))==len(slots)
  slots=[(r['case'],r['config'],r['mode'],r['repetition']) for r in comp];assert len(set(slots))==len(slots)
  write_rows(out/f'{host}-{os}-primitives.jsonl',prim);write_rows(out/f'{host}-{os}-composites.jsonl',comp)
@@ -81,11 +83,13 @@ def normalize(folder,host,os,out):
  print(host,os,'normalized',len(prim),len(comp),result['composite_invalid'],flush=True)
 
 if __name__=='__main__':
- out=BASE/'normalized';out.mkdir(exist_ok=True)
- for archive in sorted((BASE/'archives').glob('H??-*.tar.gz')):
-  host,os=archive.name.removesuffix('.tar.gz').split('-')
-  if (out/f'{host}-{os}-verification.json').exists():continue
-  receipt=read(archive.with_name(archive.name.removesuffix('.tar.gz')+'-verified.json'));assert sha(archive)==receipt['sha256']
-  with tempfile.TemporaryDirectory(prefix='iteration-study-',dir=BASE) as tmp:
-   subprocess.run(['tar','-xzf',str(archive),'-C',tmp],check=True)
-   normalize(Path(tmp),host,os,out)
+ with (BASE/'.normalization.lock').open('a') as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX)
+  out=BASE/'normalized';out.mkdir(exist_ok=True)
+  for archive in sorted((BASE/'archives').glob('H??-*.tar.gz')):
+   host,os=archive.name.removesuffix('.tar.gz').split('-')
+   if (out/f'{host}-{os}-verification.json').exists():continue
+   receipt=read(archive.with_name(archive.name.removesuffix('.tar.gz')+'-verified.json'));assert sha(archive)==receipt['sha256']
+   with tempfile.TemporaryDirectory(prefix='iteration-study-',dir=BASE) as tmp:
+    subprocess.run(['tar','-xzf',str(archive),'-C',tmp],check=True)
+    normalize(Path(tmp),host,os,out)

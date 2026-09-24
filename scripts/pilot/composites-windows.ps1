@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([Parameter(Mandatory=$true)][string]$Bundle,[Parameter(Mandatory=$true)][string]$Output,[int]$Repetitions=10,[int]$Seed=1,[string]$HostId='pilot',[string]$ReplaceFailedFrom='')
+param([Parameter(Mandatory=$true)][string]$Bundle,[Parameter(Mandatory=$true)][string]$Output,[int]$Repetitions=10,[int]$Seed=1,[string]$HostId='pilot',[string]$ReplaceFailedFrom='',[string]$ResumeMissingFrom='')
 $ErrorActionPreference='Stop'
 if(Test-Path $Output){throw 'Output exists'}
 New-Item -ItemType Directory $Output | Out-Null
@@ -16,6 +16,27 @@ for($rep=1;$rep -le $Repetitions;$rep++) {
  for($i=$configs.Count-1;$i -gt 0;$i--){$j=$rng.Next($i+1);$tmp=$configs[$i];$configs[$i]=$configs[$j];$configs[$j]=$tmp}
  foreach($config in $configs){$plan+=[pscustomobject]@{host=$HostId;config=$config;repetition=$rep;seed=$rng.Next(1,2147483647)}}
 }
+if($ReplaceFailedFrom -and $ResumeMissingFrom){throw 'Choose one recovery mode'}
+if($ResumeMissingFrom) {
+ $original=Get-Content "$ResumeMissingFrom\campaigns.json" -Raw | ConvertFrom-Json
+ $originalPlan=Get-Content "$ResumeMissingFrom\plan.json" -Raw | ConvertFrom-Json
+ if($original.Count -ne $originalPlan.plan.Count){throw 'Original campaign has not finished'}
+ $plan=@()
+ foreach($cell in $originalPlan.plan) {
+  $name=('{0:D2}-{1}' -f $cell.repetition,$cell.config)
+  $prior=Get-Content "$ResumeMissingFrom\$name\attempts.json" -Raw | ConvertFrom-Json
+  $seen=@{}
+  foreach($attempt in @($prior)) {
+   if($null -eq $attempt){continue}
+   if($attempt.case_id -notin $cases -or $attempt.mode -notin @('active','control')){throw 'Invalid prior slot'}
+   $key="$($attempt.case_id)|$($attempt.mode)"
+   if($seen.ContainsKey($key)){throw 'Duplicate prior slot'}
+   $seen[$key]=$true
+  }
+  if($seen.Count -lt 2*$cases.Count){$plan+=$cell}
+ }
+ if(!$plan.Count){throw 'No unexecuted slots to resume'}
+}
 if($ReplaceFailedFrom) {
  $original=Get-Content "$ReplaceFailedFrom\campaigns.json" -Raw | ConvertFrom-Json
  $originalPlan=Get-Content "$ReplaceFailedFrom\plan.json" -Raw | ConvertFrom-Json
@@ -24,7 +45,7 @@ if($ReplaceFailedFrom) {
  $plan=@($originalPlan.plan | Where-Object {('{0:D2}-{1}' -f $_.repetition,$_.config) -in $failed})
  if(!$plan.Count -or $plan.Count -ne $failed.Count){throw 'No unambiguous failed batches to replace'}
 }
-@{seed=$Seed;host=$HostId;cases=$cases;plan=$plan;replaces_failed_from=$ReplaceFailedFrom} | ConvertTo-Json -Depth 6 | Set-Content "$Output\plan.json" -Encoding UTF8
+@{seed=$Seed;host=$HostId;cases=$cases;plan=$plan;replaces_failed_from=$ReplaceFailedFrom;resumes_missing_from=$ResumeMissingFrom} | ConvertTo-Json -Depth 6 | Set-Content "$Output\plan.json" -Encoding UTF8
 if(!(Get-NetTCPConnection -State Listen -LocalPort 3389 -ErrorAction SilentlyContinue)){throw 'Existing RDP listener required'}
 if(Get-NetUDPEndpoint -LocalPort 53 -ErrorAction SilentlyContinue){throw 'UDP 53 occupied'}
 foreach($rule in @(Get-DnsClientNrptRule)){foreach($name in $rule.Namespace){if($name -in @('.','api.ipify.org','.ipify.org','.org')){throw 'Overlapping DNS policy'}}}
@@ -42,7 +63,10 @@ try {
  $rows=@()
  foreach($cell in $plan){
   $name=('{0:D2}-{1}' -f $cell.repetition,$cell.config);$errorText=$null
-  try { & "$coverage\run.ps1" -Programs "$Bundle\ttp-composite\$($cell.config)\coverage" -Output "$Output\$name" -Cases $cases -IncludeNetwork -Seed $cell.seed }
+  try {
+   if($ResumeMissingFrom){& "$coverage\resume-run.ps1" -Programs "$Bundle\ttp-composite\$($cell.config)\coverage" -Output "$Output\$name" -Cases $cases -IncludeNetwork -Seed $cell.seed -SkipAttemptsFrom "$ResumeMissingFrom\$name\attempts.json"}
+   else {& "$coverage\run.ps1" -Programs "$Bundle\ttp-composite\$($cell.config)\coverage" -Output "$Output\$name" -Cases $cases -IncludeNetwork -Seed $cell.seed}
+  }
   catch {$errorText=$_ | Out-String; $errorText | Set-Content "$Output\$name-error.txt"}
   $rows+=[pscustomobject]@{host=$HostId;config=$cell.config;repetition=$cell.repetition;campaign=$name;error=$errorText}
   $rows | ConvertTo-Json -Depth 5 | Set-Content "$Output\campaigns.json" -Encoding UTF8

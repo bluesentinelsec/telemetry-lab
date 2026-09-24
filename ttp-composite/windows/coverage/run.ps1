@@ -7,7 +7,8 @@ param(
   [string[]]$Cases = @(),
   [switch]$IncludeNetwork,
   [switch]$BehaviorOnly,
-  [int]$Seed = -1
+  [int]$Seed = -1,
+  [string]$SkipAttemptsFrom = ''
 )
 $lock = [Threading.Mutex]::new($false, 'Global\TelemetryLabWindowsQualification')
 if (!$lock.WaitOne(0)) { $lock.Dispose(); throw 'Another Windows qualification run is active' }
@@ -28,6 +29,19 @@ if (Test-Path $Output) { throw 'Evidence directory already exists; retain previo
 New-Item -ItemType Directory -Path $Output -Force | Out-Null
 $Output = (Resolve-Path $Output).Path
 $Programs = (Resolve-Path $Programs).Path
+$skipAttempts=@{};$priorAttemptsHash=$null
+if($SkipAttemptsFrom) {
+  $prior=Get-Content -LiteralPath $SkipAttemptsFrom -Raw | ConvertFrom-Json
+  foreach($attempt in @($prior)) {
+    if($null -eq $attempt){continue}
+    if($attempt.case_id -notin @($allCases.case_id) -or $attempt.mode -notin @('active','control')){throw 'Invalid prior attempt identity'}
+    $key="$($attempt.case_id)|$($attempt.mode)"
+    if($skipAttempts.ContainsKey($key)){throw 'Duplicate prior attempt identity'}
+    $skipAttempts[$key]=$true
+  }
+  $priorAttemptsHash=(Get-FileHash -LiteralPath $SkipAttemptsFrom).Hash.ToLower()
+  Copy-Item -LiteralPath $SkipAttemptsFrom -Destination "$Output\prior-attempts.json"
+}
 $env:TELEMETRY_LAB_FIXTURE = '1'
 $attempts = [Collections.Generic.List[object]]::new()
 $changes = [Collections.Generic.List[object]]::new()
@@ -43,7 +57,7 @@ function Remove-OwnedFile([string]$path) {
   for($retry=0;$retry -le 100;$retry++) {
     if (!(Test-Path -LiteralPath $path)) { return }
     try { Remove-Item -LiteralPath $path -Force -ErrorAction Stop }
-    catch [System.IO.IOException] { $lastError=$_.Exception.Message }
+    catch [System.IO.IOException], [System.UnauthorizedAccessException] { $lastError=$_.Exception.Message }
     if (!(Test-Path -LiteralPath $path)) {
       if($retry){@{path=$path;retries=$retry;removed=$true} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"}
       return
@@ -130,7 +144,9 @@ if (!$BehaviorOnly) {
     if ((Get-FileHash $path).Hash.ToLower() -ne $entry.sha256) {throw "Rule hash differs: $($entry.path)"}
   }
 }
-@{cases=@($allCases.case_id);runtime=$build.runtime;seed=$Seed;expected_attempts=2*$allCases.Count} | ConvertTo-Json | Set-Content "$Output\run-plan.json" -Encoding UTF8
+$runPlan=@{cases=@($allCases.case_id);runtime=$build.runtime;seed=$Seed;expected_attempts=2*$allCases.Count-$skipAttempts.Count}
+if($SkipAttemptsFrom){$runPlan.prior_attempts_sha256=$priorAttemptsHash}
+$runPlan | ConvertTo-Json | Set-Content "$Output\run-plan.json" -Encoding UTF8
 $executionError=$null
 try {
   foreach($dir in @($root,"$root\run","$root\work","$root\fixtures",'C:\Users\Public\telemetry-lab')) {Ensure-Directory $dir}
@@ -162,6 +178,7 @@ try {
     $modes=@('control','active')
     if($rng -and $rng.Next(2) -eq 1){$modes=@('active','control')}
     foreach($mode in $modes) {
+      if($skipAttempts.ContainsKey("${id}|${mode}")){continue}
       $folder=Join-Path $Output "$id-$mode"; New-Item -ItemType Directory $folder | Out-Null
       $targetOwned=$false;$runmruOwned=$false
       $target=$files[$id];$exe="$root\run\probe.exe"

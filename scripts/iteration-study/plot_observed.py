@@ -12,7 +12,7 @@ fig=plt.figure(figsize=(14,8));grid=fig.add_gridspec(2,2,height_ratios=[3.6,1],h
 for col,metric,title,ylabel in [(0,'volume_error_percent','Mean telemetry volume','Difference from validation mean (%)'),(1,'composition_tv_pp','Event composition','Total variation distance (percentage points)')]:
  ax=fig.add_subplot(grid[0,col])
  for stat,label,color in [('max','Worst test/configuration','#466262'),('p95','95th percentile across test/configurations','#9c8e66')]:ax.plot(ns,[r[metric][stat] for r in curves],marker='o',label=label,color=color,linewidth=2)
- if a.recommended:ax.axvline(a.recommended,color='#7c5d70',linestyle='--',alpha=.7,label=f'{a.recommended}-run practical choice')
+ if a.recommended:ax.axvline(a.recommended,color='#7c5d70',linestyle='--',alpha=.7,label=f'{a.recommended}-run primitive choice')
  ax.set(xlabel='Development executions per test/configuration',ylabel=ylabel,xticks=ns,ylim=(0,None),title=title);ax.grid(alpha=.18);ax.legend(fontsize=9)
 ax=fig.add_subplot(grid[1,:]);ax.axis('off');rows=[];labels=[]
 for os in ('linux','windows'):
