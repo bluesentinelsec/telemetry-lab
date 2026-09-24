@@ -52,8 +52,10 @@ export interface LabEnvironmentStackProps extends cdk.StackProps {
   readonly windowsOnly?: boolean;
   /** Root volume size in GiB for both hosts. Default: 150. */
   readonly diskGiB?: number;
-  /** Independent host pairs for a blocked replication study (1..10). */
+  /** Independent host pairs for a blocked replication study (1..20). */
   readonly hostPairs?: number;
+  /** Optional frozen Debian AMI for replication studies. */
+  readonly debianAmiId?: string;
 }
 
 /**
@@ -86,7 +88,7 @@ export class LabEnvironmentStack extends cdk.Stack {
     const instanceType = props.instanceType ?? 'c7i.xlarge';
     const diskGiB = props.diskGiB ?? 150;
     const hostPairs = props.hostPairs ?? 1;
-    if (!Number.isInteger(hostPairs) || hostPairs < 1 || hostPairs > 10) throw new Error('hostPairs must be 1..10');
+    if (!Number.isInteger(hostPairs) || hostPairs < 1 || hostPairs > 20) throw new Error('hostPairs must be 1..20');
 
     cdk.Tags.of(this).add('Project', 'telemetry-lab');
     cdk.Tags.of(this).add('Component', 'lab-environment');
@@ -144,7 +146,7 @@ export class LabEnvironmentStack extends cdk.Stack {
       'set -eux',
       'export DEBIAN_FRONTEND=noninteractive',
       'apt-get update -y',
-      'apt-get install -y curl',
+      'apt-get -o DPkg::Lock::Timeout=600 install -y curl',
       `curl -fsSL -o /tmp/amazon-ssm-agent.deb "https://s3.${this.region}.amazonaws.com/amazon-ssm-${this.region}/latest/debian_amd64/amazon-ssm-agent.deb"`,
       'dpkg -i /tmp/amazon-ssm-agent.deb',
       'systemctl enable --now amazon-ssm-agent',
@@ -153,7 +155,7 @@ export class LabEnvironmentStack extends cdk.Stack {
       // the musl loader (linux-c-musl); `libc++1 libc++abi1 libunwind8` supply
       // the LLVM C++ runtime (linux-cpp-libcxx). libelf1/zlib1g/libzstd1 are
       // tmon's dynamic deps. awscli + tar/gzip/xz stage bundles and move data.
-      'apt-get install -y --no-install-recommends ' +
+      'apt-get -o DPkg::Lock::Timeout=600 install -y --no-install-recommends ' +
         'musl libc++1 libc++abi1 libunwind8 ' +
         'libelf1 zlib1g libzstd1 ' +
         'awscli tar gzip xz-utils ca-certificates',
@@ -165,7 +167,7 @@ export class LabEnvironmentStack extends cdk.Stack {
       // the exact installed version + binary/rule hashes per deploy.
       // `gnupg` is required to dearmor the repo key and is absent on the minimal
       // Debian AMI. The modern eBPF driver needs no kernel module (kernel BTF).
-      'apt-get install -y gnupg',
+      'apt-get -o DPkg::Lock::Timeout=600 install -y gnupg',
       'curl -fsSL https://falco.org/repo/falcosecurity-packages.asc ' +
         '| gpg --dearmor -o /usr/share/keyrings/falco-archive-keyring.gpg',
       'echo "deb [signed-by=/usr/share/keyrings/falco-archive-keyring.gpg] ' +
@@ -173,7 +175,7 @@ export class LabEnvironmentStack extends cdk.Stack {
         '> /etc/apt/sources.list.d/falcosecurity.list',
       'apt-get update -y',
       'FALCO_FRONTEND=noninteractive FALCO_DRIVER_CHOICE=modern_ebpf ' +
-        'apt-get install -y falco',
+        'apt-get -o DPkg::Lock::Timeout=600 install -y falco',
       // Pull the incubating + sandbox rule feeds too (same corpus as the PoC);
       // non-fatal so a feed hiccup never blocks the deploy.
       'falcoctl index update falcosecurity || true',
@@ -210,7 +212,7 @@ export class LabEnvironmentStack extends cdk.Stack {
       // offset, not a per-substrate variable. Falco's container plugin (installed
       // above) enriches events with container context so container-scoped rules
       // fire. inventory records the Docker version + base-image digest.
-      'apt-get install -y docker.io',
+      'apt-get -o DPkg::Lock::Timeout=600 install -y docker.io',
       'systemctl enable --now docker',
       'mkdir -p /opt/lab/base-image',
       `echo ${SUBSTRATE_DOCKERFILE_B64} | base64 -d > /opt/lab/base-image/Dockerfile`,
@@ -234,7 +236,7 @@ export class LabEnvironmentStack extends cdk.Stack {
         vpc,
         vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
         instanceType: new ec2.InstanceType(instanceType),
-        machineImage: ec2.MachineImage.lookup({
+        machineImage: props.debianAmiId ? ec2.MachineImage.genericLinux({ [this.region]: props.debianAmiId }) : ec2.MachineImage.lookup({
           name: 'debian-13-amd64-*',
           owners: [DEBIAN_AMI_OWNER],
           filters: {

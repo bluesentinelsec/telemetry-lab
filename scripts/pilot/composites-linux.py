@@ -7,6 +7,7 @@ batch; no counter is ignored. Containers remain alive until delivery is drained.
 """
 import argparse, datetime, hashlib, json, random, re, subprocess, sys, time, uuid
 from pathlib import Path
+import collector_guard as guard
 
 p=argparse.ArgumentParser();p.add_argument('bundle',type=Path);p.add_argument('output',type=Path)
 p.add_argument('--image',required=True);p.add_argument('--seed',type=int,required=True);p.add_argument('--host-id',required=True)
@@ -41,7 +42,7 @@ def time_ns(event):
 for offset in range(len(rows),len(plan),a.batch_size):
  batch=plan[offset:offset+a.batch_size];folder=a.output/f'batch-{offset:05d}';folder.mkdir();containers=[];pending=[]
  time.sleep(1) # settle previous batch teardown before the strict group snapshot
- before=cov.detector_state();latest=cov.command(['journalctl','-u',cov.SERVICE,'-n','1','--show-cursor','--no-pager']);cursor=re.search(r'-- cursor: (.+)',latest).group(1)
+ before=guard.ensure_ready(cov,provenance['falco'],a.output,offset);latest=cov.command(['journalctl','-u',cov.SERVICE,'-n','1','--show-cursor','--no-pager']);cursor=re.search(r'-- cursor: (.+)',latest).group(1)
  try:
   for index,item in enumerate(batch,offset):
    cfg,case=item['config'],item['case'];dest=folder/f'{index:05d}-{cfg}-{case["id"]}';dest.mkdir()
@@ -52,23 +53,30 @@ for offset in range(len(rows),len(plan),a.batch_size):
     for address in ('169.254.169.254/32','198.18.0.1/32'):cov.command(['docker','exec',cid,'ip','addr','add',address,'dev','lo'])
     cov.command(['docker','exec',cid,f'/opt/coverage/{cfg}/coverage/fixture_prepare'])
     exe=f'/opt/coverage/{cfg}/coverage/{case["id"]}';row['started_ns']=time.time_ns()
+    row.update(executable=exe,native_attempt_state='starting')
+    guard.write_json(dest/'attempt.json',row)
     result=subprocess.run(['docker','exec',cid,exe]+(['--control'] if case.get('control') else []),capture_output=True,text=True,timeout=20)
-    row.update(ended_ns=time.time_ns(),exit_code=result.returncode,executable=exe)
+    row.update(ended_ns=time.time_ns(),exit_code=result.returncode,executable=exe,native_attempt_state='completed')
     (dest/'stdout.txt').write_text(result.stdout);(dest/'stderr.txt').write_text(result.stderr)
+    guard.write_json(dest/'attempt.json',row)
     pending.append((row,case,result,dest))
    except Exception as error:
-    row['error']=str(error);pending.append((row,case,None,dest))
+    row['error']=str(error);row['native_attempt_state']='interrupted' if 'started_ns' in row else 'not-started'
+    guard.write_json(dest/'attempt.json',row);pending.append((row,case,None,dest))
   time.sleep(3)
-  after=cov.detector_state();healthy=cov.health_ok(before,after)
-  log=cov.command(['journalctl','-u',cov.SERVICE,'--after-cursor',cursor,'-o','cat','--no-pager'])
+  after=guard.snapshot(cov);healthy=guard.healthy(cov,before,after)
+  try:log=cov.command(['journalctl','-u',cov.SERVICE,'--after-cursor',cursor,'-o','cat','--no-pager'])
+  except Exception as error:
+   log='';healthy=False;after['error']=repr(error)
   (folder/'journal.jsonl').write_text(log+'\n');(folder/'health.json').write_text(json.dumps(dict(before=before,after=after),indent=2)+'\n')
   for row,case,result,dest in pending:
    alerts=[e for e in cov.attributed_alerts(log,row['container_id']) if time_ns(e)>=row.get('started_ns',2**64)]
    (dest/'alerts.json').write_text(json.dumps(alerts,indent=2)+'\n')
-   if result:row.update(cov.score(case,result,alerts,healthy,selected))
+   if result is not None:row.update(cov.score(case,result,alerts,healthy,selected))
    else:row.update(behavior_ok=False,collection_ok=healthy)
    row['batch']=folder.name;(dest/'result.json').write_text(json.dumps(row,indent=2)+'\n');rows.append(row)
-   with (a.output/'results.jsonl').open('a') as f:f.write(json.dumps(row)+'\n')
+   with (a.output/'results.jsonl').open('a') as f:
+    f.write(json.dumps(row)+'\n');f.flush();__import__('os').fsync(f.fileno())
   print(json.dumps(dict(host=a.host_id,completed=len(rows),planned=len(plan),valid=sum(r['valid'] for r in rows),last_batch_health=healthy)),flush=True)
  finally:
   for cid in containers:subprocess.run(['docker','rm','-f',cid],capture_output=True,timeout=30)

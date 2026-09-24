@@ -38,7 +38,7 @@ def normalize(folder,host,os,out):
    check['container_binary_hashes_verified']+=1
   health={}
   for p in cp.glob('batch-*/health.json'):
-   h=read(p);b,a=h['before'],h['after'];good=b['service']==a['service'] and b['counters'].keys()==a['counters'].keys() and all(a['counters'][k]>=v and ('drops' not in k or a['counters'][k]==v) for k,v in b['counters'].items());health[p.parent.name]=good
+   h=read(p);b,a=h['before'],h['after'];good=not b.get('error') and not a.get('error') and b['service']==a['service'] and b['counters'].keys()==a['counters'].keys() and all(a['counters'][k]>=v and ('drops' not in k or a['counters'][k]==v) for k,v in b['counters'].items());health[p.parent.name]=good
    check['health_batches']+=1;check['healthy_batches']+=int(good)
    if not good:invalid_health_batches.append(dict(batch=p.parent.name,service_before=b['service'],service_after=a['service'],counter_changes={k:[b['counters'].get(k),a['counters'].get(k)] for k in b['counters'].keys()|a['counters'].keys() if k not in b['counters'] or k not in a['counters'] or a['counters'][k]<b['counters'][k] or ('drops' in k and a['counters'][k]!=b['counters'][k])}))
   for i,row in enumerate(rows(cp/'results.jsonl')):
@@ -74,6 +74,7 @@ def normalize(folder,host,os,out):
  write_rows(out/f'{host}-{os}-primitives.jsonl',prim);write_rows(out/f'{host}-{os}-composites.jsonl',comp)
  result=dict(host=host,os=os,counts=dict(check),primitive_count=len(prim),composite_count=len(comp),primitive_invalid=sum(not r['valid'] for r in prim),composite_invalid=sum(not r['valid'] for r in comp),campaigns=campaigns,provenance=provenance,inventory=read(folder/'inventory.json'),collection_started=(folder/'collection-started.txt').read_text(encoding='utf-8-sig').strip() if (folder/'collection-started.txt').exists() else None,collection_ended=(folder/'collection-ended.txt').read_text(encoding='utf-8-sig').strip() if (folder/'collection-ended.txt').exists() else None)
  result['invalid_health_batches']=invalid_health_batches
+ result['collector_restarts']=[read(p) for p in sorted((folder/'composites').glob('collector-restart-*.json'))]
  result['collection_exit_codes']={p.name:p.read_text(encoding='utf-8-sig').strip() for p in folder.glob('*.exit')}
  campaigns_file=folder/'composites/campaigns.json'
  result['campaign_execution_errors']=[r for r in rows(campaigns_file) if r.get('error')] if campaigns_file.exists() else []

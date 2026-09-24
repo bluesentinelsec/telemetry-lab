@@ -127,3 +127,20 @@ test('replication fleet shares infrastructure and isolates every host', () => {
   template.hasOutput('WindowsInstanceIdPair10', {});
   template.hasOutput('DebianInstanceIdPair10', {});
 });
+
+
+test('twenty Linux replication hosts use the frozen AMI and omit Windows', () => {
+  const app = new cdk.App();
+  const stack = new LabEnvironmentStack(app, 'LinuxTwenty', {
+    env: { account: '123456789012', region: 'us-west-2' }, hostPairs: 20,
+    linuxOnly: true, debianAmiId: 'ami-0123456789abcdef0',
+  });
+  const template = Template.fromStack(stack);
+  template.resourceCountIs('AWS::EC2::Instance', 20);
+  template.resourceCountIs('AWS::EC2::VPC', 1);
+  for (const r of Object.values(template.findResources('AWS::EC2::Instance'))) {
+    expect(r.Properties.ImageId).toBe('ami-0123456789abcdef0');
+  }
+  template.hasOutput('DebianInstanceIdPair20', {});
+  expect(JSON.stringify(template.toJSON())).not.toContain('WindowsInstanceId');
+});
