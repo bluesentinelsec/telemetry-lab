@@ -31,4 +31,21 @@ class StudyAnalysisTests(unittest.TestCase):
    with (p/'analysis/composite-cells.csv').open() as f:cells=list(csv.DictReader(f))
    self.assertEqual(cells[0]['development_valid'],'9');self.assertEqual(cells[-1]['development_valid'],'90')
    self.assertTrue(all(r['development_class']=='always' and float(r['alert_rate_error_pp'])==0 for r in cells))
+   subprocess.run([sys.executable,str(HERE/'composite_diagnostics.py'),str(p)],check=True,stdout=subprocess.DEVNULL)
+   discovery=json.loads((p/'analysis/composite-discovery.json').read_text())
+   self.assertEqual(discovery[0]['subsequent_unknown'],10)
+   self.assertIsNone(discovery[0]['first_development_n_with_mixed_outcomes'])
+   sensitivity=json.loads((p/'analysis/composite-order-and-unknown-sensitivity.json').read_text())
+   self.assertTrue(all(r['minimum_order_class_agreement']==1 for r in sensitivity))
+   self.assertTrue(all(abs(r['maximum_unknown_rate_bound_width_pp']-10)<1e-8 for r in sensitivity))
+   # A genuine late opposite outcome must be retained and discovered at n=100.
+   late=allocation['H02']['development'][-1]
+   for r in composite:
+    if r['host']=='H02' and r['repetition']==late:r['fired']=False
+   (p/'normalized/synthetic-composites.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in composite))
+   subprocess.run([sys.executable,str(HERE/'composite_diagnostics.py'),str(p)],check=True,stdout=subprocess.DEVNULL)
+   discovery=json.loads((p/'analysis/composite-discovery.json').read_text())
+   self.assertEqual(discovery[0]['first_development_n_with_mixed_outcomes'],100)
+   self.assertEqual(discovery[0]['subsequent_alerts'],189)
+   self.assertEqual(discovery[0]['subsequent_unknown'],10)
 if __name__=='__main__':unittest.main()

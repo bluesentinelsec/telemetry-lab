@@ -1,8 +1,8 @@
 """Account for every planned slot, including invalid observations and missing executions."""
-import collections,json,sys
+import os,collections,json,sys
 from pathlib import Path
 b=Path(sys.argv[1]);root=Path(__file__).resolve().parents[2]
-bundles=Path('/Users/michaellong/telemetry-lab-data/release-0.3.0-2026-09-22/release')
+bundles=Path(os.environ.get('TELEMETRY_STUDY_BUNDLES','/Users/michaellong/telemetry-lab-data/release-0.3.0-2026-09-22/release'))
 expected=set();actual=collections.Counter();invalid=collections.Counter();unique_containers=set();container_duplicates=[]
 for os in ('linux','windows'):
  m=json.loads((bundles/f'telemetry-lab-0.3.0-{os}/manifest.json').read_text())
