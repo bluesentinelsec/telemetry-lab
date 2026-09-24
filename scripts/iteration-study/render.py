@@ -1,5 +1,5 @@
 """Write transparent measured-results tables; recommendation is added after review."""
-import csv,json,sys
+import csv,json,sys,statistics
 from pathlib import Path
 b=Path(sys.argv[1]);a=b/'analysis'
 def read(name):return json.loads((a/name).read_text())
@@ -34,6 +34,14 @@ for n in range(10,101,10):
  lines.append(f'| {n} | {vals[0]} | {vals[1]} |')
 lines+=['','## Detection outcomes','', 'Unknown or missing observations are not detector misses. Classification is always-alert, never-alert, mixed, or unknown among valid records. Agreement below is with the separate validation set. Raw per-case counts and exact pointwise intervals appear in composite-cells.csv.','', '| Repetitions | Platform / mode | Cells | Classification agreement | Mixed cells | Unknown or missing attempts |','|---:|---|---:|---:|---:|---:|']
 for r in cc:lines.append(f"| {r['n']} | {r['os']} / {r['mode']} | {r['cells']} | {r['class_agreement']} | {r['mixed_development']} | {r['unknown_or_missing']} |")
+if (a/'collection-durations.json').exists():
+ timings=read('collection-durations.json')
+ lines+=['','## Measured collection cost','', 'Wall-clock spans below cover all 21 collected blocks per host, including the initial-launch block and both data splits. Composite spans include fixture preparation, telemetry draining and rule evaluation. The interrupted Linux host is retained in the timing data but excluded from the uninterrupted-host median. Provisioning, archival and analysis are additional.','', '| Platform / cohort | Uninterrupted hosts | Median minutes for 21 blocks | Range, minutes |','|---|---:|---:|---:|']
+ for os in ('linux','windows'):
+  for cohort,key in [('primitives','primitive_wall_seconds'),('composites','composite_wall_seconds_including_fixture_and_evaluation')]:
+   values=[r[key]/60 for r in timings if r['os']==os and key in r and (cohort=='primitives' or not r['collector_interruption'])]
+   if values:lines.append(f'| {os} / {cohort} | {len(values)} | {statistics.median(values):.2f} | {min(values):.2f}–{max(values):.2f} |')
+ lines+=['','For the currently qualified scope, each repetition across all configurations requires 122 primitive and 856 composite/control/negative executions. Uniform counts of 10, 40 and 100 therefore require 9,780, 39,120 and 97,800 measured executions, respectively, before warm-up or invalid-attempt replacements. Going from 40 to 100 multiplies measured execution work by 2.5. A cohort-specific design can use different primitive and composite counts; the cost is 122 × primitive count + 856 × composite count.','']
 lines+=['','## First-launch effects','', 'The initial execution on each host is retained as a separate condition. This is compatible with the Chapter 3 warm-up provision; it does not remove ordinary program startup and teardown from subsequent runs.','', '| Test/configuration | Initial mean events | Validation mean events | Initial excess |','|---|---:|---:|---:|']
 for r in sorted(first,key=lambda x:abs(x['first_excess_percent'] or 0),reverse=True)[:10]:lines.append(f"| {r['config']} / {r['case']} | {r['initial_mean']:.2f} | {r['subsequent_mean']:.2f} | {r['first_excess_percent']:.2f}% |")
 lines+=['','## Accuracy targets are choices','', 'The following are the smallest measured counts meeting both targets for every complete primitive cell and remaining within target at all larger tested counts. They are descriptive stopping points, not guarantees or universal optima.','', '| Volume-error tolerance | Composition-distance tolerance | Smallest persistent count |','|---:|---:|---:|']
