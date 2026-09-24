@@ -36,6 +36,7 @@ for receipt in (BASE/'archives').glob('H??-linux-verified.json'):
  assert sha(archive)==r['sha256']
  remote=aws('s3','cp',f's3://{bucket}/archives/{archive.name}.sha256','-','--only-show-errors').split()[0].lower()
  assert remote==r['sha256']
+run([sys.executable,str(ROOT/'scripts/iteration-study/postflight300.py')])
 run(['aws','--region','us-west-2','s3','sync',f's3://{bucket}/ssm/',str(BASE/'ssm-full-output'),'--only-show-errors'])
 for op in ('describe-stacks','list-stack-resources','get-template'):
  write(BASE/'cleanup'/f'{op}.json',json.loads(aws('cloudformation',op,'--stack-name',STACK)))

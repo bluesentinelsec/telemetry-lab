@@ -31,6 +31,8 @@ for cohort in ('primitives','composites'):
    out[cohort]['invalid_repetitions']=dict(collections.Counter(r['repetition'] for r in rows if not r['valid']))
    out[cohort]['invalid_causes']=dict(collections.Counter('collection' if not r.get('collection_ok') else 'behavior' for r in rows if not r['valid']))
    out[cohort]['native_attempt_states']=dict(collections.Counter(r.get('native_attempt_state','unrecorded') for r in rows))
+   out[cohort]['valid_active_misses']=dict(collections.Counter(r['case']+'/'+r['config'] for r in rows if r['valid'] and r['case']!='negative' and not r['control'] and not r['target_fired']))
+   out[cohort]['valid_selected_control_alerts']=sum(r['valid'] and (r['case']=='negative' or r['control']) and r.get('negative_control_ok') is False for r in rows)
    failures=[]
    for batch in sorted({r['batch'] for r in rows if not r.get('collection_ok')})[-5:]:
     h=json.loads((p/cohort/batch/'health.json').read_text());b,a=h['before'],h['after']
