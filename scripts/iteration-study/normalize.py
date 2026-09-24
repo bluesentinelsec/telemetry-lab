@@ -46,7 +46,7 @@ def normalize(folder,host,os,out):
    row.update(host=host,os=os,mode='negative' if row['case']=='negative' else 'control' if row['control'] else 'active')
    row['fired']=row['target_fired'] if row['mode']=='active' else bool(row.get('target_rule') and row['target_rule'] in row.get('matched_rules',[]))
    row['any_selected_control_alert']=row['mode']!='active' and row.get('negative_control_ok') is False
-   row['seconds']=(row.get('ended_ns',0)-row.get('started_ns',0))/1e9
+   row['seconds']=(row['ended_ns']-row['started_ns'])/1e9 if 'ended_ns' in row and 'started_ns' in row else None
    comp.append(row);check['composite_rows_verified']+=1
  elif os=='windows':
   for cp in sorted((folder/'composites').glob('*-windows-*')):
@@ -63,13 +63,13 @@ def normalize(folder,host,os,out):
    campaigns.append(dict(campaign=cp.name,**{k:result[k] for k in ('healthy','complete','expected_attempts','recorded_attempts','counts')}))
    for r in result['attempts']:
     x=omap[(r['case_id'],r['mode'])]
-    r.update(host=host,os=os,config=cfg,case=r['case_id'],repetition=int(rep),fired=bool(r['target_record_ids']),seconds=(wc.timestamp(x['process']['end_utc'])-wc.timestamp(x['process']['start_utc'])).total_seconds())
+    r.update(host=host,os=os,config=cfg,case=r['case_id'],repetition=int(rep),fired=bool(r['target_record_ids']),started_epoch=wc.timestamp(x['process']['start_utc']).timestamp(),seconds=(wc.timestamp(x['process']['end_utc'])-wc.timestamp(x['process']['start_utc'])).total_seconds())
     comp.append(r);check['composite_rows_verified']+=1
   provenance={'inventories':[read(p) for p in (folder/'composites').glob('*/inventory.json')]}
  slots=[(r['case'],r['config'],r['repetition']) for r in prim];assert len(set(slots))==len(slots)
  slots=[(r['case'],r['config'],r['mode'],r['repetition']) for r in comp];assert len(set(slots))==len(slots)
  write_rows(out/f'{host}-{os}-primitives.jsonl',prim);write_rows(out/f'{host}-{os}-composites.jsonl',comp)
- result=dict(host=host,os=os,counts=dict(check),primitive_count=len(prim),composite_count=len(comp),primitive_invalid=sum(not r['valid'] for r in prim),composite_invalid=sum(not r['valid'] for r in comp),campaigns=campaigns,provenance=provenance,inventory=read(folder/'inventory.json'))
+ result=dict(host=host,os=os,counts=dict(check),primitive_count=len(prim),composite_count=len(comp),primitive_invalid=sum(not r['valid'] for r in prim),composite_invalid=sum(not r['valid'] for r in comp),campaigns=campaigns,provenance=provenance,inventory=read(folder/'inventory.json'),collection_started=(folder/'collection-started.txt').read_text(encoding='utf-8-sig').strip() if (folder/'collection-started.txt').exists() else None,collection_ended=(folder/'collection-ended.txt').read_text(encoding='utf-8-sig').strip() if (folder/'collection-ended.txt').exists() else None)
  (out/f'{host}-{os}-verification.json').write_text(json.dumps(result,indent=2))
  print(host,os,'normalized',len(prim),len(comp),result['composite_invalid'],flush=True)
 

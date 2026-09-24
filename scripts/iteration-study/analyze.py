@@ -39,6 +39,7 @@ for key,rs in sorted(groups.items()):
  if needed-lookup.keys():incomplete.append(dict(cell=key,missing_or_invalid=sorted(needed-lookup.keys())));continue
  counts={kind:np.array([[[lookup[h,rep]['event_counts'].get(e,0) for e in types] for rep in allocation[h][kind]] for h in hosts],float) for kind in ('development','validation')}
  m={kind:dict(volume=v.sum(axis=2),composition=v/v.sum(axis=2,keepdims=True),presence=v>0) for kind,v in counts.items()}
+ m['types']=types
  matrices[key]=m
  cold=[r for r in split(rs,'first_launch') if r['valid']];cv=np.array([sum(r['event_counts'].values()) for r in cold]);warm=m['validation']['volume'];wm=warm.mean()
  first.append(dict(os=key[0],case=key[1],config=key[2],initial_n=len(cold),initial_mean=float(cv.mean()) if len(cv) else None,subsequent_mean=float(wm),first_excess_percent=float(100*(cv.mean()/wm-1)) if len(cv) else None,subsequent_min=float(warm.min()),subsequent_max=float(warm.max()),subsequent_cv_percent=float(warm.std(ddof=1)/wm*100),host_mean_ci95_half_percent=ci_half_host(warm.mean(axis=1))/wm*100,run_level_ci95_half_percent=float(t.ppf(.975,99)*warm.std(ddof=1)/10/wm*100),validation_event_types=types))
@@ -75,6 +76,25 @@ for k in range(1,11):
   vd=r['validation']['volume']-l['validation']['volume'];dd=r['development']['volume'][:,:k]-l['development']['volume'][:,:k]
   scale=(r['validation']['volume'].mean()+l['validation']['volume'].mean())/2;reference=vd.mean();half=ci_half_host(vd.mean(axis=1));estimate=dd.mean()
   contrastcurves.append(dict(n=n,os=os,case=case,language=lang,left=left[2],right=right[2],reference_delta=float(reference),estimated_delta=float(estimate),normalized_error_percent=float(abs(estimate-reference)/scale*100),reference_host_ci95_half=float(half),development_host_ci95_half=ci_half_host(dd.mean(axis=1)),reference_effect_percent=float(reference/scale*100),relative_contrast_error_percent=float(abs(estimate-reference)/abs(reference)*100) if abs(reference)>half else None,reference_distinguishable=bool(abs(reference)>half),sign_agrees=bool(np.sign(reference)==np.sign(estimate))))
+  # Chapter 3's empty-control adjustment, paired within host/repetition.
+  el=matrices.get((os,'empty',left[2]));er=matrices.get((os,'empty',right[2]))
+  if case!='empty' and el is not None and er is not None:
+   av=vd-(er['validation']['volume']-el['validation']['volume'])
+   ad=dd-(er['development']['volume'][:,:k]-el['development']['volume'][:,:k])
+   ar=av.mean();ah=ci_half_host(av.mean(axis=1));ae=ad.mean()
+   contrastcurves[-1].update(adjusted_reference_delta=float(ar),adjusted_estimated_delta=float(ae),adjusted_normalized_error_percent=float(abs(ae-ar)/scale*100),adjusted_reference_host_ci95_half=float(ah),adjusted_reference_distinguishable=bool(abs(ar)>ah),adjusted_sign_agrees=bool(np.sign(ar)==np.sign(ae)),adjusted_relative_contrast_error_percent=float(abs(ae-ar)/abs(ar)*100) if abs(ar)>ah else None)
+  types=sorted(set(l['types'])|set(r['types']))
+  def jaccard(kind):
+   arrays=[]
+   for m in (l,r):
+    present=m[kind]['presence'];z=np.zeros((*present.shape[:2],len(types)),bool)
+    for i,event in enumerate(m['types']):z[:,:,types.index(event)]=present[:,:,i]
+    arrays.append(z)
+   intersection=(arrays[0]&arrays[1]).sum(axis=2);union=(arrays[0]|arrays[1]).sum(axis=2)
+   return np.divide(intersection,union,out=np.ones_like(intersection,dtype=float),where=union>0)
+  jv=jaccard('validation');jd=jaccard('development')[:,:k]
+  contrastcurves[-1].update(jaccard_validation_mean=float(jv.mean()),jaccard_development_mean=float(jd.mean()),jaccard_error_pp=float(abs(jd.mean()-jv.mean())*100))
+
 thresholds=[]
 for volume in (1,2,5,10):
  for composition in (1,2,5):

@@ -19,8 +19,8 @@ for cohort in ('primitives','composites'):
 print(json.dumps(out))
 END"""
  else:script="""$p='C:\\lab\\pilot\\evidence';$r=@{}
-if(Test-Path "$p\\primitives\\results.json"){try{$a=@(Get-Content "$p\\primitives\\results.json" -Raw | ConvertFrom-Json);$r.primitives=@{count=$a.Count;invalid=@($a | Where-Object {!$_.valid}).Count;last_rep=$a[-1].repetition}}catch{}}
-if(Test-Path "$p\\composites\\campaigns.json"){try{$a=@(Get-Content "$p\\composites\\campaigns.json" -Raw | ConvertFrom-Json);$r.composites=@{batches=$a.Count;errors=@($a | Where-Object {$_.error}).Count;last_rep=$a[-1].repetition}}catch{}}
+if(Test-Path "$p\\primitives\\results.json"){try{$a=Get-Content "$p\\primitives\\results.json" -Raw | ConvertFrom-Json;$a=@($a);$r.primitives=@{count=$a.Count;invalid=@($a | Where-Object {!$_.valid}).Count;last_rep=$a[-1].repetition}}catch{}}
+if(Test-Path "$p\\composites\\campaigns.json"){try{$a=Get-Content "$p\\composites\\campaigns.json" -Raw | ConvertFrom-Json;$a=@($a);$r.composites=@{batches=$a.Count;errors=@($a | Where-Object {$_.error}).Count;last_rep=$a[-1].repetition}}catch{}}
 if(Test-Path "$p\\composites-error.txt"){$r.error=Get-Content "$p\\composites-error.txt" -Raw}
 $r | ConvertTo-Json -Compress -Depth 4"""
  args=dict(InstanceIds=[x['instance'] for x in selected],DocumentName='AWS-RunPowerShellScript' if os=='windows' else 'AWS-RunShellScript',Parameters={'commands':[script],'executionTimeout':['60']})

@@ -78,3 +78,15 @@ Archive raw traces/events, commands, seeds, inventory, hashes, rules, health log
 normalized data and analysis source. Verify remote/local archive SHA-256 before
 teardown. Keep compressed raw archives; use one-host extraction at a time if local
 space is limited. Destroy only this study's disposable resources after verification.
+
+## Analysis clarification before inspecting new outcome estimates
+After checking Chapter 3's planned endpoints, also assess empty-program-adjusted
+runtime contrasts and paired runtime event-set Jaccard overlap. Collection and
+allocation are unchanged. This clarification was made while only completion and
+validity counts were being monitored, before computing new sample-size outcomes.
+For adjusted contrasts, subtract each configuration's empty count in the same
+host/repetition, then contrast runtimes; retain negative differences. Report both
+error relative to raw volume and error relative to the validation contrast where
+its host-level interval excludes zero. These are repeatability diagnostics, not a
+claim of power for arbitrarily small effects. Raw event-type sets are compared
+without inventing a set-subtraction analogue to numeric baseline adjustment.
