@@ -36,7 +36,7 @@ lines+=['','## Detection outcomes','', 'Unknown or missing observations are not 
 for r in cc:lines.append(f"| {r['n']} | {r['os']} / {r['mode']} | {r['cells']} | {r['class_agreement']} | {r['mixed_development']} | {r['unknown_or_missing']} |")
 if (a/'collection-durations.json').exists():
  timings=read('collection-durations.json')
- lines+=['','## Measured collection cost','', 'Wall-clock spans below cover all 21 collected blocks per host, including the initial-launch block and both data splits. Composite spans include fixture preparation, telemetry draining and rule evaluation. The interrupted Linux host is retained in the timing data but excluded from the uninterrupted-host median. Provisioning, archival and analysis are additional.','', '| Platform / cohort | Uninterrupted hosts | Median minutes for 21 blocks | Range, minutes |','|---|---:|---:|---:|']
+ lines+=['','## Measured collection cost','', 'Wall-clock spans below cover all 21 collected blocks per host, including the initial-launch block and both data splits. Composite spans include fixture preparation, telemetry draining and rule evaluation. Hosts requiring resumption are retained in the timing data but excluded from the uninterrupted-host median. Provisioning, archival and analysis are additional.','', '| Platform / cohort | Uninterrupted hosts | Median minutes for 21 blocks | Range, minutes |','|---|---:|---:|---:|']
  for os in ('linux','windows'):
   for cohort,key in [('primitives','primitive_wall_seconds'),('composites','composite_wall_seconds_including_fixture_and_evaluation')]:
    values=[r[key]/60 for r in timings if r['os']==os and key in r and (cohort=='primitives' or not r['collector_interruption'])]

@@ -32,7 +32,7 @@ for p in (b/'normalized').glob('*-verification.json'):
  timed=[r for r in rs if r.get('started_epoch') is not None and r.get('seconds') is not None]
  if not timed:continue
  start=min(r['started_epoch'] for r in timed);end=max(r['started_epoch']+r['seconds'] for r in timed)
- row=dict(host=x['host'],os=x['os'],primitive_wall_seconds=end-start,primitive_records=len(rs),collector_interruption=bool(x.get('interruption_reconciliation')))
+ row=dict(host=x['host'],os=x['os'],primitive_wall_seconds=end-start,primitive_records=len(rs),collector_interruption=bool(x.get('interruption_reconciliation') or x.get('windows_resumption_complete')))
  if x.get('collection_ended'):
   totalend=datetime.datetime.fromisoformat(x['collection_ended'].replace('Z','+00:00')).timestamp()
   row['composite_wall_seconds_including_fixture_and_evaluation']=totalend-end;row['composite_records']=x['composite_count']

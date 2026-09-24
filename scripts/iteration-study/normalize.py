@@ -79,6 +79,9 @@ def normalize(folder,host,os,out):
  result['campaign_execution_errors']=[r for r in rows(campaigns_file) if r.get('error')] if campaigns_file.exists() else []
  interruption=folder/'composites/interruption-reconciliation.json'
  result['interruption_reconciliation']=read(interruption) if interruption.exists() else None
+ for name in ('cleanup-catch-fix','windows-resumption-complete','residual-probe-cleanup','residual-carrier-cleanup'):
+  path=folder/(name+'.json')
+  if path.exists():result[name.replace('-','_')]=read(path)
  (out/f'{host}-{os}-verification.json').write_text(json.dumps(result,indent=2))
  print(host,os,'normalized',len(prim),len(comp),result['composite_invalid'],flush=True)
 
