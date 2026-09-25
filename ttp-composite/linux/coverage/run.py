@@ -122,8 +122,17 @@ def execute(case, config, output, image, functional_only=False):
             latest = command(['journalctl', '-u', SERVICE, '-n', '1', '--show-cursor', '--no-pager'])
             cursor = re.search(r'-- cursor: (.+)', latest).group(1)
         started = datetime.datetime.now(datetime.timezone.utc).isoformat()
-        execution = subprocess.run(['docker', 'exec', cid, exe] + (['--control'] if case.get('control') else []),
-                                   text=True, capture_output=True, timeout=20)
+        try:
+            execution = subprocess.run(['docker', 'exec', cid, exe] + (['--control'] if case.get('control') else []),
+                                       text=True, capture_output=True, timeout=20)
+        except subprocess.TimeoutExpired as error:
+            def partial(value):
+                return value.decode(errors='replace') if isinstance(value, bytes) else value or ''
+            (output / 'stdout.txt').write_text(partial(error.stdout))
+            (output / 'stderr.txt').write_text(partial(error.stderr))
+            (output / 'execution.json').write_text(json.dumps({'returncode': None, 'timed_out': True,
+                'stdout': partial(error.stdout), 'stderr': partial(error.stderr), 'started': started, 'container_id': cid})+'\n')
+            raise
         # Persist native outcome before any collector query can fail.
         (output / 'stdout.txt').write_text(execution.stdout)
         (output / 'stderr.txt').write_text(execution.stderr)
@@ -155,7 +164,10 @@ def execute(case, config, output, image, functional_only=False):
         (output / 'result.json').write_text(json.dumps(record, indent=2) + '\n')
         return record
     finally:
-        subprocess.run(['docker', 'rm', '-f', cid], capture_output=True, timeout=30)
+        cleanup = subprocess.run(['docker', 'rm', '-f', cid], capture_output=True, timeout=30)
+        if cleanup.returncode:
+            (output / 'cleanup-error.txt').write_text(repr(cleanup.stderr))
+            raise RuntimeError('Container cleanup failed; stop and inspect preserved evidence')
 
 def main():
     parser=argparse.ArgumentParser()

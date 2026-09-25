@@ -91,6 +91,9 @@ class LinuxComposites:
     def failed_collection(self,dest,case,error):
         # Native completion is written before querying Falco. Behavior failures
         # remain terminal even when collection also failed.
+        dest.mkdir(parents=True,exist_ok=True)
+        def text(value):return value.decode(errors='replace') if isinstance(value,bytes) else value
+        write_json(dest/'collection-error.json',dict(error=repr(error),stdout=text(getattr(error,'stdout',None)),stderr=text(getattr(error,'stderr',None))))
         if (dest/'execution.json').exists():
             e=json.loads((dest/'execution.json').read_text())
             execution=subprocess.CompletedProcess([],e['returncode'],e['stdout'],e['stderr'])
@@ -127,10 +130,10 @@ class WindowsComposites:
         with (folder/'harness.stdout').open('w') as stdout,(folder/'harness.stderr').open('w') as stderr:
             result=subprocess.run(cmd,stdout=stdout,stderr=stderr,timeout=420)
         native=self.analyzer.as_list(self.analyzer.read_json(dest/'attempts.json')) if (dest/'attempts.json').exists() else []
-        if any(not r['behavior_ok'] for r in native):
-            return dict(status='behavior-failure',reason='Native behavior failed',harness_exit_code=result.returncode)
         if (dest/'cleanup-error.txt').exists() or (dest/'execution-error.txt').exists():
             raise IntegrityError('Unsafe harness/fixture state; inspect error logs before continuing')
+        if any(not r['behavior_ok'] for r in native):
+            return dict(status='behavior-failure',reason='Native behavior failed',harness_exit_code=result.returncode)
         if not native:
             # Unknown fixture/provenance failure is not safe to retry blindly.
             raise IntegrityError('No native attempt recorded; inspect harness logs before continuing')
