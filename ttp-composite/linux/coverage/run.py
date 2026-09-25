@@ -164,7 +164,11 @@ def execute(case, config, output, image, functional_only=False):
         (output / 'result.json').write_text(json.dumps(record, indent=2) + '\n')
         return record
     finally:
-        cleanup = subprocess.run(['docker', 'rm', '-f', cid], capture_output=True, timeout=30)
+        try:
+            cleanup = subprocess.run(['docker', 'rm', '-f', cid], capture_output=True, timeout=30)
+        except (OSError, subprocess.SubprocessError) as error:
+            (output / 'cleanup-error.txt').write_text(str(error))
+            raise RuntimeError('Container cleanup failed; stop and inspect preserved evidence') from error
         if cleanup.returncode:
             (output / 'cleanup-error.txt').write_text(repr(cleanup.stderr))
             raise RuntimeError('Container cleanup failed; stop and inspect preserved evidence')

@@ -1,6 +1,10 @@
 import json
 import subprocess
 import unittest
+import tempfile
+from pathlib import Path
+from unittest.mock import patch
+import run as collector
 from run import attributed_alerts, health_ok, score, suite_ok
 from validate_manifest import validate
 
@@ -63,6 +67,19 @@ class EvidenceTests(unittest.TestCase):
         records[-1]={**control,'negative_control_ok':False}
         self.assertFalse(suite_ok(records,{'target'}))
         self.assertFalse(suite_ok([hit,{**miss,'valid':False},control],{'target'}))
+
+    def test_timeout_preserves_partial_output_before_cleanup(self):
+        def command(args,**kwargs):
+            return '-- cursor: test' if args[0]=='journalctl' else 'a'*64
+        def process(args,**kwargs):
+            if args[:2]==['docker','exec']:
+                raise subprocess.TimeoutExpired(args,20,output=b'partial output',stderr=b'partial error')
+            return subprocess.CompletedProcess(args,0,b'',b'')
+        with tempfile.TemporaryDirectory() as tmp, patch.object(collector,'command',side_effect=command), patch.object(collector,'detector_state',return_value={}), patch.object(collector.time,'sleep'), patch.object(collector.subprocess,'run',side_effect=process):
+            dest=Path(tmp)/'attempt'
+            with self.assertRaises(subprocess.TimeoutExpired):collector.execute({'id':'probe'},'cfg',dest,'image')
+            self.assertEqual((dest/'stdout.txt').read_text(),'partial output')
+            self.assertTrue(json.loads((dest/'execution.json').read_text())['timed_out'])
 
     def test_snapshot_and_mapping_integrity(self):
         self.assertEqual(len(validate()['cases']),30)
