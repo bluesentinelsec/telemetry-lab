@@ -151,6 +151,8 @@ assemble() {
 }
 EOF
   cp scripts/release-README.txt "$root/README.txt"
+  mkdir -p "$root/experiment"
+  cp scripts/experiment/{run.py,engine.py,primitives.py,composites.py,README.md} "$root/experiment/"
 
   # Reject incomplete matrices and record the exact bytes being released.
   python3 scripts/validate-release.py "$root" --write

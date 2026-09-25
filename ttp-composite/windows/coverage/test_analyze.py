@@ -31,6 +31,13 @@ class AttributionTests(unittest.TestCase):
     def test_control_alert_is_failure(self):
         self.attempt['mode']='control'
         self.assertEqual(evaluate(self.attempt,self.events,[dict(RuleID='target',RecordID='2')])['outcome'],'control-failed')
+    def test_control_alert_on_another_selected_rule_is_retained(self):
+        self.attempt['mode']='control'
+        result=evaluate(self.attempt,self.events,[dict(RuleID='other',RecordID='2')],True,{'target','other'})
+        self.assertTrue(result['valid'])
+        self.assertEqual(result['outcome'],'control-failed')
+        self.assertEqual(result['matched_selected_rule_ids'],['other'])
+
     def test_zero_guid_alert_is_not_a_valid_miss(self):
         events=copy.deepcopy(self.events)
         events[1]['fields']=dict(ProcessGuid='{00000000-0000-0000-0000-000000000000}',ProcessId='100',UtcTime='2026-09-22 12:00:00.500')

@@ -4,6 +4,7 @@ param(
  [Parameter(Mandatory=$true)][string]$Programs,
  [Parameter(Mandatory=$true)][string]$Output,
  [Parameter(Mandatory=$true)][string]$DnsServer,
+ [ValidateSet('active','control')][string[]]$Modes=@('control','active'),
  [string]$Hayabusa='C:\lab\hayabusa\hayabusa.exe',
  [ValidateSet('dns_onion','dns_ip_lookup')][string[]]$Cases=@('dns_onion','dns_ip_lookup')
 )
@@ -28,9 +29,9 @@ try {
  Clear-DnsClientCache
  Get-DnsClientNrptPolicy -Effective | Export-Clixml "$fixtureOutput\nrpt-effective.xml"
  @{server_sha256=(Get-FileHash $DnsServer).Hash;process_id=$process.Id;names=$names;address='127.0.0.1';answer='127.0.0.42';policy_name=$policy.Name} | ConvertTo-Json | Set-Content "$fixtureOutput\fixture.json" -Encoding UTF8
- & "$PSScriptRoot\run.ps1" -Programs $Programs -Output $Output -Cases $Cases -IncludeNetwork -Hayabusa $Hayabusa
+ & "$PSScriptRoot\run.ps1" -Programs $Programs -Output $Output -Cases $Cases -IncludeNetwork -Hayabusa $Hayabusa -Modes $Modes
  $queries=Get-Content "$fixtureOutput\dns.log" -Raw
- foreach($name in $names){if(!$queries.Contains("DNS_QUERY $name type=1 answer=127.0.0.42")){throw "No responder-side A-query evidence for $name"}}
+ foreach($name in $names){if('active' -in $Modes -and !$queries.Contains("DNS_QUERY $name type=1 answer=127.0.0.42")){throw "No responder-side A-query evidence for $name"}}
 } finally {
  if($policy){Remove-DnsClientNrptRule -Name $policy.Name -Force}
  Clear-DnsClientCache

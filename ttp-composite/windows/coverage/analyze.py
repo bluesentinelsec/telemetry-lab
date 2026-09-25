@@ -21,7 +21,7 @@ def timestamp(value):
     return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
 
 
-def evaluate(attempt, events, alerts, healthy=True):
+def evaluate(attempt, events, alerts, healthy=True, selected_rule_ids=None):
     process=attempt['process'];start=timestamp(process['start_utc']);end=timestamp(process['end_utc'])
     starts=[e for e in events if e['event_id']==1
             and str(e['fields'].get('ProcessId'))==str(process['pid'])
@@ -71,7 +71,9 @@ def evaluate(attempt, events, alerts, healthy=True):
     ambiguous |= conflicting
     ambiguous_alerts=[a for a in alerts if a.get('RuleID','').lower()==attempt['rule_id'].lower()
                       and str(a.get('RecordID','')) in ambiguous]
-    fired=bool(matches)
+    control_matches=[a for a in alerts if a.get('RuleID','').lower() in (selected_rule_ids or {attempt['rule_id'].lower()})
+                     and str(a.get('RecordID','')) in attributable]
+    fired=bool(control_matches if attempt['mode']=='control' else matches)
     outcome=('invalid' if not valid else 'control-failed' if attempt['mode']=='control' and fired
              else 'control-pass' if attempt['mode']=='control' else 'alert' if fired else 'valid-miss')
     if valid and ambiguous:
@@ -79,6 +81,7 @@ def evaluate(attempt, events, alerts, healthy=True):
     return dict(case_id=attempt['case_id'],runtime=attempt['runtime'],mode=attempt['mode'],
                 rule_id=attempt['rule_id'],valid=valid,outcome=outcome,
                 behavior_ok=attempt['behavior_ok'],process_start_matches=len(starts),
+                matched_selected_rule_ids=sorted({a['RuleID'] for a in control_matches}),
                 ambiguous_record_ids=sorted(ambiguous),conflicting_guid_record_ids=sorted(conflicting),unattributed_target_record_ids=sorted({a['RecordID'] for a in ambiguous_alerts}),
                 process_guids=sorted(guids),target_record_ids=sorted({a['RecordID'] for a in matches}),
                 attributable_event_ids=sorted({e['event_id'] for e in events if str(e['record_id']) in attributable}))
@@ -90,12 +93,13 @@ def analyze(directory):
     health=read_json(directory/'health.json')
     with (directory/'alerts.csv').open(encoding='utf-8-sig',newline='') as f:alerts=list(csv.DictReader(f))
     plan=read_json(directory/'run-plan.json')
-    complete=(len(attempts)==plan['expected_attempts'] and {(a['case_id'],a['mode']) for a in attempts}=={(c,m) for c in plan['cases'] for m in ('active','control')})
+    complete=(len(attempts)==plan['expected_attempts'] and {(a['case_id'],a['mode']) for a in attempts}=={(c,m) for c in plan['cases'] for m in plan.get('modes', ('active','control'))})
     detector_ok=(directory/'detector-exit.txt').read_text().strip()=='0'
     healthy=(complete and not (directory/'execution-error.txt').exists() and detector_ok and not health['log_overwritten'] and health['sysmon_service']=='Running'
              and not as_list(health['error_events']))
-    rows=[evaluate(a,events,alerts,healthy) for a in attempts]
     catalog=read_json(Path(__file__).with_name('selection.json'))
+    selected={c['rule_id'].lower() for c in catalog['candidates']}
+    rows=[evaluate(a,events,alerts,healthy,selected) for a in attempts]
     rules={c['rule_id']:c for c in catalog['candidates']}
     for row in rows:
         rule=rules[row['rule_id']]
