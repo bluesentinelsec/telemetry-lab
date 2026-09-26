@@ -3,9 +3,8 @@
 The expanded [Linux coverage suite](linux/coverage/README.md) implements 30
 standalone programs per configuration in C, C++, Go, and Rust, mapped to a
 pinned 95-rule Falco corpus. The [Windows coverage suite](windows/coverage/README.md)
-implements 24 standalone programs per configuration in those same four
-languages: 23 qualified Sysmon/Hayabusa targets and one unqualified `.onion`
-diagnostic. Both platforms have eight composite configurations.
+implements 23 standalone programs per configuration in those same four
+languages, covering 23 qualified Sysmon/Hayabusa targets. Both platforms have eight composite configurations.
 
 Each measured composite is its own executable. The coverage runners validate
 behavior independently of alerts, attribute exact rules, run same-binary

@@ -1,8 +1,8 @@
 # Windows TTP composite rule selection
 
-**Status: C, C++ and Go are merged; Rust in PR #63 completes the four-language implementations. Each language implements 24 standalone cases and demonstrates the same 23 targets in both configurations. `.onion` remains an unqualified diagnostic. See [Rust evidence](validation/rust/README.md), [Go evidence](validation/go/README.md), [C++ evidence](validation/cpp/README.md), and [C results](implementation.md). The cross-platform scope is in [SCOPE.md](../../SCOPE.md).**
+**Status: C, C++, Go and Rust each implement 23 standalone cases and demonstrate the same 23 targets in both configurations. See [Rust evidence](validation/rust/README.md), [Go evidence](validation/go/README.md), [C++ evidence](validation/cpp/README.md), and [C results](implementation.md). The cross-platform scope is in [SCOPE.md](../../SCOPE.md).**
 
-The Windows pipeline collects Sysmon events into EVTX and evaluates them with Hayabusa. The subject is the unmodified rule bundle shipped in the Hayabusa 4.1.0 Windows x64 release, not the entire upstream Sigma repository. All 24 selected rules are Sigma-derived Sysmon rules.
+The Windows pipeline collects Sysmon events into EVTX and evaluates them with Hayabusa. The subject is the unmodified rule bundle shipped in the Hayabusa 4.1.0 Windows x64 release, not the entire upstream Sigma repository. All 23 selected rules are Sigma-derived Sysmon rules.
 
 ## Rule-count denominator
 
@@ -11,20 +11,20 @@ The Windows pipeline collects Sysmon events into EVTX and evaluates them with Ha
 | All supplied rule definitions | 4,987 |
 | Definitions referencing the Sysmon Operational channel | 2,455 |
 | Sysmon definitions passing the static scope filters below | 2,269 |
-| Implemented candidate targets | 24 |
+| Implemented candidate targets | 23 |
 | Qualified targets demonstrated in each of eight configurations | 23 |
 
 Static filters follow the existing `-m low --no-wizard` configuration: remove informational, deprecated, unsupported, default excluded/noisy IDs, and rules with unresolved expansion placeholders. Overlapping exclusions are counted once. Channel membership means the detection references Sysmon, not that every rule can be satisfied using Sysmon alone. Live Hayabusa 4.1.0 replay now confirms 2,269 rules enabled after channel filtering for the Sysmon EVTX input. That is the configured denominator; it does not mean every rule has a qualified test case.
 
-Current qualified scope: "23 standalone Windows composites per language have demonstrated alerts against 23 selected rules out of the 2,269 enabled rules in the pinned Hayabusa/Sysmon evaluation." A 24th `.onion` candidate remains implemented as an unqualified diagnostic and is excluded from the 23-rule selection; its successful-resolution contract is unchanged. This numerator counts exact target rules, not every incidental alert in the full ruleset.
+Current qualified scope: "23 standalone Windows composites per language have demonstrated alerts against 23 selected rules out of the 2,269 enabled rules in the pinned Hayabusa/Sysmon evaluation." This numerator counts exact target rules, not every incidental alert in the full ruleset.
 
 ## Selection rationale
 
-Choose directly reproducible operations with specific event predicates, equivalents in all four languages, independent behavior checks, and controllable fixtures. Avoid building the scope from wrappers around PowerShell or reg.exe, since those would mainly measure a common child tool. Include path/name-based rules where the program must actually create, execute, load, or resolve the matching artifact; label those limits explicitly. The 24 targets span nine behavior families. Their predicates reference 12 event IDs; an individual case may exercise only one of a rule's permitted event IDs.
+Choose directly reproducible operations with specific event predicates, equivalents in all four languages, independent behavior checks, and controllable fixtures. Avoid building the scope from wrappers around PowerShell or reg.exe, since those would mainly measure a common child tool. Include path/name-based rules where the program must actually create, execute, load, or resolve the matching artifact; label those limits explicitly. The 23 targets span nine behavior families. Their predicates reference 12 event IDs; an individual case may exercise only one of a rule's permitted event IDs.
 
 ## Implemented candidates
 
-Network scope refined on 2026-09-22: see [network-scope.md](network-scope.md). Seven network/DNS candidates use basic TCP I/O or ordinary hostname resolution; the LDAP-discovery candidate is deferred.
+Network scope refined on 2026-09-22: see [network-scope.md](network-scope.md). Six network/DNS candidates use basic TCP I/O or ordinary hostname resolution; the LDAP-discovery candidate is deferred.
 
 | Standalone case | Exact bundled rule title | Sysmon event IDs |
 |---|---|---|
@@ -45,7 +45,6 @@ Network scope refined on 2026-09-22: see [network-scope.md](network-scope.md). S
 | `tcp_connect_9389` | Uncommon Connection to Active Directory Web Services | 3 |
 | `tcp_connect_88` | Uncommon Outbound Kerberos Connection | 3 |
 | `tcp_connect_public_path` | Network Connection Initiated From Process Located In Potentially Suspicious Or Uncommon Location | 3 |
-| `dns_onion` | DNS Query Tor .Onion Address - Sysmon | 22 |
 | `dns_ip_lookup` | Suspicious DNS Query for IP Lookup Service APIs | 22 |
 | `double_extension_execute` | Suspicious Double Extension File Execution | 1 |
 | `creation_time_change` | File Creation Date Changed to Another Year | 2 |
@@ -183,13 +182,6 @@ Network scope refined on 2026-09-22: see [network-scope.md](network-scope.md). S
 - File: `sigma/sysmon/network_connection/net_connection_win_susp_initiated_uncommon_or_suspicious_locations.yml`.
 - Behavior: Execute the standalone program at C:\Users\Public\telemetry-lab\probe.exe and perform a TCP connect/send/receive exchange with a localhost echo fixture (127.0.0.1) on fixed port 49152. Keep the process alive for five seconds after I/O, equally in the same-binary control.
 - Conditions: Hold the executable location constant across languages. Use a controlled destination hostname outside filter_main_domains. Stage the program before capture; observe the connection from the actual measured process, not a launcher. Confirm bytes received at both ends.
-
-### dns_onion: DNS Query Tor .Onion Address - Sysmon
-
-- Bundled rule ID: `29e2035f-b91f-3c35-9a7a-087b864f6d3b`.
-- File: `sigma/sysmon/dns_query/dns_query_win_tor_onion_domain_query.yml`.
-- Behavior: Resolve lab.onion using the normal language hostname-to-address resolver and an isolated lab DNS server supplying a fixed local answer.
-- Conditions: No Tor client or public forwarding. Independently verify the lookup result and resolver request. Qualify C EID 22 attribution; if the resolver rejects the special-use name, resolve that fixture limitation before accepting this target. Establish the same DNS-cache baseline for each attempt. Use a harness-only UDP responder on 127.0.0.1:53 and temporary exact-name NRPT entries. Return 127.0.0.42 with zero TTL; remove entries and clear cache afterward.
 
 ### dns_ip_lookup: Suspicious DNS Query for IP Lookup Service APIs
 

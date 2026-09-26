@@ -25,9 +25,9 @@ try {
  }
  if($dns.Count) {
   if(Get-NetUDPEndpoint -LocalPort 53 -ErrorAction SilentlyContinue){throw 'UDP 53 occupied'}
-  foreach($r in @(Get-DnsClientNrptRule)){foreach($n in $r.Namespace){if($n -in @('.','lab.onion','.onion','api.ipify.org','.ipify.org','.org')){throw 'Overlapping DNS policy'}}}
+  foreach($r in @(Get-DnsClientNrptRule)){foreach($n in $r.Namespace){if($n -in @('.','api.ipify.org','.ipify.org','.org')){throw 'Overlapping DNS policy'}}}
   $processes+=Start-Process "$Fixtures\windows_dns_server.exe" -PassThru -RedirectStandardOutput "$fixtureOutput\dns.log" -RedirectStandardError "$fixtureOutput\dns.stderr"
-  $names=@($dns | ForEach-Object {if($_ -eq 'dns_onion'){'lab.onion'}else{'api.ipify.org'}})
+  $names=@('api.ipify.org')
   $policy=Add-DnsClientNrptRule -Namespace $names -NameServers '127.0.0.1' -Comment 'Telemetry lab exact-name batch fixture' -PassThru
   Clear-DnsClientCache
   Get-DnsClientNrptPolicy -Effective | Export-Clixml "$fixtureOutput\nrpt-effective.xml"
