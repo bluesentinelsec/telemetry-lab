@@ -47,9 +47,16 @@ host**, not 200 across a fleet. Blocks are shuffled using the recorded `--seed`.
 
 Every native composite execution uses a separate case program. Active and control
 slots are separate: retrying a failed active measurement never repeats a valid
-control. Composite collection is intentionally serial and independently checked;
-this runner does not use the pilot's batched collector-drain optimization, so its
-throughput must be measured separately from pilot timing estimates.
+control. Composite collection defaults to one independently checked capture per execution.
+`--batch-size 16` (Linux) or `--batch-size 48` (Windows) optionally shares a
+capture/drain/evaluation across serial native executions. Linux keeps a fresh
+container per execution and excludes setup by event timestamp; Windows freezes one
+runtime's DLLs per group and attributes each attempt by its process GUID. Programs
+never run concurrently on one host. Shared capture failure invalidates all affected
+measurements. Only invalid slots are replaced, individually, with the ordinary
+collector; accepted peers and valid misses are never repeated. Native behavior
+failures remain terminal. Batch size and exact execution order are recorded in the
+plan. Measure actual throughput; the pilot's timing is not a promise.
 
 ## Evidence layout
 
@@ -62,6 +69,7 @@ summary.json               completion, retries, unresolved slots, per-cell count
 accepted/<attempt-id>/     accepted raw telemetry, logs, health and result
 suspect/<attempt-id>/      rejected attempts with the same evidence retained
 in-progress/<attempt-id>/  interrupted/unfinalized evidence requiring review
+batches/<batch-id>/        shared original captures, health, fixture/cleanup logs
 ```
 
 Each attempt records its logical run ID, unique attempt ID, replaced attempt ID,
@@ -74,3 +82,18 @@ For primitive analysis, point `tap` at `accepted/`, **not the campaign root**.
 Keep suspect data and the full ledger for operational failure reporting. Accepted
 measurements are conditional on collection validity; failures/retries must also be
 reported by runtime. Do not pool pilot observations into confirmatory collection.
+
+A shared capture can contain accepted and rejected attempts. Keep it as immutable
+source evidence under `batches/`; per-attempt attributed events/alerts and native
+results are stored under `accepted/` or `suspect/`. Do not analyze shared captures
+as extra independent observations. A terminal interruption remains incomplete;
+there is no implicit resume or substitution of prior observations.
+
+## Retained legacy programs
+
+`--cohort legacy` exercises every shipped pilot composite under the same bounded
+replacement ledger. Linux can batch 16 distinct containers; Windows can batch
+24 program/configuration slots. A legacy accepted run establishes successful
+exit and valid collection/attribution only: those programs lack the expanded
+suite's independent behavior assertions. Report them separately and never count
+their exit status as proof that a target detection rule was qualified.

@@ -93,7 +93,9 @@ def analyze(directory):
     health=read_json(directory/'health.json')
     with (directory/'alerts.csv').open(encoding='utf-8-sig',newline='') as f:alerts=list(csv.DictReader(f))
     plan=read_json(directory/'run-plan.json')
-    complete=(len(attempts)==plan['expected_attempts'] and {(a['case_id'],a['mode']) for a in attempts}=={(c,m) for c in plan['cases'] for m in plan.get('modes', ('active','control'))})
+    wanted=({(s['case_id'],s['mode']) for s in plan['slots']} if 'slots' in plan else
+            {(c,m) for c in plan['cases'] for m in plan.get('modes', ('active','control'))})
+    complete=(len(attempts)==plan['expected_attempts']==len(wanted) and {(a['case_id'],a['mode']) for a in attempts}==wanted)
     detector_ok=(directory/'detector-exit.txt').read_text().strip()=='0'
     healthy=(complete and not (directory/'execution-error.txt').exists() and detector_ok and not health['log_overwritten'] and health['sysmon_service']=='Running'
              and not as_list(health['error_events']))
