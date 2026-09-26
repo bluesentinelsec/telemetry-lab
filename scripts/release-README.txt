@@ -44,3 +44,9 @@ Notes
   is blocked by Mark-of-the-Web after unzip, clear it with:
     Get-ChildItem -Recurse | Unblock-File
 - Cross-OS analysis needs both hosts' JSONL co-located for one `tap run`.
+
+Experiment campaigns (Python 3.11+ on the lab host):
+  python experiment/run.py BUNDLE NEW_OUTPUT --cohort primitives --repetitions 200
+  python experiment/run.py BUNDLE NEW_OUTPUT --cohort composites --repetitions 200
+Automatic replacement defaults to three retries. Use --no-retry to disable it.
+See experiment/README.md for collector setup, outcome classification, and evidence layout.

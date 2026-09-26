@@ -1,0 +1,37 @@
+name: Experiment runner
+on:
+  pull_request:
+    paths:
+      - 'scripts/experiment/**'
+      - 'scripts/assemble-release.sh'
+      - 'ttp-composite/**/coverage/**'
+      - '.github/workflows/test-experiment.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/experiment/**'
+      - 'ttp-composite/**/coverage/**'
+jobs:
+  contract:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s scripts/experiment -p "test_*.py"
+      - run: python -m unittest discover -s ttp-composite/windows/coverage -p "test_analyze.py"
+      - name: Parse Windows collectors
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $failures=@()
+          Get-ChildItem ttp-composite/windows/coverage/*.ps1 | ForEach-Object {
+            $tokens=$null;$errors=$null
+            [Management.Automation.Language.Parser]::ParseFile($_.FullName,[ref]$tokens,[ref]$errors) | Out-Null
+            $failures+=@($errors)
+          }
+          if($failures.Count){$failures | Format-List;throw 'PowerShell parse failed'}

@@ -116,16 +116,39 @@ def execute(case, config, output, image, functional_only=False):
         # Flush preparation events. No fixture processes remain running.
         time.sleep(2 if not functional_only else 0)
         before = detector_state() if not functional_only else None
+        (output / 'health-before.json').write_text(json.dumps(before)+'\n')
         cursor = None
         if not functional_only:
             latest = command(['journalctl', '-u', SERVICE, '-n', '1', '--show-cursor', '--no-pager'])
             cursor = re.search(r'-- cursor: (.+)', latest).group(1)
         started = datetime.datetime.now(datetime.timezone.utc).isoformat()
-        execution = subprocess.run(['docker', 'exec', cid, exe] + (['--control'] if case.get('control') else []),
-                                   text=True, capture_output=True, timeout=20)
+        try:
+            execution = subprocess.run(['docker', 'exec', cid, exe] + (['--control'] if case.get('control') else []),
+                                       text=True, capture_output=True, timeout=20)
+        except subprocess.TimeoutExpired as error:
+            def partial(value):
+                return value.decode(errors='replace') if isinstance(value, bytes) else value or ''
+            (output / 'stdout.txt').write_text(partial(error.stdout))
+            (output / 'stderr.txt').write_text(partial(error.stderr))
+            (output / 'execution.json').write_text(json.dumps({'returncode': None, 'timed_out': True,
+                'stdout': partial(error.stdout), 'stderr': partial(error.stderr), 'started': started, 'container_id': cid})+'\n')
+            raise
+        # Persist native outcome before any collector query can fail.
+        (output / 'stdout.txt').write_text(execution.stdout)
+        (output / 'stderr.txt').write_text(execution.stderr)
+        (output / 'execution.json').write_text(json.dumps({'returncode': execution.returncode, 'stdout': execution.stdout, 'stderr': execution.stderr, 'started': started, 'container_id': cid})+'\n')
         time.sleep(3 if not functional_only else 0)
-        after = detector_state() if not functional_only else None
-        log = command(['journalctl', '-u', SERVICE, '--after-cursor', cursor, '-o', 'cat', '--no-pager']) if cursor else ''
+        collection_error = None
+        try:
+            after = detector_state() if not functional_only else None
+        except (RuntimeError, OSError, ValueError, subprocess.SubprocessError) as error:
+            after = {'error': str(error)}
+            collection_error = str(error)
+        try:
+            log = command(['journalctl', '-u', SERVICE, '--after-cursor', cursor, '-o', 'cat', '--no-pager']) if cursor else ''
+        except (OSError, subprocess.SubprocessError) as error:
+            log = ''
+            collection_error = str(error)
         alerts = attributed_alerts(log, cid)
         (output / 'journal.jsonl').write_text(log + '\n')
         (output / 'stdout.txt').write_text(execution.stdout)
@@ -135,12 +158,20 @@ def execute(case, config, output, image, functional_only=False):
         record = {'case': case['id'], 'target_rule': case.get('rule'), 'config': config,
                   'container_id': cid, 'started': started, 'exit_code':execution.returncode,
                   'functional_only':functional_only, 'control':bool(case.get('control')), 'executable':exe}
-        record.update(score(case, execution, alerts, health_ok(before,after) if before else False,
+        record['collection_error'] = collection_error
+        record.update(score(case, execution, alerts, health_ok(before,after) if before and not collection_error else False,
                             {c['rule'] for c in validate()['cases']}))
         (output / 'result.json').write_text(json.dumps(record, indent=2) + '\n')
         return record
     finally:
-        subprocess.run(['docker', 'rm', '-f', cid], capture_output=True, timeout=30)
+        try:
+            cleanup = subprocess.run(['docker', 'rm', '-f', cid], capture_output=True, timeout=30)
+        except (OSError, subprocess.SubprocessError) as error:
+            (output / 'cleanup-error.txt').write_text(str(error))
+            raise RuntimeError('Container cleanup failed; stop and inspect preserved evidence') from error
+        if cleanup.returncode:
+            (output / 'cleanup-error.txt').write_text(repr(cleanup.stderr))
+            raise RuntimeError('Container cleanup failed; stop and inspect preserved evidence')
 
 def main():
     parser=argparse.ArgumentParser()
