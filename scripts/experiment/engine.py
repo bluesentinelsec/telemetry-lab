@@ -124,6 +124,14 @@ def campaign(output, plan, adapter, max_retries=3, retry_delay=1, provenance=Non
             if prior and slot['run_id'] not in resolved:
                 unresolved.append(dict(slot,last_attempt=prior[-1]['attempt_id'],status='interrupted',reason=aborted))
     finally:
+        # A batch may have queued replacements when another replacement aborts.
+        # Those slots were attempted, so they must not be labelled unstarted.
+        resolved={r['run_id'] for r in accepted+unresolved}
+        latest={r['run_id']:r for r in attempts}
+        for slot in slots:
+            if slot['run_id'] in latest and slot['run_id'] not in resolved:
+                prior=latest[slot['run_id']]
+                unresolved.append(dict(slot,last_attempt=prior['attempt_id'],status='interrupted',reason=aborted or 'Replacement not completed'))
         by_cell = {}
         for row in attempts:
             key = '|'.join(str(row.get(k, '')) for k in ('cohort','config','case','mode'))

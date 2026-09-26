@@ -42,6 +42,17 @@ class BatchTests(unittest.TestCase):
     def test_shared_failure_no_retry(self):
         s,rows,a=self.run_case(MeasurementError('capture loss'),max_retries=0)
         self.assertFalse(s['complete']);self.assertEqual(len(s['unresolved']),3);self.assertFalse(a.singles)
+    def test_abort_accounts_for_other_pending_replacements(self):
+        class AbortReplacement(Batch):
+            def execute(self,s,f):raise IntegrityError('Frozen input changed')
+        with tempfile.TemporaryDirectory() as t:
+            plan=[dict(config='cfg',case=str(i)) for i in range(3)]
+            adapter=AbortReplacement([dict(status='measurement-failure') for _ in plan])
+            summary=campaign(Path(t)/'out',plan,adapter,batch_size=3,retry_delay=0)
+            self.assertEqual(len(summary['unresolved']),3)
+            self.assertEqual(summary['unstarted_runs'],0)
+            self.assertEqual(summary['total_attempts'],4)
+
     def test_missing_batch_results_fatal(self):
         s,rows,a=self.run_case([dict(status='valid')])
         self.assertTrue(s['aborted']);self.assertEqual(s['accepted'],0);self.assertFalse(a.singles)

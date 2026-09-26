@@ -119,3 +119,8 @@ test.each([0, -1, 1.5, 21, NaN])('invalid fleet size %s is rejected', (hostPairs
     env: { account: '123456789012', region: 'us-west-2' }, hostPairs,
   })).toThrow('hostPairs must be an integer');
 });
+
+
+test('bootstrap waits for the first-boot dpkg lock', () => {
+  expect(JSON.stringify(synth().toJSON())).toContain('DPkg::Lock::Timeout');
+});

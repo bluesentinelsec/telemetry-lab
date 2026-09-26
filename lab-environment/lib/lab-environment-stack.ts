@@ -141,6 +141,8 @@ export class LabEnvironmentStack extends cdk.Stack {
     debianUserData.addCommands(
       'set -eux',
       'export DEBIAN_FRONTEND=noninteractive',
+      // First-boot package updates can hold dpkg while user data installs tools.
+      `echo 'DPkg::Lock::Timeout "600";' > /etc/apt/apt.conf.d/99-telemetry-lab-lock`,
       'apt-get update -y',
       'apt-get install -y curl',
       `curl -fsSL -o /tmp/amazon-ssm-agent.deb "https://s3.${this.region}.amazonaws.com/amazon-ssm-${this.region}/latest/debian_amd64/amazon-ssm-agent.deb"`,
