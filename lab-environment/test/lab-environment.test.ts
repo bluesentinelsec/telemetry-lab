@@ -124,3 +124,16 @@ test.each([0, -1, 1.5, 21, NaN])('invalid fleet size %s is rejected', (hostPairs
 test('bootstrap waits for the first-boot dpkg lock', () => {
   expect(JSON.stringify(synth().toJSON())).toContain('DPkg::Lock::Timeout');
 });
+
+
+test('IMDS launch templates have distinct names across independent stacks', () => {
+  const app = new cdk.App({ context: { '@aws-cdk/aws-ec2:uniqueImdsv2TemplateName': true } });
+  const stacks = ['Collection', 'Qualification'].map(id => new LabEnvironmentStack(app, id, {
+    env: { account: '123456789012', region: 'us-west-2' }, windowsOnly: true,
+  }));
+  const names = stacks.map(stack => {
+    return Object.values(Template.fromStack(stack).findResources('AWS::EC2::LaunchTemplate'))
+      .map(resource => resource.Properties.LaunchTemplateName);
+  }).flat();
+  expect(new Set(names).size).toBe(names.length);
+});
