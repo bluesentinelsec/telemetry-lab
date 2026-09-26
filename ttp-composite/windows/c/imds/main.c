@@ -33,5 +33,7 @@ int main(void) {
     }
 
     WSACleanup();
+    // Match the qualified TCP suite: keep process identity alive for Sysmon.
+    Sleep(5000);
     return 0;
 }

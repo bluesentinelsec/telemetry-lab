@@ -81,5 +81,7 @@ int main() {
     if (cli != INVALID_SOCKET) closesocket(cli);
     if (lst != INVALID_SOCKET) closesocket(lst);
     WSACleanup();
+    // Match the qualified TCP suite: keep process identity alive for Sysmon.
+    Sleep(5000);
     return rc;
 }
