@@ -1,13 +1,28 @@
 # Exercise retained pilot programs. Report execution and attributed alerts;
 # these programs do not have the independent contracts of the qualified suite.
 [CmdletBinding()]
-param([Parameter(Mandatory=$true)][string]$Bundle,[Parameter(Mandatory=$true)][string]$Output)
+param([Parameter(Mandatory=$true)][string]$Bundle,[Parameter(Mandatory=$true)][string]$Output,[string]$PlanFile='')
 $ErrorActionPreference='Stop'
 if(Test-Path $Output){throw 'Evidence directory already exists'}
 New-Item -ItemType Directory $Output -Force | Out-Null
 $channel='Microsoft-Windows-Sysmon/Operational'
 $manifest=Get-Content "$Bundle\manifest.json" -Raw | ConvertFrom-Json
 $rows=[Collections.Generic.List[object]]::new()
+$plan=@()
+if($PlanFile){$plan=(Get-Content $PlanFile -Raw | ConvertFrom-Json)}
+else{foreach($config in $manifest.configs){foreach($case in $manifest.composites){$plan+=@{config=$config;case=$case}}}}
+foreach($slot in $plan){if($slot.config -notin $manifest.configs -or $slot.case -notin $manifest.composites){throw 'Unknown legacy slot'}}
+
+$selection=Get-Content "$Bundle\ttp-composite\coverage\selection.json" -Raw | ConvertFrom-Json
+$hayabusa='C:\lab\hayabusa\hayabusa.exe'
+if((Get-FileHash $hayabusa).Hash.ToLower() -ne $selection.provenance.executable_sha256){throw 'Hayabusa differs from frozen selection'}
+$rules='C:\lab\hayabusa\rules'
+foreach($p in $selection.provenance.config_sha256.PSObject.Properties){
+ if((Get-FileHash (Join-Path "$rules\config" $p.Name)).Hash.ToLower() -ne $p.Value){throw 'Rule configuration changed'}
+}
+foreach($r in (Import-Csv "$Bundle\ttp-composite\coverage\rule-inventory.csv")){
+ if((Get-FileHash (Join-Path $rules $r.path)).Hash.ToLower() -ne $r.sha256){throw 'Rule corpus changed'}
+}
 $startRecord=(Get-WinEvent -LogName $channel -MaxEvents 1).RecordId
 $keyPath='Software\Microsoft\Windows\CurrentVersion\Run'
 $key=[Microsoft.Win32.Registry]::CurrentUser.OpenSubKey($keyPath,$true)
@@ -20,8 +35,9 @@ $startupExisted=Test-Path $startup
 if(Test-Path "$startup\lab_test.lnk"){throw 'Pilot startup fixture already exists'}
 New-Item -ItemType Directory $startup -Force | Out-Null
 try {
- foreach($config in $manifest.configs) {
-  foreach($case in $manifest.composites) {
+ foreach($slot in $plan) {
+  $config=$slot.config
+  foreach($case in @($slot.case)) {
    $exe="$Bundle\ttp-composite\$config\$case.exe"
    $dest="$Output\$config-$case";New-Item -ItemType Directory $dest | Out-Null
    $started=[DateTime]::UtcNow
@@ -44,11 +60,13 @@ try {
   }
  }
 } finally {
+ try {
  $key=[Microsoft.Win32.Registry]::CurrentUser.OpenSubKey($keyPath,$true)
  if($key){$key.DeleteValue('lab_test',$false);$key.Close()}
  if(!$keyExisted){[Microsoft.Win32.Registry]::CurrentUser.DeleteSubKey($keyPath,$false)}
  Remove-Item "$startup\lab_test.lnk" -Force -ErrorAction SilentlyContinue
  if(!$startupExisted){Remove-Item $startup -ErrorAction Stop}
+ } catch {$_ | Out-String | Set-Content "$Output\cleanup-error.txt";throw}
 }
 Start-Sleep -Seconds 20
 $endRecord=(Get-WinEvent -LogName $channel -MaxEvents 1).RecordId

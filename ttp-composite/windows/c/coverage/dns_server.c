@@ -26,7 +26,7 @@ int main(void) {
         name[used]=0;pos++;
         unsigned int type=((unsigned int)packet[pos]<<8)|packet[pos+1];
         unsigned int cls=((unsigned int)packet[pos+2]<<8)|packet[pos+3];pos+=4;
-        int allowed=!_stricmp(name,"lab.onion") || !_stricmp(name,"api.ipify.org");
+        int allowed=!_stricmp(name,"api.ipify.org");
         int answer=allowed && type==1 && cls==1;
         packet[2]=0x85;packet[3]=(unsigned char)(allowed?0:3);
         memset(packet+6,0,6);packet[7]=(unsigned char)answer;

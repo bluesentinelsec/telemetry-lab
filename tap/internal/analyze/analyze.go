@@ -90,9 +90,13 @@ type runAgg struct {
 	names       map[model.Family]map[string]bool // event names seen, per family
 }
 
+type runKey struct {
+	host, id string
+}
+
 type configAgg struct {
 	os   string
-	runs map[string]*runAgg // by run_id
+	runs map[runKey]*runAgg // host plus run_id; repetitions can restart per host
 }
 
 // Load reads normalized JSONL and aggregates it into per-primitive,
@@ -117,16 +121,17 @@ func Load(r io.Reader) (map[string]map[string]*configAgg, error) {
 		}
 		agg := byCfg[e.Config]
 		if agg == nil {
-			agg = &configAgg{os: e.OS, runs: map[string]*runAgg{}}
+			agg = &configAgg{os: e.OS, runs: map[runKey]*runAgg{}}
 			byCfg[e.Config] = agg
 		}
-		run := agg.runs[e.RunID]
+		key := runKey{host: e.Host, id: e.RunID}
+		run := agg.runs[key]
 		if run == nil {
 			run = &runAgg{
 				familyCount: map[model.Family]int{},
 				names:       map[model.Family]map[string]bool{},
 			}
-			agg.runs[e.RunID] = run
+			agg.runs[key] = run
 		}
 		run.familyCount[e.Family]++
 		if run.names[e.Family] == nil {

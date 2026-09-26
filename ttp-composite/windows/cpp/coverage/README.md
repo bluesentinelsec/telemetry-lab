@@ -1,6 +1,6 @@
 # Windows C++ detection composites
 
-This directory implements the same 24 standalone cases and exact target rule IDs as the [Windows C reference suite](../../coverage). Each directory builds one executable; `--control` skips its measured behavior. The five-second post-I/O hold is also applied to TCP controls. There is no multi-case dispatcher.
+This directory implements the same 23 standalone cases and exact target rule IDs as the [Windows C reference suite](../../coverage). Each directory builds one executable; `--control` skips its measured behavior. The five-second post-I/O hold is also applied to TCP controls. There is no multi-case dispatcher.
 
 ## Runtime comparison
 
@@ -16,7 +16,7 @@ The shared [selection](../../coverage/selection.json) and runner define the rule
 
 A positive alert requires independently successful behavior and an exact rule ID linked through its event record to the measured process GUID (or the explicitly allowed child). A target miss or attribution failure is retained, not replaced by another rule or credited by PID alone.
 
-`dns_onion` retains the inherited successful-resolution contract. Windows rejected that lookup in the C reference, even with a working local responder; it remains an implemented, unqualified candidate. The qualified reference scope is 23 target rules out of 2,269 enabled Sysmon rules in Hayabusa 4.1.0. The 24th program is not counted as qualified coverage.
+The scope is 23 target rules out of 2,269 enabled Sysmon rules in Hayabusa 4.1.0.
 
 ## Build and run
 

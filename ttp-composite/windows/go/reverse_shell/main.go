@@ -72,4 +72,6 @@ func main() {
 	case <-done:
 	case <-time.After(2 * time.Second):
 	}
+	// Match the qualified TCP suite: keep process identity alive for Sysmon.
+	time.Sleep(5 * time.Second)
 }

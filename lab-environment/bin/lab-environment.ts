@@ -19,6 +19,7 @@ const instanceType = app.node.tryGetContext('instanceType');
 const diskGiBContext = app.node.tryGetContext('diskGiB');
 
 new LabEnvironmentStack(app, app.node.tryGetContext('stackName') ?? 'LabEnvironmentStack', {
+  hostPairs: Number(app.node.tryGetContext('hostPairs') ?? 1),
   linuxOnly: String(app.node.tryGetContext('linuxOnly')) === 'true',
   windowsOnly: String(app.node.tryGetContext('windowsOnly')) === 'true',
   // A concrete env is required because the Debian AMI is resolved with a

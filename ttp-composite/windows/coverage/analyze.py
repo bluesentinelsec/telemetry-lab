@@ -68,7 +68,25 @@ def evaluate(attempt, events, alerts, healthy=True, selected_rule_ids=None):
                  and str(e['fields'].get('ProcessId'))==str(process['pid'])
                  and start-timedelta(seconds=1)<=timestamp(e['time_utc'])<=end+timedelta(seconds=30)
                  and not later_pid_reuse(e)}
-    ambiguous |= conflicting
+    # A stale GUID can also equal this *earlier* probe's GUID after its PID has
+    # been reused. Do not award that delayed network/DNS event to the old probe:
+    # an intervening observed process start makes its ownership ambiguous even
+    # when the GUID string matches. This applies equally to active and control
+    # outcomes and never depends on whether the event produced an alert.
+    owned_starts={e['fields'].get('ProcessGuid'):e for e in events
+                  if e['event_id']==1 and e['fields'].get('ProcessGuid') in guids}
+    def owner_pid_reused(event):
+        owner=owned_starts.get(event['fields'].get('ProcessGuid'))
+        if not owner:return False
+        pid=owner['fields'].get('ProcessId')
+        if pid is None:return False
+        return any(e['event_id']==1 and str(e['fields'].get('ProcessId'))==str(pid)
+                   and e['fields'].get('ProcessGuid')!=owner['fields'].get('ProcessGuid')
+                   and timestamp(owner['time_utc'])<timestamp(e['time_utc'])<=timestamp(event['time_utc'])
+                   for e in events)
+    reused_owner={str(e['record_id']) for e in events if e['event_id'] in (3,22)
+                  and e['fields'].get('ProcessGuid') in guids and owner_pid_reused(e)}
+    ambiguous |= conflicting | reused_owner
     ambiguous_alerts=[a for a in alerts if a.get('RuleID','').lower()==attempt['rule_id'].lower()
                       and str(a.get('RecordID','')) in ambiguous]
     control_matches=[a for a in alerts if a.get('RuleID','').lower() in (selected_rule_ids or {attempt['rule_id'].lower()})
@@ -82,18 +100,20 @@ def evaluate(attempt, events, alerts, healthy=True, selected_rule_ids=None):
                 rule_id=attempt['rule_id'],valid=valid,outcome=outcome,
                 behavior_ok=attempt['behavior_ok'],process_start_matches=len(starts),
                 matched_selected_rule_ids=sorted({a['RuleID'] for a in control_matches}),
-                ambiguous_record_ids=sorted(ambiguous),conflicting_guid_record_ids=sorted(conflicting),unattributed_target_record_ids=sorted({a['RecordID'] for a in ambiguous_alerts}),
+                ambiguous_record_ids=sorted(ambiguous),conflicting_guid_record_ids=sorted(conflicting),reused_owner_record_ids=sorted(reused_owner),unattributed_target_record_ids=sorted({a['RecordID'] for a in ambiguous_alerts}),
                 process_guids=sorted(guids),target_record_ids=sorted({a['RecordID'] for a in matches}),
                 attributable_event_ids=sorted({e['event_id'] for e in events if str(e['record_id']) in attributable}))
 
 
-def analyze(directory):
+def analyze(directory, write_result=True):
     attempts=as_list(read_json(directory/'attempts.json')) if (directory/'attempts.json').exists() else []
     events=as_list(read_json(directory/'events.json'))
     health=read_json(directory/'health.json')
     with (directory/'alerts.csv').open(encoding='utf-8-sig',newline='') as f:alerts=list(csv.DictReader(f))
     plan=read_json(directory/'run-plan.json')
-    complete=(len(attempts)==plan['expected_attempts'] and {(a['case_id'],a['mode']) for a in attempts}=={(c,m) for c in plan['cases'] for m in plan.get('modes', ('active','control'))})
+    wanted=({(s['case_id'],s['mode']) for s in plan['slots']} if 'slots' in plan else
+            {(c,m) for c in plan['cases'] for m in plan.get('modes', ('active','control'))})
+    complete=(len(attempts)==plan['expected_attempts']==len(wanted) and {(a['case_id'],a['mode']) for a in attempts}==wanted)
     detector_ok=(directory/'detector-exit.txt').read_text().strip()=='0'
     healthy=(complete and not (directory/'execution-error.txt').exists() and detector_ok and not health['log_overwritten'] and health['sysmon_service']=='Running'
              and not as_list(health['error_events']))
@@ -107,7 +127,7 @@ def analyze(directory):
         row['rule_source_url']=rule.get('source_url','')
     result=dict(healthy=healthy,complete=complete,expected_attempts=plan['expected_attempts'],recorded_attempts=len(attempts),attempts=rows,
                 counts={key:sum(r['outcome']==key for r in rows) for key in ['alert','valid-miss','control-pass','control-failed','attribution-incomplete','invalid']})
-    (directory/'qualification.json').write_text(json.dumps(result,indent=2)+'\n')
+    if write_result:(directory/'qualification.json').write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps(result['counts']))
     return result
 

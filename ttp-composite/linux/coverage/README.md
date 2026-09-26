@@ -228,3 +228,19 @@ retained under `validation/dispatcher-pilot/` solely as historical evidence;
 they do not validate these replacement executables. Other language ports,
 Windows coverage, and paired telemetry-analysis integration remain in
 [issue #54](https://github.com/bluesentinelsec/telemetry-lab/issues/54).
+
+## Collector health metrics
+
+The lab reads cumulative health counters through Falco's Prometheus endpoint.
+`setup-detector.sh` disables periodic metrics-as-alert and metrics-file output,
+leaving Prometheus as the sole metrics reader. In Falco 0.45.0, periodic output
+and HTTP scrapes can concurrently reset and sum libpman's shared statistics
+buffer, making a cumulative event counter appear to decrease even though the
+collector process has not restarted. Strict health checks reject such snapshots.
+The correction removes the competing reader; it does not suppress detector
+alerts, change rules, ignore drop counters, or relax the health gate.
+
+Native qualification uses repeated serial HTTP scrapes with periodic output
+enabled, disabled, re-enabled, and disabled again, followed by complete
+composite/legacy preflights and an injected collector-stop recovery check.
+Keep those diagnostics separate from the 200-repetition validation dataset.

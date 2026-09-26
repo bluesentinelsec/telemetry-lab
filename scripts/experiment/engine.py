@@ -29,13 +29,13 @@ def append(path, value):
         f.write(json.dumps(value, allow_nan=False) + '\n'); f.flush(); os.fsync(f.fileno())
 
 
-def campaign(output, plan, adapter, max_retries=3, retry_delay=1, provenance=None, inventory=None):
+def campaign(output, plan, adapter, max_retries=3, retry_delay=1, provenance=None, inventory=None, batch_size=1):
     """Adapter returns valid/behavior-failure/measurement-failure, never selects alerts.
 
     Output must not exist. No implicit resume: interrupted evidence requires review.
     The accepted index contains one measurement per slot; all attempts are audited.
     """
-    if max_retries < 0 or retry_delay < 0 or not plan:
+    if max_retries < 0 or retry_delay < 0 or batch_size < 1 or not plan:
         raise ValueError('Nonempty plan and nonnegative retry limits required')
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
@@ -47,55 +47,75 @@ def campaign(output, plan, adapter, max_retries=3, retry_delay=1, provenance=Non
         write_json(output/'accepted/inventory.json', inventory)
     slots = [dict(item, run_id=f'run-{i:07d}') for i, item in enumerate(plan, 1)]
     write_json(output/'plan.json', dict(max_retries=max_retries, retry_delay=retry_delay,
-                                      planned_runs=len(slots), slots=slots))
+                                      planned_runs=len(slots), batch_size=batch_size, slots=slots))
     accepted = []; unresolved = []; attempts = []; aborted = None
+    # Retries are singleton collections. First attempts may share a drained
+    # capture, but every logical slot has durable metadata before execution.
+    from collections import deque
+    pending = deque((slot, 1, None) for slot in slots)
     try:
-        for slot in slots:
-            previous = None
-            for number in range(1, max_retries + 2):
+        while pending:
+            group = [pending.popleft()]
+            if batch_size > 1 and group[0][1] == 1:
+                key = adapter.batch_key(group[0][0])
+                while (pending and len(group) < batch_size and pending[0][1] == 1
+                       and adapter.batch_key(pending[0][0]) == key):
+                    group.append(pending.popleft())
+            records = []; folders = []
+            for slot, number, previous in group:
                 aid = f"{slot['run_id']}-attempt-{number:02d}"
-                folder = output/'in-progress'/aid
-                folder.mkdir()
+                folder = output/'in-progress'/aid; folder.mkdir()
                 record = dict(slot, attempt_id=aid, attempt_number=number,
-                              replaces_attempt=previous, started_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                              replaces_attempt=previous,
+                              started_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
                               state='running', measurement_invoked=False)
                 write_json(folder/'attempt.json', record)
-                terminal = False
-                try:
-                    adapter.prepare(slot, folder, retry=number > 1)
-                    record['measurement_invoked']=True
-                    write_json(folder/'attempt.json',record)
-                    result = adapter.execute(slot, folder)
-                    if result.get('status') not in ('valid', 'measurement-failure', 'behavior-failure'):
-                        raise IntegrityError('Adapter did not classify the measurement')
-                    record.update(result)
-                except MeasurementError as error:
-                    (folder/'traceback.txt').write_text(traceback.format_exc())
-                    record.update(status='measurement-failure', reason=str(error))
-                except BaseException as error:
-                    (folder/'traceback.txt').write_text(traceback.format_exc())
-                    record.update(status='fatal', reason=f'{type(error).__name__}: {error}')
-                    terminal = True
-                    aborted = record['reason']
+                records.append(record); folders.append(folder)
+            try:
+                if len(group) > 1:
+                    batch = output/'batches'/records[0]['attempt_id']
+                    batch.mkdir(parents=True)
+                    adapter.prepare_batch([g[0] for g in group], folders, batch)
+                    for record, folder in zip(records, folders):
+                        record['measurement_invoked'] = True
+                        write_json(folder/'attempt.json', record)
+                    results = adapter.execute_batch([g[0] for g in group], folders, batch)
+                else:
+                    slot, number, _ = group[0]
+                    adapter.prepare(slot, folders[0], retry=number > 1)
+                    records[0]['measurement_invoked'] = True
+                    write_json(folders[0]/'attempt.json', records[0])
+                    results = [adapter.execute(slot, folders[0])]
+                if (len(results) != len(group) or any(r.get('status') not in
+                        ('valid','measurement-failure','behavior-failure') for r in results)):
+                    raise IntegrityError('Adapter did not classify every measurement')
+            except MeasurementError as error:
+                for folder in folders:(folder/'traceback.txt').write_text(traceback.format_exc())
+                results = [dict(status='measurement-failure',reason=str(error)) for _ in group]
+            except BaseException as error:
+                for folder in folders:(folder/'traceback.txt').write_text(traceback.format_exc())
+                aborted = f'{type(error).__name__}: {error}'
+                results = [dict(status='fatal',reason=aborted) for _ in group]
+            replacements = []
+            for (slot, number, previous), record, folder, result in zip(group,records,folders,results):
+                record.update(result)
                 record.update(state='finished', ended_utc=datetime.datetime.now(datetime.timezone.utc).isoformat())
                 good = record['status'] == 'valid'
+                aid = record['attempt_id']
                 destination = output/('accepted' if good else 'suspect')/aid
                 record['evidence'] = str(destination.relative_to(output))
-                write_json(folder/'attempt.json', record)
-                folder.rename(destination)
-                append(output/'attempts.jsonl', record)
-                attempts.append(record)
+                write_json(folder/'attempt.json', record); folder.rename(destination)
+                append(output/'attempts.jsonl', record); attempts.append(record)
                 print(json.dumps({k: record[k] for k in ('run_id','attempt_id','status','evidence')}), flush=True)
                 if good:
                     accepted.append(record); append(output/'accepted.jsonl', record)
-                    break
-                if terminal or record['status'] == 'behavior-failure' or number == max_retries + 1:
-                    unresolved.append(dict(slot, last_attempt=aid, status=record['status'], reason=record.get('reason')))
-                    break
-                previous = aid
-                time.sleep(retry_delay)
-            if aborted:
-                break
+                elif aborted or record['status']=='behavior-failure' or number==max_retries+1:
+                    unresolved.append(dict(slot,last_attempt=aid,status=record['status'],reason=record.get('reason')))
+                else:
+                    replacements.append((slot, number+1, aid))
+            if aborted:break
+            if replacements:
+                pending.extendleft(reversed(replacements)); time.sleep(retry_delay)
     except BaseException as error:
         aborted=f'{type(error).__name__}: {error}'
         resolved={r['run_id'] for r in accepted+unresolved}
@@ -104,6 +124,14 @@ def campaign(output, plan, adapter, max_retries=3, retry_delay=1, provenance=Non
             if prior and slot['run_id'] not in resolved:
                 unresolved.append(dict(slot,last_attempt=prior[-1]['attempt_id'],status='interrupted',reason=aborted))
     finally:
+        # A batch may have queued replacements when another replacement aborts.
+        # Those slots were attempted, so they must not be labelled unstarted.
+        resolved={r['run_id'] for r in accepted+unresolved}
+        latest={r['run_id']:r for r in attempts}
+        for slot in slots:
+            if slot['run_id'] in latest and slot['run_id'] not in resolved:
+                prior=latest[slot['run_id']]
+                unresolved.append(dict(slot,last_attempt=prior['attempt_id'],status='interrupted',reason=aborted or 'Replacement not completed'))
         by_cell = {}
         for row in attempts:
             key = '|'.join(str(row.get(k, '')) for k in ('cohort','config','case','mode'))

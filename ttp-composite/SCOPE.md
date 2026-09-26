@@ -5,9 +5,9 @@ The selected composite suites exercise **30 Linux target rules** and **23 qualif
 | Platform | Detector and subject corpus | Implemented candidates per language | Qualified target selection | Runtime configurations |
 | --- | --- | ---: | ---: | ---: |
 | Linux | Falco 0.45.0; pinned 95-rule syscall corpus, 81 stock-enabled | 30 | 30 | 8 |
-| Windows | Sysmon and Hayabusa 4.1.0; 4,987 supplied rules, 2,269 enabled for the Sysmon input | 24 | 23 | 8 |
+| Windows | Sysmon and Hayabusa 4.1.0; 4,987 supplied rules, 2,269 enabled for the Sysmon input | 23 | 23 | 8 |
 
-The Windows `.onion` candidate is retained as a diagnostic program. It must successfully resolve the fixture name to qualify under its existing contract; an alert from a failed query does not meet that requirement. It is excluded from the 23-rule qualified selection. The ordinary DNS and TCP fixtures require no external endpoints, authentication or application-protocol libraries.
+The Windows `.onion` candidate was removed from the programs and experiment scope after local DNS and hosts-file fixtures failed to satisfy its successful-resolution requirement. The ordinary DNS and TCP fixtures require no external endpoints, authentication or application-protocol libraries.
 
 ## Implemented runtime matrix
 
