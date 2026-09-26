@@ -50,13 +50,14 @@ function Ensure-Directory([string]$path) {
 }
 function Remove-OwnedFile([string]$path) {
   # A sensor can still hold the image briefly after the measured process exits.
+  # Windows can report a mapped image as access denied, not a sharing violation.
   # Retry only cleanup of harness-owned files; never extend the measured lifetime.
   for($retry=0;$retry -le 50;$retry++) {
     try {
       Remove-Item $path -Force -ErrorAction Stop
       if($retry){@{path=$path;retries=$retry;removed=$true} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"}
       return
-    } catch [System.IO.IOException] {
+    } catch [System.IO.IOException], [System.UnauthorizedAccessException] {
       if($retry -eq 50){
         @{path=$path;retries=$retry;removed=$false;error=$_.Exception.Message} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"
         throw
