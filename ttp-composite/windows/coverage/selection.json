@@ -1500,7 +1500,7 @@
             ".xls.js",
             ".xlsx.exe",
             ".xlsx.js",
-            "⠀⠀⠀⠀⠀⠀.exe"
+            "\u2800\u2800\u2800\u2800\u2800\u2800.exe"
           ],
           "CommandLine|contains": [
             "      .exe",
@@ -1532,7 +1532,7 @@
             ".xls.js",
             ".xlsx.exe",
             ".xlsx.js",
-            "⠀⠀⠀⠀⠀⠀.exe"
+            "\u2800\u2800\u2800\u2800\u2800\u2800.exe"
           ]
         },
         "condition": "process_creation and selection"
@@ -2696,7 +2696,7 @@
           "TargetFilename|contains": [
             "\\u202e",
             "[U+202E]",
-            "‮"
+            "\u202e"
           ]
         },
         "selection_extensions": {
@@ -2728,12 +2728,12 @@
       "event_ids": [
         11
       ],
-      "behavior": "file {\"filename\": \"C:\\\\lab\\\\windows-coverage\\\\work\\\\report‮fdp.exe\", \"content\": \"helper\"}",
+      "behavior": "file {\"filename\": \"C:\\\\lab\\\\windows-coverage\\\\work\\\\report\u202efdp.exe\", \"content\": \"helper\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
       "qualification": "pending-live-validation",
       "expansion": {
         "kind": "file",
-        "filename": "C:\\lab\\windows-coverage\\work\\report‮fdp.exe",
+        "filename": "C:\\lab\\windows-coverage\\work\\report\u202efdp.exe",
         "content": "helper"
       }
     },
@@ -3463,82 +3463,18 @@
       }
     }
   ],
-  "deferred_candidates": [
-    {
-      "case_id": "dns_ldap_discovery",
-      "family": "DNS",
-      "rule_id": "2701ad60-af1a-a2fc-c2ff-fea10af75a0b",
-      "upstream_related": [
-        {
-          "id": "a21bcd7e-38ec-49ad-b69a-9ea17e69509e",
-          "type": "derived"
-        }
-      ],
-      "title": "DNS Server Discovery Via LDAP Query",
-      "path": "sigma/sysmon/dns_query/dns_query_win_dns_server_discovery_via_ldap_query.yml",
-      "sha256": "e67e68d86307e2896785a1e2203a5b30276fdef315c5a609e7f88a13efd63d4d",
-      "event_ids": [
-        22
-      ],
-      "level": "low",
-      "status": "test",
-      "behavior": "Issue the same _ldap._tcp.lab.test SRV lookup against an isolated resolver; verify its fixed reply.",
-      "fixture_requirements": "Choose equivalent SRV resolution semantics in all four languages. Run outside excluded Windows/Program Files paths.",
-      "qualification": "proposed-not-lab-qualified",
-      "detection": {
-        "dns_query": {
-          "EventID": 22,
-          "Channel": "Microsoft-Windows-Sysmon/Operational"
-        },
-        "selection": {
-          "QueryName|startswith": "_ldap."
-        },
-        "filter_main_generic": {
-          "Image|contains": [
-            ":\\Program Files\\",
-            ":\\Program Files (x86)\\",
-            ":\\Windows\\"
-          ]
-        },
-        "filter_main_defender": {
-          "Image|contains": ":\\ProgramData\\Microsoft\\Windows Defender\\Platform\\",
-          "Image|endswith": "\\MsMpEng.exe"
-        },
-        "filter_main_unknown": {
-          "Image": "<unknown process>"
-        },
-        "filter_optional_azure": {
-          "Image|startswith": "C:\\WindowsAzure\\GuestAgent"
-        },
-        "filter_main_null": {
-          "Image": null
-        },
-        "filter_optional_browsers": {
-          "Image|endswith": [
-            "\\chrome.exe",
-            "\\firefox.exe",
-            "\\opera.exe"
-          ]
-        },
-        "condition": "dns_query and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
-      },
-      "decision": "Deferred: retain ordinary hostname-to-address resolution in the first pass. The rule only requires a _ldap. query-name prefix; neither LDAP traffic nor SRV type is required by its predicate.",
-      "authors": "frack113",
-      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/dns_query/dns_query_win_dns_server_discovery_via_ldap_query.yml",
-      "license": "Detection Rule License 1.1"
-    }
-  ],
+  "deferred_candidates": [],
   "network_scope_revision": {
-    "date": "2026-09-22",
-    "candidate_count": 7,
+    "date": "2026-09-28",
+    "candidate_count": 10,
     "tcp_candidate_count": 5,
-    "dns_candidate_count": 2,
+    "dns_candidate_count": 5,
     "operation_families": [
       "TCP connect/send/receive/close",
       "hostname-to-address resolution"
     ],
-    "status": "proposed-not-lab-qualified",
+    "status": "six historical targets qualified; four DNS additions pending live validation",
     "measured_program_dependencies": "OS socket/resolver APIs and existing language standard libraries; no application-protocol client libraries",
-    "notes": "Four TCP cases vary destination port. The fifth varies executable location. Seven target rules do not represent seven distinct networking mechanisms."
+    "notes": "LDAP-discovery tests the rule prefix using an A query, not an LDAP client or SRV lookup. Onion remains deleted. Ten rules do not represent ten distinct mechanisms."
   }
 }

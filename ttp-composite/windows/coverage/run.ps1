@@ -211,7 +211,7 @@ try {
           # Only the just-reserved fixture is created/deleted, never real history or logs.
           if($id -eq 'delete_zone_identifier') {
             # Windows PowerShell 5.1/.NET Framework rejects colon stream paths.
-            Set-Content -LiteralPath $carrier -Stream Zone.Identifier -Value '[ZoneTransfer]`r`nZoneId=3' -Encoding ASCII
+            Set-Content -LiteralPath $carrier -Stream Zone.Identifier -Value "[ZoneTransfer]`r`nZoneId=3" -Encoding ASCII
           } else {
             [IO.File]::WriteAllText($target,"telemetry-lab inert deletion fixture`n")
           }

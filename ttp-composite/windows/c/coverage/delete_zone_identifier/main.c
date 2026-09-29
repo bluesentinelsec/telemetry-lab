@@ -4,6 +4,12 @@
 int main(int argc,char **argv) {
     puts("COMPOSITE_CASE delete_zone_identifier");
     if(!fixture_begin(argc,argv,"delete_zone_identifier")) return 0;
-    CHECK(remove("C:\\lab\\windows-coverage\\work\\download.txt:Zone.Identifier")==0); DWORD attr=GetFileAttributesA("C:\\lab\\windows-coverage\\work\\download.txt:Zone.Identifier"); CHECK(attr==INVALID_FILE_ATTRIBUTES && GetLastError()==ERROR_FILE_NOT_FOUND);
+    const char *stream="C:\\lab\\windows-coverage\\work\\download.txt:Zone.Identifier";
+    FILE *before=fopen(stream,"rb"); CHECK(before!=NULL);
+    CHECK(fgetc(before)=='['); CHECK(fclose(before)==0);
+    CHECK(remove(stream)==0);
+    // Attribute APIs describe the carrier file, not existence of its stream.
+    errno=0; FILE *after=fopen(stream,"rb"); CHECK(after==NULL && errno==ENOENT);
+    CHECK(GetFileAttributesA("C:\\lab\\windows-coverage\\work\\download.txt")!=INVALID_FILE_ATTRIBUTES);
     success("delete_zone_identifier"); return 0;
 }

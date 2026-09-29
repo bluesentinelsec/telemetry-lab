@@ -14,8 +14,13 @@ func main() {
 		return
 	}
 	path := "C:\\lab\\windows-coverage\\work\\download.txt:Zone.Identifier"
+	before, err := os.ReadFile(path)
+	fixture.Must(err)
+	fixture.Check(len(before) > 0 && before[0] == '[', "invalid stream fixture")
 	fixture.Must(os.Remove(path))
-	_, err := os.Stat(path)
-	fixture.Check(os.IsNotExist(err), "fixture still exists")
+	_, err = os.Open(path)
+	fixture.Check(os.IsNotExist(err), "stream still exists")
+	_, err = os.Stat("C:\\lab\\windows-coverage\\work\\download.txt")
+	fixture.Must(err)
 	fixture.Success("delete_zone_identifier")
 }
