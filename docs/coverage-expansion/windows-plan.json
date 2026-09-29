@@ -23,7 +23,20 @@
       "condition": "registry_set and selection"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Tom Ueltschi (@c_APT_ure)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_persistence_logon_scripts_userinitmprlogonscript.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "9ace0707-b560-49b8-b6ca-5148b42f39fb",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1037.001/T1037.001.md"
+    ]
   },
   {
     "case_id": "registry_typed_paths",
@@ -55,7 +68,21 @@
       "condition": "registry_set and (selection and not filter)"
     },
     "level": "high",
-    "status": "test"
+    "status": "test",
+    "authors": "Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_persistence_typed_paths.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "086ae989-9ca6-4fe7-895a-759c5544f247",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://twitter.com/dez_/status/1560101453150257154",
+      "https://forensafe.com/blogs/typedpaths.html"
+    ]
   },
   {
     "case_id": "registry_appx_debugger",
@@ -86,7 +113,21 @@
       "condition": "registry_set and (1 of selection_*)"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "frack113",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_persistence_appx_debugger.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "df4dc653-1029-47ba-8231-3c44238cc0ae",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://oddvar.moe/2018/09/06/persistence-using-universal-windows-platform-apps-appx/",
+      "https://github.com/rootm0s/WinPwnage"
+    ]
   },
   {
     "case_id": "registry_com_treatas",
@@ -131,7 +172,21 @@
       "condition": "registry_set and (selection and not 1 of filter_*)"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "frack113",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_treatas_persistence.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "dc5c24af-6995-49b2-86eb-a9ff62199e82",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://github.com/redcanaryco/atomic-red-team/blob/40b77d63808dd4f4eafb83949805636735a1fd15/atomics/T1546.015/T1546.015.md",
+      "https://www.youtube.com/watch?v=3gz1QmiMhss&t=1251s"
+    ]
   },
   {
     "case_id": "registry_cor_profiler",
@@ -164,7 +219,23 @@
       "condition": "registry_set and (1 of selection_*)"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Jose Rodriguez (@Cyb3rPandaH), OTR (Open Threat Research), Jimmy Bayne (@bohops)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_enabling_cor_profiler_env_variables.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "ad89044a-8f49-4673-9a55-cbd88a1b374f",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://twitter.com/jamieantisocial/status/1304520651248668673",
+      "https://www.slideshare.net/JamieWilliams130/started-from-the-bottom-exploiting-data-sources-to-uncover-attck-behaviors",
+      "https://www.sans.org/cyber-security-summit/archives",
+      "https://learn.microsoft.com/en-us/dotnet/core/runtime-config/debugging-profiling"
+    ]
   },
   {
     "case_id": "registry_hide_files",
@@ -194,7 +265,20 @@
       "condition": "registry_set and selection"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "frack113",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_hide_file.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "5a5152f1-463f-436b-b2f5-8eceb3964b42",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1564.001/T1564.001.md#atomic-test-8---hide-files-through-registry"
+    ]
   },
   {
     "case_id": "registry_office_macro",
@@ -221,7 +305,26 @@
       "condition": "registry_set and selection"
     },
     "level": "high",
-    "status": "test"
+    "status": "test",
+    "authors": "Trent Liffick (@tliffick), Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_office_vba_warnings_tamper.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "9b894e57-033f-46cf-b7fa-a52804181973",
+        "type": "obsolete"
+      },
+      {
+        "id": "91239011-fe3c-4b54-9f24-15c86bb65913",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://twitter.com/inversecos/status/1494174785621819397",
+      "https://www.mcafee.com/blogs/other-blogs/mcafee-labs/zloader-with-a-new-infection-technique/",
+      "https://securelist.com/scarcruft-surveilling-north-korean-defectors-and-human-rights-activists/105074/"
+    ]
   },
   {
     "case_id": "registry_word_addin",
@@ -314,7 +417,21 @@
       "condition": "registry_set and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Bhabesh Raj",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_persistence_office_vsto.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "9d15044a-7cfe-4d23-8085-6ebc11df7685",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://twitter.com/_vivami/status/1347925307643355138",
+      "https://vanmieghem.io/stealth-outlook-persistence/"
+    ]
   },
   {
     "case_id": "registry_appcompat_restart",
@@ -341,7 +458,20 @@
       "condition": "registry_set and selection"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_persistence_app_cpmpat_layer_registerapprestart.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "b86852fb-4c77-48f9-8519-eb1b2c308b59",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://github.com/nasbench/Misc-Research/blob/d114d6a5e0a437d3818e492ef9864367152543e7/Other/Persistence-Via-RegisterAppRestart-Shim.md"
+    ]
   },
   {
     "case_id": "registry_suspicious_env",
@@ -411,7 +541,20 @@
       "condition": "registry_set and (all of selection_*)"
     },
     "level": "high",
-    "status": "test"
+    "status": "test",
+    "authors": "Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/registry/registry_set/registry_set_suspicious_env_variables.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "966315ef-c5e1-4767-ba25-fce9c8de3660",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://infosec.exchange/@sbousseaden/109542254124022664"
+    ]
   },
   {
     "case_id": "screensaver_file",
@@ -445,7 +588,20 @@
       "condition": "file_event and (selection and not 1 of filter_*)"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "frack113",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_creation_scr_binary_file.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "97aa2e88-555c-450d-85a6-229bcd87efb8",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1546.002/T1546.002.md"
+    ]
   },
   {
     "case_id": "system_dll_file",
@@ -483,7 +639,20 @@
       "condition": "file_event and (selection and not 1 of filter_main_*)"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_creation_system_dll_files.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "13c02350-4177-4e45-ac17-cf7ca628ff5e",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "Internal Research"
+    ]
   },
   {
     "case_id": "system_name_file",
@@ -654,7 +823,20 @@
       "condition": "file_event and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Sander Wiebing, Tim Shelton, Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_creation_system_file.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "d5866ddf-ce8f-4aea-b28e-d96485a20d3d",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "Internal Research"
+    ]
   },
   {
     "case_id": "perflogs_file",
@@ -696,7 +878,21 @@
       "condition": "file_event and selection"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_perflogs_susp_files.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "bbb7e38c-0b41-4a11-b306-d2a457b7ac2b",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "Internal Research",
+      "https://labs.withsecure.com/publications/fin7-target-veeam-servers"
+    ]
   },
   {
     "case_id": "powershell_module_file",
@@ -741,7 +937,21 @@
       "condition": "file_event and (selection and not 1 of filter_main_*)"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_powershell_module_uncommon_creation.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "e3845023-ca9a-4024-b2b2-5422156d5527",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "Internal Research",
+      "https://learn.microsoft.com/en-us/powershell/scripting/developer/module/understanding-a-windows-powershell-module?view=powershell-7.3"
+    ]
   },
   {
     "case_id": "rclone_config_file",
@@ -768,7 +978,20 @@
       "condition": "file_event and selection"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Aaron Greetham (@beardofbinary) - NCC Group",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_rclone_config_files.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "34986307-b7f4-49be-92f3-e7a4d01ac5db",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://research.nccgroup.com/2021/05/27/detecting-rclone-an-effective-tool-for-exfiltration/"
+    ]
   },
   {
     "case_id": "rtlo_file",
@@ -778,7 +1001,7 @@
     "sha256": "8fb59e6680454f1060f3d2d9f77ab1fce6199c327bccc90a81a3744587ad2ee8",
     "kind": "file",
     "params": {
-      "filename": "C:\\lab\\windows-coverage\\work\\report‮fdp.exe",
+      "filename": "C:\\lab\\windows-coverage\\work\\report\u202efdp.exe",
       "content": "helper"
     },
     "detection": {
@@ -790,7 +1013,7 @@
         "TargetFilename|contains": [
           "\\u202e",
           "[U+202E]",
-          "‮"
+          "\u202e"
         ]
       },
       "selection_extensions": {
@@ -819,7 +1042,27 @@
       "condition": "file_event and (all of selection_*)"
     },
     "level": "high",
-    "status": "test"
+    "status": "test",
+    "authors": "Jonathan Peters (Nextron Systems), Florian Roth (Nextron Systems), Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_susp_right_to_left_override_extension_spoofing.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "ad691d92-15f2-4181-9aa4-723c74f9ddc3",
+        "type": "derived"
+      },
+      {
+        "id": "979baf41-ca44-4540-9d0c-4fcef3b5a3a4",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://redcanary.com/blog/right-to-left-override/",
+      "https://www.malwarebytes.com/blog/news/2014/01/the-rtlo-method",
+      "https://tria.ge/241015-l98snsyeje/behavioral2",
+      "https://www.unicode.org/versions/Unicode5.2.0/ch02.pdf"
+    ]
   },
   {
     "case_id": "shim_database_file",
@@ -846,7 +1089,23 @@
       "condition": "file_event and selection"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "frack113, Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_event/file_event_win_creation_new_shim_database.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "ee63c85c-6d51-4d12-ad09-04e25877a947",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1546.011/T1546.011.md#atomic-test-2---new-shim-database-files-created-in-the-default-shim-database-directory",
+      "https://www.mandiant.com/resources/blog/fin7-shim-databases-persistence",
+      "https://liberty-shell.com/sec/2020/02/25/shim-persistence/",
+      "https://andreafortuna.org/2018/11/12/process-injection-and-persistence-using-application-shimming/"
+    ]
   },
   {
     "case_id": "delete_eventlog_fixture",
@@ -873,7 +1132,20 @@
       "condition": "file_delete and selection"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_delete/file_delete_win_delete_event_log_files.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "63c779ba-f638-40a0-a593-ddd45e8b1ddc",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "Internal Research"
+    ]
   },
   {
     "case_id": "delete_history_fixture",
@@ -899,7 +1171,20 @@
       "condition": "file_delete and selection"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_delete/file_delete_win_delete_powershell_command_history.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "ff301988-c231-4bd0-834c-ac9d73b86586",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "Internal Research"
+    ]
   },
   {
     "case_id": "delete_prefetch_fixture",
@@ -933,7 +1218,21 @@
       "condition": "file_delete and (selection and not 1 of filter_main_*)"
     },
     "level": "high",
-    "status": "test"
+    "status": "test",
+    "authors": "Cedric MAURUGEON",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_delete/file_delete_win_delete_prefetch.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "0a1f9d29-6465-4776-b091-7f43b26e4c89",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "Internal Research",
+      "https://www.group-ib.com/blog/hunting-for-ttps-with-prefetch-files/"
+    ]
   },
   {
     "case_id": "delete_zone_identifier",
@@ -987,7 +1286,25 @@
       "condition": "file_delete and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_delete/file_delete_win_zone_identifier_ads_uncommon.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "7eac0a16-5832-4e81-865f-0268a6d19e4b",
+        "type": "similar"
+      },
+      {
+        "id": "3109530e-ab47-4cc6-a953-cac5ebcc93ae",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://securityliterate.com/how-malware-abuses-the-zone-identifier-to-circumvent-detection-and-analysis/",
+      "Internal Research"
+    ]
   },
   {
     "case_id": "dns_ldap_discovery",
@@ -1037,7 +1354,21 @@
       "condition": "dns_query and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
     },
     "level": "low",
-    "status": "test"
+    "status": "test",
+    "authors": "frack113",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/dns_query/dns_query_win_dns_server_discovery_via_ldap_query.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "a21bcd7e-38ec-49ad-b69a-9ea17e69509e",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://github.com/redcanaryco/atomic-red-team/blob/980f3f83fd81f37c1ca9c02dccfd1c3d9f9d0841/atomics/T1016/T1016.md#atomic-test-9---dns-server-discovery-using-nslookup",
+      "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/7fcdce70-5205-44d6-9c3a-260e616a2f04"
+    ]
   },
   {
     "case_id": "dns_cloudflared",
@@ -1065,7 +1396,25 @@
       "condition": "dns_query and selection"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/dns_query/dns_query_win_cloudflared_communication.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "7cd1dcdc-6edf-4896-86dc-d1f19ad64903",
+        "type": "similar"
+      },
+      {
+        "id": "a1d9eec5-33b2-4177-8d24-27fe754d0812",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://www.guidepointsecurity.com/blog/tunnel-vision-cloudflared-abused-in-the-wild/",
+      "Internal Research"
+    ]
   },
   {
     "case_id": "dns_shortener",
@@ -1096,7 +1445,20 @@
       "condition": "dns_query and selection"
     },
     "level": "medium",
-    "status": "experimental"
+    "status": "experimental",
+    "authors": "Ahmed Nosir (@egycondor)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/dns_query/dns_query_win_common_malware_hosting_services.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "f8c1e80b-c73a-476a-ae24-6c72528b1521",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://cloud.google.com/blog/topics/threat-intelligence/apt41-innovative-tactics"
+    ]
   },
   {
     "case_id": "dns_remote_access",
@@ -1295,7 +1657,39 @@
       "condition": "dns_query and (1 of selection_* and not 1 of filter_optional_*)"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "frack113, Connor Martin",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/dns_query/dns_query_win_remote_access_software_domains_non_browsers.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "71ba22cb-8a01-42e2-a6dd-5bf9b547498f",
+        "type": "obsolete"
+      },
+      {
+        "id": "7c4cf8e0-1362-48b2-a512-b606d2065d7d",
+        "type": "obsolete"
+      },
+      {
+        "id": "ed785237-70fa-46f3-83b6-d264d1dc6eb4",
+        "type": "obsolete"
+      },
+      {
+        "id": "4d07b1f4-cb00-4470-b9f8-b0191d48ff52",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1219/T1219.md#atomic-test-4---gotoassist-files-detected-test-on-windows",
+      "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1219/T1219.md#atomic-test-3---logmein-files-detected-test-on-windows",
+      "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1219/T1219.md#atomic-test-6---ammyy-admin-software-execution",
+      "https://redcanary.com/blog/misbehaving-rats/",
+      "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/hunting-for-omi-vulnerability-exploitation-with-azure-sentinel/ba-p/2764093",
+      "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-320a",
+      "https://blog.sekoia.io/scattered-spider-laying-new-eggs/",
+      "https://learn.microsoft.com/en-us/windows/client-management/client-tools/quick-assist#disable-quick-assist-within-your-organization"
+    ]
   },
   {
     "case_id": "pipe_paexec",
@@ -1321,7 +1715,21 @@
       "condition": "pipe_created and selection"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/pipe_created/pipe_created_pua_paexec_default_pipe.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "f6451de4-df0a-41fa-8d72-b39f54a08db5",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://github.com/microsoft/Microsoft-365-Defender-Hunting-Queries/blob/efa17a600b43c897b4b7463cc8541daa1987eeb4/Command%20and%20Control/C2-NamedPipe.md",
+      "https://github.com/poweradminllc/PAExec"
+    ]
   },
   {
     "case_id": "pipe_remcom",
@@ -1347,7 +1755,25 @@
       "condition": "pipe_created and selection"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Nikita Nazarov, oscd.community, Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/pipe_created/pipe_created_pua_remcom_default_pipe.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "9e77ed63-2ecf-4c7b-b09d-640834882028",
+        "type": "obsolete"
+      },
+      {
+        "id": "d36f87ea-c403-44d2-aa79-1a0ac7c24456",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://drive.google.com/file/d/1lKya3_mLnR3UQuCoiYruO3qgu052_iS_/view",
+      "https://github.com/kavika13/RemCom"
+    ]
   },
   {
     "case_id": "process_access_ping",
@@ -1380,7 +1806,20 @@
       "condition": "process_access and selection"
     },
     "level": "low",
-    "status": "test"
+    "status": "test",
+    "authors": "Nasreddine Bencherchali (Nextron Systems), frack113",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/process_access/proc_access_win_susp_all_access_uncommon_target.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "a24e5861-c6ca-4fde-a93c-ba9256feddf0",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://learn.microsoft.com/en-us/windows/win32/procthread/process-security-and-access-rights"
+    ]
   },
   {
     "case_id": "remote_thread_ping",
@@ -1447,6 +1886,23 @@
       "condition": "create_remote_thread and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
     },
     "level": "medium",
-    "status": "test"
+    "status": "test",
+    "authors": "Florian Roth (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_remote_thread/create_remote_thread_win_susp_uncommon_target_image.yml",
+    "license": "Detection Rule License 1.1",
+    "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+    "upstream_related": [
+      {
+        "id": "f016c716-754a-467f-a39e-63c06f773987",
+        "type": "obsolete"
+      },
+      {
+        "id": "a1a144b7-5c9b-4853-a559-2172be8d4a03",
+        "type": "derived"
+      }
+    ],
+    "references": [
+      "https://web.archive.org/web/20220319032520/https://blog.redbluepurple.io/offensive-research/bypassing-injection-detection"
+    ]
   }
 ]

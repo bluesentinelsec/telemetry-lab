@@ -30,6 +30,9 @@ feasibility review or impossibility**. Falco's 95-rule inventory records all
 remaining exclusions, including its 14 stock-disabled rules. This expansion
 does not change stock rule enablement or edit rule conditions.
 
+Windows predicate snapshots retain upstream authors, pinned rule URLs, related IDs
+and the [Detection Rule License 1.1](https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md).
+
 Reproduce the audit with PyYAML installed and the pinned archive extracted:
 
 ```sh
