@@ -1,0 +1,11 @@
+{
+  "stack": "FullMatrixOnce20260929",
+  "stack_absent": true,
+  "instances": {
+    "i-09cf005b181b6f715": "terminated",
+    "i-0e7ddb5406cba4207": "terminated"
+  },
+  "bucket": "fullmatrixonce20260929-labdata46f5603f-vaisvr4wimhy",
+  "bucket_absent": true,
+  "verified_at": "2026-09-29T21:06:11.883790+00:00"
+}

@@ -1,0 +1,524 @@
+{
+  "passed": true,
+  "slots": 64,
+  "active_alerts": 32,
+  "controls": 32,
+  "minimum_duration_seconds": 5.011158,
+  "maximum_duration_seconds": 5.094895,
+  "suspect": 0,
+  "retries": 0,
+  "results": [
+    {
+      "config": "windows-cpp-libstdcxx",
+      "case": "dns_cloudflared",
+      "mode": "active",
+      "duration_seconds": 5.076421,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libstdcxx",
+      "case": "dns_shortener",
+      "mode": "active",
+      "duration_seconds": 5.033659,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libstdcxx",
+      "case": "dns_cloudflared",
+      "mode": "control",
+      "duration_seconds": 5.015915,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libstdcxx",
+      "case": "dns_ip_lookup",
+      "mode": "active",
+      "duration_seconds": 5.027503,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libstdcxx",
+      "case": "dns_remote_access",
+      "mode": "active",
+      "duration_seconds": 5.023998,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libstdcxx",
+      "case": "dns_shortener",
+      "mode": "control",
+      "duration_seconds": 5.018059,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libstdcxx",
+      "case": "dns_remote_access",
+      "mode": "control",
+      "duration_seconds": 5.022462,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libstdcxx",
+      "case": "dns_ip_lookup",
+      "mode": "control",
+      "duration_seconds": 5.017893,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-msvcrt",
+      "case": "dns_cloudflared",
+      "mode": "control",
+      "duration_seconds": 5.019091,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-msvcrt",
+      "case": "dns_shortener",
+      "mode": "active",
+      "duration_seconds": 5.020355,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-msvcrt",
+      "case": "dns_remote_access",
+      "mode": "active",
+      "duration_seconds": 5.019904,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-msvcrt",
+      "case": "dns_ip_lookup",
+      "mode": "active",
+      "duration_seconds": 5.019382,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-msvcrt",
+      "case": "dns_cloudflared",
+      "mode": "active",
+      "duration_seconds": 5.021437,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-msvcrt",
+      "case": "dns_shortener",
+      "mode": "control",
+      "duration_seconds": 5.0121,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-msvcrt",
+      "case": "dns_remote_access",
+      "mode": "control",
+      "duration_seconds": 5.017869,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-msvcrt",
+      "case": "dns_ip_lookup",
+      "mode": "control",
+      "duration_seconds": 5.013267,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-cgo",
+      "case": "dns_ip_lookup",
+      "mode": "control",
+      "duration_seconds": 5.064617,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-cgo",
+      "case": "dns_remote_access",
+      "mode": "active",
+      "duration_seconds": 5.094895,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-cgo",
+      "case": "dns_ip_lookup",
+      "mode": "active",
+      "duration_seconds": 5.058062,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-cgo",
+      "case": "dns_remote_access",
+      "mode": "control",
+      "duration_seconds": 5.047397,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-cgo",
+      "case": "dns_shortener",
+      "mode": "control",
+      "duration_seconds": 5.055165,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-cgo",
+      "case": "dns_shortener",
+      "mode": "active",
+      "duration_seconds": 5.037627,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-cgo",
+      "case": "dns_cloudflared",
+      "mode": "control",
+      "duration_seconds": 5.081302,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-cgo",
+      "case": "dns_cloudflared",
+      "mode": "active",
+      "duration_seconds": 5.027853,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-static",
+      "case": "dns_remote_access",
+      "mode": "control",
+      "duration_seconds": 5.02191,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-static",
+      "case": "dns_shortener",
+      "mode": "control",
+      "duration_seconds": 5.049488,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-static",
+      "case": "dns_ip_lookup",
+      "mode": "control",
+      "duration_seconds": 5.018687,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-static",
+      "case": "dns_remote_access",
+      "mode": "active",
+      "duration_seconds": 5.026111,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-static",
+      "case": "dns_ip_lookup",
+      "mode": "active",
+      "duration_seconds": 5.022917,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-static",
+      "case": "dns_cloudflared",
+      "mode": "control",
+      "duration_seconds": 5.017411,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-static",
+      "case": "dns_cloudflared",
+      "mode": "active",
+      "duration_seconds": 5.023826,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-static",
+      "case": "dns_shortener",
+      "mode": "active",
+      "duration_seconds": 5.024196,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-static",
+      "case": "dns_cloudflared",
+      "mode": "control",
+      "duration_seconds": 5.049861,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-static",
+      "case": "dns_remote_access",
+      "mode": "control",
+      "duration_seconds": 5.070742,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-static",
+      "case": "dns_shortener",
+      "mode": "control",
+      "duration_seconds": 5.070673,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-static",
+      "case": "dns_ip_lookup",
+      "mode": "control",
+      "duration_seconds": 5.067349,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-static",
+      "case": "dns_remote_access",
+      "mode": "active",
+      "duration_seconds": 5.04753,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-static",
+      "case": "dns_shortener",
+      "mode": "active",
+      "duration_seconds": 5.043347,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-static",
+      "case": "dns_ip_lookup",
+      "mode": "active",
+      "duration_seconds": 5.045252,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-go-static",
+      "case": "dns_cloudflared",
+      "mode": "active",
+      "duration_seconds": 5.047777,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-ucrt",
+      "case": "dns_ip_lookup",
+      "mode": "active",
+      "duration_seconds": 5.043154,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-ucrt",
+      "case": "dns_shortener",
+      "mode": "active",
+      "duration_seconds": 5.021989,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-ucrt",
+      "case": "dns_remote_access",
+      "mode": "active",
+      "duration_seconds": 5.022522,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-ucrt",
+      "case": "dns_remote_access",
+      "mode": "control",
+      "duration_seconds": 5.011158,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-ucrt",
+      "case": "dns_shortener",
+      "mode": "control",
+      "duration_seconds": 5.015226,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-ucrt",
+      "case": "dns_cloudflared",
+      "mode": "active",
+      "duration_seconds": 5.025659,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-ucrt",
+      "case": "dns_cloudflared",
+      "mode": "control",
+      "duration_seconds": 5.01358,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-c-ucrt",
+      "case": "dns_ip_lookup",
+      "mode": "control",
+      "duration_seconds": 5.015934,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-dynamic",
+      "case": "dns_remote_access",
+      "mode": "control",
+      "duration_seconds": 5.026273,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-dynamic",
+      "case": "dns_ip_lookup",
+      "mode": "control",
+      "duration_seconds": 5.017536,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-dynamic",
+      "case": "dns_remote_access",
+      "mode": "active",
+      "duration_seconds": 5.023972,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-dynamic",
+      "case": "dns_shortener",
+      "mode": "control",
+      "duration_seconds": 5.016517,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-dynamic",
+      "case": "dns_cloudflared",
+      "mode": "control",
+      "duration_seconds": 5.0166,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-dynamic",
+      "case": "dns_ip_lookup",
+      "mode": "active",
+      "duration_seconds": 5.025001,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-dynamic",
+      "case": "dns_cloudflared",
+      "mode": "active",
+      "duration_seconds": 5.021923,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-rust-msvc-dynamic",
+      "case": "dns_shortener",
+      "mode": "active",
+      "duration_seconds": 5.021369,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libcxx",
+      "case": "dns_remote_access",
+      "mode": "control",
+      "duration_seconds": 5.040253,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libcxx",
+      "case": "dns_shortener",
+      "mode": "control",
+      "duration_seconds": 5.019289,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libcxx",
+      "case": "dns_cloudflared",
+      "mode": "active",
+      "duration_seconds": 5.028608,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libcxx",
+      "case": "dns_ip_lookup",
+      "mode": "control",
+      "duration_seconds": 5.018921,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libcxx",
+      "case": "dns_ip_lookup",
+      "mode": "active",
+      "duration_seconds": 5.025294,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libcxx",
+      "case": "dns_remote_access",
+      "mode": "active",
+      "duration_seconds": 5.023545,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libcxx",
+      "case": "dns_shortener",
+      "mode": "active",
+      "duration_seconds": 5.024667,
+      "outcome": "alert",
+      "attempt_number": 1
+    },
+    {
+      "config": "windows-cpp-libcxx",
+      "case": "dns_cloudflared",
+      "mode": "control",
+      "duration_seconds": 5.018284,
+      "outcome": "control-pass",
+      "attempt_number": 1
+    }
+  ]
+}

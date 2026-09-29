@@ -1,0 +1,168 @@
+{
+  "expected": 1714,
+  "accepted": 1714,
+  "attempts": 1815,
+  "suspect": 41,
+  "superseded_accepted": 60,
+  "missing": [],
+  "extra": [],
+  "duplicates": [],
+  "issues": [],
+  "complete": true,
+  "campaign_counts": [
+    {
+      "os": "linux",
+      "cohort": "primitives",
+      "planned_runs": 104,
+      "accepted": 104,
+      "total_attempts": 104,
+      "retries": 0,
+      "suspect": 0,
+      "superseded_valid": 0,
+      "complete": true,
+      "initial_campaign_complete": true
+    },
+    {
+      "os": "linux",
+      "cohort": "composites",
+      "planned_runs": 680,
+      "accepted": 680,
+      "total_attempts": 680,
+      "retries": 0,
+      "suspect": 0,
+      "superseded_valid": 0,
+      "complete": true,
+      "initial_campaign_complete": true
+    },
+    {
+      "os": "linux",
+      "cohort": "legacy",
+      "planned_runs": 56,
+      "accepted": 56,
+      "total_attempts": 56,
+      "retries": 0,
+      "suspect": 0,
+      "superseded_valid": 0,
+      "complete": true,
+      "initial_campaign_complete": true
+    },
+    {
+      "os": "windows",
+      "cohort": "primitives",
+      "planned_runs": 18,
+      "accepted": 18,
+      "total_attempts": 18,
+      "retries": 0,
+      "suspect": 0,
+      "superseded_valid": 0,
+      "complete": true,
+      "initial_campaign_complete": true
+    },
+    {
+      "os": "windows",
+      "cohort": "composites",
+      "planned_runs": 832,
+      "accepted": 832,
+      "total_attempts": 933,
+      "retries": 33,
+      "suspect": 41,
+      "superseded_valid": 60,
+      "complete": true,
+      "initial_campaign_complete": false
+    },
+    {
+      "os": "windows",
+      "cohort": "legacy",
+      "planned_runs": 24,
+      "accepted": 24,
+      "total_attempts": 24,
+      "retries": 0,
+      "suspect": 0,
+      "superseded_valid": 0,
+      "complete": true,
+      "initial_campaign_complete": true
+    }
+  ],
+  "rechecks": [
+    {
+      "os": "windows",
+      "phase": "composite-recheck-1",
+      "planned_runs": 4,
+      "accepted": 0,
+      "total_attempts": 16,
+      "retries": 12,
+      "complete": false
+    },
+    {
+      "os": "windows",
+      "phase": "dns-lifetime",
+      "planned_runs": 64,
+      "accepted": 64,
+      "total_attempts": 64,
+      "retries": 0,
+      "complete": true
+    }
+  ],
+  "active_hits": 750,
+  "active_misses": [
+    {
+      "os": "linux",
+      "cohort": "composites",
+      "config": "linux-go-cgo",
+      "case": "reverse_shell",
+      "mode": "active",
+      "measurement": {
+        "native_started": true,
+        "case": "reverse_shell",
+        "config": "linux-go-cgo",
+        "control": false,
+        "target_rule": "Redirect STDOUT/STDIN to Network Connection in Container",
+        "container_id": "6012559a3f39003e68a89001ffb80e83335d872ed0e9c835af2df0a10758ff8a",
+        "batch": "batches/run-0000305-attempt-01",
+        "started_ns": 1790710744432363825,
+        "executable": "/opt/coverage/linux-go-cgo/coverage/reverse_shell",
+        "returncode": 0,
+        "timed_out": false,
+        "stdout": "CASE_OK reverse_shell\n",
+        "stderr": "",
+        "ended_ns": 1790710744502584747,
+        "behavior_ok": true,
+        "collection_ok": true,
+        "valid": true,
+        "target_fired": false,
+        "negative_control_ok": null,
+        "matched_rules": []
+      }
+    },
+    {
+      "os": "linux",
+      "cohort": "composites",
+      "config": "linux-go-static",
+      "case": "reverse_shell",
+      "mode": "active",
+      "measurement": {
+        "native_started": true,
+        "case": "reverse_shell",
+        "config": "linux-go-static",
+        "control": false,
+        "target_rule": "Redirect STDOUT/STDIN to Network Connection in Container",
+        "container_id": "aa2bcc2a668deaee90177fc37b92232894181dce64741f7004fcbb26dd744d40",
+        "batch": "batches/run-0000449-attempt-01",
+        "started_ns": 1790710882668787902,
+        "executable": "/opt/coverage/linux-go-static/coverage/reverse_shell",
+        "returncode": 0,
+        "timed_out": false,
+        "stdout": "CASE_OK reverse_shell\n",
+        "stderr": "",
+        "ended_ns": 1790710882721337314,
+        "behavior_ok": true,
+        "collection_ok": true,
+        "valid": true,
+        "target_fired": false,
+        "negative_control_ok": null,
+        "matched_rules": []
+      }
+    }
+  ],
+  "control_alerts": []
+}

@@ -1,14 +1,14 @@
 # Refined Windows network TTP Composite scope
 
-Status: six standalone cases targeting six unmodified rules, demonstrated in all eight runtime configurations. These replace the earlier network/DNS candidate subset. The overall scope contains 23 cases. Subject: the inventoried Hayabusa 4.1.0 Windows release bundle, with exact rule IDs and hashes in `selection.json`.
+Scope: nine standalone cases targeting nine unmodified rules across all eight runtime configurations. These are part of the 52-case Windows composite scope. Subject: the inventoried Hayabusa 4.1.0 Windows release bundle, with exact rule IDs and hashes in `selection.json`.
 
 ## Decision
 
-Use only two measured operation families: TCP connect/send/receive/close and ordinary hostname-to-address resolution. This follows the existing `tcp_client` and `dns_lookup` primitives. The original working checkout already contains a Winsock implementation of the C TCP primitive; the scope worktree predates those uncommitted changes, which must be preserved when implementation begins.
+Use only two measured operation families: TCP connect/send/receive/close and ordinary hostname-to-address resolution. This follows the existing `tcp_client` and `dns_lookup` primitives.
 
 Keep four destination-port rules. Their titles mention SMTP, RDP, ADWS, and Kerberos, but their predicates evaluate Sysmon EID 3 connection metadata: initiated connection, destination port, and process exclusions. None requires an application handshake, successful authentication, protocol parsing, TLS, or a third-party protocol library. A fixed TCP byte exchange is sufficient to attempt those predicates and independently prove completed I/O. These are port-based detection tests, not protocol simulations.
 
-Replace the LDAP-discovery DNS candidate with a TCP connection from a rule-listed executable location. The LDAP rule actually checks a `_ldap.` QueryName prefix, not LDAP traffic or an SRV query type; the earlier SRV requirement was unnecessarily specific. Defer it to keep the first pass focused on the two existing lookup targets.
+LDAP-discovery and `.onion` candidates remain out of scope. The four selected DNS cases use ordinary address resolution against exact-name, local-only fixtures.
 
 ## Exact target mapping
 
@@ -20,14 +20,17 @@ Replace the LDAP-discovery DNS candidate with a TCP connection from a rule-liste
 | `tcp_connect_88` | TCP exchange to 127.0.0.1:88 | Uncommon Outbound Kerberos Connection | `322fd5f2-b5b7-1bf4-58f2-92873dc878bb` |
 | `tcp_connect_public_path` | TCP exchange to 127.0.0.1:49152 from C:\Users\Public\telemetry-lab\probe.exe | Network Connection Initiated From Process Located In Potentially Suspicious Or Uncommon Location | `df13f270-859b-272a-9c2a-a0ef744a0480` |
 | `dns_ip_lookup` | Resolve api.ipify.org through isolated lab DNS | Suspicious DNS Query for IP Lookup Service APIs | `e1d5e512-66be-e3eb-e24b-a9f3545e115a` |
+| `dns_cloudflared` | Resolve protocol-v2.argotunnel.com through isolated lab DNS | Cloudflared Tunnels Related DNS Requests | `a19966bd-8f14-3aaf-c121-4c5d016441d3` |
+| `dns_shortener` | Resolve tinyurl.com through isolated lab DNS | DNS Query To Common Malware Hosting and Shortener Services | `7909c849-d650-4178-8739-9884f75c17fe` |
+| `dns_remote_access` | Resolve api.splashtop.com through isolated lab DNS | DNS Query To Remote Access Software Domain From Non-Browser App | `d064cacb-bfe5-9d2b-7e5d-a8346829a158` |
 
-Three port cases and the path case use a fixed echo exchange; RDP uses connect/send against the existing listener without authentication. This increases rule coverage, not the number of independent networking mechanisms. The executable-location case adds a different rule predicate. The two DNS cases use different name predicates with the same resolver operation.
+Three port cases and the path case use a fixed echo exchange; RDP uses connect/send against the existing listener without authentication. This increases rule coverage, not the number of independent networking mechanisms. The executable-location case adds a different rule predicate. The four DNS cases use different name predicates with the same resolver operation.
 
 ## Fixtures and qualification
 
 - **TCP:** harness-owned echo listeners on 127.0.0.1 ports 88, 2525, 9389 and 49152 verify the fixed marker exchange. Port 3389 uses the existing RDP listener and an 11-byte X.224 request; successful connect and complete send are checked without requiring an echo or establishing an authenticated session. No service is stopped or reconfigured.
 - **Network placement:** qualification confirmed Sysmon captures loopback connections. Hold IPv4 address, port, payload, attempt count and executable path constant across languages. All TCP and DNS programs and their controls wait five seconds after I/O (or skipped I/O). This fixed lifetime is part of the experimental contract; earlier immediate-exit observations remain in the evidence.
-- **DNS:** `dns_ip_lookup` resolves `api.ipify.org` through the normal language resolver. A temporary exact-name NRPT policy directs that name to the harness-only UDP responder at 127.0.0.1:53, which returns 127.0.0.42 with zero TTL and never forwards requests publicly. Resolve only; do not connect to the named service. Verify the returned address and responder-side query evidence separately from Sysmon.
+- **DNS:** Each DNS case resolves its table-listed name through the normal language resolver. Temporary exact-name NRPT policies direct those names to the harness-only UDP responder at 127.0.0.1:53, which returns 127.0.0.42 with zero TTL and never forwards requests publicly. Resolve only; do not connect to the named service. Verify the returned address and responder-side query evidence separately from Sysmon.
 - **DNS cache:** establish and record the same cache baseline before every active/control attempt. Record query names, address family behavior, results and resolver traffic. A cached lookup or missing sensor event must not be mistaken for failed behavior. Qualification must show that the C baseline emits an attributable EID 22; rejection of a special-use name is a fixture/behavior issue to resolve, not automatically a detection miss.
 - **APIs:** C/C++ use Windows socket/resolver APIs, Go uses its standard `net` library, and Rust uses its standard networking facilities. Preserve the existing compiler/runtime axes and verify their actual Windows resolver behavior; do not assume Go's cgo/pure-Go Windows builds select different resolvers or force every language through a shared external implementation.
 - **Controls:** run each same binary at the same path with the target operation disabled. Additional neutral-port/path/name experiments can support predicate analysis; these are not counted as completed qualification controls.
@@ -40,11 +43,11 @@ Three port cases and the path case use a fixed echo exchange; RDP uses connect/s
 - Rules tied to specific system applications, browser processes, or named offensive tools, where wrappers or masquerading would dominate the test.
 - Inbound-server and standalone UDP cases: retain those as primitive-level operations unless a suitable unmodified rule and attributable positive control are separately selected. Do not promise arbitrary accept/read/write/socket-close rule coverage from this EID 3/EID 22 subset.
 
-## Counts and next implementation step
+## Counts
 
-Six network-related rules: five EID 3 targets and one EID 22 target. They remain part of the 23-rule Windows scope; 17 other candidates are unchanged. The 2,455 Sysmon-referencing definitions and 2,269 statically eligible definitions in the pinned inventory remain unchanged. These are corpus counts, not counts of network rules, loaded rules, or confirmed alerts.
+Nine network-related rules: five EID 3 targets and four EID 22 targets, plus 43 other targets in the 52-rule Windows scope. The pinned corpus contains 4,987 definitions; the inventory identifies 2,455 Sysmon-referencing and 2,269 statically eligible definitions. These inventory counts do not imply that every definition is tested or has alerted.
 
-Implement and qualify C first, then port identical behaviors and exact target IDs to C++, Go, and Rust. No lab has been deployed for this scope refinement. Track implementation in issue #59.
+All four languages implement the same target behaviors. The corrected DNS lifetime contract requires requalification of all 64 DNS case/configuration/mode slots.
 
 ## DNS lifetime correction (2026-09-29)
 
