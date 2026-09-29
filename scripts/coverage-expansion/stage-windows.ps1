@@ -13,6 +13,14 @@ if($LASTEXITCODE){throw 'Extraction failed'}
 $bundle="$base\bundle"
 $expected=Get-Content "$bundle\files.sha256.json" -Raw | ConvertFrom-Json
 foreach($p in $expected.PSObject.Properties){if((Get-FileHash (Join-Path $bundle $p.Name)).Hash.ToLower() -ne $p.Value){throw "Bundle mismatch $($p.Name)"}}
+$selection=Get-Content "$bundle\ttp-composite\coverage\selection.json" -Raw | ConvertFrom-Json
+if(!(Test-Path C:\lab\hayabusa\hayabusa.exe) -or (Get-FileHash C:\lab\hayabusa\hayabusa.exe).Hash.ToLower() -ne $selection.provenance.executable_sha256) {
+ Invoke-WebRequest $selection.provenance.asset_url -OutFile "$base\hayabusa-pinned.zip" -UseBasicParsing
+ if((Get-FileHash "$base\hayabusa-pinned.zip").Hash.ToLower() -ne $selection.provenance.asset_sha256){throw 'Pinned Hayabusa archive mismatch'}
+ if(Test-Path C:\lab\hayabusa){Remove-Item C:\lab\hayabusa -Recurse -Force}
+ Expand-Archive "$base\hayabusa-pinned.zip" C:\lab\hayabusa
+ Move-Item "C:\lab\hayabusa\hayabusa-$($selection.provenance.hayabusa_version)-win-x64.exe" C:\lab\hayabusa\hayabusa.exe
+}
 $fixture="$bundle\ttp-composite\windows-c-ucrt\coverage\fixtures"
 New-Item -ItemType Directory C:\lab\windows-coverage\fixtures -Force | Out-Null
 Copy-Item "$fixture\windows_fixture_helper.exe" C:\lab\windows-coverage\fixtures\helper.exe

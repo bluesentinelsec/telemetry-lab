@@ -27,6 +27,7 @@ for cfg in json.loads((b/'manifest.json').read_text())['composite_configs']:
 shutil.copy2(b/'ttp-composite/linux-c-glibc/falco_helper',image/'helper')
 shutil.copy2(b/'ttp-composite/coverage/Dockerfile',image/'Dockerfile')
 receipt=json.loads(Path('/opt/telemetry-lab/falco-0.45.0-healthfix.1/receipt.json').read_text())
+assert receipt['inputs']=={name:hashlib.sha256((b/'ttp-composite/coverage/falco-health-fix'/name).read_bytes()).hexdigest() for name in ('install.sh','preserve-partial-enter.patch','regression.cpp')}
 assert receipt['binary_sha256']==hashlib.sha256(Path('/opt/telemetry-lab/falco-0.45.0-healthfix.1/bin/falco').read_bytes()).hexdigest()
 PY
 docker build -t lab-falco-coverage:local image > evidence/image-build.log 2>&1

@@ -31,9 +31,9 @@ def main():
  if a.action in ('stage','refresh'):
   if not a.ci_run: p.error('--ci-run required')
   artifact=a.evidence/'artifacts'/a.ci_run
-  if not artifact.exists():
+  if len(list(artifact.glob('composite-'+a.os+'-*')))!=8:
    meta=json.loads(call(['gh','api',f'repos/bluesentinelsec/telemetry-lab/actions/runs/{a.ci_run}']));(a.evidence/f'ci-{a.ci_run}.json').write_text(json.dumps(meta,indent=2))
-   artifact.mkdir(parents=True);call(['gh','run','download',a.ci_run,'--repo','bluesentinelsec/telemetry-lab','--pattern','composite-*','--dir',str(artifact)])
+   artifact.mkdir(parents=True,exist_ok=True);call(['gh','run','download',a.ci_run,'--repo','bluesentinelsec/telemetry-lab','--pattern','composite-'+a.os+'-*','--dir',str(artifact)])
   stage=a.evidence/'stage'/a.os/a.phase;stage.mkdir(parents=True,exist_ok=False);bundle=stage/'bundle';bundle.mkdir()
   configs=[]
   for source in sorted(artifact.glob('composite-'+a.os+'-*')):
