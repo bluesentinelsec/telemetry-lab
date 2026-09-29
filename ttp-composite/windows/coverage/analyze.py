@@ -21,6 +21,12 @@ def timestamp(value):
     return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
 
 
+def actor_guid(event):
+    if event['event_id'] in (8,10):
+        return next((v for k,v in event['fields'].items() if k.lower()=='sourceprocessguid'), None)
+    return event['fields'].get('ProcessGuid')
+
+
 def evaluate(attempt, events, alerts, healthy=True, selected_rule_ids=None):
     # Sysmon 8/10 describe two processes. Attribute the operation only to its
     # source, never to a measured process that merely received access/a thread.

@@ -14,5 +14,5 @@ func main() {
 	data, err := cmd.Output()
 	fixture.Must(err)
 	fixture.Check(string(data) == "aws_access_key_id=telemetry-lab\n", "utility output")
-	fmt.Println("CASE_OK search_aws_credentials")
+	fmt.Printf("CASE_OK search_aws_credentials\n")
 }

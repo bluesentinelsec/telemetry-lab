@@ -11,5 +11,5 @@ func main() {
 		return
 	}
 	files.Write("/var/lib/rpm/telemetry-lab-fixture")
-	fmt.Println("CASE_OK rpm_database_write")
+	fmt.Printf("CASE_OK rpm_database_write\n")
 }

@@ -16,5 +16,5 @@ func main() {
 	data, err := cmd.Output()
 	fixture.Must(err)
 	fixture.Check(string(data) == "HELPER_OK\n", "utility output")
-	fmt.Println("CASE_OK glibc_tunable_child")
+	fmt.Printf("CASE_OK glibc_tunable_child\n")
 }

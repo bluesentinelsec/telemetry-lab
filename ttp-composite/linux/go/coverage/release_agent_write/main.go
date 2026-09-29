@@ -11,5 +11,5 @@ func main() {
 		return
 	}
 	files.Write("/tmp/lab/release_agent")
-	fmt.Println("CASE_OK release_agent_write")
+	fmt.Printf("CASE_OK release_agent_write\n")
 }

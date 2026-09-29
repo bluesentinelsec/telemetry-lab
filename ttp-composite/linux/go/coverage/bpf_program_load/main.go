@@ -23,5 +23,5 @@ func main() {
 	runtime.KeepAlive(license)
 	fixture.Check(err == 0, "BPF program load")
 	fixture.Must(unix.Close(int(fd)))
-	fmt.Println("CASE_OK bpf_program_load")
+	fmt.Printf("CASE_OK bpf_program_load\n")
 }

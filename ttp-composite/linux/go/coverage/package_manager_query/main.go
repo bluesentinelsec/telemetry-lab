@@ -14,5 +14,5 @@ func main() {
 	data, err := cmd.Output()
 	fixture.Must(err)
 	fixture.Check(string(data) == "amd64\n", "utility output")
-	fmt.Println("CASE_OK package_manager_query")
+	fmt.Printf("CASE_OK package_manager_query\n")
 }

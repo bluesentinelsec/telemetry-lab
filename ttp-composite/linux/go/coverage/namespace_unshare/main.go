@@ -21,5 +21,5 @@ func main() {
 	after, err := os.Stat("/proc/thread-self/ns/user")
 	fixture.Must(err)
 	fixture.Check(after.Sys().(*syscall.Stat_t).Ino != before.Sys().(*syscall.Stat_t).Ino, "namespace unchanged")
-	fmt.Println("CASE_OK namespace_unshare")
+	fmt.Printf("CASE_OK namespace_unshare\n")
 }

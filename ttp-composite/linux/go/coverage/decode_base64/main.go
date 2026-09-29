@@ -14,5 +14,5 @@ func main() {
 	data, err := cmd.Output()
 	fixture.Must(err)
 	fixture.Check(string(data) == "telemetry-lab-fixture\n", "utility output")
-	fmt.Println("CASE_OK decode_base64")
+	fmt.Printf("CASE_OK decode_base64\n")
 }

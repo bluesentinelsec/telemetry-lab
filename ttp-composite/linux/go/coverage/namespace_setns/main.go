@@ -27,5 +27,5 @@ func main() {
 	after, err := os.Stat("/proc/thread-self/ns/net")
 	fixture.Must(err)
 	fixture.Check(after.Sys().(*syscall.Stat_t).Ino != before.Sys().(*syscall.Stat_t).Ino, "namespace unchanged")
-	fmt.Println("CASE_OK namespace_setns")
+	fmt.Printf("CASE_OK namespace_setns\n")
 }

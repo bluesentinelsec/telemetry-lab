@@ -16,5 +16,5 @@ func main() {
 	fd, _, err := unix.Syscall(unix.SYS_USERFAULTFD, uintptr(unix.O_CLOEXEC|unix.O_NONBLOCK|1), 0, 0)
 	fixture.Check(err == 0, "userfaultfd failed")
 	fixture.Must(unix.Close(int(fd)))
-	fmt.Println("CASE_OK userfaultfd_create")
+	fmt.Printf("CASE_OK userfaultfd_create\n")
 }

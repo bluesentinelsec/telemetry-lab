@@ -11,5 +11,5 @@ func main() {
 		return
 	}
 	files.Read("/host/telemetry-lab/fixture")
-	fmt.Println("CASE_OK host_path_read")
+	fmt.Printf("CASE_OK host_path_read\n")
 }

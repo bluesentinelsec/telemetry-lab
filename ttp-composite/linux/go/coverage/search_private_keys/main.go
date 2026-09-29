@@ -14,5 +14,5 @@ func main() {
 	data, err := cmd.Output()
 	fixture.Must(err)
 	fixture.Check(string(data) == "BEGIN PRIVATE KEY telemetry-lab\n", "utility output")
-	fmt.Println("CASE_OK search_private_keys")
+	fmt.Printf("CASE_OK search_private_keys\n")
 }
