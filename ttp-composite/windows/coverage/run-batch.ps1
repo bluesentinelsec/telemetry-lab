@@ -7,7 +7,7 @@ param(
  [Parameter(Mandatory=$true)][string]$PlanFile
 )
 $ErrorActionPreference='Stop'
-$plan=(Get-Content $PlanFile -Raw | ConvertFrom-Json)
+$plan=(Get-Content $PlanFile -Raw -Encoding UTF8 | ConvertFrom-Json)
 $cases=@($plan.case_id | Select-Object -Unique)
 $tcp=@($cases | Where-Object {$_ -like 'tcp_connect_*'})
 $dns=@($cases | Where-Object {$_ -like 'dns_*'})

@@ -16,9 +16,9 @@ foreach($owned in @('bundle','scripts')){if(Test-Path "$base\$owned"){Remove-Ite
 & tar.exe -xzf "$base\payload.tgz" -C $base
 if($LASTEXITCODE){throw 'Extraction failed'}
 $bundle="$base\bundle"
-$expected=Get-Content "$bundle\files.sha256.json" -Raw | ConvertFrom-Json
+$expected=Get-Content "$bundle\files.sha256.json" -Raw -Encoding UTF8 | ConvertFrom-Json
 foreach($p in $expected.PSObject.Properties){if((Get-FileHash (Join-Path $bundle $p.Name)).Hash.ToLower() -ne $p.Value){throw "Bundle mismatch $($p.Name)"}}
-$selection=Get-Content "$bundle\ttp-composite\coverage\selection.json" -Raw | ConvertFrom-Json
+$selection=Get-Content "$bundle\ttp-composite\coverage\selection.json" -Raw -Encoding UTF8 | ConvertFrom-Json
 if(!(Test-Path C:\lab\hayabusa\hayabusa.exe) -or (Get-FileHash C:\lab\hayabusa\hayabusa.exe).Hash.ToLower() -ne $selection.provenance.executable_sha256) {
  Invoke-WebRequest $selection.provenance.asset_url -OutFile "$base\hayabusa-pinned.zip" -UseBasicParsing
  if((Get-FileHash "$base\hayabusa-pinned.zip").Hash.ToLower() -ne $selection.provenance.asset_sha256){throw 'Pinned Hayabusa archive mismatch'}

@@ -17,14 +17,14 @@ try {
 $ErrorActionPreference = 'Stop'
 $root = 'C:\lab\windows-coverage'
 $channel = 'Microsoft-Windows-Sysmon/Operational'
-$selection = Get-Content "$PSScriptRoot\selection.json" -Raw | ConvertFrom-Json
-$build = Get-Content "$Programs\build-manifest.json" -Raw | ConvertFrom-Json
+$selection = Get-Content "$PSScriptRoot\selection.json" -Raw -Encoding UTF8 | ConvertFrom-Json
+$build = Get-Content "$Programs\build-manifest.json" -Raw -Encoding UTF8 | ConvertFrom-Json
 $allCases = @($selection.candidates | Where-Object { (!$Cases.Count -or $_.case_id -in $Cases) -and ($IncludeNetwork -or $_.family -notin @('Network','DNS')) })
 if (!$allCases.Count) { throw 'No selected cases' }
 if (!$Modes.Count -or @($Modes | Select-Object -Unique).Count -ne $Modes.Count) { throw 'Select unique nonempty modes' }
 $nativePlan=@()
 if($PlanFile) {
-  $nativePlan=@(foreach($item in (Get-Content $PlanFile -Raw | ConvertFrom-Json)) {
+  $nativePlan=@(foreach($item in (Get-Content $PlanFile -Raw -Encoding UTF8 | ConvertFrom-Json)) {
     [pscustomobject]@{case_id=[string]$item.case_id;mode=[string]$item.mode}
   })
   $keys=@($nativePlan | ForEach-Object {"$($_.case_id)|$($_.mode)"})
@@ -54,7 +54,7 @@ function Remove-OwnedFile([string]$path) {
   # Retry only cleanup of harness-owned files; never extend the measured lifetime.
   for($retry=0;$retry -le 50;$retry++) {
     try {
-      Remove-Item $path -Force -ErrorAction Stop
+      Remove-Item -LiteralPath $path -Force -ErrorAction Stop
       if($retry){@{path=$path;retries=$retry;removed=$true} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"}
       return
     } catch [System.IO.IOException], [System.UnauthorizedAccessException] {
@@ -192,7 +192,7 @@ try {
           [IO.File]::WriteAllText($carrier,'telemetry-lab');$zoneCarrierOwned=$true
         }
         if ($target) {
-          if ($id -ne 'ads_executable' -and (Test-Path $target)) {throw "Fixture already exists: $target"}
+          if ($id -ne 'ads_executable' -and (Test-Path -LiteralPath $target)) {throw "Fixture already exists: $target"}
           if ($id -eq 'ads_executable' -and (Test-Path "$root\work\carrier.txt")) {throw 'Carrier file already exists'}
           Ensure-Directory (Split-Path $target)
           $targetOwned=$true
@@ -225,6 +225,9 @@ try {
         $run=Invoke-Probe $exe $mode $folder
         $prefix=if($mode -eq 'control'){'CONTROL_OK'}else{'BEHAVIOR_OK'}
         $ok=(!$run.timed_out -and $run.exit_code -eq 0 -and $run.stdout.Contains("$prefix $id"))
+        if($ok -and $mode -eq 'active' -and $case.expansion.kind -eq 'file' -and !(Test-Path -LiteralPath $target)) {
+          throw "Native fixture path differs from manifest: $id"
+        }
         $attempt=[ordered]@{case_id=$id;mode=$mode;rule_id=$case.rule_id;runtime=$build.runtime;executable=$exe;sha256=$manifest[0].sha256;staged_sha256=$stagedHash;behavior_ok=$ok;process=$run}
         $attempts.Add([pscustomobject]$attempt)
         $attempt | ConvertTo-Json -Depth 8 | Set-Content "$folder\attempt.json" -Encoding UTF8
@@ -232,7 +235,7 @@ try {
       } finally {
         # All cleanup is performed by the harness, after the measured process exits.
         if (Test-Path $exe) {Remove-OwnedFile $exe}
-        if ($id -notin @('ads_executable','delete_zone_identifier') -and $targetOwned -and $target -and (Test-Path $target)) {Remove-OwnedFile $target}
+        if ($id -notin @('ads_executable','delete_zone_identifier') -and $targetOwned -and $target -and (Test-Path -LiteralPath $target)) {Remove-OwnedFile $target}
         if ($targetOwned -and $id -eq 'ads_executable') {Remove-Item "$root\work\carrier.txt" -Force -ErrorAction SilentlyContinue}
         if($zoneCarrierOwned){Remove-OwnedFile $carrier}
         if ($runmruOwned) {[Microsoft.Win32.Registry]::CurrentUser.DeleteSubKeyTree($runmru,$false)}
