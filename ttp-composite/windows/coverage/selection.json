@@ -10,7 +10,7 @@
     "count_total": 4987,
     "count_sysmon": 2455,
     "count_static_eligible_sysmon": 2269,
-    "proposed_rule_count": 53,
+    "proposed_rule_count": 52,
     "qualified_rule_count": 23,
     "config_sha256": {
       "exclude_rules.txt": "4b96b19b1b373d39833b07cb8148e5767620381e2c371c78db5f17f9121d8379",
@@ -19,7 +19,7 @@
     "inventory_sha256": "ada9f35a9e2c179f05f84f842fe73f01d1e45f64f171b3328eb218c82f564035",
     "engine_verified_enabled_sysmon_rules": 2269,
     "engine_verification_evidence": "validation/ucrt-nonnetwork-01/hayabusa.log",
-    "qualification_status": "23 historical targets qualified; 30 expansion targets pending live validation"
+    "qualification_status": "23 historical targets qualified; 29 expansion targets in live validation; LDAP-discovery candidate deferred for missing required image metadata"
   },
   "candidates": [
     {
@@ -2451,7 +2451,7 @@
         },
         "condition": "file_event and (selection and not 1 of filter_*)"
       },
-      "family": "File",
+      "family": "File creation",
       "event_ids": [
         11
       ],
@@ -2509,7 +2509,7 @@
         },
         "condition": "file_event and (selection and not 1 of filter_main_*)"
       },
-      "family": "File",
+      "family": "File creation",
       "event_ids": [
         11
       ],
@@ -2700,7 +2700,7 @@
         ],
         "condition": "file_event and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
       },
-      "family": "File",
+      "family": "File creation",
       "event_ids": [
         11
       ],
@@ -2762,7 +2762,7 @@
         },
         "condition": "file_event and selection"
       },
-      "family": "File",
+      "family": "File creation",
       "event_ids": [
         11
       ],
@@ -2828,7 +2828,7 @@
         },
         "condition": "file_event and (selection and not 1 of filter_main_*)"
       },
-      "family": "File",
+      "family": "File creation",
       "event_ids": [
         11
       ],
@@ -2876,7 +2876,7 @@
         },
         "condition": "file_event and selection"
       },
-      "family": "File",
+      "family": "File creation",
       "event_ids": [
         11
       ],
@@ -2947,7 +2947,7 @@
         },
         "condition": "file_event and (all of selection_*)"
       },
-      "family": "File",
+      "family": "File creation",
       "event_ids": [
         11
       ],
@@ -3001,7 +3001,7 @@
         },
         "condition": "file_event and selection"
       },
-      "family": "File",
+      "family": "File creation",
       "event_ids": [
         11
       ],
@@ -3259,77 +3259,6 @@
       "references": [
         "https://securityliterate.com/how-malware-abuses-the-zone-identifier-to-circumvent-detection-and-analysis/",
         "Internal Research"
-      ]
-    },
-    {
-      "case_id": "dns_ldap_discovery",
-      "rule_id": "2701ad60-af1a-a2fc-c2ff-fea10af75a0b",
-      "title": "DNS Server Discovery Via LDAP Query",
-      "path": "sigma/sysmon/dns_query/dns_query_win_dns_server_discovery_via_ldap_query.yml",
-      "sha256": "e67e68d86307e2896785a1e2203a5b30276fdef315c5a609e7f88a13efd63d4d",
-      "level": "low",
-      "status": "test",
-      "detection": {
-        "dns_query": {
-          "EventID": 22,
-          "Channel": "Microsoft-Windows-Sysmon/Operational"
-        },
-        "selection": {
-          "QueryName|startswith": "_ldap."
-        },
-        "filter_main_generic": {
-          "Image|contains": [
-            ":\\Program Files\\",
-            ":\\Program Files (x86)\\",
-            ":\\Windows\\"
-          ]
-        },
-        "filter_main_defender": {
-          "Image|contains": ":\\ProgramData\\Microsoft\\Windows Defender\\Platform\\",
-          "Image|endswith": "\\MsMpEng.exe"
-        },
-        "filter_main_unknown": {
-          "Image": "<unknown process>"
-        },
-        "filter_optional_azure": {
-          "Image|startswith": "C:\\WindowsAzure\\GuestAgent"
-        },
-        "filter_main_null": {
-          "Image": null
-        },
-        "filter_optional_browsers": {
-          "Image|endswith": [
-            "\\chrome.exe",
-            "\\firefox.exe",
-            "\\opera.exe"
-          ]
-        },
-        "condition": "dns_query and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
-      },
-      "family": "DNS",
-      "event_ids": [
-        22
-      ],
-      "behavior": "dns {\"hostname\": \"_ldap.telemetry-lab.test\"}",
-      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
-      "expansion": {
-        "kind": "dns",
-        "hostname": "_ldap.telemetry-lab.test"
-      },
-      "authors": "frack113",
-      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/dns_query/dns_query_win_dns_server_discovery_via_ldap_query.yml",
-      "license": "Detection Rule License 1.1",
-      "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
-      "upstream_related": [
-        {
-          "id": "a21bcd7e-38ec-49ad-b69a-9ea17e69509e",
-          "type": "derived"
-        }
-      ],
-      "references": [
-        "https://github.com/redcanaryco/atomic-red-team/blob/980f3f83fd81f37c1ca9c02dccfd1c3d9f9d0841/atomics/T1016/T1016.md#atomic-test-9---dns-server-discovery-using-nslookup",
-        "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/7fcdce70-5205-44d6-9c3a-260e616a2f04"
       ]
     },
     {
@@ -3919,18 +3848,91 @@
       ]
     }
   ],
-  "deferred_candidates": [],
+  "deferred_candidates": [
+    {
+      "case_id": "dns_ldap_discovery",
+      "rule_id": "2701ad60-af1a-a2fc-c2ff-fea10af75a0b",
+      "title": "DNS Server Discovery Via LDAP Query",
+      "path": "sigma/sysmon/dns_query/dns_query_win_dns_server_discovery_via_ldap_query.yml",
+      "sha256": "e67e68d86307e2896785a1e2203a5b30276fdef315c5a609e7f88a13efd63d4d",
+      "level": "low",
+      "status": "test",
+      "detection": {
+        "dns_query": {
+          "EventID": 22,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "QueryName|startswith": "_ldap."
+        },
+        "filter_main_generic": {
+          "Image|contains": [
+            ":\\Program Files\\",
+            ":\\Program Files (x86)\\",
+            ":\\Windows\\"
+          ]
+        },
+        "filter_main_defender": {
+          "Image|contains": ":\\ProgramData\\Microsoft\\Windows Defender\\Platform\\",
+          "Image|endswith": "\\MsMpEng.exe"
+        },
+        "filter_main_unknown": {
+          "Image": "<unknown process>"
+        },
+        "filter_optional_azure": {
+          "Image|startswith": "C:\\WindowsAzure\\GuestAgent"
+        },
+        "filter_main_null": {
+          "Image": null
+        },
+        "filter_optional_browsers": {
+          "Image|endswith": [
+            "\\chrome.exe",
+            "\\firefox.exe",
+            "\\opera.exe"
+          ]
+        },
+        "condition": "dns_query and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+      },
+      "family": "DNS",
+      "event_ids": [
+        22
+      ],
+      "behavior": "dns {\"hostname\": \"_ldap.telemetry-lab.test\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "deferred-after-live-validation",
+      "expansion": {
+        "kind": "dns",
+        "hostname": "_ldap.telemetry-lab.test"
+      },
+      "authors": "frack113",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/dns_query/dns_query_win_dns_server_discovery_via_ldap_query.yml",
+      "license": "Detection Rule License 1.1",
+      "license_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/LICENSE.md",
+      "upstream_related": [
+        {
+          "id": "a21bcd7e-38ec-49ad-b69a-9ea17e69509e",
+          "type": "derived"
+        }
+      ],
+      "references": [
+        "https://github.com/redcanaryco/atomic-red-team/blob/980f3f83fd81f37c1ca9c02dccfd1c3d9f9d0841/atomics/T1016/T1016.md#atomic-test-9---dns-server-discovery-using-nslookup",
+        "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/7fcdce70-5205-44d6-9c3a-260e616a2f04"
+      ],
+      "decision": "Successful local A resolution in all eight configurations produced Sysmon Image=<unknown process>, which this unmodified rule explicitly excludes. No qualifying positive baseline in the first balanced live pass. Defer from onboarded scope; retain all pilot observations and do not modify the rule or use per-runtime workarounds."
+    }
+  ],
   "network_scope_revision": {
     "date": "2026-09-28",
-    "candidate_count": 10,
+    "candidate_count": 9,
     "tcp_candidate_count": 5,
-    "dns_candidate_count": 5,
+    "dns_candidate_count": 4,
     "operation_families": [
       "TCP connect/send/receive/close",
       "hostname-to-address resolution"
     ],
-    "status": "six historical targets qualified; four DNS additions pending live validation",
+    "status": "six historical targets qualified; three DNS additions in live validation",
     "measured_program_dependencies": "OS socket/resolver APIs and existing language standard libraries; no application-protocol client libraries",
-    "notes": "LDAP-discovery tests the rule prefix using an A query, not an LDAP client or SRV lookup. Onion remains deleted. Ten rules do not represent ten distinct mechanisms."
+    "notes": "LDAP-discovery A-query prototype deferred after live telemetry lacked the process-image field required by its rule. Onion remains deleted. Nine rules do not represent nine distinct mechanisms."
   }
 }

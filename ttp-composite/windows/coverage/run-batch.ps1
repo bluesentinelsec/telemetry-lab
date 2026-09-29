@@ -11,7 +11,7 @@ $plan=(Get-Content $PlanFile -Raw -Encoding UTF8 | ConvertFrom-Json)
 $cases=@($plan.case_id | Select-Object -Unique)
 $tcp=@($cases | Where-Object {$_ -like 'tcp_connect_*'})
 $dns=@($cases | Where-Object {$_ -like 'dns_*'})
-$nameMap=@{dns_ip_lookup='api.ipify.org';dns_ldap_discovery='_ldap.telemetry-lab.test';dns_cloudflared='protocol-v2.argotunnel.com';dns_shortener='tinyurl.com';dns_remote_access='api.splashtop.com'}
+$nameMap=@{dns_ip_lookup='api.ipify.org';dns_cloudflared='protocol-v2.argotunnel.com';dns_shortener='tinyurl.com';dns_remote_access='api.splashtop.com'}
 $names=@($dns | ForEach-Object {$nameMap[$_]})
 $fixtureOutput="$Output-fixtures"
 if(Test-Path $fixtureOutput){throw 'Fixture evidence already exists'}

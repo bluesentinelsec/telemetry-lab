@@ -10,7 +10,7 @@ explicit removal of the `.onion` test. Release publication is not part of this w
 | Platform | Supplied rules | Enabled in measured profile | Existing targets | New targets | Planned total |
 |---|---:|---:|---:|---:|---:|
 | Falco Linux | 95 | 81 | 30 | 12 | 42 |
-| Hayabusa Windows | 4,987 | 2,269 Sysmon | 23 | 30 | 53 |
+| Hayabusa Windows | 4,987 | 2,269 Sysmon | 23 | 29 | 52 |
 
 These are distinct **primary target rules**, not every collateral match. They
 are purposively selected behaviors and detection predicates, not a random
@@ -59,7 +59,7 @@ owned read-only fixture mount. Network namespaces and capabilities are local
 to disposable containers; no host namespace is entered.
 
 Windows adds ten registry changes, eight file creations, four fixture deletions,
-four resolver queries, two named pipes, process access and remote thread
+three resolver queries, two named pipes, process access and remote thread
 creation. Programs verify resulting bytes, values, return data or handles
 independently of alerts. All registry values are saved/restored. Deletion tests
 use only newly created owned fixtures, never genuine logs/history. A benign
@@ -70,6 +70,11 @@ injected and no credential process is accessed.
 The ErrorHandler.cmd candidate was replaced with `shim_database_file` after CI
 found a pre-existing OS-owned ErrorHandler.cmd. The refusal to overwrite that
 file remains intact. The inert .sdb file is never installed/registered.
+
+The LDAP-discovery candidate is deferred: live successful lookups lacked the
+process-image metadata required by its stock rule, so the tested profile did
+not supply a positive baseline. Its programs are excluded from the active
+catalog; all pilot evidence is retained in the validation report.
 
 DNS extends the existing approved local responder and temporary exact-name
 NRPT approach. All selected names return 127.0.0.42 locally, requests are

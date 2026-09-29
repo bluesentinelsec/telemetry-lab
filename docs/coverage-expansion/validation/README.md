@@ -26,6 +26,14 @@ One stale local setup log was refreshed; its prior contents were retained.
 See [per-case counts](linux-qualification.csv) and [summary and hashes](linux-qualification.json).
 
 Windows final qualification is still in progress; final totals will be added here.
+The frozen pilot includes 53 candidates. `dns_ldap_discovery` was subsequently
+deferred from onboarding after the first balanced pass produced no positive
+baseline in any of the eight configurations: successful queries had
+`Image=<unknown process>`, explicitly excluded by the stock rule. Its source
+programs are removed from active builds; its predicate and attribution remain
+in `selection.json` under `deferred_candidates`. The final scope is **52 rules**
+(29 additions), and all 53-candidate pilot observations will remain visible.
+The running pilot is not modified after freezing its inputs.
 
 ## Inputs and reproducibility
 

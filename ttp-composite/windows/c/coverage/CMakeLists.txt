@@ -21,7 +21,6 @@ set(COVERAGE_CASES
     delete_history_fixture
     delete_prefetch_fixture
     delete_zone_identifier
-    dns_ldap_discovery
     dns_cloudflared
     dns_shortener
     dns_remote_access

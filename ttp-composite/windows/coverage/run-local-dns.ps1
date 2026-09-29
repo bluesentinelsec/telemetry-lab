@@ -6,10 +6,10 @@ param(
  [Parameter(Mandatory=$true)][string]$DnsServer,
  [ValidateSet('active','control')][string[]]$Modes=@('control','active'),
  [string]$Hayabusa='C:\lab\hayabusa\hayabusa.exe',
- [ValidateSet('dns_ip_lookup','dns_ldap_discovery','dns_cloudflared','dns_shortener','dns_remote_access')][string[]]$Cases=@('dns_ip_lookup')
+ [ValidateSet('dns_ip_lookup','dns_cloudflared','dns_shortener','dns_remote_access')][string[]]$Cases=@('dns_ip_lookup')
 )
 $ErrorActionPreference='Stop'
-$nameMap=@{dns_ip_lookup='api.ipify.org';dns_ldap_discovery='_ldap.telemetry-lab.test';dns_cloudflared='protocol-v2.argotunnel.com';dns_shortener='tinyurl.com';dns_remote_access='api.splashtop.com'}
+$nameMap=@{dns_ip_lookup='api.ipify.org';dns_cloudflared='protocol-v2.argotunnel.com';dns_shortener='tinyurl.com';dns_remote_access='api.splashtop.com'}
 $names=@($Cases | ForEach-Object {$nameMap[$_]})
 if(!$names.Count){throw 'Select at least one DNS case'}
 $fixtureOutput="$Output-fixtures"
