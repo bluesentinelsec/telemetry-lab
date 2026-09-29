@@ -1,4 +1,34 @@
 set(COVERAGE_CASES
+    registry_logon_script
+    registry_typed_paths
+    registry_appx_debugger
+    registry_com_treatas
+    registry_cor_profiler
+    registry_hide_files
+    registry_office_macro
+    registry_word_addin
+    registry_appcompat_restart
+    registry_suspicious_env
+    screensaver_file
+    system_dll_file
+    system_name_file
+    perflogs_file
+    powershell_module_file
+    rclone_config_file
+    rtlo_file
+    errorhandler_file
+    delete_eventlog_fixture
+    delete_history_fixture
+    delete_prefetch_fixture
+    delete_zone_identifier
+    dns_ldap_discovery
+    dns_cloudflared
+    dns_shortener
+    dns_remote_access
+    pipe_paexec
+    pipe_remcom
+    process_access_ping
+    remote_thread_ping
     registry_run_key
     registry_app_paths
     registry_active_setup

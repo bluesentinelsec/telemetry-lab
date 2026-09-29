@@ -6,17 +6,18 @@ param(
  [Parameter(Mandatory=$true)][string]$DnsServer,
  [ValidateSet('active','control')][string[]]$Modes=@('control','active'),
  [string]$Hayabusa='C:\lab\hayabusa\hayabusa.exe',
- [ValidateSet('dns_ip_lookup')][string[]]$Cases=@('dns_ip_lookup')
+ [ValidateSet('dns_ip_lookup','dns_ldap_discovery','dns_cloudflared','dns_shortener','dns_remote_access')][string[]]$Cases=@('dns_ip_lookup')
 )
 $ErrorActionPreference='Stop'
-$names=@($Cases | ForEach-Object {'api.ipify.org'})
+$nameMap=@{dns_ip_lookup='api.ipify.org';dns_ldap_discovery='_ldap.telemetry-lab.test';dns_cloudflared='protocol-v2.argotunnel.com';dns_shortener='tinyurl.com';dns_remote_access='api.splashtop.com'}
+$names=@($Cases | ForEach-Object {$nameMap[$_]})
 if(!$names.Count){throw 'Select at least one DNS case'}
 $fixtureOutput="$Output-fixtures"
 if(Test-Path $fixtureOutput){throw 'Fixture evidence exists; choose a new output directory'}
 if(Get-NetUDPEndpoint -LocalPort 53 -ErrorAction SilentlyContinue){throw 'UDP 53 is occupied'}
 # Refuse overlapping policy rather than modifying another rule.
 $before=@(Get-DnsClientNrptRule)
-foreach($r in $before){foreach($n in $r.Namespace){if($n -in @('.','api.ipify.org','.ipify.org','.org')){throw 'Existing NRPT policy overlaps fixture names'}}}
+foreach($r in $before){foreach($n in $r.Namespace){if($n -eq '.' -or @($names | Where-Object {$_ -eq $n -or ($n.StartsWith('.') -and $_.EndsWith($n))}).Count){throw 'Existing NRPT policy overlaps fixture names'}}}
 New-Item -ItemType Directory $fixtureOutput -Force | Out-Null
 $fixtureOutput=(Resolve-Path $fixtureOutput).Path
 $before | Export-Clixml "$fixtureOutput\nrpt-before.xml"

@@ -56,3 +56,10 @@ pub fn delete_runmru() {
         );
     }
 }
+
+pub fn set_dword(path:&str,name:&str,value:u32) {
+ let(path,name)=(wide(path),wide(name));unsafe {let mut key=std::ptr::null_mut();assert_eq!(RegOpenKeyExW(HKEY_CURRENT_USER,path.as_ptr(),0,KEY_SET_VALUE|KEY_QUERY_VALUE,&mut key),ERROR_SUCCESS);
+ assert_eq!(RegSetValueExW(key,name.as_ptr(),0,REG_DWORD,(&value as *const u32).cast(),4),ERROR_SUCCESS);
+ let(mut actual,mut size,mut kind)=(0u32,4u32,0u32);assert_eq!(RegQueryValueExW(key,name.as_ptr(),std::ptr::null(),&mut kind,(&mut actual as *mut u32).cast(),&mut size),ERROR_SUCCESS);
+ assert_eq!((actual,size,kind),(value,4,REG_DWORD));assert_eq!(RegCloseKey(key),ERROR_SUCCESS);}
+}

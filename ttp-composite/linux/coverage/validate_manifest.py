@@ -21,9 +21,9 @@ def validate():
     assert len(rules) == manifest['provided_rules'] == 95
     assert sum(r.get('enabled', True) for r in rules.values()) == 81
     cases = manifest['cases']
-    assert len(cases) == len({c['id'] for c in cases}) == 30
-    assert len({c['rule'] for c in cases}) == 30
-    assert len({c['executable'] for c in cases}) == 30
+    assert len(cases) == len({c['id'] for c in cases}) == manifest['selected_rules']
+    assert len({c['rule'] for c in cases}) == manifest['selected_rules']
+    assert len({c['executable'] for c in cases}) == manifest['selected_rules']
     for case in cases:
         assert case['executable'] == 'coverage/' + case['id']
         assert rules[case['rule']].get('enabled', True)
@@ -31,4 +31,4 @@ def validate():
 
 if __name__ == '__main__':
     validate()
-    print('Verified: 30 cases / 30 selected rules / 95 provided / 81 stock-enabled')
+    print('Verified case mapping and pinned Falco corpus')

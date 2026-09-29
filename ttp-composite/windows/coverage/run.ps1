@@ -127,6 +127,12 @@ $registry=@{
  registry_active_setup=@('Software\Microsoft\Active Setup\Installed Components\{9B9C8026-806D-41E2-992A-909553D7A52A}','StubPath')
  registry_screensaver=@('Control Panel\Desktop','SCRNSAVE.EXE')
 }
+foreach($candidate in $selection.candidates) {
+  if(!$candidate.expansion){continue}
+  $e=$candidate.expansion
+  if($e.kind -in @('file','delete')) {$files[$candidate.case_id]=[Environment]::ExpandEnvironmentVariables($e.filename)}
+  if($e.kind -eq 'registry') {$registry[$candidate.case_id]=@($e.key,$e.value)}
+}
 $runmru='Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU'
 $latest=$null;$startRecord=0
 if (!$BehaviorOnly) {
@@ -175,11 +181,16 @@ try {
     if ($manifest.Count -ne 1 -or (Get-FileHash $source).Hash.ToLower() -ne $manifest[0].sha256) {throw "Artifact mismatch $id"}
     foreach($mode in @($slot.mode)) {
       $folder=Join-Path $Output "$id-$mode"; New-Item -ItemType Directory $folder | Out-Null
-      $targetOwned=$false;$runmruOwned=$false
+      $targetOwned=$false;$runmruOwned=$false;$zoneCarrierOwned=$false
       $target=$files[$id];$exe="$root\run\probe.exe"
       if ($id -eq 'tcp_connect_public_path') {$exe='C:\Users\Public\telemetry-lab\probe.exe'}
       if (Test-Path $exe) {throw "Unexpected staged executable: $exe"}
       try {
+        if($id -eq 'delete_zone_identifier') {
+          $carrier=$target.Split(':',3)[0]+':'+$target.Split(':',3)[1]
+          if(Test-Path -LiteralPath $carrier){throw "Unowned ADS carrier already exists: $carrier"}
+          [IO.File]::WriteAllText($carrier,'telemetry-lab');$zoneCarrierOwned=$true
+        }
         if ($target) {
           if ($id -ne 'ads_executable' -and (Test-Path $target)) {throw "Fixture already exists: $target"}
           if ($id -eq 'ads_executable' -and (Test-Path "$root\work\carrier.txt")) {throw 'Carrier file already exists'}
@@ -196,6 +207,10 @@ try {
         if ($id -eq 'creation_time_change') {[IO.File]::WriteAllText($target,'fixture');[IO.File]::SetCreationTimeUtc($target,[DateTime]'2026-01-01T00:00:00Z')}
         if ($id -eq 'double_extension_execute') {Copy-Item "$root\fixtures\helper.exe" $target}
         if ($id -eq 'ads_executable') {[IO.File]::WriteAllText("$root\work\carrier.txt",'fixture')}
+        if($case.expansion.kind -eq 'delete') {
+          # Only the just-reserved fixture is created/deleted, never real history or logs.
+          [IO.File]::WriteAllText($target,"telemetry-lab inert deletion fixture`n")
+        }
         Copy-Item $source $exe
         # Sysmon may retain an older hash for a reused image path. Independently
         # verify the actual staged file before launch; preserve sensor metadata.
@@ -214,6 +229,7 @@ try {
         if (Test-Path $exe) {Remove-OwnedFile $exe}
         if ($id -ne 'ads_executable' -and $targetOwned -and $target -and (Test-Path $target)) {Remove-OwnedFile $target}
         if ($targetOwned -and $id -eq 'ads_executable') {Remove-Item "$root\work\carrier.txt" -Force -ErrorAction SilentlyContinue}
+        if($zoneCarrierOwned){Remove-OwnedFile $carrier}
         if ($runmruOwned) {[Microsoft.Win32.Registry]::CurrentUser.DeleteSubKeyTree($runmru,$false)}
         Restore-Registry
       }

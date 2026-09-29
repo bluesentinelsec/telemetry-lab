@@ -22,6 +22,12 @@ def timestamp(value):
 
 
 def evaluate(attempt, events, alerts, healthy=True, selected_rule_ids=None):
+    # Sysmon 8/10 describe two processes. Attribute the operation only to its
+    # source, never to a measured process that merely received access/a thread.
+    events = [dict(e, fields={**e['fields'],
+        'ProcessGuid': next((v for k,v in e['fields'].items() if k.lower()=='sourceprocessguid'), None),
+        'ProcessId': next((v for k,v in e['fields'].items() if k.lower()=='sourceprocessid'), None)})
+        if e['event_id'] in (8,10) else e for e in events]
     process=attempt['process'];start=timestamp(process['start_utc']);end=timestamp(process['end_utc'])
     starts=[e for e in events if e['event_id']==1
             and str(e['fields'].get('ProcessId'))==str(process['pid'])
@@ -64,7 +70,7 @@ def evaluate(attempt, events, alerts, healthy=True, selected_rule_ids=None):
                    and end<timestamp(e['time_utc'])<=timestamp(event['time_utc'])
                    for e in events)
     conflicting={str(e['record_id']) for e in events
-                 if e['event_id'] in (3,22) and e['fields'].get('ProcessGuid') not in guids|missing_guid
+                 if e['event_id'] in (3,8,10,22) and e['fields'].get('ProcessGuid') not in guids|missing_guid
                  and str(e['fields'].get('ProcessId'))==str(process['pid'])
                  and start-timedelta(seconds=1)<=timestamp(e['time_utc'])<=end+timedelta(seconds=30)
                  and not later_pid_reuse(e)}
@@ -84,7 +90,7 @@ def evaluate(attempt, events, alerts, healthy=True, selected_rule_ids=None):
                    and e['fields'].get('ProcessGuid')!=owner['fields'].get('ProcessGuid')
                    and timestamp(owner['time_utc'])<timestamp(e['time_utc'])<=timestamp(event['time_utc'])
                    for e in events)
-    reused_owner={str(e['record_id']) for e in events if e['event_id'] in (3,22)
+    reused_owner={str(e['record_id']) for e in events if e['event_id'] in (3,8,10,22)
                   and e['fields'].get('ProcessGuid') in guids and owner_pid_reused(e)}
     ambiguous |= conflicting | reused_owner
     ambiguous_alerts=[a for a in alerts if a.get('RuleID','').lower()==attempt['rule_id'].lower()

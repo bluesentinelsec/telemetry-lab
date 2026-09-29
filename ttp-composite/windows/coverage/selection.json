@@ -10,7 +10,7 @@
     "count_total": 4987,
     "count_sysmon": 2455,
     "count_static_eligible_sysmon": 2269,
-    "proposed_rule_count": 23,
+    "proposed_rule_count": 53,
     "qualified_rule_count": 23,
     "config_sha256": {
       "exclude_rules.txt": "4b96b19b1b373d39833b07cb8148e5767620381e2c371c78db5f17f9121d8379",
@@ -19,7 +19,7 @@
     "inventory_sha256": "ada9f35a9e2c179f05f84f842fe73f01d1e45f64f171b3328eb218c82f564035",
     "engine_verified_enabled_sysmon_rules": 2269,
     "engine_verification_evidence": "validation/ucrt-nonnetwork-01/hayabusa.log",
-    "qualification_status": "23 selected targets demonstrated in all eight C, C++, Go and Rust configurations"
+    "qualification_status": "23 historical targets qualified; 30 expansion targets pending live validation"
   },
   "candidates": [
     {
@@ -1500,7 +1500,7 @@
             ".xls.js",
             ".xlsx.exe",
             ".xlsx.js",
-            "\u2800\u2800\u2800\u2800\u2800\u2800.exe"
+            "⠀⠀⠀⠀⠀⠀.exe"
           ],
           "CommandLine|contains": [
             "      .exe",
@@ -1532,7 +1532,7 @@
             ".xls.js",
             ".xlsx.exe",
             ".xlsx.js",
-            "\u2800\u2800\u2800\u2800\u2800\u2800.exe"
+            "⠀⠀⠀⠀⠀⠀.exe"
           ]
         },
         "condition": "process_creation and selection"
@@ -1795,6 +1795,1669 @@
       "authors": "Jonathan Beierle (@hullabrian)",
       "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/image_load/image_load_dll_unsigned_node_load.yml",
       "license": "Detection Rule License 1.1"
+    },
+    {
+      "case_id": "registry_logon_script",
+      "rule_id": "aadaadd9-d82e-918a-20ca-01a4f35cde1f",
+      "title": "Potential Persistence Via Logon Scripts - Registry",
+      "path": "sigma/sysmon/registry/registry_set/registry_set_persistence_logon_scripts_userinitmprlogonscript.yml",
+      "sha256": "d2d12ea39fb44fc921997a8435a05c75bb0ddd6dc54e61127d614724ed2f5d0d",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "registry_set": {
+          "EventID": 13,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetObject|contains": "UserInitMprLogonScript"
+        },
+        "condition": "registry_set and selection"
+      },
+      "family": "Registry",
+      "event_ids": [
+        13
+      ],
+      "behavior": "registry {\"key\": \"Environment\", \"value\": \"UserInitMprLogonScript\", \"data\": \"C:\\\\lab\\\\windows-coverage\\\\fixtures\\\\helper.exe\", \"value_type\": \"string\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "registry",
+        "key": "Environment",
+        "value": "UserInitMprLogonScript",
+        "data": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+        "value_type": "string"
+      }
+    },
+    {
+      "case_id": "registry_typed_paths",
+      "rule_id": "a1229092-bf43-58f9-b9b4-f8fc3da816e6",
+      "title": "Potential Persistence Via TypedPaths",
+      "path": "sigma/sysmon/registry/registry_set/registry_set_persistence_typed_paths.yml",
+      "sha256": "53d9e1d4cd2dcffb2cc251eedbd02124e1a086d5878befd35501778500cb4ff4",
+      "level": "high",
+      "status": "test",
+      "detection": {
+        "registry_set": {
+          "EventID": 13,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetObject|contains": "\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\TypedPaths\\"
+        },
+        "filter": {
+          "Image": [
+            "C:\\Windows\\explorer.exe",
+            "C:\\Windows\\SysWOW64\\explorer.exe"
+          ]
+        },
+        "condition": "registry_set and (selection and not filter)"
+      },
+      "family": "Registry",
+      "event_ids": [
+        13
+      ],
+      "behavior": "registry {\"key\": \"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\TypedPaths\", \"value\": \"url99\", \"data\": \"C:\\\\lab\\\\windows-coverage\\\\work\", \"value_type\": \"string\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "registry",
+        "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\TypedPaths",
+        "value": "url99",
+        "data": "C:\\lab\\windows-coverage\\work",
+        "value_type": "string"
+      }
+    },
+    {
+      "case_id": "registry_appx_debugger",
+      "rule_id": "1fa31aa7-117f-4356-a2ab-7062be19c8a6",
+      "title": "Potential Persistence Using DebugPath",
+      "path": "sigma/sysmon/registry/registry_set/registry_set_persistence_appx_debugger.yml",
+      "sha256": "fe4141f26f0bd7ce9d8ee75ac93f33ef2120b35234a7d5203ed8e9fc657acdf0",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "registry_set": {
+          "EventID": 13,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection_debug": {
+          "TargetObject|contains": "Classes\\ActivatableClasses\\Package\\Microsoft.",
+          "TargetObject|endswith": "\\DebugPath"
+        },
+        "selection_default": {
+          "TargetObject|contains": "\\Software\\Microsoft\\Windows\\CurrentVersion\\PackagedAppXDebug\\Microsoft.",
+          "TargetObject|endswith": "\\(Default)"
+        },
+        "condition": "registry_set and (1 of selection_*)"
+      },
+      "family": "Registry",
+      "event_ids": [
+        13
+      ],
+      "behavior": "registry {\"key\": \"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\PackagedAppXDebug\\\\Microsoft.TelemetryLabFixture\", \"value\": \"\", \"data\": \"C:\\\\lab\\\\windows-coverage\\\\fixtures\\\\helper.exe\", \"value_type\": \"string\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "registry",
+        "key": "Software\\Microsoft\\Windows\\CurrentVersion\\PackagedAppXDebug\\Microsoft.TelemetryLabFixture",
+        "value": "",
+        "data": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+        "value_type": "string"
+      }
+    },
+    {
+      "case_id": "registry_com_treatas",
+      "rule_id": "6655602f-690f-f834-4dd4-c12213d0c687",
+      "title": "COM Hijacking via TreatAs",
+      "path": "sigma/sysmon/registry/registry_set/registry_set_treatas_persistence.yml",
+      "sha256": "d323caaf37773086ddd8a2ec06ac7d2fa59175b918f32d63ac6e01b2f9c9d8e4",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "registry_set": {
+          "EventID": 13,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetObject|endswith": "TreatAs\\(Default)"
+        },
+        "filter_office": {
+          "Image|startswith": "C:\\Program Files\\Common Files\\Microsoft Shared\\ClickToRun\\",
+          "Image|endswith": "\\OfficeClickToRun.exe"
+        },
+        "filter_office2": {
+          "Image": [
+            "C:\\Program Files\\Microsoft Office\\root\\integration\\integrator.exe",
+            "C:\\Program Files (x86)\\Microsoft Office\\root\\integration\\integrator.exe"
+          ]
+        },
+        "filter_svchost": {
+          "Image": "C:\\Windows\\system32\\svchost.exe"
+        },
+        "filter_misexec": {
+          "Image": [
+            "C:\\Windows\\system32\\msiexec.exe",
+            "C:\\Windows\\SysWOW64\\msiexec.exe"
+          ]
+        },
+        "condition": "registry_set and (selection and not 1 of filter_*)"
+      },
+      "family": "Registry",
+      "event_ids": [
+        13
+      ],
+      "behavior": "registry {\"key\": \"Software\\\\Classes\\\\CLSID\\\\{9B9C8026-806D-41E2-992A-909553D7A52A}\\\\TreatAs\", \"value\": \"\", \"data\": \"{9B9C8026-806D-41E2-992A-909553D7A52A}\", \"value_type\": \"string\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "registry",
+        "key": "Software\\Classes\\CLSID\\{9B9C8026-806D-41E2-992A-909553D7A52A}\\TreatAs",
+        "value": "",
+        "data": "{9B9C8026-806D-41E2-992A-909553D7A52A}",
+        "value_type": "string"
+      }
+    },
+    {
+      "case_id": "registry_cor_profiler",
+      "rule_id": "aeac22f7-e219-1561-df1f-f531ac2d096f",
+      "title": "Enabling COR Profiler Environment Variables",
+      "path": "sigma/sysmon/registry/registry_set/registry_set_enabling_cor_profiler_env_variables.yml",
+      "sha256": "96bd3832428c8e006f35860a25e1c41297b1a2fca184091a2ab43e9a40498244",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "registry_set": {
+          "EventID": 13,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection_1": {
+          "TargetObject|endswith": [
+            "\\COR_ENABLE_PROFILING",
+            "\\COR_PROFILER",
+            "\\CORECLR_ENABLE_PROFILING"
+          ]
+        },
+        "selection_2": {
+          "TargetObject|contains": "\\CORECLR_PROFILER_PATH"
+        },
+        "condition": "registry_set and (1 of selection_*)"
+      },
+      "family": "Registry",
+      "event_ids": [
+        13
+      ],
+      "behavior": "registry {\"key\": \"Environment\", \"value\": \"COR_PROFILER\", \"data\": \"{9B9C8026-806D-41E2-992A-909553D7A52A}\", \"value_type\": \"string\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "registry",
+        "key": "Environment",
+        "value": "COR_PROFILER",
+        "data": "{9B9C8026-806D-41E2-992A-909553D7A52A}",
+        "value_type": "string"
+      }
+    },
+    {
+      "case_id": "registry_hide_files",
+      "rule_id": "96cd46a9-33dc-28dc-273e-83bc1fd8adc9",
+      "title": "Displaying Hidden Files Feature Disabled",
+      "path": "sigma/sysmon/registry/registry_set/registry_set_hide_file.yml",
+      "sha256": "457c3d9e5de93539af09d1fb95e3869f3d8f812ea02a1b9e3ee6adf43a973f4a",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "registry_set": {
+          "EventID": 13,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetObject|endswith": [
+            "\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\ShowSuperHidden",
+            "\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\Hidden"
+          ],
+          "Details": "DWORD (0x00000000)"
+        },
+        "condition": "registry_set and selection"
+      },
+      "family": "Registry",
+      "event_ids": [
+        13
+      ],
+      "behavior": "registry {\"key\": \"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\Advanced\", \"value\": \"Hidden\", \"data\": 0, \"value_type\": \"dword\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "registry",
+        "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+        "value": "Hidden",
+        "data": 0,
+        "value_type": "dword"
+      }
+    },
+    {
+      "case_id": "registry_office_macro",
+      "rule_id": "8b6b4194-cfe8-b585-475f-5997e8015fe0",
+      "title": "Office Macros Warning Disabled",
+      "path": "sigma/sysmon/registry/registry_set/registry_set_office_vba_warnings_tamper.yml",
+      "sha256": "2b01499884ab4d68587a72d361992c45d580f4f05a19b08eb14225fc25bccc1e",
+      "level": "high",
+      "status": "test",
+      "detection": {
+        "registry_set": {
+          "EventID": 13,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetObject|endswith": "\\Security\\VBAWarnings",
+          "Details": "DWORD (0x00000001)"
+        },
+        "condition": "registry_set and selection"
+      },
+      "family": "Registry",
+      "event_ids": [
+        13
+      ],
+      "behavior": "registry {\"key\": \"Software\\\\Microsoft\\\\Office\\\\16.0\\\\Word\\\\Security\", \"value\": \"VBAWarnings\", \"data\": 1, \"value_type\": \"dword\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "registry",
+        "key": "Software\\Microsoft\\Office\\16.0\\Word\\Security",
+        "value": "VBAWarnings",
+        "data": 1,
+        "value_type": "dword"
+      }
+    },
+    {
+      "case_id": "registry_word_addin",
+      "rule_id": "ee69bf67-79f6-5973-f69d-7a6f609c97db",
+      "title": "Potential Persistence Via Visual Studio Tools for Office",
+      "path": "sigma/sysmon/registry/registry_set/registry_set_persistence_office_vsto.yml",
+      "sha256": "1a63331c19bd7b17338531614b9c5a63366bd128dc42cd935effb9ac61773a2d",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "registry_set": {
+          "EventID": 13,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetObject|contains": [
+            "\\Software\\Microsoft\\Office\\Outlook\\Addins\\",
+            "\\Software\\Microsoft\\Office\\Word\\Addins\\",
+            "\\Software\\Microsoft\\Office\\Excel\\Addins\\",
+            "\\Software\\Microsoft\\Office\\Powerpoint\\Addins\\",
+            "\\Software\\Microsoft\\VSTO\\Security\\Inclusion\\"
+          ]
+        },
+        "filter_main_system": {
+          "Image": [
+            "C:\\Windows\\System32\\msiexec.exe",
+            "C:\\Windows\\SysWOW64\\msiexec.exe",
+            "C:\\Windows\\System32\\regsvr32.exe",
+            "C:\\Windows\\SysWOW64\\regsvr32.exe"
+          ]
+        },
+        "filter_main_office_click_to_run": {
+          "Image|startswith": [
+            "C:\\Program Files\\Common Files (x86)\\Microsoft Shared\\ClickToRun\\",
+            "C:\\Program Files\\Common Files\\Microsoft Shared\\ClickToRun\\"
+          ],
+          "Image|endswith": "\\OfficeClickToRun.exe"
+        },
+        "filter_main_integrator": {
+          "Image": [
+            "C:\\Program Files (x86)\\Microsoft Office\\root\\integration\\integrator.exe",
+            "C:\\Program Files\\Microsoft Office\\root\\integration\\integrator.exe"
+          ]
+        },
+        "filter_main_office_apps": {
+          "Image|startswith": [
+            "C:\\Program Files\\Microsoft Office\\OFFICE",
+            "C:\\Program Files (x86)\\Microsoft Office\\OFFICE",
+            "C:\\Program Files\\Microsoft Office\\Root\\OFFICE",
+            "C:\\Program Files (x86)\\Microsoft Office\\Root\\OFFICE",
+            "C:\\PROGRA~2\\MICROS~2\\Office"
+          ],
+          "Image|endswith": [
+            "\\excel.exe",
+            "\\Integrator.exe",
+            "\\OneNote.exe",
+            "\\outlook.exe",
+            "\\powerpnt.exe",
+            "\\Teams.exe",
+            "\\visio.exe",
+            "\\winword.exe"
+          ]
+        },
+        "filter_main_vsto": {
+          "Image|startswith": [
+            "C:\\Program Files\\Common Files\\Microsoft Shared\\VSTO\\",
+            "C:\\Program Files (x86)\\Microsoft Shared\\VSTO\\"
+          ],
+          "Image|endswith": "\\VSTOInstaller.exe"
+        },
+        "filter_optional_avg": {
+          "Image": [
+            "C:\\Program Files\\AVG\\Antivirus\\RegSvr.exe",
+            "C:\\Program Files (x86)\\AVG\\Antivirus\\RegSvr.exe"
+          ],
+          "TargetObject|contains": "\\Microsoft\\Office\\Outlook\\Addins\\Antivirus.AsOutExt\\"
+        },
+        "filter_optional_avast": {
+          "Image": [
+            "C:\\Program Files\\Avast Software\\Avast\\RegSvr.exe",
+            "C:\\Program Files (x86)\\Avast Software\\Avast\\RegSvr.exe"
+          ],
+          "TargetObject|contains": "\\Microsoft\\Office\\Outlook\\Addins\\Avast.AsOutExt\\"
+        },
+        "condition": "registry_set and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+      },
+      "family": "Registry",
+      "event_ids": [
+        13
+      ],
+      "behavior": "registry {\"key\": \"Software\\\\Microsoft\\\\Office\\\\Word\\\\Addins\\\\TelemetryLabFixture\", \"value\": \"Manifest\", \"data\": \"C:\\\\lab\\\\windows-coverage\\\\fixtures\\\\fixture.vsto\", \"value_type\": \"string\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "registry",
+        "key": "Software\\Microsoft\\Office\\Word\\Addins\\TelemetryLabFixture",
+        "value": "Manifest",
+        "data": "C:\\lab\\windows-coverage\\fixtures\\fixture.vsto",
+        "value_type": "string"
+      }
+    },
+    {
+      "case_id": "registry_appcompat_restart",
+      "rule_id": "349ed81d-2f2f-a95f-2d5d-41e5fbeaf784",
+      "title": "Potential Persistence Via AppCompat RegisterAppRestart Layer",
+      "path": "sigma/sysmon/registry/registry_set/registry_set_persistence_app_cpmpat_layer_registerapprestart.yml",
+      "sha256": "c5eb2b65d9407e48f95bcbfd3cd1f2f7e23acd7415932e34a2631a2bab85dd09",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "registry_set": {
+          "EventID": 13,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetObject|contains": "\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers\\",
+          "Details|contains": "REGISTERAPPRESTART"
+        },
+        "condition": "registry_set and selection"
+      },
+      "family": "Registry",
+      "event_ids": [
+        13
+      ],
+      "behavior": "registry {\"key\": \"Software\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\AppCompatFlags\\\\Layers\", \"value\": \"C:\\\\lab\\\\windows-coverage\\\\fixtures\\\\helper.exe\", \"data\": \"REGISTERAPPRESTART\", \"value_type\": \"string\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "registry",
+        "key": "Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers",
+        "value": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+        "data": "REGISTERAPPRESTART",
+        "value_type": "string"
+      }
+    },
+    {
+      "case_id": "registry_suspicious_env",
+      "rule_id": "eca534f8-005d-bb79-798d-0af4e2bf38d6",
+      "title": "Suspicious Environment Variable Has Been Registered",
+      "path": "sigma/sysmon/registry/registry_set/registry_set_suspicious_env_variables.yml",
+      "sha256": "e723f0d2f0e0c366d94be85edf454364a3b5d5aaf76fbc543e4d9e4a825acd6e",
+      "level": "high",
+      "status": "test",
+      "detection": {
+        "registry_set": {
+          "EventID": 13,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection_main": {
+          "TargetObject|contains": "\\Environment\\"
+        },
+        "selection_details": [
+          {
+            "Details": [
+              "powershell",
+              "pwsh"
+            ]
+          },
+          {
+            "Details|contains": [
+              "\\AppData\\Local\\Temp\\",
+              "C:\\Users\\Public\\",
+              "TVqQAAMAAAAEAAAA",
+              "TVpQAAIAAAAEAA8A",
+              "TVqAAAEAAAAEABAA",
+              "TVoAAAAAAAAAAAAA",
+              "TVpTAQEAAAAEAAAA",
+              "SW52b2tlL",
+              "ludm9rZS",
+              "JbnZva2Ut",
+              "SQBuAHYAbwBrAGUALQ",
+              "kAbgB2AG8AawBlAC0A",
+              "JAG4AdgBvAGsAZQAtA"
+            ]
+          },
+          {
+            "Details|startswith": [
+              "SUVY",
+              "SQBFAF",
+              "SQBuAH",
+              "cwBhA",
+              "aWV4",
+              "aQBlA",
+              "R2V0",
+              "dmFy",
+              "dgBhA",
+              "dXNpbm",
+              "H4sIA",
+              "Y21k",
+              "cABhAH",
+              "Qzpc",
+              "Yzpc"
+            ]
+          }
+        ],
+        "condition": "registry_set and (all of selection_*)"
+      },
+      "family": "Registry",
+      "event_ids": [
+        13
+      ],
+      "behavior": "registry {\"key\": \"Environment\", \"value\": \"TelemetryLabFixture\", \"data\": \"C:\\\\Users\\\\Public\\\\telemetry-lab\\\\fixture.exe\", \"value_type\": \"string\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "registry",
+        "key": "Environment",
+        "value": "TelemetryLabFixture",
+        "data": "C:\\Users\\Public\\telemetry-lab\\fixture.exe",
+        "value_type": "string"
+      }
+    },
+    {
+      "case_id": "screensaver_file",
+      "rule_id": "b7a6c875-41bf-5648-744f-d236cceb1c26",
+      "title": "Suspicious Screensaver Binary File Creation",
+      "path": "sigma/sysmon/file/file_event/file_event_win_creation_scr_binary_file.yml",
+      "sha256": "7c4b005b7faf03ee51cd1aceeb9771e03692d0670398f75982a506c8ee414d49",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|endswith": ".scr"
+        },
+        "filter_generic": {
+          "Image|endswith": [
+            "\\Kindle.exe",
+            "\\Bin\\ccSvcHst.exe"
+          ]
+        },
+        "filter_tiworker": {
+          "Image|endswith": "\\TiWorker.exe",
+          "TargetFilename|endswith": "\\uwfservicingscr.scr"
+        },
+        "condition": "file_event and (selection and not 1 of filter_*)"
+      },
+      "family": "File",
+      "event_ids": [
+        11
+      ],
+      "behavior": "file {\"filename\": \"C:\\\\lab\\\\windows-coverage\\\\work\\\\fixture.scr\", \"content\": \"helper\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "file",
+        "filename": "C:\\lab\\windows-coverage\\work\\fixture.scr",
+        "content": "helper"
+      }
+    },
+    {
+      "case_id": "system_dll_file",
+      "rule_id": "47b821bf-c853-813b-eaa2-be2620f42a1d",
+      "title": "Files With System DLL Name In Unsuspected Locations",
+      "path": "sigma/sysmon/file/file_event/file_event_win_creation_system_dll_files.yml",
+      "sha256": "f90af9ccf570ff4cfc6140879805fede469a168bbc49c612ed2be88863472c44",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|endswith": [
+            "\\secur32.dll",
+            "\\tdh.dll"
+          ]
+        },
+        "filter_main_generic": {
+          "TargetFilename|contains": [
+            "C:\\$WINDOWS.~BT\\",
+            "C:\\$WinREAgent\\",
+            "C:\\Windows\\SoftwareDistribution\\",
+            "C:\\Windows\\System32\\",
+            "C:\\Windows\\SysWOW64\\",
+            "C:\\Windows\\WinSxS\\",
+            "C:\\Windows\\uus\\"
+          ]
+        },
+        "condition": "file_event and (selection and not 1 of filter_main_*)"
+      },
+      "family": "File",
+      "event_ids": [
+        11
+      ],
+      "behavior": "file {\"filename\": \"C:\\\\lab\\\\windows-coverage\\\\work\\\\secur32.dll\", \"content\": \"module\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "file",
+        "filename": "C:\\lab\\windows-coverage\\work\\secur32.dll",
+        "content": "module"
+      }
+    },
+    {
+      "case_id": "system_name_file",
+      "rule_id": "eccfe194-f618-b054-3986-7f7529f079f1",
+      "title": "Files With System Process Name In Unsuspected Locations",
+      "path": "sigma/sysmon/file/file_event/file_event_win_creation_system_file.yml",
+      "sha256": "bc142607a1cf0e06df977ce813e97f5031db338a6a9c22de9c6f21300342b37f",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|endswith": [
+            "\\AtBroker.exe",
+            "\\audiodg.exe",
+            "\\backgroundTaskHost.exe",
+            "\\bcdedit.exe",
+            "\\bitsadmin.exe",
+            "\\cmdl32.exe",
+            "\\cmstp.exe",
+            "\\conhost.exe",
+            "\\csrss.exe",
+            "\\dasHost.exe",
+            "\\dfrgui.exe",
+            "\\dllhost.exe",
+            "\\dwm.exe",
+            "\\eventcreate.exe",
+            "\\eventvwr.exe",
+            "\\explorer.exe",
+            "\\extrac32.exe",
+            "\\fontdrvhost.exe",
+            "\\fsquirt.exe",
+            "\\ipconfig.exe",
+            "\\iscsicli.exe",
+            "\\iscsicpl.exe",
+            "\\logman.exe",
+            "\\LogonUI.exe",
+            "\\LsaIso.exe",
+            "\\lsass.exe",
+            "\\lsm.exe",
+            "\\msiexec.exe",
+            "\\msinfo32.exe",
+            "\\mstsc.exe",
+            "\\nbtstat.exe",
+            "\\odbcconf.exe",
+            "\\powershell.exe",
+            "\\pwsh.exe",
+            "\\regini.exe",
+            "\\regsvr32.exe",
+            "\\rundll32.exe",
+            "\\RuntimeBroker.exe",
+            "\\schtasks.exe",
+            "\\SearchFilterHost.exe",
+            "\\SearchIndexer.exe",
+            "\\SearchProtocolHost.exe",
+            "\\SecurityHealthService.exe",
+            "\\SecurityHealthSystray.exe",
+            "\\services.exe",
+            "\\ShellAppRuntime.exe",
+            "\\sihost.exe",
+            "\\smartscreen.exe",
+            "\\smss.exe",
+            "\\spoolsv.exe",
+            "\\svchost.exe",
+            "\\SystemSettingsBroker.exe",
+            "\\taskhost.exe",
+            "\\taskhostw.exe",
+            "\\Taskmgr.exe",
+            "\\TiWorker.exe",
+            "\\vssadmin.exe",
+            "\\w32tm.exe",
+            "\\WerFault.exe",
+            "\\WerFaultSecure.exe",
+            "\\wermgr.exe",
+            "\\wevtutil.exe",
+            "\\wininit.exe",
+            "\\winlogon.exe",
+            "\\winrshost.exe",
+            "\\WinRTNetMUAHostServer.exe",
+            "\\wlanext.exe",
+            "\\wlrmdr.exe",
+            "\\WmiPrvSE.exe",
+            "\\wslhost.exe",
+            "\\WSReset.exe",
+            "\\WUDFHost.exe",
+            "\\WWAHost.exe"
+          ]
+        },
+        "filter_main_generic": {
+          "TargetFilename|contains": [
+            "C:\\$WINDOWS.~BT\\",
+            "C:\\$WinREAgent\\",
+            "C:\\Windows\\SoftwareDistribution\\",
+            "C:\\Windows\\System32\\",
+            "C:\\Windows\\SysWOW64\\",
+            "C:\\Windows\\WinSxS\\",
+            "C:\\Windows\\uus\\"
+          ]
+        },
+        "filter_main_tiworker": {
+          "Image|endswith": [
+            "\\TiWorker.exe",
+            "\\wuaucltcore.exe"
+          ],
+          "TargetFilename|startswith": "C:\\Windows\\Temp\\"
+        },
+        "filter_main_svchost": {
+          "Image|endswith": [
+            "C:\\Windows\\system32\\svchost.exe",
+            "C:\\Windows\\SysWOW64\\svchost.exe"
+          ],
+          "TargetFilename|contains": [
+            "C:\\Program Files\\WindowsApps\\",
+            "C:\\Program Files (x86)\\WindowsApps\\",
+            "\\AppData\\Local\\Microsoft\\WindowsApps\\"
+          ]
+        },
+        "filter_main_wuauclt": {
+          "Image": [
+            "C:\\Windows\\System32\\wuauclt.exe",
+            "C:\\Windows\\SysWOW64\\wuauclt.exe",
+            "C:\\Windows\\UUS\\arm64\\wuaucltcore.exe"
+          ]
+        },
+        "filter_main_explorer": {
+          "TargetFilename|endswith": "C:\\Windows\\explorer.exe"
+        },
+        "filter_main_msiexec": {
+          "Image|endswith": [
+            "C:\\WINDOWS\\system32\\msiexec.exe",
+            "C:\\WINDOWS\\SysWOW64\\msiexec.exe"
+          ],
+          "TargetFilename|startswith": [
+            "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+            "C:\\Program Files\\PowerShell\\7-preview\\pwsh.exe",
+            "C:\\Program Files\\WindowsApps\\Microsoft.PowerShellPreview\\"
+          ]
+        },
+        "filter_main_healtray": {
+          "TargetFilename|contains": "C:\\Windows\\System32\\SecurityHealth\\",
+          "TargetFilename|endswith": "\\SecurityHealthSystray.exe",
+          "Image|endswith": "\\SecurityHealthSetup.exe"
+        },
+        "filter_optional_wslhost": [
+          {
+            "TargetFilename": "C:\\Program Files\\WSL\\wslhost.exe"
+          },
+          {
+            "TargetFilename|contains|all": [
+              "C:\\Program Files\\WindowsApps\\MicrosoftCorporationII.WindowsSubsystemForLinux_",
+              "\\wslhost.exe"
+            ]
+          },
+          {
+            "TargetFilename|contains|all": [
+              "C:\\Users\\",
+              "\\AppData\\Local\\Microsoft\\WindowsApps\\",
+              "\\wslhost.exe"
+            ]
+          }
+        ],
+        "condition": "file_event and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+      },
+      "family": "File",
+      "event_ids": [
+        11
+      ],
+      "behavior": "file {\"filename\": \"C:\\\\lab\\\\windows-coverage\\\\work\\\\svchost.exe\", \"content\": \"helper\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "file",
+        "filename": "C:\\lab\\windows-coverage\\work\\svchost.exe",
+        "content": "helper"
+      }
+    },
+    {
+      "case_id": "perflogs_file",
+      "rule_id": "8822f47b-fcbf-b189-f9a1-10961c8f7cd0",
+      "title": "Suspicious File Created In PerfLogs",
+      "path": "sigma/sysmon/file/file_event/file_event_win_perflogs_susp_files.yml",
+      "sha256": "2724bb7c326c95b213c24e5726aa6e5351b539653e28bbb28ebe1cf5b1604642",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|startswith": "C:\\PerfLogs\\",
+          "TargetFilename|endswith": [
+            ".7z",
+            ".bat",
+            ".bin",
+            ".chm",
+            ".dll",
+            ".exe",
+            ".hta",
+            ".lnk",
+            ".ps1",
+            ".psm1",
+            ".py",
+            ".scr",
+            ".sys",
+            ".vbe",
+            ".vbs",
+            ".zip"
+          ]
+        },
+        "condition": "file_event and selection"
+      },
+      "family": "File",
+      "event_ids": [
+        11
+      ],
+      "behavior": "file {\"filename\": \"C:\\\\PerfLogs\\\\telemetry-lab\\\\fixture.exe\", \"content\": \"helper\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "file",
+        "filename": "C:\\PerfLogs\\telemetry-lab\\fixture.exe",
+        "content": "helper"
+      }
+    },
+    {
+      "case_id": "powershell_module_file",
+      "rule_id": "103362bb-15b7-3bed-7f8c-fd7a15fe31f4",
+      "title": "PowerShell Module File Created By Non-PowerShell Process",
+      "path": "sigma/sysmon/file/file_event/file_event_win_powershell_module_uncommon_creation.yml",
+      "sha256": "839bc7b4638f830cd55af4e2ec9b22797a47dbd2f78923c3426a76f2bef387a4",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|contains": [
+            "\\WindowsPowerShell\\Modules\\",
+            "\\PowerShell\\7\\Modules\\"
+          ]
+        },
+        "filter_main_pwsh": {
+          "Image|endswith": [
+            ":\\Program Files\\PowerShell\\7-preview\\pwsh.exe",
+            ":\\Program Files\\PowerShell\\7\\pwsh.exe",
+            ":\\Windows\\System32\\poqexec.exe",
+            ":\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell_ise.exe",
+            ":\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            ":\\Windows\\SysWOW64\\poqexec.exe",
+            ":\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell_ise.exe",
+            ":\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe"
+          ]
+        },
+        "filter_main_msiexec": {
+          "Image": [
+            "C:\\Windows\\System32\\msiexec.exe",
+            "C:\\Windows\\SysWOW64\\msiexec.exe"
+          ]
+        },
+        "condition": "file_event and (selection and not 1 of filter_main_*)"
+      },
+      "family": "File",
+      "event_ids": [
+        11
+      ],
+      "behavior": "file {\"filename\": \"%USERPROFILE%\\\\Documents\\\\WindowsPowerShell\\\\Modules\\\\TelemetryLabFixture\\\\TelemetryLabFixture.psm1\", \"content\": \"text\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "file",
+        "filename": "%USERPROFILE%\\Documents\\WindowsPowerShell\\Modules\\TelemetryLabFixture\\TelemetryLabFixture.psm1",
+        "content": "text"
+      }
+    },
+    {
+      "case_id": "rclone_config_file",
+      "rule_id": "1446e210-e8da-42a9-e7bf-8fb30a60366b",
+      "title": "Rclone Config File Creation",
+      "path": "sigma/sysmon/file/file_event/file_event_win_rclone_config_files.yml",
+      "sha256": "b5e1ef37790c2b9d06ad4440aa07e5e2297b95910f80d4a57f55446267776433",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|contains|all": [
+            ":\\Users\\",
+            "\\.config\\rclone\\"
+          ]
+        },
+        "condition": "file_event and selection"
+      },
+      "family": "File",
+      "event_ids": [
+        11
+      ],
+      "behavior": "file {\"filename\": \"%USERPROFILE%\\\\.config\\\\rclone\\\\telemetry-lab-fixture.conf\", \"content\": \"text\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "file",
+        "filename": "%USERPROFILE%\\.config\\rclone\\telemetry-lab-fixture.conf",
+        "content": "text"
+      }
+    },
+    {
+      "case_id": "rtlo_file",
+      "rule_id": "1522de8d-352b-1bb8-509b-932d2dd4bb60",
+      "title": "Potential File Extension Spoofing Using Right-to-Left Override",
+      "path": "sigma/sysmon/file/file_event/file_event_win_susp_right_to_left_override_extension_spoofing.yml",
+      "sha256": "8fb59e6680454f1060f3d2d9f77ab1fce6199c327bccc90a81a3744587ad2ee8",
+      "level": "high",
+      "status": "test",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection_rtlo_unicode": {
+          "TargetFilename|contains": [
+            "\\u202e",
+            "[U+202E]",
+            "‮"
+          ]
+        },
+        "selection_extensions": {
+          "TargetFilename|contains": [
+            "3pm.",
+            "4pm.",
+            "cod.",
+            "fdp.",
+            "ftr.",
+            "gepj.",
+            "gnp.",
+            "gpj.",
+            "ism.",
+            "lmth.",
+            "nls.",
+            "piz.",
+            "slx.",
+            "tdo.",
+            "vsc.",
+            "vwm.",
+            "xcod.",
+            "xslx.",
+            "xtpp."
+          ]
+        },
+        "condition": "file_event and (all of selection_*)"
+      },
+      "family": "File",
+      "event_ids": [
+        11
+      ],
+      "behavior": "file {\"filename\": \"C:\\\\lab\\\\windows-coverage\\\\work\\\\report‮fdp.exe\", \"content\": \"helper\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "file",
+        "filename": "C:\\lab\\windows-coverage\\work\\report‮fdp.exe",
+        "content": "helper"
+      }
+    },
+    {
+      "case_id": "errorhandler_file",
+      "rule_id": "e80bff97-0333-b1fa-8833-ee64e96e9434",
+      "title": "Potential Persistence Attempt Via ErrorHandler.Cmd",
+      "path": "sigma/sysmon/file/file_event/file_event_win_errorhandler_persistence.yml",
+      "sha256": "9e2082bcde91e66ac8c759da2de815ae347c5fa74aedf0fccaf2a32de7e0eab9",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "file_event": {
+          "EventID": 11,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|endswith": "\\WINDOWS\\Setup\\Scripts\\ErrorHandler.cmd"
+        },
+        "condition": "file_event and selection"
+      },
+      "family": "File",
+      "event_ids": [
+        11
+      ],
+      "behavior": "file {\"filename\": \"C:\\\\Windows\\\\Setup\\\\Scripts\\\\ErrorHandler.cmd\", \"content\": \"text\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "file",
+        "filename": "C:\\Windows\\Setup\\Scripts\\ErrorHandler.cmd",
+        "content": "text"
+      }
+    },
+    {
+      "case_id": "delete_eventlog_fixture",
+      "rule_id": "956a26a6-af21-94d6-9fb7-0abbe37e3c7d",
+      "title": "EventLog EVTX File Deleted",
+      "path": "sigma/sysmon/file/file_delete/file_delete_win_delete_event_log_files.yml",
+      "sha256": "7d5d945e585e79cf14153a2f9a34dcc50146f78e651134e9c86ef28b3e4d3b62",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "file_delete": {
+          "EventID": [
+            23,
+            26
+          ],
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|startswith": "C:\\Windows\\System32\\winevt\\Logs\\",
+          "TargetFilename|endswith": ".evtx"
+        },
+        "condition": "file_delete and selection"
+      },
+      "family": "File deletion",
+      "event_ids": [
+        23,
+        26
+      ],
+      "behavior": "delete {\"filename\": \"C:\\\\Windows\\\\System32\\\\winevt\\\\Logs\\\\TelemetryLabFixture.evtx\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "delete",
+        "filename": "C:\\Windows\\System32\\winevt\\Logs\\TelemetryLabFixture.evtx"
+      }
+    },
+    {
+      "case_id": "delete_history_fixture",
+      "rule_id": "14680f1d-0b5e-e92c-0ea0-dcd01321c0e8",
+      "title": "PowerShell Console History Logs Deleted",
+      "path": "sigma/sysmon/file/file_delete/file_delete_win_delete_powershell_command_history.yml",
+      "sha256": "f4ffbd2dd5e84573a469f9d4df76c159fc85a6bd5bf84bc6fe79e1b05e0c9636",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "file_delete": {
+          "EventID": [
+            23,
+            26
+          ],
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|endswith": "\\PSReadLine\\ConsoleHost_history.txt"
+        },
+        "condition": "file_delete and selection"
+      },
+      "family": "File deletion",
+      "event_ids": [
+        23,
+        26
+      ],
+      "behavior": "delete {\"filename\": \"C:\\\\lab\\\\windows-coverage\\\\work\\\\PSReadLine\\\\ConsoleHost_history.txt\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "delete",
+        "filename": "C:\\lab\\windows-coverage\\work\\PSReadLine\\ConsoleHost_history.txt"
+      }
+    },
+    {
+      "case_id": "delete_prefetch_fixture",
+      "rule_id": "1e50ff2d-08cc-b108-b8c8-3327cf39794f",
+      "title": "Prefetch File Deleted",
+      "path": "sigma/sysmon/file/file_delete/file_delete_win_delete_prefetch.yml",
+      "sha256": "15748e7a6ba44bd4034c145df240e13fe91d247f53efb79298b50cc7dc57a0de",
+      "level": "high",
+      "status": "test",
+      "detection": {
+        "file_delete": {
+          "EventID": [
+            23,
+            26
+          ],
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|contains": ":\\Windows\\Prefetch\\",
+          "TargetFilename|endswith": ".pf"
+        },
+        "filter_main_svchost": {
+          "Image|endswith": ":\\windows\\system32\\svchost.exe",
+          "User|contains": [
+            "AUTHORI",
+            "AUTORI"
+          ]
+        },
+        "condition": "file_delete and (selection and not 1 of filter_main_*)"
+      },
+      "family": "File deletion",
+      "event_ids": [
+        23,
+        26
+      ],
+      "behavior": "delete {\"filename\": \"C:\\\\Windows\\\\Prefetch\\\\TELEMETRYLABFIXTURE.pf\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "delete",
+        "filename": "C:\\Windows\\Prefetch\\TELEMETRYLABFIXTURE.pf"
+      }
+    },
+    {
+      "case_id": "delete_zone_identifier",
+      "rule_id": "2090f94a-7ba3-61c7-e843-f3864b2d3947",
+      "title": "ADS Zone.Identifier Deleted By Uncommon Application",
+      "path": "sigma/sysmon/file/file_delete/file_delete_win_zone_identifier_ads_uncommon.yml",
+      "sha256": "1de71ae563b54e8d4fd4a4d21756306fa14c9eb47e7fe5181e236448b7e67ff2",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "file_delete": {
+          "EventID": [
+            23,
+            26
+          ],
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetFilename|endswith": ":Zone.Identifier"
+        },
+        "filter_main_generic": {
+          "Image": [
+            "C:\\Program Files\\PowerShell\\7-preview\\pwsh.exe",
+            "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+            "C:\\Windows\\explorer.exe",
+            "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "C:\\Windows\\SysWOW64\\explorer.exe",
+            "C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe"
+          ]
+        },
+        "filter_optional_browsers_chrome": {
+          "Image": [
+            "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+            "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+          ]
+        },
+        "filter_optional_browsers_firefox": {
+          "Image": [
+            "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe",
+            "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+          ]
+        },
+        "filter_optional_browsers_msedge": {
+          "Image": [
+            "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+            "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe"
+          ]
+        },
+        "condition": "file_delete and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+      },
+      "family": "File deletion",
+      "event_ids": [
+        23,
+        26
+      ],
+      "behavior": "delete {\"filename\": \"C:\\\\lab\\\\windows-coverage\\\\work\\\\download.txt:Zone.Identifier\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "delete",
+        "filename": "C:\\lab\\windows-coverage\\work\\download.txt:Zone.Identifier"
+      }
+    },
+    {
+      "case_id": "dns_ldap_discovery",
+      "rule_id": "2701ad60-af1a-a2fc-c2ff-fea10af75a0b",
+      "title": "DNS Server Discovery Via LDAP Query",
+      "path": "sigma/sysmon/dns_query/dns_query_win_dns_server_discovery_via_ldap_query.yml",
+      "sha256": "e67e68d86307e2896785a1e2203a5b30276fdef315c5a609e7f88a13efd63d4d",
+      "level": "low",
+      "status": "test",
+      "detection": {
+        "dns_query": {
+          "EventID": 22,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "QueryName|startswith": "_ldap."
+        },
+        "filter_main_generic": {
+          "Image|contains": [
+            ":\\Program Files\\",
+            ":\\Program Files (x86)\\",
+            ":\\Windows\\"
+          ]
+        },
+        "filter_main_defender": {
+          "Image|contains": ":\\ProgramData\\Microsoft\\Windows Defender\\Platform\\",
+          "Image|endswith": "\\MsMpEng.exe"
+        },
+        "filter_main_unknown": {
+          "Image": "<unknown process>"
+        },
+        "filter_optional_azure": {
+          "Image|startswith": "C:\\WindowsAzure\\GuestAgent"
+        },
+        "filter_main_null": {
+          "Image": null
+        },
+        "filter_optional_browsers": {
+          "Image|endswith": [
+            "\\chrome.exe",
+            "\\firefox.exe",
+            "\\opera.exe"
+          ]
+        },
+        "condition": "dns_query and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+      },
+      "family": "DNS",
+      "event_ids": [
+        22
+      ],
+      "behavior": "dns {\"hostname\": \"_ldap.telemetry-lab.test\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "dns",
+        "hostname": "_ldap.telemetry-lab.test"
+      }
+    },
+    {
+      "case_id": "dns_cloudflared",
+      "rule_id": "a19966bd-8f14-3aaf-c121-4c5d016441d3",
+      "title": "Cloudflared Tunnels Related DNS Requests",
+      "path": "sigma/sysmon/dns_query/dns_query_win_cloudflared_communication.yml",
+      "sha256": "f6c5879f39439ebb1ad2d5b3916286f94a789278d4e41199cdb0e3d1f1694dec",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "dns_query": {
+          "EventID": 22,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "QueryName|endswith": [
+            ".v2.argotunnel.com",
+            "protocol-v2.argotunnel.com",
+            "trycloudflare.com",
+            "update.argotunnel.com"
+          ]
+        },
+        "condition": "dns_query and selection"
+      },
+      "family": "DNS",
+      "event_ids": [
+        22
+      ],
+      "behavior": "dns {\"hostname\": \"protocol-v2.argotunnel.com\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "dns",
+        "hostname": "protocol-v2.argotunnel.com"
+      }
+    },
+    {
+      "case_id": "dns_shortener",
+      "rule_id": "7909c849-d650-4178-8739-9884f75c17fe",
+      "title": "DNS Query To Common Malware Hosting and Shortener Services",
+      "path": "sigma/sysmon/dns_query/dns_query_win_common_malware_hosting_services.yml",
+      "sha256": "d18383f93f39a4bfe833d30aad176e2669acb1aac1e5ad2e43c6fe69b3ca1d97",
+      "level": "medium",
+      "status": "experimental",
+      "detection": {
+        "dns_query": {
+          "EventID": 22,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "QueryName|contains": [
+            "msapp.workers.dev",
+            "trycloudflare.com",
+            "infinityfreeapp.com",
+            "my5353.com",
+            "reurl.cc",
+            "lihi.cc",
+            "tinyurl.com"
+          ]
+        },
+        "condition": "dns_query and selection"
+      },
+      "family": "DNS",
+      "event_ids": [
+        22
+      ],
+      "behavior": "dns {\"hostname\": \"tinyurl.com\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "dns",
+        "hostname": "tinyurl.com"
+      }
+    },
+    {
+      "case_id": "dns_remote_access",
+      "rule_id": "d064cacb-bfe5-9d2b-7e5d-a8346829a158",
+      "title": "DNS Query To Remote Access Software Domain From Non-Browser App",
+      "path": "sigma/sysmon/dns_query/dns_query_win_remote_access_software_domains_non_browsers.yml",
+      "sha256": "c8da1c979f748141e79c3d47d79b329f8cf608b52d9e2f1d78f228fc61ff41b7",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "dns_query": {
+          "EventID": 22,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection_generic": {
+          "QueryName|endswith": [
+            "agent.jumpcloud.com",
+            "agentreporting.atera.com",
+            "ammyy.com",
+            "api.parsec.app",
+            "api.playanext.com",
+            "api.splashtop.com",
+            "app.atera.com",
+            "assist.zoho.com",
+            "authentication.logmeininc.com",
+            "beyondtrustcloud.com",
+            "cdn.kaseya.net",
+            "client.teamviewer.com",
+            "comserver.corporate.beanywhere.com",
+            "control.connectwise.com",
+            "downloads.zohocdn.com",
+            "dwservice.net",
+            "express.gotoassist.com",
+            "getgo.com",
+            "getscreen.me",
+            "integratedchat.teamviewer.com",
+            "join.zoho.com",
+            "kickstart.jumpcloud.com",
+            "license.bomgar.com",
+            "logmein-gateway.com",
+            "logmein.com",
+            "logmeincdn.http.internapcdn.net",
+            "n-able.com",
+            "net.anydesk.com",
+            "netsupportsoftware.com",
+            "parsecusercontent.com",
+            "pubsub.atera.com",
+            "relay.kaseya.net",
+            "relay.screenconnect.com",
+            "relay.splashtop.com",
+            "remoteassistance.support.services.microsoft.com",
+            "remotedesktop-pa.googleapis.com",
+            "remoteutilities.com",
+            "secure.logmeinrescue.com",
+            "services.vnc.com",
+            "static.remotepc.com",
+            "swi-rc.com",
+            "swi-tc.com",
+            "tailscale.com",
+            "telemetry.servers.qetqo.com",
+            "tmate.io",
+            "twingate.com",
+            "zohoassist.com"
+          ]
+        },
+        "selection_rustdesk": {
+          "QueryName|endswith": ".rustdesk.com",
+          "QueryName|startswith": "rs-"
+        },
+        "filter_optional_chrome": {
+          "Image": [
+            "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+            "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+          ]
+        },
+        "filter_optional_firefox": {
+          "Image": [
+            "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+            "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"
+          ]
+        },
+        "filter_optional_ie": {
+          "Image": [
+            "C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe",
+            "C:\\Program Files\\Internet Explorer\\iexplore.exe"
+          ]
+        },
+        "filter_optional_edge_1": [
+          {
+            "Image|startswith": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\"
+          },
+          {
+            "Image|endswith": "\\WindowsApps\\MicrosoftEdge.exe"
+          },
+          {
+            "Image": [
+              "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+              "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe"
+            ]
+          }
+        ],
+        "filter_optional_edge_2": {
+          "Image|startswith": [
+            "C:\\Program Files (x86)\\Microsoft\\EdgeCore\\",
+            "C:\\Program Files\\Microsoft\\EdgeCore\\"
+          ],
+          "Image|endswith": [
+            "\\msedge.exe",
+            "\\msedgewebview2.exe"
+          ]
+        },
+        "filter_optional_safari": {
+          "Image|endswith": "\\safari.exe"
+        },
+        "filter_optional_defender": {
+          "Image|endswith": [
+            "\\MsMpEng.exe",
+            "\\MsSense.exe"
+          ]
+        },
+        "filter_optional_brave": {
+          "Image|endswith": "\\brave.exe",
+          "Image|startswith": "C:\\Program Files\\BraveSoftware\\"
+        },
+        "filter_optional_maxthon": {
+          "Image|contains": "\\AppData\\Local\\Maxthon\\",
+          "Image|endswith": "\\maxthon.exe"
+        },
+        "filter_optional_opera": {
+          "Image|contains": "\\AppData\\Local\\Programs\\Opera\\",
+          "Image|endswith": "\\opera.exe"
+        },
+        "filter_optional_seamonkey": {
+          "Image|startswith": [
+            "C:\\Program Files\\SeaMonkey\\",
+            "C:\\Program Files (x86)\\SeaMonkey\\"
+          ],
+          "Image|endswith": "\\seamonkey.exe"
+        },
+        "filter_optional_vivaldi": {
+          "Image|contains": "\\AppData\\Local\\Vivaldi\\",
+          "Image|endswith": "\\vivaldi.exe"
+        },
+        "filter_optional_whale": {
+          "Image|startswith": [
+            "C:\\Program Files\\Naver\\Naver Whale\\",
+            "C:\\Program Files (x86)\\Naver\\Naver Whale\\"
+          ],
+          "Image|endswith": "\\whale.exe"
+        },
+        "filter_optional_tor": {
+          "Image|contains": "\\Tor Browser\\"
+        },
+        "filter_optional_whaterfox": {
+          "Image|startswith": [
+            "C:\\Program Files\\Waterfox\\",
+            "C:\\Program Files (x86)\\Waterfox\\"
+          ],
+          "Image|endswith": "\\Waterfox.exe"
+        },
+        "filter_optional_midori": {
+          "Image|contains": "\\AppData\\Local\\Programs\\midori-ng\\",
+          "Image|endswith": "\\Midori Next Generation.exe"
+        },
+        "filter_optional_slimbrowser": {
+          "Image|startswith": [
+            "C:\\Program Files\\SlimBrowser\\",
+            "C:\\Program Files (x86)\\SlimBrowser\\"
+          ],
+          "Image|endswith": "\\slimbrowser.exe"
+        },
+        "filter_optional_flock": {
+          "Image|contains": "\\AppData\\Local\\Flock\\",
+          "Image|endswith": "\\Flock.exe"
+        },
+        "filter_optional_phoebe": {
+          "Image|contains": "\\AppData\\Local\\Phoebe\\",
+          "Image|endswith": "\\Phoebe.exe"
+        },
+        "filter_optional_falkon": {
+          "Image|startswith": [
+            "C:\\Program Files\\Falkon\\",
+            "C:\\Program Files (x86)\\Falkon\\"
+          ],
+          "Image|endswith": "\\falkon.exe"
+        },
+        "filter_optional_avant": {
+          "Image|startswith": [
+            "C:\\Program Files (x86)\\Avant Browser\\",
+            "C:\\Program Files\\Avant Browser\\"
+          ],
+          "Image|endswith": "\\avant.exe"
+        },
+        "condition": "dns_query and (1 of selection_* and not 1 of filter_optional_*)"
+      },
+      "family": "DNS",
+      "event_ids": [
+        22
+      ],
+      "behavior": "dns {\"hostname\": \"api.splashtop.com\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "dns",
+        "hostname": "api.splashtop.com"
+      }
+    },
+    {
+      "case_id": "pipe_paexec",
+      "rule_id": "1ab555b8-808b-8078-866c-897231a29157",
+      "title": "PUA - PAExec Default Named Pipe",
+      "path": "sigma/sysmon/pipe_created/pipe_created_pua_paexec_default_pipe.yml",
+      "sha256": "270306065e1f71f2ed49b0c768e6a7deb8b4873b4d441429e607aaf09fcef240",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "pipe_created": {
+          "EventID": [
+            17,
+            18
+          ],
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "PipeName|startswith": "\\PAExec"
+        },
+        "condition": "pipe_created and selection"
+      },
+      "family": "Named pipe",
+      "event_ids": [
+        17,
+        18
+      ],
+      "behavior": "pipe {\"pipe\": \"\\\\\\\\.\\\\pipe\\\\PAExec-TelemetryLab\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "pipe",
+        "pipe": "\\\\.\\pipe\\PAExec-TelemetryLab"
+      }
+    },
+    {
+      "case_id": "pipe_remcom",
+      "rule_id": "74f82e4e-702d-98ae-efb2-2f825570b9bf",
+      "title": "PUA - RemCom Default Named Pipe",
+      "path": "sigma/sysmon/pipe_created/pipe_created_pua_remcom_default_pipe.yml",
+      "sha256": "4a18d7ef0e3f16672dd3d607acb95cace0e62cc84d81ce00dc39014f7cd0d528",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "pipe_created": {
+          "EventID": [
+            17,
+            18
+          ],
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "PipeName|contains": "\\RemCom"
+        },
+        "condition": "pipe_created and selection"
+      },
+      "family": "Named pipe",
+      "event_ids": [
+        17,
+        18
+      ],
+      "behavior": "pipe {\"pipe\": \"\\\\\\\\.\\\\pipe\\\\RemCom-TelemetryLab\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "pipe",
+        "pipe": "\\\\.\\pipe\\RemCom-TelemetryLab"
+      }
+    },
+    {
+      "case_id": "process_access_ping",
+      "rule_id": "0d9cc92d-3ed8-beeb-dea9-8447f14fc31e",
+      "title": "Uncommon Process Access Rights For Target Image",
+      "path": "sigma/sysmon/process_access/proc_access_win_susp_all_access_uncommon_target.yml",
+      "sha256": "1216a2e4470b867927bd6579075822e45d98db95c487599f71f098b51ba164f4",
+      "level": "low",
+      "status": "test",
+      "detection": {
+        "process_access": {
+          "EventID": 10,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetImage|endswith": [
+            "\\calc.exe",
+            "\\calculator.exe",
+            "\\mspaint.exe",
+            "\\notepad.exe",
+            "\\ping.exe",
+            "\\wordpad.exe",
+            "\\write.exe"
+          ],
+          "GrantedAccess": "0x1FFFFF"
+        },
+        "condition": "process_access and selection"
+      },
+      "family": "Process access",
+      "event_ids": [
+        10
+      ],
+      "behavior": "process_access {\"target\": \"C:\\\\Windows\\\\System32\\\\ping.exe\", \"access\": \"0x1fffff\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "process_access",
+        "target": "C:\\Windows\\System32\\ping.exe",
+        "access": "0x1fffff"
+      }
+    },
+    {
+      "case_id": "remote_thread_ping",
+      "rule_id": "43e75355-271c-2069-4eca-cc2e117f8510",
+      "title": "Remote Thread Creation In Uncommon Target Image",
+      "path": "sigma/sysmon/create_remote_thread/create_remote_thread_win_susp_uncommon_target_image.yml",
+      "sha256": "788c78055aa57e9bad5a0e3932c9bc21ec788402203c0ab25f7b4c1c8ad24c98",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "create_remote_thread": {
+          "EventID": 8,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "TargetImage|endswith": [
+            "\\calc.exe",
+            "\\calculator.exe",
+            "\\mspaint.exe",
+            "\\notepad.exe",
+            "\\ping.exe",
+            "\\sethc.exe",
+            "\\spoolsv.exe",
+            "\\wordpad.exe",
+            "\\write.exe"
+          ]
+        },
+        "filter_main_csrss": {
+          "SourceImage": "C:\\Windows\\System32\\csrss.exe"
+        },
+        "filter_main_notepad": {
+          "SourceImage": [
+            "C:\\Windows\\System32\\explorer.exe",
+            "C:\\Windows\\System32\\OpenWith.exe"
+          ],
+          "TargetImage": "C:\\Windows\\System32\\notepad.exe"
+        },
+        "filter_main_sethc": {
+          "SourceImage": "C:\\Windows\\System32\\AtBroker.exe",
+          "TargetImage": "C:\\Windows\\System32\\Sethc.exe"
+        },
+        "filter_optional_aurora_1": {
+          "StartFunction": "EtwpNotificationThread"
+        },
+        "filter_optional_aurora_2": {
+          "SourceImage|contains": "unknown process"
+        },
+        "filter_optional_vmtoolsd": {
+          "SourceImage": "C:\\Program Files\\VMware\\VMware Tools\\vmtoolsd.exe",
+          "StartFunction": "GetCommandLineW",
+          "TargetImage": [
+            "C:\\Windows\\System32\\notepad.exe",
+            "C:\\Windows\\System32\\spoolsv.exe"
+          ]
+        },
+        "filter_optional_xerox_pjems": {
+          "SourceImage": "C:\\Program Files\\Xerox\\XeroxPrintExperience\\CommonFiles\\XeroxPrintJobEventManagerService.exe",
+          "StartFunction": "LoadLibraryW",
+          "TargetImage": "C:\\Windows\\System32\\spoolsv.exe"
+        },
+        "condition": "create_remote_thread and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+      },
+      "family": "Remote thread",
+      "event_ids": [
+        8
+      ],
+      "behavior": "remote_thread {\"target\": \"C:\\\\Windows\\\\System32\\\\ping.exe\", \"function\": \"GetCurrentProcessId\"}",
+      "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
+      "qualification": "pending-live-validation",
+      "expansion": {
+        "kind": "remote_thread",
+        "target": "C:\\Windows\\System32\\ping.exe",
+        "function": "GetCurrentProcessId"
+      }
     }
   ],
   "deferred_candidates": [

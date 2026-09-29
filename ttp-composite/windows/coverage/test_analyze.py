@@ -25,6 +25,18 @@ class AttributionTests(unittest.TestCase):
         self.assertEqual(evaluate(self.attempt,self.events,[],False)['outcome'],'invalid')
         self.attempt['behavior_ok']=False
         self.assertEqual(evaluate(self.attempt,self.events,[])['outcome'],'invalid')
+    def test_cross_process_events_require_source_ownership(self):
+        for event_id in (8,10):
+            for spelling in ('SourceProcessGuid','SourceProcessGUID'):
+                events=copy.deepcopy(self.events)
+                events[1]['event_id']=event_id
+                events[1]['fields']={spelling:'probe','SourceProcessId':'100','TargetProcessGuid':'other'}
+                self.assertEqual(evaluate(self.attempt,events,[dict(RuleID='target',RecordID='2')])['outcome'],'alert')
+                events[1]['fields']={spelling:'other','SourceProcessId':'200','TargetProcessGuid':'probe','TargetProcessId':'100'}
+                self.assertEqual(evaluate(self.attempt,events,[dict(RuleID='target',RecordID='2')])['outcome'],'valid-miss')
+                events[1]['fields']={spelling:'{00000000-0000-0000-0000-000000000000}','SourceProcessId':'100'}
+                self.assertEqual(evaluate(self.attempt,events,[])['outcome'],'attribution-incomplete')
+
     def test_pid_reuse_does_not_join(self):
         events=copy.deepcopy(self.events);events[0]['time_utc']='2026-09-22T11:00:00Z'
         self.assertEqual(evaluate(self.attempt,events,[])['outcome'],'invalid')

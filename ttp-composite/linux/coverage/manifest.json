@@ -3,7 +3,7 @@
   "upstream_commit": "e822409d8a2a28c9719f56ace66e8cadebfd2bc3",
   "provided_rules": 95,
   "stock_enabled_rules": 81,
-  "selected_rules": 30,
+  "selected_rules": 42,
   "rule_files": [
     {
       "file": "falco_rules.yaml",
@@ -234,6 +234,90 @@
       "family": "File creation",
       "behavior": "Create and remove an empty directory under a system binary path.",
       "executable": "coverage/binary_mkdir"
+    },
+    {
+      "id": "rpm_database_write",
+      "rule": "Write below rpm database",
+      "executable": "coverage/rpm_database_write",
+      "behavior": "Write and verify an inert file under /var/lib/rpm in the disposable container.",
+      "family": "native-file"
+    },
+    {
+      "id": "namespace_setns",
+      "rule": "Change thread namespace",
+      "executable": "coverage/namespace_setns",
+      "behavior": "Join a disposable child network namespace and verify its namespace inode; grant SYS_ADMIN only for this case.",
+      "family": "native-namespace"
+    },
+    {
+      "id": "namespace_unshare",
+      "rule": "Change namespace privileges via unshare",
+      "executable": "coverage/namespace_unshare",
+      "behavior": "Create an unprivileged user namespace, verify its inode changes; no CAP_SYS_ADMIN in this case.",
+      "family": "native-namespace"
+    },
+    {
+      "id": "userfaultfd_create",
+      "rule": "Unprivileged Delegation of Page Faults Handling to a Userspace Process",
+      "executable": "coverage/userfaultfd_create",
+      "behavior": "As uid 65534 open and close a userfaultfd with UFFD_USER_MODE_ONLY; no page-fault handling or exploitation.",
+      "family": "native-kernel-api"
+    },
+    {
+      "id": "bpf_program_load",
+      "rule": "BPF Program Not Profiled",
+      "executable": "coverage/bpf_program_load",
+      "behavior": "Load and close a minimal socket-filter BPF program returning zero; verify returned descriptor, never attach.",
+      "family": "native-kernel-api"
+    },
+    {
+      "id": "release_agent_write",
+      "rule": "Detect release_agent File Container Escapes",
+      "executable": "coverage/release_agent_write",
+      "behavior": "Write and verify /tmp/lab/release_agent with SYS_ADMIN in the disposable container; exercise the file predicate without changing a real cgroup.",
+      "family": "native-file-indicator"
+    },
+    {
+      "id": "host_path_read",
+      "rule": "Container Access to Host Sensitive Paths",
+      "executable": "coverage/host_path_read",
+      "behavior": "Read a dedicated host fixture bind-mounted read-only at /host/telemetry-lab/fixture; verify exact bytes.",
+      "family": "native-file"
+    },
+    {
+      "id": "search_private_keys",
+      "rule": "Search Private Keys or Passwords",
+      "executable": "coverage/search_private_keys",
+      "behavior": "Launch fixed /usr/bin/grep for BEGIN PRIVATE in a synthetic text fixture; verify output and successful exit.",
+      "family": "utility-launch"
+    },
+    {
+      "id": "search_aws_credentials",
+      "rule": "Find AWS Credentials",
+      "executable": "coverage/search_aws_credentials",
+      "behavior": "Launch fixed /usr/bin/grep for aws_access_key_id in synthetic credentials; verify output and successful exit.",
+      "family": "utility-launch"
+    },
+    {
+      "id": "decode_base64",
+      "rule": "Decoding Payload in Container",
+      "executable": "coverage/decode_base64",
+      "behavior": "Launch fixed /usr/bin/base64 --decode against an encoded fixture; verify decoded bytes.",
+      "family": "utility-launch"
+    },
+    {
+      "id": "package_manager_query",
+      "rule": "Launch Package Management Process in Container",
+      "executable": "coverage/package_manager_query",
+      "behavior": "Launch fixed /usr/bin/dpkg --print-architecture and verify amd64 output; no package changes.",
+      "family": "utility-launch"
+    },
+    {
+      "id": "glibc_tunable_child",
+      "rule": "Potential Local Privilege Escalation via Environment Variables Misuse",
+      "executable": "coverage/glibc_tunable_child",
+      "behavior": "Launch the fixed benign helper with GLIBC_TUNABLES=glibc.malloc.trim_threshold=131072; verify helper output. Exercises environment predicate, not the CVE.",
+      "family": "process-environment"
     }
   ],
   "configs": [

@@ -134,3 +134,51 @@ path = "negative/main.rs"
 [[bin]]
 name = "coverage_fixture_prepare"
 path = "fixture_prepare/main.rs"
+
+[[bin]]
+name = "coverage_rpm_database_write"
+path = "rpm_database_write/main.rs"
+
+[[bin]]
+name = "coverage_namespace_setns"
+path = "namespace_setns/main.rs"
+
+[[bin]]
+name = "coverage_namespace_unshare"
+path = "namespace_unshare/main.rs"
+
+[[bin]]
+name = "coverage_userfaultfd_create"
+path = "userfaultfd_create/main.rs"
+
+[[bin]]
+name = "coverage_bpf_program_load"
+path = "bpf_program_load/main.rs"
+
+[[bin]]
+name = "coverage_release_agent_write"
+path = "release_agent_write/main.rs"
+
+[[bin]]
+name = "coverage_host_path_read"
+path = "host_path_read/main.rs"
+
+[[bin]]
+name = "coverage_search_private_keys"
+path = "search_private_keys/main.rs"
+
+[[bin]]
+name = "coverage_search_aws_credentials"
+path = "search_aws_credentials/main.rs"
+
+[[bin]]
+name = "coverage_decode_base64"
+path = "decode_base64/main.rs"
+
+[[bin]]
+name = "coverage_package_manager_query"
+path = "package_manager_query/main.rs"
+
+[[bin]]
+name = "coverage_glibc_tunable_child"
+path = "glibc_tunable_child/main.rs"
