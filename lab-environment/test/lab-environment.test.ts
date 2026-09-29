@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { LabEnvironmentStack } from '../lib/lab-environment-stack';
@@ -136,4 +138,12 @@ test('IMDS launch templates have distinct names across independent stacks', () =
       .map(resource => resource.Properties.LaunchTemplateName);
   }).flat();
   expect(new Set(names).size).toBe(names.length);
+});
+
+
+test('CDK embeds the stream-safe profile without dropping deletion telemetry', () => {
+  const xml = fs.readFileSync(path.join(__dirname, '../config/sysmon.xml'), 'utf8');
+  expect(xml).toMatch(/<FileDelete onmatch="exclude">\s*<TargetFilename condition="end with">:Zone.Identifier<\/TargetFilename>\s*<\/FileDelete>/);
+  expect(xml).toContain('<FileDeleteDetected onmatch="exclude"/>');
+  expect(JSON.stringify(synth().toJSON())).toContain(Buffer.from(xml).toString('base64'));
 });

@@ -15,6 +15,15 @@ if((Get-FileHash "$base\payload.tgz").Hash.ToLower() -ne '@PAYLOAD_SHA@'){throw 
 foreach($owned in @('bundle','scripts')){if(Test-Path "$base\$owned"){Remove-Item "$base\$owned" -Recurse -Force}}
 & tar.exe -xzf "$base\payload.tgz" -C $base
 if($LASTEXITCODE){throw 'Extraction failed'}
+# Apply the same authored profile embedded by CDK; retain before/after evidence.
+$profileEvidence="$base\evidence\sysmon-profile-"+'@PAYLOAD_SHA@'.Substring(0,12)
+New-Item -ItemType Directory $profileEvidence | Out-Null
+Copy-Item C:\lab\sysmon\config.xml "$profileEvidence\previous.xml"
+Copy-Item "$base\scripts\coverage-expansion\sysmon.xml" C:\lab\sysmon\config.xml
+$reload=Start-Process C:\lab\sysmon\Sysmon64.exe -ArgumentList @('-c','C:\lab\sysmon\config.xml') -Wait -PassThru -RedirectStandardOutput "$profileEvidence\reload.stdout" -RedirectStandardError "$profileEvidence\reload.stderr"
+if($reload.ExitCode){throw 'Sysmon collection profile reload failed'}
+Copy-Item C:\lab\sysmon\config.xml "$profileEvidence\applied.xml"
+Get-FileHash C:\lab\sysmon\config.xml | ConvertTo-Json | Set-Content "$profileEvidence\sha256.json"
 $bundle="$base\bundle"
 $expected=Get-Content "$bundle\files.sha256.json" -Raw -Encoding UTF8 | ConvertFrom-Json
 foreach($p in $expected.PSObject.Properties){if((Get-FileHash (Join-Path $bundle $p.Name)).Hash.ToLower() -ne $p.Value){throw "Bundle mismatch $($p.Name)"}}

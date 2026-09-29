@@ -50,6 +50,9 @@ def main():
   (bundle/'manifest.json').write_text(json.dumps(dict(os=a.os,composite_configs=configs,ci_run=a.ci_run),indent=2))
   (bundle/'files.sha256.json').write_text(json.dumps({f.relative_to(bundle).as_posix():digest(f) for f in bundle.rglob('*') if f.is_file()},indent=2))
   shutil.copytree(ROOT/'scripts/experiment',stage/'scripts/experiment',ignore=shutil.ignore_patterns('__pycache__'))
+  if a.os=='windows':
+   (stage/'scripts/coverage-expansion').mkdir()
+   shutil.copyfile(ROOT/'lab-environment/config/sysmon.xml',stage/'scripts/coverage-expansion/sysmon.xml')
   with tarfile.open(stage/'payload.tgz','w:gz') as tar:
    tar.add(bundle,arcname='bundle');tar.add(stage/'scripts',arcname='scripts')
   prefix=f'stage/{a.os}/{a.phase}'

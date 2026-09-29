@@ -87,17 +87,24 @@ qualification tables and hashes accompany this report.
    The partial campaign and recovery receipts are retained. CI now uses Windows
    PowerShell 5.1 and forces raw Unicode manifest text to cover this regression.
 
-6. Repeated live capture exposed a further stream-deletion verification race:
-   deletion returned success, but immediate reopening sometimes still succeeded.
-   The failed Rust/C++ examples retained successful target alerts and the native
-   assertion failure. All four implementations now issue deletion exactly once,
-   close every verification handle, and wait at most five seconds for a genuine
-   not-found result, probing every 10 ms. Access denied does not count as absence.
-   Probe count and elapsed time are logged; verification I/O remains part of the
-   measured process telemetry. This respects [Windows deletion-completion
-   semantics](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-deletefile)
-   without claiming which external handle caused the observed delay. Corrected
-   live qualification is pending; the frozen earlier pilot remains unchanged.
+6. Repeated capture exposed **collector-induced stream-deletion interference**.
+   Native deletion returned success but the Zone.Identifier stream sometimes
+   remained present, so the strict postcondition correctly failed. A five-second
+   verification wait did not fix it and that development run was cancelled and
+   retained. A [controlled diagnostic](windows-stream-diagnostic.json) ran nine
+   trials per profile: all nine retained the stream with Sysmon 15.22 archival
+   enabled; all nine removed it with archival disabled; all nine also removed it
+   when only `:Zone.Identifier` was excluded from archival. Reopening was not the
+   cause: enumeration-only trials showed the same result.
+   The shared CDK/staging profile now uses that narrow archival exclusion while
+   retaining Event 26 deletion logging. The unmodified target rule accepts
+   Event 23 or 26. Native programs retain the strict absence/carrier-survival
+   postcondition; the unsuccessful wait workaround was removed. The original
+   profile and all failed attempts remain archived. The focused corrected-profile
+   qualification is recorded separately from the original frozen pilot.
+   [Microsoft documents](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon)
+   Event 23 archival and Event 26 logging without archival; the interference
+   finding comes from these local controlled observations.
 
 CI also caught an already-owned Windows `ErrorHandler.cmd` fixture path; the
 harness refused to overwrite it. The candidate was replaced with creation of

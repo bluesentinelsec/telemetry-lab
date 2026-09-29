@@ -1,0 +1,1359 @@
+{
+  "collector": "Sysmon 15.22",
+  "scope": "Controlled native DeleteFileW diagnostic on the second disposable Windows host; each profile has nine trials and four observations per trial. Last-error values after successful calls are not interpreted.",
+  "profiles": {
+    "archive_all": {
+      "command_id": "95ef5cb9-bcf7-4858-a5c9-813901198c8d",
+      "trials": 9,
+      "observations": [
+        {
+          "mode": "enumerate-only",
+          "trial": 1,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 1,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 1,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 1,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 2,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 2,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 2,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 2,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 3,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 3,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 3,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 3,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "open-share3",
+          "trial": 1,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share3",
+          "trial": 1,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share3",
+          "trial": 1,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share3",
+          "trial": 1,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share3",
+          "trial": 2,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share3",
+          "trial": 2,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share3",
+          "trial": 2,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share3",
+          "trial": 2,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share3",
+          "trial": 3,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share3",
+          "trial": 3,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share3",
+          "trial": 3,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share3",
+          "trial": 3,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share7",
+          "trial": 1,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share7",
+          "trial": 1,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share7",
+          "trial": 1,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share7",
+          "trial": 1,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share7",
+          "trial": 2,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share7",
+          "trial": 2,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share7",
+          "trial": 2,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share7",
+          "trial": 2,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share7",
+          "trial": 3,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share7",
+          "trial": 3,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share7",
+          "trial": 3,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        },
+        {
+          "mode": "open-share7",
+          "trial": 3,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA",
+            "Zone.Identifier"
+          ],
+          "opened": true,
+          "open_error": 0
+        }
+      ],
+      "stream_present_observations": 36
+    },
+    "archive_none": {
+      "command_id": "8e9c0a56-bf16-4cfc-8731-04d585efbfe5",
+      "trials": 9,
+      "observations": [
+        {
+          "mode": "enumerate-only",
+          "trial": 1,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 1,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 1,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 1,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 2,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 2,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 2,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 2,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 3,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 3,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 3,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 3,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "open-share3",
+          "trial": 1,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 1,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 1,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 1,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 2,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 2,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 2,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 2,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 3,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 3,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 3,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 3,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 1,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 1,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 1,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 1,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 2,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 2,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 2,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 2,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 3,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 3,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 3,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 3,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        }
+      ],
+      "stream_present_observations": 0
+    },
+    "exclude_zone_identifier_from_archive": {
+      "command_id": "08cee0a7-2262-433e-a3db-2e2f947d8406",
+      "trials": 9,
+      "observations": [
+        {
+          "mode": "enumerate-only",
+          "trial": 1,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 1,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 1,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 1,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 2,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 2,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 2,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 2,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 3,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 3,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 3,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "enumerate-only",
+          "trial": 3,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": null,
+          "open_error": null
+        },
+        {
+          "mode": "open-share3",
+          "trial": 1,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 1,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 1,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 1,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 2,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 2,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 2,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 2,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 3,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 3,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 3,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share3",
+          "trial": 3,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 1,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 1,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 1,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 1,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 2,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 2,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 2,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 2,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 3,
+          "delay_ms": 0,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 3,
+          "delay_ms": 50,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 3,
+          "delay_ms": 250,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        },
+        {
+          "mode": "open-share7",
+          "trial": 3,
+          "delay_ms": 1000,
+          "delete_ok": true,
+          "delete_error": 183,
+          "streams": [
+            ":$DATA"
+          ],
+          "opened": false,
+          "open_error": 2
+        }
+      ],
+      "stream_present_observations": 0
+    }
+  }
+}

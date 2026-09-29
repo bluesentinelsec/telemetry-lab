@@ -1,6 +1,6 @@
 # TTP composite scope
 
-The selected composite suites exercise **42 Linux target rules** and **52 Windows target rules**, with C, C++, Go and Rust implementations. These are different platform-specific rule selections, not 94 portable behaviors or 95 independent attack mechanisms. Every case is a standalone program with a same-binary no-behavior control. Legacy pilot programs remain separate and do not expand these counts.
+The selected composite suites exercise **42 Linux target rules** and **52 Windows target rules**, with C, C++, Go and Rust implementations. These are different platform-specific rule selections, not 94 portable behaviors or 94 independent attack mechanisms. Every case is a standalone program with a same-binary no-behavior control. Legacy pilot programs remain separate and do not expand these counts.
 
 | Platform | Detector and subject corpus | Implemented candidates per language | Qualified target selection | Runtime configurations |
 | --- | --- | ---: | ---: | ---: |
