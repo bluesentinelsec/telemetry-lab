@@ -31,7 +31,7 @@ def main():
  if a.action=='status':
   dest=a.evidence/a.os/a.phase;cmd=json.loads((dest/'command.json').read_text())['Command']['CommandId'];result=json.loads(aws('ssm','get-command-invocation','--command-id',cmd,'--instance-id',host));(dest/'status.json').write_text(json.dumps(result,indent=2));print(result['Status']);print(result.get('StandardOutputContent','')[-5000:]);print(result.get('StandardErrorContent','')[-1500:]);return
  if a.action=='collect':
-  print(aws('s3','sync',f's3://{bucket}/results/{a.os}/',str(a.evidence/'raw'/a.os),'--only-show-errors'));print(aws('s3','sync',f's3://{bucket}/ssm/',str(a.evidence/'ssm'),'--only-show-errors'));return
+  print(aws('s3','sync',f's3://{bucket}/results/{a.os}/',str(a.evidence/'raw'/a.os),'--exact-timestamps','--only-show-errors'));print(aws('s3','sync',f's3://{bucket}/ssm/',str(a.evidence/'ssm'),'--exact-timestamps','--only-show-errors'));return
  if a.action in ('stage','refresh'):
   if not a.ci_run: p.error('--ci-run required')
   artifact=a.evidence/'artifacts'/a.ci_run/a.os

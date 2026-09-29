@@ -20,6 +20,9 @@ All **2,040/2,040 planned measurements** were accepted: **1,002 target hits,
 attempts or retries. The misses were the known Go reverse-shell outcome in
 both configurations, three repetitions each. All twelve additions produced
 **288/288 target hits and 288/288 clean controls** across eight configurations.
+The complete Linux archive contains 16,552 files (258,678,618 bytes); every file
+was checked against its S3 content checksum and a local SHA256 manifest was saved.
+One stale local setup log was refreshed; its prior contents were retained.
 See [per-case counts](linux-qualification.csv) and [summary and hashes](linux-qualification.json).
 
 Windows final qualification is still in progress; final totals will be added here.
