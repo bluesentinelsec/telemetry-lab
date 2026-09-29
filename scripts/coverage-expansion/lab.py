@@ -4,7 +4,7 @@
 Deployment remains the existing lab-environment CDK app. All remote requests,
 source archives, CI run metadata and results are retained under --evidence.
 """
-import argparse,hashlib,json,subprocess,tarfile,shutil,sys
+import argparse,hashlib,json,subprocess,tarfile,shutil,sys,uuid
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 def call(argv):return subprocess.check_output(argv,text=True,timeout=900)
@@ -30,10 +30,13 @@ def main():
   print(aws('s3','sync',f's3://{bucket}/results/{a.os}/',str(a.evidence/'raw'/a.os),'--only-show-errors'));print(aws('s3','sync',f's3://{bucket}/ssm/',str(a.evidence/'ssm'),'--only-show-errors'));return
  if a.action in ('stage','refresh'):
   if not a.ci_run: p.error('--ci-run required')
-  artifact=a.evidence/'artifacts'/a.ci_run
-  if len(list(artifact.glob('composite-'+a.os+'-*')))!=8:
+  artifact=a.evidence/'artifacts'/a.ci_run/a.os
+  if not (artifact/'.complete').exists():
    meta=json.loads(call(['gh','api',f'repos/bluesentinelsec/telemetry-lab/actions/runs/{a.ci_run}']));(a.evidence/f'ci-{a.ci_run}.json').write_text(json.dumps(meta,indent=2))
-   artifact.mkdir(parents=True,exist_ok=True);call(['gh','run','download',a.ci_run,'--repo','bluesentinelsec/telemetry-lab','--pattern','composite-'+a.os+'-*','--dir',str(artifact)])
+   download=artifact.with_name(a.os+'-download-'+uuid.uuid4().hex[:8]);download.mkdir(parents=True)
+   call(['gh','run','download',a.ci_run,'--repo','bluesentinelsec/telemetry-lab','--pattern','composite-'+a.os+'-*','--dir',str(download)])
+   if len(list(download.glob('composite-'+a.os+'-*')))!=8:raise ValueError('Incomplete CI artifact set')
+   (download/'.complete').write_text(a.ci_run+'\n');download.rename(artifact)
   stage=a.evidence/'stage'/a.os/a.phase;stage.mkdir(parents=True,exist_ok=False);bundle=stage/'bundle';bundle.mkdir()
   configs=[]
   for source in sorted(artifact.glob('composite-'+a.os+'-*')):

@@ -209,7 +209,12 @@ try {
         if ($id -eq 'ads_executable') {[IO.File]::WriteAllText("$root\work\carrier.txt",'fixture')}
         if($case.expansion.kind -eq 'delete') {
           # Only the just-reserved fixture is created/deleted, never real history or logs.
-          [IO.File]::WriteAllText($target,"telemetry-lab inert deletion fixture`n")
+          if($id -eq 'delete_zone_identifier') {
+            # Windows PowerShell 5.1/.NET Framework rejects colon stream paths.
+            Set-Content -LiteralPath $carrier -Stream Zone.Identifier -Value '[ZoneTransfer]`r`nZoneId=3' -Encoding ASCII
+          } else {
+            [IO.File]::WriteAllText($target,"telemetry-lab inert deletion fixture`n")
+          }
         }
         Copy-Item $source $exe
         # Sysmon may retain an older hash for a reused image path. Independently

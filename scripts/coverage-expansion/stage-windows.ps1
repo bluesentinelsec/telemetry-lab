@@ -1,4 +1,9 @@
 $ErrorActionPreference='Stop'
+$mutex=New-Object System.Threading.Mutex($false,'Global\TelemetryLabExperiment')
+$locked=$false
+try {
+ try {$locked=$mutex.WaitOne(0)} catch [System.Threading.AbandonedMutexException] {$locked=$true}
+ if(!$locked){throw 'An experiment is running; cannot replace its staged inputs'}
 $aws='C:\Program Files\Amazon\AWSCLIV2\aws.exe'
 if((Get-WindowsFeature Windows-Defender).Installed -or (Get-Process MsMpEng -ErrorAction SilentlyContinue)){throw 'CDK bootstrap/Defender removal has not finished'}
 if(!(Test-Path C:\lab\inventory.json)){throw 'Boot inventory absent'}
@@ -36,3 +41,5 @@ $pth='C:\lab\python\python312._pth'
 if(!(Get-Content $pth | Where-Object {$_ -eq "$base\scripts\experiment"})){Add-Content $pth "$base\scripts\experiment"}
 & $aws s3 sync "$base\evidence" s3://@BUCKET@/results/windows/ --only-show-errors
 Get-Service Sysmon64
+
+} finally {if($locked){$mutex.ReleaseMutex()};$mutex.Dispose()}

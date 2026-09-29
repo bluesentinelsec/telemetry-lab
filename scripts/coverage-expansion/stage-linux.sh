@@ -1,4 +1,6 @@
 set -eu
+exec 9>/tmp/telemetry-lab-experiment.lock
+flock -n 9 || { echo "An experiment is active; refuse staging" >&2; exit 1; }
 cloud-init status --wait
 mkdir -p /opt/coverage-expansion/evidence /opt/telemetry-lab
 cd /opt/coverage-expansion
@@ -11,6 +13,7 @@ aws s3 cp s3://@BUCKET@/@PREFIX@/falco.tgz falco.tgz --only-show-errors
 printf '%s  falco.tgz\n' '@FALCO_SHA@' | sha256sum -c -
 tar xzf falco.tgz -C /opt/telemetry-lab
 mkdir -p /opt/telemetry-lab/falco-0.45.0-healthfix.1
+systemctl stop falco-coverage.service 2>/dev/null || true
 cp -a /opt/telemetry-lab/final-install/. /opt/telemetry-lab/falco-0.45.0-healthfix.1/
 apt-get update -qq
 DEBIAN_FRONTEND=noninteractive apt-get -o DPkg::Lock::Timeout=600 install -y --no-install-recommends python3-yaml libtbb12 libjsoncpp26 libre2-11 libelf1t64 libcurl4t64 libssl3t64 zlib1g > evidence/dependencies.log 2>&1
