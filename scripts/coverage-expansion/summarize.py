@@ -13,6 +13,13 @@ def summarize(root):
  for record in accepted:
   assert record['status']=='valid'
   m=record['measurement'];key=(record['case'],record['config']);mode=record['mode']
+  # Single-run Windows replacements retain the entire capture qualification;
+  # batch measurements store the one attributed attempt directly.
+  if record['os']=='windows' and 'attempts' in m:
+   assert m['healthy'] and len(m['attempts'])==1
+   m=m['attempts'][0]
+  if record['os']=='windows':
+   assert m['valid'] and (m['case_id'],m['mode'])==(record['case'],mode)
   if record['os']=='linux':
    outcome=('hit' if m['target_fired'] else 'valid-miss') if mode=='active' else ('control-pass' if m['negative_control_ok'] else 'control-alert')
    matched[key].update(m.get('matched_rules',[]))
