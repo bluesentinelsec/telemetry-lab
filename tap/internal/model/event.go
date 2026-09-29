@@ -31,14 +31,14 @@ type Event struct {
 	Primitive string `json:"primitive"` // spawn | connect | empty | ...
 	Iteration int    `json:"iteration"`
 	Config    string `json:"config"` // canonical id, e.g. "linux-c-glibc"
-	RunID     string `json:"run_id"` // unique per (config, primitive, iteration)
+	RunID     string `json:"run_id"` // unique per (config, primitive, iteration) within Host
 
 	// Identity.
-	TimeNs    int64  `json:"time_ns"` // nanoseconds since this run's first event
-	PID       int    `json:"pid"`
-	TID       int    `json:"tid,omitempty"`
-	PPID      int    `json:"ppid,omitempty"`
-	Comm      string `json:"comm,omitempty"`
+	TimeNs int64  `json:"time_ns"` // nanoseconds since this run's first event
+	PID    int    `json:"pid"`
+	TID    int    `json:"tid,omitempty"`
+	PPID   int    `json:"ppid,omitempty"`
+	Comm   string `json:"comm,omitempty"`
 
 	// Classification.
 	Family Family `json:"family"`

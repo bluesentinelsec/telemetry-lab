@@ -1,6 +1,6 @@
 # Windows Rust detection composites
 
-All 24 C/C++/Go candidates have a separate Rust `src/bin/<case>.rs` executable. Each program has one fixed behavior and same-binary `--control`; there is no runtime dispatcher. The shared selection JSON, neutral program paths, fixture bytes and exact target rule IDs are unchanged. The `.onion` candidate retains its successful-resolution requirement and remains unqualified unless that behavior succeeds.
+All 23 C/C++/Go cases have a separate Rust `src/bin/<case>.rs` executable. Each program has one fixed behavior and same-binary `--control`; there is no runtime dispatcher. The shared selection JSON, neutral program paths, fixture bytes and exact target rule IDs are unchanged.
 
 ## Runtime configurations
 
@@ -31,4 +31,4 @@ CI requires both builds and 17 non-network behavior/control pairs per build. Use
 
 ## Live qualification
 
-Both configurations demonstrated all 23 qualified targets with clean controls: 46 attributable target alerts and 46 clean controls in the complete comparison. No paired all-rule alert-count differences were observed. The `.onion` candidate remains outside qualified scope. See the [evidence report](../coverage/validation/rust/README.md) for runtime-load verification, sensor observations and all retained attempts.
+Both configurations demonstrated all 23 qualified targets with clean controls: 46 attributable target alerts and 46 clean controls in the complete comparison. No paired all-rule alert-count differences were observed. See the [evidence report](../coverage/validation/rust/README.md) for runtime-load verification, sensor observations and all retained attempts.

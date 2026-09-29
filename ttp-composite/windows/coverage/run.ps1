@@ -7,6 +7,8 @@ param(
   [string[]]$Cases = @(),
   [switch]$IncludeNetwork,
   [switch]$BehaviorOnly,
+  [string]$PlanFile = '',
+  [switch]$ReturnBehaviorFailures,
   [ValidateSet('active','control')][string[]]$Modes = @('control','active')
 )
 $lock = [Threading.Mutex]::new($false, 'Global\TelemetryLabWindowsQualification')
@@ -20,6 +22,20 @@ $build = Get-Content "$Programs\build-manifest.json" -Raw | ConvertFrom-Json
 $allCases = @($selection.candidates | Where-Object { (!$Cases.Count -or $_.case_id -in $Cases) -and ($IncludeNetwork -or $_.family -notin @('Network','DNS')) })
 if (!$allCases.Count) { throw 'No selected cases' }
 if (!$Modes.Count -or @($Modes | Select-Object -Unique).Count -ne $Modes.Count) { throw 'Select unique nonempty modes' }
+$nativePlan=@()
+if($PlanFile) {
+  $nativePlan=@(foreach($item in (Get-Content $PlanFile -Raw | ConvertFrom-Json)) {
+    [pscustomobject]@{case_id=[string]$item.case_id;mode=[string]$item.mode}
+  })
+  $keys=@($nativePlan | ForEach-Object {"$($_.case_id)|$($_.mode)"})
+  if(!$nativePlan.Count -or @($keys | Select-Object -Unique).Count -ne $keys.Count){throw 'Nonempty unique native plan required'}
+  foreach($slot in $nativePlan) {
+    if($slot.case_id -notin $allCases.case_id -or $slot.mode -notin @('active','control')){throw 'Unknown native plan slot'}
+  }
+} else {
+  foreach($case in $allCases){foreach($mode in $Modes){$nativePlan+=@{case_id=$case.case_id;mode=$mode}}}
+}
+
 if (Test-Path $Output) { throw 'Evidence directory already exists; retain previous attempts and use a new directory' }
 New-Item -ItemType Directory -Path $Output -Force | Out-Null
 $Output = (Resolve-Path $Output).Path
@@ -34,13 +50,14 @@ function Ensure-Directory([string]$path) {
 }
 function Remove-OwnedFile([string]$path) {
   # A sensor can still hold the image briefly after the measured process exits.
+  # Windows can report a mapped image as access denied, not a sharing violation.
   # Retry only cleanup of harness-owned files; never extend the measured lifetime.
   for($retry=0;$retry -le 50;$retry++) {
     try {
       Remove-Item $path -Force -ErrorAction Stop
       if($retry){@{path=$path;retries=$retry;removed=$true} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"}
       return
-    } catch [System.IO.IOException] {
+    } catch [System.IO.IOException], [System.UnauthorizedAccessException] {
       if($retry -eq 50){
         @{path=$path;retries=$retry;removed=$false;error=$_.Exception.Message} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"
         throw
@@ -126,7 +143,7 @@ if (!$BehaviorOnly) {
     if ((Get-FileHash $path).Hash.ToLower() -ne $entry.sha256) {throw "Rule hash differs: $($entry.path)"}
   }
 }
-@{cases=@($allCases.case_id);runtime=$build.runtime;modes=$Modes;expected_attempts=$Modes.Count*$allCases.Count} | ConvertTo-Json | Set-Content "$Output\run-plan.json" -Encoding UTF8
+@{cases=@($allCases.case_id);runtime=$build.runtime;modes=$Modes;expected_attempts=$nativePlan.Count;slots=@($nativePlan | ForEach-Object {@{case_id=$_.case_id;mode=$_.mode}})} | ConvertTo-Json -Depth 8 | Set-Content "$Output\run-plan.json" -Encoding UTF8
 $executionError=$null
 try {
   foreach($dir in @($root,"$root\run","$root\work","$root\fixtures",'C:\Users\Public\telemetry-lab')) {Ensure-Directory $dir}
@@ -150,12 +167,13 @@ try {
   [IO.File]::WriteAllText("$root\fixtures\document.rtf",'{\rtf1\ansi telemetry-lab}')
   $shell=New-Object -ComObject WScript.Shell
   $shortcut=$shell.CreateShortcut("$root\fixtures\fixture.lnk");$shortcut.TargetPath="$root\fixtures\helper.exe";$shortcut.Save()
-  foreach($case in $allCases) {
+  foreach($slot in $nativePlan) {
+    $case=@($allCases | Where-Object case_id -eq $slot.case_id)[0]
     $id=$case.case_id
     $source=Join-Path $Programs "$id.exe"
     $manifest=@($build.programs | Where-Object {$_.case_id -eq $id})
     if ($manifest.Count -ne 1 -or (Get-FileHash $source).Hash.ToLower() -ne $manifest[0].sha256) {throw "Artifact mismatch $id"}
-    foreach($mode in $Modes) {
+    foreach($mode in @($slot.mode)) {
       $folder=Join-Path $Output "$id-$mode"; New-Item -ItemType Directory $folder | Out-Null
       $targetOwned=$false;$runmruOwned=$false
       $target=$files[$id];$exe="$root\run\probe.exe"
@@ -252,6 +270,6 @@ $detectorExit=$detector.ExitCode;$detector.Dispose()
 [IO.File]::WriteAllText("$Output\detector-exit.txt",[string]$detectorExit)
 if ($detectorExit -ne 0) {throw 'Hayabusa evaluation failed; preserve evidence'}
 if ($executionError) {throw $executionError}
-if (@($attempts | Where-Object {!$_.behavior_ok}).Count) {throw 'One or more behavior checks failed; preserve evidence'}
+if (!$ReturnBehaviorFailures -and @($attempts | Where-Object {!$_.behavior_ok}).Count) {throw 'One or more behavior checks failed; preserve evidence'}
 
 } finally { $lock.ReleaseMutex(); $lock.Dispose() }

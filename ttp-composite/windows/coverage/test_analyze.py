@@ -78,6 +78,22 @@ class AttributionTests(unittest.TestCase):
                            fields=dict(ProcessGuid='unknown',ProcessId='100')))
         self.assertEqual(evaluate(self.attempt,events,[])['outcome'],'attribution-incomplete')
 
+    def test_stale_matching_guid_after_pid_reuse_is_ambiguous(self):
+        # Reproduced in a shared native capture: a registry control ended, its
+        # PID was reused by a TCP probe, then EID3 retained the old GUID.
+        for mode in ['active','control']:
+            for event_id in [3,22]:
+                for alerts in [[],[dict(RuleID='target',RecordID='2')]]:
+                    attempt=copy.deepcopy(self.attempt);attempt['mode']=mode
+                    events=copy.deepcopy(self.events)
+                    events[1].update(event_id=event_id,time_utc='2026-09-22T12:00:45Z')
+                    events.append(dict(record_id=3,event_id=1,time_utc='2026-09-22T12:00:42Z',
+                                       fields=dict(ProcessGuid='new-probe',ProcessId='100',Image=attempt['executable'])))
+                    result=evaluate(attempt,events,alerts)
+                    self.assertFalse(result['valid'])
+                    self.assertEqual(result['outcome'],'attribution-incomplete')
+                    self.assertEqual(result['reused_owner_record_ids'],['2'])
+
     def test_missing_start_is_invalid(self):
         self.assertEqual(evaluate(self.attempt,self.events[1:],[])['outcome'],'invalid')
 

@@ -97,3 +97,43 @@ test('Windows-only validation excludes the Debian host', () => {
   template.hasOutput('WindowsInstanceId', {});
   expect(template.toJSON().Outputs.DebianInstanceId).toBeUndefined();
 });
+
+
+test('fleet scaling preserves first pair outputs and isolates every host', () => {
+  const app = new cdk.App();
+  const stack = new LabEnvironmentStack(app, 'Fleet', {
+    env: { account: '123456789012', region: 'us-west-2' }, hostPairs: 3,
+  });
+  const template = Template.fromStack(stack);
+  template.resourceCountIs('AWS::EC2::Instance', 6);
+  template.resourceCountIs('AWS::EC2::VPC', 1);
+  template.hasOutput('DebianInstanceId', {});
+  template.hasOutput('WindowsInstanceId03', {});
+  for (const group of Object.values(template.findResources('AWS::EC2::SecurityGroup'))) {
+    expect(group.Properties?.SecurityGroupIngress ?? []).toHaveLength(0);
+  }
+});
+
+test.each([0, -1, 1.5, 21, NaN])('invalid fleet size %s is rejected', (hostPairs) => {
+  expect(() => new LabEnvironmentStack(new cdk.App(), 'Invalid', {
+    env: { account: '123456789012', region: 'us-west-2' }, hostPairs,
+  })).toThrow('hostPairs must be an integer');
+});
+
+
+test('bootstrap waits for the first-boot dpkg lock', () => {
+  expect(JSON.stringify(synth().toJSON())).toContain('DPkg::Lock::Timeout');
+});
+
+
+test('IMDS launch templates have distinct names across independent stacks', () => {
+  const app = new cdk.App({ context: { '@aws-cdk/aws-ec2:uniqueImdsv2TemplateName': true } });
+  const stacks = ['Collection', 'Qualification'].map(id => new LabEnvironmentStack(app, id, {
+    env: { account: '123456789012', region: 'us-west-2' }, windowsOnly: true,
+  }));
+  const names = stacks.map(stack => {
+    return Object.values(Template.fromStack(stack).findResources('AWS::EC2::LaunchTemplate'))
+      .map(resource => resource.Properties.LaunchTemplateName);
+  }).flat();
+  expect(new Set(names).size).toBe(names.length);
+});

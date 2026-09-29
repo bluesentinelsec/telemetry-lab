@@ -107,3 +107,31 @@ func TestAnalyze(t *testing.T) {
 		t.Errorf("significance: U=%v ratio=%v", s.U, s.Ratio)
 	}
 }
+
+// Repetitions restart at one on each fleet host. Their observations must not
+// merge just because the historical normalized run_id has the same text.
+func TestFleetHostsHaveIndependentRepetitions(t *testing.T) {
+	var buf bytes.Buffer
+	enc := json.NewEncoder(&buf)
+	for host := 1; host <= 20; host++ {
+		for iteration := 1; iteration <= 10; iteration++ {
+			for _, name := range []string{"execve", "write"} {
+				e := model.Event{Host: fmt.Sprintf("linux-%02d", host), OS: "linux",
+					Config: "linux-c-glibc", Primitive: "empty", Iteration: iteration,
+					RunID:  fmt.Sprintf("linux-c-glibc/empty/%d", iteration),
+					Family: model.FamilySyscall, Name: name}
+				if err := enc.Encode(e); err != nil {
+					t.Fatal(err)
+				}
+			}
+		}
+	}
+	profiles, err := Load(&buf)
+	if err != nil {
+		t.Fatal(err)
+	}
+	c := Analyze(profiles).Primitives[0].Configs[0]
+	if c.Iterations != 200 || c.TotalMedian != 2 {
+		t.Fatalf("pooled hosts merged: iterations=%d total_median=%g; want 200 and 2", c.Iterations, c.TotalMedian)
+	}
+}

@@ -24,6 +24,15 @@ void PrintLine(std::ostream& out, cJSON* obj) {
   }
 }
 
+// cJSON's number API converts through double, rounding 64-bit values and
+// sometimes printing exponent notation. A decimal integer token is already
+// valid JSON; serialize it directly without losing bits.
+template <typename Integer>
+void AddInteger(cJSON* obj, const char* key, Integer value) {
+  const std::string decimal = std::to_string(value);
+  cJSON_AddRawToObject(obj, key, decimal.c_str());
+}
+
 const char* KindName(EventKind kind) {
   switch (kind) {
     case EventKind::kSyscall: return "syscall";
@@ -57,16 +66,14 @@ void JsonFormatter::Handle(const Event& event) {
   CjsonPtr root(cJSON_CreateObject());
   cJSON_AddStringToObject(root.get(), "record", "event");
   cJSON_AddStringToObject(root.get(), "kind", KindName(event.kind));
-  cJSON_AddNumberToObject(root.get(), "ts_ns",
-                          static_cast<double>(event.ts_ns));
+  AddInteger(root.get(), "ts_ns", event.ts_ns);
   cJSON_AddNumberToObject(root.get(), "pid", event.pid);
   cJSON_AddNumberToObject(root.get(), "tid", event.tid);
   cJSON_AddStringToObject(root.get(), "comm", event.comm.c_str());
 
   switch (event.kind) {
     case EventKind::kSyscall: {
-      cJSON_AddNumberToObject(root.get(), "nr",
-                              static_cast<double>(event.syscall_nr));
+      AddInteger(root.get(), "nr", event.syscall_nr);
       const char* name = SyscallName(event.syscall_nr);
       if (name) cJSON_AddStringToObject(root.get(), "syscall", name);
 
@@ -91,8 +98,7 @@ void JsonFormatter::Handle(const Event& event) {
                                 event.sockaddr_argno);
       }
       if (event.has_ret) {
-        cJSON_AddNumberToObject(root.get(), "ret",
-                                static_cast<double>(event.ret));
+        AddInteger(root.get(), "ret", event.ret);
         cJSON_AddBoolToObject(root.get(), "ok", event.error == 0);
         if (event.error != 0) {
           const char* en = ErrnoName(event.error);
@@ -101,8 +107,7 @@ void JsonFormatter::Handle(const Event& event) {
         }
       }
       if (event.has_duration)
-        cJSON_AddNumberToObject(root.get(), "duration_ns",
-                                static_cast<double>(event.duration_ns));
+        AddInteger(root.get(), "duration_ns", event.duration_ns);
       break;
     }
     case EventKind::kFork:
@@ -122,15 +127,11 @@ void JsonFormatter::Handle(const Event& event) {
 void JsonFormatter::End(const Summary& summary) {
   CjsonPtr root(cJSON_CreateObject());
   cJSON_AddStringToObject(root.get(), "record", "summary");
-  cJSON_AddNumberToObject(root.get(), "syscall_events",
-                          static_cast<double>(summary.syscall_events));
-  cJSON_AddNumberToObject(root.get(), "failed_syscalls",
-                          static_cast<double>(summary.failed_syscalls));
-  cJSON_AddNumberToObject(root.get(), "total_events",
-                          static_cast<double>(summary.total_events));
+  AddInteger(root.get(), "syscall_events", summary.syscall_events);
+  AddInteger(root.get(), "failed_syscalls", summary.failed_syscalls);
+  AddInteger(root.get(), "total_events", summary.total_events);
   cJSON_AddNumberToObject(root.get(), "processes", summary.processes);
-  cJSON_AddNumberToObject(root.get(), "dropped",
-                          static_cast<double>(summary.dropped));
+  AddInteger(root.get(), "dropped", summary.dropped);
   cJSON_AddNumberToObject(root.get(), "target_exit_code",
                           summary.target_exit_code);
   PrintLine(out_, root.get());

@@ -15,6 +15,9 @@ if [[ -z ${FALCO_BIN:-} ]]; then
     FALCO_BIN=$(bash "$HERE/falco-health-fix/install.sh")
   fi
 fi
+# Keep Prometheus as the sole metrics reader. Concurrent periodic output and
+# HTTP snapshots race on libpman's shared counter buffer in Falco 0.45.0.
+# Disable only duplicate metrics output; detection alerts and health gates stay on.
 systemd-run --unit=falco-coverage --collect "$FALCO_BIN" \
   -c /etc/falco/falco.yaml \
   -r "$HERE/rules/falco_rules.yaml" \
@@ -24,7 +27,8 @@ systemd-run --unit=falco-coverage --collect "$FALCO_BIN" \
   -o priority=debug -o buffered_outputs=false -o watch_config_files=false \
   -o stdout_output.enabled=true -o syslog_output.enabled=false \
   -o webserver.prometheus_metrics_enabled=true -o metrics.enabled=true \
-  -o metrics.interval=1s -o metrics.kernel_counters_enabled=true
+  -o metrics.interval=1s -o metrics.kernel_counters_enabled=true \
+  -o metrics.output_rule=false -o 'metrics.output_file='
 for attempt in $(seq 1 30); do
   if curl -fsS http://127.0.0.1:8765/metrics | grep -q drops; then exit 0; fi
   sleep 1

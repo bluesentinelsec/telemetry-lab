@@ -3,6 +3,7 @@
 #include <cJSON.h>
 
 #include <memory>
+#include <limits>
 #include <sstream>
 #include <string>
 
@@ -137,4 +138,38 @@ TEST_CASE("the summary record reports the counts and exit code", "[json]") {
   REQUIRE(cJSON_GetObjectItem(j.get(), "syscall_events")->valueint == 3);
   REQUIRE(cJSON_GetObjectItem(j.get(), "processes")->valueint == 2);
   REQUIRE(cJSON_GetObjectItem(j.get(), "target_exit_code")->valueint == 1);
+}
+
+TEST_CASE("64-bit integer tokens retain every digit", "[json]") {
+  for (const auto value : {std::numeric_limits<std::int64_t>::min(),
+                           std::numeric_limits<std::int64_t>::max(),
+                           std::int64_t{9007199254740993}}) {
+    std::ostringstream os;
+    Config c;
+    JsonFormatter f(os, c);
+    Event e;
+    e.kind = EventKind::kSyscall;
+    e.syscall_nr = 15;  // rt_sigreturn can expose the full restored register.
+    e.has_ret = true;
+    e.ret = value;
+    e.ts_ns = std::numeric_limits<std::uint64_t>::max();
+    e.has_duration = true;
+    e.duration_ns = 9007199254740993ULL;
+    f.Handle(e);
+    const auto line = os.str();
+    REQUIRE(Parse(line));
+    REQUIRE(line.find("\"ret\":" + std::to_string(value) + ",") != std::string::npos);
+    REQUIRE(line.find("\"ts_ns\":18446744073709551615,") != std::string::npos);
+    REQUIRE(line.find("\"duration_ns\":9007199254740993}") != std::string::npos);
+  }
+}
+
+TEST_CASE("64-bit summary counters remain decimal integers", "[json]") {
+  std::ostringstream os;
+  Config c;
+  JsonFormatter f(os, c);
+  Summary s;
+  s.total_events = 9007199254740993ULL;
+  f.End(s);
+  REQUIRE(os.str().find("\"total_events\":9007199254740993,") != std::string::npos);
 }

@@ -16,7 +16,6 @@ set(COVERAGE_CASES
     tcp_connect_9389
     tcp_connect_88
     tcp_connect_public_path
-    dns_onion
     dns_ip_lookup
     double_extension_execute
     creation_time_change

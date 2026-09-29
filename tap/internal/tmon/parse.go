@@ -30,19 +30,19 @@ type Record struct {
 	Comm string `json:"comm"` // Linux acting-task name
 
 	// --- event: Linux syscall ---
-	TsNs       *int64   `json:"ts_ns"`
-	Nr         *int64   `json:"nr"`
-	Syscall    string   `json:"syscall"`
-	Args       []string `json:"args"`
-	Path       string   `json:"path"`
-	Sockaddr   string   `json:"sockaddr"`
-	Ret        *int64   `json:"ret"`
-	OK         *bool    `json:"ok"`
-	Error      string   `json:"error"`
-	Errno      *int     `json:"errno"`
-	DurationNs *int64   `json:"duration_ns"`
-	ChildPID   int      `json:"child_pid"`
-	ExitCode   *int     `json:"exit_code"`
+	TsNs       *int64       `json:"ts_ns"`
+	Nr         *int64       `json:"nr"`
+	Syscall    string       `json:"syscall"`
+	Args       []string     `json:"args"`
+	Path       string       `json:"path"`
+	Sockaddr   string       `json:"sockaddr"`
+	Ret        *json.Number `json:"ret"` // preserve legacy exponent notation and exact new integer tokens
+	OK         *bool        `json:"ok"`
+	Error      string       `json:"error"`
+	Errno      *int         `json:"errno"`
+	DurationNs *int64       `json:"duration_ns"`
+	ChildPID   int          `json:"child_pid"`
+	ExitCode   *int         `json:"exit_code"`
 
 	// --- event: Windows ---
 	TimeMsec       *float64 `json:"time_msec"`

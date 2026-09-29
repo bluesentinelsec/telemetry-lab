@@ -1,4 +1,4 @@
-# Harness-only DNS fixture; route only the two exact test names locally.
+# Harness-only DNS fixture; route only the exact test name locally.
 [CmdletBinding()]
 param(
  [Parameter(Mandatory=$true)][string]$Programs,
@@ -6,17 +6,17 @@ param(
  [Parameter(Mandatory=$true)][string]$DnsServer,
  [ValidateSet('active','control')][string[]]$Modes=@('control','active'),
  [string]$Hayabusa='C:\lab\hayabusa\hayabusa.exe',
- [ValidateSet('dns_onion','dns_ip_lookup')][string[]]$Cases=@('dns_onion','dns_ip_lookup')
+ [ValidateSet('dns_ip_lookup')][string[]]$Cases=@('dns_ip_lookup')
 )
 $ErrorActionPreference='Stop'
-$names=@($Cases | ForEach-Object {if($_ -eq 'dns_onion'){'lab.onion'}else{'api.ipify.org'}})
+$names=@($Cases | ForEach-Object {'api.ipify.org'})
 if(!$names.Count){throw 'Select at least one DNS case'}
 $fixtureOutput="$Output-fixtures"
 if(Test-Path $fixtureOutput){throw 'Fixture evidence exists; choose a new output directory'}
 if(Get-NetUDPEndpoint -LocalPort 53 -ErrorAction SilentlyContinue){throw 'UDP 53 is occupied'}
 # Refuse overlapping policy rather than modifying another rule.
 $before=@(Get-DnsClientNrptRule)
-foreach($r in $before){foreach($n in $r.Namespace){if($n -in @('.','lab.onion','.onion','api.ipify.org','.ipify.org','.org')){throw 'Existing NRPT policy overlaps fixture names'}}}
+foreach($r in $before){foreach($n in $r.Namespace){if($n -in @('.','api.ipify.org','.ipify.org','.org')){throw 'Existing NRPT policy overlaps fixture names'}}}
 New-Item -ItemType Directory $fixtureOutput -Force | Out-Null
 $fixtureOutput=(Resolve-Path $fixtureOutput).Path
 $before | Export-Clixml "$fixtureOutput\nrpt-before.xml"

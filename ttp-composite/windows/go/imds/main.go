@@ -19,4 +19,6 @@ func main() {
 	if err == nil {
 		conn.Close()
 	}
+	// Match the qualified TCP suite: keep process identity alive for Sysmon.
+	time.Sleep(5 * time.Second)
 }

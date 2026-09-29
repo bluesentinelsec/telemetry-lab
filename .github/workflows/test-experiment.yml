@@ -35,3 +35,7 @@ jobs:
             $failures+=@($errors)
           }
           if($failures.Count){$failures | Format-List;throw 'PowerShell parse failed'}
+      - name: Exercise native Windows image-lock cleanup
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: ./scripts/experiment/test_windows_cleanup.ps1
