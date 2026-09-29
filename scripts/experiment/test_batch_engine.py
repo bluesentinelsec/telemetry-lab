@@ -36,9 +36,10 @@ class BatchTests(unittest.TestCase):
         s,rows,a=self.run_case(MeasurementError('capture loss'))
         self.assertTrue(s['complete']);self.assertEqual((s['suspect'],s['retries']),(3,3))
         self.assertTrue(all(retry for _,retry in a.singles))
-    def test_behavior_failure_never_auto_replaced(self):
+    def test_behavior_failure_replaced_without_repeating_valid_peers(self):
         s,rows,a=self.run_case([dict(status='behavior-failure'),dict(status='valid'),dict(status='valid')])
-        self.assertFalse(s['complete']);self.assertEqual(s['accepted'],2);self.assertFalse(a.singles)
+        self.assertTrue(s['complete']);self.assertEqual(s['accepted'],3)
+        self.assertEqual(a.singles,[('run-0000001',True)]);self.assertEqual(s['suspect'],1)
     def test_shared_failure_no_retry(self):
         s,rows,a=self.run_case(MeasurementError('capture loss'),max_retries=0)
         self.assertFalse(s['complete']);self.assertEqual(len(s['unresolved']),3);self.assertFalse(a.singles)

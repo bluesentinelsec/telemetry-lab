@@ -15,7 +15,8 @@ from composites import LinuxComposites, WindowsComposites
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('bundle',type=Path);p.add_argument('output',type=Path)
-    a=p.parse_args();a.output.mkdir(parents=True,exist_ok=False)
+    p.add_argument('--image',default='lab-falco-coverage:local')
+    a=p.parse_args();a.bundle=a.bundle.resolve();a.output=a.output.resolve();a.output.mkdir(parents=True,exist_ok=False)
     m=json.loads((a.bundle/'manifest.json').read_text());windows=m['os']=='windows'
     cfg='windows-c-ucrt' if windows else 'linux-c-glibc'
     plan=[dict(cohort='primitives',os=m['os'],config=cfg,case='empty',repetition=1,mode='primitive')]
@@ -70,7 +71,7 @@ def main():
                 self.cov.detector_state=state
                 try:return super().execute(slot,folder)
                 finally:self.cov.detector_state=original
-        adapter=FaultComposite(coverage,'lab-falco-coverage:pilot',lambda slot:None)
+        adapter=FaultComposite(coverage,a.image,lambda slot:None)
     result=campaign(a.output/'composite-replace',composite_plan,adapter,retry_delay=0)
     assert result['complete'] and result['retries']>=1,result
     reports['composite-replace']=result

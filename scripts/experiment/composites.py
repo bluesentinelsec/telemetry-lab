@@ -90,7 +90,7 @@ class LinuxComposites:
 
     def failed_collection(self,dest,case,error):
         # Native completion is written before querying Falco. Behavior failures
-        # remain terminal even when collection also failed.
+        # retain their classification even when collection also failed.
         dest.mkdir(parents=True,exist_ok=True)
         def text(value):return value.decode(errors='replace') if isinstance(value,bytes) else value
         write_json(dest/'collection-error.json',dict(error=repr(error),stdout=text(getattr(error,'stdout',None)),stderr=text(getattr(error,'stderr',None))))

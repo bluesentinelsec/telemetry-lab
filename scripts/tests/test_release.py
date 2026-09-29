@@ -37,6 +37,17 @@ class ReleaseTests(unittest.TestCase):
         (self.root/'tmon/tmon').write_bytes(b'')
         with self.assertRaisesRegex(ValueError,'tmon/tmon'):release.validate(self.root)
 
+    def test_windows_batch_runner_is_required(self):
+        manifest=dict(os='windows',configs=[],composite_configs=[],primitives=[],composites=[])
+        (self.root/'manifest.json').write_text(json.dumps(manifest))
+        (self.root/'tmon/tmon.exe').write_bytes(b'monitor')
+        (self.root/'tap/tap.exe').write_bytes(b'analyzer')
+        (self.root/'ttp-composite/coverage/selection.json').write_text('{"candidates": []}')
+        with self.assertRaisesRegex(ValueError,'run-batch.ps1'):
+            release.validate(self.root)
+        (self.root/'ttp-composite/coverage/run-batch.ps1').write_text('runner')
+        release.validate(self.root)
+
     def test_missing_collector_fix(self):
         (self.root/'ttp-composite/coverage/falco-health-fix/install.sh').unlink()
         with self.assertRaisesRegex(ValueError,'falco-health-fix/install.sh'):release.validate(self.root)

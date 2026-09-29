@@ -51,9 +51,22 @@ class ContractTests(unittest.TestCase):
         s,rows,a=self.run_campaign([MeasurementError('down')],max_retries=0)
         self.assertEqual(s['total_attempts'],1);self.assertFalse(s['complete'])
 
-    def test_behavior_failure_is_not_retried(self):
-        s,rows,a=self.run_campaign([dict(status='behavior-failure',reason='crash')])
-        self.assertEqual(s['total_attempts'],1);self.assertFalse(s['complete'])
+    def test_behavior_failure_is_replaced_and_preserved(self):
+        s,rows,a=self.run_campaign([dict(status='behavior-failure',reason='native exit 1'),dict(status='valid')])
+        self.assertTrue(s['complete']);self.assertEqual(s['total_attempts'],2)
+        self.assertEqual(rows[0]['status'],'behavior-failure')
+        self.assertEqual(a.prepares,[False,True])
+        self.assertEqual(rows[1]['replaces_attempt'],rows[0]['attempt_id'])
+        self.assertTrue((self.out/rows[0]['evidence']/'raw.txt').exists())
+
+    def test_persistent_behavior_failure_exhausts_default_limit(self):
+        s,rows,a=self.run_campaign([dict(status='behavior-failure',reason='native exit 1')]*4)
+        self.assertFalse(s['complete']);self.assertEqual((s['total_attempts'],s['suspect'],s['retries']),(4,4,3))
+        self.assertEqual(s['unresolved'][0]['status'],'behavior-failure')
+
+    def test_behavior_failure_respects_no_retry(self):
+        s,rows,a=self.run_campaign([dict(status='behavior-failure')],max_retries=0)
+        self.assertFalse(s['complete']);self.assertEqual(s['total_attempts'],1)
 
     def test_changed_artifacts_abort_remaining_plan(self):
         self.plan.append(dict(self.plan[0],repetition=2))
