@@ -1,11 +1,11 @@
 # TTP composite scope
 
-The selected composite suites exercise **30 Linux target rules** and **23 qualified Windows target rules**, with C, C++, Go and Rust implementations. These are different platform-specific rule selections, not 53 portable behaviors or 53 independent attack mechanisms. Every case is a standalone program with a same-binary no-behavior control. Legacy pilot programs remain separate and do not expand these counts.
+The selected composite suites exercise **42 Linux target rules** and **52 Windows target rules**, with C, C++, Go and Rust implementations. These are different platform-specific rule selections, not 94 portable behaviors or 94 independent attack mechanisms. Every case is a standalone program with a same-binary no-behavior control. Legacy pilot programs remain separate and do not expand these counts.
 
 | Platform | Detector and subject corpus | Implemented candidates per language | Qualified target selection | Runtime configurations |
 | --- | --- | ---: | ---: | ---: |
-| Linux | Falco 0.45.0; pinned 95-rule syscall corpus, 81 stock-enabled | 30 | 30 | 8 |
-| Windows | Sysmon and Hayabusa 4.1.0; 4,987 supplied rules, 2,269 enabled for the Sysmon input | 23 | 23 | 8 |
+| Linux | Falco 0.45.0; pinned 95-rule syscall corpus, 81 stock-enabled | 42 | 42; Go misses the reverse-shell target | 8 |
+| Windows | Sysmon and Hayabusa 4.1.0; 4,987 supplied rules, 2,269 enabled for the Sysmon input | 52 | 52; three active/control repetitions per configuration | 8 |
 
 The Windows `.onion` candidate was removed from the programs and experiment scope after local DNS and hosts-file fixtures failed to satisfy its successful-resolution requirement. The ordinary DNS and TCP fixtures require no external endpoints, authentication or application-protocol libraries.
 
@@ -19,6 +19,8 @@ The Windows `.onion` candidate was removed from the programs and experiment scop
 | Rust | Rust 1.98.1: static GNU/glibc / static musl | Rust 1.98.1 MSVC target: dynamic CRT / static CRT |
 
 The comparison axes differ by language and OS. Windows Rust holds its compiler, target ABI and standard-library version constant while changing CRT linkage. Linux Rust changes target-specific standard libraries and libc together. Go's cgo toggle changes linkage/startup and does not imply that all Go operations use libc. These distinctions limit causal interpretation.
+
+The 41 additions (12 Linux and 29 Windows) are documented in [coverage expansion](../docs/coverage-expansion/README.md), with full-corpus audits, exact rule predicates and live qualification evidence. The following paragraphs describe the original qualification; new results are recorded separately.
 
 ## Qualification is evidence, not a requirement to force every alert
 

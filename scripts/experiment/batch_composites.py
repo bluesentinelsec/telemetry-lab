@@ -48,14 +48,16 @@ class LinuxBatch(LinuxComposites):
                          target_rule=case.get('rule'),container_id=None,batch=str(batch.relative_to(folder.parent.parent)))
                 run=None
                 try:
-                    cid=c.command(['docker','create','--name','full-'+uuid.uuid4().hex[:16],
-                        '--network','bridge' if legacy else 'none','--cap-add','SYS_PTRACE','--cap-add','NET_ADMIN',
-                        '--security-opt','seccomp=unconfined','--tmpfs','/dev/shm:rw,exec,nosuid,size=16m',self.image])
+                    options=(['--network','bridge','--cap-add','SYS_PTRACE','--cap-add','NET_ADMIN',
+                        '--security-opt','seccomp=unconfined','--tmpfs','/dev/shm:rw,exec,nosuid,size=16m']
+                        if legacy else c.container_options(case,dest))
+                    cid=c.command(['docker','create','--name','full-'+uuid.uuid4().hex[:16],*options,self.image])
                     containers.append(cid);row['container_id']=cid
                     c.command(['docker','start',cid])
-                    for addr in (() if legacy else ('169.254.169.254/32','198.18.0.1/32')):
-                        c.command(['docker','exec',cid,'ip','addr','add',addr,'dev','lo'])
-                    c.command(['docker','exec',cid,f"/opt/coverage/{slot['config']}/coverage/fixture_prepare"])
+                    if legacy:
+                        c.command(['docker','exec',cid,f"/opt/coverage/{slot['config']}/coverage/fixture_prepare"])
+                    else:
+                        c.prepare_container(cid,slot['config'],case)
                     # Timestamp boundary excludes fixture activity even if delivered later.
                     exe=f"/opt/coverage/{slot['config']}/"+("" if legacy else "coverage/")+case['id']
                     row.update(started_ns=time.time_ns(),executable=exe,native_started=True)
@@ -150,7 +152,7 @@ class WindowsBatch(WindowsComposites):
             write_json(d/'native.json',n)
             write_json(d/'capture.json',dict(batch=str(batch.relative_to(folder.parent.parent)),healthy=healthy,error=error,harness_exit=completed.returncode))
             guids=set(row.get('process_guids',[]))
-            owned=[e for e in events if e['fields'].get('ProcessGuid') in guids]
+            owned=[e for e in events if a.actor_guid(e) in guids]
             ids={str(e['record_id']) for e in owned}
             write_json(d/'events.json',owned)
             write_json(d/'alerts.json',[e for e in alerts if e.get('RecordID') in ids])

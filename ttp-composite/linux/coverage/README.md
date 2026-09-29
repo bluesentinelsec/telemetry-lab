@@ -1,11 +1,13 @@
 # Linux Falco coverage: standalone C, C++, Go, and Rust composites
 
-Thirty standalone programs per language target 30 of the **95** supplied syscall rules in
-upstream snapshot `e822409d8a2a28c9719f56ace66e8cadebfd2bc3`. All 30 are among
+Forty-two standalone programs per language target 42 of the **95** supplied syscall rules in
+upstream snapshot `e822409d8a2a28c9719f56ace66e8cadebfd2bc3`. All 42 are among
 the 81 stock-enabled rules. The supplied collections contain 25 stable,
 31 incubating, and 39 sandbox rules. `manifest.json` maps each case to its own
 executable and exact target rule; `rule-inventory.csv` preserves selection and
 exclusion rationale for all 95 rules.
+
+The twelve additions and current validation are tracked in [coverage expansion](../../../docs/coverage-expansion/README.md). The validation sections below retain the historical 30-case qualification evidence.
 
 The [shared behavior contract](behavior-contract.md) fixes each case's operation,
 inputs, and required outcome for subsequent language ports.
@@ -26,8 +28,9 @@ Every measured program also accepts `--control`: start the **same executable**
 with the **same hash and path**, but skip its sole tested behavior. This is a
 negative control, not a selector for another TTP. An additional standalone
 `negative` program checks the common startup baseline. Active executions must
-verify behavior and match their exact target rule; controls must not match any
-of the 30 selected rules.
+verify behavior; scoring records whether their exact target rule matches. A valid
+miss remains a measured outcome. Controls are expected not to match any
+of the 42 selected rules.
 
 `verify_programs.py` checks the actual artifacts: complete roster, ELF format,
 unique hashes, correct runtime loader, and absence of other cases' success

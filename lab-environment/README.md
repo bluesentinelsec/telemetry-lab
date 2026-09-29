@@ -21,7 +21,7 @@ test installed at their **latest** release (not pinned — see *Provenance* belo
 | Host | Detection stack | Role |
 |---|---|---|
 | Debian 13 | **Falco** (modern-eBPF driver, default + incubating + sandbox rules) | syscall-level detector |
-| Windows Server 2025 | **Sysmon** (log-all config) + **Hayabusa** (bundled Sigma ruleset) | event-level detector |
+| Windows Server 2025 | **Sysmon** (documented collection profile) + **Hayabusa** (bundled Sigma ruleset) | event-level detector |
 
 Both hosts also fetch the latest **telemetry-lab release bundle** (`tmon`, `tap`,
 `ttp-primitives`, substrate manifests) at boot and extract it under `/opt/lab`
@@ -161,3 +161,14 @@ Two `c7i.xlarge` instances run roughly ~$0.20/hr (Debian) and ~$0.30/hr
 (Windows, with license); gp3 storage is a few dollars/month per volume. The lab
 is meant to be torn down when idle, so cost is per-use. A public-subnet VPC with
 no NAT gateway adds nothing.
+
+### Stream-deletion collection
+
+The authored [Sysmon profile](config/sysmon.xml) is embedded into CDK user data
+and applied by the coverage-expansion staging command. It excludes only
+`:Zone.Identifier` from Event 23 archival and retains Event 26 deletion logging.
+Controlled Sysmon 15.22 diagnostics showed archival could leave that stream
+present despite a successful deletion return. The selected stock Hayabusa rule
+accepts either event ID; its predicate remains unchanged. All other configured
+event classes and archival behavior are retained. Profile bytes are frozen in
+each campaign and before/after reload evidence is archived.

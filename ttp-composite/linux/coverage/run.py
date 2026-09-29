@@ -100,20 +100,49 @@ def suite_ok(records, target_rules):
                     if r['case']=='negative' or r.get('control'))
             and set(target_rules) <= observed)
 
+def container_options(case, output):
+    options = ['--network', 'none', '--cap-add', 'SYS_PTRACE', '--cap-add', 'NET_ADMIN',
+               '--security-opt', 'seccomp=unconfined', '--security-opt', 'apparmor=unconfined',
+               '--tmpfs', '/dev/shm:rw,exec,nosuid,size=16m']
+    if case['id'] in {'namespace_setns', 'release_agent_write', 'bpf_program_load'}:
+        options += ['--cap-add', 'SYS_ADMIN']
+    if case['id'] == 'bpf_program_load':
+        options += ['--cap-add', 'BPF', '--cap-add', 'PERFMON']
+    if case['id'] == 'host_path_read':
+        host_fixture = output.resolve() / 'host-fixture'
+        host_fixture.write_text('telemetry-lab-fixture\n')
+        options += ['--mount', f'type=bind,src={host_fixture},dst=/host/telemetry-lab/fixture,readonly']
+    return options
+
+def prepare_container(cid, config, case):
+    command(['docker', 'exec', cid, 'ip', 'addr', 'add', '169.254.169.254/32', 'dev', 'lo'])
+    command(['docker', 'exec', cid, 'ip', 'addr', 'add', '198.18.0.1/32', 'dev', 'lo'])
+    command(['docker', 'exec', cid, '/opt/coverage/' + config + '/coverage/fixture_prepare'])
+    command(['docker', 'exec', cid, 'sh', '-c',
+        "mkdir -p /var/lib/rpm; "
+        "printf 'BEGIN PRIVATE KEY telemetry-lab\\n' > /tmp/lab/key-search; "
+        "printf 'aws_access_key_id=telemetry-lab\\n' > /tmp/lab/aws-search; "
+        "printf 'dGVsZW1ldHJ5LWxhYi1maXh0dXJlCg==\\n' > /tmp/lab/encoded"])
+    if case['id'] == 'namespace_setns':
+        # A namespace handle created before capture; no harness alerts are scored.
+        command(['docker', 'exec', '-d', cid, 'unshare', '--net', 'sh', '-c',
+                 'ln -s /proc/$$/ns/net /tmp/lab/netns; exec sleep infinity'])
+        for _ in range(50):
+            ready = subprocess.run(['docker', 'exec', cid, 'test', '-e', '/tmp/lab/netns'], capture_output=True)
+            if ready.returncode == 0: break
+            time.sleep(0.1)
+        else: raise RuntimeError('Namespace fixture did not become ready')
+
 def execute(case, config, output, image, functional_only=False):
     name = 'labcov-' + uuid.uuid4().hex[:16]
     exe = '/opt/coverage/' + config + '/coverage/' + case['id']
-    cid = command(['docker', 'create', '--name', name, '--network', 'none',
-                   '--cap-add', 'SYS_PTRACE', '--cap-add', 'NET_ADMIN',
-                   '--security-opt', 'seccomp=unconfined',
-                   '--tmpfs', '/dev/shm:rw,exec,nosuid,size=16m', image])
     output.mkdir(parents=True)
+    options = container_options(case, output)
+    cid = command(['docker', 'create', '--name', name, *options, image])
     try:
         command(['docker', 'start', cid])
-        command(['docker', 'exec', cid, 'ip', 'addr', 'add', '169.254.169.254/32', 'dev', 'lo'])
-        command(['docker', 'exec', cid, 'ip', 'addr', 'add', '198.18.0.1/32', 'dev', 'lo'])
-        command(['docker', 'exec', cid, '/opt/coverage/' + config + '/coverage/fixture_prepare'])
-        # Flush preparation events. No fixture processes remain running.
+        prepare_container(cid, config, case)
+        # Flush preparation events. The namespace fixture remains idle where needed.
         time.sleep(2 if not functional_only else 0)
         before = detector_state() if not functional_only else None
         (output / 'health-before.json').write_text(json.dumps(before)+'\n')

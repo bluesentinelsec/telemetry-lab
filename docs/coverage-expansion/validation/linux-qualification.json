@@ -1,0 +1,23 @@
+{
+  "planned": 2040,
+  "accepted": 2040,
+  "complete": true,
+  "outcomes": {
+    "hit": 1002,
+    "control-pass": 1032,
+    "valid-miss": 6
+  },
+  "plan_sha256": "ad00431ed317c62b24328492864809bc80815da283a83f0a8040045c444665bf",
+  "accepted_index_sha256": "d968f2516c72bfdcca57f3884e91779ab40c04ad2d50beb6f650a56136f1e351",
+  "campaign_summary": {
+    "planned_runs": 2040,
+    "accepted": 2040,
+    "suspect": 0,
+    "total_attempts": 2040,
+    "retries": 0,
+    "unresolved": [],
+    "unstarted_runs": 0,
+    "complete": true,
+    "aborted": null
+  }
+}

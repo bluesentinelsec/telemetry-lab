@@ -30,6 +30,7 @@ jobs:
       - run: python -m pip install PyYAML==6.0.2
       - run: python -m unittest discover -s ttp-composite/linux/coverage -p 'test_*.py' -v
       - run: python -m unittest discover -s ttp-composite/windows/coverage -p 'test_*.py' -v
+      - run: python -m unittest discover -s scripts/coverage-expansion -p 'test_*.py' -v
 
   linux-c:
     # C composites: compiler held constant (gcc), only the C runtime varies
@@ -284,8 +285,11 @@ jobs:
         run: python ttp-composite/windows/coverage/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.msystem == 'UCRT64' && 'ucrt' || 'msvcrt' }}
 
       - name: Verify non-network behaviors and same-binary controls
-        shell: pwsh
+        shell: powershell
         run: |
+          # Exercise raw UTF-8 under Windows PowerShell 5.1, as used in the lab.
+          python -c "import json,pathlib; p=pathlib.Path('ttp-composite/windows/coverage/selection.json'); p.write_text(json.dumps(json.loads(p.read_text(encoding='utf-8')),ensure_ascii=False),encoding='utf-8')"
+          if ($LASTEXITCODE) { throw 'UTF-8 fixture preparation failed' }
           $dist = "composite-dist/${{ matrix.config }}/coverage"
           New-Item -ItemType Directory -Force C:\lab\windows-coverage\fixtures | Out-Null
           Copy-Item "$dist/fixtures/windows_fixture_helper.exe" C:\lab\windows-coverage\fixtures\helper.exe
@@ -360,8 +364,11 @@ jobs:
         run: python ttp-composite/windows/coverage/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.toolchain == 'windows-libstdcxx' && 'libstdcxx' || 'libcxx' }} --compiler clang++
 
       - name: Verify non-network behaviors and same-binary controls
-        shell: pwsh
+        shell: powershell
         run: |
+          # Exercise raw UTF-8 under Windows PowerShell 5.1, as used in the lab.
+          python -c "import json,pathlib; p=pathlib.Path('ttp-composite/windows/coverage/selection.json'); p.write_text(json.dumps(json.loads(p.read_text(encoding='utf-8')),ensure_ascii=False),encoding='utf-8')"
+          if ($LASTEXITCODE) { throw 'UTF-8 fixture preparation failed' }
           $dist = "composite-dist/${{ matrix.config }}/coverage"
           New-Item -ItemType Directory -Force C:\lab\windows-coverage\fixtures | Out-Null
           Copy-Item "$dist/fixtures/windows_fixture_helper.exe" C:\lab\windows-coverage\fixtures\helper.exe
@@ -428,8 +435,11 @@ jobs:
           bash coverage/build.sh ../../../composite-dist/${{ matrix.config }}
 
       - name: Verify non-network behaviors and same-binary controls
-        shell: pwsh
+        shell: powershell
         run: |
+          # Exercise raw UTF-8 under Windows PowerShell 5.1, as used in the lab.
+          python -c "import json,pathlib; p=pathlib.Path('ttp-composite/windows/coverage/selection.json'); p.write_text(json.dumps(json.loads(p.read_text(encoding='utf-8')),ensure_ascii=False),encoding='utf-8')"
+          if ($LASTEXITCODE) { throw 'UTF-8 fixture preparation failed' }
           $dist = "composite-dist/${{ matrix.config }}/coverage"
           New-Item -ItemType Directory -Force C:\lab\windows-coverage\fixtures | Out-Null
           Copy-Item "$dist/fixtures/windows_fixture_helper.exe" C:\lab\windows-coverage\fixtures\helper.exe
@@ -476,8 +486,11 @@ jobs:
         shell: pwsh
         run: ./ttp-composite/windows/rust/build.ps1 -Output "composite-dist/windows-rust-msvc-${{ matrix.crt }}" -Crt '${{ matrix.crt }}'
       - name: Verify non-network behaviors and same-binary controls
-        shell: pwsh
+        shell: powershell
         run: |
+          # Exercise raw UTF-8 under Windows PowerShell 5.1, as used in the lab.
+          python -c "import json,pathlib; p=pathlib.Path('ttp-composite/windows/coverage/selection.json'); p.write_text(json.dumps(json.loads(p.read_text(encoding='utf-8')),ensure_ascii=False),encoding='utf-8')"
+          if ($LASTEXITCODE) { throw 'UTF-8 fixture preparation failed' }
           $dist = "composite-dist/windows-rust-msvc-${{ matrix.crt }}/coverage"
           New-Item -ItemType Directory -Force C:\lab\windows-coverage\fixtures | Out-Null
           Copy-Item "$dist/fixtures/windows_fixture_helper.exe" C:\lab\windows-coverage\fixtures\helper.exe

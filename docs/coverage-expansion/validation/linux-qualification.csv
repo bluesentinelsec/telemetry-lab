@@ -1,0 +1,345 @@
+case,config,hit,valid-miss,control-pass,control-alert,matched_rules
+authorized_keys,linux-c-glibc,3,0,3,0,Adding ssh keys to authorized_keys;Write below monitored dir
+authorized_keys,linux-c-musl,3,0,3,0,Adding ssh keys to authorized_keys;Write below monitored dir
+authorized_keys,linux-cpp-libcxx,3,0,3,0,Adding ssh keys to authorized_keys;Write below monitored dir
+authorized_keys,linux-cpp-libstdcxx,3,0,3,0,Adding ssh keys to authorized_keys;Write below monitored dir
+authorized_keys,linux-go-cgo,3,0,3,0,Adding ssh keys to authorized_keys;Write below monitored dir
+authorized_keys,linux-go-static,3,0,3,0,Adding ssh keys to authorized_keys;Write below monitored dir
+authorized_keys,linux-rust-gnu,3,0,3,0,Adding ssh keys to authorized_keys;Write below monitored dir
+authorized_keys,linux-rust-musl,3,0,3,0,Adding ssh keys to authorized_keys;Write below monitored dir
+binary_mkdir,linux-c-glibc,3,0,3,0,Mkdir binary dirs;Modify binary dirs
+binary_mkdir,linux-c-musl,3,0,3,0,Mkdir binary dirs;Modify binary dirs
+binary_mkdir,linux-cpp-libcxx,3,0,3,0,Mkdir binary dirs;Modify binary dirs
+binary_mkdir,linux-cpp-libstdcxx,3,0,3,0,Mkdir binary dirs;Modify binary dirs
+binary_mkdir,linux-go-cgo,3,0,3,0,Mkdir binary dirs;Modify binary dirs
+binary_mkdir,linux-go-static,3,0,3,0,Mkdir binary dirs;Modify binary dirs
+binary_mkdir,linux-rust-gnu,3,0,3,0,Mkdir binary dirs;Modify binary dirs
+binary_mkdir,linux-rust-musl,3,0,3,0,Mkdir binary dirs;Modify binary dirs
+binary_rename,linux-c-glibc,3,0,3,0,Modify binary dirs
+binary_rename,linux-c-musl,3,0,3,0,Modify binary dirs
+binary_rename,linux-cpp-libcxx,3,0,3,0,Modify binary dirs
+binary_rename,linux-cpp-libstdcxx,3,0,3,0,Modify binary dirs
+binary_rename,linux-go-cgo,3,0,3,0,Modify binary dirs
+binary_rename,linux-go-static,3,0,3,0,Modify binary dirs
+binary_rename,linux-rust-gnu,3,0,3,0,Modify binary dirs
+binary_rename,linux-rust-musl,3,0,3,0,Modify binary dirs
+binary_write,linux-c-glibc,3,0,3,0,Write below binary dir
+binary_write,linux-c-musl,3,0,3,0,Write below binary dir
+binary_write,linux-cpp-libcxx,3,0,3,0,Write below binary dir
+binary_write,linux-cpp-libstdcxx,3,0,3,0,Write below binary dir
+binary_write,linux-go-cgo,3,0,3,0,Write below binary dir
+binary_write,linux-go-static,3,0,3,0,Write below binary dir
+binary_write,linux-rust-gnu,3,0,3,0,Write below binary dir
+binary_write,linux-rust-musl,3,0,3,0,Write below binary dir
+bpf_program_load,linux-c-glibc,3,0,3,0,BPF Program Not Profiled
+bpf_program_load,linux-c-musl,3,0,3,0,BPF Program Not Profiled
+bpf_program_load,linux-cpp-libcxx,3,0,3,0,BPF Program Not Profiled
+bpf_program_load,linux-cpp-libstdcxx,3,0,3,0,BPF Program Not Profiled
+bpf_program_load,linux-go-cgo,3,0,3,0,BPF Program Not Profiled
+bpf_program_load,linux-go-static,3,0,3,0,BPF Program Not Profiled
+bpf_program_load,linux-rust-gnu,3,0,3,0,BPF Program Not Profiled
+bpf_program_load,linux-rust-musl,3,0,3,0,BPF Program Not Profiled
+cron_write,linux-c-glibc,3,0,3,0,Schedule Cron Jobs;Write below etc
+cron_write,linux-c-musl,3,0,3,0,Schedule Cron Jobs;Write below etc
+cron_write,linux-cpp-libcxx,3,0,3,0,Schedule Cron Jobs;Write below etc
+cron_write,linux-cpp-libstdcxx,3,0,3,0,Schedule Cron Jobs;Write below etc
+cron_write,linux-go-cgo,3,0,3,0,Schedule Cron Jobs;Write below etc
+cron_write,linux-go-static,3,0,3,0,Schedule Cron Jobs;Write below etc
+cron_write,linux-rust-gnu,3,0,3,0,Schedule Cron Jobs;Write below etc
+cron_write,linux-rust-musl,3,0,3,0,Schedule Cron Jobs;Write below etc
+decode_base64,linux-c-glibc,3,0,3,0,Decoding Payload in Container
+decode_base64,linux-c-musl,3,0,3,0,Decoding Payload in Container
+decode_base64,linux-cpp-libcxx,3,0,3,0,Decoding Payload in Container
+decode_base64,linux-cpp-libstdcxx,3,0,3,0,Decoding Payload in Container
+decode_base64,linux-go-cgo,3,0,3,0,Decoding Payload in Container
+decode_base64,linux-go-static,3,0,3,0,Decoding Payload in Container
+decode_base64,linux-rust-gnu,3,0,3,0,Decoding Payload in Container
+decode_base64,linux-rust-musl,3,0,3,0,Decoding Payload in Container
+dev_file,linux-c-glibc,3,0,3,0,Create files below dev
+dev_file,linux-c-musl,3,0,3,0,Create files below dev
+dev_file,linux-cpp-libcxx,3,0,3,0,Create files below dev
+dev_file,linux-cpp-libstdcxx,3,0,3,0,Create files below dev
+dev_file,linux-go-cgo,3,0,3,0,Create files below dev
+dev_file,linux-go-static,3,0,3,0,Create files below dev
+dev_file,linux-rust-gnu,3,0,3,0,Create files below dev
+dev_file,linux-rust-musl,3,0,3,0,Create files below dev
+drop_execute,linux-c-glibc,3,0,3,0,Drop and execute new binary in container
+drop_execute,linux-c-musl,3,0,3,0,Drop and execute new binary in container
+drop_execute,linux-cpp-libcxx,3,0,3,0,Drop and execute new binary in container
+drop_execute,linux-cpp-libstdcxx,3,0,3,0,Drop and execute new binary in container
+drop_execute,linux-go-cgo,3,0,3,0,Drop and execute new binary in container
+drop_execute,linux-go-static,3,0,3,0,Drop and execute new binary in container
+drop_execute,linux-rust-gnu,3,0,3,0,Drop and execute new binary in container
+drop_execute,linux-rust-musl,3,0,3,0,Drop and execute new binary in container
+etc_write,linux-c-glibc,3,0,3,0,Write below etc
+etc_write,linux-c-musl,3,0,3,0,Write below etc
+etc_write,linux-cpp-libcxx,3,0,3,0,Write below etc
+etc_write,linux-cpp-libstdcxx,3,0,3,0,Write below etc
+etc_write,linux-go-cgo,3,0,3,0,Write below etc
+etc_write,linux-go-static,3,0,3,0,Write below etc
+etc_write,linux-rust-gnu,3,0,3,0,Write below etc
+etc_write,linux-rust-musl,3,0,3,0,Write below etc
+exec_shm,linux-c-glibc,3,0,3,0,Execution from /dev/shm
+exec_shm,linux-c-musl,3,0,3,0,Execution from /dev/shm
+exec_shm,linux-cpp-libcxx,3,0,3,0,Execution from /dev/shm
+exec_shm,linux-cpp-libstdcxx,3,0,3,0,Execution from /dev/shm
+exec_shm,linux-go-cgo,3,0,3,0,Execution from /dev/shm
+exec_shm,linux-go-static,3,0,3,0,Execution from /dev/shm
+exec_shm,linux-rust-gnu,3,0,3,0,Execution from /dev/shm
+exec_shm,linux-rust-musl,3,0,3,0,Execution from /dev/shm
+glibc_tunable_child,linux-c-glibc,3,0,3,0,Potential Local Privilege Escalation via Environment Variables Misuse
+glibc_tunable_child,linux-c-musl,3,0,3,0,Potential Local Privilege Escalation via Environment Variables Misuse
+glibc_tunable_child,linux-cpp-libcxx,3,0,3,0,Potential Local Privilege Escalation via Environment Variables Misuse
+glibc_tunable_child,linux-cpp-libstdcxx,3,0,3,0,Potential Local Privilege Escalation via Environment Variables Misuse
+glibc_tunable_child,linux-go-cgo,3,0,3,0,Potential Local Privilege Escalation via Environment Variables Misuse
+glibc_tunable_child,linux-go-static,3,0,3,0,Potential Local Privilege Escalation via Environment Variables Misuse
+glibc_tunable_child,linux-rust-gnu,3,0,3,0,Potential Local Privilege Escalation via Environment Variables Misuse
+glibc_tunable_child,linux-rust-musl,3,0,3,0,Potential Local Privilege Escalation via Environment Variables Misuse
+history_truncate,linux-c-glibc,3,0,3,0,Delete or rename shell history;Modify Shell Configuration File
+history_truncate,linux-c-musl,3,0,3,0,Delete or rename shell history;Modify Shell Configuration File
+history_truncate,linux-cpp-libcxx,3,0,3,0,Delete or rename shell history;Modify Shell Configuration File
+history_truncate,linux-cpp-libstdcxx,3,0,3,0,Delete or rename shell history;Modify Shell Configuration File
+history_truncate,linux-go-cgo,3,0,3,0,Delete or rename shell history;Modify Shell Configuration File
+history_truncate,linux-go-static,3,0,3,0,Delete or rename shell history;Modify Shell Configuration File
+history_truncate,linux-rust-gnu,3,0,3,0,Delete or rename shell history;Modify Shell Configuration File
+history_truncate,linux-rust-musl,3,0,3,0,Delete or rename shell history;Modify Shell Configuration File
+host_path_read,linux-c-glibc,3,0,3,0,Container Access to Host Sensitive Paths
+host_path_read,linux-c-musl,3,0,3,0,Container Access to Host Sensitive Paths
+host_path_read,linux-cpp-libcxx,3,0,3,0,Container Access to Host Sensitive Paths
+host_path_read,linux-cpp-libstdcxx,3,0,3,0,Container Access to Host Sensitive Paths
+host_path_read,linux-go-cgo,3,0,3,0,Container Access to Host Sensitive Paths
+host_path_read,linux-go-static,3,0,3,0,Container Access to Host Sensitive Paths
+host_path_read,linux-rust-gnu,3,0,3,0,Container Access to Host Sensitive Paths
+host_path_read,linux-rust-musl,3,0,3,0,Container Access to Host Sensitive Paths
+log_truncate,linux-c-glibc,3,0,3,0,Clear Log Activities
+log_truncate,linux-c-musl,3,0,3,0,Clear Log Activities
+log_truncate,linux-cpp-libcxx,3,0,3,0,Clear Log Activities
+log_truncate,linux-cpp-libstdcxx,3,0,3,0,Clear Log Activities
+log_truncate,linux-go-cgo,3,0,3,0,Clear Log Activities
+log_truncate,linux-go-static,3,0,3,0,Clear Log Activities
+log_truncate,linux-rust-gnu,3,0,3,0,Clear Log Activities
+log_truncate,linux-rust-musl,3,0,3,0,Clear Log Activities
+memfd_execute,linux-c-glibc,3,0,3,0,Fileless execution via memfd_create
+memfd_execute,linux-c-musl,3,0,3,0,Fileless execution via memfd_create
+memfd_execute,linux-cpp-libcxx,3,0,3,0,Fileless execution via memfd_create
+memfd_execute,linux-cpp-libstdcxx,3,0,3,0,Fileless execution via memfd_create
+memfd_execute,linux-go-cgo,3,0,3,0,Fileless execution via memfd_create
+memfd_execute,linux-go-static,3,0,3,0,Fileless execution via memfd_create
+memfd_execute,linux-rust-gnu,3,0,3,0,Fileless execution via memfd_create
+memfd_execute,linux-rust-musl,3,0,3,0,Fileless execution via memfd_create
+metadata_cloud,linux-c-glibc,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_cloud,linux-c-musl,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_cloud,linux-cpp-libcxx,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_cloud,linux-cpp-libstdcxx,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_cloud,linux-go-cgo,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_cloud,linux-go-static,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_cloud,linux-rust-gnu,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_cloud,linux-rust-musl,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_ec2,linux-c-glibc,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_ec2,linux-c-musl,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_ec2,linux-cpp-libcxx,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_ec2,linux-cpp-libstdcxx,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_ec2,linux-go-cgo,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_ec2,linux-go-static,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_ec2,linux-rust-gnu,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+metadata_ec2,linux-rust-musl,3,0,3,0,Contact EC2 Instance Metadata Service From Container;Contact cloud metadata service from container
+monitored_write,linux-c-glibc,3,0,3,0,Write below monitored dir
+monitored_write,linux-c-musl,3,0,3,0,Write below monitored dir
+monitored_write,linux-cpp-libcxx,3,0,3,0,Write below monitored dir
+monitored_write,linux-cpp-libstdcxx,3,0,3,0,Write below monitored dir
+monitored_write,linux-go-cgo,3,0,3,0,Write below monitored dir
+monitored_write,linux-go-static,3,0,3,0,Write below monitored dir
+monitored_write,linux-rust-gnu,3,0,3,0,Write below monitored dir
+monitored_write,linux-rust-musl,3,0,3,0,Write below monitored dir
+namespace_setns,linux-c-glibc,3,0,3,0,Change thread namespace
+namespace_setns,linux-c-musl,3,0,3,0,Change thread namespace
+namespace_setns,linux-cpp-libcxx,3,0,3,0,Change thread namespace
+namespace_setns,linux-cpp-libstdcxx,3,0,3,0,Change thread namespace
+namespace_setns,linux-go-cgo,3,0,3,0,Change thread namespace
+namespace_setns,linux-go-static,3,0,3,0,Change thread namespace
+namespace_setns,linux-rust-gnu,3,0,3,0,Change thread namespace
+namespace_setns,linux-rust-musl,3,0,3,0,Change thread namespace
+namespace_unshare_denied,linux-c-glibc,3,0,3,0,Change namespace privileges via unshare
+namespace_unshare_denied,linux-c-musl,3,0,3,0,Change namespace privileges via unshare
+namespace_unshare_denied,linux-cpp-libcxx,3,0,3,0,Change namespace privileges via unshare
+namespace_unshare_denied,linux-cpp-libstdcxx,3,0,3,0,Change namespace privileges via unshare
+namespace_unshare_denied,linux-go-cgo,3,0,3,0,Change namespace privileges via unshare
+namespace_unshare_denied,linux-go-static,3,0,3,0,Change namespace privileges via unshare
+namespace_unshare_denied,linux-rust-gnu,3,0,3,0,Change namespace privileges via unshare
+namespace_unshare_denied,linux-rust-musl,3,0,3,0,Change namespace privileges via unshare
+negative,linux-c-glibc,0,0,3,0,
+negative,linux-c-musl,0,0,3,0,
+negative,linux-cpp-libcxx,0,0,3,0,
+negative,linux-cpp-libstdcxx,0,0,3,0,
+negative,linux-go-cgo,0,0,3,0,
+negative,linux-go-static,0,0,3,0,
+negative,linux-rust-gnu,0,0,3,0,
+negative,linux-rust-musl,0,0,3,0,
+package_manager_query,linux-c-glibc,3,0,3,0,Launch Package Management Process in Container
+package_manager_query,linux-c-musl,3,0,3,0,Launch Package Management Process in Container
+package_manager_query,linux-cpp-libcxx,3,0,3,0,Launch Package Management Process in Container
+package_manager_query,linux-cpp-libstdcxx,3,0,3,0,Launch Package Management Process in Container
+package_manager_query,linux-go-cgo,3,0,3,0,Launch Package Management Process in Container
+package_manager_query,linux-go-static,3,0,3,0,Launch Package Management Process in Container
+package_manager_query,linux-rust-gnu,3,0,3,0,Launch Package Management Process in Container
+package_manager_query,linux-rust-musl,3,0,3,0,Launch Package Management Process in Container
+packet_socket,linux-c-glibc,3,0,3,0,Packet socket created in container
+packet_socket,linux-c-musl,3,0,3,0,Packet socket created in container
+packet_socket,linux-cpp-libcxx,3,0,3,0,Packet socket created in container
+packet_socket,linux-cpp-libstdcxx,3,0,3,0,Packet socket created in container
+packet_socket,linux-go-cgo,3,0,3,0,Packet socket created in container
+packet_socket,linux-go-static,3,0,3,0,Packet socket created in container
+packet_socket,linux-rust-gnu,3,0,3,0,Packet socket created in container
+packet_socket,linux-rust-musl,3,0,3,0,Packet socket created in container
+proc_environ,linux-c-glibc,3,0,3,0,Read environment variable from /proc files
+proc_environ,linux-c-musl,3,0,3,0,Read environment variable from /proc files
+proc_environ,linux-cpp-libcxx,3,0,3,0,Read environment variable from /proc files
+proc_environ,linux-cpp-libstdcxx,3,0,3,0,Read environment variable from /proc files
+proc_environ,linux-go-cgo,3,0,3,0,Read environment variable from /proc files
+proc_environ,linux-go-static,3,0,3,0,Read environment variable from /proc files
+proc_environ,linux-rust-gnu,3,0,3,0,Read environment variable from /proc files
+proc_environ,linux-rust-musl,3,0,3,0,Read environment variable from /proc files
+ptrace_attach,linux-c-glibc,3,0,3,0,PTRACE attached to process
+ptrace_attach,linux-c-musl,3,0,3,0,PTRACE attached to process
+ptrace_attach,linux-cpp-libcxx,3,0,3,0,PTRACE attached to process
+ptrace_attach,linux-cpp-libstdcxx,3,0,3,0,PTRACE attached to process
+ptrace_attach,linux-go-cgo,3,0,3,0,PTRACE attached to process
+ptrace_attach,linux-go-static,3,0,3,0,PTRACE attached to process
+ptrace_attach,linux-rust-gnu,3,0,3,0,PTRACE attached to process
+ptrace_attach,linux-rust-musl,3,0,3,0,PTRACE attached to process
+ptrace_traceme,linux-c-glibc,3,0,3,0,PTRACE anti-debug attempt
+ptrace_traceme,linux-c-musl,3,0,3,0,PTRACE anti-debug attempt
+ptrace_traceme,linux-cpp-libcxx,3,0,3,0,PTRACE anti-debug attempt
+ptrace_traceme,linux-cpp-libstdcxx,3,0,3,0,PTRACE anti-debug attempt
+ptrace_traceme,linux-go-cgo,3,0,3,0,PTRACE anti-debug attempt
+ptrace_traceme,linux-go-static,3,0,3,0,PTRACE anti-debug attempt
+ptrace_traceme,linux-rust-gnu,3,0,3,0,PTRACE anti-debug attempt
+ptrace_traceme,linux-rust-musl,3,0,3,0,PTRACE anti-debug attempt
+release_agent_write,linux-c-glibc,3,0,3,0,Detect release_agent File Container Escapes
+release_agent_write,linux-c-musl,3,0,3,0,Detect release_agent File Container Escapes
+release_agent_write,linux-cpp-libcxx,3,0,3,0,Detect release_agent File Container Escapes
+release_agent_write,linux-cpp-libstdcxx,3,0,3,0,Detect release_agent File Container Escapes
+release_agent_write,linux-go-cgo,3,0,3,0,Detect release_agent File Container Escapes
+release_agent_write,linux-go-static,3,0,3,0,Detect release_agent File Container Escapes
+release_agent_write,linux-rust-gnu,3,0,3,0,Detect release_agent File Container Escapes
+release_agent_write,linux-rust-musl,3,0,3,0,Detect release_agent File Container Escapes
+repository_write,linux-c-glibc,3,0,3,0,Update Package Repository;Write below etc
+repository_write,linux-c-musl,3,0,3,0,Update Package Repository;Write below etc
+repository_write,linux-cpp-libcxx,3,0,3,0,Update Package Repository;Write below etc
+repository_write,linux-cpp-libstdcxx,3,0,3,0,Update Package Repository;Write below etc
+repository_write,linux-go-cgo,3,0,3,0,Update Package Repository;Write below etc
+repository_write,linux-go-static,3,0,3,0,Update Package Repository;Write below etc
+repository_write,linux-rust-gnu,3,0,3,0,Update Package Repository;Write below etc
+repository_write,linux-rust-musl,3,0,3,0,Update Package Repository;Write below etc
+reverse_shell,linux-c-glibc,3,0,3,0,Redirect STDOUT/STDIN to Network Connection in Container
+reverse_shell,linux-c-musl,3,0,3,0,Redirect STDOUT/STDIN to Network Connection in Container
+reverse_shell,linux-cpp-libcxx,3,0,3,0,Redirect STDOUT/STDIN to Network Connection in Container
+reverse_shell,linux-cpp-libstdcxx,3,0,3,0,Redirect STDOUT/STDIN to Network Connection in Container
+reverse_shell,linux-go-cgo,0,3,3,0,
+reverse_shell,linux-go-static,0,3,3,0,
+reverse_shell,linux-rust-gnu,3,0,3,0,Redirect STDOUT/STDIN to Network Connection in Container
+reverse_shell,linux-rust-musl,3,0,3,0,Redirect STDOUT/STDIN to Network Connection in Container
+root_write,linux-c-glibc,3,0,3,0,Write below root
+root_write,linux-c-musl,3,0,3,0,Write below root
+root_write,linux-cpp-libcxx,3,0,3,0,Write below root
+root_write,linux-cpp-libstdcxx,3,0,3,0,Write below root
+root_write,linux-go-cgo,3,0,3,0,Write below root
+root_write,linux-go-static,3,0,3,0,Write below root
+root_write,linux-rust-gnu,3,0,3,0,Write below root
+root_write,linux-rust-musl,3,0,3,0,Write below root
+rpm_database_write,linux-c-glibc,3,0,3,0,Write below rpm database
+rpm_database_write,linux-c-musl,3,0,3,0,Write below rpm database
+rpm_database_write,linux-cpp-libcxx,3,0,3,0,Write below rpm database
+rpm_database_write,linux-cpp-libstdcxx,3,0,3,0,Write below rpm database
+rpm_database_write,linux-go-cgo,3,0,3,0,Write below rpm database
+rpm_database_write,linux-go-static,3,0,3,0,Write below rpm database
+rpm_database_write,linux-rust-gnu,3,0,3,0,Write below rpm database
+rpm_database_write,linux-rust-musl,3,0,3,0,Write below rpm database
+search_aws_credentials,linux-c-glibc,3,0,3,0,Find AWS Credentials
+search_aws_credentials,linux-c-musl,3,0,3,0,Find AWS Credentials
+search_aws_credentials,linux-cpp-libcxx,3,0,3,0,Find AWS Credentials
+search_aws_credentials,linux-cpp-libstdcxx,3,0,3,0,Find AWS Credentials
+search_aws_credentials,linux-go-cgo,3,0,3,0,Find AWS Credentials
+search_aws_credentials,linux-go-static,3,0,3,0,Find AWS Credentials
+search_aws_credentials,linux-rust-gnu,3,0,3,0,Find AWS Credentials
+search_aws_credentials,linux-rust-musl,3,0,3,0,Find AWS Credentials
+search_private_keys,linux-c-glibc,3,0,3,0,Search Private Keys or Passwords
+search_private_keys,linux-c-musl,3,0,3,0,Search Private Keys or Passwords
+search_private_keys,linux-cpp-libcxx,3,0,3,0,Search Private Keys or Passwords
+search_private_keys,linux-cpp-libstdcxx,3,0,3,0,Search Private Keys or Passwords
+search_private_keys,linux-go-cgo,3,0,3,0,Search Private Keys or Passwords
+search_private_keys,linux-go-static,3,0,3,0,Search Private Keys or Passwords
+search_private_keys,linux-rust-gnu,3,0,3,0,Search Private Keys or Passwords
+search_private_keys,linux-rust-musl,3,0,3,0,Search Private Keys or Passwords
+sensitive_hardlink,linux-c-glibc,3,0,3,0,Create Hardlink Over Sensitive Files
+sensitive_hardlink,linux-c-musl,3,0,3,0,Create Hardlink Over Sensitive Files
+sensitive_hardlink,linux-cpp-libcxx,3,0,3,0,Create Hardlink Over Sensitive Files
+sensitive_hardlink,linux-cpp-libstdcxx,3,0,3,0,Create Hardlink Over Sensitive Files
+sensitive_hardlink,linux-go-cgo,3,0,3,0,Create Hardlink Over Sensitive Files
+sensitive_hardlink,linux-go-static,3,0,3,0,Create Hardlink Over Sensitive Files
+sensitive_hardlink,linux-rust-gnu,3,0,3,0,Create Hardlink Over Sensitive Files
+sensitive_hardlink,linux-rust-musl,3,0,3,0,Create Hardlink Over Sensitive Files
+sensitive_read,linux-c-glibc,3,0,3,0,Read sensitive file untrusted
+sensitive_read,linux-c-musl,3,0,3,0,Read sensitive file untrusted
+sensitive_read,linux-cpp-libcxx,3,0,3,0,Read sensitive file untrusted
+sensitive_read,linux-cpp-libstdcxx,3,0,3,0,Read sensitive file untrusted
+sensitive_read,linux-go-cgo,3,0,3,0,Read sensitive file untrusted
+sensitive_read,linux-go-static,3,0,3,0,Read sensitive file untrusted
+sensitive_read,linux-rust-gnu,3,0,3,0,Read sensitive file untrusted
+sensitive_read,linux-rust-musl,3,0,3,0,Read sensitive file untrusted
+sensitive_symlink,linux-c-glibc,3,0,3,0,Create Symlink Over Sensitive Files
+sensitive_symlink,linux-c-musl,3,0,3,0,Create Symlink Over Sensitive Files
+sensitive_symlink,linux-cpp-libcxx,3,0,3,0,Create Symlink Over Sensitive Files
+sensitive_symlink,linux-cpp-libstdcxx,3,0,3,0,Create Symlink Over Sensitive Files
+sensitive_symlink,linux-go-cgo,3,0,3,0,Create Symlink Over Sensitive Files
+sensitive_symlink,linux-go-static,3,0,3,0,Create Symlink Over Sensitive Files
+sensitive_symlink,linux-rust-gnu,3,0,3,0,Create Symlink Over Sensitive Files
+sensitive_symlink,linux-rust-musl,3,0,3,0,Create Symlink Over Sensitive Files
+setid_mode,linux-c-glibc,3,0,3,0,Set Setuid or Setgid bit
+setid_mode,linux-c-musl,3,0,3,0,Set Setuid or Setgid bit
+setid_mode,linux-cpp-libcxx,3,0,3,0,Set Setuid or Setgid bit
+setid_mode,linux-cpp-libstdcxx,3,0,3,0,Set Setuid or Setgid bit
+setid_mode,linux-go-cgo,3,0,3,0,Set Setuid or Setgid bit
+setid_mode,linux-go-static,3,0,3,0,Set Setuid or Setgid bit
+setid_mode,linux-rust-gnu,3,0,3,0,Set Setuid or Setgid bit
+setid_mode,linux-rust-musl,3,0,3,0,Set Setuid or Setgid bit
+shell_config_write,linux-c-glibc,3,0,3,0,Modify Shell Configuration File;Write below root
+shell_config_write,linux-c-musl,3,0,3,0,Modify Shell Configuration File;Write below root
+shell_config_write,linux-cpp-libcxx,3,0,3,0,Modify Shell Configuration File;Write below root
+shell_config_write,linux-cpp-libstdcxx,3,0,3,0,Modify Shell Configuration File;Write below root
+shell_config_write,linux-go-cgo,3,0,3,0,Modify Shell Configuration File;Write below root
+shell_config_write,linux-go-static,3,0,3,0,Modify Shell Configuration File;Write below root
+shell_config_write,linux-rust-gnu,3,0,3,0,Modify Shell Configuration File;Write below root
+shell_config_write,linux-rust-musl,3,0,3,0,Modify Shell Configuration File;Write below root
+ssh_read,linux-c-glibc,3,0,3,0,Read ssh information
+ssh_read,linux-c-musl,3,0,3,0,Read ssh information
+ssh_read,linux-cpp-libcxx,3,0,3,0,Read ssh information
+ssh_read,linux-cpp-libstdcxx,3,0,3,0,Read ssh information
+ssh_read,linux-go-cgo,3,0,3,0,Read ssh information
+ssh_read,linux-go-static,3,0,3,0,Read ssh information
+ssh_read,linux-rust-gnu,3,0,3,0,Read ssh information
+ssh_read,linux-rust-musl,3,0,3,0,Read ssh information
+traversal_read,linux-c-glibc,3,0,3,0,Directory traversal monitored file read;Read sensitive file untrusted
+traversal_read,linux-c-musl,3,0,3,0,Directory traversal monitored file read;Read sensitive file untrusted
+traversal_read,linux-cpp-libcxx,3,0,3,0,Directory traversal monitored file read;Read sensitive file untrusted
+traversal_read,linux-cpp-libstdcxx,3,0,3,0,Directory traversal monitored file read;Read sensitive file untrusted
+traversal_read,linux-go-cgo,3,0,3,0,Directory traversal monitored file read;Read sensitive file untrusted
+traversal_read,linux-go-static,3,0,3,0,Directory traversal monitored file read;Read sensitive file untrusted
+traversal_read,linux-rust-gnu,3,0,3,0,Directory traversal monitored file read;Read sensitive file untrusted
+traversal_read,linux-rust-musl,3,0,3,0,Directory traversal monitored file read;Read sensitive file untrusted
+udp_exchange,linux-c-glibc,3,0,3,0,Unexpected UDP Traffic
+udp_exchange,linux-c-musl,3,0,3,0,Unexpected UDP Traffic
+udp_exchange,linux-cpp-libcxx,3,0,3,0,Unexpected UDP Traffic
+udp_exchange,linux-cpp-libstdcxx,3,0,3,0,Unexpected UDP Traffic
+udp_exchange,linux-go-cgo,3,0,3,0,Unexpected UDP Traffic
+udp_exchange,linux-go-static,3,0,3,0,Unexpected UDP Traffic
+udp_exchange,linux-rust-gnu,3,0,3,0,Unexpected UDP Traffic
+udp_exchange,linux-rust-musl,3,0,3,0,Unexpected UDP Traffic
+userfaultfd_create,linux-c-glibc,3,0,3,0,Unprivileged Delegation of Page Faults Handling to a Userspace Process
+userfaultfd_create,linux-c-musl,3,0,3,0,Unprivileged Delegation of Page Faults Handling to a Userspace Process
+userfaultfd_create,linux-cpp-libcxx,3,0,3,0,Unprivileged Delegation of Page Faults Handling to a Userspace Process
+userfaultfd_create,linux-cpp-libstdcxx,3,0,3,0,Unprivileged Delegation of Page Faults Handling to a Userspace Process
+userfaultfd_create,linux-go-cgo,3,0,3,0,Unprivileged Delegation of Page Faults Handling to a Userspace Process
+userfaultfd_create,linux-go-static,3,0,3,0,Unprivileged Delegation of Page Faults Handling to a Userspace Process
+userfaultfd_create,linux-rust-gnu,3,0,3,0,Unprivileged Delegation of Page Faults Handling to a Userspace Process
+userfaultfd_create,linux-rust-musl,3,0,3,0,Unprivileged Delegation of Page Faults Handling to a Userspace Process

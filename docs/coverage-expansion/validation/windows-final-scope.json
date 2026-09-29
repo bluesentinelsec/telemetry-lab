@@ -1,0 +1,29 @@
+{
+  "cases": 52,
+  "configurations": 8,
+  "accepted": 2496,
+  "outcomes": {
+    "hit": 1248,
+    "valid-miss": 0,
+    "control-pass": 1248,
+    "control-alert": 0
+  },
+  "source_campaigns": {
+    "qualification-final": {
+      "cases": 51,
+      "repetitions_per_mode": 3
+    },
+    "windows-stream-fix/qualification-profile": {
+      "cases": [
+        "delete_zone_identifier"
+      ],
+      "repetitions_per_mode": 3
+    }
+  },
+  "additions": {
+    "hit": 696,
+    "valid-miss": 0,
+    "control-pass": 696,
+    "control-alert": 0
+  }
+}

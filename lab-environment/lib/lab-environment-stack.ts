@@ -19,6 +19,10 @@ const INVENTORY_WINDOWS_B64 = Buffer.from(
   fs.readFileSync(path.join(__dirname, '../scripts/inventory-windows.ps1')),
 ).toString('base64');
 
+const SYSMON_CONFIG_B64 = fs.readFileSync(
+  path.join(__dirname, '../config/sysmon.xml'),
+).toString('base64');
+
 /**
  * The constant substrate base image Dockerfile, embedded (base64) at synth. The
  * Debian host builds it once at boot so container detonation of ttp_composites
@@ -294,14 +298,13 @@ export class LabEnvironmentStack extends cdk.Stack {
         // excluded from Defender first, so nothing is scanned/quarantined.
         'New-Item -ItemType Directory -Force -Path C:\\lab\\sysmon | Out-Null',
         'New-Item -ItemType Directory -Force -Path C:\\lab\\hayabusa | Out-Null',
-        // Sysmon (ETW sensor): latest from Sysinternals + a log-all config. The
-        // config filters nothing (each event class is onmatch="exclude" with no
-        // rules => nothing excluded => everything logged), so Sigma rules see the
-        // configured event stream. A missing alert still requires collection and
+        // Sysmon uses the shared collection profile. Zone.Identifier deletion is
+        // logged by Event 26 without archiving, avoiding the observed stream
+        // deletion interference; the other configured classes remain unfiltered. A missing alert still requires collection and
         // behavior validation before it can be interpreted.
         "Invoke-WebRequest -Uri 'https://download.sysinternals.com/files/Sysmon.zip' -OutFile C:\\lab\\Sysmon.zip -UseBasicParsing",
         'Expand-Archive -Path C:\\lab\\Sysmon.zip -DestinationPath C:\\lab\\sysmon -Force',
-        "$cfgB64 = 'PFN5c21vbiBzY2hlbWF2ZXJzaW9uPSI0LjkwIj4KICA8SGFzaEFsZ29yaXRobXM+KjwvSGFzaEFsZ29yaXRobXM+CiAgPEV2ZW50RmlsdGVyaW5nPgogICAgPFByb2Nlc3NDcmVhdGUgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGVUaW1lIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxOZXR3b3JrQ29ubmVjdCBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8UHJvY2Vzc1Rlcm1pbmF0ZSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8RHJpdmVyTG9hZCBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8SW1hZ2VMb2FkIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxDcmVhdGVSZW1vdGVUaHJlYWQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFJhd0FjY2Vzc1JlYWQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFByb2Nlc3NBY2Nlc3Mgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGUgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFJlZ2lzdHJ5RXZlbnQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPEZpbGVDcmVhdGVTdHJlYW1IYXNoIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxQaXBlRXZlbnQgb25tYXRjaD0iZXhjbHVkZSIvPgogICAgPFdtaUV2ZW50IG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxEbnNRdWVyeSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8RmlsZURlbGV0ZSBvbm1hdGNoPSJleGNsdWRlIi8+CiAgICA8Q2xpcGJvYXJkQ2hhbmdlIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxQcm9jZXNzVGFtcGVyaW5nIG9ubWF0Y2g9ImV4Y2x1ZGUiLz4KICAgIDxGaWxlRGVsZXRlRGV0ZWN0ZWQgb25tYXRjaD0iZXhjbHVkZSIvPgogIDwvRXZlbnRGaWx0ZXJpbmc+CjwvU3lzbW9uPgo='",
+        `$cfgB64 = '${SYSMON_CONFIG_B64}'`,
         "[IO.File]::WriteAllText('C:\\lab\\sysmon\\config.xml', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($cfgB64)))",
         '& C:\\lab\\sysmon\\Sysmon64.exe -accepteula -i C:\\lab\\sysmon\\config.xml',
         // Hayabusa (Sigma evaluator): latest win-x64 release asset resolved via the

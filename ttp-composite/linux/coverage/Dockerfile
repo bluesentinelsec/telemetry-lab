@@ -1,6 +1,6 @@
 # The same image is used for all eight C, C++, Go, and Rust configurations.
 FROM lab-substrate:13
-RUN apt-get update && apt-get install -y --no-install-recommends iproute2 libstdc++6 \
+RUN apt-get update && apt-get install -y --no-install-recommends iproute2 libstdc++6 grep coreutils dpkg util-linux \
     && rm -rf /var/lib/apt/lists/*
 COPY linux-c-glibc /opt/coverage/linux-c-glibc
 COPY linux-c-musl /opt/coverage/linux-c-musl

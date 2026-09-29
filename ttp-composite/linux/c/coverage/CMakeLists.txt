@@ -1,5 +1,17 @@
 # One source entry point and one executable per measured composite.
 set(COVERAGE_CASES
+    rpm_database_write
+    namespace_setns
+    namespace_unshare_denied
+    userfaultfd_create
+    bpf_program_load
+    release_agent_write
+    host_path_read
+    search_private_keys
+    search_aws_credentials
+    decode_base64
+    package_manager_query
+    glibc_tunable_child
     traversal_read
     sensitive_read
     log_truncate

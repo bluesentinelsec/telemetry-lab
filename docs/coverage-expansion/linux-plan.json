@@ -1,0 +1,98 @@
+[
+  {
+    "case_id": "rpm_database_write",
+    "title": "Write below rpm database",
+    "behavior": "Write and verify an inert file under /var/lib/rpm in the disposable container.",
+    "family": "native-file",
+    "condition": "open_write and fd.name startswith /var/lib/rpm and not rpm_procs and not ansible_running_python and not python_running_chef and not exe_running_docker_save and not amazon_linux_running_python_yum and not user_known_write_rpm_database_activities",
+    "collection": "falco-sandbox_rules.yaml"
+  },
+  {
+    "case_id": "namespace_setns",
+    "title": "Change thread namespace",
+    "behavior": "Join a disposable child network namespace and verify its namespace inode; grant SYS_ADMIN only for this case.",
+    "family": "native-namespace",
+    "condition": "evt.type=setns and proc_name_exists and not (container.id=host and proc.name in (docker_binaries, k8s_binaries, lxd_binaries, nsenter)) and not proc.name in (sysdigcloud_binaries, sysdig, calico, oci-umount, cilium-cni, network_plugin_binaries) and not proc.name in (user_known_change_thread_namespace_binaries) and not proc.name startswith \"runc\" and not proc.cmdline startswith \"containerd\" and not proc.pname in (sysdigcloud_binaries, hyperkube, kubelet, protokube, dockerd, tini, aws) and not java_running_sdjagent and not kubelet_running_loopback and not rancher_agent and not rancher_network_manager and not calico_node and not weaveworks_scope and not user_known_change_thread_namespace_activities",
+    "collection": "falco-incubating_rules.yaml"
+  },
+  {
+    "case_id": "namespace_unshare_denied",
+    "title": "Change namespace privileges via unshare",
+    "behavior": "Attempt unshare(CLONE_NEWNET) without CAP_SYS_ADMIN; require EPERM and verify the network namespace inode is unchanged. This tests a denied attempt, not successful user-namespace creation.",
+    "family": "native-namespace",
+    "condition": "evt.type=unshare and container and not thread.cap_permitted contains CAP_SYS_ADMIN",
+    "collection": "falco-incubating_rules.yaml"
+  },
+  {
+    "case_id": "userfaultfd_create",
+    "title": "Unprivileged Delegation of Page Faults Handling to a Userspace Process",
+    "behavior": "As uid 65534 open and close a userfaultfd with UFFD_USER_MODE_ONLY; no page-fault handling or exploitation.",
+    "family": "native-kernel-api",
+    "condition": "evt.type = userfaultfd and user.uid != 0 and (evt.rawres >= 0 or evt.res != -1) and not proc.name in (user_known_userfaultfd_processes)",
+    "collection": "falco-sandbox_rules.yaml"
+  },
+  {
+    "case_id": "bpf_program_load",
+    "title": "BPF Program Not Profiled",
+    "behavior": "Load and close a minimal socket-filter BPF program returning zero; verify returned descriptor, never attach.",
+    "family": "native-kernel-api",
+    "condition": "evt.type=bpf and (evt.arg.cmd=5 or evt.arg.cmd=BPF_PROG_LOAD) and not bpf_profiled_procs",
+    "collection": "falco-incubating_rules.yaml"
+  },
+  {
+    "case_id": "release_agent_write",
+    "title": "Detect release_agent File Container Escapes",
+    "behavior": "Write and verify /tmp/lab/release_agent with SYS_ADMIN in the disposable container; exercise the file predicate without changing a real cgroup.",
+    "family": "native-file-indicator",
+    "condition": "open_write and container and fd.name endswith release_agent and (user.uid=0 or thread.cap_effective contains CAP_DAC_OVERRIDE) and thread.cap_effective contains CAP_SYS_ADMIN",
+    "collection": "falco_rules.yaml"
+  },
+  {
+    "case_id": "host_path_read",
+    "title": "Container Access to Host Sensitive Paths",
+    "behavior": "Read a dedicated host fixture bind-mounted read-only at /host/telemetry-lab/fixture; verify exact bytes.",
+    "family": "native-file",
+    "condition": "(open_read or open_write) and container and (fd.name startswith /host/ or fd.name startswith /rootfs/ or fd.name startswith /hostfs/) and not known_container_runtime_host_access and not user_known_host_path_access",
+    "collection": "falco-sandbox_rules.yaml"
+  },
+  {
+    "case_id": "search_private_keys",
+    "title": "Search Private Keys or Passwords",
+    "behavior": "Launch fixed /usr/bin/grep for BEGIN PRIVATE in a synthetic text fixture; verify output and successful exit.",
+    "family": "utility-launch",
+    "condition": "spawned_process and ((grep_commands and private_key_or_password) or (proc.name = \"find\" and (proc.args contains \"id_rsa\" or proc.args contains \"id_dsa\" or proc.args contains \"id_ed25519\" or proc.args contains \"id_ecdsa\" ) ))",
+    "collection": "falco_rules.yaml"
+  },
+  {
+    "case_id": "search_aws_credentials",
+    "title": "Find AWS Credentials",
+    "behavior": "Launch fixed /usr/bin/grep for aws_access_key_id in synthetic credentials; verify output and successful exit.",
+    "family": "utility-launch",
+    "condition": "spawned_process and ((grep_commands and private_aws_credentials) or (proc.name = \"find\" and proc.args endswith \".aws/credentials\"))",
+    "collection": "falco_rules.yaml"
+  },
+  {
+    "case_id": "decode_base64",
+    "title": "Decoding Payload in Container",
+    "behavior": "Launch fixed /usr/bin/base64 --decode against an encoded fixture; verify decoded bytes.",
+    "family": "utility-launch",
+    "condition": "spawned_process and container and base64_decoding and not container.image.repository in (known_decode_payload_containers)",
+    "collection": "falco-sandbox_rules.yaml"
+  },
+  {
+    "case_id": "package_manager_query",
+    "title": "Launch Package Management Process in Container",
+    "behavior": "Launch fixed /usr/bin/dpkg --print-architecture and verify amd64 output; no package changes.",
+    "family": "utility-launch",
+    "condition": "spawned_process and container and user.name != \"_apt\" and package_mgmt_procs and not package_mgmt_ancestor_procs and not user_known_package_manager_in_container and not pkg_mgmt_in_kube_proxy",
+    "collection": "falco-incubating_rules.yaml"
+  },
+  {
+    "case_id": "glibc_tunable_child",
+    "title": "Potential Local Privilege Escalation via Environment Variables Misuse",
+    "behavior": "Launch the fixed benign helper with GLIBC_TUNABLES=glibc.malloc.trim_threshold=131072; verify helper output. Exercises environment predicate, not the CVE.",
+    "family": "process-environment",
+    "condition": "spawned_process and glibc_tunables_env",
+    "collection": "falco-incubating_rules.yaml"
+  }
+]

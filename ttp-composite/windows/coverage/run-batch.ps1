@@ -7,10 +7,12 @@ param(
  [Parameter(Mandatory=$true)][string]$PlanFile
 )
 $ErrorActionPreference='Stop'
-$plan=(Get-Content $PlanFile -Raw | ConvertFrom-Json)
+$plan=(Get-Content $PlanFile -Raw -Encoding UTF8 | ConvertFrom-Json)
 $cases=@($plan.case_id | Select-Object -Unique)
 $tcp=@($cases | Where-Object {$_ -like 'tcp_connect_*'})
 $dns=@($cases | Where-Object {$_ -like 'dns_*'})
+$nameMap=@{dns_ip_lookup='api.ipify.org';dns_cloudflared='protocol-v2.argotunnel.com';dns_shortener='tinyurl.com';dns_remote_access='api.splashtop.com'}
+$names=@($dns | ForEach-Object {$nameMap[$_]})
 $fixtureOutput="$Output-fixtures"
 if(Test-Path $fixtureOutput){throw 'Fixture evidence already exists'}
 New-Item -ItemType Directory $fixtureOutput -Force | Out-Null
@@ -25,9 +27,8 @@ try {
  }
  if($dns.Count) {
   if(Get-NetUDPEndpoint -LocalPort 53 -ErrorAction SilentlyContinue){throw 'UDP 53 occupied'}
-  foreach($r in @(Get-DnsClientNrptRule)){foreach($n in $r.Namespace){if($n -in @('.','api.ipify.org','.ipify.org','.org')){throw 'Overlapping DNS policy'}}}
+  foreach($r in @(Get-DnsClientNrptRule)){foreach($n in $r.Namespace){if($n -eq '.' -or @($names | Where-Object {$_ -eq $n -or ($n.StartsWith('.') -and $_.EndsWith($n))}).Count){throw 'Overlapping DNS policy'}}}
   $processes+=Start-Process "$Fixtures\windows_dns_server.exe" -PassThru -RedirectStandardOutput "$fixtureOutput\dns.log" -RedirectStandardError "$fixtureOutput\dns.stderr"
-  $names=@('api.ipify.org')
   $policy=Add-DnsClientNrptRule -Namespace $names -NameServers '127.0.0.1' -Comment 'Telemetry lab exact-name batch fixture' -PassThru
   Clear-DnsClientCache
   Get-DnsClientNrptPolicy -Effective | Export-Clixml "$fixtureOutput\nrpt-effective.xml"
@@ -44,8 +45,11 @@ try {
   if(Test-Path $Output){$_ | Out-String | Set-Content "$Output\collector-error.txt"}
  }
  foreach($p in $processes){if($p.HasExited){throw 'Fixture exited during capture'}}
- if(@($plan | Where-Object {$_.case_id -eq 'dns_ip_lookup' -and $_.mode -eq 'active'}).Count) {
-  if(!(Get-Content "$fixtureOutput\dns.log" -Raw).Contains('DNS_QUERY api.ipify.org type=1 answer=127.0.0.42')){throw 'Missing responder evidence for ordinary DNS lookup'}
+ foreach($caseId in $dns) {
+  if(@($plan | Where-Object {$_.case_id -eq $caseId -and $_.mode -eq 'active'}).Count) {
+   $name=$nameMap[$caseId]
+   if(!(Get-Content "$fixtureOutput\dns.log" -Raw).Contains("DNS_QUERY $name type=1 answer=127.0.0.42")){throw "Missing responder evidence for $caseId"}
+  }
  }
 } catch {
  if(Test-Path $Output){$_ | Out-String | Set-Content "$Output\fixture-error.txt"}
