@@ -2670,12 +2670,12 @@
       "event_ids": [
         11
       ],
-      "behavior": "file {\"filename\": \"%USERPROFILE%\\\\.config\\\\rclone\\\\telemetry-lab-fixture.conf\", \"content\": \"text\"}",
+      "behavior": "Create/read back inert configuration file under the fixed Public profile path (consistent under SYSTEM and CI user identities)",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
       "qualification": "pending-live-validation",
       "expansion": {
         "kind": "file",
-        "filename": "%USERPROFILE%\\.config\\rclone\\telemetry-lab-fixture.conf",
+        "filename": "C:\\Users\\Public\\.config\\rclone\\telemetry-lab-fixture.conf",
         "content": "text"
       }
     },

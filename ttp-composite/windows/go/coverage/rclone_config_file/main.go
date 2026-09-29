@@ -6,8 +6,6 @@ import (
 	"fmt"
 	"github.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/internal/files"
 	"github.com/michaellong/telemetry-lab/ttp-composite/windows/go/coverage/internal/fixture"
-	"os"
-	"path/filepath"
 )
 
 func main() {
@@ -15,6 +13,6 @@ func main() {
 	if !fixture.Begin("rclone_config_file") {
 		return
 	}
-	files.CopyVerified(fixture.Root+`\fixtures\text.txt`, filepath.Join(os.Getenv("USERPROFILE"), ".config\\rclone\\telemetry-lab-fixture.conf"))
+	files.CopyVerified(fixture.Root+`\fixtures\text.txt`, "C:\\Users\\Public\\.config\\rclone\\telemetry-lab-fixture.conf")
 	fixture.Success("rclone_config_file")
 }

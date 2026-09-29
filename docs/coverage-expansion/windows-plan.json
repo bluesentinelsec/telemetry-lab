@@ -751,7 +751,7 @@
     "sha256": "b5e1ef37790c2b9d06ad4440aa07e5e2297b95910f80d4a57f55446267776433",
     "kind": "file",
     "params": {
-      "filename": "%USERPROFILE%\\.config\\rclone\\telemetry-lab-fixture.conf",
+      "filename": "C:\\Users\\Public\\.config\\rclone\\telemetry-lab-fixture.conf",
       "content": "text"
     },
     "detection": {
