@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE registry_appx_debugger")
+	fmt.Printf("COMPOSITE_CASE registry_appx_debugger\n")
 	if !fixture.Begin("registry_appx_debugger") {
 		return
 	}

@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE process_access_ping")
+	fmt.Printf("COMPOSITE_CASE process_access_ping\n")
 	if !fixture.Begin("process_access_ping") {
 		return
 	}

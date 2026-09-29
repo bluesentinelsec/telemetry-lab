@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE registry_hide_files")
+	fmt.Printf("COMPOSITE_CASE registry_hide_files\n")
 	if !fixture.Begin("registry_hide_files") {
 		return
 	}

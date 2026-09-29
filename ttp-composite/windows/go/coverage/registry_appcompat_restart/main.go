@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE registry_appcompat_restart")
+	fmt.Printf("COMPOSITE_CASE registry_appcompat_restart\n")
 	if !fixture.Begin("registry_appcompat_restart") {
 		return
 	}

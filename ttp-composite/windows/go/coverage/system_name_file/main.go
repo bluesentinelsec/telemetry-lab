@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE system_name_file")
+	fmt.Printf("COMPOSITE_CASE system_name_file\n")
 	if !fixture.Begin("system_name_file") {
 		return
 	}

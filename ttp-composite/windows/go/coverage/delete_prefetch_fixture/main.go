@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE delete_prefetch_fixture")
+	fmt.Printf("COMPOSITE_CASE delete_prefetch_fixture\n")
 	if !fixture.Begin("delete_prefetch_fixture") {
 		return
 	}

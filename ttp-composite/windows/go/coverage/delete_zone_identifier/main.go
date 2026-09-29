@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE delete_zone_identifier")
+	fmt.Printf("COMPOSITE_CASE delete_zone_identifier\n")
 	if !fixture.Begin("delete_zone_identifier") {
 		return
 	}

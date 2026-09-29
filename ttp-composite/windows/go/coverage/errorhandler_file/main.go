@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE errorhandler_file")
+	fmt.Printf("COMPOSITE_CASE errorhandler_file\n")
 	if !fixture.Begin("errorhandler_file") {
 		return
 	}

@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE screensaver_file")
+	fmt.Printf("COMPOSITE_CASE screensaver_file\n")
 	if !fixture.Begin("screensaver_file") {
 		return
 	}

@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE registry_office_macro")
+	fmt.Printf("COMPOSITE_CASE registry_office_macro\n")
 	if !fixture.Begin("registry_office_macro") {
 		return
 	}

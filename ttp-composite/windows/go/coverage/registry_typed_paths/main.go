@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE registry_typed_paths")
+	fmt.Printf("COMPOSITE_CASE registry_typed_paths\n")
 	if !fixture.Begin("registry_typed_paths") {
 		return
 	}

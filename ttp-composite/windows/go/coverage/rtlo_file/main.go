@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE rtlo_file")
+	fmt.Printf("COMPOSITE_CASE rtlo_file\n")
 	if !fixture.Begin("rtlo_file") {
 		return
 	}

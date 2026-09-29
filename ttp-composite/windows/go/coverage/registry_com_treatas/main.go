@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE registry_com_treatas")
+	fmt.Printf("COMPOSITE_CASE registry_com_treatas\n")
 	if !fixture.Begin("registry_com_treatas") {
 		return
 	}

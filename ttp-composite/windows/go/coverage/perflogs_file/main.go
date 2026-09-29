@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE perflogs_file")
+	fmt.Printf("COMPOSITE_CASE perflogs_file\n")
 	if !fixture.Begin("perflogs_file") {
 		return
 	}

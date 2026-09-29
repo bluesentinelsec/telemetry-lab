@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE remote_thread_ping")
+	fmt.Printf("COMPOSITE_CASE remote_thread_ping\n")
 	if !fixture.Begin("remote_thread_ping") {
 		return
 	}

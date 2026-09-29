@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE delete_eventlog_fixture")
+	fmt.Printf("COMPOSITE_CASE delete_eventlog_fixture\n")
 	if !fixture.Begin("delete_eventlog_fixture") {
 		return
 	}

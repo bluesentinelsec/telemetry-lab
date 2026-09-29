@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE powershell_module_file")
+	fmt.Printf("COMPOSITE_CASE powershell_module_file\n")
 	if !fixture.Begin("powershell_module_file") {
 		return
 	}

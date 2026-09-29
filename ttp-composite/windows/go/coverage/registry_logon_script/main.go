@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE registry_logon_script")
+	fmt.Printf("COMPOSITE_CASE registry_logon_script\n")
 	if !fixture.Begin("registry_logon_script") {
 		return
 	}

@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE rclone_config_file")
+	fmt.Printf("COMPOSITE_CASE rclone_config_file\n")
 	if !fixture.Begin("rclone_config_file") {
 		return
 	}

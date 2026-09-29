@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("COMPOSITE_CASE registry_word_addin")
+	fmt.Printf("COMPOSITE_CASE registry_word_addin\n")
 	if !fixture.Begin("registry_word_addin") {
 		return
 	}
