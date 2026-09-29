@@ -2,7 +2,7 @@
 set(COVERAGE_CASES
     rpm_database_write
     namespace_setns
-    namespace_unshare
+    namespace_unshare_denied
     userfaultfd_create
     bpf_program_load
     release_agent_write

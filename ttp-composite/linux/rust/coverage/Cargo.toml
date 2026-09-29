@@ -144,8 +144,8 @@ name = "coverage_namespace_setns"
 path = "namespace_setns/main.rs"
 
 [[bin]]
-name = "coverage_namespace_unshare"
-path = "namespace_unshare/main.rs"
+name = "coverage_namespace_unshare_denied"
+path = "namespace_unshare_denied/main.rs"
 
 [[bin]]
 name = "coverage_userfaultfd_create"

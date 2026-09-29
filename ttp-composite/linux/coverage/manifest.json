@@ -250,10 +250,10 @@
       "family": "native-namespace"
     },
     {
-      "id": "namespace_unshare",
+      "id": "namespace_unshare_denied",
       "rule": "Change namespace privileges via unshare",
-      "executable": "coverage/namespace_unshare",
-      "behavior": "Create an unprivileged user namespace, verify its inode changes; no CAP_SYS_ADMIN in this case.",
+      "executable": "coverage/namespace_unshare_denied",
+      "behavior": "Attempt unshare(CLONE_NEWNET) without CAP_SYS_ADMIN; require EPERM and verify the network namespace inode is unchanged. This tests a denied attempt, not successful user-namespace creation.",
       "family": "native-namespace"
     },
     {

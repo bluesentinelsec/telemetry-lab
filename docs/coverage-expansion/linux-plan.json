@@ -16,9 +16,9 @@
     "collection": "falco-incubating_rules.yaml"
   },
   {
-    "case_id": "namespace_unshare",
+    "case_id": "namespace_unshare_denied",
     "title": "Change namespace privileges via unshare",
-    "behavior": "Create an unprivileged user namespace, verify its inode changes; no CAP_SYS_ADMIN in this case.",
+    "behavior": "Attempt unshare(CLONE_NEWNET) without CAP_SYS_ADMIN; require EPERM and verify the network namespace inode is unchanged. This tests a denied attempt, not successful user-namespace creation.",
     "family": "native-namespace",
     "condition": "evt.type=unshare and container and not thread.cap_permitted contains CAP_SYS_ADMIN",
     "collection": "falco-incubating_rules.yaml"

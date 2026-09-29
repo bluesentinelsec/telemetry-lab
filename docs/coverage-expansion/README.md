@@ -45,7 +45,7 @@ used for ordinary file, process and networking operations. Missing standard
 library capabilities use documented OS APIs; these cases provide less scope
 for library-mediated differences and should be reported separately.
 
-Linux adds native file access, namespace operations, `userfaultfd` and a minimal
+Linux adds native file access, namespace joining and an explicitly denied namespace-change request, `userfaultfd` and a minimal
 unattached BPF socket-filter program. It also adds real launches of fixed grep,
 base64 and dpkg utilities and a benign child environment-variable test. These
 utility launches measure creation of the child; they do not reimplement grep
