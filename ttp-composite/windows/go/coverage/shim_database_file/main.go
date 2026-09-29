@@ -9,10 +9,10 @@ import (
 )
 
 func main() {
-	fmt.Printf("COMPOSITE_CASE errorhandler_file\n")
-	if !fixture.Begin("errorhandler_file") {
+	fmt.Printf("COMPOSITE_CASE shim_database_file\n")
+	if !fixture.Begin("shim_database_file") {
 		return
 	}
-	files.CopyVerified(fixture.Root+`\fixtures\text.txt`, "C:\\Windows\\Setup\\Scripts\\ErrorHandler.cmd")
-	fixture.Success("errorhandler_file")
+	files.CopyVerified(fixture.Root+`\fixtures\text.txt`, "C:\\Windows\\AppPatch\\Custom\\telemetry-lab-fixture.sdb")
+	fixture.Success("shim_database_file")
 }

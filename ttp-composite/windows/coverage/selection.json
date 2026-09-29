@@ -2738,11 +2738,11 @@
       }
     },
     {
-      "case_id": "errorhandler_file",
-      "rule_id": "e80bff97-0333-b1fa-8833-ee64e96e9434",
-      "title": "Potential Persistence Attempt Via ErrorHandler.Cmd",
-      "path": "sigma/sysmon/file/file_event/file_event_win_errorhandler_persistence.yml",
-      "sha256": "9e2082bcde91e66ac8c759da2de815ae347c5fa74aedf0fccaf2a32de7e0eab9",
+      "case_id": "shim_database_file",
+      "rule_id": "4211e288-60d6-2bb1-01c3-b7b3191126a9",
+      "title": "New Custom Shim Database Created",
+      "path": "sigma/sysmon/file/file_event/file_event_win_creation_new_shim_database.yml",
+      "sha256": "1c27e327cc1e60a1cf4f5d6e7048641a25c34a90d0b7f037d909a48beddd6d9b",
       "level": "medium",
       "status": "test",
       "detection": {
@@ -2751,7 +2751,10 @@
           "Channel": "Microsoft-Windows-Sysmon/Operational"
         },
         "selection": {
-          "TargetFilename|endswith": "\\WINDOWS\\Setup\\Scripts\\ErrorHandler.cmd"
+          "TargetFilename|contains": [
+            ":\\Windows\\apppatch\\Custom\\",
+            ":\\Windows\\apppatch\\CustomSDB\\"
+          ]
         },
         "condition": "file_event and selection"
       },
@@ -2759,12 +2762,12 @@
       "event_ids": [
         11
       ],
-      "behavior": "file {\"filename\": \"C:\\\\Windows\\\\Setup\\\\Scripts\\\\ErrorHandler.cmd\", \"content\": \"text\"}",
+      "behavior": "Create and verify an inert .sdb fixture in the real AppPatch Custom directory; do not register or activate it",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
       "qualification": "pending-live-validation",
       "expansion": {
         "kind": "file",
-        "filename": "C:\\Windows\\Setup\\Scripts\\ErrorHandler.cmd",
+        "filename": "C:\\Windows\\AppPatch\\Custom\\telemetry-lab-fixture.sdb",
         "content": "text"
       }
     },

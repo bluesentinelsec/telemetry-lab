@@ -1,0 +1,29 @@
+$ErrorActionPreference='Stop'
+$aws='C:\Program Files\Amazon\AWSCLIV2\aws.exe'
+if((Get-WindowsFeature Windows-Defender).Installed -or (Get-Process MsMpEng -ErrorAction SilentlyContinue)){throw 'CDK bootstrap/Defender removal has not finished'}
+if(!(Test-Path C:\lab\inventory.json)){throw 'Boot inventory absent'}
+$base='C:\lab\coverage-expansion'
+New-Item -ItemType Directory "$base\evidence" -Force | Out-Null
+& $aws s3 cp s3://@BUCKET@/@PREFIX@/payload.tgz "$base\payload.tgz" --only-show-errors
+if($LASTEXITCODE){throw 'Download failed'}
+if((Get-FileHash "$base\payload.tgz").Hash.ToLower() -ne '@PAYLOAD_SHA@'){throw 'Payload differs'}
+& tar.exe -xzf "$base\payload.tgz" -C $base
+if($LASTEXITCODE){throw 'Extraction failed'}
+$bundle="$base\bundle"
+$expected=Get-Content "$bundle\files.sha256.json" -Raw | ConvertFrom-Json
+foreach($p in $expected.PSObject.Properties){if((Get-FileHash (Join-Path $bundle $p.Name)).Hash.ToLower() -ne $p.Value){throw "Bundle mismatch $($p.Name)"}}
+$fixture="$bundle\ttp-composite\windows-c-ucrt\coverage\fixtures"
+New-Item -ItemType Directory C:\lab\windows-coverage\fixtures -Force | Out-Null
+Copy-Item "$fixture\windows_fixture_helper.exe" C:\lab\windows-coverage\fixtures\helper.exe
+Copy-Item "$fixture\fixture.node" C:\lab\windows-coverage\fixtures\fixture.node
+wevtutil sl Microsoft-Windows-Sysmon/Operational /ms:1073741824
+Copy-Item C:\lab\inventory.json "$base\evidence\boot-inventory.json"
+# The runner verifies the pinned engine and all 4,987 rule hashes before scoring.
+if(!(Test-Path C:\lab\python\python.exe)) {
+ Invoke-WebRequest https://www.python.org/ftp/python/3.12.10/python-3.12.10-embed-amd64.zip -OutFile C:\lab\python.zip -UseBasicParsing
+ Expand-Archive C:\lab\python.zip C:\lab\python -Force
+}
+$pth='C:\lab\python\python312._pth'
+if(!(Get-Content $pth | Where-Object {$_ -eq "$base\scripts\experiment"})){Add-Content $pth "$base\scripts\experiment"}
+& $aws s3 sync "$base\evidence" s3://@BUCKET@/results/windows/ --only-show-errors
+Get-Service Sysmon64

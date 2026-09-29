@@ -16,7 +16,7 @@ set(COVERAGE_CASES
     powershell_module_file
     rclone_config_file
     rtlo_file
-    errorhandler_file
+    shim_database_file
     delete_eventlog_fixture
     delete_history_fixture
     delete_prefetch_fixture
