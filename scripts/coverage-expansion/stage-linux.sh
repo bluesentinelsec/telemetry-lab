@@ -5,6 +5,7 @@ cd /opt/coverage-expansion
 aws s3 cp s3://@BUCKET@/@PREFIX@/payload.tgz payload.tgz --only-show-errors
 printf '%s  payload.tgz\n' '@PAYLOAD_SHA@' | sha256sum -c -
 # Existing evidence is retained; stage only while no campaign is running.
+rm -rf bundle scripts image
 tar xzf payload.tgz
 aws s3 cp s3://@BUCKET@/@PREFIX@/falco.tgz falco.tgz --only-show-errors
 printf '%s  falco.tgz\n' '@FALCO_SHA@' | sha256sum -c -

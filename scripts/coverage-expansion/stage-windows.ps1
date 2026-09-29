@@ -7,6 +7,7 @@ New-Item -ItemType Directory "$base\evidence" -Force | Out-Null
 & $aws s3 cp s3://@BUCKET@/@PREFIX@/payload.tgz "$base\payload.tgz" --only-show-errors
 if($LASTEXITCODE){throw 'Download failed'}
 if((Get-FileHash "$base\payload.tgz").Hash.ToLower() -ne '@PAYLOAD_SHA@'){throw 'Payload differs'}
+foreach($owned in @('bundle','scripts')){if(Test-Path "$base\$owned"){Remove-Item "$base\$owned" -Recurse -Force}}
 & tar.exe -xzf "$base\payload.tgz" -C $base
 if($LASTEXITCODE){throw 'Extraction failed'}
 $bundle="$base\bundle"
