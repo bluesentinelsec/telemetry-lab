@@ -87,6 +87,18 @@ qualification tables and hashes accompany this report.
    The partial campaign and recovery receipts are retained. CI now uses Windows
    PowerShell 5.1 and forces raw Unicode manifest text to cover this regression.
 
+6. Repeated live capture exposed a further stream-deletion verification race:
+   deletion returned success, but immediate reopening sometimes still succeeded.
+   The failed Rust/C++ examples retained successful target alerts and the native
+   assertion failure. All four implementations now issue deletion exactly once,
+   close every verification handle, and wait at most five seconds for a genuine
+   not-found result, probing every 10 ms. Access denied does not count as absence.
+   Probe count and elapsed time are logged; verification I/O remains part of the
+   measured process telemetry. This respects [Windows deletion-completion
+   semantics](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-deletefile)
+   without claiming which external handle caused the observed delay. Corrected
+   live qualification is pending; the frozen earlier pilot remains unchanged.
+
 CI also caught an already-owned Windows `ErrorHandler.cmd` fixture path; the
 harness refused to overwrite it. The candidate was replaced with creation of
 an owned inert `.sdb` file, never installed as a shim. The rclone path was fixed

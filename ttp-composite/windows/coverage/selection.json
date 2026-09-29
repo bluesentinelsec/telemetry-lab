@@ -3259,7 +3259,8 @@
       "references": [
         "https://securityliterate.com/how-malware-abuses-the-zone-identifier-to-circumvent-detection-and-analysis/",
         "Internal Research"
-      ]
+      ],
+      "verification": "Read the stream before deletion, issue exactly one native deletion, then probe for absence for at most five seconds at 10 ms intervals; close each successful probe immediately. Only not-found proves completion; access-denied may be transient but never counts as absence. Verify the carrier survives and log probe count/elapsed time."
     },
     {
       "case_id": "dns_cloudflared",
