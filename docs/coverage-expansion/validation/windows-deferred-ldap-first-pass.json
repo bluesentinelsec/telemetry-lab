@@ -1,0 +1,112 @@
+{
+  "rule_id": "2701ad60-af1a-a2fc-c2ff-fea10af75a0b",
+  "case": "dns_ldap_discovery",
+  "observation": "Every correctly attributed successful query had Image=<unknown process>, explicitly filtered by the rule.",
+  "source": "qualification-final pilot, repetition 1",
+  "observations": [
+    {
+      "config": "windows-rust-msvc-static",
+      "outcome": "valid-miss",
+      "images": [
+        "<unknown process>"
+      ],
+      "answers": [
+        "::ffff:127.0.0.42;"
+      ],
+      "records": [
+        403999
+      ]
+    },
+    {
+      "config": "windows-cpp-libcxx",
+      "outcome": "valid-miss",
+      "images": [
+        "<unknown process>"
+      ],
+      "answers": [
+        "127.0.0.42;"
+      ],
+      "records": [
+        430926
+      ]
+    },
+    {
+      "config": "windows-cpp-libstdcxx",
+      "outcome": "valid-miss",
+      "images": [
+        "<unknown process>"
+      ],
+      "answers": [
+        "127.0.0.42;"
+      ],
+      "records": [
+        450911
+      ]
+    },
+    {
+      "config": "windows-c-ucrt",
+      "outcome": "valid-miss",
+      "images": [
+        "<unknown process>"
+      ],
+      "answers": [
+        "127.0.0.42;"
+      ],
+      "records": [
+        493692
+      ]
+    },
+    {
+      "config": "windows-go-cgo",
+      "outcome": "valid-miss",
+      "images": [
+        "<unknown process>"
+      ],
+      "answers": [
+        "127.0.0.42;"
+      ],
+      "records": [
+        519416
+      ]
+    },
+    {
+      "config": "windows-go-static",
+      "outcome": "valid-miss",
+      "images": [
+        "<unknown process>"
+      ],
+      "answers": [
+        "127.0.0.42;"
+      ],
+      "records": [
+        537755
+      ]
+    },
+    {
+      "config": "windows-c-msvcrt",
+      "outcome": "valid-miss",
+      "images": [
+        "<unknown process>"
+      ],
+      "answers": [
+        "127.0.0.42;"
+      ],
+      "records": [
+        556079
+      ]
+    },
+    {
+      "config": "windows-rust-msvc-dynamic",
+      "outcome": "valid-miss",
+      "images": [
+        "<unknown process>"
+      ],
+      "answers": [
+        "::ffff:127.0.0.42;"
+      ],
+      "records": [
+        581977
+      ]
+    }
+  ]
+}

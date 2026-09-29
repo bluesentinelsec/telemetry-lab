@@ -33,7 +33,9 @@ baseline in any of the eight configurations: successful queries had
 programs are removed from active builds; its predicate and attribution remain
 in `selection.json` under `deferred_candidates`. The final scope is **52 rules**
 (29 additions), and all 53-candidate pilot observations will remain visible.
-The running pilot is not modified after freezing its inputs.
+The running pilot is not modified after freezing its inputs. The [first-pass
+raw-field evidence](windows-deferred-ldap-first-pass.json) records all eight
+configurations, exact event record IDs, image values and resolver answers.
 
 ## Inputs and reproducibility
 

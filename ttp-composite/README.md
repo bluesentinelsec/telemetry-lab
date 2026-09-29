@@ -1,10 +1,10 @@
 # ttp-composite
 
-The expanded [Linux coverage suite](linux/coverage/README.md) implements 30
+The expanded [Linux coverage suite](linux/coverage/README.md) implements 42
 standalone programs per configuration in C, C++, Go, and Rust, mapped to a
 pinned 95-rule Falco corpus. The [Windows coverage suite](windows/coverage/README.md)
-implements 23 standalone programs per configuration in those same four
-languages, covering 23 qualified Sysmon/Hayabusa targets. Both platforms have eight composite configurations.
+implements 52 standalone programs per configuration in those same four
+languages, targeting 52 selected Sysmon/Hayabusa rules. Both platforms have eight composite configurations. Current qualification evidence and deferred candidates are documented in [the expansion report](../docs/coverage-expansion/validation/README.md).
 
 Each measured composite is its own executable. The coverage runners validate
 behavior independently of alerts, attribute exact rules, run same-binary
@@ -15,9 +15,11 @@ pilot results below do not replace coverage-suite qualification.
 Behavioral **composite** techniques for the telemetry-lab study's tier-2
 question: *does execution substrate change whether a shipped behavioral
 detection fires?* Where `ttp-primitives` measures raw telemetry **emission**,
-`ttp-composite` measures **detection outcomes** — each composite is an ATT&CK
-technique implemented natively across the substrate matrix and detonated against
-an unmodified, shipped detector (Falco on Linux).
+`ttp-composite` measures **detection outcomes**: native programs exercise fixed behavior predicates across
+the substrate matrix against unmodified shipped rules (Falco on Linux and
+Sysmon/Hayabusa on Windows). Some reproduce an attempted operation or a
+particular indicator condition rather than a complete attack; the per-case
+contracts identify exactly what is exercised.
 
 The original pilot below validates composites by whether an alert appears.
 The expanded coverage suite adds independent behavioral checks, exact-rule
