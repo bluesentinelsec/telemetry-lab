@@ -227,7 +227,7 @@ try {
       } finally {
         # All cleanup is performed by the harness, after the measured process exits.
         if (Test-Path $exe) {Remove-OwnedFile $exe}
-        if ($id -ne 'ads_executable' -and $targetOwned -and $target -and (Test-Path $target)) {Remove-OwnedFile $target}
+        if ($id -notin @('ads_executable','delete_zone_identifier') -and $targetOwned -and $target -and (Test-Path $target)) {Remove-OwnedFile $target}
         if ($targetOwned -and $id -eq 'ads_executable') {Remove-Item "$root\work\carrier.txt" -Force -ErrorAction SilentlyContinue}
         if($zoneCarrierOwned){Remove-OwnedFile $carrier}
         if ($runmruOwned) {[Microsoft.Win32.Registry]::CurrentUser.DeleteSubKeyTree($runmru,$false)}
