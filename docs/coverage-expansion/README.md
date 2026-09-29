@@ -74,6 +74,9 @@ logged server-side, cache/policy are cleaned up, and no external service is
 contacted. `.onion` stays out of scope. These test DNS predicates, not the
 application protocols or malware described in some rule titles.
 
+Current live results and preserved prototype defects are recorded in
+[the validation report](validation/README.md).
+
 ## Automated validation
 
 Deploy using the existing CDK app, then stage CI artifacts and run campaigns:

@@ -28,7 +28,8 @@ Every measured program also accepts `--control`: start the **same executable**
 with the **same hash and path**, but skip its sole tested behavior. This is a
 negative control, not a selector for another TTP. An additional standalone
 `negative` program checks the common startup baseline. Active executions must
-verify behavior and match their exact target rule; controls must not match any
+verify behavior; scoring records whether their exact target rule matches. A valid
+miss remains a measured outcome. Controls are expected not to match any
 of the 42 selected rules.
 
 `verify_programs.py` checks the actual artifacts: complete roster, ELF format,
