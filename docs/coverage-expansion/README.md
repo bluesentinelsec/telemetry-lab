@@ -100,8 +100,10 @@ Repeat `run` for Windows. `--case` and `--config` can narrow development runs;
 use `--repetitions 200` for the full experimental protocol. This invokes the
 existing frozen-bundle experiment engine with default bounded retry, accepted
 and suspect directories, exact attribution and complete raw captures. Valid
-misses are retained, not retried to earn an alert. The underlying experiment
-CLI still provides `--no-retry` and `--max-retries`.
+misses are retained, not retried to earn an alert. Both this launcher and the underlying experiment CLI provide `--no-retry` and
+`--max-retries`. The launcher allows up to 48 hours per SSM command; use
+`--execution-timeout` to shorten it or split larger 200-repetition campaigns
+by `--case`/`--config` when a single host would exceed that limit.
 
 `status` reads a preserved SSM command receipt. `collect` downloads results and
 SSM evidence. Each phase name must be new; no previous evidence is overwritten.

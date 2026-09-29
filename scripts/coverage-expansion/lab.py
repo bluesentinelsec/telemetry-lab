@@ -15,14 +15,18 @@ def main():
  p.add_argument('--evidence',type=Path,required=True);p.add_argument('--outputs',type=Path,required=True);p.add_argument('--stack',required=True)
  p.add_argument('--ci-run');p.add_argument('--falco-archive',type=Path);p.add_argument('--os',choices=['linux','windows'],required=True)
  p.add_argument('--phase',default='qualification');p.add_argument('--repetitions',type=int,default=3);p.add_argument('--case',action='append',dest='cases');p.add_argument('--config',action='append',dest='configs')
- a=p.parse_args();a.evidence.mkdir(parents=True,exist_ok=True)
+ p.add_argument('--execution-timeout',type=int,default=172800,help='SSM command limit in seconds, at most 48 hours; shard longer campaigns by --case/--config')
+ p.add_argument('--max-retries',type=int,default=3);p.add_argument('--no-retry',action='store_true')
+ a=p.parse_args()
+ if not 1<=a.execution_timeout<=172800 or a.max_retries<0:p.error('Invalid command timeout/retry limit')
+ a.evidence.mkdir(parents=True,exist_ok=True)
  infra=json.loads(a.outputs.read_text())[a.stack];bucket=infra['DataBucketName'];host=infra['DebianInstanceId' if a.os=='linux' else 'WindowsInstanceId'];region=infra['Region']
  def aws(*args):return call(['aws','--region',region,*args])
  def send(script,phase):
   dest=a.evidence/a.os/phase;dest.mkdir(parents=True,exist_ok=True)
   if (dest/'command.json').exists():raise ValueError('Phase already submitted; choose a new phase')
   (dest/('script.sh' if a.os=='linux' else 'script.ps1')).write_text(script)
-  req=dict(InstanceIds=[host],DocumentName='AWS-RunShellScript' if a.os=='linux' else 'AWS-RunPowerShellScript',Parameters={'commands':[script],'executionTimeout':['14400']},OutputS3BucketName=bucket,OutputS3KeyPrefix=f'ssm/{a.os}/{phase}')
+  req=dict(InstanceIds=[host],DocumentName='AWS-RunShellScript' if a.os=='linux' else 'AWS-RunPowerShellScript',Parameters={'commands':[script],'executionTimeout':[str(a.execution_timeout)]},OutputS3BucketName=bucket,OutputS3KeyPrefix=f'ssm/{a.os}/{phase}')
   (dest/'request.json').write_text(json.dumps(req,indent=2));result=json.loads(aws('ssm','send-command','--cli-input-json',json.dumps(req)));(dest/'command.json').write_text(json.dumps(result,indent=2));print(result['Command']['CommandId'])
  if a.action=='status':
   dest=a.evidence/a.os/a.phase;cmd=json.loads((dest/'command.json').read_text())['Command']['CommandId'];result=json.loads(aws('ssm','get-command-invocation','--command-id',cmd,'--instance-id',host));(dest/'status.json').write_text(json.dumps(result,indent=2));print(result['Status']);print(result.get('StandardOutputContent','')[-5000:]);print(result.get('StandardErrorContent','')[-1500:]);return
@@ -67,6 +71,7 @@ def main():
   configs=json.loads((a.evidence/'stage'/a.os/'stage'/'bundle/manifest.json').read_text())['composite_configs']
   if a.configs and not set(a.configs)<=set(configs):p.error('Unknown configurations')
   extra=' '.join('--case '+x for x in a.cases or [])+' '+' '.join('--config '+x for x in a.configs or [])
+  extra+=f' --max-retries {a.max_retries}'+(' --no-retry' if a.no_retry else '')
   if not all(c.isalnum() or c in '-_' for c in a.phase):p.error('Unsafe phase name')
   if a.os=='linux':
    script=f'''set -eu
