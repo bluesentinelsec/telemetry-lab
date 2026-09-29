@@ -5,7 +5,7 @@ The selected composite suites exercise **42 Linux target rules** and **52 Window
 | Platform | Detector and subject corpus | Implemented candidates per language | Qualified target selection | Runtime configurations |
 | --- | --- | ---: | ---: | ---: |
 | Linux | Falco 0.45.0; pinned 95-rule syscall corpus, 81 stock-enabled | 42 | 42; Go misses the reverse-shell target | 8 |
-| Windows | Sysmon and Hayabusa 4.1.0; 4,987 supplied rules, 2,269 enabled for the Sysmon input | 52 | 23 historical; 29 pending | 8 |
+| Windows | Sysmon and Hayabusa 4.1.0; 4,987 supplied rules, 2,269 enabled for the Sysmon input | 52 | 52; three active/control repetitions per configuration | 8 |
 
 The Windows `.onion` candidate was removed from the programs and experiment scope after local DNS and hosts-file fixtures failed to satisfy its successful-resolution requirement. The ordinary DNS and TCP fixtures require no external endpoints, authentication or application-protocol libraries.
 

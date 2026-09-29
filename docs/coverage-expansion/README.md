@@ -7,7 +7,7 @@ explicit removal of the `.onion` test. Release publication is not part of this w
 
 ## Selection and denominators
 
-| Platform | Supplied rules | Enabled in measured profile | Existing targets | New targets | Planned total |
+| Platform | Supplied rules | Enabled in measured profile | Existing targets | New targets | Qualified selection |
 |---|---:|---:|---:|---:|---:|
 | Falco Linux | 95 | 81 | 30 | 12 | 42 |
 | Hayabusa Windows | 4,987 | 2,269 Sysmon | 23 | 29 | 52 |
@@ -81,6 +81,13 @@ NRPT approach. All selected names return 127.0.0.42 locally, requests are
 logged server-side, cache/policy are cleaned up, and no external service is
 contacted. `.onion` stays out of scope. These test DNS predicates, not the
 application protocols or malware described in some rule titles.
+
+The final selection is qualified: all twelve Linux additions and all 29 Windows
+additions have exact-rule positive alerts and clean target-rule controls across
+eight configurations, three repetitions per mode. Windows Zone.Identifier
+deletion uses the shared CDK/staging profile's Event 26 logging without archival;
+the stock target rule accepts Event 23 or 26. The original pilot and corrected
+collector-profile evidence remain separate.
 
 Current live results and preserved prototype defects are recorded in
 [the validation report](validation/README.md).

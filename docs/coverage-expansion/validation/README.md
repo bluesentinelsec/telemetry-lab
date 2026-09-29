@@ -25,25 +25,64 @@ was checked against its S3 content checksum and a local SHA256 manifest was save
 One stale local setup log was refreshed; its prior contents were retained.
 See [per-case counts](linux-qualification.csv) and [summary and hashes](linux-qualification.json).
 
-Windows final qualification is still in progress; final totals will be added here.
-The frozen pilot includes 53 candidates. `dns_ldap_discovery` was subsequently
-deferred from onboarding after the first balanced pass produced no positive
-baseline in any of the eight configurations: successful queries had
-`Image=<unknown process>`, explicitly excluded by the stock rule. Its source
-programs are removed from active builds; its predicate and attribution remain
-in `selection.json` under `deferred_candidates`. The final scope is **52 rules**
-(29 additions), and all 53-candidate pilot observations will remain visible.
-The running pilot is not modified after freezing its inputs. The [first-pass
-raw-field evidence](windows-deferred-ldap-first-pass.json) records all eight
-configurations, exact event record IDs, image values and resolver answers.
+## Windows final results
+
+The **52 retained targets** have **2,496 accepted observations: 1,248 exact-rule
+hits and 1,248 clean target-rule controls**, three repetitions per mode in each
+of eight configurations. The 29 additions account for **696 hits and 696 clean
+controls**. See the [final selection table](windows-final-scope.csv) and
+[combined counts](windows-final-scope.json).
+
+The underlying campaigns remain separate:
+
+- The frozen **53-candidate pilot** attempted all 2,544 slots and accepted 2,520:
+  1,224 hits, 1,272 clean controls and 24 valid LDAP misses. Seventy attribution
+  failures were quarantined and successfully replaced. All 24 active stream-
+  deletion runs failed the independent behavior check under the original
+  archival profile; they were quarantined and **not** automatically retried.
+  Its overall `complete=false` status is preserved. See the
+  [original pilot table](windows-qualification.csv) and
+  [original summary](windows-qualification.json).
+- The **corrected collector-profile run** accepted all 48 observations:
+  24 exact-rule hits and 24 clean controls, with zero suspects or retries.
+  Every active observation had successful native deletion and an attributable
+  Event 26 matching the same target rule. See the
+  [focused table](windows-stream-fix.csv) and [summary](windows-stream-fix.json).
+  This supersedes the entire original stream-deletion cohort, including its
+  controls; it does not select favorable original attempts.
+
+The combined table contains 51 cases from the original profile and the stream-
+deletion case from the corrected profile. Both Windows hosts used the same
+AMI, m6i.large instance type, Sysmon 15.22 executable and Hayabusa 4.1.0 executable
+(hashes compared). The correction changes only Zone.Identifier archival.
+This is qualification evidence, not a claim that the full repeated dissertation
+experiment was collected under one final profile. Freeze the final profile
+before the 200-repetition experiment.
+
+`dns_ldap_discovery` remains deferred: all 24 active runs were valid misses,
+with 24 clean controls. Successful lookups lacked the process-image metadata
+required by the rule. Its programs are removed from active builds; the exact
+predicate and attribution remain in `selection.json` under `deferred_candidates`.
+The [first-pass raw-field evidence](windows-deferred-ldap-first-pass.json) records
+all eight configurations and exact event records. All pilot evidence is retained.
+
+The main Windows archive contains **29,340 files / 821,493,204 bytes**; the
+focused-profile archive contains **1,128 files / 114,448,917 bytes**, including
+its failed development trial and diagnostics. Every file was compared with its
+S3 content checksum, or downloaded and SHA256-compared for the multipart object.
+Local SHA256 manifests are retained with both archives.
 
 ## Inputs and reproducibility
 
 - Linux native binaries: [CI run 36515492164](https://github.com/bluesentinelsec/telemetry-lab/actions/runs/36515492164), source `8ceef34e60712624e61ea23a273b6b871dea26f0`.
-- Windows final native binaries: [CI run 36517181930](https://github.com/bluesentinelsec/telemetry-lab/actions/runs/36517181930), source `749586b`.
-- Both builds passed all 17 jobs: sixteen native configuration builds and the evidence tests.
+- Windows original pilot native binaries: [CI run 36517181930](https://github.com/bluesentinelsec/telemetry-lab/actions/runs/36517181930), source `749586b`.
+- Corrected-profile binaries and final lab automation: [CI run 36526142542](https://github.com/bluesentinelsec/telemetry-lab/actions/runs/36526142542), source `feef7f1`; the strict stream-deletion native sources match the original pilot.
+- These builds passed all 17 jobs: sixteen native configuration builds and the evidence tests.
+- The CDK build and all 19 infrastructure tests passed, including preservation of deletion logging in the authored collector profile.
 - Staged bundle manifests preserve per-program hashes, compiler/runtime provenance and fixed helper hashes. Stage receipts preserve complete payload hashes; campaign plans freeze the exact staged inputs.
 - The launcher, fixtures, captures, detector replay, suspect-run quarantine and bounded replacement are automated. The experiment CLI supports `--repetitions 200`, `--max-retries` and `--no-retry`.
+
+The second Windows host was provisioned through the same CDK app as `CoverageExpansionFix20260929`. Both task stacks are torn down only after their raw archives pass verification.
 
 The raw archive includes native stdout/stderr, manifests, attempt records,
 collector-health reports, Linux Falco events, Windows EVTX/JSON/CSV, local DNS

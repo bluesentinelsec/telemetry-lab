@@ -11,7 +11,7 @@
     "count_sysmon": 2455,
     "count_static_eligible_sysmon": 2269,
     "proposed_rule_count": 52,
-    "qualified_rule_count": 23,
+    "qualified_rule_count": 52,
     "config_sha256": {
       "exclude_rules.txt": "4b96b19b1b373d39833b07cb8148e5767620381e2c371c78db5f17f9121d8379",
       "noisy_rules.txt": "636ea2adc5bb63da3e29459c963b7ca676bf5a80a58c0eb7d4ac7e728b766594"
@@ -19,7 +19,13 @@
     "inventory_sha256": "ada9f35a9e2c179f05f84f842fe73f01d1e45f64f171b3328eb218c82f564035",
     "engine_verified_enabled_sysmon_rules": 2269,
     "engine_verification_evidence": "validation/ucrt-nonnetwork-01/hayabusa.log",
-    "qualification_status": "23 historical targets qualified; 29 expansion targets in live validation; LDAP-discovery candidate deferred for missing required image metadata"
+    "qualification_status": "52 targets qualified with three active/control repetitions in all eight configurations; stream-deletion collector refinement is separately documented",
+    "qualification_evidence": "docs/coverage-expansion/validation/windows-final-scope.csv",
+    "collector_profile": {
+      "path": "lab-environment/config/sysmon.xml",
+      "sha256": "e7eac2830897792eb7621ae0fd6b5ccfa6827db532c8e51940dddcf182fedb21",
+      "note": "Zone.Identifier deletion is logged by Event 26 without archival; all other configured collection and archival retained. The original frozen pilot and focused corrected-profile validation remain separate."
+    }
   },
   "candidates": [
     {
@@ -46,7 +52,7 @@
       "status": "test",
       "behavior": "Write a nonempty HKCU Run value pointing to a fixed benign helper; read it back and remove it before any logon.",
       "fixture_requirements": "Use an unused fixture value under the actual Run key; preserve any pre-existing data. Control writes to an ordinary fixture key.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "registry_set": {
           "EventID": 13,
@@ -282,7 +288,7 @@
       "status": "test",
       "behavior": "Set the default App Paths value for an unused helper name to a benign helper under C:\\Users\\Public; read back and restore.",
       "fixture_requirements": "Path must match a suspicious-location predicate. Do not replace an existing application registration.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "registry_set": {
           "EventID": 13,
@@ -343,7 +349,7 @@
       "status": "test",
       "behavior": "Write and read back StubPath beneath a fresh Active Setup Installed Components GUID, then remove it.",
       "fixture_requirements": "Use an isolated user hive and inert helper command; no logon activation. This tests registration evidence, not completed persistence.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "registry_event": {
           "EventID": [
@@ -398,7 +404,7 @@
       "status": "test",
       "behavior": "Set and read back the isolated test account SCRNSAVE.EXE value, then restore it.",
       "fixture_requirements": "Do not activate a screensaver; the native program must not have an excluded explorer.exe or rundll32.exe image name.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "registry_event": {
           "EventID": [
@@ -447,7 +453,7 @@
       "status": "experimental",
       "behavior": "Delete a harness-seeded RunMRU fixture key in an isolated account; independently verify absence.",
       "fixture_requirements": "Seed outside the measured window and preserve prior state. The rule also matches creation events because it lacks an EventType filter; control must not create this key.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "registry_delete": {
           "EventID": 12,
@@ -486,7 +492,7 @@
       "status": "test",
       "behavior": "Write a fixed inert fixture file to the test account Windows Startup directory; verify bytes, then remove.",
       "fixture_requirements": "Use a real resolved Startup path. Qualification measures a startup-folder write, not whether a payload executes at logon.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "file_event": {
           "EventID": 11,
@@ -539,7 +545,7 @@
       "status": "test",
       "behavior": "Create a comment-only Microsoft.PowerShell_profile.ps1 under the isolated test account profile; verify and remove.",
       "fixture_requirements": "Preserve any existing profile. No PowerShell child is needed to create the artifact.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "file_event": {
           "EventID": 11,
@@ -581,7 +587,7 @@
       "status": "experimental",
       "behavior": "Write the same benign PE fixture under C:\\Users\\Public; independently verify its hash.",
       "fixture_requirements": "Hold destination and fixture bytes constant across all language builds; remove after capture.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "file_event": {
           "EventID": 11,
@@ -634,7 +640,7 @@
       "status": "test",
       "behavior": "Write a fixed benign PE fixture named report.pdf.exe; verify its hash without executing it.",
       "fixture_requirements": "File creation is the target operation; the measured program itself keeps a neutral name.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "file_event": {
           "EventID": 11,
@@ -706,7 +712,7 @@
       "status": "test",
       "behavior": "Write a fixed valid benign shortcut fixture named report.pdf.lnk outside Recent folders; verify bytes.",
       "fixture_requirements": "Use the same prebuilt shortcut bytes in every language; do not launch it.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "file_event": {
           "EventID": 11,
@@ -774,7 +780,7 @@
       "status": "test",
       "behavior": "Write a fixed benign document fixture under the isolated profile Microsoft\\Word\\STARTUP directory; verify and remove.",
       "fixture_requirements": "The rule detects path and extension, not Office execution; Office need not be installed and persistence is not claimed.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "file_event": {
           "EventID": 11,
@@ -855,7 +861,7 @@
       "status": "test",
       "behavior": "Write a fixed benign PE fixture named lab.sys.exe; independently verify bytes.",
       "fixture_requirements": "This is a filename-based file-creation predicate, not evidence that a driver was installed.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "file_event": {
           "EventID": 11,
@@ -898,7 +904,7 @@
       "status": "test",
       "behavior": "Use ordinary TCP sockets to connect to a localhost echo fixture (127.0.0.1) on port 2525, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends. Keep the process alive for five seconds after I/O, equally in the same-binary control.",
       "fixture_requirements": "Use the same neutral executable path/name and localhost IPv4 destination across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -953,7 +959,7 @@
       "status": "test",
       "behavior": "Connect to the existing RDP listener at 127.0.0.1:3389, send the fixed 11-byte X.224 connection request, and close without authentication or a session. Hold the process alive for five seconds after I/O, equally in the same-binary control.",
       "fixture_requirements": "Existing Windows RDP listener; leave service configuration intact. Verify connect and complete send. The rule uses connection metadata, not payload contents. Keep address, payload, path and lifetime identical across languages.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -1062,7 +1068,7 @@
       "status": "test",
       "behavior": "Use ordinary TCP sockets to connect to a localhost echo fixture (127.0.0.1) on port 9389, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends. Keep the process alive for five seconds after I/O, equally in the same-binary control.",
       "fixture_requirements": "Use the same neutral executable path/name and localhost IPv4 destination across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -1117,7 +1123,7 @@
       "status": "test",
       "behavior": "Use ordinary TCP sockets to connect to a localhost echo fixture (127.0.0.1) on port 88, send the fixed telemetry-lab marker, receive the fixed reply, and close. Verify the complete byte exchange at both ends. Keep the process alive for five seconds after I/O, equally in the same-binary control.",
       "fixture_requirements": "Use the same neutral executable path/name and localhost IPv4 destination across languages, outside all process exclusions. No protocol handshake, client library, authentication, or real application service is required by the rule. Pin source/peer setup; validate actual Sysmon EID 3 attribution.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -1216,7 +1222,7 @@
       "status": "test",
       "behavior": "Execute the standalone program at C:\\Users\\Public\\telemetry-lab\\probe.exe and perform a TCP connect/send/receive exchange with a localhost echo fixture (127.0.0.1) on fixed port 49152. Keep the process alive for five seconds after I/O, equally in the same-binary control.",
       "fixture_requirements": "Hold the executable location constant across languages. Use a controlled destination hostname outside filter_main_domains. Stage the program before capture; observe the connection from the actual measured process, not a launcher. Confirm bytes received at both ends.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "network_connection": {
           "EventID": 3,
@@ -1311,7 +1317,7 @@
       "status": "test",
       "behavior": "Resolve api.ipify.org against an isolated lab resolver that supplies a fixed local answer.",
       "fixture_requirements": "No HTTP client or public service contact. Preserve the hostname, answer, and DNS-cache baseline across languages; independently verify lookup results and resolver request. Keep the executable outside browser image exclusions. Use a harness-only UDP responder on 127.0.0.1:53 and temporary exact-name NRPT entries. Return 127.0.0.42 with zero TTL; remove entries and clear cache afterward.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "dns_query": {
           "EventID": 22,
@@ -1463,7 +1469,7 @@
       "status": "stable",
       "behavior": "Launch a fixed benign report.pdf.exe helper with the same command line and verify its marker and exit code.",
       "fixture_requirements": "Both Image and CommandLine must match. Control uses the same parent program but does not spawn the matching child.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "process_creation": {
           "EventID": 1,
@@ -1561,7 +1567,7 @@
       "status": "test",
       "behavior": "Change a harness-seeded file creation time from a fixed 2026 value to a fixed 2019 value; read the timestamp back.",
       "fixture_requirements": "This rule compares the 202 prefix, not any year change: 2026 to 2025 would not match. Avoid .tmp/.temp and excluded paths.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "file_change": {
           "EventID": 2,
@@ -1647,7 +1653,7 @@
       "status": "test",
       "behavior": "Write a fixed benign PE with a nonzero import hash to an NTFS alternate data stream and verify its bytes.",
       "fixture_requirements": "Requires Sysmon EID 15 and IMPHASH in Hash. Do not execute the stream; confirm capture and hash fields during qualification.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "create_stream_hash": {
           "EventID": 15,
@@ -1686,7 +1692,7 @@
       "status": "test",
       "behavior": "Create the named pipe \\testPipe, connect a controlled client and exchange a fixed marker.",
       "fixture_requirements": "This tests a listed pipe-name indicator; it does not emulate the malware families in the rule description. Keep client activity separately attributable.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "pipe_created": {
           "EventID": [
@@ -1752,7 +1758,7 @@
       "status": "experimental",
       "behavior": "Load a fixed benign unsigned DLL fixture with a .node extension into the measured process; call a harmless exported function.",
       "fixture_requirements": "Same helper bytes in every language; verify load and function result. Requires EID 7 plus Signed=false or SignatureStatus=Unavailable; Node.js execution is not claimed.",
-      "qualification": "c-ucrt-and-msvcrt-alert-demonstrated",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "detection": {
         "image_load": {
           "EventID": 7,
@@ -1820,7 +1826,7 @@
       ],
       "behavior": "registry {\"key\": \"Environment\", \"value\": \"UserInitMprLogonScript\", \"data\": \"C:\\\\lab\\\\windows-coverage\\\\fixtures\\\\helper.exe\", \"value_type\": \"string\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "registry",
         "key": "Environment",
@@ -1872,7 +1878,7 @@
       ],
       "behavior": "registry {\"key\": \"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\TypedPaths\", \"value\": \"url99\", \"data\": \"C:\\\\lab\\\\windows-coverage\\\\work\", \"value_type\": \"string\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "registry",
         "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\TypedPaths",
@@ -1924,7 +1930,7 @@
       ],
       "behavior": "registry {\"key\": \"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\PackagedAppXDebug\\\\Microsoft.TelemetryLabFixture\", \"value\": \"\", \"data\": \"C:\\\\lab\\\\windows-coverage\\\\fixtures\\\\helper.exe\", \"value_type\": \"string\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "registry",
         "key": "Software\\Microsoft\\Windows\\CurrentVersion\\PackagedAppXDebug\\Microsoft.TelemetryLabFixture",
@@ -1990,7 +1996,7 @@
       ],
       "behavior": "registry {\"key\": \"Software\\\\Classes\\\\CLSID\\\\{9B9C8026-806D-41E2-992A-909553D7A52A}\\\\TreatAs\", \"value\": \"\", \"data\": \"{9B9C8026-806D-41E2-992A-909553D7A52A}\", \"value_type\": \"string\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "registry",
         "key": "Software\\Classes\\CLSID\\{9B9C8026-806D-41E2-992A-909553D7A52A}\\TreatAs",
@@ -2044,7 +2050,7 @@
       ],
       "behavior": "registry {\"key\": \"Environment\", \"value\": \"COR_PROFILER\", \"data\": \"{9B9C8026-806D-41E2-992A-909553D7A52A}\", \"value_type\": \"string\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "registry",
         "key": "Environment",
@@ -2097,7 +2103,7 @@
       ],
       "behavior": "registry {\"key\": \"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\Advanced\", \"value\": \"Hidden\", \"data\": 0, \"value_type\": \"dword\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "registry",
         "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
@@ -2144,7 +2150,7 @@
       ],
       "behavior": "registry {\"key\": \"Software\\\\Microsoft\\\\Office\\\\16.0\\\\Word\\\\Security\", \"value\": \"VBAWarnings\", \"data\": 1, \"value_type\": \"dword\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "registry",
         "key": "Software\\Microsoft\\Office\\16.0\\Word\\Security",
@@ -2263,7 +2269,7 @@
       ],
       "behavior": "registry {\"key\": \"Software\\\\Microsoft\\\\Office\\\\Word\\\\Addins\\\\TelemetryLabFixture\", \"value\": \"Manifest\", \"data\": \"C:\\\\lab\\\\windows-coverage\\\\fixtures\\\\fixture.vsto\", \"value_type\": \"string\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "registry",
         "key": "Software\\Microsoft\\Office\\Word\\Addins\\TelemetryLabFixture",
@@ -2311,7 +2317,7 @@
       ],
       "behavior": "registry {\"key\": \"Software\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\AppCompatFlags\\\\Layers\", \"value\": \"C:\\\\lab\\\\windows-coverage\\\\fixtures\\\\helper.exe\", \"data\": \"REGISTERAPPRESTART\", \"value_type\": \"string\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "registry",
         "key": "Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers",
@@ -2401,7 +2407,7 @@
       ],
       "behavior": "registry {\"key\": \"Environment\", \"value\": \"TelemetryLabFixture\", \"data\": \"C:\\\\Users\\\\Public\\\\telemetry-lab\\\\fixture.exe\", \"value_type\": \"string\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "registry",
         "key": "Environment",
@@ -2457,7 +2463,7 @@
       ],
       "behavior": "file {\"filename\": \"C:\\\\lab\\\\windows-coverage\\\\work\\\\fixture.scr\", \"content\": \"helper\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "file",
         "filename": "C:\\lab\\windows-coverage\\work\\fixture.scr",
@@ -2515,7 +2521,7 @@
       ],
       "behavior": "file {\"filename\": \"C:\\\\lab\\\\windows-coverage\\\\work\\\\secur32.dll\", \"content\": \"module\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "file",
         "filename": "C:\\lab\\windows-coverage\\work\\secur32.dll",
@@ -2706,7 +2712,7 @@
       ],
       "behavior": "file {\"filename\": \"C:\\\\lab\\\\windows-coverage\\\\work\\\\svchost.exe\", \"content\": \"helper\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "file",
         "filename": "C:\\lab\\windows-coverage\\work\\svchost.exe",
@@ -2768,7 +2774,7 @@
       ],
       "behavior": "file {\"filename\": \"C:\\\\PerfLogs\\\\telemetry-lab\\\\fixture.exe\", \"content\": \"helper\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "file",
         "filename": "C:\\PerfLogs\\telemetry-lab\\fixture.exe",
@@ -2834,7 +2840,7 @@
       ],
       "behavior": "file {\"filename\": \"%USERPROFILE%\\\\Documents\\\\WindowsPowerShell\\\\Modules\\\\TelemetryLabFixture\\\\TelemetryLabFixture.psm1\", \"content\": \"text\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "file",
         "filename": "%USERPROFILE%\\Documents\\WindowsPowerShell\\Modules\\TelemetryLabFixture\\TelemetryLabFixture.psm1",
@@ -2882,7 +2888,7 @@
       ],
       "behavior": "Create/read back inert configuration file under the fixed Public profile path (consistent under SYSTEM and CI user identities)",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "file",
         "filename": "C:\\Users\\Public\\.config\\rclone\\telemetry-lab-fixture.conf",
@@ -2953,7 +2959,7 @@
       ],
       "behavior": "file {\"filename\": \"C:\\\\lab\\\\windows-coverage\\\\work\\\\report\u202efdp.exe\", \"content\": \"helper\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "file",
         "filename": "C:\\lab\\windows-coverage\\work\\report\u202efdp.exe",
@@ -3007,7 +3013,7 @@
       ],
       "behavior": "Create and verify an inert .sdb fixture in the real AppPatch Custom directory; do not register or activate it",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "file",
         "filename": "C:\\Windows\\AppPatch\\Custom\\telemetry-lab-fixture.sdb",
@@ -3059,7 +3065,7 @@
       ],
       "behavior": "delete {\"filename\": \"C:\\\\Windows\\\\System32\\\\winevt\\\\Logs\\\\TelemetryLabFixture.evtx\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "delete",
         "filename": "C:\\Windows\\System32\\winevt\\Logs\\TelemetryLabFixture.evtx"
@@ -3106,7 +3112,7 @@
       ],
       "behavior": "delete {\"filename\": \"C:\\\\lab\\\\windows-coverage\\\\work\\\\PSReadLine\\\\ConsoleHost_history.txt\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "delete",
         "filename": "C:\\lab\\windows-coverage\\work\\PSReadLine\\ConsoleHost_history.txt"
@@ -3161,7 +3167,7 @@
       ],
       "behavior": "delete {\"filename\": \"C:\\\\Windows\\\\Prefetch\\\\TELEMETRYLABFIXTURE.pf\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "delete",
         "filename": "C:\\Windows\\Prefetch\\TELEMETRYLABFIXTURE.pf"
@@ -3237,7 +3243,7 @@
       ],
       "behavior": "delete {\"filename\": \"C:\\\\lab\\\\windows-coverage\\\\work\\\\download.txt:Zone.Identifier\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "delete",
         "filename": "C:\\lab\\windows-coverage\\work\\download.txt:Zone.Identifier"
@@ -3291,7 +3297,7 @@
       ],
       "behavior": "dns {\"hostname\": \"protocol-v2.argotunnel.com\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "dns",
         "hostname": "protocol-v2.argotunnel.com"
@@ -3347,7 +3353,7 @@
       ],
       "behavior": "dns {\"hostname\": \"tinyurl.com\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "dns",
         "hostname": "tinyurl.com"
@@ -3566,7 +3572,7 @@
       ],
       "behavior": "dns {\"hostname\": \"api.splashtop.com\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "dns",
         "hostname": "api.splashtop.com"
@@ -3632,7 +3638,7 @@
       ],
       "behavior": "pipe {\"pipe\": \"\\\\\\\\.\\\\pipe\\\\PAExec-TelemetryLab\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "pipe",
         "pipe": "\\\\.\\pipe\\PAExec-TelemetryLab"
@@ -3680,7 +3686,7 @@
       ],
       "behavior": "pipe {\"pipe\": \"\\\\\\\\.\\\\pipe\\\\RemCom-TelemetryLab\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "pipe",
         "pipe": "\\\\.\\pipe\\RemCom-TelemetryLab"
@@ -3737,7 +3743,7 @@
       ],
       "behavior": "process_access {\"target\": \"C:\\\\Windows\\\\System32\\\\ping.exe\", \"access\": \"0x1fffff\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "process_access",
         "target": "C:\\Windows\\System32\\ping.exe",
@@ -3824,7 +3830,7 @@
       ],
       "behavior": "remote_thread {\"target\": \"C:\\\\Windows\\\\System32\\\\ping.exe\", \"function\": \"GetCurrentProcessId\"}",
       "fixture_requirements": "Automated expansion fixture; preserve existing values; unowned files cause failure",
-      "qualification": "pending-live-validation",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
       "expansion": {
         "kind": "remote_thread",
         "target": "C:\\Windows\\System32\\ping.exe",
@@ -3920,7 +3926,7 @@
         "https://github.com/redcanaryco/atomic-red-team/blob/980f3f83fd81f37c1ca9c02dccfd1c3d9f9d0841/atomics/T1016/T1016.md#atomic-test-9---dns-server-discovery-using-nslookup",
         "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/7fcdce70-5205-44d6-9c3a-260e616a2f04"
       ],
-      "decision": "Successful local A resolution in all eight configurations produced Sysmon Image=<unknown process>, which this unmodified rule explicitly excludes. No qualifying positive baseline in the first balanced live pass. Defer from onboarded scope; retain all pilot observations and do not modify the rule or use per-runtime workarounds."
+      "decision": "Successful local A resolution in all eight configurations produced Sysmon Image=<unknown process>, which this unmodified rule explicitly excludes. No qualifying positive baseline in the first balanced live pass. Defer from onboarded scope; retain all pilot observations and do not modify the rule or use per-runtime workarounds. The complete frozen pilot retained 24 valid active misses and 24 clean controls for this candidate."
     }
   ],
   "network_scope_revision": {
@@ -3932,7 +3938,7 @@
       "TCP connect/send/receive/close",
       "hostname-to-address resolution"
     ],
-    "status": "six historical targets qualified; three DNS additions in live validation",
+    "status": "all nine retained network/DNS targets qualified in all eight configurations",
     "measured_program_dependencies": "OS socket/resolver APIs and existing language standard libraries; no application-protocol client libraries",
     "notes": "LDAP-discovery A-query prototype deferred after live telemetry lacked the process-image field required by its rule. Onion remains deleted. Nine rules do not represent nine distinct mechanisms."
   }
