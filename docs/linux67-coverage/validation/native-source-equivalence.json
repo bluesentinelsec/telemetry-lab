@@ -1,0 +1,12 @@
+{
+  "ci_run": "36756011609",
+  "native_source_commit": "61c05fd5b2515d416a3553ec6bdc6b1ff54a7fe2",
+  "fixture_source_commit": "84990b1696fcc0f41ec5036171c35ec78d2d7604",
+  "native_paths": [
+    "ttp-composite/linux/c",
+    "ttp-composite/linux/cpp",
+    "ttp-composite/linux/go",
+    "ttp-composite/linux/rust"
+  ],
+  "differences": []
+}

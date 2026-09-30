@@ -61,3 +61,15 @@ language, and considered before attributing a difference to runtime alone.
 This is the Linux contract. Windows will need explicit platform-equivalent
 operations and a separately frozen detector mapping; Linux paths and Falco
 rule names must not be presented as Windows coverage.
+
+## Expanded scope
+
+The original table above records the first 30 cases. The next twelve cases are
+documented in `docs/coverage-expansion/`; the additional 25 behaviors, exact rule
+predicates and operation types are in [expansion-cases.json](expansion-cases.json).
+The [67-rule qualification report](../../../docs/linux67-coverage/README.md) records
+the final automated fixtures and their qualification. Utility-launch cases run
+the same fixed external program and arguments in every language configuration;
+application-ancestry cases use real Apache CGI or a Bun npm-package lifecycle.
+These contexts extend the research scope beyond direct standard-library calls
+and must be identified separately when interpreting runtime effects.

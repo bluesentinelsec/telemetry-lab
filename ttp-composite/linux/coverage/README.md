@@ -1,13 +1,14 @@
 # Linux Falco coverage: standalone C, C++, Go, and Rust composites
 
-Forty-two standalone programs per language target 42 of the **95** supplied syscall rules in
-upstream snapshot `e822409d8a2a28c9719f56ace66e8cadebfd2bc3`. All 42 are among
-the 81 stock-enabled rules. The supplied collections contain 25 stable,
+Sixty-seven standalone programs per language target 67 of the **95** supplied syscall rules in
+upstream snapshot `e822409d8a2a28c9719f56ace66e8cadebfd2bc3`. Sixty targets are among the 81 stock-enabled rules; seven are enabled by the
+explicit evaluation profile, giving 88 enabled rules. Coverage is 67/95 (70.5%)
+of all supplied rules, or 67/88 (76.1%) of the evaluation profile. The supplied collections contain 25 stable,
 31 incubating, and 39 sandbox rules. `manifest.json` maps each case to its own
 executable and exact target rule; `rule-inventory.csv` preserves selection and
 exclusion rationale for all 95 rules.
 
-The twelve additions and current validation are tracked in [coverage expansion](../../../docs/coverage-expansion/README.md). The validation sections below retain the historical 30-case qualification evidence.
+The latest 25 additions and qualification are tracked in [Linux 67-rule coverage](../../../docs/linux67-coverage/README.md). Earlier twelve-rule additions are tracked in [coverage expansion](../../../docs/coverage-expansion/README.md). The validation sections below retain the historical 30-case qualification evidence.
 
 The [shared behavior contract](behavior-contract.md) fixes each case's operation,
 inputs, and required outcome for subsequent language ports.
@@ -30,7 +31,7 @@ negative control, not a selector for another TTP. An additional standalone
 `negative` program checks the common startup baseline. Active executions must
 verify behavior; scoring records whether their exact target rule matches. A valid
 miss remains a measured outcome. Controls are expected not to match any
-of the 42 selected rules.
+of the 67 selected rules.
 
 `verify_programs.py` checks the actual artifacts: complete roster, ELF format,
 unique hashes, correct runtime loader, and absence of other cases' success
@@ -135,7 +136,8 @@ no real metadata service, credentials, or external target is contacted.
 
 The fixed configuration adds NET_ADMIN and SYS_PTRACE, retains NET_RAW, uses
 an unconfined seccomp profile for the exercised syscalls, and makes the private
-/dev/shm mount executable. Containers are not privileged and have no host
+/dev/shm mount executable. Only the mount and debugfs cases use privileged containers; their operations
+are confined to owned private mount/file-image fixtures. Containers have no host
 filesystem mounts. Files are synthetic or confined to the disposable layer;
 container removal cleans them up. No persistence fixture is activated.
 
@@ -144,6 +146,11 @@ container removal cleans them up. No persistence fixture is activated.
 Falco 0.45.0 uses a [pinned libsinsp parser fix](falco-health-fix/README.md) for partially populated syscall-entry events. Setup builds and tests it on the lab host, preserves the packaged detector, and records the actual running binary and build receipt. Detection rules and strict health checks remain unchanged.
 
 ## Deploy and run
+
+For the automated CI-artifact/CDK campaign, use `scripts/coverage-expansion/lab.py`;
+see the latest qualification report for preserved inputs and phase commands.
+The image build installs the fixed external utilities and application fixtures
+automatically. The manual source-build workflow below is also available.
 
 Deploy through the existing infrastructure:
 
@@ -167,21 +174,21 @@ sudo python3 ttp-composite/linux/coverage/run.py \
 ```
 
 The same image contains all eight C, C++, Go, and Rust configurations. A repetition schedules
-**488 executions**: 30 active programs and 30 same-binary controls per
-configuration, plus eight baselines. Three repetitions schedule 1464.
-To validate just C++ (122 executions per repetition), add
+**1,080 executions**: 67 active programs and 67 same-binary controls per
+configuration, plus eight baselines. Three repetitions schedule 3,240.
+To validate just C++ (270 executions per repetition), add
 `--config linux-cpp-libstdcxx --config linux-cpp-libcxx`. The selected
 configurations are recorded in provenance. For a Go qualification with a C
 reference under the same image and host, use `--config linux-c-glibc
---config linux-go-cgo --config linux-go-static` (183 executions per repetition).
+--config linux-go-cgo --config linux-go-static` (405 executions per repetition).
 For Rust with the same C reference, use `--config linux-c-glibc
---config linux-rust-gnu --config linux-rust-musl` (also 183 executions).
+--config linux-rust-gnu --config linux-rust-musl` (also 405 executions).
 Each block is randomized. `--case ID` restricts a diagnostic run and includes
 that case's control; it does not validate the complete selection.
 
-The dedicated detector loads only the three preserved rule files, evaluates
+The dedicated detector loads the three preserved rule files and the separate enablement profile, evaluates
 all matches, and emits one stdout JSON stream. It leaves rule logic, exceptions,
-macros, lists, and enabled flags unchanged. Restore the normal lab service
+macros and lists unchanged; only the seven documented enabled flags differ. Restore the normal lab service
 when reusing the host:
 
 ```sh
@@ -199,8 +206,8 @@ increases in any captured drop counter. Invalid attempts remain in the data.
 A healthy, successful behavior with no target alert remains a valid miss.
 
 `qualified_case_configurations` requires both a valid target hit and a valid,
-clean same-binary control for each case/runtime pair. A value of 60 documents positive/control evidence for all programs in the two
-selected configurations (240 if all eight configurations demonstrate positives). It is descriptive, not an inclusion requirement: a valid
+clean same-binary control for each case/runtime pair. A value of 134 documents positive/control evidence for all programs in two
+selected configurations (536 if all eight configurations demonstrate positives). It is descriptive, not an inclusion requirement: a valid
 miss in another runtime remains research data once the target rule has been
 demonstrated. The process exits nonzero if a target has never been demonstrated,
 any scheduled attempt is invalid, or any negative control fails. Rechecks
@@ -213,7 +220,7 @@ rules. Inspect rule conditions and the alert's event fields before attributing
 a future difference to runtime. These Falco syscall rules do not constitute a
 static binary-scanning experiment.
 
-Thirty rules are not thirty independent mechanisms. The two metadata targets
+Sixty-seven rules are not sixty-seven independent mechanisms. The two metadata targets
 share a behavior, and other rules overlap. Preserve non-target matches as
 observations without redefining the declared target coverage.
 
