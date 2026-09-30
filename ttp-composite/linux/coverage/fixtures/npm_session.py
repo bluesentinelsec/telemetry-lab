@@ -8,5 +8,5 @@ from pathlib import Path
 p=Path('/tmp/lab')
 env=dict(os.environ,BUN_INSTALL_CACHE_DIR='/tmp/package-cache',DO_NOT_TRACK='1')
 with (p/'npm.stdout').open('w') as out,(p/'npm.stderr').open('w') as err:
-    r=subprocess.run(['/usr/local/bin/bun','install','--no-save','--ignore-optional','--backend=copyfile'],cwd=p/'npm',env=env,stdout=out,stderr=err)
+    r=subprocess.run(['/usr/local/bin/bun','install','--no-save'],cwd=p/'npm',env=env,stdout=out,stderr=err)
 (p/'npm-result.json').write_text(json.dumps({'returncode':r.returncode}))

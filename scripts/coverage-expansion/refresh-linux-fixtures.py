@@ -45,7 +45,7 @@ shutil.rmtree('scripts/experiment');shutil.copytree(r/'experiment','scripts/expe
 shutil.copy2(r/'coverage/Dockerfile','image/Dockerfile')
 shutil.rmtree('image/fixtures');shutil.copytree(r/'coverage/fixtures','image/fixtures')
 for name,sha in expected.items():assert hashlib.sha256((bundle/name).read_bytes()).hexdigest()==sha,name
-(bundle/'files.sha256.json').write_text(json.dumps({str(f.relative_to(bundle)):hashlib.sha256(f.read_bytes()).hexdigest() for f in bundle.rglob('*') if f.is_file() and f.name!='files.sha256.json' and '__pycache__' not in f.parts},indent=2))
+(bundle/'files.sha256.json').write_text(json.dumps({{str(f.relative_to(bundle)):hashlib.sha256(f.read_bytes()).hexdigest() for f in bundle.rglob('*') if f.is_file() and f.name!='files.sha256.json' and '__pycache__' not in f.parts}},indent=2))
 CHECK
 docker build -t lab-falco-coverage:local image > evidence/{a.phase}-image.log 2>&1
 FALCO_BIN=/opt/telemetry-lab/falco-0.45.0-healthfix.1/bin/falco bash bundle/ttp-composite/coverage/setup-detector.sh > evidence/{a.phase}-falco.log 2>&1
