@@ -17,5 +17,9 @@ if case in {'protected_shell','web_shell','web_child','web_reverse_shell'}:
     data=response.read().decode();sys.stdout.write(data)
     # Apache reports CGI exit failures as HTTP errors or missing native markers.
     marker=('CONTROL_OK ' if mode=='control' else 'CASE_OK ')+case
-    sys.exit(0 if marker in data.splitlines() else 1)
+    if marker not in data.splitlines():
+        error=Path('/tmp/lab/apache-error')
+        if error.exists():sys.stderr.write(error.read_text())
+        sys.exit(1)
+    sys.exit(0)
 raise ValueError('Not an application-ancestry case')

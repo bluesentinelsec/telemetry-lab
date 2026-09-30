@@ -21,7 +21,8 @@ native={name:sha for name,sha in old.items() if name.startswith('ttp-composite/l
 (out/'source-head.txt').write_text(subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True))
 with tarfile.open(out/'patch.tgz','w:gz') as tar:
  for name in ['coverage','experiment','native-sha256.json','source-head.txt']:tar.add(out/name,arcname=name)
-sha=hashlib.file_digest((out/'patch.tgz').open('rb'),'sha256').hexdigest()
+with (out/'patch.tgz').open('rb') as stream:
+ sha=hashlib.file_digest(stream,'sha256').hexdigest()
 prefix='fixture-refresh/'+a.phase
 subprocess.run(['aws','--region',i['Region'],'s3','cp',str(out/'patch.tgz'),f"s3://{i['DataBucketName']}/{prefix}/patch.tgz",'--only-show-errors'],check=True)
 script=f'''set -eu
