@@ -11,8 +11,10 @@ import (
 func main() {
 	fmt.Print("COMPOSITE_CASE dns_shortener\n")
 	if !fixture.Begin("dns_shortener") {
+		fixture.Hold()
 		return
 	}
 	netio.Resolve("tinyurl.com")
+	fixture.Hold()
 	fixture.Success("dns_shortener")
 }

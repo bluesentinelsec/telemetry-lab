@@ -15,6 +15,7 @@ def validate(root):
         required += [f'ttp-primitives/{config}/{name}{suffix}' for name in manifest['primitives']]
     coverage = root / 'ttp-composite/coverage'
     if windows:
+        required.append('ttp-composite/coverage/run-batch.ps1')
         cases = [c['case_id'] for c in json.loads((coverage / 'selection.json').read_text())['candidates']]
     else:
         cases = [c['id'] for c in json.loads((coverage / 'manifest.json').read_text())['cases']]

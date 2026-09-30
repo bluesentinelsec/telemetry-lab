@@ -19,7 +19,7 @@ collection requires the pinned Sysmon/Hayabusa installation, fixed helper.exe an
 fixture.node staged in `C:\lab\windows-coverage\fixtures`, and the existing RDP
 listener. TCP/DNS fixtures use the existing local-only fixture scripts, including
 exact-name temporary DNS policies. No third-party network services are added.
-The Windows composite scope contains 23 cases per configuration, including the
+The Windows composite scope contains 52 cases per configuration, including the
 working `dns_ip_lookup` case. The unsuccessful `.onion` case has been removed.
 
 `--case NAME` and `--config NAME` can be repeated to select a subset. Repetitions
@@ -39,8 +39,9 @@ host**, not 200 across a fleet. Blocks are shuffled using the recorded `--seed`.
 - A valid missing alert is **accepted**. A valid alert on a control is also
   accepted and reported. Neither is retried to manufacture the expected outcome.
 - Native nonzero exit, failed behavior marker, or ambiguous native timeout is
-  preserved as a behavioral failure without automatic replacement. Investigate
-  before attributing such failures to infrastructure.
+  preserved as a behavioral failure and receives bounded replacement after
+  normal fixture cleanup and readiness checks. Persistent failures remain
+  unresolved after the retry limit; report their frequency and cause separately.
 - Changed artifacts, unknown errors, and unsafe fixture state abort the campaign.
   Retry exhaustion leaves a slot unresolved and exits nonzero. The summary cannot
   claim completion unless every planned slot has an accepted measurement.
@@ -55,7 +56,7 @@ runtime's DLLs per group and attributes each attempt by its process GUID. Progra
 never run concurrently on one host. Shared capture failure invalidates all affected
 measurements. Only invalid slots are replaced, individually, with the ordinary
 collector; accepted peers and valid misses are never repeated. Native behavior
-failures remain terminal. Batch size and exact execution order are recorded in the
+failures use the same bounded replacement policy. Batch size and exact execution order are recorded in the
 plan. Measure actual throughput; the pilot's timing is not a promise.
 
 ## Evidence layout

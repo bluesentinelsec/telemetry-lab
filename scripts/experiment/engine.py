@@ -109,7 +109,7 @@ def campaign(output, plan, adapter, max_retries=3, retry_delay=1, provenance=Non
                 print(json.dumps({k: record[k] for k in ('run_id','attempt_id','status','evidence')}), flush=True)
                 if good:
                     accepted.append(record); append(output/'accepted.jsonl', record)
-                elif aborted or record['status']=='behavior-failure' or number==max_retries+1:
+                elif aborted or number==max_retries+1:
                     unresolved.append(dict(slot,last_attempt=aid,status=record['status'],reason=record.get('reason')))
                 else:
                     replacements.append((slot, number+1, aid))

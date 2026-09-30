@@ -11,8 +11,10 @@ import (
 func main() {
 	fmt.Print("COMPOSITE_CASE dns_ip_lookup\n")
 	if !fixture.Begin("dns_ip_lookup") {
+		fixture.Hold()
 		return
 	}
 	netio.Resolve("api.ipify.org")
+	fixture.Hold()
 	fixture.Success("dns_ip_lookup")
 }

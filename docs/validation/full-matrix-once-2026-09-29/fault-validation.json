@@ -1,0 +1,134 @@
+{
+  "linux": {
+    "native/replace": {
+      "planned_runs": 1,
+      "total_attempts": 2,
+      "accepted": 1,
+      "suspect": 1,
+      "retries": 1,
+      "complete": true
+    },
+    "native/disabled": {
+      "planned_runs": 1,
+      "total_attempts": 1,
+      "accepted": 0,
+      "suspect": 1,
+      "retries": 0,
+      "complete": false
+    },
+    "native/exhaust": {
+      "planned_runs": 1,
+      "total_attempts": 4,
+      "accepted": 0,
+      "suspect": 4,
+      "retries": 3,
+      "complete": false
+    },
+    "collection/primitive-replace": {
+      "planned_runs": 1,
+      "total_attempts": 2,
+      "accepted": 1,
+      "suspect": 1,
+      "retries": 1,
+      "complete": true
+    },
+    "collection/primitive-disabled": {
+      "planned_runs": 1,
+      "total_attempts": 1,
+      "accepted": 0,
+      "suspect": 1,
+      "retries": 0,
+      "complete": false
+    },
+    "collection/primitive-exhaust": {
+      "planned_runs": 1,
+      "total_attempts": 4,
+      "accepted": 0,
+      "suspect": 4,
+      "retries": 3,
+      "complete": false
+    },
+    "collection/composite-replace": {
+      "planned_runs": 1,
+      "total_attempts": 2,
+      "accepted": 1,
+      "suspect": 1,
+      "retries": 1,
+      "complete": true
+    },
+    "batch/shared": {
+      "planned_runs": 2,
+      "total_attempts": 4,
+      "accepted": 2,
+      "suspect": 2,
+      "retries": 2,
+      "complete": true
+    }
+  },
+  "windows": {
+    "native/replace": {
+      "planned_runs": 1,
+      "total_attempts": 2,
+      "accepted": 1,
+      "suspect": 1,
+      "retries": 1,
+      "complete": true
+    },
+    "native/disabled": {
+      "planned_runs": 1,
+      "total_attempts": 1,
+      "accepted": 0,
+      "suspect": 1,
+      "retries": 0,
+      "complete": false
+    },
+    "native/exhaust": {
+      "planned_runs": 1,
+      "total_attempts": 4,
+      "accepted": 0,
+      "suspect": 4,
+      "retries": 3,
+      "complete": false
+    },
+    "collection/primitive-replace": {
+      "planned_runs": 1,
+      "total_attempts": 2,
+      "accepted": 1,
+      "suspect": 1,
+      "retries": 1,
+      "complete": true
+    },
+    "collection/primitive-disabled": {
+      "planned_runs": 1,
+      "total_attempts": 1,
+      "accepted": 0,
+      "suspect": 1,
+      "retries": 0,
+      "complete": false
+    },
+    "collection/primitive-exhaust": {
+      "planned_runs": 1,
+      "total_attempts": 4,
+      "accepted": 0,
+      "suspect": 4,
+      "retries": 3,
+      "complete": false
+    },
+    "collection/composite-replace": {
+      "planned_runs": 1,
+      "total_attempts": 2,
+      "accepted": 1,
+      "suspect": 1,
+      "retries": 1,
+      "complete": true
+    },
+    "batch/shared": {
+      "planned_runs": 2,
+      "total_attempts": 4,
+      "accepted": 2,
+      "suspect": 2,
+      "retries": 2,
+      "complete": true
+    }
+  }
+}
