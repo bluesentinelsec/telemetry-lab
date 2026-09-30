@@ -54,7 +54,6 @@ class ReleaseTests(unittest.TestCase):
         (self.root/'ttp-composite/coverage/falco-health-fix/install.sh').unlink()
         with self.assertRaisesRegex(ValueError,'falco-health-fix/install.sh'):release.validate(self.root)
 
-if __name__=='__main__':unittest.main()
 
     def test_missing_linux_fixture_or_enablement_rejected(self):
         for name in ['enablement.yaml','fixtures/prepare.py','fixtures/invoke.py']:
@@ -62,3 +61,5 @@ if __name__=='__main__':unittest.main()
             data=p.read_bytes();p.unlink()
             with self.assertRaisesRegex(ValueError,'Missing release files'):release.validate(self.root)
             p.write_bytes(data)
+
+if __name__=='__main__':unittest.main()
