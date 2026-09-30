@@ -35,6 +35,7 @@ if case=='remote_copy':
     (p/'rsync.conf').write_text('pid file = /tmp/lab/rsync.pid\nport = 1873\nuse chroot = no\nuid = root\ngid = root\n[fixture]\npath = /tmp/lab/transfer\nread only = yes\n')
     child=service(['/usr/bin/rsync','--daemon','--no-detach','--config=/tmp/lab/rsync.conf']);wait_port('198.18.0.1',1873,child)
 if case=='ssh_nonstandard':
+    p.chmod(0o755)
     Path('/run/sshd').mkdir(exist_ok=True)
     run('/usr/bin/ssh-keygen','-q','-t','ed25519','-N','','-f',str(p/'sshkey'))
     run('/usr/bin/ssh-keygen','-q','-t','ed25519','-N','','-f',str(p/'hostkey'))
