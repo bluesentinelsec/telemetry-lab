@@ -19,6 +19,8 @@ class ReleaseTests(unittest.TestCase):
         for name in ('install.sh','preserve-partial-enter.patch','regression.cpp'):
             p=self.root/'ttp-composite/coverage/falco-health-fix'/name
             p.parent.mkdir(exist_ok=True);p.write_text('collector support')
+        for name in ['enablement.yaml', *['fixtures/'+n for n in ('prepare.py','invoke.py','services.py','detector_dns.py','gated_exec.py','npm_session.py')]]:
+            p=self.root/'ttp-composite/coverage'/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text('profile/fixture')
 
     def test_complete_bundle_and_tampering(self):
         original=release.validate(self.root)
@@ -53,3 +55,10 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'falco-health-fix/install.sh'):release.validate(self.root)
 
 if __name__=='__main__':unittest.main()
+
+    def test_missing_linux_fixture_or_enablement_rejected(self):
+        for name in ['enablement.yaml','fixtures/prepare.py','fixtures/invoke.py']:
+            p=self.root/'ttp-composite/coverage'/name
+            data=p.read_bytes();p.unlink()
+            with self.assertRaisesRegex(ValueError,'Missing release files'):release.validate(self.root)
+            p.write_bytes(data)

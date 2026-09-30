@@ -81,5 +81,12 @@ if case=='npm_network_tool':
     # Use the real npm install lifecycle; no registry or network dependencies.
     exe=f'/opt/coverage/{config}/coverage/{case}'
     control=' --control' if len(sys.argv)>3 and sys.argv[3]=='control' else ''
-    (d/'package.json').write_text(json.dumps({'name':'telemetry-lab-fixture','version':'1.0.0','private':True,'scripts':{'install':exe+control}}))
+    (d/'package.json').write_text(json.dumps({'name':'telemetry-lab-fixture','version':'1.0.0','private':True,'scripts':{'install':'exec python3 /opt/lab-fixtures/gated_exec.py '+exe+control}}))
+    os.mkfifo(p/'native-trigger')
+    child=service(['/usr/bin/python3','/opt/lab-fixtures/npm_session.py'])
+    for _ in range(200):
+        if (p/'native-ready').exists():break
+        if child.poll() is not None:raise RuntimeError((p/'npm.stderr').read_text())
+        time.sleep(.05)
+    else:raise RuntimeError('npm lifecycle did not reach native gate')
 print('FIXTURES_READY')
