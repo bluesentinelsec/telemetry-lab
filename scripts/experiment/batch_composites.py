@@ -63,7 +63,8 @@ class LinuxBatch(LinuxComposites):
                     row.update(started_ns=time.time_ns(),executable=exe,native_started=True)
                     write_json(dest/'execution.json',row)
                     try:
-                        run=subprocess.run(['docker','exec',cid,exe]+(['--control'] if case['control'] else []),
+                        argv=(['docker','exec',cid,exe]+(['--control'] if case['control'] else []) if legacy else c.execution_command(cid,slot['config'],case))
+                        run=subprocess.run(argv,
                                            capture_output=True,text=True,timeout=20)
                         row.update(returncode=run.returncode,timed_out=False,stdout=run.stdout,stderr=run.stderr)
                     except subprocess.TimeoutExpired as error:

@@ -1,0 +1,202 @@
+{
+  "identity_change": {
+    "rule": "Non sudo setuid",
+    "kind": "Native operation",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Use a named non-root fixture account and controlled credential/capability setup; perform a predeclared identity transition and verify resulting IDs. Qualification must establish a successful transition satisfying the unchanged predicate.",
+    "condition": "evt.type=setuid and (known_user_in_container or not container) and not (user.name=root or user.uid=0) and not somebody_becoming_themselves and not proc.name in (known_setuid_binaries, userexec_binaries, mail_binaries, docker_binaries, nomachine_binaries) and not proc.name startswith \"runc:\" and not java_running_sdjagent and not nrpe_becoming_nagios and not user_known_non_sudo_setuid_conditions"
+  },
+  "interactive_recon": {
+    "rule": "Basic Interactive Reconnaissance",
+    "kind": "Utility launch",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Launch a real, fixed reconnaissance utility under a pseudo-terminal and the required process-group-leader context; verify output.",
+    "condition": "spawned_process and recon_binaries_procs and proc.tty != 0 and proc.is_vpgid_leader=true"
+  },
+  "netcat_exec": {
+    "rule": "Netcat Remote Code Execution in Container",
+    "kind": "Utility launch",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Launch real ncat with the stock exec argument against an isolated peer; execute only a fixed marker command and verify receipt and child completion.",
+    "condition": "spawned_process and container and ((proc.name = \"nc\" and (proc.cmdline contains \" -e\" or proc.cmdline contains \" -c\")) or (proc.name = \"ncat\" and (proc.args contains \"--sh-exec\" or proc.args contains \"--exec\" or proc.args contains \"-e \" or proc.args contains \"-c \" or proc.args contains \"--lua-exec\")) )"
+  },
+  "bulk_clear": {
+    "rule": "Remove Bulk Data from Disk",
+    "kind": "Utility launch",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Launch a rule-listed clearing utility against an owned disposable file; verify the predeclared change without touching other data.",
+    "condition": "spawned_process and clear_data_procs and not user_known_remove_data_activities"
+  },
+  "ssh_nonstandard": {
+    "rule": "Disallowed SSH Connection Non Standard Port",
+    "kind": "Utility networking",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Launch the real SSH client against a fixture sshd on a stock-listed port; use an isolated non-loopback address satisfying the rule network macros and verify a marker exchange.",
+    "condition": "outbound and proc.exe endswith ssh and fd.l4proto=tcp and ssh_non_standard_ports_network"
+  },
+  "shell_network": {
+    "rule": "System procs network activity",
+    "kind": "Utility networking",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Launch a fixed real shell performing a bounded TCP marker exchange with an isolated non-loopback peer; verify received bytes.",
+    "condition": "inbound_outbound and fd.sockfamily = ip and (system_procs or proc.name in (shell_binaries)) and not proc.name in (known_system_procs_network_activity_binaries) and not login_doing_dns_lookup and not user_expected_system_procs_network_activity_conditions"
+  },
+  "proxy_environment": {
+    "rule": "Program run with disallowed http proxy env",
+    "kind": "Utility networking",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Launch a real curl/wget client with a fixed HTTP_PROXY value and an isolated HTTP fixture; verify the operation separately from the process/environment predicate.",
+    "condition": "spawned_process and http_proxy_procs and proc.env icontains HTTP_PROXY and not allowed_ssh_proxy_env"
+  },
+  "network_tool": {
+    "rule": "Launch Suspicious Network Tool in Container",
+    "kind": "Utility networking",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Launch a real rule-listed networking tool to exchange marker bytes with an isolated peer.",
+    "condition": "spawned_process and container and network_tool_procs and not user_known_network_tool_activities"
+  },
+  "remote_copy": {
+    "rule": "Launch Remote File Copy Tools in Container",
+    "kind": "Utility networking",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Launch a real rule-listed transfer utility against an isolated fixture service; verify transferred content.",
+    "condition": "spawned_process and container and remote_file_copy_procs and not user_known_remote_file_copy_activities"
+  },
+  "ingress_copy": {
+    "rule": "Launch Ingress Remote File Copy Tools in Container",
+    "kind": "Utility networking",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Launch a real download utility with the stock download arguments and verify bytes written from an isolated HTTP fixture.",
+    "condition": "spawned_process and container and (ingress_remote_file_copy_procs or curl_download) and not user_known_ingress_remote_file_copy_activities"
+  },
+  "privileged_mount": {
+    "rule": "Mount Launched in Privileged Container",
+    "kind": "Utility with privileged fixture",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Launch the real mount utility for a private container-owned fixture mount; verify its mount entry. Privileged status is fixed for active/control and all configurations; never mount host resources.",
+    "condition": "spawned_process and container and container.privileged=true and proc.name=mount and not mount_info and not known_gke_mount_in_privileged_containers and not known_aks_mount_in_privileged_containers and not known_eks_mount_in_privileged_containers and not user_known_mount_in_privileged_containers"
+  },
+  "privileged_debugfs": {
+    "rule": "Debugfs Launched in Privileged Container",
+    "kind": "Utility with privileged fixture",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Launch real debugfs in read-only mode against a generated filesystem-image fixture; verify output. Use the identical privileged-container context for all configurations and controls.",
+    "condition": "spawned_process and container and container.privileged=true and proc.name=debugfs"
+  },
+  "k8s_client": {
+    "rule": "Kubernetes Client Tool Launched in Container",
+    "kind": "Utility launch",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Launch a pinned real kubectl client for a local client-only version operation and verify output. This qualifies the tool-launch predicate, not Kubernetes API activity.",
+    "condition": "spawned_process and container and not user_known_k8s_client_container_parens and proc.name in (k8s_client_binaries)"
+  },
+  "protected_shell": {
+    "rule": "Run shell untrusted",
+    "kind": "Application ancestry",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "A real isolated web server launches the native composite as a CGI executable; the composite launches a fixed shell marker command. Verify actual protected ancestry and rule exclusions.",
+    "condition": "spawned_process and shell_procs and proc.pname exists and protected_shell_spawner and not proc.pname in (shell_binaries, gitlab_binaries, cron_binaries, user_known_shell_spawn_binaries, needrestart_binaries, mesos_shell_binaries, erl_child_setup, exechealthz, PM2, PassengerWatchd, c_rehash, svlogd, logrotate, hhvm, serf, lb-controller, nvidia-installe, runsv, statsite, erlexec, calico-node, \"puma reactor\") and not proc.cmdline in (known_shell_spawn_cmdlines) and not proc.aname in (unicorn_launche) and not consul_running_net_scripts and not consul_running_alert_checks and not nginx_starting_nginx and not nginx_running_aws_s3_cp and not run_by_package_mgmt_binaries and not serf_script and not check_process_status and not run_by_foreman and not python_mesos_marathon_scripting and not splunk_running_forwarder and not postgres_running_wal_e and not postgres_running_cnpg and not redis_running_prepost_scripts and not rabbitmq_running_scripts and not rabbitmqctl_running_scripts and not run_by_appdynamics and not user_shell_container_exclusions"
+  },
+  "web_shell": {
+    "rule": "Web Server Spawned Shell",
+    "kind": "Application ancestry",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Under the same real web-server/CGI fixture, launch a fixed shell operation from the native program and verify output; retain the distinct exact target rule.",
+    "condition": "spawned_process and spawned_by_web_server and proc.name in (shell_binaries) and not proc.cmdline startswith \"sh -c /usr/bin\" and not proc.cmdline contains \"healthcheck\" and not user_known_web_server_shell_activities"
+  },
+  "web_child": {
+    "rule": "Web Server Spawned Suspicious Child Process",
+    "kind": "Application ancestry",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Under a real web-server/CGI fixture, launch a rule-listed non-shell child for a bounded local operation; verify its result.",
+    "condition": "spawned_process and spawned_by_web_server and proc.name in (suspicious_web_children) and not proc.name in (shell_binaries) and not proc.cmdline contains \"healthcheck\" and not proc.cmdline contains \"status\" and not user_known_web_server_child_activities"
+  },
+  "web_reverse_shell": {
+    "rule": "Reverse Shell from Web Server",
+    "kind": "Application ancestry",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Under a real web-server/CGI fixture, launch the fixed shell with a matching command form and return a marker over an isolated connection. Hold helper bytes and arguments constant across configurations.",
+    "condition": "spawned_process and spawned_by_web_server and (proc.cmdline contains \"/dev/tcp/\" or proc.cmdline contains \"nc -e\" or proc.cmdline contains \"ncat -e\" or proc.cmdline contains \"bash -i\" or proc.cmdline contains \"python -c 'import socket\" or proc.cmdline contains \"python3 -c 'import socket\" or proc.cmdline contains \"perl -e 'use Socket\" or proc.cmdline contains \"ruby -rsocket\" or (proc.cmdline contains \"mkfifo\" and proc.cmdline contains \"/tmp\"))"
+  },
+  "npm_network_tool": {
+    "rule": "Network Tool Executed During NPM Package Install",
+    "kind": "Application ancestry",
+    "stock_enabled": true,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Use real pinned npm and an entirely local package lifecycle fixture to launch the native composite, which starts a rule-listed tool. Verify ancestry, peer exchange, and clean controls; no package downloads during capture.",
+    "condition": "spawned_process and container and network_tool_procs and npm_package_install_ancestor and not user_known_network_tool_in_npm_install_activities"
+  },
+  "shell_config_read": {
+    "rule": "Read Shell Configuration File",
+    "kind": "Native operation",
+    "stock_enabled": false,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Read a synthetic shell-configuration fixture using each language library and verify exact bytes.",
+    "condition": "open_read and (fd.filename in (shell_config_filenames) or fd.name in (shell_config_files) or fd.directory in (shell_config_directories)) and not proc.name in (shell_binaries)"
+  },
+  "hidden_file": {
+    "rule": "Create Hidden Files or Directories",
+    "kind": "Native operation",
+    "stock_enabled": false,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Create and verify an owned hidden file at a path outside stock exclusions; freeze one operation across configurations.",
+    "condition": "((modify and evt.arg.newpath contains \"/.\") or (mkdir and evt.arg.path contains \"/.\") or (open_write and evt.arg.flags contains \"O_CREAT\" and fd.name contains \"/.\" and not fd.name pmatch (exclude_hidden_directories))) and not user_known_create_hidden_file_activities and not exe_running_docker_save"
+  },
+  "executable_chmod": {
+    "rule": "Container Drift Detected (chmod)",
+    "kind": "Native operation",
+    "stock_enabled": false,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Add executable permission to an owned inert file and verify mode; do not execute it.",
+    "condition": "chmod and container and evt.rawres>=0 and ((evt.arg.mode contains \"S_IXUSR\") or (evt.arg.mode contains \"S_IXGRP\") or (evt.arg.mode contains \"S_IXOTH\")) and not runc_writing_exec_fifo and not runc_writing_var_lib_docker and not user_known_container_drift_activities"
+  },
+  "executable_create": {
+    "rule": "Container Drift Detected (open+create)",
+    "kind": "Native operation",
+    "stock_enabled": false,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Create an owned inert file with executable mode in the initial creation operation; verify permissions and the detector event interpretation.",
+    "condition": "evt.type in (open,openat,openat2,creat) and evt.rawres>=0 and evt.is_open_exec=true and container and not runc_writing_exec_fifo and not runc_writing_var_lib_docker and not user_known_container_drift_activities"
+  },
+  "nodeport_exchange": {
+    "rule": "Unexpected K8s NodePort Connection",
+    "kind": "Native networking",
+    "stock_enabled": false,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Exchange bytes on an isolated address at a port in 30000\u201332767, satisfying unchanged network predicates. This tests the port-based rule, not Kubernetes orchestration.",
+    "condition": "inbound_outbound and container and fd.sport >= 30000 and fd.sport <= 32767 and not nodeport_containers"
+  },
+  "miner_port_exchange": {
+    "rule": "Detect outbound connections to common miner pool ports",
+    "kind": "Native networking",
+    "stock_enabled": false,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Exchange bytes at a stock-listed pool port on an isolated non-loopback/non-RFC1918 fixture address; never contact a miner service. Verify stock port/protocol exclusions.",
+    "condition": "net_miner_pool and not trusted_images_query_miner_domain_dns"
+  },
+  "unexpected_inbound": {
+    "rule": "Unexpected inbound connection source",
+    "kind": "Native networking",
+    "stock_enabled": false,
+    "status": "candidate; not implemented or qualified",
+    "behavior": "Accept and verify marker traffic from an isolated fixture address outside the unchanged allowed-source lists; ensure controls skip the listening/accept operation.",
+    "condition": "inbound and not ((fd.cip in (allowed_inbound_source_ipaddrs)) or (fd.cnet in (allowed_inbound_source_networks)) or (fd.cip.name in (allowed_inbound_source_domains)))"
+  }
+}

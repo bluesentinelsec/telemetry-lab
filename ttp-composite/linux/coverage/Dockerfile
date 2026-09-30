@@ -1,7 +1,10 @@
 # The same image is used for all eight C, C++, Go, and Rust configurations.
 FROM lab-substrate:13
-RUN apt-get update && apt-get install -y --no-install-recommends iproute2 libstdc++6 grep coreutils dpkg util-linux \
+RUN apt-get update && apt-get install -y --no-install-recommends iproute2 libstdc++6 grep coreutils dpkg util-linux python3 ncat openssh-client openssh-server curl rsync e2fsprogs docker.io apache2 nodejs npm \
     && rm -rf /var/lib/apt/lists/*
+RUN useradd --uid 2000 --no-create-home --shell /bin/sh labfixture
+COPY fixtures /opt/lab-fixtures
+ENV PYTHONDONTWRITEBYTECODE=1
 COPY linux-c-glibc /opt/coverage/linux-c-glibc
 COPY linux-c-musl /opt/coverage/linux-c-musl
 COPY helper /opt/coverage/helper

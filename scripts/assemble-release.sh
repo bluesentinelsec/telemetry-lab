@@ -100,6 +100,8 @@ assemble() {
     cp ttp-composite/linux/coverage/manifest.json "$root/ttp-composite/coverage/"
     cp ttp-composite/linux/coverage/run.py ttp-composite/linux/coverage/validate_manifest.py ttp-composite/linux/coverage/setup-detector.sh ttp-composite/linux/coverage/Dockerfile "$root/ttp-composite/coverage/"
     cp -R ttp-composite/linux/coverage/falco-health-fix "$root/ttp-composite/coverage/"
+    cp ttp-composite/linux/coverage/enablement.yaml "$root/ttp-composite/coverage/"
+    cp -R ttp-composite/linux/coverage/fixtures "$root/ttp-composite/coverage/"
     cp -R ttp-composite/linux/coverage/rules "$root/ttp-composite/coverage/"
   fi
   if [ "$os" = windows ]; then

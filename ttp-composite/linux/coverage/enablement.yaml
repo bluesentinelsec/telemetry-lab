@@ -1,0 +1,15 @@
+# Explicit evaluation profile; upstream conditions and files remain unchanged.
+- rule: "Read Shell Configuration File"
+  enabled: true
+- rule: "Create Hidden Files or Directories"
+  enabled: true
+- rule: "Container Drift Detected (chmod)"
+  enabled: true
+- rule: "Container Drift Detected (open+create)"
+  enabled: true
+- rule: "Unexpected K8s NodePort Connection"
+  enabled: true
+- rule: "Detect outbound connections to common miner pool ports"
+  enabled: true
+- rule: "Unexpected inbound connection source"
+  enabled: true

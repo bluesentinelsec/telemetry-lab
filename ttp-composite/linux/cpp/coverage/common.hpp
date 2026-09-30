@@ -44,6 +44,7 @@ static inline int fixture_begin(int argc, char **argv, const char *id) {
     CHECK(flag && !strcmp(flag,"1"));
     CHECK(argc == 1 || (argc == 2 && !strcmp(argv[1],"--control")));
     alarm(10);
+    if (getenv("GATEWAY_INTERFACE")) { printf("Content-Type: text/plain\r\n\r\n"); fflush(stdout); }
     // Match the C fixture permissions for standard-library file/directory creation.
     umask(0077);
     if (argc == 2) { std::cout << "CONTROL_OK " << id << "\n"; return 0; }
