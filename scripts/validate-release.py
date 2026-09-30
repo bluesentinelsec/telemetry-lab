@@ -20,6 +20,8 @@ def validate(root):
     else:
         cases = [c['id'] for c in json.loads((coverage / 'manifest.json').read_text())['cases']]
         cases += ['negative', 'fixture_prepare']
+        required += ['ttp-composite/coverage/enablement.yaml']
+        required += [f'ttp-composite/coverage/fixtures/{name}' for name in ('prepare.py','invoke.py','services.py','detector_dns.py','gated_exec.py','npm_session.py')]
         required += [f'ttp-composite/coverage/falco-health-fix/{name}' for name in
                      ('install.sh', 'preserve-partial-enter.patch', 'regression.cpp')]
     for config in manifest['composite_configs']:

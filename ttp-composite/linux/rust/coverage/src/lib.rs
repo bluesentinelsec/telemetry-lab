@@ -27,6 +27,7 @@ pub fn begin(id: &str) -> bool {
     unsafe {
         libc::alarm(10);
     }
+    if std::env::var_os("GATEWAY_INTERFACE").is_some() { print!("Content-Type: text/plain\r\n\r\n"); std::io::stdout().flush().unwrap(); }
     if args.len() == 2 {
         println!("CONTROL_OK {id}");
         false

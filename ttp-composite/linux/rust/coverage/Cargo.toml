@@ -182,3 +182,103 @@ path = "package_manager_query/main.rs"
 [[bin]]
 name = "coverage_glibc_tunable_child"
 path = "glibc_tunable_child/main.rs"
+
+[[bin]]
+name = "coverage_identity_change"
+path = "identity_change/main.rs"
+
+[[bin]]
+name = "coverage_interactive_recon"
+path = "interactive_recon/main.rs"
+
+[[bin]]
+name = "coverage_netcat_exec"
+path = "netcat_exec/main.rs"
+
+[[bin]]
+name = "coverage_bulk_clear"
+path = "bulk_clear/main.rs"
+
+[[bin]]
+name = "coverage_ssh_nonstandard"
+path = "ssh_nonstandard/main.rs"
+
+[[bin]]
+name = "coverage_shell_network"
+path = "shell_network/main.rs"
+
+[[bin]]
+name = "coverage_proxy_environment"
+path = "proxy_environment/main.rs"
+
+[[bin]]
+name = "coverage_network_tool"
+path = "network_tool/main.rs"
+
+[[bin]]
+name = "coverage_remote_copy"
+path = "remote_copy/main.rs"
+
+[[bin]]
+name = "coverage_ingress_copy"
+path = "ingress_copy/main.rs"
+
+[[bin]]
+name = "coverage_privileged_mount"
+path = "privileged_mount/main.rs"
+
+[[bin]]
+name = "coverage_privileged_debugfs"
+path = "privileged_debugfs/main.rs"
+
+[[bin]]
+name = "coverage_k8s_client"
+path = "k8s_client/main.rs"
+
+[[bin]]
+name = "coverage_protected_shell"
+path = "protected_shell/main.rs"
+
+[[bin]]
+name = "coverage_web_shell"
+path = "web_shell/main.rs"
+
+[[bin]]
+name = "coverage_web_child"
+path = "web_child/main.rs"
+
+[[bin]]
+name = "coverage_web_reverse_shell"
+path = "web_reverse_shell/main.rs"
+
+[[bin]]
+name = "coverage_npm_network_tool"
+path = "npm_network_tool/main.rs"
+
+[[bin]]
+name = "coverage_shell_config_read"
+path = "shell_config_read/main.rs"
+
+[[bin]]
+name = "coverage_hidden_file"
+path = "hidden_file/main.rs"
+
+[[bin]]
+name = "coverage_executable_chmod"
+path = "executable_chmod/main.rs"
+
+[[bin]]
+name = "coverage_executable_create"
+path = "executable_create/main.rs"
+
+[[bin]]
+name = "coverage_nodeport_exchange"
+path = "nodeport_exchange/main.rs"
+
+[[bin]]
+name = "coverage_miner_port_exchange"
+path = "miner_port_exchange/main.rs"
+
+[[bin]]
+name = "coverage_unexpected_inbound"
+path = "unexpected_inbound/main.rs"

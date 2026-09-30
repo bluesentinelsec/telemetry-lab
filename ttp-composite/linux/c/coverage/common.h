@@ -38,6 +38,7 @@ static inline int fixture_begin(int argc, char **argv, const char *id) {
     CHECK(flag && !strcmp(flag,"1"));
     CHECK(argc == 1 || (argc == 2 && !strcmp(argv[1],"--control")));
     alarm(10);
+    if (getenv("GATEWAY_INTERFACE")) { printf("Content-Type: text/plain\r\n\r\n"); fflush(stdout); }
     if (argc == 2) { printf("CONTROL_OK %s\n",id); return 0; }
     return 1;
 }

@@ -1,6 +1,6 @@
 # ttp-composite
 
-The expanded [Linux coverage suite](linux/coverage/README.md) implements 42
+The expanded [Linux coverage suite](linux/coverage/README.md) implements 67
 standalone programs per configuration in C, C++, Go, and Rust, mapped to a
 pinned 95-rule Falco corpus. The [Windows coverage suite](windows/coverage/README.md)
 implements 52 standalone programs per configuration in those same four
