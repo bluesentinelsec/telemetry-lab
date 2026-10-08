@@ -13,7 +13,7 @@ package main
 //
 // Sockets are libc calls under cgo, so the cgo/static split is the axis under
 // measurement; the anchor lives in anchor_cgo.go.
-// Linux-only for this pass (Winsock on Windows -- issue #44).
+// Built on both Linux and Windows.
 
 import (
 	"io"

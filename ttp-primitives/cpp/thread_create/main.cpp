@@ -9,7 +9,7 @@
 // (unlike the compute-only `empty`). On Linux std::thread is implemented over
 // pthreads in libc, so the substrate (glibc vs musl) still varies underneath.
 //
-// Linux-only for this pass (portable via std::thread on Windows -- issue #44).
+// Built on both Linux and Windows.
 #include <thread>
 
 int main() {

@@ -1,5 +1,7 @@
 # Dissertation Reframe: Why Emission Still Matters When Detections Are Robust
 
+Historical working notes preserved during integration. These framing arguments and early numerical claims are not the authoritative experiment scope or confirmed results; use the versioned qualification records and study protocols for those.
+
 Second-opinion notes on impact, proposal/defense risk, and how to frame the substrate → telemetry → detection work when shipped rules mostly do not flip.
 
 ---
@@ -95,22 +97,22 @@ Stealth/noise ranking is real but **secondary**, and leading with it weakens a d
 
 **Primary impact (what matters if detections are robust):**
 
-1. **Foundational measurement for detection engineering**  
+1. **Foundational measurement for detection engineering**
    First controlled isolation of substrate as IV with functional equivalence held fixed. The field has been building on an unmeasured assumption.
 
-2. **Feature hygiene for rule authors**  
+2. **Feature hygiene for rule authors**
    Stable vs implementation-dependent telemetry is directly actionable: “detect the effect, not the runtime.”
 
-3. **Boundary condition on behavioral detection theory**  
+3. **Boundary condition on behavioral detection theory**
    ATT&CK/Pyramid treat telemetry as behavior proxy; you show the proxy is **noisy** but many shipped analytics are **robust to that noise** — until they key on mechanism.
 
-4. **Validation methodology**  
+4. **Validation methodology**
    When multi-runtime testing is mandatory vs wasteful. Saves defender effort *and* catches the rare fragile class.
 
-5. **Interpretation of research/datasets**  
+5. **Interpretation of research/datasets**
    Malware and emulation studies that mix languages without controlling substrate are confounded. You give a confound magnitude (volume, Jaccard, init fraction).
 
-6. **Cloud-native realism**  
+6. **Cloud-native realism**
    Static Go, musl/Alpine, mixed C++ ABIs are not exotic — they *are* the modern host. Measuring them is not toy work.
 
 **Secondary impact:** offensive awareness of noisy vs quiet runtimes; mechanism-keyed blind spots.
@@ -133,7 +135,7 @@ Your Ch1 purpose is already:
 
 That is a complete, defensible dissertation aim. Detection flip is **motivation and optional downstream probe**, not the pass/fail criterion you owe the committee.
 
-Risk at proposal: overselling “we will show detections break across languages.”  
+Risk at proposal: overselling “we will show detections break across languages.”
 Fix: sell **measurement of the behavior↔telemetry assumption**, with detection outcomes as a *conditional secondary probe* (decoupling + boundary).
 
 ### Dissertation defense
@@ -188,16 +190,16 @@ Add **one** soft detection metric if you can (evidence volume / field completene
 
 ## Direct answers to the “so what?” spiral
 
-**“What about my research matters if detection outcomes are robust?”**  
+**“What about my research matters if detection outcomes are robust?”**
 It matters because robustness was **unproven**, is **conditional**, and rests on **which telemetry features rules use** — and you are measuring those features. Robustness without that map is luck; with your map it is engineering.
 
-**“I proved emissions differ — so what?”**  
+**“I proved emissions differ — so what?”**
 Because detection, emulation, research, and baselining all consume emissions. Same alert on different evidence is not “nothing happened.” And the field’s core abstraction (behavior → telemetry → detection) is only as strong as the middle term.
 
-**“Only value is which runtime is noisier (stealth)?”**  
+**“Only value is which runtime is noisier (stealth)?”**
 No. That is the **narrowest** use. The stronger uses are invariant feature selection, validation methodology, confound control, and the decoupling/boundary result.
 
-**“Seems weak.”**  
+**“Seems weak.”**
 It seems weak only if the only acceptable impact is **alert flips**. That is an attacker-centric scoreboard. Your dissertation is (and should stay) **detection-engineering science**: how observation works. On that scoreboard, emission + decoupling + boundary is adequate — if you **own that framing** in the proposal and never apologize for not being a catalog of evasions.
 
 ---
