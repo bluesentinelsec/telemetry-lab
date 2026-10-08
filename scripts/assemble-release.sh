@@ -19,12 +19,12 @@ BUILD_TIME="${BUILD_TIME:-unknown}"
 LINUX_CONFIGS="linux-c-glibc linux-c-musl linux-cpp-libstdcxx linux-cpp-libcxx linux-go-cgo linux-go-static linux-rust-gnu linux-rust-musl"
 WIN_CONFIGS="windows-c-ucrt windows-c-msvcrt windows-cpp-libstdcxx windows-cpp-libcxx windows-go-cgo windows-go-static"
 
-# Primitive rosters differ by OS: the 10 process/threading/network/memory/IPC
-# primitives are Linux-first (issue #44 tracks Windows parity), so Windows still
-# ships only the three cross-platform primitives. The names drive both the copy
+# Primitive rosters differ by OS by exactly one entry:
+# process_exec is the only Linux-only primitive (execve has no Windows analogue,
+# issue #44); every other primitive is built on both OSes. The names drive both the copy
 # glob and the manifest, so a new primitive is added in exactly one place here.
 LINUX_PRIMS="empty file_io spawn process_exec process_enumeration thread_create directory_enumeration memory_allocate pipe_ipc tcp_client tcp_server dns_lookup http_client"
-WIN_PRIMS="empty file_io spawn"
+WIN_PRIMS="empty file_io spawn process_enumeration thread_create directory_enumeration memory_allocate pipe_ipc tcp_client tcp_server dns_lookup http_client"
 
 # Composite rosters (multi-step ATT&CK techniques) also differ by OS. Like the
 # primitive rosters, these names drive both the copy glob and the manifest, so a
