@@ -9,7 +9,9 @@ param(
   [switch]$BehaviorOnly,
   [string]$PlanFile = '',
   [switch]$ReturnBehaviorFailures,
-  [ValidateSet('active','control')][string[]]$Modes = @('control','active')
+  [ValidateSet('active','control')][string[]]$Modes = @('control','active'),
+  [int]$Seed = -1,
+  [string]$SkipAttemptsFrom = ''
 )
 $lock = [Threading.Mutex]::new($false, 'Global\TelemetryLabWindowsQualification')
 if (!$lock.WaitOne(0)) { $lock.Dispose(); throw 'Another Windows qualification run is active' }
@@ -21,6 +23,13 @@ $selection = Get-Content "$PSScriptRoot\selection.json" -Raw -Encoding UTF8 | Co
 $build = Get-Content "$Programs\build-manifest.json" -Raw -Encoding UTF8 | ConvertFrom-Json
 $allCases = @($selection.candidates | Where-Object { (!$Cases.Count -or $_.case_id -in $Cases) -and ($IncludeNetwork -or $_.family -notin @('Network','DNS')) })
 if (!$allCases.Count) { throw 'No selected cases' }
+# Explicit plans retain their order; seeded pilot runs shuffle cases and modes.
+if($PlanFile -and $Seed -ge 0){throw 'PlanFile and Seed are mutually exclusive'}
+$rng=$null
+if($Seed -ge 0) {
+  $rng=[Random]::new($Seed)
+  for($i=$allCases.Count-1;$i -gt 0;$i--){$j=$rng.Next($i+1);$tmp=$allCases[$i];$allCases[$i]=$allCases[$j];$allCases[$j]=$tmp}
+}
 if (!$Modes.Count -or @($Modes | Select-Object -Unique).Count -ne $Modes.Count) { throw 'Select unique nonempty modes' }
 $nativePlan=@()
 if($PlanFile) {
@@ -33,13 +42,30 @@ if($PlanFile) {
     if($slot.case_id -notin $allCases.case_id -or $slot.mode -notin @('active','control')){throw 'Unknown native plan slot'}
   }
 } else {
-  foreach($case in $allCases){foreach($mode in $Modes){$nativePlan+=@{case_id=$case.case_id;mode=$mode}}}
+  foreach($case in $allCases){
+    $caseModes=@($Modes)
+    if($rng -and $caseModes.Count -eq 2 -and $rng.Next(2) -eq 1){[array]::Reverse($caseModes)}
+    foreach($mode in $caseModes){$nativePlan+=@{case_id=$case.case_id;mode=$mode}}
+  }
 }
 
 if (Test-Path $Output) { throw 'Evidence directory already exists; retain previous attempts and use a new directory' }
 New-Item -ItemType Directory -Path $Output -Force | Out-Null
 $Output = (Resolve-Path $Output).Path
 $Programs = (Resolve-Path $Programs).Path
+$skipAttempts=@{};$priorAttemptsHash=$null
+if($SkipAttemptsFrom) {
+  $prior=Get-Content -LiteralPath $SkipAttemptsFrom -Raw | ConvertFrom-Json
+  foreach($attempt in @($prior)) {
+    if($null -eq $attempt){continue}
+    if(!@($nativePlan | Where-Object {$_.case_id -eq $attempt.case_id -and $_.mode -eq $attempt.mode}).Count){throw 'Invalid prior attempt identity'}
+    $key="$($attempt.case_id)|$($attempt.mode)"
+    if($skipAttempts.ContainsKey($key)){throw 'Duplicate prior attempt identity'}
+    $skipAttempts[$key]=$true
+  }
+  $priorAttemptsHash=(Get-FileHash -LiteralPath $SkipAttemptsFrom).Hash.ToLower()
+  Copy-Item -LiteralPath $SkipAttemptsFrom -Destination "$Output\prior-attempts.json"
+}
 $env:TELEMETRY_LAB_FIXTURE = '1'
 $attempts = [Collections.Generic.List[object]]::new()
 $changes = [Collections.Generic.List[object]]::new()
@@ -49,22 +75,21 @@ function Ensure-Directory([string]$path) {
   if (!(Test-Path $path)) { New-Item -ItemType Directory -Path $path -Force | Out-Null; $createdDirs.Add($path) }
 }
 function Remove-OwnedFile([string]$path) {
-  # A sensor can still hold the image briefly after the measured process exits.
-  # Windows can report a mapped image as access denied, not a sharing violation.
-  # Retry only cleanup of harness-owned files; never extend the measured lifetime.
-  for($retry=0;$retry -le 50;$retry++) {
-    try {
-      Remove-Item -LiteralPath $path -Force -ErrorAction Stop
+  # Verify the cleanup postcondition: a sensor can delay or veto deletion
+  # without Remove-Item raising an exception. Only harness-owned paths enter here.
+  $lastError='File still exists after deletion request'
+  for($retry=0;$retry -le 100;$retry++) {
+    if (!(Test-Path -LiteralPath $path)) { return }
+    try { Remove-Item -LiteralPath $path -Force -ErrorAction Stop }
+    catch [System.IO.IOException], [System.UnauthorizedAccessException] { $lastError=$_.Exception.Message }
+    if (!(Test-Path -LiteralPath $path)) {
       if($retry){@{path=$path;retries=$retry;removed=$true} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"}
       return
-    } catch [System.IO.IOException], [System.UnauthorizedAccessException] {
-      if($retry -eq 50){
-        @{path=$path;retries=$retry;removed=$false;error=$_.Exception.Message} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"
-        throw
-      }
-      Start-Sleep -Milliseconds 100
     }
+    if($retry -lt 100){Start-Sleep -Milliseconds 100}
   }
+  @{path=$path;retries=100;removed=$false;error=$lastError} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"
+  throw "Cleanup postcondition failed for ${path}: $lastError"
 }
 function Save-RegistryValue([string]$path,[string]$name) {
   $key=[Microsoft.Win32.Registry]::CurrentUser.OpenSubKey($path,$true)
@@ -149,7 +174,9 @@ if (!$BehaviorOnly) {
     if ((Get-FileHash $path).Hash.ToLower() -ne $entry.sha256) {throw "Rule hash differs: $($entry.path)"}
   }
 }
-@{cases=@($allCases.case_id);runtime=$build.runtime;modes=$Modes;expected_attempts=$nativePlan.Count;slots=@($nativePlan | ForEach-Object {@{case_id=$_.case_id;mode=$_.mode}})} | ConvertTo-Json -Depth 8 | Set-Content "$Output\run-plan.json" -Encoding UTF8
+$runPlan=@{cases=@($allCases.case_id);runtime=$build.runtime;modes=$Modes;seed=$Seed;expected_attempts=$nativePlan.Count-$skipAttempts.Count;slots=@($nativePlan | ForEach-Object {@{case_id=$_.case_id;mode=$_.mode}})}
+if($SkipAttemptsFrom){$runPlan.prior_attempts_sha256=$priorAttemptsHash}
+$runPlan | ConvertTo-Json -Depth 8 | Set-Content "$Output\run-plan.json" -Encoding UTF8
 $executionError=$null
 try {
   foreach($dir in @($root,"$root\run","$root\work","$root\fixtures",'C:\Users\Public\telemetry-lab')) {Ensure-Directory $dir}
@@ -180,6 +207,7 @@ try {
     $manifest=@($build.programs | Where-Object {$_.case_id -eq $id})
     if ($manifest.Count -ne 1 -or (Get-FileHash $source).Hash.ToLower() -ne $manifest[0].sha256) {throw "Artifact mismatch $id"}
     foreach($mode in @($slot.mode)) {
+      if($skipAttempts.ContainsKey("${id}|${mode}")){continue}
       $folder=Join-Path $Output "$id-$mode"; New-Item -ItemType Directory $folder | Out-Null
       $targetOwned=$false;$runmruOwned=$false;$zoneCarrierOwned=$false
       $target=$files[$id];$exe="$root\run\probe.exe"

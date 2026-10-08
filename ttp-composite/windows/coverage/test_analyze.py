@@ -1,11 +1,29 @@
 import copy
 import unittest
 import json
+import hashlib
 import tempfile
 import subprocess
 import sys
 from pathlib import Path
-from analyze import evaluate, analyze
+from analyze import evaluate, analyze, planned_slots
+
+class ResumptionPlanTests(unittest.TestCase):
+    def test_only_unexecuted_modes_remain(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p=Path(tmp);raw=json.dumps([dict(case_id='a',mode='active',valid=False)]).encode()
+            (p/'prior-attempts.json').write_bytes(raw)
+            plan=dict(cases=['a','b'],expected_attempts=3,prior_attempts_sha256=hashlib.sha256(raw).hexdigest())
+            self.assertEqual(planned_slots(p,plan),{('a','control'),('b','active'),('b','control')})
+            (p/'prior-attempts.json').write_text('[]')
+            with self.assertRaisesRegex(ValueError,'digest mismatch'):planned_slots(p,plan)
+    def test_duplicates_and_invented_prior_slots_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p=Path(tmp)
+            for prior in [[dict(case_id='a',mode='active')]*2,[dict(case_id='other',mode='active')]]:
+                raw=json.dumps(prior).encode();(p/'prior-attempts.json').write_bytes(raw)
+                with self.assertRaisesRegex(ValueError,'prior-attempt identity'):
+                    planned_slots(p,dict(cases=['a'],expected_attempts=1,prior_attempts_sha256=hashlib.sha256(raw).hexdigest()))
 
 class AttributionTests(unittest.TestCase):
     def setUp(self):

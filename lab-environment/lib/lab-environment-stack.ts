@@ -58,6 +58,9 @@ export interface LabEnvironmentStackProps extends cdk.StackProps {
   readonly windowsOnly?: boolean;
   /** Root volume size in GiB for both hosts. Default: 150. */
   readonly diskGiB?: number;
+  /** Optional frozen Debian AMI for replication studies. */
+  readonly debianAmiId?: string;
+  readonly availabilityZones?: string[];
 }
 
 /**
@@ -83,6 +86,8 @@ export interface LabEnvironmentStackProps extends cdk.StackProps {
 export class LabEnvironmentStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: LabEnvironmentStackProps = {}) {
     super(scope, id, props);
+    // IMDSv2 templates are added during synthesis; use CDK's stack-unique names.
+    this.node.setContext('@aws-cdk/aws-ec2:uniqueImdsv2TemplateName', true);
 
     if (props.linuxOnly && props.windowsOnly) throw new Error('linuxOnly and windowsOnly are mutually exclusive');
     const hostPairs = props.hostPairs ?? 1;
@@ -112,7 +117,7 @@ export class LabEnvironmentStack extends cdk.Stack {
     // created and destroyed with the stack, so `cdk destroy` leaves nothing
     // behind, and it never depends on the account's default VPC existing.
     const vpc = new ec2.Vpc(this, 'LabVpc', {
-      maxAzs: 2,
+      ...(props.availabilityZones ? { availabilityZones: props.availabilityZones } : { maxAzs: 2 }),
       natGateways: 0,
       subnetConfiguration: [
         { name: 'public', subnetType: ec2.SubnetType.PUBLIC, cidrMask: 24 },
@@ -148,7 +153,7 @@ export class LabEnvironmentStack extends cdk.Stack {
       // First-boot package updates can hold dpkg while user data installs tools.
       `echo 'DPkg::Lock::Timeout "600";' > /etc/apt/apt.conf.d/99-telemetry-lab-lock`,
       'apt-get update -y',
-      'apt-get install -y curl',
+      'apt-get -o DPkg::Lock::Timeout=600 install -y curl',
       `curl -fsSL -o /tmp/amazon-ssm-agent.deb "https://s3.${this.region}.amazonaws.com/amazon-ssm-${this.region}/latest/debian_amd64/amazon-ssm-agent.deb"`,
       'dpkg -i /tmp/amazon-ssm-agent.deb',
       'systemctl enable --now amazon-ssm-agent',
@@ -157,7 +162,7 @@ export class LabEnvironmentStack extends cdk.Stack {
       // the musl loader (linux-c-musl); `libc++1 libc++abi1 libunwind8` supply
       // the LLVM C++ runtime (linux-cpp-libcxx). libelf1/zlib1g/libzstd1 are
       // tmon's dynamic deps. awscli + tar/gzip/xz stage bundles and move data.
-      'apt-get install -y --no-install-recommends ' +
+      'apt-get -o DPkg::Lock::Timeout=600 install -y --no-install-recommends ' +
         'musl libc++1 libc++abi1 libunwind8 ' +
         'libelf1 zlib1g libzstd1 ' +
         'awscli tar gzip xz-utils ca-certificates',
@@ -169,7 +174,7 @@ export class LabEnvironmentStack extends cdk.Stack {
       // the exact installed version + binary/rule hashes per deploy.
       // `gnupg` is required to dearmor the repo key and is absent on the minimal
       // Debian AMI. The modern eBPF driver needs no kernel module (kernel BTF).
-      'apt-get install -y gnupg',
+      'apt-get -o DPkg::Lock::Timeout=600 install -y gnupg',
       'curl -fsSL https://falco.org/repo/falcosecurity-packages.asc ' +
         '| gpg --dearmor -o /usr/share/keyrings/falco-archive-keyring.gpg',
       'echo "deb [signed-by=/usr/share/keyrings/falco-archive-keyring.gpg] ' +
@@ -177,7 +182,7 @@ export class LabEnvironmentStack extends cdk.Stack {
         '> /etc/apt/sources.list.d/falcosecurity.list',
       'apt-get update -y',
       'FALCO_FRONTEND=noninteractive FALCO_DRIVER_CHOICE=modern_ebpf ' +
-        'apt-get install -y falco',
+        'apt-get -o DPkg::Lock::Timeout=600 install -y falco',
       // Pull the incubating + sandbox rule feeds too (same corpus as the PoC);
       // non-fatal so a feed hiccup never blocks the deploy.
       'falcoctl index update falcosecurity || true',
@@ -214,7 +219,7 @@ export class LabEnvironmentStack extends cdk.Stack {
       // offset, not a per-substrate variable. Falco's container plugin (installed
       // above) enriches events with container context so container-scoped rules
       // fire. inventory records the Docker version + base-image digest.
-      'apt-get install -y docker.io',
+      'apt-get -o DPkg::Lock::Timeout=600 install -y docker.io',
       'systemctl enable --now docker',
       'mkdir -p /opt/lab/base-image',
       `echo ${SUBSTRATE_DOCKERFILE_B64} | base64 -d > /opt/lab/base-image/Dockerfile`,
@@ -237,9 +242,9 @@ export class LabEnvironmentStack extends cdk.Stack {
     if (!props.windowsOnly) {
       const debian = new ec2.Instance(this, 'DebianHost' + suffix, {
         vpc,
-        vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
+        vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC, availabilityZones: [vpc.availabilityZones[(pair - 1) % vpc.availabilityZones.length]] },
         instanceType: new ec2.InstanceType(instanceType),
-        machineImage: ec2.MachineImage.lookup({
+        machineImage: props.debianAmiId ? ec2.MachineImage.genericLinux({ [this.region]: props.debianAmiId }) : ec2.MachineImage.lookup({
           name: 'debian-13-amd64-*',
           owners: [DEBIAN_AMI_OWNER],
           filters: {
@@ -258,6 +263,7 @@ export class LabEnvironmentStack extends cdk.Stack {
 
       hosts.push(debian);
       new cdk.CfnOutput(this, 'DebianInstanceId' + suffix, { value: debian.instanceId });
+      if (index > 1) new cdk.CfnOutput(this, 'DebianInstanceIdPair' + suffix, { value: debian.instanceId });
     }
     if (!props.linuxOnly) {
       // Windows provisioning, in order:
@@ -344,7 +350,7 @@ export class LabEnvironmentStack extends cdk.Stack {
       // parameter at deploy time, so it is region-correct and always current.
       const windows = new ec2.Instance(this, 'WindowsHost' + suffix, {
         vpc,
-        vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
+        vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC, availabilityZones: [vpc.availabilityZones[(pair - 1) % vpc.availabilityZones.length]] },
         instanceType: new ec2.InstanceType(instanceType),
         machineImage: ec2.MachineImage.fromSsmParameter(WINDOWS_2025_SSM_PARAM, {
           os: ec2.OperatingSystemType.WINDOWS,
@@ -357,9 +363,11 @@ export class LabEnvironmentStack extends cdk.Stack {
       cdk.Tags.of(windows).add('Name', 'lab-windows-2025');
       hosts.push(windows);
       new cdk.CfnOutput(this, 'WindowsInstanceId' + suffix, { value: windows.instanceId });
+      if (index > 1) new cdk.CfnOutput(this, 'WindowsInstanceIdPair' + suffix, { value: windows.instanceId });
     }
 
     }
+
 
     // Grant both hosts the SSM core permissions so Session Manager / RunCommand
     // work explicitly, rather than relying on the account's Default Host

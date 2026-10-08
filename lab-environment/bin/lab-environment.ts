@@ -26,6 +26,8 @@ new LabEnvironmentStack(app, app.node.tryGetContext('stackName') ?? 'LabEnvironm
   // context lookup (which needs account + region at synth time).
   env: { account, region },
   instanceType,
+  debianAmiId: app.node.tryGetContext('debianAmiId'),
+  availabilityZones: app.node.tryGetContext('availabilityZones')?.split(','),
   diskGiB: diskGiBContext !== undefined ? Number(diskGiBContext) : undefined,
   description: 'Telemetry lab: Debian 13 + Windows Server 2025 hosts (disposable)',
 });

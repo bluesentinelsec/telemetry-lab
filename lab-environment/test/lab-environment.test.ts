@@ -147,3 +147,53 @@ test('CDK embeds the stream-safe profile without dropping deletion telemetry', (
   expect(xml).toContain('<FileDeleteDetected onmatch="exclude"/>');
   expect(JSON.stringify(synth().toJSON())).toContain(Buffer.from(xml).toString('base64'));
 });
+
+test('parallel disposable stacks have distinct launch-template names', () => {
+  const app = new cdk.App();
+  const names: string[] = [];
+  const stacks = ['PilotA', 'PilotB'].map(id => new LabEnvironmentStack(app, id, {
+    env: { account: '123456789012', region: 'us-west-2' },
+  }));
+  for (const stack of stacks) {
+    const resources = Template.fromStack(stack).findResources('AWS::EC2::LaunchTemplate');
+    for (const resource of Object.values(resources)) names.push(resource.Properties.LaunchTemplateName);
+  }
+  expect(names).toHaveLength(4);
+  expect(new Set(names).size).toBe(4);
+});
+
+test('replication fleet shares infrastructure and isolates every host', () => {
+  const app = new cdk.App();
+  const stack = new LabEnvironmentStack(app, 'Replication', {
+    env: { account: '123456789012', region: 'us-west-2' }, hostPairs: 10,
+  });
+  const template = Template.fromStack(stack);
+  template.resourceCountIs('AWS::EC2::VPC', 1);
+  template.resourceCountIs('AWS::S3::Bucket', 1);
+  template.resourceCountIs('AWS::EC2::Instance', 20);
+  template.resourceCountIs('AWS::EC2::SecurityGroup', 20);
+  const names = Object.values(template.findResources('AWS::EC2::LaunchTemplate')).map(r => r.Properties.LaunchTemplateName);
+  expect(new Set(names).size).toBe(20);
+  template.hasOutput('WindowsInstanceIdPair10', {});
+  template.hasOutput('DebianInstanceIdPair10', {});
+});
+
+
+test('twenty Linux replication hosts use the frozen AMI and omit Windows', () => {
+  const app = new cdk.App();
+  const stack = new LabEnvironmentStack(app, 'LinuxTwenty', {
+    env: { account: '123456789012', region: 'us-west-2' }, hostPairs: 20,
+    linuxOnly: true, debianAmiId: 'ami-0123456789abcdef0', availabilityZones: ['us-west-2b','us-west-2c'],
+  });
+  const template = Template.fromStack(stack);
+  template.resourceCountIs('AWS::EC2::Instance', 20);
+  template.resourceCountIs('AWS::EC2::VPC', 1);
+  for (const r of Object.values(template.findResources('AWS::EC2::Instance'))) {
+    expect(r.Properties.ImageId).toBe('ami-0123456789abcdef0');
+  }
+  const subnets = Object.values(template.findResources('AWS::EC2::Instance')).map(r => JSON.stringify(r.Properties.SubnetId));
+  expect(new Set(subnets).size).toBe(2);
+  expect(subnets.filter(s => s === subnets[0])).toHaveLength(10);
+  template.hasOutput('DebianInstanceIdPair20', {});
+  expect(JSON.stringify(template.toJSON())).not.toContain('WindowsInstanceId');
+});
