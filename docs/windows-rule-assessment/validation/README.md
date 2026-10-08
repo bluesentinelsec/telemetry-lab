@@ -84,3 +84,7 @@ scope is 56 rules, 13 cataloged behavior families, and 17 permitted event IDs.
 Only the raw-read case adds an event family/ID; the other additions broaden
 argument, stream-content, and library-loading coverage. Permitted event IDs do
 not establish that every alternative event pathway was exercised.
+
+After archive verification, the disposable CDK stack was destroyed and the
+Windows instance was confirmed terminated. Teardown status and the local
+deployment-log digest are recorded in the summary.

@@ -667,5 +667,11 @@
     "defender_absent": true,
     "remaining_vhd_files": [],
     "profile_sha256": "E7EAC2830897792EB7621AE0FD6B5CCFA6827DB532C8E51940DDDCF182FEDB21"
+  },
+  "teardown": {
+    "stack_status": "DELETE_COMPLETE",
+    "instance_state": "terminated",
+    "verified_utc": "2026-10-08T17:47:21.460602+00:00",
+    "destroy_log_sha256": "228c3f4a28e9ebdd20fcaa710e31729cee8848b445274f1cef24ec4133dbedf4"
   }
 }
