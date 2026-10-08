@@ -1,4 +1,8 @@
 set(COVERAGE_CASES
+    unicode_child_arguments
+    ads_provenance_contents
+    raw_owned_volume_read
+    signed_system_library_load
     registry_logon_script
     registry_typed_paths
     registry_appx_debugger

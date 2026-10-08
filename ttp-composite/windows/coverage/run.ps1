@@ -142,6 +142,7 @@ $files=@{
  double_extension_lnk = "$root\work\report.pdf.lnk"
  office_startup_file = "$env:APPDATA\Microsoft\Word\STARTUP\telemetry-lab-fixture.rtf"
  suspicious_executable_file = "$root\work\lab.sys.exe"
+ ads_provenance_contents = "$root\work\provenance.exe:Zone.Identifier"
  ads_executable = "$root\work\carrier.txt:fixture.exe"
  creation_time_change = "$root\work\timestamp.txt"
  double_extension_execute = "$root\work\report.pdf.exe"
@@ -178,7 +179,16 @@ $runPlan=@{cases=@($allCases.case_id);runtime=$build.runtime;modes=$Modes;seed=$
 if($SkipAttemptsFrom){$runPlan.prior_attempts_sha256=$priorAttemptsHash}
 $runPlan | ConvertTo-Json -Depth 8 | Set-Content "$Output\run-plan.json" -Encoding UTF8
 $executionError=$null
+$ownedRawDisk=$null
+. "$PSScriptRoot\raw-disk-fixture.ps1"
 try {
+  if('raw_owned_volume_read' -in $allCases.case_id){$ownedRawDisk=New-OwnedRawDisk $Output}
+  if('signed_system_library_load' -in $allCases.case_id) {
+    $library='C:\Windows\System32\RstrtMgr.dll'
+    $signature=Get-AuthenticodeSignature $library
+    if($signature.Status -ne 'Valid'){throw 'System library signature is not valid'}
+    @{path=$library;sha256=(Get-FileHash $library).Hash;signature_status=[string]$signature.Status;signer=$signature.SignerCertificate.Subject} | ConvertTo-Json | Set-Content "$Output\system-library.json"
+  }
   foreach($dir in @($root,"$root\run","$root\work","$root\fixtures",'C:\Users\Public\telemetry-lab')) {Ensure-Directory $dir}
   # The DLLs are part of the measured runtime configuration. Stage exactly the
   # verified bundle beside neutral/public probe paths; never rely on host PATH.
@@ -214,7 +224,7 @@ try {
       if ($id -eq 'tcp_connect_public_path') {$exe='C:\Users\Public\telemetry-lab\probe.exe'}
       if (Test-Path $exe) {throw "Unexpected staged executable: $exe"}
       try {
-        if($id -eq 'delete_zone_identifier') {
+        if($id -in @('delete_zone_identifier','ads_provenance_contents')) {
           $carrier=$target.Split(':',3)[0]+':'+$target.Split(':',3)[1]
           if(Test-Path -LiteralPath $carrier){throw "Unowned ADS carrier already exists: $carrier"}
           [IO.File]::WriteAllText($carrier,'telemetry-lab');$zoneCarrierOwned=$true
@@ -263,7 +273,7 @@ try {
       } finally {
         # All cleanup is performed by the harness, after the measured process exits.
         if (Test-Path $exe) {Remove-OwnedFile $exe}
-        if ($id -notin @('ads_executable','delete_zone_identifier') -and $targetOwned -and $target -and (Test-Path -LiteralPath $target)) {Remove-OwnedFile $target}
+        if ($id -notin @('ads_executable','delete_zone_identifier','ads_provenance_contents') -and $targetOwned -and $target -and (Test-Path -LiteralPath $target)) {Remove-OwnedFile $target}
         if ($targetOwned -and $id -eq 'ads_executable') {Remove-Item "$root\work\carrier.txt" -Force -ErrorAction SilentlyContinue}
         if($zoneCarrierOwned){Remove-OwnedFile $carrier}
         if ($runmruOwned) {[Microsoft.Win32.Registry]::CurrentUser.DeleteSubKeyTree($runmru,$false)}
@@ -277,6 +287,7 @@ try {
 } finally {
   # Always persist attempts, even if fixture/runtime cleanup fails.
   try {
+    if($ownedRawDisk){Remove-OwnedRawDisk $ownedRawDisk}
     foreach($dll in $stagedDlls){Remove-OwnedFile $dll}
     Restore-Registry
   } catch {
