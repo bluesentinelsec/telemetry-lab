@@ -10,14 +10,18 @@
 // this primitive links libstdc++/libc++ naturally -- no explicit substrate
 // anchor is needed (unlike the compute-only `empty`).
 //
-// Linux-only for this pass (portable via std::filesystem on Windows too, but
-// gated with the rest of this pass -- issue #44).
+// Enumerate the same platform root as the C and Go implementations.
 #include <filesystem>
 
 int main() {
     std::error_code ec;
     int entries = 0;
-    for (const auto& entry : std::filesystem::directory_iterator("/", ec)) {
+#ifdef _WIN32
+    const char* root = "C:\\";
+#else
+    const char* root = "/";
+#endif
+    for (const auto& entry : std::filesystem::directory_iterator(root, ec)) {
         (void)entry;
         entries++;
     }

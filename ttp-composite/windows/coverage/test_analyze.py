@@ -9,6 +9,17 @@ from pathlib import Path
 from analyze import evaluate, analyze, planned_slots
 
 class ResumptionPlanTests(unittest.TestCase):
+    def test_explicit_slots_and_single_mode_survive_integration(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p=Path(tmp)
+            self.assertEqual(planned_slots(p,dict(cases=['a','b'],modes=['active'],expected_attempts=2)),
+                             {('a','active'),('b','active')})
+            raw=json.dumps([dict(case_id='a',mode='control')]).encode()
+            (p/'prior-attempts.json').write_bytes(raw)
+            plan=dict(cases=['a','b'],slots=[dict(case_id='a',mode='control'),dict(case_id='b',mode='active')],
+                      expected_attempts=1,prior_attempts_sha256=hashlib.sha256(raw).hexdigest())
+            self.assertEqual(planned_slots(p,plan),{('b','active')})
+
     def test_only_unexecuted_modes_remain(self):
         with tempfile.TemporaryDirectory() as tmp:
             p=Path(tmp);raw=json.dumps([dict(case_id='a',mode='active',valid=False)]).encode()

@@ -12,15 +12,19 @@ package main
 // equivalent of the C opendir/readdir walk; the cgo/static substrate split
 // lives in anchor_cgo.go.
 //
-// Linux-only for this pass (portable via FindFirstFile / std::filesystem on
-// Windows -- issue #44).
+// Enumerate the same platform root as the C and C++ implementations.
 
 import (
 	"os"
+	"runtime"
 )
 
 func main() {
-	entries, err := os.ReadDir("/")
+	root := "/"
+	if runtime.GOOS == "windows" {
+		root = `C:\`
+	}
+	entries, err := os.ReadDir(root)
 	if err != nil {
 		os.Exit(1)
 	}

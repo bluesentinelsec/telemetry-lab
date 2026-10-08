@@ -89,7 +89,7 @@ function Remove-OwnedFile([string]$path) {
     if($retry -lt 100){Start-Sleep -Milliseconds 100}
   }
   @{path=$path;retries=100;removed=$false;error=$lastError} | ConvertTo-Json -Compress | Add-Content "$Output\cleanup-retries.jsonl"
-  throw "Cleanup postcondition failed for ${path}: $lastError"
+  throw [System.IO.IOException]::new("Cleanup postcondition failed for ${path}: $lastError")
 }
 function Save-RegistryValue([string]$path,[string]$name) {
   $key=[Microsoft.Win32.Registry]::CurrentUser.OpenSubKey($path,$true)
