@@ -1,6 +1,6 @@
 # Windows behavior expansion, October 2026
 
-Four standalone candidates extend the existing Windows suite. Their original
+All four standalone additions qualified in the [live Windows lab campaign](../../../docs/windows-rule-assessment/validation/README.md), extending the selected suite to 56 rules. Their original
 rule bytes and predicates are recorded in `selection.json`; the selection
 rationale is in [the assessment](../../../docs/windows-rule-assessment/README.md).
 Qualification results are recorded separately from historical measurements.

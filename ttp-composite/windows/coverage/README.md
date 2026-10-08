@@ -1,10 +1,8 @@
 # Windows TTP composite rule selection
 
-**Onboarding in progress:** four additional candidates are implemented across all eight configurations, bringing the implemented roster to 56. Their live detector qualification is pending; the qualified scope remains 52. See the [checkpoint](../../../docs/windows-rule-assessment/ONBOARDING-CHECKPOINT.md) and [behavior contracts](expansion-2026-10.md). The historical qualification below covers the original 52.
+**Status: C, C++, Go and Rust each implement 56 standalone cases. All 56 targets have three-repetition active/control qualification evidence in each of eight configurations. The [October expansion report](../../../docs/windows-rule-assessment/validation/README.md) covers the four newest cases and two shared-helper regressions; the [earlier report](../../../docs/coverage-expansion/validation/README.md) covers the original 52 and the stream-deletion collector refinement. The cross-platform scope is in [SCOPE.md](../../SCOPE.md).**
 
-**Status: C, C++, Go and Rust each implement 52 standalone cases. All 52 targets have three-repetition active/control evidence in each of eight configurations; see the [qualification report](../../../docs/coverage-expansion/validation/README.md) for the separately validated stream-deletion collector refinement. See [Rust evidence](validation/rust/README.md), [Go evidence](validation/go/README.md), [C++ evidence](validation/cpp/README.md), and [C results](implementation.md). The cross-platform scope is in [SCOPE.md](../../SCOPE.md).**
-
-The Windows pipeline collects Sysmon events into EVTX and evaluates them with Hayabusa. The subject is the unmodified rule bundle shipped in the Hayabusa 4.1.0 Windows x64 release, not the entire upstream Sigma repository. All 52 selected rules are Sigma-derived Sysmon rules.
+The Windows pipeline collects Sysmon events into EVTX and evaluates them with Hayabusa. The subject is the unmodified rule bundle shipped in the Hayabusa 4.1.0 Windows x64 release, not the entire upstream Sigma repository. All 56 selected rules are Sigma-derived Sysmon rules.
 
 ## Rule-count denominator
 
@@ -13,20 +11,20 @@ The Windows pipeline collects Sysmon events into EVTX and evaluates them with Ha
 | All supplied rule definitions | 4,987 |
 | Definitions referencing the Sysmon Operational channel | 2,455 |
 | Sysmon definitions passing the static scope filters below | 2,269 |
-| Implemented candidate targets | 56 (four pending live qualification) |
-| Qualified targets demonstrated in each of eight configurations | 52 |
+| Implemented candidate targets | 56 |
+| Qualified targets demonstrated in each of eight configurations | 56 |
 
 Static filters follow the existing `-m low --no-wizard` configuration: remove informational, deprecated, unsupported, default excluded/noisy IDs, and rules with unresolved expansion placeholders. Overlapping exclusions are counted once. Channel membership means the detection references Sysmon, not that every rule can be satisfied using Sysmon alone. Live Hayabusa 4.1.0 replay now confirms 2,269 rules enabled after channel filtering for the Sysmon EVTX input. That is the configured denominator; it does not mean every rule has a qualified test case.
 
-Current qualified scope: "52 standalone Windows composites per language have demonstrated alerts against 52 selected rules out of the 2,269 enabled rules in the pinned Hayabusa/Sysmon evaluation." This numerator counts exact target rules, not every incidental alert in the full ruleset.
+Current qualified scope: "56 standalone Windows composites per language have demonstrated alerts against 56 selected rules out of the 2,269 enabled rules in the pinned Hayabusa/Sysmon evaluation." This numerator counts exact target rules, not every incidental alert in the full ruleset.
 
 ## Selection rationale
 
-Choose directly reproducible operations with specific event predicates, equivalents in all four languages, independent behavior checks, and controllable fixtures. Avoid building the scope from wrappers around PowerShell or reg.exe, since those would mainly measure a common child tool. Include path/name-based rules where the program must actually create, execute, load, or resolve the matching artifact; label those limits explicitly. The original 23 targets span nine behavior families; the 29 additions extend registry, file creation/deletion, DNS and pipe coverage and add process access and remote thread creation. Their predicates reference 12 event IDs; an individual case may exercise only one of a rule's permitted event IDs.
+Choose directly reproducible operations with specific event predicates, equivalents in all four languages, independent behavior checks, and controllable fixtures. Avoid building the scope from wrappers around PowerShell or reg.exe, since those would mainly measure a common child tool. Include path/name-based rules where the program must actually create, execute, load, or resolve the matching artifact; label those limits explicitly. The original 23 targets span nine behavior families; the 29 additions extend registry, file creation/deletion, DNS and pipe coverage and add process access and remote thread creation. The October additions extend argument transport, stream contents, and system-library loading and add raw reads. The current 56 targets span 13 cataloged behavior families and reference 17 event IDs; an individual case may exercise only one of a rule's permitted event IDs.
 
 ## Original candidates
 
-The complete 52-case catalog is in `selection.json`; the 29 additions and fixed inputs are listed in [windows-plan.json](../../../docs/coverage-expansion/windows-plan.json).
+The complete 56-case catalog is in `selection.json`; the 29 additions and fixed inputs are listed in [windows-plan.json](../../../docs/coverage-expansion/windows-plan.json).
 
 Network scope refined on 2026-09-22: see [network-scope.md](network-scope.md). The original six network/DNS cases use basic TCP I/O or ordinary hostname resolution. The expansion adds three DNS names. An LDAP-discovery A-query prototype is deferred after live Sysmon telemetry lacked the image metadata required by the stock rule; no LDAP protocol client was implemented.
 
@@ -245,4 +243,4 @@ The bundled rules repository reports HEAD `fffbdd179c8c8c7554368c443f9ba2917877f
 
 ## Onboarding and experiment follow-up: issue #59
 
-Windows onboarding is tracked at https://github.com/bluesentinelsec/telemetry-lab/issues/59. The initial candidates are generally accepted, with a new constraint: network composites stay close to basic socket/DNS primitives, without SMTP, RDP, ADWS, Kerberos, or LDAP client libraries or protocol implementations. The four port-based rules may use simple connections to controlled listeners. The LDAP-discovery A-query prototype remains deferred after live qualification. The original C baseline and C++/Go/Rust configurations demonstrated the same 23 targets; the expansion report now qualifies 52. The `.onion` program has been deleted from scope. Language onboarding is complete in PR #63; the full experiment freeze, paired tmon integration and repetitions remain #54.
+Windows onboarding is tracked at https://github.com/bluesentinelsec/telemetry-lab/issues/59. The initial candidates are generally accepted, with a new constraint: network composites stay close to basic socket/DNS primitives, without SMTP, RDP, ADWS, Kerberos, or LDAP client libraries or protocol implementations. The four port-based rules may use simple connections to controlled listeners. The LDAP-discovery A-query prototype remains deferred after live qualification. The original C baseline and C++/Go/Rust configurations demonstrated the same 23 targets; the September expansion qualified 52; the October expansion now qualifies 56. The `.onion` program has been deleted from scope. Language onboarding is complete in PR #63; the full experiment freeze, paired tmon integration and repetitions remain #54.

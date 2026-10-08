@@ -1,0 +1,1577 @@
+[
+  {
+    "phase": "c-reference",
+    "case": "ads_provenance_contents",
+    "config": "windows-c-ucrt",
+    "repetition": 1,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 305911,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d0f1-6ac7-a800-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "c-reference",
+    "case": "raw_owned_volume_read",
+    "config": "windows-c-ucrt",
+    "repetition": 1,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 305962,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d0f1-6ac7-aa00-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR1"
+    }
+  },
+  {
+    "phase": "c-reference",
+    "case": "signed_system_library_load",
+    "config": "windows-c-ucrt",
+    "repetition": 1,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 306049,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d0f1-6ac7-ac00-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "c-reference",
+    "case": "unicode_child_arguments",
+    "config": "windows-c-ucrt",
+    "repetition": 1,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 306100,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d0f1-6ac7-ae00-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d0f1-6ac7-ad00-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-c-msvcrt",
+    "repetition": 1,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 325860,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d154-6ac7-d500-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-c-msvcrt",
+    "repetition": 1,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 325900,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d154-6ac7-d700-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d154-6ac7-d600-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-c-msvcrt",
+    "repetition": 1,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 325989,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d154-6ac7-da00-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-c-msvcrt",
+    "repetition": 1,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 326058,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d154-6ac7-dd00-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR2"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-cpp-libcxx",
+    "repetition": 1,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 330392,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d181-6ac7-e700-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-cpp-libcxx",
+    "repetition": 1,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 330451,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d181-6ac7-e900-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d181-6ac7-e800-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-cpp-libcxx",
+    "repetition": 1,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 330617,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d181-6ac7-ed00-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR3"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-cpp-libcxx",
+    "repetition": 1,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 330738,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d181-6ac7-f100-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-go-static",
+    "repetition": 1,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 335012,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d1ae-6ac7-fc00-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR4"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-go-static",
+    "repetition": 1,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 335149,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d1ae-6ac7-fd00-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-go-static",
+    "repetition": 1,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 335226,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d1af-6ac7-ff00-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-go-static",
+    "repetition": 1,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 335363,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d1af-6ac7-0501-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d1af-6ac7-0401-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-cpp-libstdcxx",
+    "repetition": 1,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 339754,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d1dd-6ac7-1401-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR5"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-cpp-libstdcxx",
+    "repetition": 1,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 339887,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d1dd-6ac7-1901-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d1dd-6ac7-1801-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-cpp-libstdcxx",
+    "repetition": 1,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 339971,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d1dd-6ac7-1b01-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-cpp-libstdcxx",
+    "repetition": 1,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 340080,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d1dd-6ac7-1f01-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-rust-msvc-static",
+    "repetition": 1,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 343387,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d20a-6ac7-2801-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR6"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-rust-msvc-static",
+    "repetition": 1,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 343448,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d20a-6ac7-2a01-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-rust-msvc-static",
+    "repetition": 1,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 343580,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d20a-6ac7-2f01-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-rust-msvc-static",
+    "repetition": 1,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 343707,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "\"C:\\lab\\windows-coverage\\fixtures\\helper.exe\" marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d20a-6ac7-3501-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d20a-6ac7-3401-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-go-cgo",
+    "repetition": 1,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 349874,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d239-6ac7-4001-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-go-cgo",
+    "repetition": 1,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 350020,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d23a-6ac7-4201-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR7"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-go-cgo",
+    "repetition": 1,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 350107,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d23a-6ac7-4501-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d23a-6ac7-4401-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-go-cgo",
+    "repetition": 1,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 350405,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d23b-6ac7-4d01-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-rust-msvc-dynamic",
+    "repetition": 1,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 359493,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d26a-6ac7-5d01-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-rust-msvc-dynamic",
+    "repetition": 1,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 359571,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d26a-6ac7-6001-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-rust-msvc-dynamic",
+    "repetition": 1,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 359611,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d26a-6ac7-6101-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR8"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-rust-msvc-dynamic",
+    "repetition": 1,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 359698,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "\"C:\\lab\\windows-coverage\\fixtures\\helper.exe\" marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d26b-6ac7-6501-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d26b-6ac7-6401-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-c-ucrt",
+    "repetition": 1,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 364853,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d29a-6ac7-7c01-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR9"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-c-ucrt",
+    "repetition": 1,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 364930,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d29a-6ac7-8001-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d29a-6ac7-7f01-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-c-ucrt",
+    "repetition": 1,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 364995,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d29a-6ac7-8201-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-c-ucrt",
+    "repetition": 1,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 365091,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d29a-6ac7-8601-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-go-static",
+    "repetition": 2,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 375147,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d2c9-6ac7-bc01-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-go-static",
+    "repetition": 2,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 375253,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d2c9-6ac7-c001-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-go-static",
+    "repetition": 2,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 375336,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d2c9-6ac7-c401-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d2c9-6ac7-c301-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-go-static",
+    "repetition": 2,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 375430,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d2c9-6ac7-c701-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR10"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-cpp-libcxx",
+    "repetition": 2,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 407205,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d300-6ac7-d701-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-cpp-libcxx",
+    "repetition": 2,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 407314,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d300-6ac7-da01-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR11"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-cpp-libcxx",
+    "repetition": 2,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 407377,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d300-6ac7-dd01-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d300-6ac7-dc01-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-cpp-libcxx",
+    "repetition": 2,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 407491,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d300-6ac7-e001-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-go-cgo",
+    "repetition": 2,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 410903,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d337-6ac7-e801-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-go-cgo",
+    "repetition": 2,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 411020,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d337-6ac7-ec01-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR12"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-go-cgo",
+    "repetition": 2,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 411152,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d338-6ac7-ee01-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-go-cgo",
+    "repetition": 2,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 411373,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d339-6ac7-f501-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d339-6ac7-f401-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-rust-msvc-dynamic",
+    "repetition": 2,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 414624,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d365-6ac7-fd01-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR13"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-rust-msvc-dynamic",
+    "repetition": 2,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 414743,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d365-6ac7-0002-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-rust-msvc-dynamic",
+    "repetition": 2,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 414854,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d365-6ac7-0402-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-rust-msvc-dynamic",
+    "repetition": 2,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 414899,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "\"C:\\lab\\windows-coverage\\fixtures\\helper.exe\" marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d365-6ac7-0602-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d365-6ac7-0502-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-c-ucrt",
+    "repetition": 2,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 422519,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d395-6ac7-1402-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-c-ucrt",
+    "repetition": 2,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 422573,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d395-6ac7-1502-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR14"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-c-ucrt",
+    "repetition": 2,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 422797,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d395-6ac7-1e02-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-c-ucrt",
+    "repetition": 2,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 422845,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d395-6ac7-2002-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d395-6ac7-1f02-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-rust-msvc-static",
+    "repetition": 2,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 438480,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "\"C:\\lab\\windows-coverage\\fixtures\\helper.exe\" marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d3d3-6ac7-3502-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d3d3-6ac7-3402-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-rust-msvc-static",
+    "repetition": 2,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 438652,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d3d3-6ac7-3602-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-rust-msvc-static",
+    "repetition": 2,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 438874,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d3d4-6ac7-3d02-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR15"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-rust-msvc-static",
+    "repetition": 2,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 438928,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d3d4-6ac7-3f02-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-c-msvcrt",
+    "repetition": 2,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 451561,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d40c-6ac7-4d02-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR16"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-c-msvcrt",
+    "repetition": 2,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 451585,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d40c-6ac7-4e02-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-c-msvcrt",
+    "repetition": 2,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 451766,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d40d-6ac7-5502-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-c-msvcrt",
+    "repetition": 2,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 451790,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d40d-6ac7-5702-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d40d-6ac7-5602-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-cpp-libstdcxx",
+    "repetition": 2,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 456875,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d43b-6ac7-6302-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-cpp-libstdcxx",
+    "repetition": 2,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 456955,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d43b-6ac7-6602-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d43b-6ac7-6502-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-cpp-libstdcxx",
+    "repetition": 2,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 457074,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d43b-6ac7-6902-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR17"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-cpp-libstdcxx",
+    "repetition": 2,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 457154,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d43b-6ac7-6c02-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-c-msvcrt",
+    "repetition": 3,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 460727,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d469-6ac7-7602-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR18"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-c-msvcrt",
+    "repetition": 3,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 460926,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d469-6ac7-7d02-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-c-msvcrt",
+    "repetition": 3,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 461000,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d469-6ac7-7f02-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-c-msvcrt",
+    "repetition": 3,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 461045,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d469-6ac7-8202-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d469-6ac7-8102-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-c-ucrt",
+    "repetition": 3,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 466189,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d498-6ac7-8f02-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-c-ucrt",
+    "repetition": 3,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 466255,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d498-6ac7-9102-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR19"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-c-ucrt",
+    "repetition": 3,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 466395,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d498-6ac7-9702-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-c-ucrt",
+    "repetition": 3,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 466421,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d498-6ac7-9902-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d498-6ac7-9802-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-rust-msvc-static",
+    "repetition": 3,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 470590,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "\"C:\\lab\\windows-coverage\\fixtures\\helper.exe\" marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d4c6-6ac7-a902-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d4c6-6ac7-a802-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-rust-msvc-static",
+    "repetition": 3,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 470624,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d4c6-6ac7-aa02-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR20"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-rust-msvc-static",
+    "repetition": 3,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 470650,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d4c6-6ac7-ab02-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-rust-msvc-static",
+    "repetition": 3,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 470674,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d4c6-6ac7-ac02-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-go-static",
+    "repetition": 3,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 474710,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d4f3-6ac7-bb02-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR21"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-go-static",
+    "repetition": 3,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 474767,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d4f3-6ac7-bd02-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-go-static",
+    "repetition": 3,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 474864,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d4f4-6ac7-c102-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d4f4-6ac7-c002-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-go-static",
+    "repetition": 3,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 474935,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d4f4-6ac7-c302-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-cpp-libcxx",
+    "repetition": 3,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 478433,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d521-6ac7-d302-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-cpp-libcxx",
+    "repetition": 3,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 478602,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d521-6ac7-d802-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-cpp-libcxx",
+    "repetition": 3,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 478679,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d521-6ac7-db02-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d521-6ac7-da02-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-cpp-libcxx",
+    "repetition": 3,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 478722,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d521-6ac7-dc02-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR22"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-go-cgo",
+    "repetition": 3,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 482613,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d54e-6ac7-e602-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-go-cgo",
+    "repetition": 3,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 482717,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d54e-6ac7-e802-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-go-cgo",
+    "repetition": 3,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 482832,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d54e-6ac7-ed02-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d54e-6ac7-ec02-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-go-cgo",
+    "repetition": 3,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 482965,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d54f-6ac7-f102-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR23"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-cpp-libstdcxx",
+    "repetition": 3,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 486310,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d57d-6ac7-fc02-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-cpp-libstdcxx",
+    "repetition": 3,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 486493,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "C:\\lab\\windows-coverage\\fixtures\\helper.exe marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d57d-6ac7-0303-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d57d-6ac7-0203-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-cpp-libstdcxx",
+    "repetition": 3,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 486569,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d57d-6ac7-0503-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR24"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-cpp-libstdcxx",
+    "repetition": 3,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 486604,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d57d-6ac7-0603-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "signed_system_library_load",
+    "config": "windows-rust-msvc-dynamic",
+    "repetition": 3,
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "record_id": 490073,
+    "event_id": 7,
+    "fields": {
+      "SignatureStatus": "Valid",
+      "Signature": "Microsoft Windows",
+      "Hashes": "SHA1=1D949D44C6DF5201399EFE63B2ED0FC9482478BF,MD5=05E35883B0F293D6696E498FD2CEB963,SHA256=B32429CD39DD411B49A9308229E1C606F25A456F2FCAFD637E4494CF64C55AB7,IMPHASH=3621D72F692825BEA5F6EDD4481056D2",
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d5aa-6ac7-1403-000000007e00}",
+      "ImageLoaded": "C:\\Windows\\System32\\RstrtMgr.dll",
+      "Signed": "true"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "unicode_child_arguments",
+    "config": "windows-rust-msvc-dynamic",
+    "repetition": 3,
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "record_id": 490120,
+    "event_id": 1,
+    "fields": {
+      "CommandLine": "\"C:\\lab\\windows-coverage\\fixtures\\helper.exe\" marker\u00a0value",
+      "Hashes": "SHA1=C91E338C49DDCC01A2DBCAFE0E301A2AE9067372,MD5=E632DFAE80163FADAC29C311F576CF65,SHA256=176D4810F76952387B32AB8F0DDE49E79CE407F4E1F72B8AA55A73031C1FDB99,IMPHASH=38676FE598B89366E42DD916625FAE66",
+      "Image": "C:\\lab\\windows-coverage\\fixtures\\helper.exe",
+      "ProcessGuid": "{61d8d4d2-d5aa-6ac7-1603-000000007e00}",
+      "ParentProcessGuid": "{61d8d4d2-d5aa-6ac7-1503-000000007e00}"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "raw_owned_volume_read",
+    "config": "windows-rust-msvc-dynamic",
+    "repetition": 3,
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "record_id": 490247,
+    "event_id": 9,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d5aa-6ac7-1b03-000000007e00}",
+      "Device": "\\Device\\Harddisk1\\DR25"
+    }
+  },
+  {
+    "phase": "qualification",
+    "case": "ads_provenance_contents",
+    "config": "windows-rust-msvc-dynamic",
+    "repetition": 3,
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "record_id": 490327,
+    "event_id": 15,
+    "fields": {
+      "Image": "C:\\lab\\windows-coverage\\run\\probe.exe",
+      "ProcessGuid": "{61d8d4d2-d5aa-6ac7-1e03-000000007e00}",
+      "TargetFilename": "C:\\lab\\windows-coverage\\work\\provenance.exe:Zone.Identifier",
+      "Contents": "[ZoneTransfer]  ZoneId=3  HostUrl=http://192.0.2.1/fixture.exe  "
+    }
+  }
+]

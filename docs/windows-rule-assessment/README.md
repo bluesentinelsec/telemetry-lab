@@ -1,5 +1,7 @@
 # Windows composite expansion assessment
 
+**Decision record:** this assessment predates implementation. All four recommended cases have since qualified; see the [live validation report](validation/README.md) for the current 56-rule scope. The counts and recommendations below retain their original snapshot context.
+
 **Recommendation: qualify four additional Windows cases, with one conditional second wave.** Prioritize new behavior or predicate dimensions rather than a larger rule percentage. Keep the official scope at 52 qualified rules until new cases have independent behavior evidence, attributable alerts, and clean same-binary controls. Linux is outside this assessment.
 
 This is a static assessment against repository revision `5011471`, dated October 8, 2026. No programs, rules, collector configurations, archived data, or slide files were changed. No lab was deployed. Candidate feasibility and expected alert behavior remain hypotheses pending native qualification.

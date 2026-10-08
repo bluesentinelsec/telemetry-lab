@@ -3893,8 +3893,9 @@
       "family": "Alternate data stream",
       "behavior": "Adds Event 15 Contents regex to the existing stream-hash case. Write fixed synthetic Zone.Identifier text with a numeric-IP URL to an owned matching-extension carrier; verify bytes. This tests stream-content evidence, not a real download. Confirm live Contents formatting and process attribution.",
       "fixture_requirements": "Owned fixtures, exact readback, same-binary no-behavior control; see expansion implementation report",
-      "qualification": "pending-live-qualification",
-      "license": "Detection Rule License 1.1"
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
+      "license": "Detection Rule License 1.1",
+      "qualification_report": "../../../docs/windows-rule-assessment/validation/README.md"
     },
     {
       "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
@@ -3966,8 +3967,9 @@
       "family": "Image load",
       "behavior": "Adds legitimate signed OS-library loading to the existing unsigned .node fixture. Load the genuine fixed RstrtMgr.dll from its system path without invoking Restart Manager operations. Freeze DLL hash and measured executable path outside exclusions; verify module identity. Reject if it is already loaded in controls or the control emits the selected alert.",
       "fixture_requirements": "Owned fixtures, exact readback, same-binary no-behavior control; see expansion implementation report",
-      "qualification": "pending-live-qualification",
-      "license": "Detection Rule License 1.1"
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
+      "license": "Detection Rule License 1.1",
+      "qualification_report": "../../../docs/windows-rule-assessment/validation/README.md"
     },
     {
       "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
@@ -4060,8 +4062,9 @@
       "family": "Raw access",
       "behavior": "Adds Event 9 and raw-volume I/O. Use only a harness-created disposable virtual disk/volume with known bytes; read and verify without writing during measurement. Confirm raw-device naming, permissions, event emission, and GUID attribution. Direct native APIs may limit runtime sensitivity; that is a limitation, not a reason to force a difference.",
       "fixture_requirements": "Owned fixtures, exact readback, same-binary no-behavior control; see expansion implementation report",
-      "qualification": "pending-live-qualification",
-      "license": "Detection Rule License 1.1"
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
+      "license": "Detection Rule License 1.1",
+      "qualification_report": "../../../docs/windows-rule-assessment/validation/README.md"
     },
     {
       "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
@@ -4101,8 +4104,9 @@
       "family": "Process creation",
       "behavior": "High relevance to runtime argument construction and encoding; Event 1 CommandLine contains one of the listed Unicode characters. Launch a fixed benign helper with identical Unicode argv and require exact argv receipt. Freeze wide-character semantics across languages; do not compare ANSI and Unicode APIs as if only runtime changed.",
       "fixture_requirements": "Owned fixtures, exact readback, same-binary no-behavior control; see expansion implementation report",
-      "qualification": "pending-live-qualification",
-      "license": "Detection Rule License 1.1"
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
+      "license": "Detection Rule License 1.1",
+      "qualification_report": "../../../docs/windows-rule-assessment/validation/README.md"
     }
   ],
   "deferred_candidates": [
