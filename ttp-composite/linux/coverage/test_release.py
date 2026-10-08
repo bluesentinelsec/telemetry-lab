@@ -24,10 +24,11 @@ class ReleaseTests(unittest.TestCase):
                      'windows-cpp-libcxx','windows-go-cgo','windows-go-static']
             for config in linux+windows:
                 win=config.startswith('windows');suffix='.exe' if win else ''
-                primitives=['empty','file_io','spawn']
+                primitives=['empty','file_io','spawn','process_enumeration','thread_create',
+                            'directory_enumeration','memory_allocate','pipe_ipc','tcp_client',
+                            'tcp_server','dns_lookup','http_client']
                 if not win:
-                    primitives+=['process_exec','process_enumeration','thread_create','directory_enumeration',
-                                 'memory_allocate','pipe_ipc','tcp_client','tcp_server','dns_lookup','http_client']
+                    primitives+=['process_exec']
                 for name in primitives:fixture(config+'/'+name+suffix)
                 pilots=['reverse_shell','imds']+(['registry_run_key','startup_folder'] if win else
                     ['read_sensitive_file','symlink_sensitive','clear_log','mkdir_bin','ptrace_antidebug'])
@@ -73,6 +74,11 @@ class ReleaseTests(unittest.TestCase):
                 manifest=json.loads(archive.read('telemetry-lab-test-windows/manifest.json'))
                 self.assertEqual(manifest['configs'],windows)
                 self.assertEqual(manifest['composite_configs'],windows_composites)
+                self.assertEqual(len(manifest['primitives']),12)
+                self.assertNotIn('process_exec',manifest['primitives'])
+                for config in windows:
+                    for primitive in manifest['primitives']:
+                        self.assertIn('telemetry-lab-test-windows/ttp-primitives/'+config+'/'+primitive+'.exe',names)
                 for config in windows_composites[len(windows):]:
                     self.assertFalse(any(n.startswith('telemetry-lab-test-windows/ttp-primitives/'+config+'/') for n in names))
                 for support in ['selection.json','rule-inventory.csv','run.ps1','run-local-tcp.ps1','run-local-dns.ps1','analyze.py']:
