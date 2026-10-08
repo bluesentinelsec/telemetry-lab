@@ -19,7 +19,7 @@ invocations retain their marker and exit code 42.
 
 C/C++ use CreateProcessW for Unicode spawning; Go and Rust use their standard
 process APIs, which transport Unicode arguments on Windows. Stream writes use
-C/C++ stdio, Go os file APIs, and Rust std::fs. Raw reads use Windows handle APIs
+C stdio, C++ fstreams, Go os file APIs, and Rust std::fs. Raw reads use Windows handle APIs
 in each language. Library loading uses native Windows APIs or their bindings.
 Native API use limits the possible runtime-mediated variation; equal outcomes
 remain useful observations. C++ retains its standard-library output/linkage
