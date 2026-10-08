@@ -20,7 +20,7 @@ Do not merge or update the qualified count until the remaining work passes.
 - Subsequently changed C++ stream-content I/O from stdio to fstreams so it
   exercises the selected C++ standard library. Rebuild
   [37805868992](https://github.com/bluesentinelsec/telemetry-lab/actions/runs/37805868992)
-  tests source `2726bac`; check its final result before staging.
+  passed all 17 jobs at source `2726bac`, including all eight Windows configurations.
 - Local Windows evidence tests: 26 passed; expansion tests: 2 passed;
   experiment tests: 22 run, one skipped; CDK build and 22 infrastructure tests
   passed. Go cross-build of all four additions passed.
@@ -33,7 +33,7 @@ is us-west-2, so **explicitly use us-east-1** for every lab action.
 
 - CDK stack: `WindowsExpansionQualification`, deployed Windows-only.
 - Instance: `i-0fe6a26a00f1eec3e`, c7i.xlarge, Windows Server 2025, us-east-1b.
-- Stop requested for the pause; verify state before resuming.
+- Instance confirmed **stopped** at the pause; start it before resuming.
 - Local evidence root: `/Users/michaellong/telemetry-lab-data/windows-expansion-2026-10-08`.
 - Stack outputs: `outputs.json` under that root. Deployment logs, CI metadata,
   and the first CI run's eight Windows artifacts are also there.
