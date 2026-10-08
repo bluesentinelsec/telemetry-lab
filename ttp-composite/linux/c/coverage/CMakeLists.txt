@@ -1,5 +1,30 @@
 # One source entry point and one executable per measured composite.
 set(COVERAGE_CASES
+    identity_change
+    interactive_recon
+    netcat_exec
+    bulk_clear
+    ssh_nonstandard
+    shell_network
+    proxy_environment
+    network_tool
+    remote_copy
+    ingress_copy
+    privileged_mount
+    privileged_debugfs
+    k8s_client
+    protected_shell
+    web_shell
+    web_child
+    web_reverse_shell
+    npm_network_tool
+    shell_config_read
+    hidden_file
+    executable_chmod
+    executable_create
+    nodeport_exchange
+    miner_port_exchange
+    unexpected_inbound
     rpm_database_write
     namespace_setns
     namespace_unshare_denied

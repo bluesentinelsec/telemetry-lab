@@ -24,6 +24,9 @@ func Begin(id string) bool {
 	Check(os.Getenv("TELEMETRY_LAB_FIXTURE") == "1", "requires isolated lab fixture")
 	Check(len(os.Args) == 1 || (len(os.Args) == 2 && os.Args[1] == "--control"), "unexpected arguments")
 	time.AfterFunc(10*time.Second, func() { fmt.Fprintln(os.Stderr, "FAIL fixture deadline"); os.Exit(1) })
+	if os.Getenv("GATEWAY_INTERFACE") != "" {
+		fmt.Print("Content-Type: text/plain\r\n\r\n")
+	}
 	if len(os.Args) == 2 {
 		fmt.Printf("CONTROL_OK %s\n", id)
 		return false

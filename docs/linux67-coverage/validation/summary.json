@@ -1,0 +1,118 @@
+{
+  "full-matrix-01": {
+    "attempts": 1088,
+    "statuses": {
+      "valid": 1080,
+      "behavior-failure": 8
+    }
+  },
+  "web-recheck-01": {
+    "attempts": 48,
+    "statuses": {
+      "valid": 48
+    }
+  },
+  "selected_observations": 1112,
+  "case_configuration_pairs": 536,
+  "target_rules": 67,
+  "supplied_rules": 95,
+  "coverage_percent": 70.53,
+  "misses": [
+    {
+      "config": "linux-go-cgo",
+      "case": "reverse_shell",
+      "phase": "full-matrix-01",
+      "attempt_id": "run-0000329-attempt-01"
+    },
+    {
+      "config": "linux-go-static",
+      "case": "reverse_shell",
+      "phase": "full-matrix-01",
+      "attempt_id": "run-0000378-attempt-01"
+    }
+  ],
+  "attempt_ledger_sha256": {
+    "full-matrix-01/attempts.jsonl": "30425528532170042aba5c5ca0d6d5e5893d27375d5b372f6d42f9f9f589f0d3",
+    "web-recheck-01/attempts.jsonl": "c2cbdff800c39d6cd70d95a4bc22f85a29fde5f7ee4533a4cbb8fd01f23e68a1"
+  },
+  "count_differences": {
+    "reverse_shell": {
+      "linux-c-glibc": [
+        3
+      ],
+      "linux-c-musl": [
+        3
+      ],
+      "linux-cpp-libcxx": [
+        3
+      ],
+      "linux-cpp-libstdcxx": [
+        3
+      ],
+      "linux-go-cgo": [
+        0
+      ],
+      "linux-go-static": [
+        0
+      ],
+      "linux-rust-gnu": [
+        3
+      ],
+      "linux-rust-musl": [
+        3
+      ]
+    },
+    "identity_change": {
+      "linux-c-glibc": [
+        1
+      ],
+      "linux-c-musl": [
+        1
+      ],
+      "linux-cpp-libcxx": [
+        1
+      ],
+      "linux-cpp-libstdcxx": [
+        1
+      ],
+      "linux-go-cgo": [
+        5
+      ],
+      "linux-go-static": [
+        4
+      ],
+      "linux-rust-gnu": [
+        1
+      ],
+      "linux-rust-musl": [
+        1
+      ]
+    },
+    "miner_port_exchange": {
+      "linux-c-glibc": [
+        1
+      ],
+      "linux-c-musl": [
+        1
+      ],
+      "linux-cpp-libcxx": [
+        1
+      ],
+      "linux-cpp-libstdcxx": [
+        1
+      ],
+      "linux-go-cgo": [
+        1
+      ],
+      "linux-go-static": [
+        1
+      ],
+      "linux-rust-gnu": [
+        3
+      ],
+      "linux-rust-musl": [
+        3
+      ]
+    }
+  }
+}
