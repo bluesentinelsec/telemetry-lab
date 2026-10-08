@@ -82,7 +82,7 @@ class EvidenceTests(unittest.TestCase):
             self.assertTrue(json.loads((dest/'execution.json').read_text())['timed_out'])
 
     def test_snapshot_and_mapping_integrity(self):
-        self.assertEqual(len(validate()['cases']),42)
+        self.assertEqual(len(validate()['cases']),67)
 
 
 if __name__=='__main__':

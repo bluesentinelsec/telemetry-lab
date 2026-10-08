@@ -104,6 +104,8 @@ def container_options(case, output):
     options = ['--network', 'none', '--cap-add', 'SYS_PTRACE', '--cap-add', 'NET_ADMIN',
                '--security-opt', 'seccomp=unconfined', '--security-opt', 'apparmor=unconfined',
                '--tmpfs', '/dev/shm:rw,exec,nosuid,size=16m']
+    if case['id'] in {'privileged_mount', 'privileged_debugfs'}:
+        options += ['--privileged']
     if case['id'] in {'namespace_setns', 'release_agent_write', 'bpf_program_load'}:
         options += ['--cap-add', 'SYS_ADMIN']
     if case['id'] == 'bpf_program_load':
@@ -123,6 +125,7 @@ def prepare_container(cid, config, case):
         "printf 'BEGIN PRIVATE KEY telemetry-lab\\n' > /tmp/lab/key-search; "
         "printf 'aws_access_key_id=telemetry-lab\\n' > /tmp/lab/aws-search; "
         "printf 'dGVsZW1ldHJ5LWxhYi1maXh0dXJlCg==\\n' > /tmp/lab/encoded"])
+    command(['docker', 'exec', cid, 'python3', '/opt/lab-fixtures/prepare.py', case['id'], config, 'control' if case.get('control') else 'active'])
     if case['id'] == 'namespace_setns':
         # A namespace handle created before capture; no harness alerts are scored.
         command(['docker', 'exec', '-d', cid, 'unshare', '--net', 'sh', '-c',
@@ -132,6 +135,11 @@ def prepare_container(cid, config, case):
             if ready.returncode == 0: break
             time.sleep(0.1)
         else: raise RuntimeError('Namespace fixture did not become ready')
+
+def execution_command(cid, config, case):
+    if case['id'] in {'protected_shell', 'web_shell', 'web_child', 'web_reverse_shell', 'npm_network_tool'}:
+        return ['docker','exec',cid,'python3','/opt/lab-fixtures/invoke.py',case['id'],config,'control' if case.get('control') else 'active']
+    return ['docker','exec',cid,'/opt/coverage/'+config+'/coverage/'+case['id']] + (['--control'] if case.get('control') else [])
 
 def execute(case, config, output, image, functional_only=False):
     name = 'labcov-' + uuid.uuid4().hex[:16]
@@ -152,7 +160,7 @@ def execute(case, config, output, image, functional_only=False):
             cursor = re.search(r'-- cursor: (.+)', latest).group(1)
         started = datetime.datetime.now(datetime.timezone.utc).isoformat()
         try:
-            execution = subprocess.run(['docker', 'exec', cid, exe] + (['--control'] if case.get('control') else []),
+            execution = subprocess.run(execution_command(cid, config, case),
                                        text=True, capture_output=True, timeout=20)
         except subprocess.TimeoutExpired as error:
             def partial(value):

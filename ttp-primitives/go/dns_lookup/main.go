@@ -1,4 +1,4 @@
-//go:build linux
+//go:build linux || windows
 
 package main
 
@@ -14,7 +14,7 @@ package main
 // discriminator; the cgo linkage anchor lives in anchor_cgo.go. Exits 0 when
 // resolution yields at least one address.
 //
-// Linux-only for this pass (getaddrinfo via ws2tcpip on Windows -- issue #44).
+// Built on both Linux and Windows.
 
 import (
 	"context"

@@ -1,0 +1,5 @@
+{
+  "verified_files": 649,
+  "payload_sha256": "cda3aee674a6e0220795b92e48aebab4242ed46e2d386136cfbace1c619fd1d6",
+  "retention": "All staged bytes retained in verified payload.tgz; duplicate native files and CI extraction removed to conserve local disk."
+}

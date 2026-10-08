@@ -3,6 +3,7 @@
 set -euo pipefail
 HERE=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 python3 "$HERE/validate_manifest.py"
+python3 "$HERE/fixtures/detector_dns.py"
 systemctl stop falco-modern-bpf.service
 systemctl stop falco-coverage.service 2>/dev/null || true
 # Falco 0.45.0/libsinsp 0.26.0 discards live entry events when only their
@@ -23,6 +24,7 @@ systemd-run --unit=falco-coverage --collect "$FALCO_BIN" \
   -r "$HERE/rules/falco_rules.yaml" \
   -r "$HERE/rules/falco-incubating_rules.yaml" \
   -r "$HERE/rules/falco-sandbox_rules.yaml" \
+  -r "$HERE/enablement.yaml" \
   -o engine.kind=modern_ebpf -o rule_matching=all -o json_output=true \
   -o priority=debug -o buffered_outputs=false -o watch_config_files=false \
   -o stdout_output.enabled=true -o syslog_output.enabled=false \

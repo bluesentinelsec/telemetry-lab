@@ -4,11 +4,18 @@
 Deployment remains the existing lab-environment CDK app. All remote requests,
 source archives, CI run metadata and results are retained under --evidence.
 """
-import argparse,hashlib,json,subprocess,tarfile,shutil,sys,uuid
+import argparse,hashlib,json,subprocess,tarfile,shutil,sys,uuid,os
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 def call(argv):return subprocess.check_output(argv,text=True,timeout=900)
 def digest(p):return hashlib.file_digest(p.open('rb'),'sha256').hexdigest()
+def link_or_copy(source, destination):
+ # CI artifact bytes are immutable; link within the evidence filesystem to
+ # avoid duplicating hundreds of MB for every fixture-only qualification pass.
+ try:os.link(source,destination)
+ except OSError:shutil.copy2(source,destination)
+ return destination
+
 def main():
  p=argparse.ArgumentParser(description=__doc__)
  p.add_argument('action',choices=['stage','status','run','collect','refresh'])
@@ -44,7 +51,7 @@ def main():
   stage=a.evidence/'stage'/a.os/a.phase;stage.mkdir(parents=True,exist_ok=False);bundle=stage/'bundle';bundle.mkdir()
   configs=[]
   for source in sorted(artifact.glob('composite-'+a.os+'-*')):
-   config=source.name.removeprefix('composite-');configs.append(config);shutil.copytree(source,bundle/'ttp-composite'/config)
+   config=source.name.removeprefix('composite-');configs.append(config);shutil.copytree(source,bundle/'ttp-composite'/config,copy_function=link_or_copy)
   if len(configs)!=8:raise ValueError('Require all eight CI configuration artifacts')
   shutil.copytree(ROOT/'ttp-composite'/a.os/'coverage',bundle/'ttp-composite/coverage',ignore=shutil.ignore_patterns('__pycache__','validation'))
   (bundle/'manifest.json').write_text(json.dumps(dict(os=a.os,composite_configs=configs,ci_run=a.ci_run),indent=2))

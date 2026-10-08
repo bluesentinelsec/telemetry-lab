@@ -1,4 +1,4 @@
-//go:build linux
+//go:build linux || windows
 
 package main
 
@@ -15,7 +15,7 @@ package main
 // At the syscall level this is the tcp_client path plus HTTP framing in the
 // payload; the point is the request/response round-trip, not a full HTTP client.
 // The cgo/static substrate split lives in anchor_cgo.go.
-// Linux-only for this pass (Winsock on Windows -- issue #44).
+// Built on both Linux and Windows.
 
 import (
 	"io"

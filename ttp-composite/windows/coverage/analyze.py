@@ -2,6 +2,7 @@
 """Join exact Hayabusa rule IDs to Sysmon records and measured process GUIDs."""
 import argparse
 import csv
+import hashlib
 import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -117,15 +118,30 @@ def evaluate(attempt, events, alerts, healthy=True, selected_rule_ids=None):
                 attributable_event_ids=sorted({e['event_id'] for e in events if str(e['record_id']) in attributable}))
 
 
+def planned_slots(directory, plan):
+    expected=({(s['case_id'],s['mode']) for s in plan['slots']} if 'slots' in plan else
+              {(c,m) for c in plan['cases'] for m in plan.get('modes', ('active','control'))})
+    if plan.get('prior_attempts_sha256'):
+        raw=(directory/'prior-attempts.json').read_bytes()
+        if hashlib.sha256(raw).hexdigest()!=plan['prior_attempts_sha256']:
+            raise ValueError('Prior-attempt evidence digest mismatch')
+        prior=as_list(json.loads(raw.decode('utf-8-sig')))
+        keys={(a['case_id'],a['mode']) for a in prior}
+        if len(keys)!=len(prior) or not keys<=expected:
+            raise ValueError('Invalid or duplicate prior-attempt identity')
+        expected-=keys
+    if len(expected)!=plan['expected_attempts']:
+        raise ValueError('Planned attempt count does not match explicit remaining slots')
+    return expected
+
+
 def analyze(directory, write_result=True):
     attempts=as_list(read_json(directory/'attempts.json')) if (directory/'attempts.json').exists() else []
     events=as_list(read_json(directory/'events.json'))
     health=read_json(directory/'health.json')
     with (directory/'alerts.csv').open(encoding='utf-8-sig',newline='') as f:alerts=list(csv.DictReader(f))
     plan=read_json(directory/'run-plan.json')
-    wanted=({(s['case_id'],s['mode']) for s in plan['slots']} if 'slots' in plan else
-            {(c,m) for c in plan['cases'] for m in plan.get('modes', ('active','control'))})
-    complete=(len(attempts)==plan['expected_attempts']==len(wanted) and {(a['case_id'],a['mode']) for a in attempts}==wanted)
+    complete=(len(attempts)==plan['expected_attempts'] and {(a['case_id'],a['mode']) for a in attempts}==planned_slots(directory,plan))
     detector_ok=(directory/'detector-exit.txt').read_text().strip()=='0'
     healthy=(complete and not (directory/'execution-error.txt').exists() and detector_ok and not health['log_overwritten'] and health['sysmon_service']=='Running'
              and not as_list(health['error_events']))

@@ -20,13 +20,20 @@ def validate():
             rules[rule['rule']] = rule
     assert len(rules) == manifest['provided_rules'] == 95
     assert sum(r.get('enabled', True) for r in rules.values()) == 81
+    overrides = yaml.safe_load((HERE / manifest['enablement_file']).read_text())
+    assert len(overrides) == len({r['rule'] for r in overrides})
+    assert all(set(r) == {'rule', 'enabled'} and r['enabled'] is True for r in overrides)
+    enabled = {r['rule'] for r in overrides}
+    assert enabled == set(manifest['enabled_by_profile'])
+    assert all(name in rules and not rules[name].get('enabled', True) for name in enabled)
+    assert sum(r.get('enabled', True) or name in enabled for name, r in rules.items()) == manifest['enabled_rules']
     cases = manifest['cases']
     assert len(cases) == len({c['id'] for c in cases}) == manifest['selected_rules']
     assert len({c['rule'] for c in cases}) == manifest['selected_rules']
     assert len({c['executable'] for c in cases}) == manifest['selected_rules']
     for case in cases:
         assert case['executable'] == 'coverage/' + case['id']
-        assert rules[case['rule']].get('enabled', True)
+        assert rules[case['rule']].get('enabled', True) or case['rule'] in enabled
     return manifest
 
 if __name__ == '__main__':

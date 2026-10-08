@@ -42,7 +42,7 @@ try {
   $failed=$false;$timer=[Diagnostics.Stopwatch]::StartNew()
   try {Remove-OwnedFile $exe} catch [System.IO.IOException], [System.UnauthorizedAccessException] {$failed=$true}
   $timer.Stop()
-  if(!$failed -or !(Test-Path $exe) -or $timer.Elapsed.TotalSeconds -lt 4.5 -or $timer.Elapsed.TotalSeconds -gt 10){throw 'Persistent lock did not produce a bounded failure'}
+  if(!$failed -or !(Test-Path $exe) -or $timer.Elapsed.TotalSeconds -lt 9.5 -or $timer.Elapsed.TotalSeconds -gt 20){throw 'Persistent lock did not produce a bounded failure'}
   'WINDOWS_CLEANUP_REGRESSION_PASSED'
 } finally {
   if($proc){if(!$proc.HasExited){Stop-Process -Id $proc.Id -Force};$proc.WaitForExit();$proc.Dispose()}

@@ -1,4 +1,4 @@
-//go:build linux
+//go:build linux || windows
 
 package main
 
@@ -18,7 +18,7 @@ package main
 // create/wait lifecycle, but the observable clone telemetry can differ from the
 // pthread case. The cgo/static substrate split lives in anchor_cgo.go.
 //
-// Linux-only for this pass (portable via std::thread on Windows -- issue #44).
+// Built on both Linux and Windows.
 
 import (
 	"sync"
