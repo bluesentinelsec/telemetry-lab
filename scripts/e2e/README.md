@@ -10,7 +10,7 @@ folders, its bundled `coverage/Dockerfile`, and a single fixed C
 - `primitives.ps1 -Bundle BUNDLE -Output OUTPUT -Inventory INVENTORY` does the same on Windows.
 - Use the existing `ttp-composite/coverage/run.py --repetitions 1` on Linux.
   On Windows, run `run.ps1`, `run-local-tcp.ps1`, and `run-local-dns.ps1` for
-  each composite configuration. Windows has 52 selected cases per configuration.
+  each composite configuration. Windows has 56 selected cases per configuration.
 - `legacy-linux.py BUNDLE OUTPUT --image IMAGE` and
   `legacy-windows.ps1 -Bundle BUNDLE -Output OUTPUT` exercise the retained
   pilot programs and preserve detector evidence. Pilots lack the expanded

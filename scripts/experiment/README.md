@@ -19,7 +19,7 @@ collection requires the pinned Sysmon/Hayabusa installation, fixed helper.exe an
 fixture.node staged in `C:\lab\windows-coverage\fixtures`, and the existing RDP
 listener. TCP/DNS fixtures use the existing local-only fixture scripts, including
 exact-name temporary DNS policies. No third-party network services are added.
-The Windows composite scope contains 52 cases per configuration, including the
+The Windows composite scope contains 56 cases per configuration, including the
 working `dns_ip_lookup` case. The unsuccessful `.onion` case has been removed.
 
 `--case NAME` and `--config NAME` can be repeated to select a subset. Repetitions

@@ -1,0 +1,1043 @@
+{
+  "campaign": "/Users/michaellong/telemetry-lab-data/windows-expansion-2026-10-08/raw/windows/qualification",
+  "planned": 288,
+  "accepted": 288,
+  "complete": true,
+  "outcomes": {
+    "hit": 144,
+    "control-pass": 144
+  },
+  "cells": [
+    {
+      "case": "ads_executable",
+      "config": "windows-c-msvcrt",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0"
+    },
+    {
+      "case": "ads_executable",
+      "config": "windows-c-ucrt",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0"
+    },
+    {
+      "case": "ads_executable",
+      "config": "windows-cpp-libcxx",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0"
+    },
+    {
+      "case": "ads_executable",
+      "config": "windows-cpp-libstdcxx",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0"
+    },
+    {
+      "case": "ads_executable",
+      "config": "windows-go-cgo",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0"
+    },
+    {
+      "case": "ads_executable",
+      "config": "windows-go-static",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0"
+    },
+    {
+      "case": "ads_executable",
+      "config": "windows-rust-msvc-dynamic",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0"
+    },
+    {
+      "case": "ads_executable",
+      "config": "windows-rust-msvc-static",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "e5cca2eb-74d0-c45b-ec14-3c09f568f8c0"
+    },
+    {
+      "case": "ads_provenance_contents",
+      "config": "windows-c-msvcrt",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "ecb9ed8e-9e96-85bd-a68e-c86d68005053"
+    },
+    {
+      "case": "ads_provenance_contents",
+      "config": "windows-c-ucrt",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "ecb9ed8e-9e96-85bd-a68e-c86d68005053"
+    },
+    {
+      "case": "ads_provenance_contents",
+      "config": "windows-cpp-libcxx",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "ecb9ed8e-9e96-85bd-a68e-c86d68005053"
+    },
+    {
+      "case": "ads_provenance_contents",
+      "config": "windows-cpp-libstdcxx",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "ecb9ed8e-9e96-85bd-a68e-c86d68005053"
+    },
+    {
+      "case": "ads_provenance_contents",
+      "config": "windows-go-cgo",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "ecb9ed8e-9e96-85bd-a68e-c86d68005053"
+    },
+    {
+      "case": "ads_provenance_contents",
+      "config": "windows-go-static",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "ecb9ed8e-9e96-85bd-a68e-c86d68005053"
+    },
+    {
+      "case": "ads_provenance_contents",
+      "config": "windows-rust-msvc-dynamic",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "ecb9ed8e-9e96-85bd-a68e-c86d68005053"
+    },
+    {
+      "case": "ads_provenance_contents",
+      "config": "windows-rust-msvc-static",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "ecb9ed8e-9e96-85bd-a68e-c86d68005053"
+    },
+    {
+      "case": "double_extension_execute",
+      "config": "windows-c-msvcrt",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "b6ce0b2f-593b-5e1c-e137-d30b2974e30e"
+    },
+    {
+      "case": "double_extension_execute",
+      "config": "windows-c-ucrt",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "b6ce0b2f-593b-5e1c-e137-d30b2974e30e"
+    },
+    {
+      "case": "double_extension_execute",
+      "config": "windows-cpp-libcxx",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "b6ce0b2f-593b-5e1c-e137-d30b2974e30e"
+    },
+    {
+      "case": "double_extension_execute",
+      "config": "windows-cpp-libstdcxx",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "b6ce0b2f-593b-5e1c-e137-d30b2974e30e"
+    },
+    {
+      "case": "double_extension_execute",
+      "config": "windows-go-cgo",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "b6ce0b2f-593b-5e1c-e137-d30b2974e30e"
+    },
+    {
+      "case": "double_extension_execute",
+      "config": "windows-go-static",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "b6ce0b2f-593b-5e1c-e137-d30b2974e30e"
+    },
+    {
+      "case": "double_extension_execute",
+      "config": "windows-rust-msvc-dynamic",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "b6ce0b2f-593b-5e1c-e137-d30b2974e30e"
+    },
+    {
+      "case": "double_extension_execute",
+      "config": "windows-rust-msvc-static",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "b6ce0b2f-593b-5e1c-e137-d30b2974e30e"
+    },
+    {
+      "case": "raw_owned_volume_read",
+      "config": "windows-c-msvcrt",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "f4ca1a32-116e-1b6b-6d74-233983928c00"
+    },
+    {
+      "case": "raw_owned_volume_read",
+      "config": "windows-c-ucrt",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "f4ca1a32-116e-1b6b-6d74-233983928c00"
+    },
+    {
+      "case": "raw_owned_volume_read",
+      "config": "windows-cpp-libcxx",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "f4ca1a32-116e-1b6b-6d74-233983928c00"
+    },
+    {
+      "case": "raw_owned_volume_read",
+      "config": "windows-cpp-libstdcxx",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "f4ca1a32-116e-1b6b-6d74-233983928c00"
+    },
+    {
+      "case": "raw_owned_volume_read",
+      "config": "windows-go-cgo",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "f4ca1a32-116e-1b6b-6d74-233983928c00"
+    },
+    {
+      "case": "raw_owned_volume_read",
+      "config": "windows-go-static",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "f4ca1a32-116e-1b6b-6d74-233983928c00"
+    },
+    {
+      "case": "raw_owned_volume_read",
+      "config": "windows-rust-msvc-dynamic",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "f4ca1a32-116e-1b6b-6d74-233983928c00"
+    },
+    {
+      "case": "raw_owned_volume_read",
+      "config": "windows-rust-msvc-static",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "f4ca1a32-116e-1b6b-6d74-233983928c00"
+    },
+    {
+      "case": "signed_system_library_load",
+      "config": "windows-c-msvcrt",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654"
+    },
+    {
+      "case": "signed_system_library_load",
+      "config": "windows-c-ucrt",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654"
+    },
+    {
+      "case": "signed_system_library_load",
+      "config": "windows-cpp-libcxx",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654"
+    },
+    {
+      "case": "signed_system_library_load",
+      "config": "windows-cpp-libstdcxx",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654"
+    },
+    {
+      "case": "signed_system_library_load",
+      "config": "windows-go-cgo",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654"
+    },
+    {
+      "case": "signed_system_library_load",
+      "config": "windows-go-static",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654"
+    },
+    {
+      "case": "signed_system_library_load",
+      "config": "windows-rust-msvc-dynamic",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654"
+    },
+    {
+      "case": "signed_system_library_load",
+      "config": "windows-rust-msvc-static",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654"
+    },
+    {
+      "case": "unicode_child_arguments",
+      "config": "windows-c-msvcrt",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9"
+    },
+    {
+      "case": "unicode_child_arguments",
+      "config": "windows-c-ucrt",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9"
+    },
+    {
+      "case": "unicode_child_arguments",
+      "config": "windows-cpp-libcxx",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9"
+    },
+    {
+      "case": "unicode_child_arguments",
+      "config": "windows-cpp-libstdcxx",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9"
+    },
+    {
+      "case": "unicode_child_arguments",
+      "config": "windows-go-cgo",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9"
+    },
+    {
+      "case": "unicode_child_arguments",
+      "config": "windows-go-static",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9"
+    },
+    {
+      "case": "unicode_child_arguments",
+      "config": "windows-rust-msvc-dynamic",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9"
+    },
+    {
+      "case": "unicode_child_arguments",
+      "config": "windows-rust-msvc-static",
+      "hit": 3,
+      "valid-miss": 0,
+      "control-pass": 3,
+      "control-alert": 0,
+      "matched_rules": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9"
+    }
+  ],
+  "campaign_summary": {
+    "planned_runs": 288,
+    "accepted": 288,
+    "suspect": 0,
+    "total_attempts": 288,
+    "retries": 0,
+    "unresolved": [],
+    "unstarted_runs": 0,
+    "complete": true,
+    "aborted": null,
+    "by_cell": {
+      "composites|windows-c-msvcrt|double_extension_execute|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-msvcrt|raw_owned_volume_read|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-msvcrt|signed_system_library_load|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-msvcrt|unicode_child_arguments|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-msvcrt|ads_provenance_contents|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-msvcrt|ads_executable|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-msvcrt|ads_provenance_contents|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-msvcrt|double_extension_execute|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-msvcrt|ads_executable|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-msvcrt|raw_owned_volume_read|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-msvcrt|signed_system_library_load|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-msvcrt|unicode_child_arguments|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libcxx|signed_system_library_load|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libcxx|unicode_child_arguments|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libcxx|unicode_child_arguments|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libcxx|ads_provenance_contents|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libcxx|raw_owned_volume_read|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libcxx|raw_owned_volume_read|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libcxx|double_extension_execute|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libcxx|ads_executable|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libcxx|ads_provenance_contents|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libcxx|double_extension_execute|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libcxx|signed_system_library_load|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libcxx|ads_executable|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-static|raw_owned_volume_read|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-static|signed_system_library_load|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-static|ads_executable|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-static|ads_provenance_contents|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-static|unicode_child_arguments|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-static|signed_system_library_load|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-static|ads_provenance_contents|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-static|raw_owned_volume_read|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-static|unicode_child_arguments|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-static|double_extension_execute|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-static|ads_executable|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-static|double_extension_execute|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libstdcxx|ads_provenance_contents|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libstdcxx|raw_owned_volume_read|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libstdcxx|unicode_child_arguments|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libstdcxx|double_extension_execute|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libstdcxx|signed_system_library_load|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libstdcxx|unicode_child_arguments|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libstdcxx|ads_executable|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libstdcxx|ads_provenance_contents|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libstdcxx|raw_owned_volume_read|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libstdcxx|double_extension_execute|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libstdcxx|signed_system_library_load|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-cpp-libstdcxx|ads_executable|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-static|raw_owned_volume_read|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-static|signed_system_library_load|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-static|signed_system_library_load|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-static|ads_executable|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-static|double_extension_execute|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-static|unicode_child_arguments|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-static|ads_provenance_contents|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-static|ads_executable|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-static|ads_provenance_contents|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-static|double_extension_execute|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-static|raw_owned_volume_read|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-static|unicode_child_arguments|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-cgo|ads_provenance_contents|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-cgo|unicode_child_arguments|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-cgo|raw_owned_volume_read|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-cgo|signed_system_library_load|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-cgo|unicode_child_arguments|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-cgo|ads_executable|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-cgo|raw_owned_volume_read|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-cgo|ads_provenance_contents|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-cgo|double_extension_execute|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-cgo|ads_executable|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-cgo|double_extension_execute|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-go-cgo|signed_system_library_load|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-dynamic|raw_owned_volume_read|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-dynamic|double_extension_execute|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-dynamic|signed_system_library_load|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-dynamic|ads_provenance_contents|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-dynamic|ads_provenance_contents|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-dynamic|unicode_child_arguments|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-dynamic|signed_system_library_load|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-dynamic|raw_owned_volume_read|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-dynamic|ads_executable|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-dynamic|ads_executable|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-dynamic|unicode_child_arguments|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-rust-msvc-dynamic|double_extension_execute|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|ads_executable|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|double_extension_execute|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|raw_owned_volume_read|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|signed_system_library_load|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|ads_executable|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|unicode_child_arguments|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|double_extension_execute|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|ads_provenance_contents|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|unicode_child_arguments|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|ads_provenance_contents|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|raw_owned_volume_read|control": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|signed_system_library_load|active": {
+        "attempts": 3,
+        "accepted": 3,
+        "suspect": 0,
+        "retries": 0
+      }
+    }
+  },
+  "plan_sha256": "871137bb6680d4d233ca90cbb99d28fdeb206591f85c00cb6a6a3fc0d7c710fd",
+  "accepted_index_sha256": "e62aca825908c122e618e75876ee2be18058bc6dc4f1313379e2c593a966f8a2",
+  "new_case_outcomes": {
+    "control-pass": 96,
+    "alert": 96
+  },
+  "regression_outcomes": {
+    "alert": 48,
+    "control-pass": 48
+  }
+}

@@ -1,0 +1,2232 @@
+[
+  {
+    "rule_id": "3e5ab8cf-6872-477e-83f1-82fd0d30aea5",
+    "title": "WMI Event Filter (Sysmon Alert)",
+    "path": "hayabusa/sysmon/Sysmon_19_WmiEventFilterActivity_RuleAlert.yml",
+    "origin": "hayabusa",
+    "status": "stable",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "1c21b296f5628a2aab35e201988d0da7ff126b56eca06ca5bdeacefc97c07a0d",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: event/provider-specific predicates; not declared infeasible",
+    "event_ids": "[19]",
+    "predicate_fields": "Channel;EventID;RuleName",
+    "assessment": "defer-profile-attribution",
+    "proposed_case": "wmi_filter_named",
+    "rationale": "Requires nonempty/non-dash RuleName. Current Sysmon profile has no named WMI predicates; WMI registration also needs attribution by owned object identity beyond the existing process-GUID join. No automatic admission merely because Event 19 is collected.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Zach Mathis",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/hayabusa/sysmon/Sysmon_19_WmiEventFilterActivity_RuleAlert.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "selection_basic": {
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "EventID": 19
+      },
+      "filter_no_alerts": [
+        {
+          "RuleName": ""
+        },
+        {
+          "RuleName": "-"
+        }
+      ],
+      "condition": "selection_basic and not filter_no_alerts"
+    }
+  },
+  {
+    "rule_id": "8d1487f1-7664-4bda-83b5-cb2f79491b6a",
+    "title": "Proc Exec (Non-Exe Filetype)",
+    "path": "hayabusa/sysmon/Sysmon_1_High_ProcExec_NonExeProcExec.yml",
+    "origin": "hayabusa",
+    "status": "stable",
+    "level": "high",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "6a79d72af3407b10ecdcc76a3b368d3d742f16cf707596612075ed19bf292dff",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: process identity/ancestry; not declared infeasible",
+    "event_ids": "[1]",
+    "predicate_fields": "Channel;EventID;Image",
+    "assessment": "defer-corpus-change",
+    "proposed_case": "non_exe_process",
+    "rationale": "Hayabusa-native rather than Sigma-derived. Executing a benign non-.exe helper is plausible but duplicates image-name mechanism and changes the stated rule-origin scope; not a priority.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Zach Mathis",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/hayabusa/sysmon/Sysmon_1_High_ProcExec_NonExeProcExec.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "selection": {
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "EventID": 1
+      },
+      "filter_exes": {
+        "Image|endswith": ".exe"
+      },
+      "filter_system_processes": [
+        {
+          "Image": "C:\\Windows\\System32\\scrnsave.scr"
+        },
+        {
+          "Image": "C:\\Windows\\SysWOW64\\scrnsave.scr"
+        }
+      ],
+      "condition": "selection and not (filter_exes or filter_system_processes)"
+    }
+  },
+  {
+    "rule_id": "f7606dcf-1408-4573-b243-dc9d232cebfe",
+    "title": "WMI Event Consumer (Sysmon Alert)",
+    "path": "hayabusa/sysmon/Sysmon_20_Med_WmiEventConsumerActivity_RuleAlert.yml",
+    "origin": "hayabusa",
+    "status": "stable",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "c99d13d8cbb4f13d33065b7379249b8166a44dc7e5b17208ca540c94ae4678b9",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: event/provider-specific predicates; not declared infeasible",
+    "event_ids": "[20]",
+    "predicate_fields": "Channel;EventID;RuleName",
+    "assessment": "defer-profile-attribution",
+    "proposed_case": "wmi_consumer_named",
+    "rationale": "Same RuleName dependency and WMI object-attribution gap for Event 20. A collector-generated named match is a different experimental profile.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Zach Mathis",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/hayabusa/sysmon/Sysmon_20_Med_WmiEventConsumerActivity_RuleAlert.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "selection_basic": {
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "EventID": 20
+      },
+      "filter_no_alerts": [
+        {
+          "RuleName": ""
+        },
+        {
+          "RuleName": "-"
+        }
+      ],
+      "condition": "selection_basic and not filter_no_alerts"
+    }
+  },
+  {
+    "rule_id": "6464ba9e-a285-42f8-a1ea-419ef4c867e1",
+    "title": "WMI Event Consumer To Filter (Sysmon Alert)",
+    "path": "hayabusa/sysmon/Sysmon_21_Med_WmiEventConsumerToFilterActivity_RuleAlert.yml",
+    "origin": "hayabusa",
+    "status": "test",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "a983c588047aadf78012edce04086d666db78a020d02e8b73544b2769da6cff9",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: event/provider-specific predicates; not declared infeasible",
+    "event_ids": "[21]",
+    "predicate_fields": "Channel;EventID;RuleName",
+    "assessment": "defer-profile-attribution",
+    "proposed_case": "wmi_binding_named",
+    "rationale": "Same RuleName dependency and WMI attribution gap for Event 21. Binding introduces activation/lifecycle complexity; defer.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Zach Mathis",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/hayabusa/sysmon/Sysmon_21_Med_WmiEventConsumerToFilterActivity_RuleAlert.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "selection_basic": {
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "EventID": 21
+      },
+      "filter_no_alerts": [
+        {
+          "RuleName": ""
+        },
+        {
+          "RuleName": "-"
+        }
+      ],
+      "condition": "selection_basic and not filter_no_alerts"
+    }
+  },
+  {
+    "rule_id": "48ee073d-8109-4622-aa29-73f2b378683e",
+    "title": "Clipboard Change (Sysmon Alert)",
+    "path": "hayabusa/sysmon/Sysmon_24_Med_ClipboardChange_RuleAlert.yml",
+    "origin": "hayabusa",
+    "status": "stable",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "8af0821eb7277c1f2d7da22cf4bc40c4e0718ca90a0e91d2dde5577c4841ce13",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: event/provider-specific predicates; not declared infeasible",
+    "event_ids": "[24]",
+    "predicate_fields": "Channel;EventID;RuleName",
+    "assessment": "defer-profile-session",
+    "proposed_case": "clipboard_named",
+    "rationale": "Hayabusa-native Event 24 plus nonempty/non-dash RuleName. Requires collector-profile and session/clipboard fixture work; not a simple additional test under present profile.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Zach Mathis",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/hayabusa/sysmon/Sysmon_24_Med_ClipboardChange_RuleAlert.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "selection_basic": {
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "EventID": 24
+      },
+      "filter_no_alerts": [
+        {
+          "RuleName": ""
+        },
+        {
+          "RuleName": "-"
+        }
+      ],
+      "condition": "selection_basic and not filter_no_alerts"
+    }
+  },
+  {
+    "rule_id": "c1d21dc3-fcd0-43c7-80d3-b895f0e4c08e",
+    "title": "Proc Tampering",
+    "path": "hayabusa/sysmon/Sysmon_25_Med_ProcessTampering.yml",
+    "origin": "hayabusa",
+    "status": "test",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "90db03a01e3ba5c143d769277f9ae2c55d9c163d7eb0b593076fb4c8f0ef65dc",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: event/provider-specific predicates; not declared infeasible",
+    "event_ids": "[25]",
+    "predicate_fields": "Channel;EventID",
+    "assessment": "defer-mechanism",
+    "proposed_case": "process_tampering",
+    "rationale": "Event 25 requires a real image-tampering mechanism, not ordinary process creation. Adds substantial mechanism and attribution complexity and is Hayabusa-native; defer from this bounded runtime comparison.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Zach Mathis",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/hayabusa/sysmon/Sysmon_25_Med_ProcessTampering.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "selection_basic": {
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "EventID": 25
+      },
+      "condition": "selection_basic"
+    }
+  },
+  {
+    "rule_id": "b021180b-ea62-4709-94ce-05a75637eec5",
+    "title": "Raw Access Read",
+    "path": "hayabusa/sysmon/Sysmon_9_Med_RawAccessRead.yml",
+    "origin": "hayabusa",
+    "status": "test",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "0de15af6ce79ef4538ae9918c567132eeab8c3634ffd820db22e147fb8b8e723",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: event/provider-specific predicates; not declared infeasible",
+    "event_ids": "[9]",
+    "predicate_fields": "Channel;EventID",
+    "assessment": "secondary-diagnostic",
+    "proposed_case": "generic_raw_read",
+    "rationale": "Hayabusa-native event-only rule can incidentally match the proposed Sigma raw-read case. Do not count it as a second independent case or silently change the Sigma-only primary selection.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Zach Mathis",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/hayabusa/sysmon/Sysmon_9_Med_RawAccessRead.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "selection_basic": {
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "EventID": 9
+      },
+      "condition": "selection_basic"
+    }
+  },
+  {
+    "rule_id": "26dd6cb5-1ad6-7f44-8b01-7fff731771c0",
+    "title": "Rare Remote Thread Creation By Uncommon Source Image",
+    "path": "sigma/sysmon/create_remote_thread/create_remote_thread_win_susp_relevant_source_image.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "high",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "94a737ebc91677b551e9125160dad825b3eb0f79844b45d26dcd1534b6b99427",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: process identity/ancestry; not declared infeasible",
+    "event_ids": "[8]",
+    "predicate_fields": "Channel;EventID;SourceImage;TargetImage",
+    "assessment": "defer-identity",
+    "proposed_case": "remote_thread_source_identity",
+    "rationale": "Requires one of many named source applications. A renamed probe is not evidence of those applications behavior; common-tool execution would dominate. Existing remote-thread case is a better controlled basis.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Perez Diego (@darkquassar), oscd.community",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_remote_thread/create_remote_thread_win_susp_relevant_source_image.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "create_remote_thread": {
+        "EventID": 8,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": {
+        "SourceImage|endswith": [
+          "\\bash.exe",
+          "\\cscript.exe",
+          "\\cvtres.exe",
+          "\\defrag.exe",
+          "\\dialer.exe",
+          "\\dnx.exe",
+          "\\esentutl.exe",
+          "\\excel.exe",
+          "\\expand.exe",
+          "\\find.exe",
+          "\\findstr.exe",
+          "\\forfiles.exe",
+          "\\gpupdate.exe",
+          "\\hh.exe",
+          "\\installutil.exe",
+          "\\lync.exe",
+          "\\makecab.exe",
+          "\\mDNSResponder.exe",
+          "\\monitoringhost.exe",
+          "\\msbuild.exe",
+          "\\mshta.exe",
+          "\\mspaint.exe",
+          "\\outlook.exe",
+          "\\ping.exe",
+          "\\provtool.exe",
+          "\\python.exe",
+          "\\regsvr32.exe",
+          "\\robocopy.exe",
+          "\\runonce.exe",
+          "\\sapcimc.exe",
+          "\\smartscreen.exe",
+          "\\spoolsv.exe",
+          "\\tstheme.exe",
+          "\\userinit.exe",
+          "\\vssadmin.exe",
+          "\\vssvc.exe",
+          "\\w3wp.exe",
+          "\\winscp.exe",
+          "\\winword.exe",
+          "\\wmic.exe",
+          "\\wscript.exe"
+        ]
+      },
+      "filter_main_conhost": {
+        "SourceImage": [
+          "C:\\Windows\\System32\\Defrag.exe",
+          "C:\\Windows\\System32\\makecab.exe"
+        ],
+        "TargetImage": "C:\\Windows\\System32\\conhost.exe"
+      },
+      "filter_main_provtol_svchost": {
+        "SourceImage": "C:\\Windows\\System32\\provtool.exe",
+        "TargetImage": "C:\\Windows\\System32\\svchost.exe"
+      },
+      "filter_main_provtool_system": {
+        "SourceImage": "C:\\Windows\\System32\\provtool.exe",
+        "TargetImage": "System"
+      },
+      "filter_main_userinit": {
+        "SourceImage": "C:\\Windows\\System32\\userinit.exe",
+        "TargetImage": "C:\\Windows\\explorer.exe"
+      },
+      "filter_main_winword": {
+        "SourceImage|endswith": "\\WINWORD.EXE",
+        "TargetImage|startswith": [
+          "C:\\Program Files (x86)\\",
+          "C:\\Program Files\\"
+        ]
+      },
+      "filter_main_ms_office": {
+        "SourceImage|startswith": [
+          "C:\\Program Files\\Microsoft Office\\",
+          "C:\\Program Files (x86)\\Microsoft Office\\"
+        ],
+        "TargetImage": "System"
+      },
+      "filter_optional_explorer_vmtools": {
+        "SourceImage|endswith": "\\SysWOW64\\explorer.exe",
+        "TargetImage": [
+          "C:\\Program Files (x86)\\VMware\\VMware Tools\\vmtoolsd.exe",
+          "C:\\Program Files\\VMware\\VMware Tools\\vmtoolsd.exe"
+        ]
+      },
+      "condition": "create_remote_thread and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+    }
+  },
+  {
+    "rule_id": "f82602cb-215f-3a1f-38ff-e7b8fb2dcd66",
+    "title": "Remote Thread Creation By Uncommon Source Image",
+    "path": "sigma/sysmon/create_remote_thread/create_remote_thread_win_susp_uncommon_source_image.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "5f060642845754b8da295507dda89536f66dbb45a2ba9f24b05e3b58b5ba501c",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: process identity/ancestry; not declared infeasible",
+    "event_ids": "[8]",
+    "predicate_fields": "Channel;EventID;SourceCommandLine;SourceImage;SourceParentImage;TargetImage;TargetParentProcessId",
+    "assessment": "defer-identity",
+    "proposed_case": "remote_thread_shell_identity",
+    "rationale": "Requires explorer/msiexec/other named application identity and complex exclusions. Not a simple language-native port under current fixture contract.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Perez Diego (@darkquassar), oscd.community",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_remote_thread/create_remote_thread_win_susp_uncommon_source_image.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "create_remote_thread": {
+        "EventID": 8,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": {
+        "SourceImage|endswith": [
+          "\\explorer.exe",
+          "\\iexplore.exe",
+          "\\msiexec.exe",
+          "\\powerpnt.exe",
+          "\\schtasks.exe",
+          "\\winlogon.exe"
+        ]
+      },
+      "filter_main_winlogon_1": {
+        "SourceImage": "C:\\Windows\\System32\\winlogon.exe",
+        "TargetImage": [
+          "C:\\Windows\\System32\\services.exe",
+          "C:\\Windows\\System32\\wininit.exe",
+          "C:\\Windows\\System32\\csrss.exe",
+          "C:\\Windows\\System32\\LogonUI.exe",
+          "C:\\Windows\\System32\\wlrmdr.exe",
+          "C:\\Windows\\System32\\AtBroker.exe",
+          "C:\\Windows\\System32\\dwm.exe",
+          "C:\\Windows\\System32\\fontdrvhost.exe",
+          "C:\\Windows\\System32\\userinit.exe"
+        ]
+      },
+      "filter_main_winlogon_2": {
+        "SourceImage": "C:\\Windows\\System32\\winlogon.exe",
+        "TargetParentProcessId": 4
+      },
+      "filter_main_schtasks_conhost": {
+        "SourceImage": [
+          "C:\\Windows\\System32\\schtasks.exe",
+          "C:\\Windows\\SysWOW64\\schtasks.exe"
+        ],
+        "TargetImage": "C:\\Windows\\System32\\conhost.exe"
+      },
+      "filter_main_explorer": {
+        "SourceImage": "C:\\Windows\\explorer.exe",
+        "TargetImage|startswith": [
+          "C:\\Program Files (x86)\\",
+          "C:\\Program Files\\",
+          "C:\\Windows\\System32\\",
+          "C:\\Windows\\SysWOW64\\"
+        ]
+      },
+      "filter_main_system": {
+        "TargetImage": "System"
+      },
+      "filter_main_msiexec_1": {
+        "SourceImage|endswith": "\\msiexec.exe",
+        "TargetImage|contains": [
+          "\\AppData\\Local\\",
+          "C:\\Program Files (x86)\\",
+          "C:\\Program Files\\",
+          "C:\\Windows\\Microsoft.NET\\Framework64\\"
+        ]
+      },
+      "filter_main_msiexec_2": {
+        "SourceImage|endswith": "\\msiexec.exe",
+        "TargetImage": [
+          "C:\\Windows\\System32\\msiexec.exe",
+          "C:\\Windows\\SysWOW64\\msiexec.exe"
+        ]
+      },
+      "filter_main_iexplore": {
+        "SourceImage": "C:\\Program Files\\Internet Explorer\\iexplore.exe",
+        "TargetImage": [
+          "C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe",
+          "C:\\Windows\\System32\\rundll32.exe"
+        ]
+      },
+      "filter_main_powerpnt": {
+        "SourceImage|endswith": "\\POWERPNT.EXE",
+        "TargetImage|contains": [
+          "C:\\Program Files\\Microsoft Office\\",
+          "C:\\Program Files (x86)\\Microsoft Office\\"
+        ]
+      },
+      "filter_optional_aurora_smartconsole1": {
+        "SourceImage": "C:\\Program Files\\internet explorer\\iexplore.exe",
+        "SourceCommandLine|contains|all": [
+          "https://",
+          ".checkpoint.com/documents/",
+          "SmartConsole_OLH/",
+          "default.htm#cshid="
+        ]
+      },
+      "filter_optional_aurora_smartconsole2": {
+        "SourceImage": "C:\\Program Files\\internet explorer\\iexplore.exe",
+        "SourceParentImage|startswith": [
+          "C:\\Program Files\\",
+          "C:\\Program Files (x86)\\"
+        ],
+        "SourceParentImage|contains|all": [
+          "\\CheckPoint\\SmartConsole\\",
+          "\\SmartConsole.exe"
+        ]
+      },
+      "filter_optional_powerpnt": {
+        "SourceImage|contains": "\\Microsoft Office\\",
+        "SourceImage|endswith": "\\POWERPNT.EXE",
+        "TargetImage": "C:\\Windows\\System32\\csrss.exe"
+      },
+      "filter_main_null": {
+        "TargetImage": null
+      },
+      "filter_main_empty": {
+        "TargetImage": ""
+      },
+      "filter_optional_onedrive": {
+        "SourceImage": "C:\\Windows\\explorer.exe",
+        "TargetImage|endswith": "\\AppData\\Local\\Microsoft\\OneDrive\\OneDrive.exe"
+      },
+      "filter_optional_aurora": {
+        "SourceImage": "C:\\Windows\\explorer.exe",
+        "TargetImage|endswith": "\\aurora-dashboard.exe"
+      },
+      "filter_optional_officesetup": {
+        "SourceImage": "C:\\Windows\\explorer.exe",
+        "TargetImage|endswith": "\\OfficeSetup.exe"
+      },
+      "condition": "create_remote_thread and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+    }
+  },
+  {
+    "rule_id": "800a753c-045e-a840-1c7b-2c7e746e2e9b",
+    "title": "Creation Of a Suspicious ADS File Outside a Browser Download",
+    "path": "sigma/sysmon/create_stream_hash/create_stream_hash_creation_internet_file.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "47caffac252e1207ce65d4ba7c5b4addb2f6f8750b88115a57548d3778cd43ae",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: process identity/ancestry, file/registry/pipe indicators; not declared infeasible",
+    "event_ids": "[15]",
+    "predicate_fields": "Channel;Contents;EventID;Image;TargetFilename",
+    "assessment": "alternative-not-additive",
+    "proposed_case": "ads_zone_prefix",
+    "rationale": "Alternative to numeric-IP Contents regex: requires the exact flattened ZoneTransfer/ZoneId prefix and executable-like filename, excluding browsers. Qualify actual Sysmon formatting first; avoid counting both content rules as separate mechanisms.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "frack113",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_stream_hash/create_stream_hash_creation_internet_file.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "create_stream_hash": {
+        "EventID": 15,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": {
+        "Contents|startswith": "[ZoneTransfer]  ZoneId=3",
+        "TargetFilename|endswith": ":Zone.Identifier",
+        "TargetFilename|contains": [
+          ".exe",
+          ".scr",
+          ".bat",
+          ".cmd",
+          ".docx",
+          ".hta",
+          ".jse",
+          ".lnk",
+          ".pptx",
+          ".ps",
+          ".reg",
+          ".sct",
+          ".vb",
+          ".wsc",
+          ".wsf",
+          ".xlsx"
+        ]
+      },
+      "filter_optional_brave": {
+        "Image|endswith": "\\brave.exe"
+      },
+      "filter_optional_chrome": {
+        "Image": [
+          "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+          "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+        ]
+      },
+      "filter_optional_firefox": {
+        "Image": [
+          "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+          "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"
+        ]
+      },
+      "filter_optional_ie": {
+        "Image": [
+          "C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe",
+          "C:\\Program Files\\Internet Explorer\\iexplore.exe"
+        ]
+      },
+      "filter_optional_maxthon": {
+        "Image|endswith": "\\maxthon.exe"
+      },
+      "filter_optional_edge_1": [
+        {
+          "Image|startswith": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\"
+        },
+        {
+          "Image|endswith": "\\WindowsApps\\MicrosoftEdge.exe"
+        },
+        {
+          "Image": [
+            "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+            "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe"
+          ]
+        }
+      ],
+      "filter_optional_edge_2": {
+        "Image|startswith": [
+          "C:\\Program Files (x86)\\Microsoft\\EdgeCore\\",
+          "C:\\Program Files\\Microsoft\\EdgeCore\\"
+        ],
+        "Image|endswith": [
+          "\\msedge.exe",
+          "\\msedgewebview2.exe"
+        ]
+      },
+      "filter_optional_opera": {
+        "Image|endswith": "\\opera.exe"
+      },
+      "filter_optional_safari": {
+        "Image|endswith": "\\safari.exe"
+      },
+      "filter_optional_seamonkey": {
+        "Image|endswith": "\\seamonkey.exe"
+      },
+      "filter_optional_vivaldi": {
+        "Image|endswith": "\\vivaldi.exe"
+      },
+      "filter_optional_whale": {
+        "Image|endswith": "\\whale.exe"
+      },
+      "filter_optional_snipping_tool": {
+        "Image|startswith": "C:\\Program Files\\WindowsApps\\Microsoft.ScreenSketch_",
+        "Image|endswith": "\\SnippingTool\\SnippingTool.exe",
+        "TargetFilename|startswith": "C:\\Users\\",
+        "TargetFilename|contains|all": [
+          "\\AppData\\Local\\Packages\\Microsoft.ScreenSketch_",
+          "\\TempState\\Screenshot "
+        ],
+        "TargetFilename|endswith": ".png:Zone.Identifier"
+      },
+      "condition": "create_stream_hash and (selection and not 1 of filter_optional_*)"
+    }
+  },
+  {
+    "rule_id": "ab2ff24c-db1b-5500-252e-17a760e4fa8c",
+    "title": "Suspicious File Download From File Sharing Websites -  File Stream",
+    "path": "sigma/sysmon/create_stream_hash/create_stream_hash_file_sharing_domains_download_susp_extension.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "high",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "fa89640c76f0c8bfa4bcf6d3d82796ec7111020b3ed1c5b58cc72bfd4ec917bd",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: file/registry/pipe indicators; not declared infeasible",
+    "event_ids": "[15]",
+    "predicate_fields": "Channel;Contents;EventID;TargetFilename",
+    "assessment": "redundant-indicator",
+    "proposed_case": "ads_host_indicator",
+    "rationale": "Contents domain list plus stream-extension predicate. Reuses the same proposed ADS operation with another string; record incidental matches instead of making a separate experiment solely to raise counts.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Florian Roth (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_stream_hash/create_stream_hash_file_sharing_domains_download_susp_extension.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "create_stream_hash": {
+        "EventID": 15,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection_domain": {
+        "Contents|contains": [
+          ".githubusercontent.com",
+          "0x0.st",
+          "anonfiles.com",
+          "bashupload.com",
+          "cdn.discordapp.com",
+          "chunk.io",
+          "ddns.net",
+          "dl.dropboxusercontent.com",
+          "ghostbin.co",
+          "github.com",
+          "glitch.me",
+          "gofile.io",
+          "hastebin.com",
+          "mediafire.com",
+          "mega.nz",
+          "onrender.com",
+          "pages.dev",
+          "paste.ee",
+          "pastebin.com",
+          "pastebin.pl",
+          "pastetext.net",
+          "pixeldrain.com",
+          "privatlab.com",
+          "privatlab.net",
+          "send.exploit.in",
+          "sendspace.com",
+          "storage.googleapis.com",
+          "storjshare.io",
+          "supabase.co",
+          "temp.sh",
+          "transfer.sh",
+          "trycloudflare.com",
+          "ufile.io",
+          "w3spaces.com",
+          "workers.dev",
+          "x0.at"
+        ]
+      },
+      "selection_extension": {
+        "TargetFilename|contains": [
+          ".cpl:Zone",
+          ".dll:Zone",
+          ".exe:Zone",
+          ".hta:Zone",
+          ".lnk:Zone",
+          ".one:Zone",
+          ".vbe:Zone",
+          ".vbs:Zone",
+          ".xll:Zone"
+        ]
+      },
+      "condition": "create_stream_hash and (all of selection_*)"
+    }
+  },
+  {
+    "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+    "title": "Unusual File Download from Direct IP Address",
+    "path": "sigma/sysmon/create_stream_hash/create_stream_hash_susp_ip_domains.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "high",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "67afc1c3e044947a6ac901649dfa3673a44f028ca894f14f9b28be45008ec4a8",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: file/registry/pipe indicators; not declared infeasible",
+    "event_ids": "[15]",
+    "predicate_fields": "Channel;Contents;EventID;TargetFilename",
+    "assessment": "qualify-next",
+    "proposed_case": "ads_provenance_contents",
+    "rationale": "Adds Event 15 Contents regex to the existing stream-hash case. Write fixed synthetic Zone.Identifier text with a numeric-IP URL to an owned matching-extension carrier; verify bytes. This tests stream-content evidence, not a real download. Confirm live Contents formatting and process attribution.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Nasreddine Bencherchali (Nextron Systems), Florian Roth (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_stream_hash/create_stream_hash_susp_ip_domains.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "create_stream_hash": {
+        "EventID": 15,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": {
+        "Contents|re": "http[s]?://[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}",
+        "TargetFilename|contains": [
+          ".ps1:Zone",
+          ".bat:Zone",
+          ".exe:Zone",
+          ".vbe:Zone",
+          ".vbs:Zone",
+          ".dll:Zone",
+          ".one:Zone",
+          ".cmd:Zone",
+          ".hta:Zone",
+          ".xll:Zone",
+          ".lnk:Zone"
+        ]
+      },
+      "condition": "create_stream_hash and selection"
+    }
+  },
+  {
+    "rule_id": "d32bd6e0-d06c-97bd-6199-226bfdd744f4",
+    "title": "Backup Files Deleted",
+    "path": "sigma/sysmon/file/file_delete/file_delete_win_delete_backup_file.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "d4886b62ef700b26e6bf3c8a714dc981da60de88959106b634394590df0f3761",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: process identity/ancestry, file/registry/pipe indicators; not declared infeasible",
+    "event_ids": "[23, 26]",
+    "predicate_fields": "Channel;EventID;Image;TargetFilename",
+    "assessment": "defer-identity",
+    "proposed_case": "backup_deletion_shell",
+    "rationale": "Requires deletion by listed cmd/PowerShell/rundll32-like image. Deleting an owned .bak file with the native program would not match; a shell wrapper adds little runtime discrimination.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "frack113",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_delete/file_delete_win_delete_backup_file.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "file_delete": {
+        "EventID": [
+          23,
+          26
+        ],
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": {
+        "Image|endswith": [
+          "\\cmd.exe",
+          "\\powershell.exe",
+          "\\pwsh.exe",
+          "\\wt.exe",
+          "\\rundll32.exe",
+          "\\regsvr32.exe"
+        ],
+        "TargetFilename|endswith": [
+          ".VHD",
+          ".bac",
+          ".bak",
+          ".wbcat",
+          ".bkf",
+          ".set",
+          ".win",
+          ".dsk"
+        ]
+      },
+      "condition": "file_delete and selection"
+    }
+  },
+  {
+    "rule_id": "f12a81df-f0e4-022e-19bc-611939b04b6b",
+    "title": "Potentially Suspicious Self Extraction Directive File Created",
+    "path": "sigma/sysmon/file/file_executable_detected/file_executable_detected_win_susp_embeded_sed_file.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "b1eb86d9b88fbbe163dd7e7fafb1a482fb78372b4caf476cbb9ae89a8f1e48b3",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: file/registry/pipe indicators; not declared infeasible",
+    "event_ids": "[29]",
+    "predicate_fields": "Channel;EventID;TargetFilename",
+    "assessment": "defer-profile",
+    "proposed_case": "pe_sed_extension",
+    "rationale": "Same Event 29 profile gap with a .sed filename predicate. Incremental indicator coverage only; no separate mechanism.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Joseliyo Sanchez, @Joseliyo_Jstnk",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_executable_detected/file_executable_detected_win_susp_embeded_sed_file.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "file_executable_detected": {
+        "EventID": 29,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": {
+        "TargetFilename|endswith": ".sed"
+      },
+      "condition": "file_executable_detected and selection"
+    }
+  },
+  {
+    "rule_id": "1a758eb2-7a22-fb9e-a476-58d15c8f7501",
+    "title": "CredUI.DLL Loaded By Uncommon Process",
+    "path": "sigma/sysmon/image_load/image_load_dll_credui_uncommon_process_load.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "2f59204af876c79e3937236750efaede944ffe6d9d86ab56c7b6559a70b946a2",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: process identity/ancestry; not declared infeasible",
+    "event_ids": "[7]",
+    "predicate_fields": "Channel;EventID;Image;ImageLoaded;OriginalFileName",
+    "assessment": "alternative-not-additive",
+    "proposed_case": "signed_credui_load",
+    "rationale": "Alternative genuine system-DLL load from a nonexcluded program path. No credential UI or credential access is needed to test the load predicate. Shares the proposed signed-DLL mechanism; choose one primary target.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/image_load/image_load_dll_credui_uncommon_process_load.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "image_load": {
+        "EventID": 7,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": [
+        {
+          "ImageLoaded|endswith": [
+            "\\credui.dll",
+            "\\wincredui.dll"
+          ]
+        },
+        {
+          "OriginalFileName": [
+            "credui.dll",
+            "wincredui.dll"
+          ]
+        }
+      ],
+      "filter_main_generic": {
+        "Image|startswith": [
+          "C:\\Program Files (x86)\\",
+          "C:\\Program Files\\",
+          "C:\\Windows\\System32\\",
+          "C:\\Windows\\SysWOW64\\",
+          "C:\\Windows\\SystemApps\\"
+        ]
+      },
+      "filter_main_full": {
+        "Image": [
+          "C:\\Windows\\explorer.exe",
+          "C:\\Windows\\ImmersiveControlPanel\\SystemSettings.exe",
+          "C:\\Windows\\regedit.exe"
+        ]
+      },
+      "filter_optional_opera": {
+        "Image|endswith": "\\opera_autoupdate.exe"
+      },
+      "filter_optional_process_explorer": {
+        "Image|endswith": [
+          "\\procexp64.exe",
+          "\\procexp64a.exe",
+          "\\procexp.exe"
+        ]
+      },
+      "filter_optional_teams": {
+        "Image|startswith": "C:\\Users\\",
+        "Image|contains": "\\AppData\\Local\\Microsoft\\Teams\\",
+        "Image|endswith": "\\Teams.exe"
+      },
+      "filter_optional_onedrive": {
+        "Image|startswith": "C:\\Users\\",
+        "Image|contains": "\\AppData\\Local\\Microsoft\\OneDrive\\"
+      },
+      "condition": "image_load and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+    }
+  },
+  {
+    "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+    "title": "Load Of RstrtMgr.DLL By An Uncommon Process",
+    "path": "sigma/sysmon/image_load/image_load_dll_rstrtmgr_uncommon_load.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "low",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "c2fe81f3e8aff9919b7905361073a64752ce87cbbe216ea9eb146bf79a7a467f",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: process identity/ancestry; not declared infeasible",
+    "event_ids": "[7]",
+    "predicate_fields": "Channel;EventID;Image;ImageLoaded;OriginalFileName",
+    "assessment": "qualify-next",
+    "proposed_case": "signed_system_library_load",
+    "rationale": "Adds legitimate signed OS-library loading to the existing unsigned .node fixture. Load the genuine fixed RstrtMgr.dll from its system path without invoking Restart Manager operations. Freeze DLL hash and measured executable path outside exclusions; verify module identity. Reject if it is already loaded in controls or the control emits the selected alert.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Luc Génaux",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/image_load/image_load_dll_rstrtmgr_uncommon_load.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "image_load": {
+        "EventID": 7,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": [
+        {
+          "ImageLoaded|endswith": "\\RstrtMgr.dll"
+        },
+        {
+          "OriginalFileName": "RstrtMgr.dll"
+        }
+      ],
+      "filter_main_generic": {
+        "Image|startswith": [
+          "C:\\$WINDOWS.~BT\\",
+          "C:\\$WinREAgent\\",
+          "C:\\Program Files (x86)\\",
+          "C:\\Program Files\\",
+          "C:\\ProgramData\\",
+          "C:\\Windows\\explorer.exe",
+          "C:\\Windows\\SoftwareDistribution\\",
+          "C:\\Windows\\SysNative\\",
+          "C:\\Windows\\System32\\",
+          "C:\\Windows\\SysWOW64\\",
+          "C:\\Windows\\WinSxS\\",
+          "C:\\WUDownloadCache\\"
+        ]
+      },
+      "filter_main_user_software_installations": {
+        "Image|startswith": "C:\\Users\\",
+        "Image|contains|all": [
+          "\\AppData\\Local\\Temp\\is-",
+          ".tmp\\"
+        ],
+        "Image|endswith": ".tmp"
+      },
+      "filter_main_admin_software_installations": {
+        "Image|startswith": "C:\\Windows\\Temp\\"
+      },
+      "filter_optional_onedrive_1": {
+        "Image|startswith": "C:\\Users\\",
+        "Image|endswith": [
+          "\\AppData\\Local\\Microsoft\\OneDrive\\OneDrive.exe",
+          "\\AppData\\Local\\Microsoft\\OneDrive\\OneDriveStandaloneUpdater.exe"
+        ]
+      },
+      "filter_optional_onedrive_2": {
+        "Image|startswith": "C:\\Users\\",
+        "Image|contains": "\\AppData\\Local\\Microsoft\\OneDrive\\",
+        "Image|endswith": "\\OneDrive.Sync.Service.exe"
+      },
+      "condition": "image_load and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+    }
+  },
+  {
+    "rule_id": "bda62baa-7c73-357c-f9c4-7467de997c23",
+    "title": "Potential System DLL Sideloading From Non System Locations",
+    "path": "sigma/sysmon/image_load/image_load_side_load_from_non_system_location.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "high",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "bd7c48e40158bfbd86dd47af2c9e469052d11442882f06c397e2c5ecce63f4bf",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: process identity/ancestry; not declared infeasible",
+    "event_ids": "[7]",
+    "predicate_fields": "Channel;EventID;Image;ImageLoaded",
+    "assessment": "redundant-indicator",
+    "proposed_case": "system_name_library_load",
+    "rationale": "A stock-listed DLL basename outside approved locations can match. Loading a renamed harmless fixture would mostly duplicate existing unsigned .node loading plus a path/name predicate; it would not prove actual search-order hijacking.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Nasreddine Bencherchali (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/image_load/image_load_side_load_from_non_system_location.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "image_load": {
+        "EventID": 7,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": {
+        "ImageLoaded|endswith": [
+          "\\aclui.dll",
+          "\\activeds.dll",
+          "\\adsldpc.dll",
+          "\\aepic.dll",
+          "\\apphelp.dll",
+          "\\applicationframe.dll",
+          "\\appvpolicy.dll",
+          "\\appxalluserstore.dll",
+          "\\appxdeploymentclient.dll",
+          "\\archiveint.dll",
+          "\\atl.dll",
+          "\\audioses.dll",
+          "\\auditpolcore.dll",
+          "\\authfwcfg.dll",
+          "\\authz.dll",
+          "\\avrt.dll",
+          "\\batmeter.dll",
+          "\\bcd.dll",
+          "\\bcp47langs.dll",
+          "\\bcp47mrm.dll",
+          "\\bcrypt.dll",
+          "\\bderepair.dll",
+          "\\bootmenuux.dll",
+          "\\bootux.dll",
+          "\\cabinet.dll",
+          "\\cabview.dll",
+          "\\certcli.dll",
+          "\\certenroll.dll",
+          "\\cfgmgr32.dll",
+          "\\cldapi.dll",
+          "\\clipc.dll",
+          "\\clusapi.dll",
+          "\\cmpbk32.dll",
+          "\\cmutil.dll",
+          "\\coloradapterclient.dll",
+          "\\colorui.dll",
+          "\\comdlg32.dll",
+          "\\configmanager2.dll",
+          "\\connect.dll",
+          "\\coredplus.dll",
+          "\\coremessaging.dll",
+          "\\coreuicomponents.dll",
+          "\\credui.dll",
+          "\\cryptbase.dll",
+          "\\cryptdll.dll",
+          "\\cryptsp.dll",
+          "\\cryptui.dll",
+          "\\cryptxml.dll",
+          "\\cscapi.dll",
+          "\\cscobj.dll",
+          "\\cscui.dll",
+          "\\d2d1.dll",
+          "\\d3d10_1.dll",
+          "\\d3d10_1core.dll",
+          "\\d3d10.dll",
+          "\\d3d10core.dll",
+          "\\d3d10warp.dll",
+          "\\d3d11.dll",
+          "\\d3d12.dll",
+          "\\d3d9.dll",
+          "\\d3dx9_43.dll",
+          "\\dataexchange.dll",
+          "\\davclnt.dll",
+          "\\dcntel.dll",
+          "\\dcomp.dll",
+          "\\defragproxy.dll",
+          "\\desktopshellext.dll",
+          "\\deviceassociation.dll",
+          "\\devicecredential.dll",
+          "\\devicepairing.dll",
+          "\\devobj.dll",
+          "\\devrtl.dll",
+          "\\dhcpcmonitor.dll",
+          "\\dhcpcsvc.dll",
+          "\\dhcpcsvc6.dll",
+          "\\directmanipulation.dll",
+          "\\dismapi.dll",
+          "\\dismcore.dll",
+          "\\dmcfgutils.dll",
+          "\\dmcmnutils.dll",
+          "\\dmcommandlineutils.dll",
+          "\\dmenrollengine.dll",
+          "\\dmenterprisediagnostics.dll",
+          "\\dmiso8601utils.dll",
+          "\\dmoleaututils.dll",
+          "\\dmprocessxmlfiltered.dll",
+          "\\dmpushproxy.dll",
+          "\\dmxmlhelputils.dll",
+          "\\dnsapi.dll",
+          "\\dot3api.dll",
+          "\\dot3cfg.dll",
+          "\\dpx.dll",
+          "\\drprov.dll",
+          "\\drvstore.dll",
+          "\\dsclient.dll",
+          "\\dsparse.dll",
+          "\\dsprop.dll",
+          "\\dsreg.dll",
+          "\\dsrole.dll",
+          "\\dui70.dll",
+          "\\duser.dll",
+          "\\dusmapi.dll",
+          "\\dwmapi.dll",
+          "\\dwmcore.dll",
+          "\\dwrite.dll",
+          "\\dxcore.dll",
+          "\\dxgi.dll",
+          "\\dxva2.dll",
+          "\\dynamoapi.dll",
+          "\\eappcfg.dll",
+          "\\eappprxy.dll",
+          "\\edgeiso.dll",
+          "\\edputil.dll",
+          "\\efsadu.dll",
+          "\\efsutil.dll",
+          "\\esent.dll",
+          "\\execmodelproxy.dll",
+          "\\explorerframe.dll",
+          "\\fastprox.dll",
+          "\\faultrep.dll",
+          "\\fddevquery.dll",
+          "\\feclient.dll",
+          "\\fhcfg.dll",
+          "\\fhsvcctl.dll",
+          "\\firewallapi.dll",
+          "\\flightsettings.dll",
+          "\\fltlib.dll",
+          "\\framedynos.dll",
+          "\\fveapi.dll",
+          "\\fveskybackup.dll",
+          "\\fvewiz.dll",
+          "\\fwbase.dll",
+          "\\fwcfg.dll",
+          "\\fwpolicyiomgr.dll",
+          "\\fwpuclnt.dll",
+          "\\fxsapi.dll",
+          "\\fxsst.dll",
+          "\\fxstiff.dll",
+          "\\getuname.dll",
+          "\\gpapi.dll",
+          "\\hid.dll",
+          "\\hnetmon.dll",
+          "\\httpapi.dll",
+          "\\icmp.dll",
+          "\\idstore.dll",
+          "\\ieadvpack.dll",
+          "\\iedkcs32.dll",
+          "\\iernonce.dll",
+          "\\iertutil.dll",
+          "\\ifmon.dll",
+          "\\ifsutil.dll",
+          "\\inproclogger.dll",
+          "\\iphlpapi.dll",
+          "\\iri.dll",
+          "\\iscsidsc.dll",
+          "\\iscsium.dll",
+          "\\isv.exe_rsaenh.dll",
+          "\\iumbase.dll",
+          "\\iumsdk.dll",
+          "\\joinutil.dll",
+          "\\kdstub.dll",
+          "\\ksuser.dll",
+          "\\ktmw32.dll",
+          "\\licensemanagerapi.dll",
+          "\\licensingdiagspp.dll",
+          "\\linkinfo.dll",
+          "\\loadperf.dll",
+          "\\lockhostingframework.dll",
+          "\\logoncli.dll",
+          "\\logoncontroller.dll",
+          "\\lpksetupproxyserv.dll",
+          "\\lrwizdll.dll",
+          "\\magnification.dll",
+          "\\maintenanceui.dll",
+          "\\mapistub.dll",
+          "\\mbaexmlparser.dll",
+          "\\mdmdiagnostics.dll",
+          "\\mfc42u.dll",
+          "\\mfcore.dll",
+          "\\mfplat.dll",
+          "\\mi.dll",
+          "\\midimap.dll",
+          "\\mintdh.dll",
+          "\\miutils.dll",
+          "\\mlang.dll",
+          "\\mmdevapi.dll",
+          "\\mobilenetworking.dll",
+          "\\mpr.dll",
+          "\\mprapi.dll",
+          "\\mrmcorer.dll",
+          "\\msacm32.dll",
+          "\\mscms.dll",
+          "\\mscoree.dll",
+          "\\msctf.dll",
+          "\\msctfmonitor.dll",
+          "\\msdrm.dll",
+          "\\msdtctm.dll",
+          "\\msftedit.dll",
+          "\\msi.dll",
+          "\\msiso.dll",
+          "\\msutb.dll",
+          "\\msvcp110_win.dll",
+          "\\mswb7.dll",
+          "\\mswsock.dll",
+          "\\msxml3.dll",
+          "\\mtxclu.dll",
+          "\\napinsp.dll",
+          "\\ncrypt.dll",
+          "\\ndfapi.dll",
+          "\\netapi32.dll",
+          "\\netid.dll",
+          "\\netiohlp.dll",
+          "\\netjoin.dll",
+          "\\netplwiz.dll",
+          "\\netprofm.dll",
+          "\\netprovfw.dll",
+          "\\netsetupapi.dll",
+          "\\netshell.dll",
+          "\\nettrace.dll",
+          "\\netutils.dll",
+          "\\networkexplorer.dll",
+          "\\newdev.dll",
+          "\\ninput.dll",
+          "\\nlaapi.dll",
+          "\\nlansp_c.dll",
+          "\\npmproxy.dll",
+          "\\nshhttp.dll",
+          "\\nshipsec.dll",
+          "\\nshwfp.dll",
+          "\\ntdsapi.dll",
+          "\\ntlanman.dll",
+          "\\ntlmshared.dll",
+          "\\ntmarta.dll",
+          "\\ntshrui.dll",
+          "\\oleacc.dll",
+          "\\omadmapi.dll",
+          "\\onex.dll",
+          "\\opcservices.dll",
+          "\\osbaseln.dll",
+          "\\osksupport.dll",
+          "\\osuninst.dll",
+          "\\p2p.dll",
+          "\\p2pnetsh.dll",
+          "\\p9np.dll",
+          "\\pcaui.dll",
+          "\\pdh.dll",
+          "\\peerdistsh.dll",
+          "\\pkeyhelper.dll",
+          "\\pla.dll",
+          "\\playsndsrv.dll",
+          "\\pnrpnsp.dll",
+          "\\policymanager.dll",
+          "\\polstore.dll",
+          "\\powrprof.dll",
+          "\\printui.dll",
+          "\\prntvpt.dll",
+          "\\profapi.dll",
+          "\\propsys.dll",
+          "\\proximitycommon.dll",
+          "\\proximityservicepal.dll",
+          "\\prvdmofcomp.dll",
+          "\\puiapi.dll",
+          "\\radcui.dll",
+          "\\rasapi32.dll",
+          "\\rasdlg.dll",
+          "\\rasgcw.dll",
+          "\\rasman.dll",
+          "\\rasmontr.dll",
+          "\\reagent.dll",
+          "\\regapi.dll",
+          "\\reseteng.dll",
+          "\\resetengine.dll",
+          "\\resutils.dll",
+          "\\rmclient.dll",
+          "\\rpcnsh.dll",
+          "\\rsaenh.dll",
+          "\\rtutils.dll",
+          "\\rtworkq.dll",
+          "\\samcli.dll",
+          "\\samlib.dll",
+          "\\sapi_onecore.dll",
+          "\\sas.dll",
+          "\\scansetting.dll",
+          "\\scecli.dll",
+          "\\schedcli.dll",
+          "\\secur32.dll",
+          "\\security.dll",
+          "\\sensapi.dll",
+          "\\shell32.dll",
+          "\\shfolder.dll",
+          "\\slc.dll",
+          "\\snmpapi.dll",
+          "\\spectrumsyncclient.dll",
+          "\\spp.dll",
+          "\\sppc.dll",
+          "\\sppcext.dll",
+          "\\srclient.dll",
+          "\\srcore.dll",
+          "\\srmtrace.dll",
+          "\\srpapi.dll",
+          "\\srvcli.dll",
+          "\\ssp_isv.exe_rsaenh.dll",
+          "\\ssp.exe_rsaenh.dll",
+          "\\sspicli.dll",
+          "\\ssshim.dll",
+          "\\staterepository.core.dll",
+          "\\structuredquery.dll",
+          "\\sxshared.dll",
+          "\\systemsettings.dll",
+          "\\systemsettingsthresholdadminflowui.dll",
+          "\\tapi32.dll",
+          "\\tbs.dll",
+          "\\tdh.dll",
+          "\\textshaping.dll",
+          "\\timesync.dll",
+          "\\tpmcoreprovisioning.dll",
+          "\\tquery.dll",
+          "\\tsworkspace.dll",
+          "\\ttdrecord.dll",
+          "\\twext.dll",
+          "\\twinapi.dll",
+          "\\twinui.appcore.dll",
+          "\\uianimation.dll",
+          "\\uiautomationcore.dll",
+          "\\uireng.dll",
+          "\\uiribbon.dll",
+          "\\umpdc.dll",
+          "\\unattend.dll",
+          "\\updatepolicy.dll",
+          "\\upshared.dll",
+          "\\urlmon.dll",
+          "\\userenv.dll",
+          "\\utildll.dll",
+          "\\uxinit.dll",
+          "\\uxtheme.dll",
+          "\\vaultcli.dll",
+          "\\vdsutil.dll",
+          "\\version.dll",
+          "\\virtdisk.dll",
+          "\\vssapi.dll",
+          "\\vsstrace.dll",
+          "\\wbemprox.dll",
+          "\\wbemsvc.dll",
+          "\\wcmapi.dll",
+          "\\wcnnetsh.dll",
+          "\\wdi.dll",
+          "\\wdscore.dll",
+          "\\webservices.dll",
+          "\\wecapi.dll",
+          "\\wer.dll",
+          "\\wevtapi.dll",
+          "\\whhelper.dll",
+          "\\wimgapi.dll",
+          "\\winbio.dll",
+          "\\winbrand.dll",
+          "\\windows.storage.dll",
+          "\\windows.storage.search.dll",
+          "\\windows.ui.immersive.dll",
+          "\\windowscodecs.dll",
+          "\\windowscodecsext.dll",
+          "\\windowsudk.shellcommon.dll",
+          "\\winhttp.dll",
+          "\\wininet.dll",
+          "\\winipsec.dll",
+          "\\winmde.dll",
+          "\\winmm.dll",
+          "\\winnsi.dll",
+          "\\winrnr.dll",
+          "\\winscard.dll",
+          "\\winsqlite3.dll",
+          "\\winsta.dll",
+          "\\winsync.dll",
+          "\\wkscli.dll",
+          "\\wlanapi.dll",
+          "\\wlancfg.dll",
+          "\\wldp.dll",
+          "\\wlidprov.dll",
+          "\\wmiclnt.dll",
+          "\\wmidcom.dll",
+          "\\wmiutils.dll",
+          "\\wmpdui.dll",
+          "\\wmsgapi.dll",
+          "\\wofutil.dll",
+          "\\wpdshext.dll",
+          "\\wscapi.dll",
+          "\\wsdapi.dll",
+          "\\wshbth.dll",
+          "\\wshelper.dll",
+          "\\wsmsvc.dll",
+          "\\wtsapi32.dll",
+          "\\wwancfg.dll",
+          "\\wwapi.dll",
+          "\\xmllite.dll",
+          "\\xolehlp.dll",
+          "\\xpsservices.dll",
+          "\\xwizards.dll",
+          "\\xwtpw32.dll",
+          "\\amsi.dll",
+          "\\appraiser.dll",
+          "\\COMRES.DLL",
+          "\\cryptnet.dll",
+          "\\DispBroker.dll",
+          "\\dsound.dll",
+          "\\dxilconv.dll",
+          "\\FxsCompose.dll",
+          "\\FXSRESM.DLL",
+          "\\msdtcVSp1res.dll",
+          "\\PrintIsolationProxy.dll",
+          "\\rdpendp.dll",
+          "\\rpchttp.dll",
+          "\\storageusage.dll",
+          "\\utcutil.dll",
+          "\\WfsR.dll",
+          "\\igd10iumd64.dll",
+          "\\igd12umd64.dll",
+          "\\igdumdim64.dll",
+          "\\igdusc64.dll",
+          "\\TSMSISrv.dll",
+          "\\TSVIPSrv.dll",
+          "\\wbemcomn.dll",
+          "\\WLBSCTRL.dll",
+          "\\wow64log.dll",
+          "\\WptsExtensions.dll"
+        ]
+      },
+      "filter_main_generic": {
+        "ImageLoaded|contains": [
+          "C:\\$WINDOWS.~BT\\",
+          "C:\\$WinREAgent\\",
+          "C:\\Windows\\SoftwareDistribution\\",
+          "C:\\Windows\\System32\\",
+          "C:\\Windows\\SystemTemp\\",
+          "C:\\Windows\\SysWOW64\\",
+          "C:\\Windows\\WinSxS\\",
+          "C:\\Windows\\SyChpe32\\"
+        ]
+      },
+      "filter_main_windows_temp": {
+        "ImageLoaded|startswith": "C:\\Windows\\Temp\\",
+        "Image|startswith": [
+          "C:\\Windows\\WinSxS\\arm64",
+          "C:\\Windows\\UUS\\arm64\\"
+        ],
+        "Image|endswith": [
+          "\\TiWorker.exe",
+          "\\wuaucltcore.exe"
+        ]
+      },
+      "filter_main_dot_net": {
+        "ImageLoaded|startswith": "C:\\Windows\\Microsoft.NET\\",
+        "ImageLoaded|endswith": "\\cscui.dll"
+      },
+      "filter_main_defender": {
+        "ImageLoaded|startswith": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\",
+        "ImageLoaded|endswith": "\\version.dll"
+      },
+      "filter_main_directx": {
+        "ImageLoaded|startswith": "C:\\Program Files\\WindowsApps\\Microsoft.DirectXRuntime_",
+        "ImageLoaded|endswith": "\\d3dx9_43.dll"
+      },
+      "filter_main_systemsettings": {
+        "ImageLoaded": "C:\\Windows\\ImmersiveControlPanel\\SystemSettings.dll"
+      },
+      "filter_optional_exchange": {
+        "ImageLoaded|startswith": "C:\\Program Files\\Microsoft\\Exchange Server\\",
+        "ImageLoaded|endswith": "\\mswb7.dll"
+      },
+      "filter_optional_arsenal_image_mounter": {
+        "ImageLoaded|startswith": "C:\\Program Files\\Arsenal-Image-Mounter-",
+        "ImageLoaded|endswith": [
+          "\\mi.dll",
+          "\\miutils.dl"
+        ]
+      },
+      "filter_optional_office_appvpolicy": {
+        "Image": "C:\\Program Files\\Common Files\\microsoft shared\\ClickToRun\\OfficeClickToRun.exe",
+        "ImageLoaded": "C:\\Program Files\\Common Files\\microsoft shared\\ClickToRun\\AppVPolicy.dll"
+      },
+      "filter_optional_azure": {
+        "ImageLoaded|startswith": "C:\\Packages\\Plugins\\Microsoft.GuestConfiguration.ConfigurationforWindows\\"
+      },
+      "filter_optional_dell": {
+        "Image|contains": [
+          "C:\\Program Files\\WindowsApps\\DellInc.DellSupportAssistforPCs",
+          "C:\\Windows\\System32\\backgroundTaskHost.exe"
+        ],
+        "ImageLoaded|startswith": "C:\\Program Files\\WindowsApps\\DellInc.DellSupportAssistforPCs"
+      },
+      "filter_optional_dell_wldp": {
+        "ImageLoaded|startswith": "C:\\Program Files\\WindowsApps\\DellInc.DellSupportAssistforPCs",
+        "ImageLoaded|endswith": "\\wldp.dll"
+      },
+      "filter_optional_checkpoint": {
+        "Image|startswith": [
+          "C:\\Program Files\\CheckPoint\\",
+          "C:\\Program Files (x86)\\CheckPoint\\"
+        ],
+        "Image|endswith": "\\SmartConsole.exe",
+        "ImageLoaded|startswith": [
+          "C:\\Program Files\\CheckPoint\\",
+          "C:\\Program Files (x86)\\CheckPoint\\"
+        ],
+        "ImageLoaded|endswith": "\\PolicyManager.dll"
+      },
+      "condition": "image_load and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+    }
+  },
+  {
+    "rule_id": "d68b9672-4692-776b-b2b7-f6db8a2f17b2",
+    "title": "Potential Vcruntime140 DLL Sideloading",
+    "path": "sigma/sysmon/image_load/image_load_side_load_vcruntime140.yml",
+    "origin": "sigma",
+    "status": "experimental",
+    "level": "high",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "0e111c818f8d67ed309cbb1f175af1ac2d3a8e63d7862a18f05469198eac5e05",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: process identity/ancestry; not declared infeasible",
+    "event_ids": "[7]",
+    "predicate_fields": "Channel;Description;EventID;Image;ImageLoaded;SignatureStatus;Signed",
+    "assessment": "secondary-diagnostic",
+    "proposed_case": "runtime_dll_identity",
+    "rationale": "Legitimate validly signed C Runtime Library metadata is explicitly filtered. Ordinary CRT startup is not automatically an alert. Do not substitute an unsigned fake CRT to manufacture a runtime effect; inspect incidental startup alerts separately.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/image_load/image_load_side_load_vcruntime140.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "image_load": {
+        "EventID": 7,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": {
+        "ImageLoaded|endswith": "\\vcruntime140.dll"
+      },
+      "filter_main_legitimate_path": {
+        "ImageLoaded|startswith": [
+          "C:\\Windows\\System32\\",
+          "C:\\Windows\\SysWOW64\\",
+          "C:\\Program Files\\",
+          "C:\\Program Files (x86)\\"
+        ]
+      },
+      "filter_main_legitimate_signer": {
+        "Signed": true,
+        "SignatureStatus": "Valid",
+        "Description|endswith": "C Runtime Library"
+      },
+      "filter_optional_onedrive": {
+        "Image|startswith": "C:\\Users\\",
+        "Image|contains": "\\AppData\\Local\\Microsoft\\OneDrive\\"
+      },
+      "condition": "image_load and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+    }
+  },
+  {
+    "rule_id": "0d857f1c-698b-1bdf-6e08-fcde973ef799",
+    "title": "Potential Direct Syscall of NtOpenProcess",
+    "path": "sigma/sysmon/process_access/proc_access_win_susp_direct_ntopenprocess_call.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "439df99d6b0e517425798bece3e5df7d7e3ba023fec2cc0382ec46264647e29f",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: process identity/ancestry, runtime stack or memory evidence; not declared infeasible",
+    "event_ids": "[10]",
+    "predicate_fields": "CallTrace;Channel;EventID;GrantedAccess;Provider_Name;SourceImage;TargetImage",
+    "assessment": "secondary-diagnostic",
+    "proposed_case": "calltrace_observation",
+    "rationale": "CallTrace starts UNKNOWN. Scientifically interesting but ordinary successful process access may not produce a C-reference alert. Inspect existing process-access captures as secondary evidence; do not introduce handcrafted syscall stubs to force qualification or label a C-negative case qualified.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Christian Burkard (Nextron Systems), Tim Shelton (FP)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/process_access/proc_access_win_susp_direct_ntopenprocess_call.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "process_access": {
+        "EventID": 10,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": {
+        "CallTrace|startswith": "UNKNOWN"
+      },
+      "filter_main_vcredist": {
+        "TargetImage|endswith": "vcredist_x64.exe",
+        "SourceImage|endswith": "vcredist_x64.exe"
+      },
+      "filter_main_generic": {
+        "SourceImage|contains": [
+          ":\\Program Files (x86)\\",
+          ":\\Program Files\\",
+          ":\\Windows\\System32\\",
+          ":\\Windows\\SysWOW64\\",
+          ":\\Windows\\WinSxS\\"
+        ],
+        "TargetImage|contains": [
+          ":\\Program Files (x86)\\",
+          ":\\Program Files\\",
+          ":\\Windows\\System32\\",
+          ":\\Windows\\SysWOW64\\",
+          ":\\Windows\\WinSxS\\"
+        ]
+      },
+      "filter_main_kerneltrace_edge": {
+        "Provider_Name": "Microsoft-Windows-Kernel-Audit-API-Calls"
+      },
+      "filter_optional_vmware": {
+        "TargetImage|endswith": ":\\Windows\\system32\\systeminfo.exe",
+        "SourceImage|endswith": "setup64.exe"
+      },
+      "filter_optional_cylance": {
+        "SourceImage|endswith": ":\\Windows\\Explorer.EXE",
+        "TargetImage|endswith": ":\\Program Files\\Cylance\\Desktop\\CylanceUI.exe"
+      },
+      "filter_optional_amazon": {
+        "SourceImage|endswith": "AmazonSSMAgentSetup.exe",
+        "TargetImage|endswith": "AmazonSSMAgentSetup.exe"
+      },
+      "filter_optional_vscode": {
+        "SourceImage|endswith": "\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+        "TargetImage|endswith": "\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+      },
+      "filter_optional_teams": {
+        "TargetImage|endswith": "\\AppData\\Local\\Microsoft\\Teams\\current\\Teams.exe",
+        "SourceImage|endswith": "\\AppData\\Local\\Microsoft\\Teams\\current\\Teams.exe"
+      },
+      "filter_optional_discord": {
+        "TargetImage|contains": "\\AppData\\Local\\Discord\\",
+        "TargetImage|endswith": "\\Discord.exe"
+      },
+      "filter_optional_yammer": {
+        "SourceImage|contains": "\\AppData\\Local\\yammerdesktop\\app-",
+        "SourceImage|endswith": "\\Yammer.exe",
+        "TargetImage|contains": "\\AppData\\Local\\yammerdesktop\\app-",
+        "TargetImage|endswith": "\\Yammer.exe",
+        "GrantedAccess": "0x1000"
+      },
+      "filter_optional_evernote": {
+        "TargetImage|endswith": "\\Evernote\\Evernote.exe"
+      },
+      "filter_optional_adobe_acrobat": {
+        "SourceImage|contains": ":\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\",
+        "SourceImage|endswith": "\\AcroCEF.exe",
+        "TargetImage|contains": ":\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\",
+        "TargetImage|endswith": "\\AcroCEF.exe"
+      },
+      "condition": "process_access and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+    }
+  },
+  {
+    "rule_id": "bab95f92-e0e8-0fd8-c984-435ae1693ce0",
+    "title": "Potential CommandLine Obfuscation Using Unicode Characters From Suspicious Image",
+    "path": "sigma/sysmon/process_creation/proc_creation_win_susp_cli_obfuscation_unicode_img.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "high",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "9c930aa437368e9e609f927de24c271f3212ff073d3438e7704d5bef7d6cec06",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: process identity/ancestry, command line; not declared infeasible",
+    "event_ids": "[1]",
+    "predicate_fields": "Channel;CommandLine;EventID;Image;OriginalFileName",
+    "assessment": "defer-identity",
+    "proposed_case": "unicode_specific_shell",
+    "rationale": "Requires real listed shell identity and OriginalFileName as well as Unicode. A fixed shell child dominates the implementation; renaming the measured probe is not equivalent application behavior.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "frack113, Florian Roth (Nextron Systems), Josh Nickels",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/process_creation/proc_creation_win_susp_cli_obfuscation_unicode_img.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "process_creation": {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection_img": {
+        "Image|endswith": [
+          "\\cmd.exe",
+          "\\cscript.exe",
+          "\\powershell.exe",
+          "\\powershell_ise.exe",
+          "\\pwsh.exe",
+          "\\wscript.exe"
+        ],
+        "OriginalFileName": [
+          "Cmd.EXE",
+          "cscript.exe",
+          "PowerShell.EXE",
+          "PowerShell_ISE.EXE",
+          "pwsh.dll",
+          "wscript.exe"
+        ]
+      },
+      "selection_special_chars": {
+        "CommandLine|contains": [
+          "ˣ",
+          "˪",
+          "ˢ",
+          "∕",
+          "⁄",
+          "―",
+          "—",
+          " ",
+          "¯",
+          "®",
+          "¶",
+          "⠀"
+        ]
+      },
+      "condition": "process_creation and (all of selection_*)"
+    }
+  },
+  {
+    "rule_id": "81f8032a-aff8-233a-6ff5-0d431009fe04",
+    "title": "Potential Defense Evasion Via Right-to-Left Override",
+    "path": "sigma/sysmon/process_creation/proc_creation_win_susp_right_to_left_override.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "high",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "ac504ee3fcc86b75dc81f951692912824d842181b5072aa2c0f3155adc77f5a4",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: command line; not declared infeasible",
+    "event_ids": "[1]",
+    "predicate_fields": "Channel;CommandLine;EventID",
+    "assessment": "alternative-not-additive",
+    "proposed_case": "rtl_child_arguments",
+    "rationale": "Same process/argument transport as proposed Unicode case. Actual U+202E is a valid predicate choice; literal escape/display strings also match but would weaken an encoding claim. Prefer one Unicode primary target.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Micah Babinski, @micahbabinski, Swachchhanda Shrawan Poudel (Nextron Systems), Luc Génaux",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/process_creation/proc_creation_win_susp_right_to_left_override.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "process_creation": {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": {
+        "CommandLine|contains": [
+          "\\u202e",
+          "[U+202E]",
+          "‮"
+        ]
+      },
+      "condition": "process_creation and selection"
+    }
+  },
+  {
+    "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+    "title": "Potential Defense Evasion Via Raw Disk Access By Uncommon Tools",
+    "path": "sigma/sysmon/raw_access_thread/raw_access_thread_susp_disk_access_using_uncommon_tools.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "low",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "15c57e5510b6ea629d489be9b7524f5e20589bf6bd4fa902b62bc8309dd7d7e8",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: process identity/ancestry; not declared infeasible",
+    "event_ids": "[9]",
+    "predicate_fields": "Channel;Device;EventID;Image",
+    "assessment": "qualify-next",
+    "proposed_case": "raw_owned_volume_read",
+    "rationale": "Adds Event 9 and raw-volume I/O. Use only a harness-created disposable virtual disk/volume with known bytes; read and verify without writing during measurement. Confirm raw-device naming, permissions, event emission, and GUID attribution. Direct native APIs may limit runtime sensitivity; that is a limitation, not a reason to force a difference.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Teymur Kheirkhabarov, oscd.community",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/raw_access_thread/raw_access_thread_susp_disk_access_using_uncommon_tools.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "raw_access_thread": {
+        "EventID": 9,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "filter_main_floppy": {
+        "Device|contains": "floppy"
+      },
+      "filter_main_generic": {
+        "Image|startswith": [
+          "C:\\$WINDOWS.~BT\\",
+          "C:\\Program Files (x86)\\",
+          "C:\\Program Files\\",
+          "C:\\Windows\\CCM\\",
+          "C:\\Windows\\explorer.exe",
+          "C:\\Windows\\servicing\\",
+          "C:\\Windows\\SoftwareDistribution\\",
+          "C:\\Windows\\System32\\",
+          "C:\\Windows\\SystemApps\\",
+          "C:\\Windows\\SysWOW64\\",
+          "C:\\Windows\\uus\\",
+          "C:\\Windows\\WinSxS\\"
+        ]
+      },
+      "filter_main_system_images": {
+        "Image": [
+          "Registry",
+          "System"
+        ]
+      },
+      "filter_main_windefender": {
+        "Image|startswith": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\",
+        "Image|endswith": [
+          "\\MsMpEng.exe",
+          "\\MpDefenderCoreService.exe"
+        ]
+      },
+      "filter_main_microsoft_appdata": {
+        "Image|startswith": "C:\\Users\\",
+        "Image|contains|all": [
+          "\\AppData\\",
+          "\\Microsoft\\"
+        ]
+      },
+      "filter_main_ssd_nvme": {
+        "Image|startswith": "C:\\Windows\\Temp\\",
+        "Image|endswith": [
+          "\\Executables\\SSDUpdate.exe",
+          "\\HostMetadata\\NVMEHostmetadata.exe"
+        ]
+      },
+      "filter_main_null": {
+        "Image": null
+      },
+      "filter_main_systemsettings": {
+        "Image": "C:\\Windows\\ImmersiveControlPanel\\SystemSettings.exe"
+      },
+      "filter_main_update": {
+        "Image|startswith": "C:\\$WinREAgent\\Scratch\\"
+      },
+      "filter_optional_github_desktop": {
+        "Image|startswith": "C:\\Users\\",
+        "Image|contains": "\\AppData\\Local\\GitHubDesktop\\app-",
+        "Image|endswith": "\\resources\\app\\git\\mingw64\\bin\\git.exe"
+      },
+      "filter_optional_nextron": {
+        "Image|startswith": "C:\\Windows\\Temp\\asgard2-agent\\",
+        "Image|endswith": "\\thor.exe"
+      },
+      "filter_optional_Keybase": {
+        "Image|startswith": "C:\\Users\\",
+        "Image|contains": "\\AppData\\Local\\Keybase\\upd.exe"
+      },
+      "condition": "raw_access_thread and (not 1 of filter_main_* and not 1 of filter_optional_*)"
+    }
+  },
+  {
+    "rule_id": "637b003b-0264-fc60-1767-d6a688a5e302",
+    "title": "Sysmon File Executable Creation Detected",
+    "path": "sigma/sysmon/sysmon/sysmon_file_executable_detected.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "52d02ea08ad9ac13dd8422dc23dcccd1c0f8ce4f07b497c2c14fb590efbd6db4",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: event/provider-specific predicates; not declared infeasible",
+    "event_ids": "[29]",
+    "predicate_fields": "Channel;EventID",
+    "assessment": "defer-profile",
+    "proposed_case": "pe_creation_sensor",
+    "rationale": "Event 29 rule is eligible but FileExecutableDetected is not configured explicitly in current sysmon.xml. Verify actual sensor enablement before admission; enabling it changes collection for all cases. Can initially evaluate existing benign PE creation fixtures rather than claim new behavior.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "frack113",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/sysmon/sysmon_file_executable_detected.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "sysmon": {
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": {
+        "EventID": 29
+      },
+      "condition": "sysmon and selection"
+    }
+  },
+  {
+    "rule_id": "fedc7a8c-ccbd-62df-314a-7aeaa18aa325",
+    "title": "CreateRemoteThread API and LoadLibrary",
+    "path": "sigma/sysmon/threat-hunting/create_remote_thread/create_remote_thread_win_loadlibrary.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "8c6535e507a7edbc5c5efe50f7696f7596d9b0be51379b0ca6e4e28e4acd9aea",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: runtime stack or memory evidence; not declared infeasible",
+    "event_ids": "[8]",
+    "predicate_fields": "Channel;EventID;StartFunction;StartModule",
+    "assessment": "conditional-second-wave",
+    "proposed_case": "remote_library_thread",
+    "rationale": "Adds StartModule/StartFunction predicates beyond current target-image remote-thread rule. Consider only an owned disposable helper and benign fixed DLL. Higher implementation burden, source GUID attribution, export forwarding and actual reported module/function require qualification; do not force a specific alert by changing the rule or varying behavior by runtime.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Roberto Rodriguez @Cyb3rWard0g",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/threat-hunting/create_remote_thread/create_remote_thread_win_loadlibrary.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "create_remote_thread": {
+        "EventID": 8,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": {
+        "StartModule|endswith": "\\kernel32.dll",
+        "StartFunction": "LoadLibraryA"
+      },
+      "condition": "create_remote_thread and selection"
+    }
+  },
+  {
+    "rule_id": "c13d831a-a43c-7104-5d29-64549edf40f7",
+    "title": "Task Scheduler DLL Loaded By Application Located In Potentially Suspicious Location",
+    "path": "sigma/sysmon/threat-hunting/image_load/image_load_dll_taskschd_by_process_in_potentially_suspicious_location.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "low",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "4cdf3e87452e5bccd39377b8ee1f45b43abe904342770e858ee4b5c820bea98b",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: process identity/ancestry; not declared infeasible",
+    "event_ids": "[7]",
+    "predicate_fields": "Channel;EventID;Image;ImageLoaded;OriginalFileName",
+    "assessment": "redundant-indicator",
+    "proposed_case": "task_scheduler_library",
+    "rationale": "Actual taskschd.dll load from a specified process location is feasible, but adds another DLL/path predicate rather than proving scheduled-task creation. Retain as an alternative only.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Swachchhanda Shrawan Poudel",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/threat-hunting/image_load/image_load_dll_taskschd_by_process_in_potentially_suspicious_location.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "image_load": {
+        "EventID": 7,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection_dll": [
+        {
+          "ImageLoaded|endswith": "\\taskschd.dll"
+        },
+        {
+          "OriginalFileName": "taskschd.dll"
+        }
+      ],
+      "selection_paths": {
+        "Image|contains": [
+          ":\\Temp\\",
+          ":\\Users\\Public\\",
+          ":\\Windows\\Temp\\",
+          "\\AppData\\Local\\Temp\\",
+          "\\Desktop\\",
+          "\\Downloads\\"
+        ]
+      },
+      "condition": "image_load and (all of selection_*)"
+    }
+  },
+  {
+    "rule_id": "29811a95-71fb-7dcf-dacd-7e0a4b8bc4c3",
+    "title": "Signed DLL Loaded With Missing PE Version Metadata",
+    "path": "sigma/sysmon/threat-hunting/image_load/image_load_win_signed_dll_no_metadata.yml",
+    "origin": "sigma",
+    "status": "experimental",
+    "level": "low",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "d7752dba245139983f818b85e15fbf8b35e3f631b3e06c81da6783bff500f731",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: process identity/ancestry; not declared infeasible",
+    "event_ids": "[7]",
+    "predicate_fields": "Channel;Company;Description;EventID;FileVersion;ImageLoaded;OriginalFileName;Product;Signature;SignatureStatus;Signed",
+    "assessment": "defer-fixture",
+    "proposed_case": "signed_metadata_empty",
+    "rationale": "Requires a valid non-Microsoft signature and wholly absent version metadata outside system paths. Certificate trust and crafted artifact metadata would dominate; limited incremental runtime value.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/threat-hunting/image_load/image_load_win_signed_dll_no_metadata.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "image_load": {
+        "EventID": 7,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection_signed": {
+        "Signed": true,
+        "SignatureStatus": "Valid"
+      },
+      "selection_metadata_empty": {
+        "Description": [
+          "-",
+          ""
+        ],
+        "Company": [
+          "-",
+          ""
+        ],
+        "Product": [
+          "-",
+          ""
+        ],
+        "OriginalFileName": [
+          "-",
+          ""
+        ],
+        "FileVersion": [
+          "-",
+          ""
+        ]
+      },
+      "selection_metadata_null": {
+        "Description": null,
+        "Company": null,
+        "Product": null,
+        "OriginalFileName": null,
+        "FileVersion": null
+      },
+      "filter_main_legitimate_path": {
+        "ImageLoaded|startswith": [
+          "C:\\Windows\\System32\\",
+          "C:\\Windows\\SysWOW64\\",
+          "C:\\Program Files\\",
+          "C:\\Program Files (x86)\\"
+        ]
+      },
+      "filter_main_ms_signature": {
+        "Signature|startswith": "Microsoft"
+      },
+      "condition": "image_load and (selection_signed and 1 of selection_metadata_* and not 1 of filter_main_*)"
+    }
+  },
+  {
+    "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+    "title": "Potential CommandLine Obfuscation Using Unicode Characters",
+    "path": "sigma/sysmon/threat-hunting/process_creation/proc_creation_win_susp_cli_obfuscation_unicode.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "medium",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "31dab25e0e6fc6ce8bbfb8ab11f645e64be7058e47426953ffbef3b27cad468c",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: command line; not declared infeasible",
+    "event_ids": "[1]",
+    "predicate_fields": "Channel;CommandLine;EventID",
+    "assessment": "qualify-next",
+    "proposed_case": "unicode_child_arguments",
+    "rationale": "High relevance to runtime argument construction and encoding; Event 1 CommandLine contains one of the listed Unicode characters. Launch a fixed benign helper with identical Unicode argv and require exact argv receipt. Freeze wide-character semantics across languages; do not compare ANSI and Unicode APIs as if only runtime changed.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "frack113, Florian Roth (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/threat-hunting/process_creation/proc_creation_win_susp_cli_obfuscation_unicode.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "process_creation": {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection": {
+        "CommandLine|contains": [
+          "ˣ",
+          "˪",
+          "ˢ",
+          "∕",
+          "⁄",
+          "―",
+          "—",
+          " ",
+          "¯",
+          "®",
+          "¶"
+        ]
+      },
+      "condition": "process_creation and selection"
+    }
+  },
+  {
+    "rule_id": "18aa5578-4930-e3f7-01d6-49277db69f4f",
+    "title": "Suspicious Encoded Scripts in a WMI Consumer",
+    "path": "sigma/sysmon/wmi_event/sysmon_wmi_susp_encoded_scripts.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "high",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "aeee1335154635a31a4edd95e5c213f5d5c367d1239f452a61ac65cb6c6e94c9",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: event/provider-specific predicates; not declared infeasible",
+    "event_ids": "[19, 20, 21]",
+    "predicate_fields": "Channel;Destination;EventID",
+    "assessment": "defer-attribution",
+    "proposed_case": "wmi_encoded_contents",
+    "rationale": "Sigma Destination base64-offset predicate does not require RuleName, but a benign unbound consumer needs explicit object ownership, independent readback, cleanup, and new attribution logic. Meaningful future COM/WMI family; not ready under current harness.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Florian Roth (Nextron Systems)",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/wmi_event/sysmon_wmi_susp_encoded_scripts.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "wmi_event": {
+        "EventID": [
+          19,
+          20,
+          21
+        ],
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection_destination": {
+        "Destination|base64offset|contains": [
+          "WriteProcessMemory",
+          "This program cannot be run in DOS mode",
+          "This program must be run under Win32"
+        ]
+      },
+      "condition": "wmi_event and selection_destination"
+    }
+  },
+  {
+    "rule_id": "56bbb635-99ed-e718-f300-582130579092",
+    "title": "Suspicious Scripting in a WMI Consumer",
+    "path": "sigma/sysmon/wmi_event/sysmon_wmi_susp_scripting.yml",
+    "origin": "sigma",
+    "status": "test",
+    "level": "high",
+    "references_sysmon": "True",
+    "static_scope_eligible": "True",
+    "exclusion_reasons": "",
+    "sha256": "b080a50e0b17d028232f7ecec0ab5c93663cadab962eb4b522ab05a7b1346681",
+    "disposition": "deferred-triage",
+    "audit_reason": "Separate fixture review required: event/provider-specific predicates; not declared infeasible",
+    "event_ids": "[19, 20, 21]",
+    "predicate_fields": "Channel;Destination;EventID",
+    "assessment": "defer-attribution",
+    "proposed_case": "wmi_script_contents",
+    "rationale": "Sigma Destination script-string predicates. Benign inert/unbound content can test registration without executing a script; current process-only attribution is insufficient to assume ownership. Defer until a separate WMI contract exists.",
+    "review_level": "manual predicate and fixture assessment; not live tested",
+    "authors": "Florian Roth (Nextron Systems), Jonhnathan Ribeiro",
+    "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/wmi_event/sysmon_wmi_susp_scripting.yml",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "detection": {
+      "wmi_event": {
+        "EventID": [
+          19,
+          20,
+          21
+        ],
+        "Channel": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "selection_destination": [
+        {
+          "Destination|contains|all": [
+            "new-object",
+            "net.webclient",
+            ".downloadstring"
+          ]
+        },
+        {
+          "Destination|contains|all": [
+            "new-object",
+            "net.webclient",
+            ".downloadfile"
+          ]
+        },
+        {
+          "Destination|contains": [
+            " iex(",
+            " -nop ",
+            " -noprofile ",
+            " -decode ",
+            " -enc ",
+            "WScript.Shell",
+            "System.Security.Cryptography.FromBase64Transform"
+          ]
+        }
+      ],
+      "condition": "wmi_event and selection_destination"
+    }
+  }
+]

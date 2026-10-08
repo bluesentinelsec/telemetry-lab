@@ -3853,6 +3853,260 @@
       "references": [
         "https://web.archive.org/web/20220319032520/https://blog.redbluepurple.io/offensive-research/bypassing-injection-detection"
       ]
+    },
+    {
+      "rule_id": "ecb9ed8e-9e96-85bd-a68e-c86d68005053",
+      "title": "Unusual File Download from Direct IP Address",
+      "path": "sigma/sysmon/create_stream_hash/create_stream_hash_susp_ip_domains.yml",
+      "sha256": "67afc1c3e044947a6ac901649dfa3673a44f028ca894f14f9b28be45008ec4a8",
+      "level": "high",
+      "status": "test",
+      "detection": {
+        "create_stream_hash": {
+          "EventID": 15,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "Contents|re": "http[s]?://[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}",
+          "TargetFilename|contains": [
+            ".ps1:Zone",
+            ".bat:Zone",
+            ".exe:Zone",
+            ".vbe:Zone",
+            ".vbs:Zone",
+            ".dll:Zone",
+            ".one:Zone",
+            ".cmd:Zone",
+            ".hta:Zone",
+            ".xll:Zone",
+            ".lnk:Zone"
+          ]
+        },
+        "condition": "create_stream_hash and selection"
+      },
+      "authors": "Nasreddine Bencherchali (Nextron Systems), Florian Roth (Nextron Systems)",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_stream_hash/create_stream_hash_susp_ip_domains.yml",
+      "case_id": "ads_provenance_contents",
+      "event_ids": [
+        15
+      ],
+      "family": "Alternate data stream",
+      "behavior": "Adds Event 15 Contents regex to the existing stream-hash case. Write fixed synthetic Zone.Identifier text with a numeric-IP URL to an owned matching-extension carrier; verify bytes. This tests stream-content evidence, not a real download. Confirm live Contents formatting and process attribution.",
+      "fixture_requirements": "Owned fixtures, exact readback, same-binary no-behavior control; see expansion implementation report",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
+      "license": "Detection Rule License 1.1",
+      "qualification_report": "../../../docs/windows-rule-assessment/validation/README.md"
+    },
+    {
+      "rule_id": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654",
+      "title": "Load Of RstrtMgr.DLL By An Uncommon Process",
+      "path": "sigma/sysmon/image_load/image_load_dll_rstrtmgr_uncommon_load.yml",
+      "sha256": "c2fe81f3e8aff9919b7905361073a64752ce87cbbe216ea9eb146bf79a7a467f",
+      "level": "low",
+      "status": "test",
+      "detection": {
+        "image_load": {
+          "EventID": 7,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": [
+          {
+            "ImageLoaded|endswith": "\\RstrtMgr.dll"
+          },
+          {
+            "OriginalFileName": "RstrtMgr.dll"
+          }
+        ],
+        "filter_main_generic": {
+          "Image|startswith": [
+            "C:\\$WINDOWS.~BT\\",
+            "C:\\$WinREAgent\\",
+            "C:\\Program Files (x86)\\",
+            "C:\\Program Files\\",
+            "C:\\ProgramData\\",
+            "C:\\Windows\\explorer.exe",
+            "C:\\Windows\\SoftwareDistribution\\",
+            "C:\\Windows\\SysNative\\",
+            "C:\\Windows\\System32\\",
+            "C:\\Windows\\SysWOW64\\",
+            "C:\\Windows\\WinSxS\\",
+            "C:\\WUDownloadCache\\"
+          ]
+        },
+        "filter_main_user_software_installations": {
+          "Image|startswith": "C:\\Users\\",
+          "Image|contains|all": [
+            "\\AppData\\Local\\Temp\\is-",
+            ".tmp\\"
+          ],
+          "Image|endswith": ".tmp"
+        },
+        "filter_main_admin_software_installations": {
+          "Image|startswith": "C:\\Windows\\Temp\\"
+        },
+        "filter_optional_onedrive_1": {
+          "Image|startswith": "C:\\Users\\",
+          "Image|endswith": [
+            "\\AppData\\Local\\Microsoft\\OneDrive\\OneDrive.exe",
+            "\\AppData\\Local\\Microsoft\\OneDrive\\OneDriveStandaloneUpdater.exe"
+          ]
+        },
+        "filter_optional_onedrive_2": {
+          "Image|startswith": "C:\\Users\\",
+          "Image|contains": "\\AppData\\Local\\Microsoft\\OneDrive\\",
+          "Image|endswith": "\\OneDrive.Sync.Service.exe"
+        },
+        "condition": "image_load and (selection and not 1 of filter_main_* and not 1 of filter_optional_*)"
+      },
+      "authors": "Luc G\u00e9naux",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/image_load/image_load_dll_rstrtmgr_uncommon_load.yml",
+      "case_id": "signed_system_library_load",
+      "event_ids": [
+        7
+      ],
+      "family": "Image load",
+      "behavior": "Adds legitimate signed OS-library loading to the existing unsigned .node fixture. Load the genuine fixed RstrtMgr.dll from its system path without invoking Restart Manager operations. Freeze DLL hash and measured executable path outside exclusions; verify module identity. Reject if it is already loaded in controls or the control emits the selected alert.",
+      "fixture_requirements": "Owned fixtures, exact readback, same-binary no-behavior control; see expansion implementation report",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
+      "license": "Detection Rule License 1.1",
+      "qualification_report": "../../../docs/windows-rule-assessment/validation/README.md"
+    },
+    {
+      "rule_id": "f4ca1a32-116e-1b6b-6d74-233983928c00",
+      "title": "Potential Defense Evasion Via Raw Disk Access By Uncommon Tools",
+      "path": "sigma/sysmon/raw_access_thread/raw_access_thread_susp_disk_access_using_uncommon_tools.yml",
+      "sha256": "15c57e5510b6ea629d489be9b7524f5e20589bf6bd4fa902b62bc8309dd7d7e8",
+      "level": "low",
+      "status": "test",
+      "detection": {
+        "raw_access_thread": {
+          "EventID": 9,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "filter_main_floppy": {
+          "Device|contains": "floppy"
+        },
+        "filter_main_generic": {
+          "Image|startswith": [
+            "C:\\$WINDOWS.~BT\\",
+            "C:\\Program Files (x86)\\",
+            "C:\\Program Files\\",
+            "C:\\Windows\\CCM\\",
+            "C:\\Windows\\explorer.exe",
+            "C:\\Windows\\servicing\\",
+            "C:\\Windows\\SoftwareDistribution\\",
+            "C:\\Windows\\System32\\",
+            "C:\\Windows\\SystemApps\\",
+            "C:\\Windows\\SysWOW64\\",
+            "C:\\Windows\\uus\\",
+            "C:\\Windows\\WinSxS\\"
+          ]
+        },
+        "filter_main_system_images": {
+          "Image": [
+            "Registry",
+            "System"
+          ]
+        },
+        "filter_main_windefender": {
+          "Image|startswith": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\",
+          "Image|endswith": [
+            "\\MsMpEng.exe",
+            "\\MpDefenderCoreService.exe"
+          ]
+        },
+        "filter_main_microsoft_appdata": {
+          "Image|startswith": "C:\\Users\\",
+          "Image|contains|all": [
+            "\\AppData\\",
+            "\\Microsoft\\"
+          ]
+        },
+        "filter_main_ssd_nvme": {
+          "Image|startswith": "C:\\Windows\\Temp\\",
+          "Image|endswith": [
+            "\\Executables\\SSDUpdate.exe",
+            "\\HostMetadata\\NVMEHostmetadata.exe"
+          ]
+        },
+        "filter_main_null": {
+          "Image": null
+        },
+        "filter_main_systemsettings": {
+          "Image": "C:\\Windows\\ImmersiveControlPanel\\SystemSettings.exe"
+        },
+        "filter_main_update": {
+          "Image|startswith": "C:\\$WinREAgent\\Scratch\\"
+        },
+        "filter_optional_github_desktop": {
+          "Image|startswith": "C:\\Users\\",
+          "Image|contains": "\\AppData\\Local\\GitHubDesktop\\app-",
+          "Image|endswith": "\\resources\\app\\git\\mingw64\\bin\\git.exe"
+        },
+        "filter_optional_nextron": {
+          "Image|startswith": "C:\\Windows\\Temp\\asgard2-agent\\",
+          "Image|endswith": "\\thor.exe"
+        },
+        "filter_optional_Keybase": {
+          "Image|startswith": "C:\\Users\\",
+          "Image|contains": "\\AppData\\Local\\Keybase\\upd.exe"
+        },
+        "condition": "raw_access_thread and (not 1 of filter_main_* and not 1 of filter_optional_*)"
+      },
+      "authors": "Teymur Kheirkhabarov, oscd.community",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/raw_access_thread/raw_access_thread_susp_disk_access_using_uncommon_tools.yml",
+      "case_id": "raw_owned_volume_read",
+      "event_ids": [
+        9
+      ],
+      "family": "Raw access",
+      "behavior": "Adds Event 9 and raw-volume I/O. Use only a harness-created disposable virtual disk/volume with known bytes; read and verify without writing during measurement. Confirm raw-device naming, permissions, event emission, and GUID attribution. Direct native APIs may limit runtime sensitivity; that is a limitation, not a reason to force a difference.",
+      "fixture_requirements": "Owned fixtures, exact readback, same-binary no-behavior control; see expansion implementation report",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
+      "license": "Detection Rule License 1.1",
+      "qualification_report": "../../../docs/windows-rule-assessment/validation/README.md"
+    },
+    {
+      "rule_id": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9",
+      "title": "Potential CommandLine Obfuscation Using Unicode Characters",
+      "path": "sigma/sysmon/threat-hunting/process_creation/proc_creation_win_susp_cli_obfuscation_unicode.yml",
+      "sha256": "31dab25e0e6fc6ce8bbfb8ab11f645e64be7058e47426953ffbef3b27cad468c",
+      "level": "medium",
+      "status": "test",
+      "detection": {
+        "process_creation": {
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational"
+        },
+        "selection": {
+          "CommandLine|contains": [
+            "\u02e3",
+            "\u02ea",
+            "\u02e2",
+            "\u2215",
+            "\u2044",
+            "\u2015",
+            "\u2014",
+            "\u00a0",
+            "\u00af",
+            "\u00ae",
+            "\u00b6"
+          ]
+        },
+        "condition": "process_creation and selection"
+      },
+      "authors": "frack113, Florian Roth (Nextron Systems)",
+      "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/threat-hunting/process_creation/proc_creation_win_susp_cli_obfuscation_unicode.yml",
+      "case_id": "unicode_child_arguments",
+      "event_ids": [
+        1
+      ],
+      "family": "Process creation",
+      "behavior": "High relevance to runtime argument construction and encoding; Event 1 CommandLine contains one of the listed Unicode characters. Launch a fixed benign helper with identical Unicode argv and require exact argv receipt. Freeze wide-character semantics across languages; do not compare ANSI and Unicode APIs as if only runtime changed.",
+      "fixture_requirements": "Owned fixtures, exact readback, same-binary no-behavior control; see expansion implementation report",
+      "qualification": "qualified-live-three-repetitions-eight-configurations",
+      "license": "Detection Rule License 1.1",
+      "qualification_report": "../../../docs/windows-rule-assessment/validation/README.md"
     }
   ],
   "deferred_candidates": [

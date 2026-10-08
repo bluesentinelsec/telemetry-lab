@@ -1,0 +1,116 @@
+{
+  "campaign": "/Users/michaellong/telemetry-lab-data/windows-expansion-2026-10-08/raw/windows/c-reference",
+  "planned": 8,
+  "accepted": 8,
+  "complete": true,
+  "outcomes": {
+    "control-pass": 4,
+    "hit": 4
+  },
+  "cells": [
+    {
+      "case": "ads_provenance_contents",
+      "config": "windows-c-ucrt",
+      "hit": 1,
+      "valid-miss": 0,
+      "control-pass": 1,
+      "control-alert": 0,
+      "matched_rules": "ecb9ed8e-9e96-85bd-a68e-c86d68005053"
+    },
+    {
+      "case": "raw_owned_volume_read",
+      "config": "windows-c-ucrt",
+      "hit": 1,
+      "valid-miss": 0,
+      "control-pass": 1,
+      "control-alert": 0,
+      "matched_rules": "f4ca1a32-116e-1b6b-6d74-233983928c00"
+    },
+    {
+      "case": "signed_system_library_load",
+      "config": "windows-c-ucrt",
+      "hit": 1,
+      "valid-miss": 0,
+      "control-pass": 1,
+      "control-alert": 0,
+      "matched_rules": "1b615dd1-9d33-03df-fb06-d8fc0ee7d654"
+    },
+    {
+      "case": "unicode_child_arguments",
+      "config": "windows-c-ucrt",
+      "hit": 1,
+      "valid-miss": 0,
+      "control-pass": 1,
+      "control-alert": 0,
+      "matched_rules": "efe8a84a-0bef-c646-b13a-5a3cbe2b01b9"
+    }
+  ],
+  "campaign_summary": {
+    "planned_runs": 8,
+    "accepted": 8,
+    "suspect": 0,
+    "total_attempts": 8,
+    "retries": 0,
+    "unresolved": [],
+    "unstarted_runs": 0,
+    "complete": true,
+    "aborted": null,
+    "by_cell": {
+      "composites|windows-c-ucrt|ads_provenance_contents|control": {
+        "attempts": 1,
+        "accepted": 1,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|signed_system_library_load|control": {
+        "attempts": 1,
+        "accepted": 1,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|ads_provenance_contents|active": {
+        "attempts": 1,
+        "accepted": 1,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|unicode_child_arguments|control": {
+        "attempts": 1,
+        "accepted": 1,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|raw_owned_volume_read|active": {
+        "attempts": 1,
+        "accepted": 1,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|raw_owned_volume_read|control": {
+        "attempts": 1,
+        "accepted": 1,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|signed_system_library_load|active": {
+        "attempts": 1,
+        "accepted": 1,
+        "suspect": 0,
+        "retries": 0
+      },
+      "composites|windows-c-ucrt|unicode_child_arguments|active": {
+        "attempts": 1,
+        "accepted": 1,
+        "suspect": 0,
+        "retries": 0
+      }
+    }
+  },
+  "plan_sha256": "eb8f759a90eccac5efc95cf1121e755e73bf7688e706371831db1a0c2bb203e7",
+  "accepted_index_sha256": "d9fdcf44ca7c8d5c996a890315a41cb8c106ec92550daca295252e888d7b1f59",
+  "new_case_outcomes": {
+    "control-pass": 4,
+    "alert": 4
+  },
+  "regression_outcomes": {}
+}

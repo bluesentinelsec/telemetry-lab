@@ -1,0 +1,5 @@
+case,config,hit,valid-miss,control-pass,control-alert,matched_rules
+ads_provenance_contents,windows-c-ucrt,1,0,1,0,ecb9ed8e-9e96-85bd-a68e-c86d68005053
+raw_owned_volume_read,windows-c-ucrt,1,0,1,0,f4ca1a32-116e-1b6b-6d74-233983928c00
+signed_system_library_load,windows-c-ucrt,1,0,1,0,1b615dd1-9d33-03df-fb06-d8fc0ee7d654
+unicode_child_arguments,windows-c-ucrt,1,0,1,0,efe8a84a-0bef-c646-b13a-5a3cbe2b01b9
