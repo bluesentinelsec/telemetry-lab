@@ -1,5 +1,7 @@
 # Windows TTP composite rule selection
 
+**Onboarding in progress:** four additional candidates are implemented across all eight configurations, bringing the implemented roster to 56. Their live detector qualification is pending; the qualified scope remains 52. See the [checkpoint](../../../docs/windows-rule-assessment/ONBOARDING-CHECKPOINT.md) and [behavior contracts](expansion-2026-10.md). The historical qualification below covers the original 52.
+
 **Status: C, C++, Go and Rust each implement 52 standalone cases. All 52 targets have three-repetition active/control evidence in each of eight configurations; see the [qualification report](../../../docs/coverage-expansion/validation/README.md) for the separately validated stream-deletion collector refinement. See [Rust evidence](validation/rust/README.md), [Go evidence](validation/go/README.md), [C++ evidence](validation/cpp/README.md), and [C results](implementation.md). The cross-platform scope is in [SCOPE.md](../../SCOPE.md).**
 
 The Windows pipeline collects Sysmon events into EVTX and evaluates them with Hayabusa. The subject is the unmodified rule bundle shipped in the Hayabusa 4.1.0 Windows x64 release, not the entire upstream Sigma repository. All 52 selected rules are Sigma-derived Sysmon rules.
@@ -11,7 +13,7 @@ The Windows pipeline collects Sysmon events into EVTX and evaluates them with Ha
 | All supplied rule definitions | 4,987 |
 | Definitions referencing the Sysmon Operational channel | 2,455 |
 | Sysmon definitions passing the static scope filters below | 2,269 |
-| Implemented candidate targets | 52 |
+| Implemented candidate targets | 56 (four pending live qualification) |
 | Qualified targets demonstrated in each of eight configurations | 52 |
 
 Static filters follow the existing `-m low --no-wizard` configuration: remove informational, deprecated, unsupported, default excluded/noisy IDs, and rules with unresolved expansion placeholders. Overlapping exclusions are counted once. Channel membership means the detection references Sysmon, not that every rule can be satisfied using Sysmon alone. Live Hayabusa 4.1.0 replay now confirms 2,269 rules enabled after channel filtering for the Sysmon EVTX input. That is the configured denominator; it does not mean every rule has a qualified test case.
