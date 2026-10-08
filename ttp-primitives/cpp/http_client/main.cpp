@@ -13,19 +13,103 @@
 // Raw sockets touch no C++ stdlib type, so the namespace-scope std::string
 // below anchors libstdc++/libc++ into the binary; see empty/main.cpp for the
 // full rationale.
-//
-// Linux-only for this pass (Winsock on Windows -- issue #44).
-#include <string>
-#include <arpa/inet.h>
 #include <cstring>
+#include <string>
+#ifdef _WIN32
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#else
+#include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#endif
 
 // Substrate anchor: forces the C++ standard library to be linked. See
 // empty/main.cpp for the full rationale.
 std::string stdlib_anchor;
 
+#ifdef _WIN32
+// One full HTTP exchange over loopback: client sends `request`, server reads it
+// and replies, client reads the reply. Both ends stay open throughout, so no
+// send races a closed peer. Returns 0 on success.
+static int exchange(SOCKET lst, const struct sockaddr_in* addr, const char* request) {
+    SOCKET cli = socket(AF_INET, SOCK_STREAM, 0);
+    if (cli == INVALID_SOCKET) {
+        return 1;
+    }
+    if (connect(cli, reinterpret_cast<const struct sockaddr*>(addr), sizeof *addr) != 0) {
+        closesocket(cli);
+        return 1;
+    }
+    SOCKET srv = accept(lst, nullptr, nullptr);
+    if (srv == INVALID_SOCKET) {
+        closesocket(cli);
+        return 1;
+    }
+
+    int rn = static_cast<int>(std::strlen(request));
+    bool ok = send(cli, request, rn, 0) == rn;
+
+    char buf[512];
+    if (ok) {
+        ok = recv(srv, buf, sizeof buf, 0) > 0;  // server reads the request
+    }
+    if (ok) {
+        const char* resp = "HTTP/1.0 200 OK\r\nContent-Length: 2\r\n\r\nok";
+        int sn = static_cast<int>(std::strlen(resp));
+        ok = send(srv, resp, sn, 0) == sn;
+    }
+    if (ok) {
+        ok = recv(cli, buf, sizeof buf, 0) > 0;  // client reads the response
+    }
+
+    closesocket(srv);
+    closesocket(cli);
+    return ok ? 0 : 1;
+}
+
+int main() {
+    WSADATA wsa;
+    if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
+        return 1;
+    }
+    SOCKET lst = socket(AF_INET, SOCK_STREAM, 0);
+    if (lst == INVALID_SOCKET) {
+        WSACleanup();
+        return 1;
+    }
+    struct sockaddr_in addr;
+    std::memset(&addr, 0, sizeof addr);
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+    addr.sin_port = 0;  // ephemeral
+    if (bind(lst, reinterpret_cast<struct sockaddr*>(&addr), sizeof addr) != 0 ||
+        listen(lst, 2) != 0) {
+        closesocket(lst);
+        WSACleanup();
+        return 1;
+    }
+    int alen = sizeof addr;
+    if (getsockname(lst, reinterpret_cast<struct sockaddr*>(&addr), &alen) != 0) {
+        closesocket(lst);
+        WSACleanup();
+        return 1;
+    }
+
+    const char* get = "GET / HTTP/1.0\r\nHost: localhost\r\n\r\n";
+    const char* post = "POST / HTTP/1.0\r\nHost: localhost\r\n"
+                       "Content-Length: 14\r\n\r\ntelemetry-lab\n";
+
+    int rc = exchange(lst, &addr, get);
+    if (rc == 0) {
+        rc = exchange(lst, &addr, post);
+    }
+    closesocket(lst);
+    WSACleanup();
+    return rc;
+}
+#else
 // One full HTTP exchange over loopback: client sends `request`, server reads it
 // and replies, client reads the reply. Both ends stay open throughout, so no
 // send races a closed peer. Returns 0 on success.
@@ -95,3 +179,4 @@ int main() {
     close(lst);
     return rc;
 }
+#endif
