@@ -2,7 +2,7 @@
 // Sigma rule ID: 4211e288-60d6-2bb1-01c3-b7b3191126a9
 // Ruleset path: sigma/sysmon/file/file_event/file_event_win_creation_new_shim_database.yml
 #include "../internal/common.h"
-#include "../expansion_helpers.h"
+#include "../internal/expansion_helpers.h"
 
 int main(int argc,char **argv) {
     puts("COMPOSITE_CASE shim_database_file");

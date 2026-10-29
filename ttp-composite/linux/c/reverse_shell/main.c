@@ -1,6 +1,6 @@
 // Target rule: Redirect STDOUT/STDIN to Network Connection in Container
 // Ruleset: Falco; exact rule name is the identifier in harness/manifest.json.
-#include "../network.h"
+#include "../internal/network.h"
 
 int main(int argc, char **argv) {
     if (!fixture_begin(argc,argv,"reverse_shell")) return 0;

@@ -2,7 +2,7 @@
 // Sigma rule ID: 2090f94a-7ba3-61c7-e843-f3864b2d3947
 // Ruleset path: sigma/sysmon/file/file_delete/file_delete_win_zone_identifier_ads_uncommon.yml
 #include "../internal/common.h"
-#include "../expansion_helpers.h"
+#include "../internal/expansion_helpers.h"
 
 int main(int argc,char **argv) {
     puts("COMPOSITE_CASE delete_zone_identifier");

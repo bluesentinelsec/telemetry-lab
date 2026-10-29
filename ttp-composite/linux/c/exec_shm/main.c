@@ -1,6 +1,6 @@
 // Target rule: Execution from /dev/shm
 // Ruleset: Falco; exact rule name is the identifier in harness/manifest.json.
-#include "../process.h"
+#include "../internal/process.h"
 
 int main(int argc, char **argv) {
     if (!fixture_begin(argc,argv,"exec_shm")) return 0;

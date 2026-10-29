@@ -2,7 +2,7 @@
 // Sigma rule ID: 103362bb-15b7-3bed-7f8c-fd7a15fe31f4
 // Ruleset path: sigma/sysmon/file/file_event/file_event_win_powershell_module_uncommon_creation.yml
 #include "../internal/common.h"
-#include "../expansion_helpers.h"
+#include "../internal/expansion_helpers.h"
 
 int main(int argc,char **argv) {
     puts("COMPOSITE_CASE powershell_module_file");

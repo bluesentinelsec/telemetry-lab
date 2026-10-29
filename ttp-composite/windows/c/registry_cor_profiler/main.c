@@ -2,7 +2,7 @@
 // Sigma rule ID: aeac22f7-e219-1561-df1f-f531ac2d096f
 // Ruleset path: sigma/sysmon/registry/registry_set/registry_set_enabling_cor_profiler_env_variables.yml
 #include "../internal/common.h"
-#include "../expansion_helpers.h"
+#include "../internal/expansion_helpers.h"
 
 int main(int argc,char **argv) {
     puts("COMPOSITE_CASE registry_cor_profiler");

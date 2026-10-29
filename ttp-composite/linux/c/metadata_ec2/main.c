@@ -1,6 +1,6 @@
 // Target rule: Contact EC2 Instance Metadata Service From Container
 // Ruleset: Falco; exact rule name is the identifier in harness/manifest.json.
-#include "../network.h"
+#include "../internal/network.h"
 
 int main(int argc, char **argv) {
     if (!fixture_begin(argc,argv,"metadata_ec2")) return 0;

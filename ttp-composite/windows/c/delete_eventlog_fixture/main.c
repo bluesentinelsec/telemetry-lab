@@ -2,7 +2,7 @@
 // Sigma rule ID: 956a26a6-af21-94d6-9fb7-0abbe37e3c7d
 // Ruleset path: sigma/sysmon/file/file_delete/file_delete_win_delete_event_log_files.yml
 #include "../internal/common.h"
-#include "../expansion_helpers.h"
+#include "../internal/expansion_helpers.h"
 
 int main(int argc,char **argv) {
     puts("COMPOSITE_CASE delete_eventlog_fixture");

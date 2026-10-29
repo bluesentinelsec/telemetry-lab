@@ -1,6 +1,6 @@
 // Target rule: Set Setuid or Setgid bit
 // Ruleset: Falco; exact rule name is the identifier in harness/manifest.json.
-#include "../file_io.h"
+#include "../internal/file_io.h"
 
 int main(int argc, char **argv) {
     if (!fixture_begin(argc,argv,"setid_mode")) return 0;

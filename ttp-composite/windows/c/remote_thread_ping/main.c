@@ -2,8 +2,8 @@
 // Sigma rule ID: 43e75355-271c-2069-4eca-cc2e117f8510
 // Ruleset path: sigma/sysmon/create_remote_thread/create_remote_thread_win_susp_uncommon_target_image.yml
 #include "../internal/common.h"
-#include "../process_fixture.h"
-#include "../expansion_helpers.h"
+#include "../internal/process_fixture.h"
+#include "../internal/expansion_helpers.h"
 
 int main(int argc,char **argv) {
     puts("COMPOSITE_CASE remote_thread_ping");

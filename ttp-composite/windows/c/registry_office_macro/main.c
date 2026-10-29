@@ -2,7 +2,7 @@
 // Sigma rule ID: 8b6b4194-cfe8-b585-475f-5997e8015fe0
 // Ruleset path: sigma/sysmon/registry/registry_set/registry_set_office_vba_warnings_tamper.yml
 #include "../internal/common.h"
-#include "../expansion_helpers.h"
+#include "../internal/expansion_helpers.h"
 
 int main(int argc,char **argv) {
     puts("COMPOSITE_CASE registry_office_macro");

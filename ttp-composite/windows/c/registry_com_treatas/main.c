@@ -2,7 +2,7 @@
 // Sigma rule ID: 6655602f-690f-f834-4dd4-c12213d0c687
 // Ruleset path: sigma/sysmon/registry/registry_set/registry_set_treatas_persistence.yml
 #include "../internal/common.h"
-#include "../expansion_helpers.h"
+#include "../internal/expansion_helpers.h"
 
 int main(int argc,char **argv) {
     puts("COMPOSITE_CASE registry_com_treatas");

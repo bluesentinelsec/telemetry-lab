@@ -1,7 +1,7 @@
 // Target rule: Search Private Keys or Passwords
 // Ruleset: Falco; exact rule name is the identifier in harness/manifest.json.
 #include "../internal/common.h"
-#include "../launch_fixture.h"
+#include "../internal/launch_fixture.h"
 
 int main(int argc,char **argv) {
     if (!fixture_begin(argc,argv,"search_private_keys")) return 0;

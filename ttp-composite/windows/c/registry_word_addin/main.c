@@ -2,7 +2,7 @@
 // Sigma rule ID: ee69bf67-79f6-5973-f69d-7a6f609c97db
 // Ruleset path: sigma/sysmon/registry/registry_set/registry_set_persistence_office_vsto.yml
 #include "../internal/common.h"
-#include "../expansion_helpers.h"
+#include "../internal/expansion_helpers.h"
 
 int main(int argc,char **argv) {
     puts("COMPOSITE_CASE registry_word_addin");

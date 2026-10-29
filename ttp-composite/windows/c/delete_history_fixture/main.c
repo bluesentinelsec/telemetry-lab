@@ -2,7 +2,7 @@
 // Sigma rule ID: 14680f1d-0b5e-e92c-0ea0-dcd01321c0e8
 // Ruleset path: sigma/sysmon/file/file_delete/file_delete_win_delete_powershell_command_history.yml
 #include "../internal/common.h"
-#include "../expansion_helpers.h"
+#include "../internal/expansion_helpers.h"
 
 int main(int argc,char **argv) {
     puts("COMPOSITE_CASE delete_history_fixture");
