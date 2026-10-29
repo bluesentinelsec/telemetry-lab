@@ -48,6 +48,9 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'run-batch.ps1'):
             release.validate(self.root)
         (self.root/'ttp-composite/coverage/run-batch.ps1').write_text('runner')
+        with self.assertRaisesRegex(ValueError,'raw-disk-fixture.ps1'):
+            release.validate(self.root)
+        (self.root/'ttp-composite/coverage/raw-disk-fixture.ps1').write_text('fixture')
         release.validate(self.root)
 
     def test_missing_collector_fix(self):

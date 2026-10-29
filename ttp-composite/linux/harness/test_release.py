@@ -83,7 +83,7 @@ class ReleaseTests(unittest.TestCase):
                         self.assertIn('telemetry-lab-test-windows/ttp-primitives/'+config+'/'+primitive+'.exe',names)
                 for config in windows_composites[len(windows):]:
                     self.assertFalse(any(n.startswith('telemetry-lab-test-windows/ttp-primitives/'+config+'/') for n in names))
-                for support in ['selection.json','rule-inventory.csv','run.ps1','run-local-tcp.ps1','run-local-dns.ps1','analyze.py']:
+                for support in ['raw-disk-fixture.ps1','selection.json','rule-inventory.csv','run.ps1','run-local-tcp.ps1','run-local-dns.ps1','analyze.py']:
                     self.assertIn(prefix+'coverage/'+support,names)
 
 
