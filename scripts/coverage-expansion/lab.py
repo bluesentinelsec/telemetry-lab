@@ -20,6 +20,8 @@ def main():
  p=argparse.ArgumentParser(description=__doc__)
  p.add_argument('action',choices=['stage','status','run','collect','refresh'])
  p.add_argument('--evidence',type=Path,required=True);p.add_argument('--outputs',type=Path,required=True);p.add_argument('--stack',required=True)
+ p.add_argument('--bundle',type=Path,help='Use an assembled, checksummed release bundle instead of downloading composite-only artifacts')
+ p.add_argument('--cohort',choices=['composites','primitives'],default='composites')
  p.add_argument('--ci-run');p.add_argument('--falco-archive',type=Path);p.add_argument('--os',choices=['linux','windows'],required=True)
  p.add_argument('--phase',default='qualification');p.add_argument('--repetitions',type=int,default=3);p.add_argument('--case',action='append',dest='cases');p.add_argument('--config',action='append',dest='configs')
  p.add_argument('--execution-timeout',type=int,default=172800,help='SSM command limit in seconds, at most 48 hours; shard longer campaigns by --case/--config')
@@ -41,21 +43,31 @@ def main():
   print(aws('s3','sync',f's3://{bucket}/results/{a.os}/',str(a.evidence/'raw'/a.os),'--exact-timestamps','--only-show-errors'));print(aws('s3','sync',f's3://{bucket}/ssm/',str(a.evidence/'ssm'),'--exact-timestamps','--only-show-errors'));return
  if a.action in ('stage','refresh'):
   if not a.ci_run: p.error('--ci-run required')
-  artifact=a.evidence/'artifacts'/a.ci_run/a.os
-  if not (artifact/'.complete').exists():
-   meta=json.loads(call(['gh','api',f'repos/bluesentinelsec/telemetry-lab/actions/runs/{a.ci_run}']));(a.evidence/f'ci-{a.ci_run}.json').write_text(json.dumps(meta,indent=2))
-   download=artifact.with_name(a.os+'-download-'+uuid.uuid4().hex[:8]);download.mkdir(parents=True)
-   call(['gh','run','download',a.ci_run,'--repo','bluesentinelsec/telemetry-lab','--pattern','composite-'+a.os+'-*','--dir',str(download)])
-   if len(list(download.glob('composite-'+a.os+'-*')))!=8:raise ValueError('Incomplete CI artifact set')
-   (download/'.complete').write_text(a.ci_run+'\n');download.rename(artifact)
-  stage=a.evidence/'stage'/a.os/a.phase;stage.mkdir(parents=True,exist_ok=False);bundle=stage/'bundle';bundle.mkdir()
-  configs=[]
-  for source in sorted(artifact.glob('composite-'+a.os+'-*')):
-   config=source.name.removeprefix('composite-');configs.append(config);shutil.copytree(source,bundle/'ttp-composite'/config,copy_function=link_or_copy)
-  if len(configs)!=8:raise ValueError('Require all eight CI configuration artifacts')
-  shutil.copytree(ROOT/'ttp-composite'/a.os/'harness',bundle/'ttp-composite/coverage',ignore=shutil.ignore_patterns('__pycache__','validation'))
-  (bundle/'manifest.json').write_text(json.dumps(dict(os=a.os,composite_configs=configs,ci_run=a.ci_run),indent=2))
-  (bundle/'files.sha256.json').write_text(json.dumps({f.relative_to(bundle).as_posix():digest(f) for f in bundle.rglob('*') if f.is_file()},indent=2))
+  if a.bundle:
+   manifest=json.loads((a.bundle/'manifest.json').read_text())
+   if manifest['os']!=a.os: p.error('Bundle OS differs from --os')
+   expected=json.loads((a.bundle/'files.sha256.json').read_text())
+   actual={f.relative_to(a.bundle).as_posix():digest(f) for f in a.bundle.rglob('*') if f.is_file() and f.name!='files.sha256.json'}
+   if expected!=actual: raise ValueError('Assembled bundle differs from its inventory')
+  if a.bundle:
+   stage=a.evidence/'stage'/a.os/a.phase;stage.mkdir(parents=True,exist_ok=False);bundle=stage/'bundle'
+   shutil.copytree(a.bundle,bundle,copy_function=link_or_copy)
+  else:
+   artifact=a.evidence/'artifacts'/a.ci_run/a.os
+   if not (artifact/'.complete').exists():
+    meta=json.loads(call(['gh','api',f'repos/bluesentinelsec/telemetry-lab/actions/runs/{a.ci_run}']));(a.evidence/f'ci-{a.ci_run}.json').write_text(json.dumps(meta,indent=2))
+    download=artifact.with_name(a.os+'-download-'+uuid.uuid4().hex[:8]);download.mkdir(parents=True)
+    call(['gh','run','download',a.ci_run,'--repo','bluesentinelsec/telemetry-lab','--pattern','composite-'+a.os+'-*','--dir',str(download)])
+    if len(list(download.glob('composite-'+a.os+'-*')))!=8:raise ValueError('Incomplete CI artifact set')
+    (download/'.complete').write_text(a.ci_run+'\n');download.rename(artifact)
+   stage=a.evidence/'stage'/a.os/a.phase;stage.mkdir(parents=True,exist_ok=False);bundle=stage/'bundle';bundle.mkdir()
+   configs=[]
+   for source in sorted(artifact.glob('composite-'+a.os+'-*')):
+    config=source.name.removeprefix('composite-');configs.append(config);shutil.copytree(source,bundle/'ttp-composite'/config,copy_function=link_or_copy)
+   if len(configs)!=8:raise ValueError('Require all eight CI configuration artifacts')
+   shutil.copytree(ROOT/'ttp-composite'/a.os/'harness',bundle/'ttp-composite/coverage',ignore=shutil.ignore_patterns('__pycache__','validation'))
+   (bundle/'manifest.json').write_text(json.dumps(dict(os=a.os,composite_configs=configs,ci_run=a.ci_run),indent=2))
+   (bundle/'files.sha256.json').write_text(json.dumps({f.relative_to(bundle).as_posix():digest(f) for f in bundle.rglob('*') if f.is_file()},indent=2))
   shutil.copytree(ROOT/'scripts/experiment',stage/'scripts/experiment',ignore=shutil.ignore_patterns('__pycache__'))
   if a.os=='windows':
    (stage/'scripts/coverage-expansion').mkdir()
@@ -74,12 +86,19 @@ def main():
   send(script,a.phase);return
  if a.action=='run':
   if a.repetitions<1:p.error('positive repetitions required')
-  # Only known catalog values may enter the remote command line.
-  catalog=json.loads((ROOT/'ttp-composite'/a.os/'harness'/('manifest.json' if a.os=='linux' else 'selection.json')).read_text())
-  known={x['id'] for x in catalog['cases']}|{'negative'} if a.os=='linux' else {x['case_id'] for x in catalog['candidates']}
+  # Validate selections against the exact staged bundle, for either cohort.
+  staged=a.evidence/'stage'/a.os/'stage'/'bundle'
+  manifest=json.loads((staged/'manifest.json').read_text())
+  if a.cohort=='primitives':
+   if 'primitives' not in manifest:p.error('Primitive campaigns require a full --bundle at stage time')
+   known=set(manifest['primitives']);configs=manifest['configs']
+  else:
+   catalog=json.loads((staged/'ttp-composite/coverage'/('manifest.json' if a.os=='linux' else 'selection.json')).read_text())
+   known={x['id'] for x in catalog['cases']}|{'negative'} if a.os=='linux' else {x['case_id'] for x in catalog['candidates']}
+   configs=manifest['composite_configs']
   if a.cases and not set(a.cases)<=known:p.error('Unknown cases')
-  configs=json.loads((a.evidence/'stage'/a.os/'stage'/'bundle/manifest.json').read_text())['composite_configs']
   if a.configs and not set(a.configs)<=set(configs):p.error('Unknown configurations')
+  batch=1 if a.cohort=='primitives' else 16 if a.os=='linux' else 48
   extra=' '.join('--case '+x for x in a.cases or [])+' '+' '.join('--config '+x for x in a.configs or [])
   extra+=f' --max-retries {a.max_retries}'+(' --no-retry' if a.no_retry else '')
   if not all(c.isalnum() or c in '-_' for c in a.phase):p.error('Unsafe phase name')
@@ -87,13 +106,13 @@ def main():
    script=f'''set -eu
 cd /opt/coverage-expansion
 trap 'aws s3 sync evidence s3://{bucket}/results/linux/ --only-show-errors' EXIT
-python3 scripts/experiment/run.py bundle evidence/{a.phase} --cohort composites --repetitions {a.repetitions} --batch-size 16 {extra} > evidence/{a.phase}.log 2>&1
+python3 scripts/experiment/run.py bundle evidence/{a.phase} --cohort {a.cohort} --repetitions {a.repetitions} --batch-size {batch} {extra} > evidence/{a.phase}.log 2>&1
 '''
   else:
    script=f'''$ErrorActionPreference='Stop'
 Set-Location C:\\lab\\coverage-expansion
 try {{
- & C:\\lab\\python\\python.exe scripts/experiment/run.py bundle evidence/{a.phase} --cohort composites --repetitions {a.repetitions} --batch-size 48 {extra} > evidence/{a.phase}.log 2>&1
+ & C:\\lab\\python\\python.exe scripts/experiment/run.py bundle evidence/{a.phase} --cohort {a.cohort} --repetitions {a.repetitions} --batch-size {batch} {extra} > evidence/{a.phase}.log 2>&1
  if($LASTEXITCODE){{throw 'Campaign incomplete; inspect preserved evidence'}}
 }} finally {{ & 'C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe' s3 sync evidence s3://{bucket}/results/windows/ --only-show-errors }}
 '''

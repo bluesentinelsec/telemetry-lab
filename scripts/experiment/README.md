@@ -101,3 +101,10 @@ The old pilot implementations and the `legacy` cohort have been removed.
 Release artifact paths retain `<configuration>/coverage/` for compatibility
 with archived experiment contracts; that is a binary staging format, not the
 source layout.
+
+For a one-repetition disposable CDK validation, `scripts/coverage-expansion/lab.py`
+can stage an assembled, inventoried release with `stage --bundle BUNDLE` and run
+either `--cohort composites` (default) or `--cohort primitives --repetitions 1`.
+Both cohorts use the ordinary experiment runner, health gates, and retry ledger.
+Use the same `--stack`, `--outputs`, and temporary `--evidence` directory throughout;
+run cohorts serially on each host and destroy the CDK stack afterwards.
