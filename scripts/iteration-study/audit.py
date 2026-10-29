@@ -8,9 +8,9 @@ expected=set();actual=collections.Counter();invalid=collections.Counter();unique
 for os in study.get('platforms',['linux','windows']):
  m=json.loads((bundles/f'telemetry-lab-0.3.0-{os}/manifest.json').read_text())
  if os=='linux':
-  selection=json.loads((root/'ttp-composite/linux/coverage/manifest.json').read_text());cases=[x['id'] for x in selection['cases']];configs=selection['configs']
+  selection=json.loads((root/'ttp-composite/linux/harness/manifest.json').read_text());cases=[x['id'] for x in selection['cases']];configs=selection['configs']
  else:
-  selection=json.loads((root/'ttp-composite/windows/coverage/selection.json').read_text());cases=[x['case_id'] for x in selection['candidates'] if x['case_id']!='dns_onion'];configs=m['composite_configs']
+  selection=json.loads((root/'ttp-composite/windows/harness/selection.json').read_text());cases=[x['case_id'] for x in selection['candidates'] if x['case_id']!='dns_onion'];configs=m['composite_configs']
  for host in allocation:
   for rep in sorted(sum(allocation[host].values(),[])):
    for cfg in m['configs']:

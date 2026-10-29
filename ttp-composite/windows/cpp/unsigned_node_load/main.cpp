@@ -1,0 +1,17 @@
+// Target rule: Unsigned .node File Loaded
+// Sigma rule ID: 8085fb71-ed3b-7920-ca06-f9174665cc8a
+// Ruleset path: sigma/sysmon/image_load/image_load_dll_unsigned_node_load.yml
+#include "../internal/common.hpp"
+
+int main(int argc, char **argv) {
+    std::cout << "COMPOSITE_CASE unsigned_node_load" << "\n";
+    if (!fixture_begin(argc,argv,"unsigned_node_load")) return 0;
+    HMODULE module=LoadLibraryA(ROOT "\\fixtures\\fixture.node"); CHECK(module!=NULL);
+    typedef int (*answer_fn)(void);
+    /* Copy the function pointer representation without incompatible-function casts. */
+    FARPROC proc=GetProcAddress(module,"fixture_answer"); CHECK(proc!=NULL);
+    answer_fn answer; CHECK(sizeof answer==sizeof proc); memcpy(&answer,&proc,sizeof answer);
+    CHECK(answer()==42); CHECK(FreeLibrary(module));
+    success("unsigned_node_load");
+    return 0;
+}

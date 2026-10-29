@@ -90,11 +90,14 @@ results are stored under `accepted/` or `suspect/`. Do not analyze shared captur
 as extra independent observations. A terminal interruption remains incomplete;
 there is no implicit resume or substitution of prior observations.
 
-## Retained legacy programs
+## Source layout and target rules
 
-`--cohort legacy` exercises every shipped pilot composite under the same bounded
-replacement ledger. Linux can batch 16 distinct containers; Windows can batch
-24 program/configuration slots. A legacy accepted run establishes successful
-exit and valid collection/attribution only: those programs lack the expanded
-suite's independent behavior assertions. Report them separately and never count
-their exit status as proof that a target detection rule was qualified.
+Composite sources are `ttp-composite/<platform>/<language>/<case>/main.*`.
+Each entry point names its exact Falco or Sigma target. Platform `harness/`
+directories contain catalogs, rules, runners, and qualification records;
+language `internal/` directories contain shared helpers and Linux baseline/setup
+programs. These support programs are not rule-targeted composite cases.
+The old pilot implementations and the `legacy` cohort have been removed.
+Release artifact paths retain `<configuration>/coverage/` for compatibility
+with archived experiment contracts; that is a binary staging format, not the
+source layout.

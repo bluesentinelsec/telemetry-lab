@@ -13,7 +13,7 @@ p.add_argument('--evidence',type=Path,required=True);p.add_argument('--outputs',
 a=p.parse_args();assert all(c.isalnum() or c in '-_' for c in a.phase)
 i=json.loads(a.outputs.read_text())[a.stack];b=a.evidence
 out=b/'fixture-refresh'/a.phase;out.mkdir(parents=True,exist_ok=False)
-for name,source in [('coverage',ROOT/'ttp-composite/linux/coverage'),('experiment',ROOT/'scripts/experiment')]:
+for name,source in [('coverage',ROOT/'ttp-composite/linux/harness'),('experiment',ROOT/'scripts/experiment')]:
  shutil.copytree(source,out/name,ignore=shutil.ignore_patterns('__pycache__','validation'))
 old=json.loads((b/'stage/linux/stage/bundle/files.sha256.json').read_text())
 native={name:sha for name,sha in old.items() if name.startswith('ttp-composite/linux-')}

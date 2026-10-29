@@ -2,3 +2,7 @@
 name = "file_io"
 version = "0.1.0"
 edition = "2021"
+
+[[bin]]
+name = "file_io"
+path = "main.rs"

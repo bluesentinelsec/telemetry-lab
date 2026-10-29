@@ -6,7 +6,7 @@ p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('raw',type=Path);p.add_argument('output',type=Path)
 a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
 root=Path(__file__).resolve().parents[2]
-manifest=json.loads((root/'ttp-composite/linux/coverage/manifest.json').read_text())
+manifest=json.loads((root/'ttp-composite/linux/harness/manifest.json').read_text())
 phases=['full-matrix-01','web-recheck-01']
 selected=[];summary={};hashes={}
 for phase in phases:

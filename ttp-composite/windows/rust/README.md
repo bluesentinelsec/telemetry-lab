@@ -1,6 +1,6 @@
 # Windows Rust detection composites
 
-All 23 C/C++/Go cases have a separate Rust `src/bin/<case>.rs` executable. Each program has one fixed behavior and same-binary `--control`; there is no runtime dispatcher. The shared selection JSON, neutral program paths, fixture bytes and exact target rule IDs are unchanged.
+All 56 C/C++/Go cases have a separate Rust `<case>/main.rs` executable. Each program has one fixed behavior and same-binary `--control`; there is no runtime dispatcher. The shared selection JSON, neutral program paths, fixture bytes and exact target rule IDs are unchanged.
 
 ## Runtime configurations
 

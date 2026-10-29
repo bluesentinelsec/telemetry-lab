@@ -53,7 +53,7 @@ def main():
   for source in sorted(artifact.glob('composite-'+a.os+'-*')):
    config=source.name.removeprefix('composite-');configs.append(config);shutil.copytree(source,bundle/'ttp-composite'/config,copy_function=link_or_copy)
   if len(configs)!=8:raise ValueError('Require all eight CI configuration artifacts')
-  shutil.copytree(ROOT/'ttp-composite'/a.os/'coverage',bundle/'ttp-composite/coverage',ignore=shutil.ignore_patterns('__pycache__','validation'))
+  shutil.copytree(ROOT/'ttp-composite'/a.os/'harness',bundle/'ttp-composite/coverage',ignore=shutil.ignore_patterns('__pycache__','validation'))
   (bundle/'manifest.json').write_text(json.dumps(dict(os=a.os,composite_configs=configs,ci_run=a.ci_run),indent=2))
   (bundle/'files.sha256.json').write_text(json.dumps({f.relative_to(bundle).as_posix():digest(f) for f in bundle.rglob('*') if f.is_file()},indent=2))
   shutil.copytree(ROOT/'scripts/experiment',stage/'scripts/experiment',ignore=shutil.ignore_patterns('__pycache__'))
@@ -75,7 +75,7 @@ def main():
  if a.action=='run':
   if a.repetitions<1:p.error('positive repetitions required')
   # Only known catalog values may enter the remote command line.
-  catalog=json.loads((ROOT/'ttp-composite'/a.os/'coverage'/('manifest.json' if a.os=='linux' else 'selection.json')).read_text())
+  catalog=json.loads((ROOT/'ttp-composite'/a.os/'harness'/('manifest.json' if a.os=='linux' else 'selection.json')).read_text())
   known={x['id'] for x in catalog['cases']}|{'negative'} if a.os=='linux' else {x['case_id'] for x in catalog['candidates']}
   if a.cases and not set(a.cases)<=known:p.error('Unknown cases')
   configs=json.loads((a.evidence/'stage'/a.os/'stage'/'bundle/manifest.json').read_text())['composite_configs']

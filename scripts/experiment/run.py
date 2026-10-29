@@ -14,7 +14,6 @@ from engine import IntegrityError, campaign, write_json
 from primitives import Primitives
 from composites import LinuxComposites, WindowsComposites
 from batch_composites import LinuxBatch, WindowsBatch
-from legacy import LinuxLegacy, WindowsLegacy
 
 
 def sha(path):
@@ -51,7 +50,7 @@ def host_lock():
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('bundle',type=Path);p.add_argument('output',type=Path)
-    p.add_argument('--cohort',choices=('primitives','composites','legacy'),required=True)
+    p.add_argument('--cohort',choices=('primitives','composites'),required=True)
     p.add_argument('--repetitions',type=int,default=200,help='Accepted measurements per test/configuration/mode (default: 200)')
     p.add_argument('--batch-size',type=int,default=1,help='Composite capture group size; programs still run serially (default: 1)')
     p.add_argument('--max-retries',type=int,default=3,help='Replacements after the original attempt (default: 3)')
@@ -73,8 +72,6 @@ def main():
     coverage=a.bundle/'ttp-composite/coverage'
     if a.cohort=='primitives':
         cases=m['primitives'];configs=m['configs'];modes=['primitive']
-    elif a.cohort=='legacy':
-        cases=m['composites'];configs=m['configs'];modes=['legacy']
     else:
         catalog=json.loads((coverage/('manifest.json' if os_name=='linux' else 'selection.json')).read_text(encoding='utf-8-sig'))
         cases=([c['id'] for c in catalog['cases']]+['negative']) if os_name=='linux' else [c['case_id'] for c in catalog['candidates']]
@@ -105,10 +102,6 @@ def main():
     if a.cohort=='primitives':common+=['tmon/tmon'+('.exe' if os_name=='windows' else '')]
     else:common += [name for name in expected if name.startswith('ttp-composite/coverage/') and '/validation/' not in name]
     external={str(f):sha(f) for f in Path(__file__).resolve().parent.glob('*.py')}
-    if a.cohort=='legacy' and os_name=='windows':
-        script=Path(__file__).with_name('legacy-windows.ps1')
-        if not script.exists():script=Path(__file__).parent.parent/'e2e/legacy-windows.ps1'
-        external[str(script.resolve())]=sha(script)
     if a.cohort!='primitives':
         system_files=([Path('/etc/falco/falco.yaml')] if os_name=='linux' else
                       [Path('C:/lab/sysmon/Sysmon64.exe'),Path('C:/lab/sysmon/config.xml'),Path('C:/lab/hayabusa/hayabusa.exe'),
@@ -128,7 +121,6 @@ def main():
             if sha(name)!=digest:raise IntegrityError('Collector artifact changed: '+name)
     with host_lock():
         if a.cohort=='primitives':adapter=Primitives(a.bundle,os_name,a.host_id,verify)
-        elif a.cohort=='legacy':adapter=LinuxLegacy(coverage,a.image,verify) if os_name=='linux' else WindowsLegacy(a.bundle,coverage,verify)
         elif os_name=='linux':adapter=(LinuxBatch if a.batch_size>1 else LinuxComposites)(coverage,a.image,verify)
         else:adapter=(WindowsBatch if a.batch_size>1 else WindowsComposites)(a.bundle,coverage,verify)
         inventory=None

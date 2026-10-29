@@ -2,3 +2,7 @@
 name = "process_enumeration"
 version = "0.1.0"
 edition = "2021"
+
+[[bin]]
+name = "process_enumeration"
+path = "main.rs"

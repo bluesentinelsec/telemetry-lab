@@ -139,7 +139,7 @@ def analyze_primitives(data):
 
 
 def composite_rows(root):
-    spec=importlib.util.spec_from_file_location('windows_analysis',Path(__file__).resolve().parents[2]/'ttp-composite/windows/coverage/analyze.py')
+    spec=importlib.util.spec_from_file_location('windows_analysis',Path(__file__).resolve().parents[2]/'ttp-composite/windows/harness/analyze.py')
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     answer=[];campaigns=[]
     for host in 'ABC':
@@ -229,8 +229,8 @@ def main():
         for os in ('linux','windows'):
             manifest=read(a.bundles/f'telemetry-lab-0.3.0-{os}'/'manifest.json')
             expected_p.extend((os,case,cfg) for case in manifest['primitives'] for cfg in manifest['configs'])
-            if os=='linux':cases=[r['id'] for r in read(Path(__file__).resolve().parents[2]/'ttp-composite/linux/coverage/manifest.json')['cases']]
-            else:cases=[r['case_id'] for r in read(Path(__file__).resolve().parents[2]/'ttp-composite/windows/coverage/selection.json')['candidates'] if r['case_id']!='dns_onion']
+            if os=='linux':cases=[r['id'] for r in read(Path(__file__).resolve().parents[2]/'ttp-composite/linux/harness/manifest.json')['cases']]
+            else:cases=[r['case_id'] for r in read(Path(__file__).resolve().parents[2]/'ttp-composite/windows/harness/selection.json')['candidates'] if r['case_id']!='dns_onion']
             expected_c.extend((os,case,cfg) for case in cases for cfg in manifest['composite_configs'])
         result['matrix_audit']={'primitives':matrix_audit(primitives,expected_p),
              'composites':matrix_audit([r for r in effective_slots(composites) if r['mode']!='negative'],expected_c,['active','control']),

@@ -27,9 +27,6 @@ def validate(root):
     for config in manifest['composite_configs']:
         prefix = f'ttp-composite/{config}'
         required += [f'{prefix}/coverage/{name}{suffix}' for name in cases]
-        # Windows Rust was introduced after the legacy pilot suite.
-        if not config.startswith('windows-rust-'):
-            required += [f'{prefix}/{name}{suffix}' for name in manifest['composites']]
         if windows:
             required.append(f'{prefix}/coverage/build-manifest.json')
             build = json.loads((root / required[-1]).read_text())
