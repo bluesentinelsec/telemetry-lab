@@ -16,7 +16,7 @@ The shared [selection](../harness/selection.json) and runner define the rule map
 
 A positive alert requires independently successful behavior and an exact rule ID linked through its event record to the measured process GUID (or the explicitly allowed child). A target miss or attribution failure is retained, not replaced by another rule or credited by PID alone.
 
-The scope is 23 target rules out of 2,269 enabled Sysmon rules in Hayabusa 4.1.0.
+The current scope is 56 target rules out of 2,269 enabled Sysmon rules in Hayabusa 4.1.0.
 
 ## Build and run
 
@@ -35,6 +35,6 @@ python ttp-composite/windows/harness/verify_programs.py \
 
 Repeat with `windows-libcxx.cmake`, a separate build/output directory and `libcxx` verifier argument. Shared `run.ps1`, `run-local-tcp.ps1` and `run-local-dns.ps1 -Cases dns_ip_lookup` accept either verified coverage directory. See the [reference procedure](../harness/implementation.md) for fixed fixtures, pinned detection tools, attribution and archiving. CI behavior checks do not establish alert qualification; live evidence is recorded separately.
 
-## Live qualification
+## Historical initial 23-case qualification
 
 Both configurations demonstrated all 23 qualified C target rules and clean controls. One initial libc++ DNS result lost process attribution; an unchanged reversed-order recheck passed. Both `.onion` attempts failed their inherited resolution check. All attempts and actual loaded-DLL hashes are retained in the [qualification report](../harness/validation/cpp/README.md). No valid target-alert difference was observed.

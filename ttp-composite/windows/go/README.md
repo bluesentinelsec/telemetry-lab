@@ -18,7 +18,7 @@ Compiler identity, Go build metadata, PE imports, and executable/dependency hash
 - DNS cases use the ordinary Go resolver with an IPv4-only lookup and require the same 127.0.0.42 answer. The local server and temporary exact-name policy are shared fixtures, not custom resolution code in the measured process.
 - Process execution verifies the fixed C helper's exit code 42. Timestamp, named-pipe and module-load cases use Windows bindings with the same timestamp, pipe exchange including its terminating zero byte, and fixed module function/result.
 
-Helpers are separated by operation so file-only programs do not import the networking package just to obtain common fixture checks. One fixed archived C helper/module/server set is used across live configurations. The four legacy composites outside `coverage/` are retained but are not part of this 23-case qualification roster.
+Helpers are separated by operation so file-only programs do not import the networking package just to obtain common fixture checks. One fixed archived C helper/module/server set is used across live configurations. Superseded pilot implementations have been removed. Current case sources are directly under this language directory.
 
 
 ## Build and qualify
@@ -27,12 +27,12 @@ In MSYS2 UCRT64, with Go, GCC and native Python on PATH:
 
 ```sh
 cd ttp-composite/windows/go
-CGO_ENABLED=1 bash coverage/build.sh ../../../composite-dist/windows-go-cgo
-CGO_ENABLED=0 bash coverage/build.sh ../../../composite-dist/windows-go-static
+CGO_ENABLED=1 bash build.sh ../../../composite-dist/windows-go-cgo
+CGO_ENABLED=0 bash build.sh ../../../composite-dist/windows-go-static
 ```
 
 The build stages the 56 executables, C support fixtures and manifest. Live qualification uses the shared non-network, TCP and DNS runners with fixed reference fixtures; see the [reference procedure](../harness/implementation.md). CI behavior checks do not establish alert coverage. Live outcomes, invalid attempts and attribution failures must be retained separately; repeated experiments and paired tmon measurements remain #54.
 
-## Live qualification
+## Historical initial 23-case qualification
 
 Both configurations demonstrated all 23 qualified target rules and clean controls. The full follow-up has 46 attributable alerts and 46 clean controls; no paired rule-count differences were observed. Both `.onion` lookups failed their inherited success requirement. The shared runner now checks staged binary hashes and tolerates bounded post-exit image locks. Initial harness failures and repeated Sysmon image-hash discrepancies are retained in the [qualification report](../harness/validation/go/README.md).

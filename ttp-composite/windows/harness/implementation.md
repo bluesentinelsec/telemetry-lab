@@ -36,7 +36,7 @@ cmake --install build-windows-c --prefix composite-dist/windows-c-ucrt
 python ttp-composite/windows/harness/verify_programs.py composite-dist/windows-c-ucrt/coverage ucrt
 ```
 
-Repeat with MINGW64/MSVCRT and the corresponding output/config argument. Do not build one program containing multiple cases. The legacy four composites remain separate from the new `coverage/` suite and are not counted as newly qualified targets.
+Repeat with MINGW64/MSVCRT and the corresponding output/config argument. Do not build one program containing multiple cases. Superseded pilot implementations have been removed; each measured source is directly under its language directory.
 
 Use `-c windowsOnly=true -c stackName=WindowsCValidation` with the existing CDK app to deploy a disposable Windows-only lab. The runner verifies the Hayabusa executable, all inventoried rule files, and default exclusion/noisy files against the selected snapshot; a changed latest-release deployment must be restaged to the selected artifact rather than silently accepted.
 
