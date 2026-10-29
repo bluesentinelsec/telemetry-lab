@@ -18,6 +18,7 @@ class ReleaseTests(unittest.TestCase):
                 p=components/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text('fixture')
             for name in ('tmon-linux/tmon','tmon-windows/tmon.exe','tap/linux/tap','tap/windows/tap.exe'):
                 fixture(name)
+            fixture('tmon-windows/__pycache__/cached.pyc')
             linux=['linux-c-glibc','linux-c-musl','linux-cpp-libstdcxx','linux-cpp-libcxx',
                    'linux-go-cgo','linux-go-static','linux-rust-gnu','linux-rust-musl']
             windows=['windows-c-ucrt','windows-c-msvcrt','windows-cpp-libstdcxx',
@@ -51,6 +52,7 @@ class ReleaseTests(unittest.TestCase):
                            cwd=repo,check=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             with tarfile.open(output/'telemetry-lab-test-linux.tar.gz') as archive:
                 names=set(archive.getnames());prefix='telemetry-lab-test-linux/ttp-composite/'
+                self.assertFalse(any('__pycache__' in name for name in names))
                 for config in linux:
                     for name in ids+['negative','fixture_prepare']:
                         self.assertIn(prefix+config+'/coverage/'+name,names)
@@ -62,6 +64,7 @@ class ReleaseTests(unittest.TestCase):
                 self.assertIn(prefix+'coverage/rules/falco_rules.yaml',names)
             with zipfile.ZipFile(output/'telemetry-lab-test-windows.zip') as archive:
                 names=set(archive.namelist());prefix='telemetry-lab-test-windows/ttp-composite/'
+                self.assertFalse(any('__pycache__' in name for name in names))
                 for config in windows_composites:
                     self.assertIn(prefix+config+'/coverage/registry_run_key.exe',names)
                     self.assertIn(prefix+config+'/coverage/build-manifest.json',names)

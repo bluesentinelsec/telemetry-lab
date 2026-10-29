@@ -139,6 +139,10 @@ EOF
   mkdir -p "$root/experiment"
   cp scripts/experiment/{run.py,engine.py,primitives.py,composites.py,batch_composites.py,README.md} "$root/experiment/"
 
+  # Python caches from local verification are not release inputs. The runner
+  # deliberately ignores runtime-generated caches in its integrity comparison.
+  find "$root" -type d -name __pycache__ -prune -exec rm -rf {} +
+
   # Reject incomplete matrices and record the exact bytes being released.
   python3 scripts/validate-release.py "$root" --write
 
