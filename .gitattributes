@@ -1,4 +1,4 @@
 
-ttp-composite/windows/coverage/*.csv text eol=lf
-ttp-composite/windows/coverage/*.json text eol=lf
-ttp-composite/windows/coverage/validation/** -text
+ttp-composite/windows/harness/*.csv text eol=lf
+ttp-composite/windows/harness/*.json text eol=lf
+ttp-composite/windows/harness/validation/** -text

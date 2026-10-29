@@ -75,8 +75,8 @@ The Windows coverage README says selected predicates reference 12 event IDs. The
 
 - [Summary](summary.json): verified source identity, corpus counts, existing family distribution, and review scope.
 - [Candidate decisions](reviewed-candidates.csv): 29 reviewed rules, exact IDs, proposed cases, rationale, and source paths.
-- [Predicate snapshots](reviewed-candidates.json): original detection clauses, hashes, authors, and pinned source links. Retained under the existing [Detection Rule License](../../ttp-composite/windows/coverage/RULE-LICENSE.md).
+- [Predicate snapshots](reviewed-candidates.json): original detection clauses, hashes, authors, and pinned source links. Retained under the existing [Detection Rule License](../../ttp-composite/windows/harness/RULE-LICENSE.md).
 - [Original complete triage](../coverage-expansion/windows-rule-audit.csv): includes all 4,987 definitions; deferred rows remain deferred, not declared infeasible.
-- [Current Sysmon profile](../../lab-environment/config/sysmon.xml) and [current attribution implementation](../../ttp-composite/windows/coverage/analyze.py).
+- [Current Sysmon profile](../../lab-environment/config/sysmon.xml) and [current attribution implementation](../../ttp-composite/windows/harness/analyze.py).
 
 The figures describe the pinned Hayabusa archive, not current upstream Sigma as a whole. The official Sysmon reference supports event semantics only; candidate predicates and counts come from the verified local archive.

@@ -28,8 +28,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install PyYAML==6.0.2
-      - run: python -m unittest discover -s ttp-composite/linux/coverage -p 'test_*.py' -v
-      - run: python -m unittest discover -s ttp-composite/windows/coverage -p 'test_*.py' -v
+      - run: python -m unittest discover -s ttp-composite/linux/harness -p 'test_*.py' -v
+      - run: python -m unittest discover -s ttp-composite/windows/harness -p 'test_*.py' -v
       - run: python -m unittest discover -s scripts/coverage-expansion -p 'test_*.py' -v
 
   linux-c:
@@ -75,10 +75,10 @@ jobs:
         working-directory: ttp-composite/linux/c
         run: |
           cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
-          gcc -static -O2 -Wall -Wextra -Werror coverage/helper.c -o ../../../composite-dist/${{ matrix.config }}/falco_helper
+          gcc -static -O2 -Wall -Wextra -Werror internal/helper.c -o ../../../composite-dist/${{ matrix.config }}/falco_helper
 
       - name: Verify standalone C programs
-        run: python3 ttp-composite/linux/coverage/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.toolchain == 'linux-glibc' && 'glibc' || 'musl' }}
+        run: python3 ttp-composite/linux/harness/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.toolchain == 'linux-glibc' && 'glibc' || 'musl' }}
 
       - name: Upload composites
         uses: actions/upload-artifact@v7
@@ -125,10 +125,10 @@ jobs:
         working-directory: ttp-composite/linux/cpp
         run: |
           cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
-          gcc -static -O2 -Wall -Wextra -Werror ../c/coverage/helper.c -o ../../../composite-dist/${{ matrix.config }}/falco_helper
+          gcc -static -O2 -Wall -Wextra -Werror ../c/internal/helper.c -o ../../../composite-dist/${{ matrix.config }}/falco_helper
 
       - name: Verify standalone C++ programs and standard library
-        run: python3 ttp-composite/linux/coverage/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.toolchain == 'linux-libstdcxx' && 'libstdcxx' || 'libcxx' }}
+        run: python3 ttp-composite/linux/harness/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.toolchain == 'linux-libstdcxx' && 'libstdcxx' || 'libcxx' }}
 
       - name: Upload composites
         uses: actions/upload-artifact@v7
@@ -169,12 +169,9 @@ jobs:
         env:
           CGO_ENABLED: ${{ matrix.cgo }}
         run: |
-          for p in reverse_shell imds read_sensitive_file symlink_sensitive clear_log mkdir_bin ptrace_antidebug; do
-            go build -o ../../../composite-dist/${{ matrix.config }}/$p ./$p
-          done
-          bash coverage/build.sh ../../../composite-dist/${{ matrix.config }}
-          gcc -static -O2 -Wall -Wextra -Werror ../c/coverage/helper.c -o ../../../composite-dist/${{ matrix.config }}/falco_helper
-          go vet ./coverage/...
+          bash build.sh ../../../composite-dist/${{ matrix.config }}
+          gcc -static -O2 -Wall -Wextra -Werror ../c/internal/helper.c -o ../../../composite-dist/${{ matrix.config }}/falco_helper
+          go vet ./...
 
       - name: Upload composites
         uses: actions/upload-artifact@v7
@@ -221,13 +218,9 @@ jobs:
         env:
           RUSTFLAGS: ${{ matrix.rustflags }}
         run: |
-          cargo build --locked --release --target ${{ matrix.target }} --workspace
-          bash coverage/build.sh ../../../composite-dist/${{ matrix.config }} ${{ matrix.target == 'x86_64-unknown-linux-gnu' && 'gnu' || 'musl' }}
-          gcc -static -O2 -Wall -Wextra -Werror ../c/coverage/helper.c -o ../../../composite-dist/${{ matrix.config }}/falco_helper
+          bash build.sh ../../../composite-dist/${{ matrix.config }} ${{ matrix.target == 'x86_64-unknown-linux-gnu' && 'gnu' || 'musl' }}
+          gcc -static -O2 -Wall -Wextra -Werror ../c/internal/helper.c -o ../../../composite-dist/${{ matrix.config }}/falco_helper
           mkdir -p ../../../composite-dist/${{ matrix.config }}
-          for p in reverse_shell imds read_sensitive_file symlink_sensitive clear_log mkdir_bin ptrace_antidebug; do
-            cp target/${{ matrix.target }}/release/$p ../../../composite-dist/${{ matrix.config }}/$p
-          done
 
       - name: Upload composites
         uses: actions/upload-artifact@v7
@@ -282,19 +275,19 @@ jobs:
         run: cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
 
       - name: Verify standalone programs and CRT imports
-        run: python ttp-composite/windows/coverage/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.msystem == 'UCRT64' && 'ucrt' || 'msvcrt' }}
+        run: python ttp-composite/windows/harness/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.msystem == 'UCRT64' && 'ucrt' || 'msvcrt' }}
 
       - name: Verify non-network behaviors and same-binary controls
         shell: powershell
         run: |
           # Exercise raw UTF-8 under Windows PowerShell 5.1, as used in the lab.
-          python -c "import json,pathlib; p=pathlib.Path('ttp-composite/windows/coverage/selection.json'); p.write_text(json.dumps(json.loads(p.read_text(encoding='utf-8')),ensure_ascii=False),encoding='utf-8')"
+          python -c "import json,pathlib; p=pathlib.Path('ttp-composite/windows/harness/selection.json'); p.write_text(json.dumps(json.loads(p.read_text(encoding='utf-8')),ensure_ascii=False),encoding='utf-8')"
           if ($LASTEXITCODE) { throw 'UTF-8 fixture preparation failed' }
           $dist = "composite-dist/${{ matrix.config }}/coverage"
           New-Item -ItemType Directory -Force C:\lab\windows-coverage\fixtures | Out-Null
           Copy-Item "$dist/fixtures/windows_fixture_helper.exe" C:\lab\windows-coverage\fixtures\helper.exe
           Copy-Item "$dist/fixtures/fixture.node" C:\lab\windows-coverage\fixtures\fixture.node
-          & ./ttp-composite/windows/coverage/run.ps1 -Programs $dist -Output "${{ runner.temp }}/windows-behavior" -BehaviorOnly
+          & ./ttp-composite/windows/harness/run.ps1 -Programs $dist -Output "${{ runner.temp }}/windows-behavior" -BehaviorOnly
 
       - name: Upload behavior evidence
         if: always()
@@ -358,22 +351,22 @@ jobs:
         run: cmake --install build --prefix ../../../composite-dist/${{ matrix.config }}
 
       - name: Bundle actual runtime DLL dependencies
-        run: python ttp-composite/windows/coverage/bundle_runtime.py composite-dist/${{ matrix.config }}
+        run: python ttp-composite/windows/harness/bundle_runtime.py composite-dist/${{ matrix.config }}
 
       - name: Verify standalone programs, C++ library and CRT imports
-        run: python ttp-composite/windows/coverage/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.toolchain == 'windows-libstdcxx' && 'libstdcxx' || 'libcxx' }} --compiler clang++
+        run: python ttp-composite/windows/harness/verify_programs.py composite-dist/${{ matrix.config }}/coverage ${{ matrix.toolchain == 'windows-libstdcxx' && 'libstdcxx' || 'libcxx' }} --compiler clang++
 
       - name: Verify non-network behaviors and same-binary controls
         shell: powershell
         run: |
           # Exercise raw UTF-8 under Windows PowerShell 5.1, as used in the lab.
-          python -c "import json,pathlib; p=pathlib.Path('ttp-composite/windows/coverage/selection.json'); p.write_text(json.dumps(json.loads(p.read_text(encoding='utf-8')),ensure_ascii=False),encoding='utf-8')"
+          python -c "import json,pathlib; p=pathlib.Path('ttp-composite/windows/harness/selection.json'); p.write_text(json.dumps(json.loads(p.read_text(encoding='utf-8')),ensure_ascii=False),encoding='utf-8')"
           if ($LASTEXITCODE) { throw 'UTF-8 fixture preparation failed' }
           $dist = "composite-dist/${{ matrix.config }}/coverage"
           New-Item -ItemType Directory -Force C:\lab\windows-coverage\fixtures | Out-Null
           Copy-Item "$dist/fixtures/windows_fixture_helper.exe" C:\lab\windows-coverage\fixtures\helper.exe
           Copy-Item "$dist/fixtures/fixture.node" C:\lab\windows-coverage\fixtures\fixture.node
-          & ./ttp-composite/windows/coverage/run.ps1 -Programs $dist -Output "${{ runner.temp }}/windows-behavior" -BehaviorOnly
+          & ./ttp-composite/windows/harness/run.ps1 -Programs $dist -Output "${{ runner.temp }}/windows-behavior" -BehaviorOnly
 
       - name: Upload behavior evidence
         if: always()
@@ -429,22 +422,19 @@ jobs:
         shell: msys2 {0}
         working-directory: ttp-composite/windows/go
         run: |
-          for p in reverse_shell imds registry_run_key startup_folder; do
-            go build -o "../../../composite-dist/${{ matrix.config }}/$p.exe" "./$p"
-          done
-          bash coverage/build.sh ../../../composite-dist/${{ matrix.config }}
+          bash build.sh ../../../composite-dist/${{ matrix.config }}
 
       - name: Verify non-network behaviors and same-binary controls
         shell: powershell
         run: |
           # Exercise raw UTF-8 under Windows PowerShell 5.1, as used in the lab.
-          python -c "import json,pathlib; p=pathlib.Path('ttp-composite/windows/coverage/selection.json'); p.write_text(json.dumps(json.loads(p.read_text(encoding='utf-8')),ensure_ascii=False),encoding='utf-8')"
+          python -c "import json,pathlib; p=pathlib.Path('ttp-composite/windows/harness/selection.json'); p.write_text(json.dumps(json.loads(p.read_text(encoding='utf-8')),ensure_ascii=False),encoding='utf-8')"
           if ($LASTEXITCODE) { throw 'UTF-8 fixture preparation failed' }
           $dist = "composite-dist/${{ matrix.config }}/coverage"
           New-Item -ItemType Directory -Force C:\lab\windows-coverage\fixtures | Out-Null
           Copy-Item "$dist/fixtures/windows_fixture_helper.exe" C:\lab\windows-coverage\fixtures\helper.exe
           Copy-Item "$dist/fixtures/fixture.node" C:\lab\windows-coverage\fixtures\fixture.node
-          & ./ttp-composite/windows/coverage/run.ps1 -Programs $dist -Output "${{ runner.temp }}/windows-behavior" -BehaviorOnly
+          & ./ttp-composite/windows/harness/run.ps1 -Programs $dist -Output "${{ runner.temp }}/windows-behavior" -BehaviorOnly
 
       - name: Upload behavior evidence
         if: always()
@@ -489,13 +479,13 @@ jobs:
         shell: powershell
         run: |
           # Exercise raw UTF-8 under Windows PowerShell 5.1, as used in the lab.
-          python -c "import json,pathlib; p=pathlib.Path('ttp-composite/windows/coverage/selection.json'); p.write_text(json.dumps(json.loads(p.read_text(encoding='utf-8')),ensure_ascii=False),encoding='utf-8')"
+          python -c "import json,pathlib; p=pathlib.Path('ttp-composite/windows/harness/selection.json'); p.write_text(json.dumps(json.loads(p.read_text(encoding='utf-8')),ensure_ascii=False),encoding='utf-8')"
           if ($LASTEXITCODE) { throw 'UTF-8 fixture preparation failed' }
           $dist = "composite-dist/windows-rust-msvc-${{ matrix.crt }}/coverage"
           New-Item -ItemType Directory -Force C:\lab\windows-coverage\fixtures | Out-Null
           Copy-Item "$dist/fixtures/windows_fixture_helper.exe" C:\lab\windows-coverage\fixtures\helper.exe
           Copy-Item "$dist/fixtures/fixture.node" C:\lab\windows-coverage\fixtures\fixture.node
-          & ./ttp-composite/windows/coverage/run.ps1 -Programs $dist -Output "${{ runner.temp }}/windows-behavior" -BehaviorOnly
+          & ./ttp-composite/windows/harness/run.ps1 -Programs $dist -Output "${{ runner.temp }}/windows-behavior" -BehaviorOnly
       - name: Upload behavior evidence
         if: always()
         uses: actions/upload-artifact@v7

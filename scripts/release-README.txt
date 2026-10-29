@@ -35,8 +35,8 @@ Notes
 -----
 - manifest.json lists primitive configs and composite_configs separately.
   Windows Rust currently provides composites only (dynamic/static MSVC CRT).
-- The qualified composite mapping covers 30 Linux Falco targets and 23 Windows
-  Hayabusa/Sysmon targets. Legacy pilot programs are separate from this mapping.
+- The qualified composite mapping covers 67 Linux Falco targets and 56 Windows
+  Hayabusa/Sysmon targets. Superseded pilot programs have been removed.
   See repository evidence.
 - Linux tmon needs glibc, libelf1, zlib1g, libzstd1 (present on the lab AMI).
 - Windows binaries are unsigned; on the lab host Defender is disabled and

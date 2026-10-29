@@ -42,28 +42,22 @@ class LinuxBatch(LinuxComposites):
             for slot,folder in zip(slots,folders):
                 self.verify(slot)
                 case=dict(self.cases[slot['case']],control=slot['mode']=='control')
-                legacy=slot['cohort']=='legacy'
                 dest=folder/'measurement';dest.mkdir()
                 row=dict(native_started=False,case=case['id'],config=slot['config'],control=case['control'],
                          target_rule=case.get('rule'),container_id=None,batch=str(batch.relative_to(folder.parent.parent)))
                 run=None
                 try:
-                    options=(['--network','bridge','--cap-add','SYS_PTRACE','--cap-add','NET_ADMIN',
-                        '--security-opt','seccomp=unconfined','--tmpfs','/dev/shm:rw,exec,nosuid,size=16m']
-                        if legacy else c.container_options(case,dest))
+                    options=c.container_options(case,dest)
                     cid=c.command(['docker','create','--name','full-'+uuid.uuid4().hex[:16],*options,self.image])
                     containers.append(cid);row['container_id']=cid
                     c.command(['docker','start',cid])
-                    if legacy:
-                        c.command(['docker','exec',cid,f"/opt/coverage/{slot['config']}/coverage/fixture_prepare"])
-                    else:
-                        c.prepare_container(cid,slot['config'],case)
+                    c.prepare_container(cid,slot['config'],case)
                     # Timestamp boundary excludes fixture activity even if delivered later.
-                    exe=f"/opt/coverage/{slot['config']}/"+("" if legacy else "coverage/")+case['id']
+                    exe=f"/opt/coverage/{slot['config']}/coverage/"+case['id']
                     row.update(started_ns=time.time_ns(),executable=exe,native_started=True)
                     write_json(dest/'execution.json',row)
                     try:
-                        argv=(['docker','exec',cid,exe]+(['--control'] if case['control'] else []) if legacy else c.execution_command(cid,slot['config'],case))
+                        argv=c.execution_command(cid,slot['config'],case)
                         run=subprocess.run(argv,
                                            capture_output=True,text=True,timeout=20)
                         row.update(returncode=run.returncode,timed_out=False,stdout=run.stdout,stderr=run.stderr)

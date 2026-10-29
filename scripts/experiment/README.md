@@ -90,11 +90,21 @@ results are stored under `accepted/` or `suspect/`. Do not analyze shared captur
 as extra independent observations. A terminal interruption remains incomplete;
 there is no implicit resume or substitution of prior observations.
 
-## Retained legacy programs
+## Source layout and target rules
 
-`--cohort legacy` exercises every shipped pilot composite under the same bounded
-replacement ledger. Linux can batch 16 distinct containers; Windows can batch
-24 program/configuration slots. A legacy accepted run establishes successful
-exit and valid collection/attribution only: those programs lack the expanded
-suite's independent behavior assertions. Report them separately and never count
-their exit status as proof that a target detection rule was qualified.
+Composite sources are `ttp-composite/<platform>/<language>/<case>/main.*`.
+Each entry point names its exact Falco or Sigma target. Platform `harness/`
+directories contain catalogs, rules, runners, and qualification records;
+language `internal/` directories contain shared helpers and Linux baseline/setup
+programs. These support programs are not rule-targeted composite cases.
+The old pilot implementations and the `legacy` cohort have been removed.
+Release artifact paths retain `<configuration>/coverage/` for compatibility
+with archived experiment contracts; that is a binary staging format, not the
+source layout.
+
+For a one-repetition disposable CDK validation, `scripts/coverage-expansion/lab.py`
+can stage an assembled, inventoried release with `stage --bundle BUNDLE` and run
+either `--cohort composites` (default) or `--cohort primitives --repetitions 1`.
+Both cohorts use the ordinary experiment runner, health gates, and retry ledger.
+Use the same `--stack`, `--outputs`, and temporary `--evidence` directory throughout;
+run cohorts serially on each host and destroy the CDK stack afterwards.

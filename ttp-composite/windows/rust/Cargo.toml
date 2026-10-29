@@ -3,6 +3,7 @@ name = "windows-detection-composites"
 version = "0.1.0"
 edition = "2021"
 publish = false
+autobins = false
 
 [dependencies]
 windows-sys = { version = "=0.59.0", features = ["Win32_Foundation", "Win32_Security", "Win32_Storage_FileSystem", "Win32_System_IO", "Win32_System_Registry", "Win32_System_Pipes", "Win32_System_LibraryLoader", "Win32_System_Time", "Win32_System_Threading", "Win32_System_Diagnostics_ToolHelp"] }
@@ -10,3 +11,230 @@ windows-sys = { version = "=0.59.0", features = ["Win32_Foundation", "Win32_Secu
 [profile.release]
 debug = 1
 strip = false
+
+[lib]
+path = "internal/lib.rs"
+
+[[bin]]
+name = "registry_run_key"
+path = "registry_run_key/main.rs"
+
+[[bin]]
+name = "registry_app_paths"
+path = "registry_app_paths/main.rs"
+
+[[bin]]
+name = "registry_active_setup"
+path = "registry_active_setup/main.rs"
+
+[[bin]]
+name = "registry_screensaver"
+path = "registry_screensaver/main.rs"
+
+[[bin]]
+name = "registry_runmru_delete"
+path = "registry_runmru_delete/main.rs"
+
+[[bin]]
+name = "startup_file"
+path = "startup_file/main.rs"
+
+[[bin]]
+name = "powershell_profile"
+path = "powershell_profile/main.rs"
+
+[[bin]]
+name = "public_binary"
+path = "public_binary/main.rs"
+
+[[bin]]
+name = "double_extension_file"
+path = "double_extension_file/main.rs"
+
+[[bin]]
+name = "double_extension_lnk"
+path = "double_extension_lnk/main.rs"
+
+[[bin]]
+name = "office_startup_file"
+path = "office_startup_file/main.rs"
+
+[[bin]]
+name = "suspicious_executable_file"
+path = "suspicious_executable_file/main.rs"
+
+[[bin]]
+name = "tcp_connect_2525"
+path = "tcp_connect_2525/main.rs"
+
+[[bin]]
+name = "tcp_connect_3389"
+path = "tcp_connect_3389/main.rs"
+
+[[bin]]
+name = "tcp_connect_9389"
+path = "tcp_connect_9389/main.rs"
+
+[[bin]]
+name = "tcp_connect_88"
+path = "tcp_connect_88/main.rs"
+
+[[bin]]
+name = "tcp_connect_public_path"
+path = "tcp_connect_public_path/main.rs"
+
+[[bin]]
+name = "dns_ip_lookup"
+path = "dns_ip_lookup/main.rs"
+
+[[bin]]
+name = "double_extension_execute"
+path = "double_extension_execute/main.rs"
+
+[[bin]]
+name = "creation_time_change"
+path = "creation_time_change/main.rs"
+
+[[bin]]
+name = "ads_executable"
+path = "ads_executable/main.rs"
+
+[[bin]]
+name = "named_pipe_indicator"
+path = "named_pipe_indicator/main.rs"
+
+[[bin]]
+name = "unsigned_node_load"
+path = "unsigned_node_load/main.rs"
+
+[[bin]]
+name = "registry_logon_script"
+path = "registry_logon_script/main.rs"
+
+[[bin]]
+name = "registry_typed_paths"
+path = "registry_typed_paths/main.rs"
+
+[[bin]]
+name = "registry_appx_debugger"
+path = "registry_appx_debugger/main.rs"
+
+[[bin]]
+name = "registry_com_treatas"
+path = "registry_com_treatas/main.rs"
+
+[[bin]]
+name = "registry_cor_profiler"
+path = "registry_cor_profiler/main.rs"
+
+[[bin]]
+name = "registry_hide_files"
+path = "registry_hide_files/main.rs"
+
+[[bin]]
+name = "registry_office_macro"
+path = "registry_office_macro/main.rs"
+
+[[bin]]
+name = "registry_word_addin"
+path = "registry_word_addin/main.rs"
+
+[[bin]]
+name = "registry_appcompat_restart"
+path = "registry_appcompat_restart/main.rs"
+
+[[bin]]
+name = "registry_suspicious_env"
+path = "registry_suspicious_env/main.rs"
+
+[[bin]]
+name = "screensaver_file"
+path = "screensaver_file/main.rs"
+
+[[bin]]
+name = "system_dll_file"
+path = "system_dll_file/main.rs"
+
+[[bin]]
+name = "system_name_file"
+path = "system_name_file/main.rs"
+
+[[bin]]
+name = "perflogs_file"
+path = "perflogs_file/main.rs"
+
+[[bin]]
+name = "powershell_module_file"
+path = "powershell_module_file/main.rs"
+
+[[bin]]
+name = "rclone_config_file"
+path = "rclone_config_file/main.rs"
+
+[[bin]]
+name = "rtlo_file"
+path = "rtlo_file/main.rs"
+
+[[bin]]
+name = "shim_database_file"
+path = "shim_database_file/main.rs"
+
+[[bin]]
+name = "delete_eventlog_fixture"
+path = "delete_eventlog_fixture/main.rs"
+
+[[bin]]
+name = "delete_history_fixture"
+path = "delete_history_fixture/main.rs"
+
+[[bin]]
+name = "delete_prefetch_fixture"
+path = "delete_prefetch_fixture/main.rs"
+
+[[bin]]
+name = "delete_zone_identifier"
+path = "delete_zone_identifier/main.rs"
+
+[[bin]]
+name = "dns_cloudflared"
+path = "dns_cloudflared/main.rs"
+
+[[bin]]
+name = "dns_shortener"
+path = "dns_shortener/main.rs"
+
+[[bin]]
+name = "dns_remote_access"
+path = "dns_remote_access/main.rs"
+
+[[bin]]
+name = "pipe_paexec"
+path = "pipe_paexec/main.rs"
+
+[[bin]]
+name = "pipe_remcom"
+path = "pipe_remcom/main.rs"
+
+[[bin]]
+name = "process_access_ping"
+path = "process_access_ping/main.rs"
+
+[[bin]]
+name = "remote_thread_ping"
+path = "remote_thread_ping/main.rs"
+
+[[bin]]
+name = "ads_provenance_contents"
+path = "ads_provenance_contents/main.rs"
+
+[[bin]]
+name = "signed_system_library_load"
+path = "signed_system_library_load/main.rs"
+
+[[bin]]
+name = "raw_owned_volume_read"
+path = "raw_owned_volume_read/main.rs"
+
+[[bin]]
+name = "unicode_child_arguments"
+path = "unicode_child_arguments/main.rs"

@@ -11,9 +11,9 @@ class ReleaseTests(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
         self.root=Path(self.tmp.name)
-        manifest=dict(os='linux',configs=['linux-c-glibc'],composite_configs=['linux-c-glibc'],primitives=['empty'],composites=['reverse_shell'])
+        manifest=dict(os='linux',configs=['linux-c-glibc'],composite_configs=['linux-c-glibc'],primitives=['empty'],composites=['target'])
         (self.root/'manifest.json').write_text(json.dumps(manifest))
-        for name in ['tmon/tmon','tap/tap','ttp-primitives/linux-c-glibc/empty','ttp-composite/linux-c-glibc/reverse_shell','ttp-composite/linux-c-glibc/coverage/target','ttp-composite/linux-c-glibc/coverage/negative','ttp-composite/linux-c-glibc/coverage/fixture_prepare']:
+        for name in ['tmon/tmon','tap/tap','ttp-primitives/linux-c-glibc/empty','ttp-composite/linux-c-glibc/coverage/target','ttp-composite/linux-c-glibc/coverage/negative','ttp-composite/linux-c-glibc/coverage/fixture_prepare']:
             p=self.root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b'program')
         p=self.root/'ttp-composite/coverage/manifest.json';p.parent.mkdir();p.write_text(json.dumps(dict(cases=[dict(id='target')])))
         for name in ('install.sh','preserve-partial-enter.patch','regression.cpp'):
@@ -48,6 +48,9 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'run-batch.ps1'):
             release.validate(self.root)
         (self.root/'ttp-composite/coverage/run-batch.ps1').write_text('runner')
+        with self.assertRaisesRegex(ValueError,'raw-disk-fixture.ps1'):
+            release.validate(self.root)
+        (self.root/'ttp-composite/coverage/raw-disk-fixture.ps1').write_text('fixture')
         release.validate(self.root)
 
     def test_missing_collector_fix(self):

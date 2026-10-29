@@ -1,6 +1,6 @@
 # TTP composite scope
 
-The selected composite suites exercise **67 Linux target rules** and **56 Windows target rules**, with C, C++, Go and Rust implementations. These are different platform-specific rule selections, not 123 portable behaviors or 123 independent attack mechanisms. Every case is a standalone program with a same-binary no-behavior control. Legacy pilot programs remain separate and do not expand these counts.
+The selected composite suites exercise **67 Linux target rules** and **56 Windows target rules**, with C, C++, Go and Rust implementations. These are different platform-specific rule selections, not 123 portable behaviors or 123 independent attack mechanisms. Every case is a standalone program with a same-binary no-behavior control. Superseded pilot implementations have been removed. Shared helpers and the Linux startup baseline live under `internal/` and are not composite test cases.
 
 | Platform | Detector and subject corpus | Implemented candidates per language | Qualified target selection | Runtime configurations |
 | --- | --- | ---: | ---: | ---: |
@@ -24,9 +24,9 @@ The 41 additions (12 Linux and 29 Windows) are documented in [coverage expansion
 
 ## Qualification is evidence, not a requirement to force every alert
 
-Linux C, C++ and Rust have positive-alert and clean-control evidence for all 30 selected targets in both configurations. Both Go configurations demonstrate 29: the reverse-shell behavior succeeds but its pipe-relay implementation misses the socket-duplication rule. The C reference demonstrates that target; the Go miss remains a measured outcome. See [Linux scope](linux/coverage/README.md), [Go evidence](linux/coverage/validation/go/README.md), and [Rust evidence](linux/coverage/validation/rust/README.md).
+Linux C, C++ and Rust have positive-alert and clean-control evidence for all 30 selected targets in both configurations. Both Go configurations demonstrate 29: the reverse-shell behavior succeeds but its pipe-relay implementation misses the socket-duplication rule. The C reference demonstrates that target; the Go miss remains a measured outcome. See [Linux scope](linux/harness/README.md), [Go evidence](linux/harness/validation/go/README.md), and [Rust evidence](linux/harness/validation/rust/README.md).
 
-Windows C, C++, Go and Rust demonstrate the same 23 targets with clean controls in all eight configurations. The Rust dynamic/static CRT comparison produced no target-rule or attributable all-rule alert-count differences in its complete qualification runs; see [Rust evidence](windows/coverage/validation/rust/README.md). See [Windows rule selection](windows/coverage/README.md) and the per-language validation directories. Attribution failures, sensor metadata discrepancies, unsuccessful behavior and incomplete captures remain visible alongside valid outcomes.
+Windows C, C++, Go and Rust demonstrate the same 23 targets with clean controls in all eight configurations. The Rust dynamic/static CRT comparison produced no target-rule or attributable all-rule alert-count differences in its complete qualification runs; see [Rust evidence](windows/harness/validation/rust/README.md). See [Windows rule selection](windows/harness/README.md) and the per-language validation directories. Attribution failures, sensor metadata discrepancies, unsuccessful behavior and incomplete captures remain visible alongside valid outcomes.
 
 Identical alerts do not imply identical telemetry. Qualification establishes that the fixtures and detection mapping are usable; it does not supply the dissertation's balanced repeated experiment or paired tmon event-volume/composition dataset. Final configuration freeze, orchestration, collector-health policy and confirmatory collection remain [#54](https://github.com/bluesentinelsec/telemetry-lab/issues/54). The broader executable/attribution audit remains [#55](https://github.com/bluesentinelsec/telemetry-lab/issues/55).
 

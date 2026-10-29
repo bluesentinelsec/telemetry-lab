@@ -2,3 +2,7 @@
 name = "dns_lookup"
 version = "0.1.0"
 edition = "2021"
+
+[[bin]]
+name = "dns_lookup"
+path = "main.rs"

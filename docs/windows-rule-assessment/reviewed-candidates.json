@@ -20,7 +20,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Zach Mathis",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/hayabusa/sysmon/Sysmon_19_WmiEventFilterActivity_RuleAlert.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "selection_basic": {
         "Channel": "Microsoft-Windows-Sysmon/Operational",
@@ -58,7 +58,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Zach Mathis",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/hayabusa/sysmon/Sysmon_1_High_ProcExec_NonExeProcExec.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "selection": {
         "Channel": "Microsoft-Windows-Sysmon/Operational",
@@ -99,7 +99,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Zach Mathis",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/hayabusa/sysmon/Sysmon_20_Med_WmiEventConsumerActivity_RuleAlert.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "selection_basic": {
         "Channel": "Microsoft-Windows-Sysmon/Operational",
@@ -137,7 +137,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Zach Mathis",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/hayabusa/sysmon/Sysmon_21_Med_WmiEventConsumerToFilterActivity_RuleAlert.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "selection_basic": {
         "Channel": "Microsoft-Windows-Sysmon/Operational",
@@ -175,7 +175,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Zach Mathis",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/hayabusa/sysmon/Sysmon_24_Med_ClipboardChange_RuleAlert.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "selection_basic": {
         "Channel": "Microsoft-Windows-Sysmon/Operational",
@@ -213,7 +213,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Zach Mathis",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/hayabusa/sysmon/Sysmon_25_Med_ProcessTampering.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "selection_basic": {
         "Channel": "Microsoft-Windows-Sysmon/Operational",
@@ -243,7 +243,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Zach Mathis",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/hayabusa/sysmon/Sysmon_9_Med_RawAccessRead.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "selection_basic": {
         "Channel": "Microsoft-Windows-Sysmon/Operational",
@@ -273,7 +273,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Perez Diego (@darkquassar), oscd.community",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_remote_thread/create_remote_thread_win_susp_relevant_source_image.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "create_remote_thread": {
         "EventID": 8,
@@ -388,7 +388,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Perez Diego (@darkquassar), oscd.community",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_remote_thread/create_remote_thread_win_susp_uncommon_source_image.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "create_remote_thread": {
         "EventID": 8,
@@ -538,7 +538,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "frack113",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_stream_hash/create_stream_hash_creation_internet_file.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "create_stream_hash": {
         "EventID": 15,
@@ -663,7 +663,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Florian Roth (Nextron Systems)",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_stream_hash/create_stream_hash_file_sharing_domains_download_susp_extension.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "create_stream_hash": {
         "EventID": 15,
@@ -746,7 +746,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Nasreddine Bencherchali (Nextron Systems), Florian Roth (Nextron Systems)",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/create_stream_hash/create_stream_hash_susp_ip_domains.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "create_stream_hash": {
         "EventID": 15,
@@ -792,7 +792,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "frack113",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_delete/file_delete_win_delete_backup_file.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "file_delete": {
         "EventID": [
@@ -845,7 +845,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Joseliyo Sanchez, @Joseliyo_Jstnk",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/file/file_executable_detected/file_executable_detected_win_susp_embeded_sed_file.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "file_executable_detected": {
         "EventID": 29,
@@ -878,7 +878,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/image_load/image_load_dll_credui_uncommon_process_load.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "image_load": {
         "EventID": 7,
@@ -957,7 +957,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Luc Génaux",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/image_load/image_load_dll_rstrtmgr_uncommon_load.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "image_load": {
         "EventID": 7,
@@ -1034,7 +1034,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Nasreddine Bencherchali (Nextron Systems)",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/image_load/image_load_side_load_from_non_system_location.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "image_load": {
         "EventID": 7,
@@ -1570,7 +1570,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Swachchhanda Shrawan Poudel (Nextron Systems)",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/image_load/image_load_side_load_vcruntime140.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "image_load": {
         "EventID": 7,
@@ -1620,7 +1620,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Christian Burkard (Nextron Systems), Tim Shelton (FP)",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/process_access/proc_access_win_susp_direct_ntopenprocess_call.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "process_access": {
         "EventID": 10,
@@ -1716,7 +1716,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "frack113, Florian Roth (Nextron Systems), Josh Nickels",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/process_creation/proc_creation_win_susp_cli_obfuscation_unicode_img.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "process_creation": {
         "EventID": 1,
@@ -1780,7 +1780,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Micah Babinski, @micahbabinski, Swachchhanda Shrawan Poudel (Nextron Systems), Luc Génaux",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/process_creation/proc_creation_win_susp_right_to_left_override.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "process_creation": {
         "EventID": 1,
@@ -1817,7 +1817,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Teymur Kheirkhabarov, oscd.community",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/raw_access_thread/raw_access_thread_susp_disk_access_using_uncommon_tools.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "raw_access_thread": {
         "EventID": 9,
@@ -1915,7 +1915,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "frack113",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/sysmon/sysmon_file_executable_detected.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "sysmon": {
         "Channel": "Microsoft-Windows-Sysmon/Operational"
@@ -1947,7 +1947,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Roberto Rodriguez @Cyb3rWard0g",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/threat-hunting/create_remote_thread/create_remote_thread_win_loadlibrary.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "create_remote_thread": {
         "EventID": 8,
@@ -1981,7 +1981,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Swachchhanda Shrawan Poudel",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/threat-hunting/image_load/image_load_dll_taskschd_by_process_in_potentially_suspicious_location.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "image_load": {
         "EventID": 7,
@@ -2029,7 +2029,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Swachchhanda Shrawan Poudel (Nextron Systems)",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/threat-hunting/image_load/image_load_win_signed_dll_no_metadata.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "image_load": {
         "EventID": 7,
@@ -2103,7 +2103,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "frack113, Florian Roth (Nextron Systems)",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/threat-hunting/process_creation/proc_creation_win_susp_cli_obfuscation_unicode.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "process_creation": {
         "EventID": 1,
@@ -2148,7 +2148,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Florian Roth (Nextron Systems)",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/wmi_event/sysmon_wmi_susp_encoded_scripts.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "wmi_event": {
         "EventID": [
@@ -2189,7 +2189,7 @@
     "review_level": "manual predicate and fixture assessment; not live tested",
     "authors": "Florian Roth (Nextron Systems), Jonhnathan Ribeiro",
     "source_url": "https://github.com/Yamato-Security/hayabusa-rules/blob/fffbdd179c8c8c7554368c443f9ba2917877f108/sigma/sysmon/wmi_event/sysmon_wmi_susp_scripting.yml",
-    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/coverage/RULE-LICENSE.md",
+    "license": "Detection Rule License 1.1; see ../../ttp-composite/windows/harness/RULE-LICENSE.md",
     "detection": {
       "wmi_event": {
         "EventID": [

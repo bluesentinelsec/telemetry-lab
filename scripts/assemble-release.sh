@@ -26,14 +26,7 @@ WIN_CONFIGS="windows-c-ucrt windows-c-msvcrt windows-cpp-libstdcxx windows-cpp-l
 LINUX_PRIMS="empty file_io spawn process_exec process_enumeration thread_create directory_enumeration memory_allocate pipe_ipc tcp_client tcp_server dns_lookup http_client"
 WIN_PRIMS="empty file_io spawn process_enumeration thread_create directory_enumeration memory_allocate pipe_ipc tcp_client tcp_server dns_lookup http_client"
 
-# Composite rosters (multi-step ATT&CK techniques) also differ by OS. Like the
-# primitive rosters, these names drive both the copy glob and the manifest, so a
-# new composite is added in exactly one place. Composite artifacts arrive under
-# COMP as composite-<config>/ (built by build-composites.yml); they carry no
-# substrate-verification record, so nothing is copied into substrate/ for them.
-LINUX_COMPS="reverse_shell imds read_sensitive_file symlink_sensitive clear_log mkdir_bin ptrace_antidebug"
-WIN_COMPS="reverse_shell imds registry_run_key startup_folder"
-
+# Composite rosters come from the exact-rule catalogs; pilots are no longer shipped.
 # find1 <dir> <find-args...> -> first matching file path (fails loudly if none).
 find1() {
   local dir="$1"; shift
@@ -45,9 +38,9 @@ find1() {
 
 assemble() {
   local os="$1" configs="$2"
-  local prims comps
-  if [ "$os" = linux ]; then prims="$LINUX_PRIMS"; comps="$LINUX_COMPS"
-  else prims="$WIN_PRIMS"; comps="$WIN_COMPS"; fi
+  local prims
+  if [ "$os" = linux ]; then prims="$LINUX_PRIMS"
+  else prims="$WIN_PRIMS"; fi
   local name="telemetry-lab-${VERSION}-${os}"
   local root="${OUT}/${name}"
   rm -rf "$root"
@@ -84,30 +77,20 @@ assemble() {
     find "$COMP/$cfg" -name 'substrate-*.json' -exec cp {} "$root/substrate/" \; 2>/dev/null || true
   done
 
-  # Composites, per config, mirroring the primitive staging. Their artifacts
-  # live under COMP as composite-<config>/, and the -name predicate is built from
-  # the OS composite roster ($comps). The C++ Windows configs bundle their stdlib
-  # DLL beside the exe, so *.dll is copied too. No substrate records exist for
-  # composites, so none are collected.
-  local compnameargs=()
-  for c in $comps; do
-    compnameargs+=( -name "$c" -o )
-    [ "$os" = windows ] && compnameargs+=( -name "$c.exe" -o )
-  done
+  # Fixed support plus the independently rule-mapped composite artifacts.
   if [ "$os" = linux ]; then
-    compnameargs+=( -name falco_helper -o )
     mkdir -p "$root/ttp-composite/coverage"
-    cp ttp-composite/linux/coverage/manifest.json "$root/ttp-composite/coverage/"
-    cp ttp-composite/linux/coverage/run.py ttp-composite/linux/coverage/validate_manifest.py ttp-composite/linux/coverage/setup-detector.sh ttp-composite/linux/coverage/Dockerfile "$root/ttp-composite/coverage/"
-    cp -R ttp-composite/linux/coverage/falco-health-fix "$root/ttp-composite/coverage/"
-    cp ttp-composite/linux/coverage/enablement.yaml "$root/ttp-composite/coverage/"
-    cp -R ttp-composite/linux/coverage/fixtures "$root/ttp-composite/coverage/"
-    cp -R ttp-composite/linux/coverage/rules "$root/ttp-composite/coverage/"
+    cp ttp-composite/linux/harness/manifest.json "$root/ttp-composite/coverage/"
+    cp ttp-composite/linux/harness/run.py ttp-composite/linux/harness/validate_manifest.py ttp-composite/linux/harness/setup-detector.sh ttp-composite/linux/harness/Dockerfile "$root/ttp-composite/coverage/"
+    cp -R ttp-composite/linux/harness/falco-health-fix "$root/ttp-composite/coverage/"
+    cp ttp-composite/linux/harness/enablement.yaml "$root/ttp-composite/coverage/"
+    cp -R ttp-composite/linux/harness/fixtures "$root/ttp-composite/coverage/"
+    cp -R ttp-composite/linux/harness/rules "$root/ttp-composite/coverage/"
   fi
   if [ "$os" = windows ]; then
     mkdir -p "$root/ttp-composite/coverage"
-    for support in selection.json rule-inventory.csv RULE-LICENSE.md run.ps1 run-batch.ps1 run-local-tcp.ps1 run-local-dns.ps1 analyze.py verify_programs.py; do
-      cp "ttp-composite/windows/coverage/$support" "$root/ttp-composite/coverage/"
+    for support in selection.json rule-inventory.csv RULE-LICENSE.md raw-disk-fixture.ps1 run.ps1 run-batch.ps1 run-local-tcp.ps1 run-local-dns.ps1 analyze.py verify_programs.py; do
+      cp "ttp-composite/windows/harness/$support" "$root/ttp-composite/coverage/"
     done
   fi
   local composite_configs="$configs"
@@ -116,7 +99,7 @@ assemble() {
     local cdst="$root/ttp-composite/$cfg"
     mkdir -p "$cdst"
     if [ -d "$COMP/composite-$cfg" ]; then
-      find "$COMP/composite-$cfg" -path '*/coverage' -prune -o -type f \( "${compnameargs[@]}" -name '*.dll' \) -exec cp {} "$cdst/" \;
+      if [ "$os" = linux ]; then cp "$COMP/composite-$cfg/falco_helper" "$cdst/"; fi
       if [ "$os" = windows ] && [ -d "$COMP/composite-$cfg/coverage" ]; then
         cp -R "$COMP/composite-$cfg/coverage" "$cdst/coverage"
       fi
@@ -137,7 +120,7 @@ assemble() {
   cfgjson=$(printf '"%s",' $configs); cfgjson="[${cfgjson%,}]"
   compcfgjson=$(printf '"%s",' $composite_configs); compcfgjson="[${compcfgjson%,}]"
   primjson=$(printf '"%s",' $prims); primjson="[${primjson%,}]"
-  compjson=$(printf '"%s",' $comps); compjson="[${compjson%,}]"
+  compjson=$(python3 -c 'import json,sys; p=sys.argv[1]; d=json.load(open("ttp-composite/"+p+"/harness/"+("manifest.json" if p=="linux" else "selection.json"))); print(json.dumps([c["id" if p=="linux" else "case_id"] for c in d["cases" if p=="linux" else "candidates"]]))' "$os")
   cat > "$root/manifest.json" <<EOF
 {
   "name": "telemetry-lab",
@@ -154,8 +137,11 @@ assemble() {
 EOF
   cp scripts/release-README.txt "$root/README.txt"
   mkdir -p "$root/experiment"
-  cp scripts/e2e/legacy-windows.ps1 "$root/experiment/"
-  cp scripts/experiment/{run.py,engine.py,primitives.py,composites.py,batch_composites.py,legacy.py,README.md} "$root/experiment/"
+  cp scripts/experiment/{run.py,engine.py,primitives.py,composites.py,batch_composites.py,README.md} "$root/experiment/"
+
+  # Python caches from local verification are not release inputs. The runner
+  # deliberately ignores runtime-generated caches in its integrity comparison.
+  find "$root" -type d -name __pycache__ -prune -exec rm -rf {} +
 
   # Reject incomplete matrices and record the exact bytes being released.
   python3 scripts/validate-release.py "$root" --write

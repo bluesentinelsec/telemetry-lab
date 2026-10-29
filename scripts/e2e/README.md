@@ -11,10 +11,6 @@ folders, its bundled `coverage/Dockerfile`, and a single fixed C
 - Use the existing `ttp-composite/coverage/run.py --repetitions 1` on Linux.
   On Windows, run `run.ps1`, `run-local-tcp.ps1`, and `run-local-dns.ps1` for
   each composite configuration. Windows has 56 selected cases per configuration.
-- `legacy-linux.py BUNDLE OUTPUT --image IMAGE` and
-  `legacy-windows.ps1 -Bundle BUNDLE -Output OUTPUT` exercise the retained
-  pilot programs and preserve detector evidence. Pilots lack the expanded
-  suite's independent behavior contracts; exit success is not qualification.
 
 `recheck-linux.py BUNDLE CAMPAIGN OUTPUT --image IMAGE` rechecks only
 behavior-successful attempts that failed collector health, using the original
@@ -26,9 +22,9 @@ including failures; diagnose failures and use new output directories for
 rechecks. A valid detector miss is data, not grounds to change the rule or
 program to manufacture an alert.
 
-The current release roster contains 122 primitive, 752 expanded composite,
-and 80 legacy program/configuration combinations. Expanded runners also
-execute 752 same-binary controls and eight Linux negative baselines.
+The current release roster contains 176 primitive and 984 rule-targeted composite
+program/configuration combinations. Composite runners also execute 984 same-binary
+controls and eight Linux negative baselines. Superseded pilots are no longer shipped.
 
 Before publication, retain the component CI run IDs/source commits, hashes,
 host inventories, rule inventories, raw telemetry, EVTX/Falco records,

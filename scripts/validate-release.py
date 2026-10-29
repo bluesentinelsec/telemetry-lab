@@ -15,7 +15,7 @@ def validate(root):
         required += [f'ttp-primitives/{config}/{name}{suffix}' for name in manifest['primitives']]
     coverage = root / 'ttp-composite/coverage'
     if windows:
-        required.append('ttp-composite/coverage/run-batch.ps1')
+        required += ['ttp-composite/coverage/run-batch.ps1', 'ttp-composite/coverage/raw-disk-fixture.ps1']
         cases = [c['case_id'] for c in json.loads((coverage / 'selection.json').read_text())['candidates']]
     else:
         cases = [c['id'] for c in json.loads((coverage / 'manifest.json').read_text())['cases']]
@@ -27,9 +27,6 @@ def validate(root):
     for config in manifest['composite_configs']:
         prefix = f'ttp-composite/{config}'
         required += [f'{prefix}/coverage/{name}{suffix}' for name in cases]
-        # Windows Rust was introduced after the legacy pilot suite.
-        if not config.startswith('windows-rust-'):
-            required += [f'{prefix}/{name}{suffix}' for name in manifest['composites']]
         if windows:
             required.append(f'{prefix}/coverage/build-manifest.json')
             build = json.loads((root / required[-1]).read_text())

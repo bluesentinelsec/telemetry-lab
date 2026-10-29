@@ -1,6 +1,6 @@
 # Windows Rust detection composites
 
-All 23 C/C++/Go cases have a separate Rust `src/bin/<case>.rs` executable. Each program has one fixed behavior and same-binary `--control`; there is no runtime dispatcher. The shared selection JSON, neutral program paths, fixture bytes and exact target rule IDs are unchanged.
+All 56 C/C++/Go cases have a separate Rust `<case>/main.rs` executable. Each program has one fixed behavior and same-binary `--control`; there is no runtime dispatcher. The shared selection JSON, neutral program paths, fixture bytes and exact target rule IDs are unchanged.
 
 ## Runtime configurations
 
@@ -29,6 +29,6 @@ From a Visual Studio x64 development shell with the pinned Rust toolchain and Py
 
 CI requires both builds and 17 non-network behavior/control pairs per build. Use the shared run.ps1, run-local-tcp.ps1 and run-local-dns.ps1 for live qualification. Build/behavior checks alone do not demonstrate detector outcomes. Full repetitions and paired tmon collection remain the experiment phase.
 
-## Live qualification
+## Historical initial 23-case qualification
 
-Both configurations demonstrated all 23 qualified targets with clean controls: 46 attributable target alerts and 46 clean controls in the complete comparison. No paired all-rule alert-count differences were observed. See the [evidence report](../coverage/validation/rust/README.md) for runtime-load verification, sensor observations and all retained attempts.
+Both configurations demonstrated all 23 qualified targets with clean controls: 46 attributable target alerts and 46 clean controls in the complete comparison. No paired all-rule alert-count differences were observed. See the [evidence report](../harness/validation/rust/README.md) for runtime-load verification, sensor observations and all retained attempts.

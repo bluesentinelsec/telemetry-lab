@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 BASE=Path(sys.argv[1]) if len(sys.argv)>1 else Path('/Users/michaellong/telemetry-lab-data/iteration-study-2026-09-23')
 BUNDLES=Path(os.environ.get('TELEMETRY_STUDY_BUNDLES','/Users/michaellong/telemetry-lab-data/release-0.3.0-2026-09-22/release'))
-spec=importlib.util.spec_from_file_location('wc',ROOT/'ttp-composite/windows/coverage/analyze.py');wc=importlib.util.module_from_spec(spec);spec.loader.exec_module(wc)
+spec=importlib.util.spec_from_file_location('wc',ROOT/'ttp-composite/windows/harness/analyze.py');wc=importlib.util.module_from_spec(spec);spec.loader.exec_module(wc)
 
 def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
 def rows(p):

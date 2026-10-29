@@ -7,3 +7,11 @@ Both platforms build `empty`, `file_io`, `spawn`, `process_enumeration`, `thread
 CI verifies native execution and runtime linkage. Existing archived experiment campaigns used only `empty`, `file_io`, and `spawn` on Windows: 18 Windows combinations and 122 total combinations. Adding source and CI coverage does not retroactively expand those datasets. The nine added Windows cases require collector-level lab qualification before inclusion in a new experiment.
 
 Composite scope is separate: see [TTP composite scope](../ttp-composite/SCOPE.md). Research protocols under `scripts/pilot` and `scripts/iteration-study` retain the scope and allocation of their original campaigns.
+
+## Source layout
+
+Each case has its own `ttp-primitives/<language>/<case>/` directory, with
+`main.c`, `main.cpp`, `main.go`, or `main.rs` directly inside it. These sources
+are shared across platforms where supported; platform-specific Go files use
+`main_linux.go` and `main_windows.go`. Rust case tests remain in `tests/`.
+Shared test utilities live under `testing/` or Go `internal/`.

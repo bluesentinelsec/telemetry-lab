@@ -2,12 +2,12 @@ name: Falco collector regression
 on:
   pull_request:
     paths:
-      - 'ttp-composite/linux/coverage/falco-health-fix/**'
+      - 'ttp-composite/linux/harness/falco-health-fix/**'
       - '.github/workflows/falco-health-regression.yml'
   push:
     branches: [main]
     paths:
-      - 'ttp-composite/linux/coverage/falco-health-fix/**'
+      - 'ttp-composite/linux/harness/falco-health-fix/**'
       - '.github/workflows/falco-health-regression.yml'
 jobs:
   parser:
@@ -20,13 +20,13 @@ jobs:
         run: |
           apt-get update -qq
           apt-get install -y --no-install-recommends python3 ca-certificates
-          bash ttp-composite/linux/coverage/falco-health-fix/install.sh
+          bash ttp-composite/linux/harness/falco-health-fix/install.sh
       - name: Prove the regression fails without the patch
         shell: bash
         run: |
           set -euo pipefail
           root=/opt/telemetry-lab/falco-health-build
-          patch="$GITHUB_WORKSPACE/ttp-composite/linux/coverage/falco-health-fix/preserve-partial-enter.patch"
+          patch="$GITHUB_WORKSPACE/ttp-composite/linux/harness/falco-health-fix/preserve-partial-enter.patch"
           git -C "$root/libs-source" apply --reverse "$patch"
           cmake --build "$root/falco-build" --target empty-enter-regression -j4
           if "$root/falco-build/empty-enter-regression" > "$root/logs/unpatched-regression.log" 2>&1; then

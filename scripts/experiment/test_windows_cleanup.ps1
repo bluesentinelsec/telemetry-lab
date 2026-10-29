@@ -1,5 +1,5 @@
 # Native Windows regression: an image mapping must be released before deletion.
-param([string]$Runner = "$PSScriptRoot\..\..\ttp-composite\windows\coverage\run.ps1")
+param([string]$Runner = "$PSScriptRoot\..\..\ttp-composite\windows\harness\run.ps1")
 $ErrorActionPreference='Stop'
 $tokens=$null;$parseErrors=$null
 $ast=[Management.Automation.Language.Parser]::ParseFile((Resolve-Path $Runner),[ref]$tokens,[ref]$parseErrors)

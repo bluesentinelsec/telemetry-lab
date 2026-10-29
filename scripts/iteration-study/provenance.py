@@ -31,7 +31,7 @@ for x in records:
     unused_packaging_metadata.setdefault(x['host'],{})[name]=digest
     continue
    assert name in loaded_rule_names,'Unexpected rule artifact: '+name
-   assert hashlib.sha256((r/'ttp-composite/linux/coverage/rules'/name).read_bytes()).hexdigest()==digest
+   assert hashlib.sha256((r/'ttp-composite/linux/harness/rules'/name).read_bytes()).hexdigest()==digest
    sets['linux/rule/'+name].add(digest)
  else:
   for inv in x['provenance']['inventories']:

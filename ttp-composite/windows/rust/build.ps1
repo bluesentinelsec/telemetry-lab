@@ -17,27 +17,27 @@ try {
  if($LASTEXITCODE){throw 'Rust cfg query failed'}
  $actualStatic=@($cfg) -contains 'target_feature="crt-static"'
  if($actualStatic -ne ($Crt -eq 'static')){throw 'Rust CRT cfg mismatch'}
- foreach($program in Get-ChildItem src/bin/*.rs){Copy-Item "$env:CARGO_TARGET_DIR/$target/release/$($program.BaseName).exe" $coverage}
+ foreach($program in Get-ChildItem */main.rs){Copy-Item "$env:CARGO_TARGET_DIR/$target/release/$($program.Directory.Name).exe" $coverage}
  $rustc=(& rustc -vV) -join "`n"
  $linker=(& link.exe /? 2>&1 | Select-Object -First 1) -join "`n"
  @{target=$target;crt=$Crt;rustflags=$env:RUSTFLAGS;cfg=@($cfg);rustc_verbose=$rustc;linker_identity=$linker;vc_tools_version=$env:VCToolsVersion;windows_sdk_version=$env:WindowsSDKVersion} | ConvertTo-Json -Depth 5 | Set-Content "$coverage/rust-build.json" -Encoding utf8
  # CI-only fixture builds. Live qualification reuses the exact archived C fixtures.
  Push-Location "$coverage/fixtures"
  try {
-  & cl.exe /nologo /MT /O2 "$PSScriptRoot/../c/coverage/helper.c" /Fewindows_fixture_helper.exe
+  & cl.exe /nologo /MT /O2 "$PSScriptRoot/../c/internal/helper.c" /Fewindows_fixture_helper.exe
   if($LASTEXITCODE){throw 'Helper build failed'}
-  & cl.exe /nologo /MT /O2 /LD "$PSScriptRoot/../c/coverage/module.c" /link /OUT:fixture.node
+  & cl.exe /nologo /MT /O2 /LD "$PSScriptRoot/../c/internal/module.c" /link /OUT:fixture.node
   if($LASTEXITCODE){throw 'Module build failed'}
   foreach($server in @('echo','dns')) {
-   & cl.exe /nologo /MT /O2 "$PSScriptRoot/../c/coverage/${server}_server.c" "/Fewindows_${server}_server.exe" /link ws2_32.lib
+   & cl.exe /nologo /MT /O2 "$PSScriptRoot/../c/internal/${server}_server.c" "/Fewindows_${server}_server.exe" /link ws2_32.lib
    if($LASTEXITCODE){throw 'Server build failed'}
   }
   Remove-Item *.obj,*.lib,*.exp -ErrorAction SilentlyContinue
  } finally {Pop-Location}
  $redist=Get-ChildItem (Join-Path $env:VCToolsRedistDir 'x64') -Directory | Where-Object {$_.Name -like 'Microsoft.VC*.CRT'} | Select-Object -First 1
  if(!$redist){throw 'MSVC runtime redistribution directory missing'}
- & python ../coverage/bundle_runtime.py $Output --runtime-bin $redist.FullName
+ & python ../harness/bundle_runtime.py $Output --runtime-bin $redist.FullName
  if($LASTEXITCODE){throw 'Runtime bundle failed'}
- & python ../coverage/verify_programs.py $coverage "rust-msvc-$Crt"
+ & python ../harness/verify_programs.py $coverage "rust-msvc-$Crt"
  if($LASTEXITCODE){throw 'Rust PE verification failed'}
 } finally {Pop-Location}

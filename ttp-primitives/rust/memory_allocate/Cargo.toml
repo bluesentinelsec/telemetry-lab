@@ -2,3 +2,7 @@
 name = "memory_allocate"
 version = "0.1.0"
 edition = "2021"
+
+[[bin]]
+name = "memory_allocate"
+path = "main.rs"

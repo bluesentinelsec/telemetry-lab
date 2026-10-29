@@ -1,111 +1,45 @@
-# ttp-composite
+# TTP composites
 
-The expanded [Linux coverage suite](linux/coverage/README.md) implements 67
-standalone programs per configuration in C, C++, Go, and Rust, mapped to a
-pinned 95-rule Falco corpus. The [Windows coverage suite](windows/coverage/README.md)
-implements 56 standalone programs per configuration in those same four
-languages, targeting 56 selected Sysmon/Hayabusa rules. Both platforms have eight composite configurations. Current qualification evidence and deferred candidates are documented in [the original expansion report](../docs/coverage-expansion/validation/README.md) and [October Windows qualification](../docs/windows-rule-assessment/validation/README.md).
-
-Each measured composite is its own executable. The coverage runners validate
-behavior independently of alerts, attribute exact rules, run same-binary
-controls, and check collector health. The original seven-case Linux and
-four-case Windows pilots remain available separately; the historical Linux
-pilot results below do not replace coverage-suite qualification.
-
-Behavioral **composite** techniques for the telemetry-lab study's tier-2
-question: *does execution substrate change whether a shipped behavioral
-detection fires?* Where `ttp-primitives` measures raw telemetry **emission**,
-`ttp-composite` measures **detection outcomes**: native programs exercise fixed behavior predicates across
-the substrate matrix against unmodified shipped rules (Falco on Linux and
-Sysmon/Hayabusa on Windows). Some reproduce an attempted operation or a
-particular indicator condition rather than a complete attack; the per-case
-contracts identify exactly what is exercised.
-
-The original pilot below validates composites by whether an alert appears.
-The expanded coverage suite adds independent behavioral checks, exact-rule
-attribution, same-binary behavior-disabled controls, and collector-health gates.
-
-## Layout
+Each composite is a standalone native program targeting one exact, unmodified
+Falco rule (Linux) or Sigma-derived rule (Windows). There are **67 Linux cases**
+and **56 Windows cases** in each of C, C++, Go, and Rust, across eight runtime
+configurations per platform. Every entry-point source names its tested rule;
+Windows sources also include its exact Sigma rule ID and ruleset path.
 
 ```
-ttp-composite/linux/{c,cpp,go,rust}/<composite>/   # one native impl per substrate language
-ttp-composite/linux/detonate/fire-matrix.sh        # the detonation harness (runs on the lab host)
+ttp-composite/
+  linux/
+    c/<case>/main.c
+    cpp/<case>/main.cpp
+    go/<case>/main.go
+    rust/<case>/main.rs
+    harness/                 # Falco catalog, rules, runners, qualification
+  windows/
+    c/<case>/main.c
+    cpp/<case>/main.cpp
+    go/<case>/main.go
+    rust/<case>/main.rs
+    harness/                 # Sigma catalog, runners, qualification
 ```
 
-Linux composites detonate **in a container** (Falco's representative deployment),
-because the mover's rule is container-gated. The container is a single constant
-base image (`lab-substrate:13`) held fixed across the whole matrix, so it is a
-constant offset rather than a per-substrate variable (see lab issue #39).
+Case names describe the fixed operation, such as `sensitive_read`,
+`registry_run_key`, `unicode_child_arguments`, and `raw_owned_volume_read`.
+Every case maps one-to-one to a target in the [Linux manifest](linux/harness/manifest.json)
+or [Windows selection](windows/harness/selection.json). The original pilots have
+been removed; these directories are the complete measured suites.
 
-## Composites (Linux)
+Language `internal/` directories hold shared code and fixture helpers. The Linux
+`internal/negative` startup baseline and `internal/fixture_prepare` setup are
+support programs, not rule-targeted cases. `--control` runs the same measured
+executable with its tested operation disabled. Build outputs retain the existing
+`<configuration>/coverage/` artifact format consumed by the experiment harness.
 
-| Composite | ATT&CK | Falco rule (unmodified, shipped) | Role |
-|---|---|---|---|
-| `reverse_shell` | T1059 | Redirect STDOUT/STDIN to Network Connection in Container | **mover** (mechanism-keyed) |
-| `imds` | T1552.005 | Contact EC2 Instance Metadata Service From Container | connect-seam probe |
-| `read_sensitive_file` | T1555 | Read sensitive file untrusted | robustness control |
-| `symlink_sensitive` | T1555 | Create Symlink Over Sensitive Files | robustness control |
-| `clear_log` | T1070 | Clear Log Activities | robustness control |
-| `mkdir_bin` | T1222.002 | Mkdir binary dirs | robustness control |
-| `ptrace_antidebug` | T1622 | PTRACE anti-debug attempt | robustness control |
+The runners independently verify behavior, attribute exact target rules, run
+same-binary controls, and gate on collector health. A valid target-rule miss is a
+measured outcome. The Go reverse shell still performs the verified exchange but
+misses Falco's socket-duplication predicate because it relays through pipes.
+Multiple target rules can describe overlapping mechanisms; the 123 cases are not
+123 independent attack mechanisms or complete intrusions.
 
-Rules come from Falco's **default + incubating + sandbox** rulesets, unmodified.
-(`imds` needs the incubating set and `mkdir_bin` the sandbox set — the lab loads
-all three; see `lab-environment`.)
-
-## Result (fire matrix, 7 composites × 8 Linux substrates)
-
-Measured on the live lab (Debian 13, Falco modern-eBPF, in-container detonation):
-
-```
-composite             c-glibc c-musl cpp-stdc++ cpp-libc++ go-cgo go-static rust-gnu rust-musl
-reverse_shell            F      F        F          F        .       .         F        F
-imds                     F      F        F          F        F       F         F        F
-read_sensitive_file      F      F        F          F        F       F         F        F
-symlink_sensitive        F      F        F          F        F       F         F        F
-clear_log                F      F        F          F        F       F         F        F
-mkdir_bin                F      F        F          F        F       F         F        F
-ptrace_antidebug         F      F        F          F        F       F         F        F
-```
-
-**One substrate-fragile rule** (`reverse_shell`, which both Go builds evade) among
-six robust ones. Fragility is concentrated in the single **mechanism-keyed**
-predicate (`fd.type in (ipv4,ipv6)` on duplicated stdio); every **effect-keyed**
-rule is robust across all eight substrates. This is the decoupling + boundary
-result: emission varies enormously across substrates (see `ttp-primitives`), yet
-shipped behavioral detections almost never flip — except where a rule keys on a
-substrate-variable *mechanism* rather than the substrate-invariant *effect*.
-
-## Why Go evades — the mechanism
-
-The reverse shell is identical behavior with a different runtime I/O model,
-captured under `tmon`:
-
-| `reverse_shell` | socket | connect | dup2 | dup3 | pipe2 | shell stdio fd.type | rule |
-|---|---|---|---|---|---|---|---|
-| C / C++ / Rust | 2 | 1 | **3** | 0 | 0 | **ipv4** (socket → stdio) | fires |
-| Go | 2 | 1 | 0 | **3** | **4** | **fifo** (pipe → stdio) | evades |
-
-C/C++/Rust `dup2` the connected socket directly onto the shell's fd 0/1/2
-(`fd.type=ipv4`). The Go pilot passes a `net.Conn` to `os/exec` rather than an `*os.File`,
-so this implementation creates OS pipes (`pipe2`) and `dup3`s those onto the shell's
-stdio, relaying bytes with goroutines — the shell's stdio are FIFOs
-(`fd.type=fifo`), so the rule never matches. This observed miss depends on the chosen Go I/O implementation; it does not
-show that Go cannot pass a socket descriptor directly. Both cgo settings missed
-in this pilot.
-
-## Reproduce
-
-Build the composites for the 8 configs (mirrors the primitives' toolchains:
-gcc/musl-gcc, clang++ libstdc++/libc++, CGO on/off, rustc gnu/musl), stage the
-binaries on the Debian lab host under `/opt/lab/compdist/<config>/`, then run the
-harness on the host:
-
-```sh
-bash ttp-composite/linux/detonate/fire-matrix.sh
-```
-
-It detonates each composite in the constant base image and reports, per
-`substrate × composite`, which shipped Falco rule fired (filtering the bind-mount
-injection noise). Capture each composite's own in-container telemetry with `tmon`
-for the mechanism view.
+See [scope and configurations](SCOPE.md), [Linux suite](linux/harness/README.md),
+[Windows suite](windows/harness/README.md), and [experiment collection](../scripts/experiment/README.md).

@@ -26,9 +26,9 @@ def write(path,rows):
   w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('hayabusa_rules',type=Path);p.add_argument('--output',type=Path,default=ROOT/'docs/coverage-expansion');a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
- new=json.loads((ROOT/'docs/coverage-expansion/windows-plan.json').read_text());selected={x['rule_id'] for x in new};catalog=json.loads((ROOT/'ttp-composite/windows/coverage/selection.json').read_text());existing={x['rule_id'] for x in catalog['candidates']}-selected;deferred={x['rule_id']:x for x in catalog.get('deferred_candidates',[])}
+ new=json.loads((ROOT/'docs/coverage-expansion/windows-plan.json').read_text());selected={x['rule_id'] for x in new};catalog=json.loads((ROOT/'ttp-composite/windows/harness/selection.json').read_text());existing={x['rule_id'] for x in catalog['candidates']}-selected;deferred={x['rule_id']:x for x in catalog.get('deferred_candidates',[])}
  rows=[]
- for r in csv.DictReader((ROOT/'ttp-composite/windows/coverage/rule-inventory.csv').open()):
+ for r in csv.DictReader((ROOT/'ttp-composite/windows/harness/rule-inventory.csv').open()):
   path=a.hayabusa_rules/r['path'];assert sha(path)==r['sha256'],path
   docs=list(yaml.safe_load_all(path.read_text()));det=[d.get('detection',{}) for d in docs if isinstance(d,dict)];fs=set(fields(det));ids=set(event_ids(det))
   if r['rule_id'] in selected:disposition='onboard';reason='Reviewed predicate and fixed cross-language behavior in windows-plan.json'
@@ -46,7 +46,7 @@ def main():
  assert len(rows)==4987
  write(a.output/'windows-rule-audit.csv',rows)
  linux=json.loads((ROOT/'docs/coverage-expansion/linux-plan.json').read_text());newlinux={x['title']:x for x in linux};rows2=[]
- for r in csv.DictReader((ROOT/'ttp-composite/linux/coverage/rule-inventory.csv').open()):
+ for r in csv.DictReader((ROOT/'ttp-composite/linux/harness/rule-inventory.csv').open()):
   if r['rule'] in newlinux:disposition='onboard';reason=newlinux[r['rule']]['behavior']
   elif r['selection']=='selected':disposition='existing';reason='Previously qualified selected target'
   elif r['stock_enabled']=='False':disposition='deferred-disabled';reason='Preserve stock enablement; separate detector profile required'
